@@ -1,0 +1,1 @@
+#tag ClassClass CGPDFDictionary	#tag Method, Flags = &h0		Sub Operator_Convert(p as Ptr)		  me.CGPDFDictionaryRef = p		End Sub	#tag EndMethod	#tag Property, Flags = &h21		Private CGPDFDictionaryRef As Ptr	#tag EndPropertyEnd Class#tag EndClass

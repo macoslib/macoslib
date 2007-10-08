@@ -1,0 +1,1 @@
+#tag ClassProtected Class CGPDFArray	#tag Method, Flags = &h0		Sub Operator_Convert(p as Ptr)		  me.CGPDFArrayRef = p		End Sub	#tag EndMethod	#tag Property, Flags = &h21		Private CGPDFArrayRef As Ptr	#tag EndPropertyEnd Class#tag EndClass
