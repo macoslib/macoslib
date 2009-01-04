@@ -1,7 +1,7 @@
 #tag Module
-Protected Module Spotlight
+Protected Module About
 	#tag Note, Name = About
-		This is part of the open source "MacOSLib"
+		This is the open source "MacOSLib"
 		
 		Original sources are located here:  http://code.google.com/p/macoslib
 		

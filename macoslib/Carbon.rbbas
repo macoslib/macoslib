@@ -190,6 +190,14 @@ Protected Module Carbon
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		This is part of the open source "MacOSLib"
+		
+		Original sources are located here:  http://code.google.com/p/macoslib
+		
+	#tag EndNote
+
+
 	#tag Constant, Name = CarbonFramework, Type = String, Dynamic = False, Default = \"Carbon.framework", Scope = Public
 	#tag EndConstant
 

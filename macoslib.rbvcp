@@ -1,5 +1,6 @@
 Type=Desktop
 RBProjectVersion=2008.051
+Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=App;App.rbbas;&h42BBDA34;&h0;false
 MenuBar=MenuBar1;MenuBar1.rbmnu;&h235D99F6;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false

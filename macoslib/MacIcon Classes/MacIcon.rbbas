@@ -414,6 +414,14 @@ Protected Class MacIcon
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		This is part of the open source "MacOSLib"
+		
+		Original sources are located here:  http://code.google.com/p/macoslib
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21
 		Private pSize As Integer
 	#tag EndProperty
