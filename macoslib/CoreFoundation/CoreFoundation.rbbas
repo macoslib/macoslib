@@ -176,7 +176,7 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CFNumber11(int_64 as Int64) As CFNumber
+		Function CFNumber(int_64 as Int64) As CFNumber
 		  return new CFNumber(int_64)
 		End Function
 	#tag EndMethod
@@ -196,7 +196,6 @@ Module CoreFoundation
 		note in the CFType class for a start.
 		
 		Original sources are located here:  http://code.google.com/p/macoslib
-		
 	#tag EndNote
 
 	#tag Note, Name = Comparing values
