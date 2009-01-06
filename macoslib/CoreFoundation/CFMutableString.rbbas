@@ -65,7 +65,7 @@ Inherits CFString
 		    
 		    dim theRef as Ptr
 		    theRef = CFStringCreateMutable(nil, maxLength)
-		    me.Adopt theRef, true
+		    super.Constructor theRef, true
 		  #endif
 		End Sub
 	#tag EndMethod

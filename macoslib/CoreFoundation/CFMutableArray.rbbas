@@ -22,7 +22,7 @@ Inherits CFArray
 		  #if TargetMacOS
 		    declare function CFArrayCreateMutable lib CarbonLib (allocator as Ptr, capacity as Integer, callbacks as Ptr) as Ptr
 		    
-		    me.Adopt CFArrayCreateMutable (nil, capacity, me.DefaultCallbacks), true
+		    super.Constructor CFArrayCreateMutable (nil, capacity, me.DefaultCallbacks), true
 		  #endif
 		End Sub
 	#tag EndMethod
