@@ -179,12 +179,12 @@ Protected Module Carbon
 
 	#tag Method, Flags = &h21
 		Private Function GetSystemVersionFromGestalt() As String
-		  dim sysVersion as Integer
-		  if System.Gestalt("sysv", sysVersion) then
-		    dim hex as String = Hex(systemVersion)
-		    return LeftB(hex, 2) + "." + MidB(hex, 3, 1) + "." + MidB(hex, 4, 1)
-		  else
-		    return ""
+		  dim sys1, sys2, sys3 as Integer
+		  call System.Gestalt("sys1", sys1)
+		  call System.Gestalt("sys2", sys2)
+		  call System.Gestalt("sys3", sys3)
+		  if sys1 <> 0 then
+		    return Format(sys1,"#")+"."+Format(sys2,"#")+"."+Format(sys3,"#")
 		  end if
 		End Function
 	#tag EndMethod
