@@ -10,9 +10,9 @@ Inherits CFStream
 	#tag Event
 		Function GetStatus() As Integer
 		  #if TargetMacOS
-		    declare function CFReadStreamGetStatus lib CarbonLib (stream as Ptr) as Integer
+		    declare function CFWriteStreamGetStatus lib CarbonLib (stream as Ptr) as Integer
 		    
-		    return CFReadStreamGetStatus (me.Reference)
+		    return CFWriteStreamGetStatus (me.Reference)
 		  #endif
 		End Function
 	#tag EndEvent

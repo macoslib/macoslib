@@ -3,7 +3,7 @@ Protected Class App
 Inherits Application
 	#tag Event
 		Sub NewDocument()
-		  CoreFoundation._RunTests
+		  CoreFoundation._TestSelf
 		End Sub
 	#tag EndEvent
 

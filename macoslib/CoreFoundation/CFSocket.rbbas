@@ -203,6 +203,36 @@ Inherits CFType
 	#tag EndHook
 
 
+	#tag Note, Name = About
+		(Original sources are located here:  http://code.google.com/p/macoslib)
+		
+		This class is still a work-in-progress (WIP). It functions basically, but requires a lot of understanding
+		of Apple's rather scarce documentation on this. The CoreFoundation._TestSelf method contains some
+		half-baked code showing what needs to be done to use this. E.g, it appears that one needs to attach
+		the socket to a runloop, use the correct callbackType values and implement some of the events
+		in CFSocket (which the test code doesn't to currently), otherwise Read or Write calls will just freeze
+		the application.
+		
+		In all, maybe this CFSocket class is pretty useless, as RB's TCPSocket and IPCSocket classes provide
+		all this nicely already, tested and x-platform.
+		
+		If you have good reasons to use CFSocket, though, please contact me (Thomas Tempelmann,
+		tt@tempel.org), as I've implemented the current state (as of Dec 7, 2009) and know how it should
+		work, at least a little.
+		
+		Some notes:
+		- I've successfully created a TCP socket connection between two Macs and transferred data. This
+		  required the server to use the kAcceptCallBack callback type with the constructor, and perform a
+		  CFSocketBind call afterwards. It also required to implement the Accepted() event in which then the
+		  streams were opened using the NativeHandle value from this socket, before data could be received
+		  by the server side.
+		- I've not been able to use Unix Domain Sockets successfully yet, at least not in a single
+		  application. Maybe this only works if you use two separate applications. Haven't tried that
+		  yet, though.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get

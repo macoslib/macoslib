@@ -64,11 +64,12 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		 Shared Function NewBoundPair(ByRef reader as CFReadStream, ByRef writer as CFWriteStream, transferBufferSize as Integer = 8192) As Boolean
+	#tag Method, Flags = &h21
+		Private Shared Function NewBoundPair(ByRef reader as CFReadStream, ByRef writer as CFWriteStream, transferBufferSize as Integer = 8192) As Boolean
 		  // Note: This function is available only since OS X 10.5 (Leopard)
 		  
-		  // ... and it crashes under 10.5.6 :(
+		  // ... and it crashes under 10.5.6, hence it's currently unusable
+		  
 		  '#if TargetMacOS
 		  'soft declare sub CFStreamCreateBoundPair lib CarbonLib (allocator as Ptr, ByRef read as Ptr, ByRef write as Ptr, bufSize as Integer)
 		  'try
