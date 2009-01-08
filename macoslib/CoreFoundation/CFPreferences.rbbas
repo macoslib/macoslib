@@ -152,6 +152,29 @@ Class CFPreferences
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function Value(key as String, default as Variant) As Variant
+		  // "smart" version that returns a fitting type as a variant or returns the default if no such key exists in the prefs
+		  
+		  dim v as CFType = Value(key)
+		  if v <> nil then
+		    if v isA CFNumber then
+		      if CFNumber(v).IsFloat then
+		        return CFNumber(v).DoubleValue
+		      else
+		        return CFNumber(v).Int64Value
+		      end if
+		    elseif v isA CFString then
+		      return CFString(v).StringValue
+		    elseif v isA CFBoolean then
+		      return CFBoolean(v)
+		    end
+		  end if
+		  
+		  return default
+		End Function
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
