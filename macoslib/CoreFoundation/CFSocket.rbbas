@@ -79,8 +79,8 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function ClassID() As CFTypeID
 		  #if TargetMacOS
-		    soft declare function CFSocketGetTypeID lib CarbonLib () as CFTypeID
-		    static id as CFTypeID = CFSocketGetTypeID
+		    declare function TypeID lib CarbonLib alias "CFSocketGetTypeID" () as UInt32
+		    static id as CFTypeID = CFTypeID(TypeID)
 		    return id
 		  #endif
 		End Function
@@ -229,7 +229,6 @@ Inherits CFType
 		- I've not been able to use Unix Domain Sockets successfully yet, at least not in a single
 		  application. Maybe this only works if you use two separate applications. Haven't tried that
 		  yet, though.
-		
 	#tag EndNote
 
 

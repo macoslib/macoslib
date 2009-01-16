@@ -21,8 +21,8 @@ Inherits CFStream
 	#tag Method, Flags = &h0
 		 Shared Function ClassID() As CFTypeID
 		  #if TargetMacOS
-		    soft declare function CFReadStreamGetTypeID lib CarbonLib () as CFTypeID
-		    static id as CFTypeID = CFReadStreamGetTypeID
+		    declare function TypeID lib CarbonLib alias "CFReadStreamGetTypeID" () as UInt32
+		    static id as CFTypeID = CFTypeID(TypeID)
 		    return id
 		  #endif
 		End Function
