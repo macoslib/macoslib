@@ -23,7 +23,7 @@ Inherits CFType
 		#tag Getter
 			Get
 			#if targetMacOS
-			soft declare function CFCalendarGetIdentifier lib CarbonFramework (calendar as Ptr) as CFStringRef
+			soft declare function CFCalendarGetIdentifier lib CarbonLib (calendar as Ptr) as CFStringRef
 			
 			dim theIdentifier as CFStringRef = CFCalendarGetIdentifier(me)
 			soft declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr

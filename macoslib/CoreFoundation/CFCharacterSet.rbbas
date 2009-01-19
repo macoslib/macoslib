@@ -25,7 +25,7 @@ Inherits CFType
 		      return false
 		    end if
 		    
-		    soft declare function CFCharacterSetIsCharacterMember lib CarbonFramework (theSet as Ptr, theChar as Int16) as Boolean
+		    soft declare function CFCharacterSetIsCharacterMember lib CarbonLib (theSet as Ptr, theChar as Int16) as Boolean
 		    
 		    return CFCharacterSetIsCharacterMember(me, Asc(ConvertEncoding(char, Encodings.UTF16)))
 		  #endif

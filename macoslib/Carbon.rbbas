@@ -197,9 +197,6 @@ Protected Module Carbon
 	#tag EndNote
 
 
-	#tag Constant, Name = CarbonFramework, Type = String, Dynamic = False, Default = \"Carbon.framework", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = noErr, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 

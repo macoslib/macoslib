@@ -11,7 +11,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function SystemLocale() As CFLocale
 		  #if targetMacOS
-		    soft declare function CFLocaleGetSystem lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleGetSystem lib CarbonLib () as Ptr
 		    return new CFLocale(CFLocaleGetSystem(), false)
 		  #endif
 		  
@@ -31,7 +31,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function UserLocale() As CFLocale
 		  #if targetMacOS
-		    soft declare function CFLocaleCopyCurrent lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleCopyCurrent lib CarbonLib () as Ptr
 		    return new CFLocale(CFLocaleCopyCurrent(), true)
 		  #endif
 		End Function
@@ -40,7 +40,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub Constructor(locale as CFLocale)
 		  #if targetMacOS
-		    soft declare function CFLocaleCreateCopy lib CarbonFramework (allocator as Ptr, locale as Ptr) as Ptr
+		    soft declare function CFLocaleCreateCopy lib CarbonLib (allocator as Ptr, locale as Ptr) as Ptr
 		    me.Constructor CFLocaleCreateCopy(nil, locale), false
 		  #endif
 		End Sub
@@ -50,7 +50,7 @@ Inherits CFType
 		 Shared Function AvailableIdentifiers() As String()
 		  #if targetMacOS
 		    //added in 10.4
-		    soft declare function CFLocaleCopyAvailableLocaleIdentifiers lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleCopyAvailableLocaleIdentifiers lib CarbonLib () as Ptr
 		    
 		    dim thearray as new CFArray(CFLocaleCopyAvailableLocaleIdentifiers(), true)
 		    dim theList() as String
@@ -67,7 +67,7 @@ Inherits CFType
 		 Shared Function ISOCountryCodes() As String()
 		  #if targetMacOS
 		    //added in 10.4
-		    soft declare function CFLocaleCopyISOCountryCodes lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleCopyISOCountryCodes lib CarbonLib () as Ptr
 		    
 		    dim thearray as new CFArray(CFLocaleCopyISOCountryCodes(), true)
 		    dim theList() as String
@@ -84,7 +84,7 @@ Inherits CFType
 		 Shared Function ISOCurrencyCodes() As String()
 		  #if targetMacOS
 		    //added in 10.4
-		    soft declare function CFLocaleCopyISOCurrencyCodes lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleCopyISOCurrencyCodes lib CarbonLib () as Ptr
 		    
 		    dim thearray as new CFArray(CFLocaleCopyISOCurrencyCodes(), true)
 		    dim theList() as String
@@ -101,7 +101,7 @@ Inherits CFType
 		 Shared Function ISOCommonCurrencyCodes() As String()
 		  #if targetMacOS
 		    //added in 10.5
-		    soft declare function CFLocaleCopyCommonISOCurrencyCodes lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleCopyCommonISOCurrencyCodes lib CarbonLib () as Ptr
 		    
 		    dim thearray as new CFArray(CFLocaleCopyCommonISOCurrencyCodes(), true)
 		    dim theList() as String
@@ -118,7 +118,7 @@ Inherits CFType
 		 Shared Function PreferredLanguages() As String()
 		  #if targetMacOS
 		    //added in 10.5
-		    soft declare function CFLocaleCopyPreferredLanguages lib CarbonFramework () as Ptr
+		    soft declare function CFLocaleCopyPreferredLanguages lib CarbonLib () as Ptr
 		    
 		    dim thearray as new CFArray(CFLocaleCopyPreferredLanguages(), true)
 		    dim theList() as String
@@ -144,7 +144,7 @@ Inherits CFType
 	#tag Method, Flags = &h21
 		Private Function Value(key as String) As CFType
 		  #if targetMacOS
-		    soft declare function CFLocaleGetValue lib CarbonFramework (locale as Ptr, key as Ptr) as Ptr
+		    soft declare function CFLocaleGetValue lib CarbonLib (locale as Ptr, key as Ptr) as Ptr
 		    
 		    dim p as Ptr = DataPointer(key)
 		    if p <> nil then
@@ -159,7 +159,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function CreateCanonicalLocaleIdentifierFromString(localeIdentifier as String) As String
 		  #if targetMacOS
-		    soft declare function CFLocaleCreateCanonicalLocaleIdentifierFromString lib CarbonFramework (allocator as Ptr, localeIdentifier as CFStringRef) as CFStringRef
+		    soft declare function CFLocaleCreateCanonicalLocaleIdentifierFromString lib CarbonLib (allocator as Ptr, localeIdentifier as CFStringRef) as CFStringRef
 		    
 		    return CFLocaleCreateCanonicalLocaleIdentifierFromString(nil, localeIdentifier)
 		  #endif
@@ -169,7 +169,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function CreateCanonicalLanguageIdentifierFromString(langIdentifier as String) As String
 		  #if targetMacOS
-		    soft declare function CFLocaleCreateCanonicalLanguageIdentifierFromString lib CarbonFramework (allocator as Ptr, langIdentifier as CFStringRef) as CFStringRef
+		    soft declare function CFLocaleCreateCanonicalLanguageIdentifierFromString lib CarbonLib (allocator as Ptr, langIdentifier as CFStringRef) as CFStringRef
 		    
 		    return CFLocaleCreateCanonicalLanguageIdentifierFromString(nil, langIdentifier)
 		  #endif
@@ -187,7 +187,7 @@ Inherits CFType
 		#tag Getter
 			Get
 			#if targetMacOS
-			soft declare function CFLocaleGetIdentifier lib CarbonFramework (locale as Ptr) as CFStringRef
+			soft declare function CFLocaleGetIdentifier lib CarbonLib (locale as Ptr) as CFStringRef
 			
 			dim theIdentifier as CFStringRef = CFLocaleGetIdentifier(me)
 			soft declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
@@ -515,6 +515,68 @@ Inherits CFType
 			Name="Identifier"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MeasurementSystem"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DecimalSeparator"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="GroupingSeparator"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CurrencySymbol"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CurrencyCode"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LanguageCode"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CountryCode"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScriptCode"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="VariantCode"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CalendarIdentifier"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CollationIdentifier"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UsesMetricSystem"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Boolean"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
