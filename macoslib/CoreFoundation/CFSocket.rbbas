@@ -11,7 +11,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub Constructor(protocolFamily as Integer, socketType as Integer, protocol as Integer, callbackTypes as Integer)
 		  #if TargetMacOS
-		    declare function CFSocketCreate lib CarbonLib (allocator as Ptr, protocolFamily as Integer, socketType as Integer, protocol as Integer, cbTypes as Integer, callBack as Ptr, ByRef context as CFSocketContext) as Ptr
+		    declare function CFSocketCreate lib CarbonLib (allocator as Ptr, protocolFamily as Integer, socketType as Integer, protocol as Integer, cbTypes as Integer, callBack as Ptr, contextRef as Ptr) as Ptr
 		    
 		    prepareCallback()
 		    dim p as Ptr = CFSocketCreate (nil, protocolFamily, socketType, protocol, callbackTypes, AddressOf _socketCallBack, myContext)
@@ -26,8 +26,8 @@ Inherits CFType
 		  // Note: timeoutSeconds only matters if connect=true
 		  
 		  #if TargetMacOS
-		    declare function CFSocketCreateWithSocketSignature lib CarbonLib (allocator as Ptr, ssig as Ptr, cbTypes as Integer, callBack as Ptr, ByRef context as CFSocketContext) as Ptr
-		    declare function CFSocketCreateConnectedToSocketSignature lib CarbonLib (allocator as Ptr, ssig as Ptr, cbTypes as Integer, callBack as Ptr, ByRef context as CFSocketContext, timeout as Double) as Ptr
+		    declare function CFSocketCreateWithSocketSignature lib CarbonLib (allocator as Ptr, ssig as Ptr, cbTypes as Integer, callBack as Ptr, contextRef as Ptr) as Ptr
+		    declare function CFSocketCreateConnectedToSocketSignature lib CarbonLib (allocator as Ptr, ssig as Ptr, cbTypes as Integer, callBack as Ptr, contextRef as Ptr, timeout as Double) as Ptr
 		    
 		    prepareCallback()
 		    if connect then
@@ -43,7 +43,7 @@ Inherits CFType
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
 		  me.Close
-		  _sockets.Remove(myContext.info)
+		  _sockets.Remove(myContext.Long(4)) '_sockets.Remove(myContext.info)
 		End Sub
 	#tag EndMethod
 
@@ -178,10 +178,17 @@ Inherits CFType
 	#tag Method, Flags = &h21
 		Private Sub prepareCallback()
 		  dim v as Variant = me
-		  myContext.info = v.Hash
+		  dim info as Integer = v.Hash
+		  myContext.Long(4) = info 'myContext.info = info
 		  if _sockets = nil then _sockets = new Dictionary
-		  if _sockets.HasKey(myContext.info) then raise new RuntimeException // oops! that should never be able to happen
-		  _sockets.Value(myContext.info) = new WeakRef(me)
+		  if _sockets.HasKey(info) then raise new RuntimeException // oops! that should never be able to happen
+		  _sockets.Value(info) = new WeakRef(me)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Constructor()
+		  myContext = new MemoryBlock(20) // = size of CFSocketContext
 		End Sub
 	#tag EndMethod
 
@@ -264,7 +271,10 @@ Inherits CFType
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private myContext As CFSocketContext
+		#tag Note
+			could also use: CFSocketContext
+		#tag EndNote
+		Private myContext As MemoryBlock
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -328,15 +338,6 @@ Inherits CFType
 
 	#tag Constant, Name = kNoCallBack, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
-
-
-	#tag Structure, Name = CFSocketContext, Flags = &h21
-		version as Int32
-		  info as Integer
-		  retainFunc as Ptr
-		  releaseFunc as Ptr
-		copyDescFunc as Ptr
-	#tag EndStructure
 
 
 	#tag ViewBehavior

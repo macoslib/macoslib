@@ -118,7 +118,7 @@ Inherits CFStream
 		  #if TargetMacOS
 		    declare function CFWriteStreamCopyProperty lib CarbonLib (stream as Ptr, name as CFStringRef) as Ptr
 		    
-		    return CFType.NewObject (CFWriteStreamCopyProperty (me.Reference, name), true)
+		    return CFType.NewObject (CFWriteStreamCopyProperty (me.Reference, name), true, kCFPropertyListImmutable)
 		  #endif
 		End Function
 	#tag EndMethod
