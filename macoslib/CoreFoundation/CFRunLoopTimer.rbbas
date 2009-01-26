@@ -111,6 +111,12 @@ Inherits CFType
 	#tag EndHook
 
 
+	#tag Note, Name = Debugging
+		CFRunLoopTimers continue to run while code execution is paused in the debugger.  
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0
 		Action As TimerActionDelegate
 	#tag EndProperty
@@ -234,6 +240,30 @@ Inherits CFType
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="CFType"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Enabled"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsRepeating"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Period"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsValid"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Boolean"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
