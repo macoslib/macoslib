@@ -19,6 +19,7 @@ Class=CFNumber;macoslib/CoreFoundation/CFNumber.rbbas;&hBD11BB98;&h72896D36;fals
 Class=CFNull;macoslib/CoreFoundation/CFNull.rbbas;&h67DD3117;&h72896D36;false
 Class=CFPreferences;macoslib/CoreFoundation/CFPreferences.rbbas;&h1AEF7216;&h72896D36;false
 Class=CFReadStream;macoslib/CoreFoundation/CFReadStream.rbbas;&h2B51B9CB;&h72896D36;false
+Class=CFRunLoopTimer;macoslib/CoreFoundation/CFRunLoopTimer.rbbas;&h652B1EA6;&h72896D36;false
 Class=CFSocket;macoslib/CoreFoundation/CFSocket.rbbas;&h12AB029B;&h72896D36;false
 Class=CFSocketSignature;macoslib/CoreFoundation/CFSocketSignature.rbbas;&h3C9A41CB;&h72896D36;false
 Class=CFStream;macoslib/CoreFoundation/CFStream.rbbas;&h27D164B;&h72896D36;false
