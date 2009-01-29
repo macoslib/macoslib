@@ -96,7 +96,6 @@ Inherits CFType
 		Private Shared Function MainRunLoop() As Ptr
 		  //perhaps we should add a separate CFRunLoop class.
 		  
-		  
 		  #if targetMacOS
 		    soft declare function CFRunLoopGetMain lib CarbonLib () as Ptr
 		    
@@ -112,7 +111,25 @@ Inherits CFType
 
 
 	#tag Note, Name = Debugging
-		CFRunLoopTimers continue to run while code execution is paused in the debugger.  
+		Careful when debugging code that uses CFRunLoopTimer:
+		
+		CFRunLoopTimers continue to run while code execution is paused in the debugger,
+		so you may not be able to single step through such timer code.
+		
+	#tag EndNote
+
+	#tag Note, Name = About
+		If a user opens a menu or keeps the mouse button pressed on a
+		button, the Timer.Action event and code inside Thread.Run won't
+		be executed.
+		
+		This class, however, will run in such circumstances. This makes it
+		possible to keep your application able to handle other external events
+		through polling.
+		
+		You may either add this class to a window or subclass it, with filling
+		in the Action event, or create a new instance of this class and then
+		assign a (delegate) method to this class's Action property.
 		
 	#tag EndNote
 
