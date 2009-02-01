@@ -95,10 +95,33 @@ Inherits CFType
 	#tag EndMethod
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			#if targetMacOS
+			soft declare function MDQueryCopyQueryString lib CarbonLib (query as Ptr) as CFStringRef
+			
+			return MDQueryCopyQueryString(me)
+			#endif
+			End Get
+		#tag EndGetter
+		Query As String
+	#tag EndComputedProperty
+
+
 	#tag Constant, Name = kMDQuerySynchronous, Type = Double, Dynamic = False, Default = \"1", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kMDQueryWantsUpdates, Type = Double, Dynamic = False, Default = \"4", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = ScopeHome, Type = String, Dynamic = False, Default = \"kMDQueryScopeHome", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ScopeComputer, Type = String, Dynamic = False, Default = \"kMDQueryScopeComputer", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ScopeNetwork, Type = String, Dynamic = False, Default = \"kMDQueryScopeNetwork", Scope = Public
 	#tag EndConstant
 
 
