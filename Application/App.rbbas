@@ -7,6 +7,12 @@ Inherits Application
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub Open()
+		  MacDatePickerExampleWindow.Show
+		End Sub
+	#tag EndEvent
+
 
 	#tag MenuHandler
 		Function CoreFoundationShowVersion() As Boolean Handles CoreFoundationShowVersion.Action
