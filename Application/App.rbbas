@@ -76,6 +76,13 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function ControlsMacDatePicker() As Boolean Handles ControlsMacDatePicker.Action
+			MacDatePickerExampleWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Constant, Name = kFileQuitShortcut, Type = String, Dynamic = False, Default = \"", Scope = Public
 		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"Cmd+Q"

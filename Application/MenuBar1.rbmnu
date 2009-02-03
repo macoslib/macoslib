@@ -109,6 +109,19 @@ Begin Menu MenuBar1
       Text = "Examples"
       Index = -2147483648
       AutoEnable = True
+      Begin MenuItem ExamplesControls
+         SpecialMenu = 0
+         Text = "Controls"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem ControlsMacDatePicker
+            SpecialMenu = 0
+            Text = "MacDatePicker"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
       Begin MenuItem ExamplesCoreFoundation
          SpecialMenu = 0
          Text = "Core Foundation"
