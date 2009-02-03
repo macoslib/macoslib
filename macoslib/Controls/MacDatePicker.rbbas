@@ -9,14 +9,15 @@ Inherits Canvas
 		  me.ControlRef = me.CreateControl
 		  
 		  RegisterCarbonEventHandlerForWindow me.ParentWindow
+		  RegisterCarbonEventHandlerForUserFocus
 		  
-		  Open
+		  raiseEvent Open
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Close()
-		  Close
+		  raiseEvent Close
 		  
 		  dim v as Variant = me
 		  if ObjectMap.HasKey(v.Hash) then
@@ -142,7 +143,7 @@ Inherits Canvas
 		Private Shared Function ForwardCarbonEventToObject(EventHandlerCallRef as Ptr, EventRef as Ptr, UserData as Integer) As Integer
 		  dim v as Variant = ObjectMap.Lookup(UserData, nil)
 		  
-		  if v.IsNull then
+		  if v = nil then
 		    return eventNotHandledErr
 		  end if
 		  dim theObject as MacDatePicker = v
@@ -188,6 +189,28 @@ Inherits Canvas
 		        return eventNotHandledErr
 		      end if
 		      
+		    else
+		      return eventNotHandledErr
+		    end select
+		    
+		  case kEventClassTextInput
+		    soft declare function GetEventParameter lib CarbonLib (inEvent as Ptr, inName as OSType, inDesiredType as OSType, outActualType as Ptr, inBufferSize as Integer, outBufferSize as Ptr, ByRef outData as UInt16) as Integer
+		    
+		    select case eventKind
+		    case kEventTextInputUnicodeForKeyEvent
+		      dim code as UInt16
+		      dim OSError as Integer = GetEventParameter(EventRef, kEventParamTextInputSendText, typeUnicodeText, nil, 2, nil, code)
+		      if OSError <> 0 then
+		        return eventNotHandledErr
+		      end if
+		      if IsTab(ConvertEncoding(Encodings.UTF16.Chr(code), Encodings.UTF8)) then
+		        soft declare function HIViewAdvanceFocus lib CarbonLib (inRootForFocus as Ptr, inModifiers as Integer) as Integer
+		        dim osstatus as Integer = HIViewAdvanceFocus(me.ContentViewRef, Modifiers(Keyboard.CommandKey, KeyBoard.ShiftKey, Keyboard.OptionKey, Keyboard.ControlKey))
+		        return noErr
+		        
+		      else
+		        return eventNotHandledErr
+		      end if
 		    else
 		      return eventNotHandledErr
 		    end select
@@ -274,12 +297,9 @@ Inherits Canvas
 		  static CallbackUPP as Ptr = NewEventHandlerUPP(AddressOf ForwardCarbonEventToObject)
 		  
 		  //events
-		  Const sizeOfEventTypeSpec = 8
-		  Const EventCount  = 1
-		  dim eventList as new MemoryBlock(EventCount*sizeOfEventTypeSpec)
-		  eventList.UInt32Value(0) = OSTypeToUInt32(kEventClassMouse)
-		  eventList.UInt32Value(4) = kEventMouseDown
-		  
+		  dim eventList(0) as EventTypeSpec
+		  eventList(0).eventClass = OSTypeToUInt32(kEventClassMouse)
+		  eventList(0).eventKind = kEventMouseDown
 		  
 		  //inUserData
 		  dim v as Variant = me
@@ -287,11 +307,55 @@ Inherits Canvas
 		  //handlerRef
 		  //I don't want it returned
 		  
-		  dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, eventList.Size\sizeOfEventTypeSpec, eventList, v.Hash, Nil)
+		  dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, 1 + UBound(eventList), eventList.CArray, v.Hash, Nil)
 		  
 		  
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub RegisterCarbonEventHandlerForUserFocus()
+		  #pragma StackOverflowChecking False
+		  
+		  soft declare function InstallEventHandler lib CarbonLib (inTarget as Ptr, inHandler as Ptr, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
+		  
+		  //inTarget
+		  soft declare function GetUserFocusEventTarget lib CarbonLib () as Ptr
+		  
+		  dim eventTarget as Ptr = GetUserFocusEventTarget()
+		  if eventTarget = nil then
+		    return
+		  end if
+		  
+		  //inHandler
+		  soft declare function NewEventHandlerUPP lib CarbonLib (userRoutine as Ptr) as Ptr
+		  
+		  static CallbackUPP as Ptr = NewEventHandlerUPP(AddressOf ForwardCarbonEventToObject)
+		  
+		  //events
+		  dim eventList(0) as EventTypeSpec
+		  eventList(0).eventClass = OSTypeToUInt32(kEventClassTextInput)
+		  eventList(0).eventKind = kEventTextInputUnicodeForKeyEvent
+		  
+		  //inUserData
+		  dim v as Variant = me
+		  
+		  //handlerRef
+		  //I don't want it returned
+		  
+		  dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, 1 + UBound(eventList), eventList.CArray, v.Hash, Nil)
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function IsTab(key as String) As Boolean
+		  static Tab as String = Encodings.UTF8.Chr(9)
+		  return (key = Tab)
+		End Function
 	#tag EndMethod
 
 
