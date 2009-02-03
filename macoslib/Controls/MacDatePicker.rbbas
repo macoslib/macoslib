@@ -809,8 +809,10 @@ Inherits Canvas
 			Type="Integer"
 			EditorType="Enum"
 			#tag EnumValues
-				"0 - "
-				"1 - "
+				"0 - HourMinute"
+				"1 - HourMinuteSecond"
+				"2 - MonthDayYear"
+				"3 - MonthYear"
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
