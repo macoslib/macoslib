@@ -29,6 +29,12 @@ Inherits Canvas
 	#tag Event
 		Sub Paint(g As Graphics)
 		  me.ControlEnabled = me.Enabled
+		  
+		  #if targetMacOS
+		    declare sub MoveControl lib CarbonLib (ControlRef as Ptr, h as Int16, v as Int16)
+		    
+		    MoveControl me.ControlRef, me.LocalLeft, me.LocalTop
+		  #endif
 		End Sub
 	#tag EndEvent
 
