@@ -93,19 +93,34 @@ End
 	#tag Event
 		Sub Paint(g As Graphics)
 		  if image <> nil then
+		    dim context as new CGContextGraphicsPort(g)
+		    
 		    dim w as Single = 10 + me.Image.Width
-		    dim context as new CGContextGraphicsPort(self)
 		    dim rect as CGRect = CGRectMake(10, self.Height - Image.Height - 10, Image.Width, Image.Height)
-		    context.DrawImage me.Image.TransformNone,      CGRectOffset (rect, w * 0, 0)
-		    context.DrawImage me.Image.TransformDisabled, CGRectOffset (rect, w * 1, 0)
-		    context.DrawImage me.Image.TransformSelected,  CGRectOffset (rect, w * 2, 0)
+		    context.DrawImage me.Image,              CGRectOffset (rect, w * 0, 0)
+		    context.DrawImage me.ImageDisabled, CGRectOffset (rect, w * 1, 0)
+		    context.DrawImage me.ImageSelected,  CGRectOffset (rect, w * 2, 0)
 		  end if
 		End Sub
 	#tag EndEvent
 
 
+	#tag Note, Name = Notes
+		You should be able to open an image file in any reasonable format, including .icns.  
+		The window will display the image, plus disabled and selected versions of the image.
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21
 		Private Image As CGImage
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private ImageDisabled As CGImage
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private ImageSelected As CGImage
 	#tag EndProperty
 
 
@@ -123,6 +138,8 @@ End
 		  
 		  dim source as new CGImageSource(new CFURL(dlg.Result.URLPath))
 		  self.Image = source.Image(0)
+		  self.ImageDisabled = Image.TransformDisabled
+		  self.ImageSelected = Image.TransformSelected
 		  self.Refresh
 		End Sub
 	#tag EndEvent

@@ -3,7 +3,7 @@ Begin Window AxialShadingExample
    BackColor       =   16777215
    Backdrop        =   ""
    CloseButton     =   True
-   Composite       =   False
+   Composite       =   True
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
@@ -37,7 +37,7 @@ End
 
 	#tag Event
 		Sub Paint(g As Graphics)
-		  dim context as new CGContextGraphicsPort(self)
+		  dim context as new CGContextGraphicsPort(g)
 		  dim t as CGAffineTransform = CoreGraphics.CGAffineTransformMakeScale(g.Width, g.Height)
 		  context.ConcatCTM t
 		  context.SaveGState

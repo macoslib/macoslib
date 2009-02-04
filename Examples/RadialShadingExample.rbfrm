@@ -36,7 +36,7 @@ End
 
 	#tag Event
 		Sub Paint(g As Graphics)
-		  dim context as new CGContextGraphicsPort(self)
+		  dim context as new CGContextGraphicsPort(g)
 		  dim t as CGAffineTransform = CoreGraphics.CGAffineTransformMakeScale(g.Width, g.Height)
 		  context.ConcatCTM t
 		  context.SaveGState

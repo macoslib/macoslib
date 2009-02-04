@@ -26,19 +26,16 @@ Inherits CGContext
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub Constructor()
+		  // Made private so that there is no default constructor available
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
-		Sub Constructor(w as Window)
-		  if w is nil then
-		    return
-		  end if
-		  
+		Sub Constructor(g as Graphics)
 		  #if targetMacOS
-		    declare function GetWindowPort lib CarbonLib (window as WindowPtr) as Ptr
-		    
-		    me.Port = GetWindowPort(w)
-		    if me.Port = nil then
-		      return
-		    end if
+		    me.Port = Ptr(g.Handle(Graphics.HandleTypeCGrafPtr))
 		    
 		    soft declare function QDBeginCGContext lib CarbonLib (port as Ptr, ByRef contextPtr as Ptr) as Integer
 		    
@@ -53,12 +50,6 @@ Inherits CGContext
 		    super.Constructor contextPtr, true
 		    me.Retain
 		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Constructor()
-		  // Made private so that there is no default constructor available
 		End Sub
 	#tag EndMethod
 
