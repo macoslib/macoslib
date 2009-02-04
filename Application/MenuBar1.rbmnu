@@ -218,19 +218,6 @@ Begin Menu MenuBar1
             AutoEnable = True
          End
       End
-      Begin MenuItem ExamplesCustomControls
-         SpecialMenu = 0
-         Text = "Custom Controls"
-         Index = -2147483648
-         AutoEnable = True
-         SubMenu = True
-         Begin MenuItem CustomControlsMacDatePicker
-            SpecialMenu = 0
-            Text = "MacDatePicker"
-            Index = -2147483648
-            AutoEnable = True
-         End
-      End
    End
 End
 #tag EndMenu
