@@ -3,7 +3,7 @@ Begin Window ImageTransformExample
    BackColor       =   &hFFFFFF
    Backdrop        =   ""
    CloseButton     =   True
-   Composite       =   True
+   Composite       =   False
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
@@ -93,16 +93,30 @@ End
 	#tag Event
 		Sub Paint(g As Graphics)
 		  if image <> nil then
-		    dim context as new CGContextGraphicsPort(g)
-		    
-		    dim w as Single = 10 + me.Image.Width
-		    dim rect as CGRect = CGRectMake(10, self.Height - Image.Height - 10, Image.Width, Image.Height)
-		    context.DrawImage me.Image,              CGRectOffset (rect, w * 0, 0)
-		    context.DrawImage me.ImageDisabled, CGRectOffset (rect, w * 1, 0)
-		    context.DrawImage me.ImageSelected,  CGRectOffset (rect, w * 2, 0)
+		    if self.Composite then
+		      dim p as new Picture(g.Width, g.Height, 32)
+		      DrawImages p.Graphics
+		      p.Transparent = 1
+		      g.DrawPicture p, 0, 0
+		    else
+		      DrawImages g
+		    end if
 		  end if
 		End Sub
 	#tag EndEvent
+
+
+	#tag Method, Flags = &h21
+		Private Sub DrawImages(g as Graphics)
+		  dim context as new CGContextGraphicsPort(g)
+		  
+		  dim w as Single = 10 + me.Image.Width
+		  dim rect as CGRect = CGRectMake(10, self.Height - Image.Height - 10, Image.Width, Image.Height)
+		  context.DrawImage me.Image,              CGRectOffset (rect, w * 0, 0)
+		  context.DrawImage me.ImageDisabled, CGRectOffset (rect, w * 1, 0)
+		  context.DrawImage me.ImageSelected,  CGRectOffset (rect, w * 2, 0)
+		End Sub
+	#tag EndMethod
 
 
 	#tag Note, Name = Notes
