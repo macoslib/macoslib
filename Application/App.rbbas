@@ -77,8 +77,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function CustomControlsMacDatePicker() As Boolean Handles CustomControlsMacDatePicker.Action
+		Function ControlsMacDatePicker() As Boolean Handles ControlsMacDatePicker.Action
 			MacDatePickerExampleWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CoreGraphicsImageTransform() As Boolean Handles CoreGraphicsImageTransform.Action
+			ImageTransformExample.Show
 			return true
 		End Function
 	#tag EndMenuHandler

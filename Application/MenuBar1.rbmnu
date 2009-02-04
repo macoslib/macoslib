@@ -159,6 +159,12 @@ Begin Menu MenuBar1
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CoreGraphicsImageTransform
+            SpecialMenu = 0
+            Text = "Image Transform"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesFolderManager
          SpecialMenu = 0
