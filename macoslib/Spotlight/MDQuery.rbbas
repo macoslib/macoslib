@@ -94,6 +94,25 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Stop()
+		  #if targetMacOS
+		    soft declare sub MDQueryStop lib CarbonLib (query as Ptr)
+		    MDQueryStop me
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsGatheringComplete() As Boolean
+		  #if targetMacOS
+		    soft declare function MDQueryIsGatheringComplete lib CarbonLib (query as Ptr) as Boolean
+		    
+		    return MDQueryIsGatheringComplete(me)
+		  #endif
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
