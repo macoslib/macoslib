@@ -7,12 +7,12 @@ Begin Window ImageTransformExample
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   293
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
-   MaximizeButton  =   False
+   MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
@@ -21,22 +21,22 @@ Begin Window ImageTransformExample
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Image Transform"
+   Title           =   "Image Transformations"
    Visible         =   True
-   Width           =   600
+   Width           =   521
    Begin PushButton PushButton1
       AutoDeactivate  =   True
       Bold            =   ""
       Cancel          =   ""
       Caption         =   "Choose"
-      Default         =   ""
+      Default         =   True
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
       Index           =   2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   500
+      Left            =   421
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   ""
@@ -48,11 +48,43 @@ Begin Window ImageTransformExample
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
-      Top             =   360
+      Top             =   253
       Underline       =   ""
       Visible         =   True
       Width           =   80
       BehaviorIndex   =   0
+   End
+   Begin StaticText StaticText1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   64
+      HelpTag         =   ""
+      Index           =   2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   ""
+      Multiline       =   True
+      Scope           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      Text            =   "You should be able to open an image file in any reasonable format, including .icns. This window will display the original image, plus disabled and selected versions of it."
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      Top             =   222
+      Underline       =   ""
+      Visible         =   True
+      Width           =   389
+      BehaviorIndex   =   1
    End
 End
 #tag EndWindow
@@ -61,21 +93,15 @@ End
 	#tag Event
 		Sub Paint(g As Graphics)
 		  if image <> nil then
+		    dim w as Single = 10 + me.Image.Width
 		    dim context as new CGContextGraphicsPort(self)
-		    context.DrawImage Image, CGRectMake(10, self.Height - Image.Height - 10, Image.Width, Image.Height)
-		    context.DrawImage Image.TransformDisabled, CGRectMake(10 + Image.Width, self.Height - Image.Height - 10, Image.Width, Image.Height)
-		    context.DrawImage Image.TransformSelected, CGRectMake((10 + Image.Width)*2, self.Height - Image.Height - 10, Image.Width, Image.Height)
+		    dim rect as CGRect = CGRectMake(10, self.Height - Image.Height - 10, Image.Width, Image.Height)
+		    context.DrawImage me.Image.TransformNone,      CGRectOffset (rect, w * 0, 0)
+		    context.DrawImage me.Image.TransformDisabled, CGRectOffset (rect, w * 1, 0)
+		    context.DrawImage me.Image.TransformSelected,  CGRectOffset (rect, w * 2, 0)
 		  end if
 		End Sub
 	#tag EndEvent
-
-
-	#tag Note, Name = Notes
-		You should be able to open an image file in any reasonable format, including .icns.  
-		The window will display the image, plus disabled and selected versions of the image.
-		
-		
-	#tag EndNote
 
 
 	#tag Property, Flags = &h21

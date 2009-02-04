@@ -202,6 +202,8 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function TransformDisabled() As CGImage
+		  // Note: Available in Mac OS X v10.4 and later
+		  
 		  const kHITransformDisabled = &h01
 		  return me.Transform(kHITransformDisabled)
 		End Function
@@ -209,6 +211,8 @@ Inherits CFType
 
 	#tag Method, Flags = &h21
 		Private Function Transform(transformType as Integer) As CGImage
+		  // Note: Available in Mac OS X v10.4 and later
+		  
 		  #if targetMacOS
 		    soft declare function HICreateTransformedCGImage lib CarbonLib (inImage as Ptr, inTransform as UInt32, ByRef outImage as Ptr) as Integer
 		    
@@ -226,6 +230,8 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function TransformSelected() As CGImage
+		  // Note: Available in Mac OS X v10.4 and later
+		  
 		  const kHITransformSelected = &h4000
 		  return me.Transform(kHITransformSelected)
 		End Function
@@ -233,6 +239,8 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function TransformNone() As CGImage
+		  // Note: Available in Mac OS X v10.4 and later
+		  
 		  const kHITransformNone = &h00
 		  return me.Transform(kHITransformNone)
 		End Function

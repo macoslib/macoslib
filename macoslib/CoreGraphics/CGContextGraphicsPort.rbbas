@@ -7,16 +7,16 @@ Inherits CGContext
 		    return
 		  end if
 		  
-		  dim contextPtr as Ptr = me
+		  dim contextPtr as Ptr = me.Reference
 		  if contextPtr = nil then
 		    return
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextSynchronize lib CarbonLib (context as Ptr)
-		    CGContextSynchronize contextPtr
+		    declare sub CGContextSynchronize lib CarbonLib (context as Ptr)
+		    declare function QDEndCGContext lib CarbonLib (port as Ptr, ByRef context as Ptr) as Integer
 		    
-		    soft declare function QDEndCGContext lib CarbonLib (port as Ptr, ByRef context as Ptr) as Integer
+		    CGContextSynchronize contextPtr
 		    
 		    dim OSError as Integer = QDEndCGContext(me.Port, contextPtr)
 		    if OSError <> 0 then
@@ -33,7 +33,7 @@ Inherits CGContext
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare function GetWindowPort lib CarbonLib (window as WindowPtr) as Ptr
+		    declare function GetWindowPort lib CarbonLib (window as WindowPtr) as Ptr
 		    
 		    me.Port = GetWindowPort(w)
 		    if me.Port = nil then

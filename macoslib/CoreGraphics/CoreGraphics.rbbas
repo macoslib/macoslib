@@ -230,6 +230,16 @@ Protected Module CoreGraphics
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function CGPointOffset(pt as CGPoint, xOffset as Single, yOffset as Single) As CGPoint
+		  // moves the CGPoint by the given offsets
+		  
+		  pt.x = pt.x + xOffset
+		  pt.y = pt.y + yOffset
+		  return pt
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		This is part of the open source "MacOSLib"
