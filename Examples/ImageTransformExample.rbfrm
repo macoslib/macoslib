@@ -86,27 +86,51 @@ Begin Window ImageTransformExample
       Width           =   389
       BehaviorIndex   =   1
    End
+   Begin Canvas Canvas1
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
+      AutoDeactivate  =   False
+      Backdrop        =   ""
+      Enabled         =   False
+      EraseBackground =   True
+      Height          =   203
+      HelpTag         =   ""
+      Index           =   2147483648
+      InitialParent   =   ""
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   False
+      Top             =   14
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   481
+      BehaviorIndex   =   2
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Open()
-		  RegisterCarbonEventHandlerForHIView
+		  'RegisterCarbonEventHandlerForHIView
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Paint(g As Graphics)
+		  // Drawing it here, with the Button having its Default=true,
+		  // it'll not work right due to repeated calls to this event in a wrong drawing state
+		  // Drawing it from a control's Paint even works, however
+		  
 		  'if image <> nil then
-		  'if self.Composite then
-		  'dim p as new Picture(g.Width, g.Height, 32)
-		  'DrawImages p.Graphics
-		  'p.Transparent = 1
-		  'g.DrawPicture p, 0, 0
-		  'else
 		  'DrawImages g
-		  'end if
 		  'end if
 		End Sub
 	#tag EndEvent
@@ -314,9 +338,20 @@ End
 		  
 		  dim source as new CGImageSource(new CFURL(dlg.Result.URLPath))
 		  self.Image = source.Image(0)
-		  self.ImageDisabled = Image.TransformDisabled
-		  self.ImageSelected = Image.TransformSelected
+		  self.ImageDisabled = self.Image.TransformDisabled
+		  self.ImageSelected = self.Image.TransformSelected
 		  self.Refresh
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Canvas1
+	#tag Event
+		Sub Paint(g As Graphics)
+		  // See note in Window's Paint event
+		  
+		  if image <> nil then
+		    DrawImages g
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
