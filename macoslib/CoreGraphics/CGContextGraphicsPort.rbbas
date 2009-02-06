@@ -37,7 +37,7 @@ Inherits CGContext
 		  #if targetMacOS
 		    me.Port = Ptr(g.Handle(Graphics.HandleTypeCGrafPtr))
 		    
-		    soft declare function QDBeginCGContext lib CarbonLib (port as Ptr, ByRef contextPtr as Ptr) as Integer
+		    declare function QDBeginCGContext lib CarbonLib (port as Ptr, ByRef contextPtr as Ptr) as Integer
 		    
 		    dim contextPtr as Ptr
 		    dim OSError as Integer = QDBeginCGContext(Port, contextPtr)
