@@ -45,7 +45,7 @@ Inherits CFStream
 		  #if TargetMacOS
 		    declare function CFWriteStreamCreateWithFile lib CarbonLib (allocator as Ptr, url as Ptr) as Ptr
 		    
-		    super.Constructor CFWriteStreamCreateWithFile (nil, fileURL), true
+		    super.Constructor CFWriteStreamCreateWithFile (nil, fileURL.Reference), true
 		    
 		    if appendToFile then
 		      call SetProperty (kPropertyAppendToFile, CFBoolean.GetTrue)

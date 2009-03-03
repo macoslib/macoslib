@@ -45,7 +45,7 @@ Inherits CFStream
 		  #if TargetMacOS
 		    declare function CFReadStreamCreateWithFile lib CarbonLib (allocator as Ptr, url as Ptr) as Ptr
 		    
-		    super.Constructor CFReadStreamCreateWithFile (nil, fileURL), true
+		    super.Constructor CFReadStreamCreateWithFile (nil, fileURL.Reference), true
 		  #endif
 		End Sub
 	#tag EndMethod

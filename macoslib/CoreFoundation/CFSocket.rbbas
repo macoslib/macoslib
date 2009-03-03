@@ -92,7 +92,7 @@ Inherits CFType
 		    declare function CFSocketSetAddress lib CarbonLib (socketRef as Ptr, addr as Ptr) as Integer
 		    
 		    if not me.IsNULL then
-		      dim errCode as Integer = CFSocketSetAddress (me.Reference, address)
+		      dim errCode as Integer = CFSocketSetAddress (me.Reference, address.Reference)
 		      return errCode = 0
 		    end if
 		  #endif
@@ -242,13 +242,13 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			#if TargetMacOS
-			declare function CFSocketGetNative lib CarbonLib (socketRef as Ptr) as CFSocketNativeHandle
-			
-			if not me.IsNULL then
-			return CFSocketGetNative (me.Reference)
-			end if
-			#endif
+			  #if TargetMacOS
+			    declare function CFSocketGetNative lib CarbonLib (socketRef as Ptr) as CFSocketNativeHandle
+			    
+			    if not me.IsNULL then
+			      return CFSocketGetNative (me.Reference)
+			    end if
+			  #endif
 			End Get
 		#tag EndGetter
 		NativeHandle As CFSocketNativeHandle
@@ -280,7 +280,7 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			return mHadConnectOrAccept
+			  return mHadConnectOrAccept
 			End Get
 		#tag EndGetter
 		HasConnected As Boolean
