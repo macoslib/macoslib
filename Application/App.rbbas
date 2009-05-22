@@ -4,6 +4,8 @@ Inherits Application
 	#tag Event
 		Sub NewDocument()
 		  CoreFoundation._TestSelf
+		  TestFileManager
+		  TestBundleLookup
 		End Sub
 	#tag EndEvent
 
@@ -89,6 +91,30 @@ Inherits Application
 			return true
 		End Function
 	#tag EndMenuHandler
+
+
+	#tag Method, Flags = &h1
+		Protected Sub TestFileManager()
+		  // Test the FSRef related functions:
+		  dim f as FolderItem, s as String, ref as FSRef
+		  f = GetFolderItem("")
+		  s = f.NativePath
+		  ref = f.MacFSRef
+		  if ref.FolderItem.AbsolutePath <> f.AbsolutePath then
+		    break // test failed!
+		  end
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub TestBundleLookup()
+		  dim f as FolderItem
+		  f = LaunchServices.FindApp ("", "com.apple.finder", "")
+		  if f = nil or not f.Exists then
+		    MsgBox "Error: can't locate Finder.app"
+		  end
+		End Sub
+	#tag EndMethod
 
 
 	#tag Constant, Name = kFileQuitShortcut, Type = String, Dynamic = False, Default = \"", Scope = Public
