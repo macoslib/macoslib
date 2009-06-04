@@ -10,17 +10,19 @@ Inherits CFString
 
 	#tag Method, Flags = &h0
 		Sub Append(s as String)
-		  declare Sub CFStringAppend Lib CarbonLib (theString as Ptr, cfStr as CFStringRef, encoding as Integer)
-		  
-		  const kCFTextEncodingUnknown = &hffff
-		  
-		  dim enc as TextEncoding = Encoding(s)
-		  
-		  if enc <> nil then
-		    CFStringAppend me.Reference, s, enc.Code
-		  else
-		    CFStringAppend me.Reference, s, kCFTextEncodingUnknown
-		  end
+		  #if TargetMacOS
+		    declare Sub CFStringAppend Lib CarbonLib (theString as Ptr, cfStr as CFStringRef, encoding as Integer)
+		    
+		    const kCFTextEncodingUnknown = &hffff
+		    
+		    dim enc as TextEncoding = Encoding(s)
+		    
+		    if enc <> nil then
+		      CFStringAppend me.Reference, s, enc.Code
+		    else
+		      CFStringAppend me.Reference, s, kCFTextEncodingUnknown
+		    end
+		  #endif
 		End Sub
 	#tag EndMethod
 
