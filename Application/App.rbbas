@@ -92,6 +92,13 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function ExamplesLanguages() As Boolean Handles ExamplesLanguages.Action
+			LanguagesWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Method, Flags = &h1
 		Protected Sub TestFileManager()

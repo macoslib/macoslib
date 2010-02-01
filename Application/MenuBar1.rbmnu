@@ -218,6 +218,12 @@ Begin Menu MenuBar1
             AutoEnable = True
          End
       End
+      Begin MenuItem ExamplesLanguages
+         SpecialMenu = 0
+         Text = "Languages"
+         Index = -2147483648
+         AutoEnable = True
+      End
    End
 End
 #tag EndMenu
