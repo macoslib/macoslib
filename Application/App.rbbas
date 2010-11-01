@@ -85,6 +85,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function IOKitPrimaryMACAddress() As Boolean Handles IOKitPrimaryMACAddress.Action
+			IOKitPrimaryMACAddressExample.Show
+			return true
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function NavigationServicesOpenExampleWindow() As Boolean Handles NavigationServicesOpenExampleWindow.Action
 			NavServicesParentWindow.Show
 			return true

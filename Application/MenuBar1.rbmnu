@@ -192,6 +192,19 @@ Begin Menu MenuBar1
             AutoEnable = True
          End
       End
+      Begin MenuItem ExamplesIOKit
+         SpecialMenu = 0
+         Text = "IOKit"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem IOKitPrimaryMACAddress
+            SpecialMenu = 0
+            Text = "Primary MAC Address"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
       Begin MenuItem ExamplesNavigationServices
          SpecialMenu = 0
          Text = "Navigation Services"
