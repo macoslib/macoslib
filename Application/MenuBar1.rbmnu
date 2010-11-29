@@ -204,6 +204,12 @@ Begin Menu MenuBar1
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem IOKitExternalPowerAdapter
+            SpecialMenu = 0
+            Text = "External Power Adapter"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesNavigationServices
          SpecialMenu = 0

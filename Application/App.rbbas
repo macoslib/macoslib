@@ -85,6 +85,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function IOKitExternalPowerAdapter() As Boolean Handles IOKitExternalPowerAdapter.Action
+			IOKitExternalPowerWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function IOKitPrimaryMACAddress() As Boolean Handles IOKitPrimaryMACAddress.Action
 			IOKitPrimaryMACAddressExample.Show
 			return true
