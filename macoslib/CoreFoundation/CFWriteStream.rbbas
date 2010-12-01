@@ -29,13 +29,25 @@ Inherits CFStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(outputBuffer as MemoryBlock)
+		Sub Close()
 		  #if TargetMacOS
-		    declare function CFWriteStreamCreateWithBuffer lib CarbonLib (allocator as Ptr, data as Ptr, size as Integer) as Ptr
+		    declare sub CFWriteStreamClose lib CarbonLib (stream as Ptr)
 		    
-		    mData = outputBuffer // we need to keep a ref to the MemoryBlock as long as the stream exists
+		    if not me.IsNULL then
+		      CFWriteStreamClose (me.Reference)
+		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(socketHandle as CFSocketNativeHandle)
+		  #if TargetMacOS
+		    declare sub CFStreamCreatePairWithSocket lib CarbonLib (allocator as Ptr, sock as CFSocketNativeHandle, null as Ptr, ByRef write as Ptr)
 		    
-		    super.Constructor CFWriteStreamCreateWithBuffer (nil, outputBuffer, outputBuffer.Size), true
+		    dim p as Ptr
+		    CFStreamCreatePairWithSocket (nil, socketHandle, nil, p)
+		    super.Constructor (p, true)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -56,46 +68,23 @@ Inherits CFStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Open() As Boolean
+		Sub Constructor(outputBuffer as MemoryBlock)
 		  #if TargetMacOS
-		    declare function CFWriteStreamOpen lib CarbonLib (stream as Ptr) as Boolean
+		    declare function CFWriteStreamCreateWithBuffer lib CarbonLib (allocator as Ptr, data as Ptr, size as Integer) as Ptr
 		    
-		    return CFWriteStreamOpen (me.Reference)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Close()
-		  #if TargetMacOS
-		    declare sub CFWriteStreamClose lib CarbonLib (stream as Ptr)
+		    mData = outputBuffer // we need to keep a ref to the MemoryBlock as long as the stream exists
 		    
-		    if not me.IsNULL then
-		      CFWriteStreamClose (me.Reference)
-		    end if
+		    super.Constructor CFWriteStreamCreateWithBuffer (nil, outputBuffer, outputBuffer.Size), true
 		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Write(data as String) As Integer
-		  // Returns the number of bytes actually written to the stream, or -1 if not open or an error occured
-		  
+		Function GetProperty(name as String) As CFType
 		  #if TargetMacOS
-		    declare function CFWriteStreamWrite lib CarbonLib (stream as Ptr, buffer as Ptr, bufLen as Integer) as Integer
+		    declare function CFWriteStreamCopyProperty lib CarbonLib (stream as Ptr, name as CFStringRef) as Ptr
 		    
-		    dim mb as MemoryBlock = data
-		    return CFWriteStreamWrite (me.Reference, mb, mb.Size)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function SetProperty(name as String, value as CFType) As Boolean
-		  #if TargetMacOS
-		    declare function CFWriteStreamSetProperty lib CarbonLib (stream as Ptr, name as CFStringRef, value as Ptr) as Boolean
-		    
-		    return CFWriteStreamSetProperty (me.Reference, name, value.Reference)
+		    return CFType.NewObject (CFWriteStreamCopyProperty (me.Reference, name), true, kCFPropertyListImmutable)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -114,46 +103,52 @@ Inherits CFStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetProperty(name as String) As CFType
+		Function Open() As Boolean
 		  #if TargetMacOS
-		    declare function CFWriteStreamCopyProperty lib CarbonLib (stream as Ptr, name as CFStringRef) as Ptr
+		    declare function CFWriteStreamOpen lib CarbonLib (stream as Ptr) as Boolean
 		    
-		    return CFType.NewObject (CFWriteStreamCopyProperty (me.Reference, name), true, kCFPropertyListImmutable)
+		    return CFWriteStreamOpen (me.Reference)
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(socketHandle as CFSocketNativeHandle)
+		Function SetProperty(name as String, value as CFType) As Boolean
 		  #if TargetMacOS
-		    declare sub CFStreamCreatePairWithSocket lib CarbonLib (allocator as Ptr, sock as CFSocketNativeHandle, null as Ptr, ByRef write as Ptr)
+		    declare function CFWriteStreamSetProperty lib CarbonLib (stream as Ptr, name as CFStringRef, value as Ptr) as Boolean
 		    
-		    dim p as Ptr
-		    CFStreamCreatePairWithSocket (nil, socketHandle, nil, p)
-		    super.Constructor (p, true)
+		    return CFWriteStreamSetProperty (me.Reference, name, value.Reference)
 		  #endif
-		End Sub
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Write(data as String) As Integer
+		  // Returns the number of bytes actually written to the stream, or -1 if not open or an error occured
+		  
+		  #if TargetMacOS
+		    declare function CFWriteStreamWrite lib CarbonLib (stream as Ptr, buffer as Ptr, bufLen as Integer) as Integer
+		    
+		    dim mb as MemoryBlock = data
+		    return CFWriteStreamWrite (me.Reference, mb, mb.Size)
+		  #endif
+		End Function
 	#tag EndMethod
 
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InheritedFrom="Object"
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -164,18 +159,23 @@ Inherits CFStream
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

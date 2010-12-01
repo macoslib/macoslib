@@ -29,13 +29,25 @@ Inherits CFStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(data as MemoryBlock)
+		Sub Close()
 		  #if TargetMacOS
-		    declare function CFReadStreamCreateWithBytesNoCopy lib CarbonLib (allocator as Ptr, data as Ptr, size as Integer, deallocator as Ptr) as Ptr
+		    declare sub CFReadStreamClose lib CarbonLib (stream as Ptr)
 		    
-		    mData = data // we need to keep a ref to the MemoryBlock as long as the stream exists
+		    if not me.IsNULL then
+		      CFReadStreamClose (me.Reference)
+		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(socketHandle as CFSocketNativeHandle)
+		  #if TargetMacOS
+		    declare sub CFStreamCreatePairWithSocket lib CarbonLib (allocator as Ptr, sock as CFSocketNativeHandle, ByRef read as Ptr, null as Ptr)
 		    
-		    super.Constructor CFReadStreamCreateWithBytesNoCopy (nil, data, data.Size, nil), true
+		    dim p as Ptr
+		    CFStreamCreatePairWithSocket (nil, socketHandle, p, nil)
+		    super.Constructor (p, true)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -51,6 +63,38 @@ Inherits CFStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Constructor(data as MemoryBlock)
+		  #if TargetMacOS
+		    declare function CFReadStreamCreateWithBytesNoCopy lib CarbonLib (allocator as Ptr, data as Ptr, size as Integer, deallocator as Ptr) as Ptr
+		    
+		    mData = data // we need to keep a ref to the MemoryBlock as long as the stream exists
+		    
+		    super.Constructor CFReadStreamCreateWithBytesNoCopy (nil, data, data.Size, nil), true
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetProperty(name as String) As CFType
+		  #if TargetMacOS
+		    declare function CFReadStreamCopyProperty lib CarbonLib (stream as Ptr, name as CFStringRef) as Ptr
+		    
+		    return CFType.NewObject (CFReadStreamCopyProperty (me.Reference, name), true, kCFPropertyListImmutable)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function HasDataAvailable() As Boolean
+		  #if TargetMacOS
+		    declare function CFReadStreamHasBytesAvailable lib CarbonLib (stream as Ptr) as Boolean
+		    
+		    return CFReadStreamHasBytesAvailable (me.Reference)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Open() As Boolean
 		  #if TargetMacOS
 		    declare function CFReadStreamOpen lib CarbonLib (stream as Ptr) as Boolean
@@ -58,18 +102,6 @@ Inherits CFStream
 		    return CFReadStreamOpen (me.Reference)
 		  #endif
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Close()
-		  #if TargetMacOS
-		    declare sub CFReadStreamClose lib CarbonLib (stream as Ptr)
-		    
-		    if not me.IsNULL then
-		      CFReadStreamClose (me.Reference)
-		    end if
-		  #endif
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -99,26 +131,6 @@ Inherits CFStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HasDataAvailable() As Boolean
-		  #if TargetMacOS
-		    declare function CFReadStreamHasBytesAvailable lib CarbonLib (stream as Ptr) as Boolean
-		    
-		    return CFReadStreamHasBytesAvailable (me.Reference)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function GetProperty(name as String) As CFType
-		  #if TargetMacOS
-		    declare function CFReadStreamCopyProperty lib CarbonLib (stream as Ptr, name as CFStringRef) as Ptr
-		    
-		    return CFType.NewObject (CFReadStreamCopyProperty (me.Reference, name), true, kCFPropertyListImmutable)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function SetProperty(name as String, value as CFType) As Boolean
 		  #if TargetMacOS
 		    declare function CFReadStreamSetProperty lib CarbonLib (stream as Ptr, name as CFStringRef, value as Ptr) as Boolean
@@ -128,37 +140,20 @@ Inherits CFStream
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Constructor(socketHandle as CFSocketNativeHandle)
-		  #if TargetMacOS
-		    declare sub CFStreamCreatePairWithSocket lib CarbonLib (allocator as Ptr, sock as CFSocketNativeHandle, ByRef read as Ptr, null as Ptr)
-		    
-		    dim p as Ptr
-		    CFStreamCreatePairWithSocket (nil, socketHandle, p, nil)
-		    super.Constructor (p, true)
-		  #endif
-		End Sub
-	#tag EndMethod
-
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InheritedFrom="Object"
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -169,18 +164,23 @@ Inherits CFStream
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

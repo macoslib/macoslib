@@ -1,6 +1,13 @@
 #tag Class
 Class CFSocketSignature
 	#tag Method, Flags = &h0
+		Sub Constructor()
+		  'dim ssig as new CFSocketSignature (CFSocket.PF_INET, 0, 0, nil)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Constructor(protocolFamily as Integer, socketType as Integer, protocol as Integer, address as CFData)
 		  mData = new MemoryBlock (16)
 		  mData.Int32Value(0) = protocolFamily
@@ -23,46 +30,43 @@ Class CFSocketSignature
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Reference() As Ptr
-		  return mData
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Constructor(unixPath as String)
 		  me.Constructor (CFSocket.PF_UNIX, 0, 0, CFSocket.UnixDomainAddress(unixPath))
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor()
-		  'dim ssig as new CFSocketSignature (CFSocket.PF_INET, 0, 0, nil)
-		  
-		End Sub
+		Function Reference() As Ptr
+		  return mData
+		End Function
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
-		Private mData As MemoryBlock
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if mAddress <> nil then
+			    return mAddress
+			  else
+			    return new CFData (mData.Ptr(12), false)
+			  end if
+			End Get
+		#tag EndGetter
+		address As CFData
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private mAddress As CFData
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			return mData.Int32Value(0)
-			End Get
-		#tag EndGetter
-		protocolFamily As Integer
-	#tag EndComputedProperty
+	#tag Property, Flags = &h21
+		Private mData As MemoryBlock
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			return mData.Int32Value(8)
+			  return mData.Int32Value(8)
 			End Get
 		#tag EndGetter
 		protocol As Integer
@@ -71,20 +75,16 @@ Class CFSocketSignature
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			if mAddress <> nil then
-			return mAddress
-			else
-			return new CFData (mData.Ptr(12), false)
-			end if
+			  return mData.Int32Value(0)
 			End Get
 		#tag EndGetter
-		address As CFData
+		protocolFamily As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			return mData.Int32Value(4)
+			  return mData.Int32Value(4)
 			End Get
 		#tag EndGetter
 		socketType As Integer
@@ -93,22 +93,10 @@ Class CFSocketSignature
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="2147483648"
-			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -119,20 +107,19 @@ Class CFSocketSignature
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Top"
+			Name="Name"
 			Visible=true
-			Group="Position"
-			InitialValue="0"
+			Group="ID"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="protocolFamily"
+			Name="protocol"
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="protocol"
+			Name="protocolFamily"
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
@@ -142,6 +129,19 @@ Class CFSocketSignature
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

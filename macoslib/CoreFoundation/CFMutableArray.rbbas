@@ -2,15 +2,11 @@
 Class CFMutableArray
 Inherits CFArray
 	#tag Method, Flags = &h0
-		Sub Value(index as Integer, Assigns theValue as CFType)
+		Sub Append(theItem as CFType)
 		  #if TargetMacOS
-		    declare Sub CFArraySetValueAtIndex lib CarbonLib (theArray as Ptr, idx as Integer, theVal as Ptr)
+		    declare Sub CFArrayAppendValue lib CarbonLib (theArray as Ptr, theValue as Ptr)
 		    
-		    if index < 0 or index >= me.Count() then
-		      raise new OutOfBoundsException
-		    end if
-		    
-		    CFArraySetValueAtIndex me.Reference, index, theValue.Reference
+		    CFArrayAppendValue me.Reference, theItem.Reference
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -28,23 +24,21 @@ Inherits CFArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Append(theItem as CFType)
+		Sub Value(index as Integer, Assigns theValue as CFType)
 		  #if TargetMacOS
-		    declare Sub CFArrayAppendValue lib CarbonLib (theArray as Ptr, theValue as Ptr)
+		    declare Sub CFArraySetValueAtIndex lib CarbonLib (theArray as Ptr, idx as Integer, theVal as Ptr)
 		    
-		    CFArrayAppendValue me.Reference, theItem.Reference
+		    if index < 0 or index >= me.Count() then
+		      raise new OutOfBoundsException
+		    end if
+		    
+		    CFArraySetValueAtIndex me.Reference, index, theValue.Reference
 		  #endif
 		End Sub
 	#tag EndMethod
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			InheritedFrom="CFType"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Count"
 			Group="Behavior"
@@ -53,9 +47,9 @@ Inherits CFArray
 			InheritedFrom="CFArray"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
+			Name="Description"
+			Group="Behavior"
+			Type="String"
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -66,16 +60,22 @@ Inherits CFArray
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Super"
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="CFType"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
 			Visible=true
 			Group="ID"
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Left"
+			Name="Super"
 			Visible=true
-			Group="Position"
-			InitialValue="0"
+			Group="ID"
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
