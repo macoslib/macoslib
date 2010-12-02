@@ -3,7 +3,10 @@ Protected Class App
 Inherits Application
 	#tag Event
 		Sub NewDocument()
+		  Carbon._TestSelf
 		  CoreFoundation._TestSelf
+		  ATSForFonts.ATSFont.SelfTest
+		  
 		  TestFileManager
 		  TestBundleLookup
 		End Sub
