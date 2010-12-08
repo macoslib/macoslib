@@ -6,9 +6,10 @@ Inherits Application
 		  Carbon._TestSelf
 		  CoreFoundation._TestSelf
 		  ATSForFonts.ATSFont.SelfTest
-		  
+		  CertTools.SelfTest
 		  TestFileManager
 		  TestBundleLookup
+		  
 		End Sub
 	#tag EndEvent
 
@@ -134,7 +135,7 @@ Inherits Application
 		  dim f as FolderItem, s as String, ref as FSRef
 		  f = GetFolderItem("")
 		  s = f.NativePath
-		  ref = f.MacFSRef
+		  ref = f.FSRef
 		  if ref.FolderItem.AbsolutePath <> f.AbsolutePath then
 		    break // test failed!
 		  end
