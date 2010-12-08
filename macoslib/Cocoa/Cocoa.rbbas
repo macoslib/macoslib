@@ -1,6 +1,43 @@
 #tag Module
 Protected Module Cocoa
 	#tag Method, Flags = &h1
+		Protected Function ClassRef(className as String) As id
+		  #if TargetMachO
+		    dim theClassRef as Integer
+		    Declare Function objc_getClass Lib CocoaLib (aClassName as CString) as Integer
+		    
+		    theClassRef = objc_getClass(className)
+		    If theClassRef = 0 then
+		      Raise new CocoaUnregisteredClassException(className)
+		    End if
+		    Return To_id(theClassRef)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
+		  // Note: The passed path must be absolute, i.e. start from root with "/"
+		  
+		  #if TargetMacOS
+		    declare function CFURLCopyAbsoluteURL lib CarbonLib (relativeURL as Ptr) as Ptr
+		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
+		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
+		    declare sub CFRelease lib CarbonLib (cf as Ptr)
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    declare sub CFShow lib CarbonLib (obj as Ptr)
+		    const kCFURLPOSIXPathStyle = 0
+		    
+		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
+		    dim str as CFStringRef = CFRetain (CFURLGetString (url))
+		    CFRelease (url)
+		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
+		    return f
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub Initialize()
 		  #if TargetMachO
 		    Declare Function NSApplicationLoad Lib CocoaLib () as Boolean
@@ -81,40 +118,11 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function ClassRef(className as String) As id
-		  #if TargetMachO
-		    dim theClassRef as Integer
-		    Declare Function objc_getClass Lib CocoaLib (aClassName as CString) as Integer
-		    
-		    theClassRef = objc_getClass(className)
-		    If theClassRef = 0 then
-		      Raise new CocoaUnregisteredClassException(className)
-		    End if
-		    Return To_id(theClassRef)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
-		  // Note: The passed path must be absolute, i.e. start from root with "/"
+	#tag Method, Flags = &h0
+		Function NSSearchPathForDirectoriesInDomains(dir as Integer, domainMask as Integer, expandTilde as Boolean) As NSArray
+		  declare function searchPaths lib CocoaLib alias "NSSearchPathForDirectoriesInDomains" (dir as Integer, domainMask as Integer, expandTilde as Boolean) as Ptr
 		  
-		  #if TargetMacOS
-		    declare function CFURLCopyAbsoluteURL lib CarbonLib (relativeURL as Ptr) as Ptr
-		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
-		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
-		    declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		    declare sub CFShow lib CarbonLib (obj as Ptr)
-		    const kCFURLPOSIXPathStyle = 0
-		    
-		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
-		    dim str as CFStringRef = CFRetain (CFURLGetString (url))
-		    CFRelease (url)
-		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
-		    return f
-		  #endif
+		  return new NSArray (searchPaths (dir, domainMask, expandTilde), false)
 		End Function
 	#tag EndMethod
 
@@ -150,14 +158,6 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function NSSearchPathForDirectoriesInDomains(dir as Integer, domainMask as Integer, expandTilde as Boolean) As NSArray
-		  declare function searchPaths lib CocoaLib alias "NSSearchPathForDirectoriesInDomains" (dir as Integer, domainMask as Integer, expandTilde as Boolean) as Ptr
-		  
-		  return new NSArray (searchPaths (dir, domainMask, expandTilde), false)
-		End Function
-	#tag EndMethod
-
 
 	#tag Note, Name = About
 		From: http://www.declaresub.com/ideclare/Cocoa/index.html
@@ -189,7 +189,6 @@ Protected Module Cocoa
 		Good:
 		  declare function objc_msgSend lib CocoaLib (r as id, s as SEL) as UInt32
 		  result = To_id (objc_msgSend (r, s))
-		
 	#tag EndNote
 
 
@@ -198,10 +197,10 @@ Protected Module Cocoa
 	#tag EndProperty
 
 
-	#tag Constant, Name = CocoaLib, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Public
+	#tag Constant, Name = CarbonLib, Type = String, Dynamic = False, Default = \"Carbon", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = CarbonLib, Type = String, Dynamic = False, Default = \"Carbon", Scope = Public
+	#tag Constant, Name = CocoaLib, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = FoundationLib, Type = String, Dynamic = False, Default = \"Foundation.framework", Scope = Public
@@ -219,12 +218,6 @@ Protected Module Cocoa
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -232,16 +225,22 @@ Protected Module Cocoa
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Super"
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Left"
+			Name="Super"
 			Visible=true
-			Group="Position"
-			InitialValue="0"
+			Group="ID"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

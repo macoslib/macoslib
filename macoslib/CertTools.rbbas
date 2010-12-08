@@ -229,7 +229,6 @@ Protected Module CertTools
 		as it's used with applications delivered by Apple's App Store.
 		
 		Written by Thomas Tempelmann, 31 Oct 2010
-		
 	#tag EndNote
 
 	#tag Note, Name = Usage
@@ -294,7 +293,6 @@ Protected Module CertTools
 		  into a state where it won't function any more. So the cracker would have to do a lot
 		  of backtracing to find the code that actually makes the receipt check and decision
 		  thereupon.
-		
 	#tag EndNote
 
 

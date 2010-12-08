@@ -72,7 +72,6 @@ Begin Window DebugLogWin
       Visible         =   True
       Width           =   376
       _ScrollWidth    =   -1
-      BehaviorIndex   =   0
    End
    Begin PushButton markBut
       AutoDeactivate  =   True
@@ -103,7 +102,6 @@ Begin Window DebugLogWin
       Underline       =   ""
       Visible         =   True
       Width           =   80
-      BehaviorIndex   =   1
    End
    Begin PushButton clearBut
       AutoDeactivate  =   True
@@ -134,7 +132,6 @@ Begin Window DebugLogWin
       Underline       =   ""
       Visible         =   True
       Width           =   80
-      BehaviorIndex   =   2
    End
 End
 #tag EndWindow
@@ -152,12 +149,6 @@ End
 		End Sub
 	#tag EndEvent
 
-
-	#tag Method, Flags = &h0
-		Sub AddLine(s as String)
-		  add s, true
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub add(s as String, addEOL as Boolean)
@@ -184,6 +175,12 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub AddLine(s as String)
+		  add s, true
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub setup()
 		  if me.LineNumbers then
@@ -196,16 +193,16 @@ End
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0
-		TimeStamps As Boolean
+	#tag Property, Flags = &h21
+		Private lineCount As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		LineNumbers As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private lineCount As Integer
+	#tag Property, Flags = &h0
+		TimeStamps As Boolean
 	#tag EndProperty
 
 
