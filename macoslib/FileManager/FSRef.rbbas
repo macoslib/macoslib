@@ -19,6 +19,12 @@ Class FSRef
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsValid() As Boolean
+		  return mData <> nil
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As MemoryBlock
 		  return mData
 		End Function
