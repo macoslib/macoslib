@@ -73,6 +73,21 @@ Inherits CFType
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(sock as integer, cbTypes as integer)
+		  #if TargetMacOS
+		    declare function CFSocketCreateWithNative lib CarbonLib (allocator as Ptr, sock as integer, cbTypes as Integer, callBack as Ptr, contextRef as Ptr) as Ptr
+		    
+		    myContext = new MemoryBlock(20) // = size of CFSocketContext
+		    
+		    prepareCallback()
+		    dim p as Ptr = CFSocketCreateWithNative (nil, sock, cbTypes, AddressOf _socketCallBack, myContext)
+		    super.Constructor p, true
+		    installRunLoopHandler()
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Constructor(protocolFamily as Integer, socketType as Integer, protocol as Integer, callbackTypes as Integer)
 		  #if TargetMacOS

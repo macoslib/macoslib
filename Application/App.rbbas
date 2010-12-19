@@ -66,6 +66,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ExamplesSockets() As Boolean Handles ExamplesSockets.Action
+			MacTCPSocketsWin.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileAbout() As Boolean Handles FileAbout.Action
 			Carbon.ShowAboutBox "MacOSLib", "demo", "", "http://code.google.com/p/macoslib/"
 			return true
