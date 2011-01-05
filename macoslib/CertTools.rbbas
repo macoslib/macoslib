@@ -58,7 +58,7 @@ Protected Module CertTools
 		  // Returns true if the given receipt (which comes from 'ReadReceipt') is valid
 		  // for the given GUID (which is a unique code for a particular machine)
 		  
-		  declare sub SHA1 lib "/usr/lib/libCrypto.dylib" (d as Ptr, n as Int32, md as Ptr)
+		  declare sub SHA1 lib "/usr/lib/libcrypto.dylib" (d as Ptr, n as Int32, md as Ptr)
 		  
 		  if receipt <> nil then
 		    dim input as MemoryBlock
@@ -78,10 +78,10 @@ Protected Module CertTools
 		Protected Function ReadReceipt(certFile as FolderItem) As Dictionary
 		  // This function reads certain entries from the App's certification receipt file
 		  
-		  declare function d2i_PKCS7_fp lib "/usr/lib/libCrypto.dylib" (fp as Int32, p7 as Ptr) as Ptr
-		  declare sub PKCS7_free lib "/usr/lib/libCrypto.dylib" (p7 as Ptr)
-		  declare function OBJ_obj2nid lib "/usr/lib/libCrypto.dylib" (ASN1_OBJECT as Ptr) as Int32
-		  declare function ASN1_get_object lib "/usr/lib/libCrypto.dylib" (ByRef pp as Ptr, ByRef plength as Int32, ByRef ptag as Int32, ByRef pclass as Int32, omax as Int32) as Int32
+		  declare function d2i_PKCS7_fp lib "/usr/lib/libcrypto.dylib" (fp as Int32, p7 as Ptr) as Ptr
+		  declare sub PKCS7_free lib "/usr/lib/libcrypto.dylib" (p7 as Ptr)
+		  declare function OBJ_obj2nid lib "/usr/lib/libcrypto.dylib" (ASN1_OBJECT as Ptr) as Int32
+		  declare function ASN1_get_object lib "/usr/lib/libcrypto.dylib" (ByRef pp as Ptr, ByRef plength as Int32, ByRef ptag as Int32, ByRef pclass as Int32, omax as Int32) as Int32
 		  
 		  dim result as Dictionary
 		  
