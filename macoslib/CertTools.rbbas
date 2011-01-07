@@ -229,6 +229,8 @@ Protected Module CertTools
 		as it's used with applications delivered by Apple's App Store.
 		
 		Written by Thomas Tempelmann, 31 Oct 2010
+		Last update: 7 Jan 2011
+		
 	#tag EndNote
 
 	#tag Note, Name = Usage
@@ -258,7 +260,7 @@ Protected Module CertTools
 		  dim f as FolderItem
 		  f = app.ExecutableFile.Parent.Parent // "Contents" folder
 		  f = f.Child("_MASReceipt").Child("receipt") // this is where the App Store puts the receipt when "buying" an app
-		  if not CertTools.IsValid (CertTools.DeviceGUID, CertTools.ReadReceipt(f)) then
+		  if not CertTools.IsValid (CertTools.DeviceGUID, CertTools.ReadReceipt(f), "put the App's Application Identifier here") then
 		    declare sub exit_ lib "System" alias "exit" (code as Integer)
 		    exit_ (173)
 		  end
