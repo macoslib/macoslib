@@ -54,7 +54,7 @@ Protected Module CertTools
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function IsValid(guid as String, receipt as Dictionary) As Boolean
+		Protected Function IsValid(guid as String, receipt as Dictionary, bundleID as String) As Boolean
 		  // Returns true if the given receipt (which comes from 'ReadReceipt') is valid
 		  // for the given GUID (which is a unique code for a particular machine)
 		  
@@ -67,7 +67,7 @@ Protected Module CertTools
 		    SHA1 (input, input.Size, hash)
 		    dim hashFromReceipt as String = receipt.Value(Keys.kReceiptHash)
 		    if StrComp (hash, hashFromReceipt, 0) = 0 then
-		      return true
+		      return receipt.Value(Keys.kReceiptBundleIdentifer) = bundleID
 		    end if
 		  end if
 		  
@@ -217,7 +217,7 @@ Protected Module CertTools
 		  dim guid as String
 		  guid = HexBytesToData (Array("00", "17", "f2", "c4", "bc", "c0"))
 		  
-		  if not IsValid (guid, d) then
+		  if not IsValid (guid, d, "com.example.sampleApp") then
 		    raise new RuntimeException // selftest failed
 		  end
 		End Sub
