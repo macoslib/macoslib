@@ -230,7 +230,6 @@ Protected Module CertTools
 		
 		Written by Thomas Tempelmann, 31 Oct 2010
 		Last update: 7 Jan 2011
-		
 	#tag EndNote
 
 	#tag Note, Name = Usage

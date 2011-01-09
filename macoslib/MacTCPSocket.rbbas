@@ -87,7 +87,6 @@ Inherits TCPSocket
 		
 		This class was perceived and implemented by Joe Ranieri,
 		with documentation added by Thomas Tempelmann
-		
 	#tag EndNote
 
 
