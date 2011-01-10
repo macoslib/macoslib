@@ -230,6 +230,12 @@ Begin Menu MenuBar1
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Begin MenuItem WindowManagerAlpha
+            SpecialMenu = 0
+            Text = "Alpha"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem WindowManagerProxyIcons
             SpecialMenu = 0
             Text = "Proxy Icons"

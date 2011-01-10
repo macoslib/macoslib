@@ -120,6 +120,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function WindowManagerAlpha() As Boolean Handles WindowManagerAlpha.Action
+			AlphaWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function WindowManagerProxyIcons() As Boolean Handles WindowManagerProxyIcons.Action
 			ProxyIconWindow.Show
 			return true
