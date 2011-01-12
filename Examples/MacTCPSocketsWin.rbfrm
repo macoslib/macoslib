@@ -26,14 +26,18 @@ Begin Window MacTCPSocketsWin
    Width           =   687
    Begin TCPSocket TCPSocket1
       Address         =   "www.google.com"
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -53
       LockedInPosition=   False
       Port            =   80
       Scope           =   0
+      TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin TextArea TextArea1
@@ -150,14 +154,18 @@ Begin Window MacTCPSocketsWin
    End
    Begin MacTCPSocket TCPSocket2
       Address         =   "www.google.com"
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -53
       LockedInPosition=   False
       Port            =   80
       Scope           =   0
+      TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   44
+      Visible         =   True
       Width           =   32
    End
    Begin CheckBox CheckBox1
@@ -193,6 +201,7 @@ Begin Window MacTCPSocketsWin
       Width           =   146
    End
    Begin Timer Timer1
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
@@ -201,8 +210,11 @@ Begin Window MacTCPSocketsWin
       Mode            =   0
       Period          =   1
       Scope           =   0
+      TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   88
+      Visible         =   True
       Width           =   32
    End
    Begin CheckBox CheckBox2
@@ -315,6 +327,17 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Error()
+		  if me.LastErrorCode = 102 then
+		    // that's expected
+		    return
+		  end
+		  
+		  MsgBox "Socket reports error: "+Str(me.LastErrorCode)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton1
 	#tag Event
@@ -335,6 +358,17 @@ End
 	#tag Event
 		Sub Connected()
 		  socketConnected me
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error()
+		  if me.LastErrorCode = 102 then
+		    // that's expected
+		    return
+		  end
+		  
+		  MsgBox "Socket reports error: "+Str(me.LastErrorCode)
 		  
 		End Sub
 	#tag EndEvent

@@ -11,8 +11,10 @@ Inherits TCPSocket
 		  #if TargetMacOS
 		    // We only need this for incoming data - we handle sending the
 		    // "normal" way.
-		    mCFSock = new CFSocket (me.handle, CFSocket.kReadCallBack)
-		    AddHandler mCFSock.IncomingData, AddressOf SocketDataCallback
+		    #if RBVersion > 2010.032 // AddHandler was added in 2010r4
+		      mCFSock = new CFSocket (me.handle, CFSocket.kReadCallBack)
+		      AddHandler mCFSock.IncomingData, AddressOf SocketDataCallback
+		    #endif
 		  #endif
 		  raiseEvent Connected()
 		End Sub
@@ -21,8 +23,10 @@ Inherits TCPSocket
 	#tag Event
 		Sub Error()
 		  #if TargetMacOS
-		    mCFSock.Close()
-		    mCFSock = nil
+		    if mCFSock <> nil then
+		      mCFSock.Close()
+		      mCFSock = nil
+		    end if
 		  #endif
 		  
 		  raiseEvent Error()
