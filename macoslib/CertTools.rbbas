@@ -19,7 +19,7 @@ Protected Module CertTools
 		    if bytes.Ubound = 5 then
 		      return HexBytesToData (bytes)
 		    end if
-		  #else
+		  #elseif TargetMacOS
 		    // Use this code if you do NOT use the MBS plugins nor the CoreFoundation and IOKit classes
 		    dim sh as new Shell
 		    sh.Execute "/sbin/ifconfig en0"
@@ -58,19 +58,20 @@ Protected Module CertTools
 		  // Returns true if the given receipt (which comes from 'ReadReceipt') is valid
 		  // for the given GUID (which is a unique code for a particular machine)
 		  
-		  declare sub SHA1 lib "/usr/lib/libcrypto.dylib" (d as Ptr, n as Int32, md as Ptr)
-		  
-		  if receipt <> nil then
-		    dim input as MemoryBlock
-		    input = guid + receipt.Value(Keys.kReceiptOpaqueValue) + receipt.Value(Keys.kReceiptBundleIdentiferData)
-		    dim hash as new MemoryBlock(20) ' SHA_DIGEST_LENGTH
-		    SHA1 (input, input.Size, hash)
-		    dim hashFromReceipt as String = receipt.Value(Keys.kReceiptHash)
-		    if StrComp (hash, hashFromReceipt, 0) = 0 then
-		      return receipt.Value(Keys.kReceiptBundleIdentifer) = bundleID
+		  #if TargetMacOS
+		    declare sub SHA1 lib "/usr/lib/libcrypto.dylib" (d as Ptr, n as Int32, md as Ptr)
+		    
+		    if receipt <> nil then
+		      dim input as MemoryBlock
+		      input = guid + receipt.Value(Keys.kReceiptOpaqueValue) + receipt.Value(Keys.kReceiptBundleIdentiferData)
+		      dim hash as new MemoryBlock(20) ' SHA_DIGEST_LENGTH
+		      SHA1 (input, input.Size, hash)
+		      dim hashFromReceipt as String = receipt.Value(Keys.kReceiptHash)
+		      if StrComp (hash, hashFromReceipt, 0) = 0 then
+		        return receipt.Value(Keys.kReceiptBundleIdentifer) = bundleID
+		      end if
 		    end if
-		  end if
-		  
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -78,126 +79,128 @@ Protected Module CertTools
 		Protected Function ReadReceipt(certFile as FolderItem) As Dictionary
 		  // This function reads certain entries from the App's certification receipt file
 		  
-		  declare function d2i_PKCS7_fp lib "/usr/lib/libcrypto.dylib" (fp as Int32, p7 as Ptr) as Ptr
-		  declare sub PKCS7_free lib "/usr/lib/libcrypto.dylib" (p7 as Ptr)
-		  declare function OBJ_obj2nid lib "/usr/lib/libcrypto.dylib" (ASN1_OBJECT as Ptr) as Int32
-		  declare function ASN1_get_object lib "/usr/lib/libcrypto.dylib" (ByRef pp as Ptr, ByRef plength as Int32, ByRef ptag as Int32, ByRef pclass as Int32, omax as Int32) as Int32
-		  
-		  dim result as Dictionary
-		  
-		  if certFile = nil then return nil
-		  dim bs as BinaryStream
-		  try
-		    bs = BinaryStream.Open(certFile)
-		  catch exc as RuntimeException
-		    return nil
-		  end
-		  dim fp as Int32 = bs.Handle(BinaryStream.HandleTypeFilePointer)
-		  if fp = 0 then return nil
-		  dim p7 as Ptr = d2i_PKCS7_fp (fp, nil)
-		  bs.Close
-		  bs = nil
-		  if p7 = nil then return nil
-		  
-		  // is it signed?
-		  dim nid as Int32 = OBJ_obj2nid (p7.PKCS7.type)
-		  if nid <> 22 then goto bail1
-		  
-		  // is data?
-		  nid = OBJ_obj2nid (p7.PKCS7.d.PKCS7_SIGNED.contents.PKCS7.type)
-		  if nid <> 21 then goto bail1
-		  
-		  dim octets as Ptr = p7.PKCS7.d.PKCS7_SIGNED.contents.PKCS7.d
-		  dim p, e as Ptr
-		  p = octets.ASN1_STRING.data
-		  dim l as Integer = octets.ASN1_STRING.length
-		  e = p + Ptr(l)
-		  
-		  dim res, type, xclass, length as Integer
-		  
-		  res = ASN1_get_object(p, length, type, xclass, e - p)
-		  if type <> 17 then goto bail1 ' V_ASN1_SET
-		  
-		  result = new Dictionary
-		  while p < e
-		    call ASN1_get_object (p, length, type, xclass, e - p)
-		    if type <> 16 then
-		      exit ' V_ASN1_SEQUENCE
+		  #if TargetMacOS
+		    declare function d2i_PKCS7_fp lib "/usr/lib/libcrypto.dylib" (fp as Int32, p7 as Ptr) as Ptr
+		    declare sub PKCS7_free lib "/usr/lib/libcrypto.dylib" (p7 as Ptr)
+		    declare function OBJ_obj2nid lib "/usr/lib/libcrypto.dylib" (ASN1_OBJECT as Ptr) as Int32
+		    declare function ASN1_get_object lib "/usr/lib/libcrypto.dylib" (ByRef pp as Ptr, ByRef plength as Int32, ByRef ptag as Int32, ByRef pclass as Int32, omax as Int32) as Int32
+		    
+		    dim result as Dictionary
+		    
+		    if certFile = nil then return nil
+		    dim bs as BinaryStream
+		    try
+		      bs = BinaryStream.Open(certFile)
+		    catch exc as RuntimeException
+		      return nil
 		    end
+		    dim fp as Int32 = bs.Handle(BinaryStream.HandleTypeFilePointer)
+		    if fp = 0 then return nil
+		    dim p7 as Ptr = d2i_PKCS7_fp (fp, nil)
+		    bs.Close
+		    bs = nil
+		    if p7 = nil then return nil
 		    
-		    dim seq_end as Ptr = p + Ptr(length)
+		    // is it signed?
+		    dim nid as Int32 = OBJ_obj2nid (p7.PKCS7.type)
+		    if nid <> 22 then goto bail1
 		    
-		    dim attr_type, attr_version as Integer
+		    // is data?
+		    nid = OBJ_obj2nid (p7.PKCS7.d.PKCS7_SIGNED.contents.PKCS7.type)
+		    if nid <> 21 then goto bail1
 		    
-		    // Attribute type
-		    call ASN1_get_object (p, length, type, xclass, seq_end - p)
-		    if type = 2 and length = 1 then ' V_ASN1_INTEGER
-		      attr_type = p.Byte(0)
-		    end
-		    p = p + Ptr(length)
+		    dim octets as Ptr = p7.PKCS7.d.PKCS7_SIGNED.contents.PKCS7.d
+		    dim p, e as Ptr
+		    p = octets.ASN1_STRING.data
+		    dim l as Integer = octets.ASN1_STRING.length
+		    e = p + Ptr(l)
 		    
-		    // Attribute version
-		    call ASN1_get_object (p, length, type, xclass, seq_end - p)
-		    if type = 2 and length = 1 then ' V_ASN1_INTEGER
-		      attr_version = p.Byte(0)
-		    end
-		    p = p + Ptr(length)
+		    dim res, type, xclass, length as Integer
 		    
-		    // Only parse attributes we're interested in
-		    if ATTRS(attr_type) > ATTRS.ATTR_START and ATTRS(attr_type) < ATTRS.ATTR_END then
-		      dim key as Keys
+		    res = ASN1_get_object(p, length, type, xclass, e - p)
+		    if type <> 17 then goto bail1 ' V_ASN1_SET
+		    
+		    result = new Dictionary
+		    while p < e
+		      call ASN1_get_object (p, length, type, xclass, e - p)
+		      if type <> 16 then
+		        exit ' V_ASN1_SEQUENCE
+		      end
 		      
+		      dim seq_end as Ptr = p + Ptr(length)
+		      
+		      dim attr_type, attr_version as Integer
+		      
+		      // Attribute type
 		      call ASN1_get_object (p, length, type, xclass, seq_end - p)
-		      if type = 4 then ' V_ASN1_OCTET_STRING
-		        // Bytes
-		        if ATTRS(attr_type) = ATTRS.BUNDLE_ID or ATTRS(attr_type) = ATTRS.OPAQUE_VALUE or ATTRS(attr_type) = ATTRS.HASH then
-		          select case ATTRS(attr_type)
-		          case ATTRS.BUNDLE_ID
-		            // This is included for hash generation
-		            key = Keys.kReceiptBundleIdentiferData
-		          case ATTRS.OPAQUE_VALUE
-		            key = Keys.kReceiptOpaqueValue
-		          case ATTRS.HASH
-		            key = Keys.kReceiptHash
-		          end select
-		          dim mb as MemoryBlock = p
-		          result.Value(key) = mb.StringValue(0, length)
-		        end
-		        
-		        // Strings
-		        if ATTRS(attr_type) = ATTRS.BUNDLE_ID or ATTRS(attr_type) = ATTRS.VERSION then
-		          dim str_type, str_length as Integer
-		          dim str_p as Ptr = p
-		          call ASN1_get_object (str_p, str_length, str_type, xclass, seq_end - str_p)
-		          if str_type = 12 then ' V_ASN1_UTF8STRING
-		            dim mb as MemoryBlock = str_p
-		            dim str as String = mb.StringValue(0,str_length).DefineEncoding(Encodings.UTF8)
-		            select case ATTRS(attr_type)
-		            case ATTRS.BUNDLE_ID
-		              key = Keys.kReceiptBundleIdentifer
-		            case ATTRS.VERSION
-		              key = Keys.kReceiptVersion
-		            end select
-		            result.Value(key) = str
-		          end
-		        end
+		      if type = 2 and length = 1 then ' V_ASN1_INTEGER
+		        attr_type = p.Byte(0)
 		      end
 		      p = p + Ptr(length)
 		      
-		    end if
-		    
-		    // Skip any remaining fields in this SEQUENCE
-		    while p < seq_end
+		      // Attribute version
 		      call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		      if type = 2 and length = 1 then ' V_ASN1_INTEGER
+		        attr_version = p.Byte(0)
+		      end
 		      p = p + Ptr(length)
+		      
+		      // Only parse attributes we're interested in
+		      if ATTRS(attr_type) > ATTRS.ATTR_START and ATTRS(attr_type) < ATTRS.ATTR_END then
+		        dim key as Keys
+		        
+		        call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		        if type = 4 then ' V_ASN1_OCTET_STRING
+		          // Bytes
+		          if ATTRS(attr_type) = ATTRS.BUNDLE_ID or ATTRS(attr_type) = ATTRS.OPAQUE_VALUE or ATTRS(attr_type) = ATTRS.HASH then
+		            select case ATTRS(attr_type)
+		            case ATTRS.BUNDLE_ID
+		              // This is included for hash generation
+		              key = Keys.kReceiptBundleIdentiferData
+		            case ATTRS.OPAQUE_VALUE
+		              key = Keys.kReceiptOpaqueValue
+		            case ATTRS.HASH
+		              key = Keys.kReceiptHash
+		            end select
+		            dim mb as MemoryBlock = p
+		            result.Value(key) = mb.StringValue(0, length)
+		          end
+		          
+		          // Strings
+		          if ATTRS(attr_type) = ATTRS.BUNDLE_ID or ATTRS(attr_type) = ATTRS.VERSION then
+		            dim str_type, str_length as Integer
+		            dim str_p as Ptr = p
+		            call ASN1_get_object (str_p, str_length, str_type, xclass, seq_end - str_p)
+		            if str_type = 12 then ' V_ASN1_UTF8STRING
+		              dim mb as MemoryBlock = str_p
+		              dim str as String = mb.StringValue(0,str_length).DefineEncoding(Encodings.UTF8)
+		              select case ATTRS(attr_type)
+		              case ATTRS.BUNDLE_ID
+		                key = Keys.kReceiptBundleIdentifer
+		              case ATTRS.VERSION
+		                key = Keys.kReceiptVersion
+		              end select
+		              result.Value(key) = str
+		            end
+		          end
+		        end
+		        p = p + Ptr(length)
+		        
+		      end if
+		      
+		      // Skip any remaining fields in this SEQUENCE
+		      while p < seq_end
+		        call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		        p = p + Ptr(length)
+		      wend
+		      
 		    wend
 		    
-		  wend
-		  
-		  bail1:
-		  PKCS7_free (p7)
-		  
-		  return result
+		    bail1:
+		    PKCS7_free (p7)
+		    
+		    return result
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -205,21 +208,23 @@ Protected Module CertTools
 		Protected Sub SelfTest()
 		  // Call this function just to test whether the verification code works in general
 		  
-		  dim f as FolderItem
-		  f = SpecialFolder.Temporary.Child("selftest-data")
-		  BinaryStream.Create(f,true).Write(DecodeBase64(SampleReceipt))
-		  dim d as Dictionary
-		  d = ReadReceipt(f)
-		  f.Delete
-		  
-		  if d = nil then raise new RuntimeException // selftest failed
-		  
-		  dim guid as String
-		  guid = HexBytesToData (Array("00", "17", "f2", "c4", "bc", "c0"))
-		  
-		  if not IsValid (guid, d, "com.example.sampleApp") then
-		    raise new RuntimeException // selftest failed
-		  end
+		  #if TargetMacOS
+		    dim f as FolderItem
+		    f = SpecialFolder.Temporary.Child("selftest-data")
+		    BinaryStream.Create(f,true).Write(DecodeBase64(SampleReceipt))
+		    dim d as Dictionary
+		    d = ReadReceipt(f)
+		    f.Delete
+		    
+		    if d = nil then raise new RuntimeException // selftest failed
+		    
+		    dim guid as String
+		    guid = HexBytesToData (Array("00", "17", "f2", "c4", "bc", "c0"))
+		    
+		    if not IsValid (guid, d, "com.example.sampleApp") then
+		      raise new RuntimeException // selftest failed
+		    end
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -229,7 +234,7 @@ Protected Module CertTools
 		as it's used with applications delivered by Apple's App Store.
 		
 		Written by Thomas Tempelmann, 31 Oct 2010
-		Last update: 7 Jan 2011
+		Last update: 12 Jan 2011
 	#tag EndNote
 
 	#tag Note, Name = Usage
