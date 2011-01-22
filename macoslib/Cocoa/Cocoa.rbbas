@@ -2,7 +2,7 @@
 Protected Module Cocoa
 	#tag Method, Flags = &h1
 		Protected Function ClassRef(className as String) As id
-		  #if TargetMachO
+		  #if TargetMacOS
 		    dim theClassRef as Integer
 		    Declare Function objc_getClass Lib CocoaLib (aClassName as CString) as Integer
 		    

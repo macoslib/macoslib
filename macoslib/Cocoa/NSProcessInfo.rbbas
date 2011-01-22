@@ -1,27 +1,24 @@
 #tag Class
-Class NSNotificationCenter
+Class NSProcessInfo
 Inherits NSObject
 	#tag Method, Flags = &h0
-		Sub AddObserver()
-		  declare sub objc_msgSend lib CocoaLib alias "objc_msgSend" (theReceiver as Cocoa.id, theSelector as Cocoa.SEL, _
-		  obs as id, sel as SEL, name as CFStringRef, sender as id)
+		Function Arguments() As NSArray
+		  declare function arguments_ lib CocoaLib selector "arguments" (ref as id) as Ptr
 		  
-		  static sel as SEL = Cocoa.Selector ("addObserver:selector:name:object:")
-		  
-		  'objc_msgSend (
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function ClassRef() As id
-		  static ref as id = Cocoa.ClassRef("NSNotificationCenter")
-		  return ref
+		  return new NSArray (arguments_(me.Reference), false)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor()
-		  super.Constructor (ClassRef)
+		 Shared Function ClassRef() As id
+		  static ref as id = Cocoa.ClassRef("NSProcessInfo")
+		  return ref
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Constructor()
+		  // use NSProcessInfo.ProcessInfo instead!
 		End Sub
 	#tag EndMethod
 
@@ -34,13 +31,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultCenter() As NSNotificationCenter
-		  declare function objc_msgSend lib CocoaLib alias "objc_msgSend" (theReceiver as id, theSelector as SEL) as Integer
+		 Shared Function ProcessInfo() As NSProcessInfo
+		  declare function processInfo_ lib CocoaLib selector "processInfo" (ref as id) as UInt32
 		  
-		  static c as NSNotificationCenter
+		  static c as NSProcessInfo
 		  if c = nil then
-		    dim cid as id = Cocoa.To_id (objc_msgSend (ClassRef, Cocoa.Selector("defaultCenter")))
-		    c = new NSNotificationCenter (cid)
+		    dim cid as id = Cocoa.To_id (processInfo_ (ClassRef))
+		    c = new NSProcessInfo (cid)
 		  end
 		  return c
 		End Function
@@ -52,7 +49,7 @@ Inherits NSObject
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="2147483648"
+			InitialValue="-2147483648"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

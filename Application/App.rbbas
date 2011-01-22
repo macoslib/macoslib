@@ -9,7 +9,7 @@ Inherits Application
 		  CertTools.SelfTest
 		  TestFileManager
 		  TestBundleLookup
-		  
+		  TestCocoa
 		End Sub
 	#tag EndEvent
 
@@ -141,6 +141,20 @@ Inherits Application
 		  if f = nil or not f.Exists then
 		    MsgBox "Error: can't locate Finder.app"
 		  end
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub TestCocoa()
+		  // Test ProcessInfo.Arguments. First item should be our app's path
+		  dim args as NSArray = NSProcessInfo.ProcessInfo.Arguments
+		  dim pathFromPI as String = CFString(args.Value(0))
+		  dim pathFromRB as String = App.ExecutableFile.POSIXPath
+		  if pathFromPI <> pathFromRB then break // they should be equal, usually
+		  
+		  // Try to register something with the Services API
+		  NSApplication.SharedApplication.RegisterServices
+		  
 		End Sub
 	#tag EndMethod
 

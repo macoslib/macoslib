@@ -23,13 +23,13 @@ Protected Class NSObject
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Destructor()
+	#tag Method, Flags = &h1
+		Protected Sub Destructor()
 		  #if TargetMachO
-		    Declare Sub objc_msgSend Lib CocoaLib (theReceiver as id, theSelector as SEL)
+		    Declare Sub release Lib CocoaLib selector "release" (theReceiver as id)
 		    
 		    if me.objRef.value <> 0 then
-		      objc_msgSend me.objRef, Cocoa.Selector("release")
+		      release me.objRef
 		      me.objRef = To_id(0)
 		    end
 		  #endif
