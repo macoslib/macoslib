@@ -233,6 +233,9 @@ Protected Module CertTools
 		This module contains methods that help checking a receipt file
 		as it's used with applications delivered by Apple's App Store.
 		
+		Original (i.e. up-to-date) sources are located here:
+		  http://code.google.com/p/macoslib
+		
 		Written by Thomas Tempelmann, 31 Oct 2010
 		Last update: 12 Jan 2011
 	#tag EndNote
