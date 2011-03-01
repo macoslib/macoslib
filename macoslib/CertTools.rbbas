@@ -1,7 +1,7 @@
 #tag Module
 Protected Module CertTools
 	#tag Method, Flags = &h1
-		Protected Function DeviceGUID() As MemoryBlock
+		Protected Function DeviceGUID() As String
 		  // The Mac's GUID is the MAC address from network interface "en0", see https://developer.apple.com/devcenter/mac/documents/validating.html
 		  
 		  #if true
@@ -219,6 +219,12 @@ Protected Module CertTools
 		    if d = nil then raise new RuntimeException // selftest failed
 		    
 		    dim guid as String
+		    
+		    guid = DeviceGUID
+		    if guid = "" then
+		      MsgBox "Oops - no DeviceGUID on this computer?"
+		    end if
+		    
 		    guid = HexBytesToData (Array("00", "17", "f2", "c4", "bc", "c0"))
 		    
 		    if not IsValid (guid, d, "com.example.sampleApp") then
