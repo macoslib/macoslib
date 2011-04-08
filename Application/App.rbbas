@@ -13,6 +13,12 @@ Inherits Application
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub Open()
+		  WindowMenu.Initialize
+		End Sub
+	#tag EndEvent
+
 
 	#tag MenuHandler
 		Function ControlsMacDatePicker() As Boolean Handles ControlsMacDatePicker.Action
@@ -134,6 +140,17 @@ Inherits Application
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h0
+		 Shared Function NSApplication() As Ptr
+		  #if targetCocoa
+		    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+		    soft declare function sharedApplication lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
+		    
+		    return sharedApplication(NSClassFromString("NSApplication"))
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub TestBundleLookup()
 		  dim f as FolderItem
@@ -153,8 +170,7 @@ Inherits Application
 		  if pathFromPI <> pathFromRB then break // they should be equal, usually
 		  
 		  // Try to register something with the Services API
-		  NSApplication.SharedApplication.RegisterServices
-		  
+		  Cocoa.NSApplication.SharedApplication.RegisterServices
 		End Sub
 	#tag EndMethod
 

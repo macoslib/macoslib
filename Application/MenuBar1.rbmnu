@@ -256,5 +256,44 @@ Begin Menu MenuBar1
          AutoEnable = True
       End
    End
+   Begin WindowMenu WindowMenu
+      SpecialMenu = 0
+      Text = "Window"
+      Index = -2147483648
+      AutoEnable = True
+      Begin WindowMenuItemMinimize WindowMinimize
+         SpecialMenu = 0
+         Text = "Minimize"
+         Index = -2147483648
+         ShortcutKey = "M"
+         Shortcut = "Cmd+M"
+         MenuModifier = True
+         AutoEnable = False
+      End
+      Begin WindowMenuItemZoom AppWindowMenuTitleZoom
+         SpecialMenu = 0
+         Text = "Zoom"
+         Index = -2147483648
+         AutoEnable = False
+      End
+      Begin MenuItem UntitledSeparator0
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+      End
+      Begin WindowMenuItemBringAllToFront AppWindowMenuTitleBringAllToFront
+         SpecialMenu = 0
+         Text = "Bring All To Front"
+         Index = -2147483648
+         AutoEnable = False
+      End
+      Begin MenuItem UntitledSeparator1
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+      End
+   End
 End
 #tag EndMenu
