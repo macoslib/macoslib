@@ -107,6 +107,14 @@ Protected Module Cocoa
 		Protected Declare Function NSClassFromString Lib CocoaLib (aClassName as CFStringRef) As Ptr
 	#tag EndExternalMethod
 
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSFullUserName Lib CocoaLib () As CFStringRef
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSHomeDirectory Lib CocoaLib () As CFStringRef
+	#tag EndExternalMethod
+
 	#tag Method, Flags = &h0
 		Function NSSearchPathForDirectoriesInDomains(dir as Integer, domainMask as Integer, expandTilde as Boolean) As NSArray
 		  declare function searchPaths lib CocoaLib alias "NSSearchPathForDirectoriesInDomains" (dir as Integer, domainMask as Integer, expandTilde as Boolean) as Ptr
@@ -117,6 +125,10 @@ Protected Module Cocoa
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
 
 
