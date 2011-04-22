@@ -2,8 +2,8 @@
 Class NSAutoreleasePool
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function ClassRef() As Cocoa.id
-		  return Cocoa.ClassRef("NSAutoreleasePool")
+		 Shared Function ClassRef() As Ptr
+		  return Cocoa.NSClassFromString("NSAutoreleasePool")
 		End Function
 	#tag EndMethod
 

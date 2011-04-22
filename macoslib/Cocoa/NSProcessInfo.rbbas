@@ -3,45 +3,33 @@ Class NSProcessInfo
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Arguments() As NSArray
-		  declare function arguments_ lib CocoaLib selector "arguments" (ref as id) as Ptr
+		  declare function arguments_ lib CocoaLib selector "arguments" (ref as Ptr) as Ptr
 		  
-		  return new NSArray (arguments_(me.Reference), false)
+		  return new NSArray (arguments_(self.id), false)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassRef() As id
-		  static ref as id = Cocoa.ClassRef("NSProcessInfo")
+		 Shared Function ClassRef() As Ptr
+		  static ref as Ptr = Cocoa.NSClassFromString("NSProcessInfo")
 		  return ref
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Constructor()
-		  // use NSProcessInfo.ProcessInfo instead!
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Constructor(objRef as id)
-		  // We're using an already existing ID, hence no call to super.Constructor(id)
-		  super.Constructor
-		  me.objRef = objRef
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		 Shared Function ProcessInfo() As NSProcessInfo
-		  declare function processInfo_ lib CocoaLib selector "processInfo" (ref as id) as UInt32
-		  
-		  static c as NSProcessInfo
-		  if c = nil then
-		    dim cid as id = Cocoa.To_id (processInfo_ (ClassRef))
-		    c = new NSProcessInfo (cid)
-		  end
-		  return c
+		  #if targetCocoa
+		    declare function defaultCenter lib CocoaLib selector "processInfo" (class_id as Ptr) as Ptr
+		    
+		    static c as new NSProcessInfo(defaultCenter(NSClassFromString(NSClassName)))
+		    return c
+		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag Constant, Name = NSClassName, Type = String, Dynamic = False, Default = \"NSProcessInfo", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior

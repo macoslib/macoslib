@@ -3,48 +3,37 @@ Class NSNotificationCenter
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub AddObserver()
-		  declare sub objc_msgSend lib CocoaLib alias "objc_msgSend" (theReceiver as Cocoa.id, theSelector as Cocoa.SEL, _
-		  obs as id, sel as SEL, name as CFStringRef, sender as id)
-		  
-		  static sel as SEL = Cocoa.Selector ("addObserver:selector:name:object:")
-		  
-		  'objc_msgSend (
+		  'declare sub objc_msgSend lib CocoaLib alias "objc_msgSend" (theReceiver as Cocoa.id, theSelector as Cocoa.SEL, _
+		  'obs as id, sel as SEL, name as CFStringRef, sender as id)
+		  '
+		  'static sel as SEL = Cocoa.Selector ("addObserver:selector:name:object:")
+		  '
+		  ''objc_msgSend (
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassRef() As id
-		  static ref as id = Cocoa.ClassRef("NSNotificationCenter")
+		 Shared Function ClassRef() As Ptr
+		  static ref as Ptr = Cocoa.NSClassFromString(NSClassName)
 		  return ref
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor()
-		  super.Constructor (ClassRef)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Constructor(objRef as id)
-		  // We're using an already existing ID, hence no call to super.Constructor(id)
-		  super.Constructor
-		  me.objRef = objRef
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function DefaultCenter() As NSNotificationCenter
-		  declare function objc_msgSend lib CocoaLib alias "objc_msgSend" (theReceiver as id, theSelector as SEL) as Integer
+		  #if targetCocoa
+		    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
+		    
+		    static c as new NSNotificationCenter(defaultCenter(NSClassFromString(NSClassName)))
+		    return c
+		  #endif
 		  
-		  static c as NSNotificationCenter
-		  if c = nil then
-		    dim cid as id = Cocoa.To_id (objc_msgSend (ClassRef, Cocoa.Selector("defaultCenter")))
-		    c = new NSNotificationCenter (cid)
-		  end
-		  return c
 		End Function
 	#tag EndMethod
+
+
+	#tag Constant, Name = NSClassName, Type = String, Dynamic = False, Default = \"NSNotificationCenter", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior

@@ -1,21 +1,6 @@
 #tag Module
 Protected Module Cocoa
 	#tag Method, Flags = &h1
-		Protected Function ClassRef(className as String) As id
-		  #if TargetMacOS
-		    dim theClassRef as Integer
-		    Declare Function objc_getClass Lib CocoaLib (aClassName as CString) as Integer
-		    
-		    theClassRef = objc_getClass(className)
-		    If theClassRef = 0 then
-		      Raise new CocoaUnregisteredClassException(className)
-		    End if
-		    Return To_id(theClassRef)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
 		Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
 		  // Note: The passed path must be absolute, i.e. start from root with "/"
 		  
@@ -39,13 +24,13 @@ Protected Module Cocoa
 
 	#tag Method, Flags = &h1
 		Protected Sub Initialize()
-		  #if TargetMachO
+		  #if TargetCarbon
 		    Declare Function NSApplicationLoad Lib CocoaLib () as Boolean
 		    
 		    autoreleasePool = new AutoreleaseTimer
 		    
 		    if not NSApplicationLoad() then
-		      break // oops, what's wrong here? (Maybe this happens once RB implements Cocoa support - then we can ignore this here)
+		      break
 		    end
 		  #endif
 		End Sub
@@ -55,7 +40,7 @@ Protected Module Cocoa
 		Protected Function LoadFramework(frameworkName as String, searchPublicFrameworks as Boolean = true) As CFBundle
 		  // Call this to make a framework known to the app, so that its classRef etc. can be looked up
 		  
-		  Declare Function objc_msgSend Lib CocoaLib Alias "objc_msgSend" (theReceiver as Cocoa.id, theSelector as Cocoa.SEL) as UInt32 // do not return cocoa.id here because that doesn't work on PowerPC due to bug in RB (as of 2008r5.1)
+		  Declare Function objc_msgSend Lib CocoaLib Alias "objc_msgSend" (theReceiver as Ptr, theSelector as Ptr) as UInt32 // do not return cocoa.id here because that doesn't work on PowerPC due to bug in RB (as of 2008r5.1)
 		  
 		  static gResult as CFBundle
 		  static gDidSearch as Boolean
@@ -130,37 +115,9 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function Selector(selectorName as String) As SEL
-		  #if TargetMachO
-		    Declare Function sel_registerName Lib CocoaLib (theName as CString) as Integer
-		    
-		    dim selectorRef as Integer
-		    
-		    selectorRef = sel_registerName(selectorName)
-		    If selectorRef = 0 then
-		      Raise new CocoaUnregisteredSelectorException(selectorName)
-		    End if
-		    Return ToSEL(selectorRef)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ToSEL(sel as Integer) As SEL
-		  dim s as SEL
-		  s.value = sel
-		  return s
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function To_id(id as Integer) As id
-		  dim s as id
-		  s.value = id
-		  return s
-		End Function
-	#tag EndMethod
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
+	#tag EndExternalMethod
 
 
 	#tag Note, Name = About
@@ -211,19 +168,11 @@ Protected Module Cocoa
 	#tag EndConstant
 
 
-	#tag Structure, Name = id, Flags = &h1
-		value as UInt32
-	#tag EndStructure
-
 	#tag Structure, Name = NSRect, Flags = &h1
 		x as Single
 		  y as Single
 		  w as Single
 		h as Single
-	#tag EndStructure
-
-	#tag Structure, Name = SEL, Flags = &h1
-		value as UInt32
 	#tag EndStructure
 
 

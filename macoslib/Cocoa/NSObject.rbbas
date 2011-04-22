@@ -1,56 +1,52 @@
 #tag Class
 Protected Class NSObject
-	#tag Method, Flags = &h1
-		Protected Sub Constructor()
+	#tag Method, Flags = &h0
+		Function ClassObjectID() As Ptr
+		  //this method returns the id of the class object.  Typically it would be used in subclasses in the implementation 
+		  //of Cocoa class methods in Rb.
+		  
+		  
+		  #if targetCocoa
+		    soft declare function klass lib Cocoa selector "class" (id as Ptr) as Ptr
+		    
+		    if self._id <> nil then
+		      return klass(me._id)
+		    else
+		      return nil
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Constructor()
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Sub Constructor(classRef as id)
-		  #if TargetMachO
-		    Declare Function objc_msgSend Lib CocoaLib (theReceiver as id, theSelector as SEL) as UInt32 // do not return cocoa.id here because that doesn't work on PowerPC due to bug in RB (as of 2008r5.1)
-		    
-		    me.objRef.value = objc_msgSend (classRef, Cocoa.Selector("alloc"))
-		    if me.objRef.value = 0 then //allocation failed
-		      raise new RuntimeException
-		    end
-		    me.objRef.value = objc_msgSend (me.objRef, Cocoa.Selector("init"))
-		    if me.objRef.value = 0 then //initialization failed
-		      raise new RuntimeException
-		    end
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub Destructor()
-		  #if TargetMachO
-		    Declare Sub release Lib CocoaLib selector "release" (theReceiver as id)
-		    
-		    if me.objRef.value <> 0 then
-		      release me.objRef
-		      me.objRef = To_id(0)
-		    end
-		  #endif
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
-		Function Reference() As id
-		  return objRef
-		End Function
+		Sub Constructor(obj_id as Ptr)
+		  me._id = obj_id
+		End Sub
 	#tag EndMethod
 
 
-	#tag Note, Name = About
-		Derived from: http://www.declaresub.com/ideclare/Cocoa/index.html
-	#tag EndNote
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return self._id
+			End Get
+		#tag EndGetter
+		id As Ptr
+	#tag EndComputedProperty
 
-
-	#tag Property, Flags = &h1
-		Protected objRef As id
+	#tag Property, Flags = &h21
+		Private _id As Ptr
 	#tag EndProperty
+
+
+	#tag Constant, Name = Cocoa, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -58,7 +54,7 @@ Protected Class NSObject
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="2147483648"
+			InitialValue="-2147483648"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
