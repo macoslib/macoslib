@@ -109,6 +109,19 @@ Begin Menu MenuBar1
       Text = "Examples"
       Index = -2147483648
       AutoEnable = True
+      Begin MenuItem ExamplesCocoa
+         SpecialMenu = 0
+         Text = "Cocoa"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem CocoaNSColorBrowser
+            SpecialMenu = 0
+            Text = "NSColor Browser"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
       Begin MenuItem ExamplesControls
          SpecialMenu = 0
          Text = "Controls"

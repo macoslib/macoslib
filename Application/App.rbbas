@@ -21,6 +21,13 @@ Inherits Application
 
 
 	#tag MenuHandler
+		Function CocoaNSColorBrowser() As Boolean Handles CocoaNSColorBrowser.Action
+			NSColorWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ControlsMacDatePicker() As Boolean Handles ControlsMacDatePicker.Action
 			MacDatePickerExampleWindow.Show
 			return true
