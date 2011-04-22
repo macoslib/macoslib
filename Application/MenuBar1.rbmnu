@@ -121,6 +121,24 @@ Begin Menu MenuBar1
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSDatePicker
+            SpecialMenu = 0
+            Text = "NSDatePicker"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSLevelIndicator
+            SpecialMenu = 0
+            Text = "NSLevelIndicator"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSPathControl
+            SpecialMenu = 0
+            Text = "NSPathControl"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesControls
          SpecialMenu = 0

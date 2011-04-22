@@ -28,6 +28,28 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSDatePicker() As Boolean Handles CocoaNSDatePicker.Action
+			NSDatePickerWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSLevelIndicator() As Boolean Handles CocoaNSLevelIndicator.Action
+			NSLevelIndicatorWindow.Show
+			return true
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSPathControl() As Boolean Handles CocoaNSPathControl.Action
+			NSPathControlWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ControlsMacDatePicker() As Boolean Handles ControlsMacDatePicker.Action
 			MacDatePickerExampleWindow.Show
 			return true

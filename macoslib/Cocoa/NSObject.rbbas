@@ -30,6 +30,12 @@ Protected Class NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As Ptr
+		  return self.id
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
