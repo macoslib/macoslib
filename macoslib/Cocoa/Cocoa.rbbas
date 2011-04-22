@@ -118,6 +118,10 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSClassFromString Lib CocoaLib (aClassName as CFStringRef) As Ptr
+	#tag EndExternalMethod
+
 	#tag Method, Flags = &h0
 		Function NSSearchPathForDirectoriesInDomains(dir as Integer, domainMask as Integer, expandTilde as Boolean) As NSArray
 		  declare function searchPaths lib CocoaLib alias "NSSearchPathForDirectoriesInDomains" (dir as Integer, domainMask as Integer, expandTilde as Boolean) as Ptr
@@ -209,6 +213,13 @@ Protected Module Cocoa
 
 	#tag Structure, Name = id, Flags = &h1
 		value as UInt32
+	#tag EndStructure
+
+	#tag Structure, Name = NSRect, Flags = &h1
+		x as Single
+		  y as Single
+		  w as Single
+		h as Single
 	#tag EndStructure
 
 	#tag Structure, Name = SEL, Flags = &h1
