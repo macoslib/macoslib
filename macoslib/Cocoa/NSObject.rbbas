@@ -22,7 +22,7 @@ Class NSObject
 
 	#tag Method, Flags = &h0
 		Function ClassObjectID() As Ptr
-		  //this method returns the id of the class object.  Typically it would be used in subclasses in the implementation 
+		  //this method returns the id of the class object.  Typically it would be used in subclasses in the implementation
 		  //of Cocoa class methods in Rb.
 		  
 		  
@@ -127,6 +127,11 @@ Class NSObject
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
