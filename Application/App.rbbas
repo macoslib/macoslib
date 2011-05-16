@@ -16,6 +16,7 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  WindowMenu.Initialize
+		  
 		End Sub
 	#tag EndEvent
 
