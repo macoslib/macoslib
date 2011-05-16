@@ -3,9 +3,11 @@ Class NSProcessInfo
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Arguments() As NSArray
-		  declare function arguments_ lib CocoaLib selector "arguments" (ref as Ptr) as Ptr
-		  
-		  return new NSArray (arguments_(self.id), false)
+		  #if targetMacOS
+		    declare function arguments_ lib CocoaLib selector "arguments" (ref as Ptr) as Ptr
+		    
+		    return new NSArray (arguments_(self.id), false)
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -18,7 +20,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function ProcessInfo() As NSProcessInfo
-		  #if targetCocoa
+		  #if targetMacOS
 		    declare function defaultCenter lib CocoaLib selector "processInfo" (class_id as Ptr) as Ptr
 		    
 		    static c as new NSProcessInfo(defaultCenter(NSClassFromString(NSClassName)))
