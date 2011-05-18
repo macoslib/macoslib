@@ -121,8 +121,8 @@ Class NSObject
 		id As Ptr
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
-		Private _id As Ptr
+	#tag Property, Flags = &h1
+		Protected _id As Ptr
 	#tag EndProperty
 
 
