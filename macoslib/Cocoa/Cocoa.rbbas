@@ -27,11 +27,14 @@ Protected Module Cocoa
 		  #if TargetCarbon
 		    Declare Function NSApplicationLoad Lib CocoaLib () as Boolean
 		    
-		    autoreleasePool = new AutoreleaseTimer
-		    
-		    if not NSApplicationLoad() then
-		      break
-		    end
+		    static inited as Boolean
+		    if not inited then // we should do this only once!
+		      inited = true
+		      autoreleasePool = new AutoreleaseTimer
+		      if not NSApplicationLoad() then
+		        break
+		      end
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
