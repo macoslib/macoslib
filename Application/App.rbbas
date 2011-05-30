@@ -16,7 +16,6 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  WindowMenu.Initialize
-		  
 		End Sub
 	#tag EndEvent
 
@@ -46,6 +45,20 @@ Inherits Application
 	#tag MenuHandler
 		Function CocoaNSPathControl() As Boolean Handles CocoaNSPathControl.Action
 			NSPathControlWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSSearchField() As Boolean Handles CocoaNSSearchField.Action
+			NSSearchFieldExample.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSTableView() As Boolean Handles CocoaNSTableView.Action
+			NSTableViewExample.Show
 			return true
 		End Function
 	#tag EndMenuHandler
@@ -193,14 +206,17 @@ Inherits Application
 
 	#tag Method, Flags = &h1
 		Protected Sub TestCocoa()
-		  // Test ProcessInfo.Arguments. First item should be our app's path
-		  dim args as NSArray = NSProcessInfo.ProcessInfo.Arguments
-		  dim pathFromPI as String = CFString(args.Value(0))
-		  dim pathFromRB as String = App.ExecutableFile.POSIXPath
-		  if pathFromPI <> pathFromRB then break // they should be equal, usually
-		  
-		  // Try to register something with the Services API
-		  Cocoa.NSApplication.SharedApplication.RegisterServices
+		  #if targetMacOS
+		    // Test ProcessInfo.Arguments. First item should be our app's path
+		    dim args as NSArray = NSProcessInfo.ProcessInfo.Arguments
+		    dim pathFromPI as String = CFString(args.Value(0))
+		    dim pathFromRB as String = App.ExecutableFile.POSIXPath
+		    if pathFromPI <> pathFromRB then break // they should be equal, usually
+		    
+		    // Try to register something with the Services API
+		    Cocoa.NSApplication.SharedApplication.RegisterServices
+		    
+		  #endif
 		End Sub
 	#tag EndMethod
 

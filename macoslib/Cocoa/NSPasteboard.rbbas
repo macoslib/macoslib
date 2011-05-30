@@ -1,0 +1,1 @@
+#tag ClassClass NSPasteboardInherits NSObject	#tag Method, Flags = &h0		Function Name() As String		  #if targetMacOS		    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as CFStringRef		    		    return name(self)		  #endif		End Function	#tag EndMethodEnd Class#tag EndClass
