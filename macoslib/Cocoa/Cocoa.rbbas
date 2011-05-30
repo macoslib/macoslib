@@ -130,6 +130,10 @@ Protected Module Cocoa
 		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
 	#tag EndExternalMethod
 
+	#tag ExternalMethod, Flags = &h0
+		Declare Function NSStringFromClass Lib CocoaLib (aClass as Ptr) As CFStringRef
+	#tag EndExternalMethod
+
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
@@ -183,11 +187,21 @@ Protected Module Cocoa
 	#tag EndConstant
 
 
+	#tag Structure, Name = NSPoint, Flags = &h1
+		x as Single
+		y as Single
+	#tag EndStructure
+
 	#tag Structure, Name = NSRect, Flags = &h1
 		x as Single
 		  y as Single
 		  w as Single
 		h as Single
+	#tag EndStructure
+
+	#tag Structure, Name = NSSize, Flags = &h1
+		width as Single
+		height as Single
 	#tag EndStructure
 
 
