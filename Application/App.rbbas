@@ -15,6 +15,12 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
+		  #if targetCocoa
+		    self.MenuBar = CocoaMenubar
+		  #else
+		    self.MenuBar = CarbonMenubar
+		  #endif
+		  
 		  WindowMenu.Initialize
 		End Sub
 	#tag EndEvent
@@ -59,6 +65,13 @@ Inherits Application
 	#tag MenuHandler
 		Function CocoaNSTableView() As Boolean Handles CocoaNSTableView.Action
 			NSTableViewExample.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaTextArea() As Boolean Handles CocoaTextArea.Action
+			TextAreaExample.Show
 			return true
 		End Function
 	#tag EndMenuHandler
