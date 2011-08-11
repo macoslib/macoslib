@@ -70,6 +70,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSTimeZone() As Boolean Handles CocoaNSTimeZone.Action
+			NSTimeZoneWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaTextArea() As Boolean Handles CocoaTextArea.Action
 			TextAreaExample.Show
 			return true
