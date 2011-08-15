@@ -1,39 +1,48 @@
 #tag Class
-Class CFCalendar
-Inherits CFType
-	#tag Event
-		Function ClassID() As CFTypeID
-		  return me.ClassID
-		End Function
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
-		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFCalendarGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
-		    return id
-		  #endif
-		End Function
-	#tag EndMethod
-
+Class NSMenuItem
+Inherits NSObject
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function tag lib CocoaLib selector "tag" (obj_id as Ptr) as Integer
+			    
+			    return tag(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetMacOS
+			    declare sub setTag lib CocoaLib selector "setTag:" (obj_id as Ptr, value as Integer)
+			    
+			    setTag(self, value)
+			  #endif
+			End Set
+		#tag EndSetter
+		Tag As Integer
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    soft declare function CFCalendarGetIdentifier lib CarbonLib (calendar as Ptr) as CFStringRef
+			    declare function title lib CocoaLib selector "title" (obj_id as Ptr) as CFStringRef
 			    
-			    dim theIdentifier as CFStringRef = CFCalendarGetIdentifier(me.Reference)
-			    soft declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
-			    theIdentifier.Retain
-			    return theIdentifier
+			    return title(self)
 			  #endif
-			  
 			End Get
 		#tag EndGetter
-		Identifier As String
+		#tag Setter
+			Set
+			  #if targetMacOS
+			    declare sub setTitle lib CocoaLib selector "setTitle:" (obj_id as Ptr, value as CFStringRef)
+			    
+			    setTitle(self, value)
+			  #endif
+			End Set
+		#tag EndSetter
+		Title As String
 	#tag EndComputedProperty
 
 
@@ -43,13 +52,7 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Identifier"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -76,6 +79,11 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Title"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
