@@ -74,6 +74,46 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Shared Sub DispatchcontrolTextDidEndEditing(id as Ptr, sel as Ptr, notification as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSSearchField = NSSearchField(w.Value)
+		    if obj <> nil then
+		      obj.EditEnded new NSNotification(notification)
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function DispatchcontrolTextShouldEndEditing(id as Ptr, sel as Ptr, cntl as Ptr, fieldEditor as Ptr) As Boolean
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSSearchField = NSSearchField(w.Value)
+		    if obj <> nil then
+		      return obj.EditEnding(new NSText(fieldEditor))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Shared Sub DispatchMenuAction(id as Ptr, sel as Ptr, sender as Ptr)
 		  #pragma unused sel
 		  
@@ -91,6 +131,18 @@ Inherits NSControl
 		    //something might be wrong.
 		  end if
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub EditEnded(notification as NSNotification)
+		  raiseEvent EditEnded(notification)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function EditEnding(fieldEditor as NSText) As Boolean
+		  return raiseEvent EditEnding(fieldEditor)
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -120,9 +172,15 @@ Inherits NSControl
 		    soft declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    
 		    objc_registerClassPair newClassId
-		    const MethodTypeEncoding = "v@:@"
+		    const MethodTypeEncoding_menuAction = "v@:@"
+		    const MethodTypeEncoding_controlTextDidEndEditing = "v@:@"
+		    const MethodTypeEncoding_controlTextShouldEndEditing = "B@:@@"
 		    
-		    if AddInstanceMethod(newClassId, "menuAction:", AddressOf DispatchMenuAction, MethodTypeEncoding) then
+		    dim methodsAdded as Boolean = AddInstanceMethod(newClassId, "menuAction:", AddressOf DispatchMenuAction, MethodTypeEncoding_menuAction) 
+		    methodsAdded = methodsAdded and AddInstanceMethod(newClassId, "controlTextDidEndEditing:", AddressOf DispatchcontrolTextDidEndEditing, MethodTypeEncoding_controlTextDidEndEditing)
+		    methodsAdded = methodsAdded and AddInstanceMethod(newClassId, "control:textShouldEndEditing:", AddressOf DispatchcontrolTextShouldEndEditing, MethodTypeEncoding_controlTextShouldEndEditing)
+		    
+		    if methodsAdded then
 		      return newClassId
 		    else
 		      return nil
@@ -227,6 +285,16 @@ Inherits NSControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub SelectAll()
+		  #if targetCocoa
+		    declare sub selectText lib CocoaLib selector "selectText:" (obj_id as Ptr, sender as Ptr)
+		    
+		    selectText(self, self)
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub SetDelegate()
 		  #if targetCocoa
@@ -307,6 +375,14 @@ Inherits NSControl
 		End Sub
 	#tag EndMethod
 
+
+	#tag Hook, Flags = &h0
+		Event EditEnded(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event EditEnding(fieldEditor as NSText) As Boolean
+	#tag EndHook
 
 	#tag Hook, Flags = &h0
 		Event MenuAction(item as NSMenuItem)
@@ -614,6 +690,11 @@ Inherits NSControl
 			Group="Position"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MaxRecentSearches"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

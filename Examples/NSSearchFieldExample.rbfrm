@@ -44,6 +44,7 @@ Begin Window NSSearchFieldExample
       LockLeft        =   ""
       LockRight       =   ""
       LockTop         =   ""
+      MaxRecentSearches=   ""
       Scope           =   0
       SendSearchStringImmediately=   ""
       SendWholeSearchString=   ""
@@ -162,37 +163,6 @@ Begin Window NSSearchFieldExample
       Visible         =   True
       Width           =   220
    End
-   Begin PushButton PushButton1
-      AutoDeactivate  =   True
-      Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   ""
-      Caption         =   "Untitled"
-      Default         =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   352
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   335
-      Underline       =   ""
-      Visible         =   True
-      Width           =   80
-   End
 End
 #tag EndWindow
 
@@ -219,7 +189,7 @@ End
 		  
 		  
 		  //setting this name means that recent searches will be saved to user defaults under this name.
-		  //the shared NSUserDefaults object is saved periodically.  
+		  //the shared NSUserDefaults object is saved periodically.
 		  NSSearchField1.RecentsAutosaveName = "NSSearchFieldExample.RecentSearches"
 		  
 		  NSSearchField1.ShowRecentSearches = true
@@ -249,13 +219,6 @@ End
 	#tag Event
 		Sub Open()
 		  me.Value = NSSearchField1.SendSearchStringImmediately
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton1
-	#tag Event
-		Sub Action()
-		  dim recentSearches() as String = NSSearchField1.Recentsearches
 		End Sub
 	#tag EndEvent
 #tag EndEvents

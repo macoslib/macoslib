@@ -28,20 +28,6 @@ Inherits Canvas
 	#tag EndEvent
 
 	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  #pragma unused Key
-		  return false
-		End Function
-	#tag EndEvent
-
-	#tag Event
-		Sub KeyUp(Key As String)
-		  #pragma unused Key
-		  return
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Open()
 		  self.AcceptFocus = false
 		  
@@ -354,6 +340,16 @@ Inherits Canvas
 		  #endif
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub StringValue(assigns value as String)
+		  #if targetCocoa
+		    declare sub setStringValue lib CocoaLib selector "setStringValue:" (obj_id as Ptr, value as CFStringRef)
+		    
+		    setStringValue(self, value)
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
