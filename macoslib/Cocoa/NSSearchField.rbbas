@@ -103,7 +103,8 @@ Inherits NSControl
 		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
 		    dim obj as NSSearchField = NSSearchField(w.Value)
 		    if obj <> nil then
-		      return obj.EditEnding(new NSText(fieldEditor))
+		      //control:textShouldEndEditing returns false to cancel the edit, but we want to return true to cancel edit.
+		      return not obj.EditCancel(new NSText(fieldEditor))
 		    else
 		      //something might be wrong.
 		    end if
@@ -134,15 +135,15 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub EditEnded(notification as NSNotification)
-		  raiseEvent EditEnded(notification)
-		End Sub
+		Private Function EditCancel(fieldEditor as NSText) As Boolean
+		  return raiseEvent EditCancel(fieldEditor)
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function EditEnding(fieldEditor as NSText) As Boolean
-		  return raiseEvent EditEnding(fieldEditor)
-		End Function
+		Private Sub EditEnded(notification as NSNotification)
+		  raiseEvent EditEnded(notification)
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -176,7 +177,7 @@ Inherits NSControl
 		    const MethodTypeEncoding_controlTextDidEndEditing = "v@:@"
 		    const MethodTypeEncoding_controlTextShouldEndEditing = "B@:@@"
 		    
-		    dim methodsAdded as Boolean = AddInstanceMethod(newClassId, "menuAction:", AddressOf DispatchMenuAction, MethodTypeEncoding_menuAction) 
+		    dim methodsAdded as Boolean = AddInstanceMethod(newClassId, "menuAction:", AddressOf DispatchMenuAction, MethodTypeEncoding_menuAction)
 		    methodsAdded = methodsAdded and AddInstanceMethod(newClassId, "controlTextDidEndEditing:", AddressOf DispatchcontrolTextDidEndEditing, MethodTypeEncoding_controlTextDidEndEditing)
 		    methodsAdded = methodsAdded and AddInstanceMethod(newClassId, "control:textShouldEndEditing:", AddressOf DispatchcontrolTextShouldEndEditing, MethodTypeEncoding_controlTextShouldEndEditing)
 		    
@@ -377,11 +378,11 @@ Inherits NSControl
 
 
 	#tag Hook, Flags = &h0
-		Event EditEnded(notification as NSNotification)
+		Event EditCancel(fieldEditor as NSText) As Boolean
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event EditEnding(fieldEditor as NSText) As Boolean
+		Event EditEnded(notification as NSNotification)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
