@@ -173,6 +173,7 @@ End
 	#tag Event
 		Sub Action()
 		  TextField1.Text = me.StringValue
+		  beep
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -195,6 +196,11 @@ End
 		  NSSearchField1.ShowRecentSearches = true
 		  
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChanged(notification as NSNotification)
+		  beep
 		End Sub
 	#tag EndEvent
 #tag EndEvents

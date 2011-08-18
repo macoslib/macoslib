@@ -74,6 +74,26 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Shared Sub DispatchcontrolTextDidChange(id as Ptr, sel as Ptr, notification as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSSearchField = NSSearchField(w.Value)
+		    if obj <> nil then
+		      obj.TextChanged new NSNotification(notification)
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Shared Sub DispatchcontrolTextDidEndEditing(id as Ptr, sel as Ptr, notification as Ptr)
 		  #pragma unused sel
 		  
@@ -173,13 +193,17 @@ Inherits NSControl
 		    soft declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    
 		    objc_registerClassPair newClassId
-		    const MethodTypeEncoding_menuAction = "v@:@"
-		    const MethodTypeEncoding_controlTextDidEndEditing = "v@:@"
-		    const MethodTypeEncoding_controlTextShouldEndEditing = "B@:@@"
 		    
-		    dim methodsAdded as Boolean = AddInstanceMethod(newClassId, "menuAction:", AddressOf DispatchMenuAction, MethodTypeEncoding_menuAction)
-		    methodsAdded = methodsAdded and AddInstanceMethod(newClassId, "controlTextDidEndEditing:", AddressOf DispatchcontrolTextDidEndEditing, MethodTypeEncoding_controlTextDidEndEditing)
-		    methodsAdded = methodsAdded and AddInstanceMethod(newClassId, "control:textShouldEndEditing:", AddressOf DispatchcontrolTextShouldEndEditing, MethodTypeEncoding_controlTextShouldEndEditing)
+		    dim methodList() as Tuple
+		    methodList.Append new Tuple("menuAction:", AddressOf DispatchMenuAction, "v@:@")
+		    methodList.Append new Tuple("controlTextDidEndEditing:", AddressOf DispatchcontrolTextDidEndEditing, "v@:@")
+		    methodList.Append new Tuple("textShouldEndEditing:", AddressOf DispatchcontrolTextShouldEndEditing, "B@:@@")
+		    methodList.Append new Tuple("controlTextDidChange:", AddressOf DispatchcontrolTextDidChange, "v@:@")
+		    
+		    dim methodsAdded as Boolean
+		    for each item as Tuple in methodList
+		      methodsAdded = methodsAdded and AddInstanceMethod(newClassId, item(0), item(1), item(2))
+		    next
 		    
 		    if methodsAdded then
 		      return newClassId
@@ -376,6 +400,12 @@ Inherits NSControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub TextChanged(notification as NSNotification)
+		  raiseEvent TextChanged(notification)
+		End Sub
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event EditCancel(fieldEditor as NSText) As Boolean
@@ -391,6 +421,10 @@ Inherits NSControl
 
 	#tag Hook, Flags = &h0
 		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event TextChanged(notification as NSNotification)
 	#tag EndHook
 
 
