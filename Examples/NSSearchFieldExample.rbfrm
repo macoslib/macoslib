@@ -41,8 +41,8 @@ Begin Window NSSearchFieldExample
       Left            =   30
       LockBottom      =   ""
       LockedInPosition=   False
-      LockLeft        =   ""
-      LockRight       =   ""
+      LockLeft        =   True
+      LockRight       =   True
       LockTop         =   ""
       MaxRecentSearches=   ""
       Scope           =   0
@@ -79,8 +79,8 @@ Begin Window NSSearchFieldExample
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
+      LockRight       =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   ""
       ReadOnly        =   ""
@@ -114,9 +114,9 @@ Begin Window NSSearchFieldExample
       Left            =   300
       LockBottom      =   ""
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   2
@@ -146,9 +146,9 @@ Begin Window NSSearchFieldExample
       Left            =   300
       LockBottom      =   ""
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   3
@@ -163,6 +163,37 @@ Begin Window NSSearchFieldExample
       Visible         =   True
       Width           =   220
    End
+   Begin PushButton PushButton1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   "Search"
+      Default         =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   500
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   360
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndWindow
 
@@ -170,12 +201,6 @@ End
 #tag EndWindowCode
 
 #tag Events NSSearchField1
-	#tag Event
-		Sub Action()
-		  TextField1.Text = me.StringValue
-		  beep
-		End Sub
-	#tag EndEvent
 	#tag Event
 		Sub MenuAction(item as NSMenuItem)
 		  me.PlaceholderText = item.Title
@@ -199,7 +224,8 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub TextChanged(notification as NSNotification)
+		Sub Action()
+		  TextField1.Text = me.StringValue
 		  beep
 		End Sub
 	#tag EndEvent
@@ -225,6 +251,13 @@ End
 	#tag Event
 		Sub Open()
 		  me.Value = NSSearchField1.SendSearchStringImmediately
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton1
+	#tag Event
+		Sub Action()
+		  NSSearchField1.Search
 		End Sub
 	#tag EndEvent
 #tag EndEvents

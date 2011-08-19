@@ -74,6 +74,26 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Shared Sub DispatchcontrolTextDidBeginEditing(id as Ptr, sel as Ptr, notification as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSSearchField = NSSearchField(w.Value)
+		    if obj <> nil then
+		      obj.EditStarted new NSNotification(notification)
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Shared Sub DispatchcontrolTextDidChange(id as Ptr, sel as Ptr, notification as Ptr)
 		  #pragma unused sel
 		  
@@ -111,6 +131,26 @@ Inherits NSControl
 		    //something might be wrong.
 		  end if
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function DispatchcontrolTextShouldBeginEditing(id as Ptr, sel as Ptr, cntl as Ptr, fieldEditor as Ptr) As Boolean
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSSearchField = NSSearchField(w.Value)
+		    if obj <> nil then
+		      return not obj.EditPrevent(new NSText(fieldEditor))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -167,12 +207,45 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function EditPrevent(fieldEditor as NSText) As Boolean
+		  return raiseEvent EditPrevent(fieldEditor)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub EditStarted(notification as NSNotification)
+		  raiseEvent EditStarted(notification)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Function GetDelegate() As Ptr
 		  #if targetCocoa
 		    declare function delegate_ lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
 		    
 		    return delegate_(self)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function Impl(selector as String) As Ptr
+		  select case selector
+		  case "menuAction:"
+		    return AddressOf DispatchMenuAction
+		  case "controlTextDidEndEditing:"
+		    return  AddressOf DispatchcontrolTextDidEndEditing
+		  case "textShouldEndEditing:"
+		    return AddressOf DispatchcontrolTextShouldEndEditing
+		  case "controlTextDidChange:"
+		    return AddressOf DispatchcontrolTextDidChange
+		  case "control:textShouldBeginEditing:"
+		    return AddressOf DispatchcontrolTextShouldBeginEditing
+		  case "controlTextDidBeginEditing:"
+		    return AddressOf DispatchcontrolTextDidBeginEditing
+		  else
+		    raise new RuntimeException
+		  end select
 		End Function
 	#tag EndMethod
 
@@ -194,15 +267,22 @@ Inherits NSControl
 		    
 		    objc_registerClassPair newClassId
 		    
-		    dim methodList() as Tuple
-		    methodList.Append new Tuple("menuAction:", AddressOf DispatchMenuAction, "v@:@")
-		    methodList.Append new Tuple("controlTextDidEndEditing:", AddressOf DispatchcontrolTextDidEndEditing, "v@:@")
-		    methodList.Append new Tuple("textShouldEndEditing:", AddressOf DispatchcontrolTextShouldEndEditing, "B@:@@")
-		    methodList.Append new Tuple("controlTextDidChange:", AddressOf DispatchcontrolTextDidChange, "v@:@")
+		    //the use of the Impl function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
+		    //dim v as Variant = AddressOf Foo
+		    //dim p as Ptr = v
+		    //results in a TypeMismatchException
 		    
-		    dim methodsAdded as Boolean
+		    dim methodList() as Tuple
+		    methodList.Append new Tuple("menuAction:", "v@:@")
+		    methodList.Append new Tuple("controlTextDidEndEditing:", "v@:@")
+		    methodList.Append new Tuple("textShouldEndEditing:",  "B@:@@")
+		    methodList.Append new Tuple("controlTextDidChange:", "v@:@")
+		    methodList.Append new Tuple("control:textShouldBeginEditing:", "B@:@@")
+		    methodList.Append new Tuple("controlTextDidBeginEditing:", "v@:@")
+		    
+		    dim methodsAdded as Boolean = true
 		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and AddInstanceMethod(newClassId, item(0), item(1), item(2))
+		      methodsAdded = methodsAdded and AddInstanceMethod(newClassId, item(0), Impl(item(0)), item(1))
 		    next
 		    
 		    if methodsAdded then
@@ -311,6 +391,23 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Search()
+		  #if targetCocoa
+		    declare function searchButtonCell lib CocoaLib selector "searchButtonCell" (obj_id as Ptr) as Ptr
+		    declare function action lib CocoaLib selector "action" (obj_id as Ptr) as Ptr
+		    declare function target lib CocoaLib selector "target" (obj_id as Ptr) as Ptr
+		    declare function sendAction lib CocoaLib selector "sendAction:to:from:" (id as Ptr, anAction as Ptr, aTarget as Ptr, sender as Ptr) as Boolean
+		    
+		    
+		    dim button as Ptr = searchButtonCell(self.Cell)
+		    dim b as Boolean = (button <> nil) and sendAction(App.NSApplication, action(button),target(button), self.Cell)
+		  #endif
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SelectAll()
 		  #if targetCocoa
 		    declare sub selectText lib CocoaLib selector "selectText:" (obj_id as Ptr, sender as Ptr)
@@ -413,6 +510,14 @@ Inherits NSControl
 
 	#tag Hook, Flags = &h0
 		Event EditEnded(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event EditPrevent(fieldEditor as NSText) As Boolean
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event EditStarted(notification as NSNotification)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
