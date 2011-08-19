@@ -45,11 +45,14 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+<<<<<<< HEAD
+=======
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
+>>>>>>> master
 			Name="Super"
 			Visible=true
 			Group="ID"
