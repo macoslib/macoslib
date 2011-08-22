@@ -28,6 +28,18 @@ Inherits Canvas
 	#tag EndEvent
 
 	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub KeyUp(Key As String)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  self.AcceptFocus = false
 		  
