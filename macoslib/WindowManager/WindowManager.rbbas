@@ -113,7 +113,7 @@ Module WindowManager
 
 	#tag Method, Flags = &h0
 		Function DocumentFile(extends w as Window) As FolderItem
-		  if w.Handle = 0 then
+		   if w.Handle = 0 then
 		    return nil
 		  end if
 		  
