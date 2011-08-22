@@ -214,7 +214,7 @@ Inherits NSControl
 		  //dim v as Variant = AddressOf Foo
 		  //dim p as Ptr = v
 		  //results in a TypeMismatchException
-		  //So now I do 
+		  //So now I do
 		  //dim v as Variant = FPtr(AddressOf Foo)
 		  //dim p as Ptr = v
 		  
@@ -259,7 +259,7 @@ Inherits NSControl
 		    
 		    dim methodsAdded as Boolean = true
 		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, item(0), item(1), item(2))
+		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
 		    next
 		    
 		    if methodsAdded then
