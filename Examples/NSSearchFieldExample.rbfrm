@@ -194,6 +194,48 @@ Begin Window NSSearchFieldExample
       Visible         =   True
       Width           =   80
    End
+   Begin TextField TextField2
+      AcceptTabs      =   ""
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &hFFFFFF
+      Bold            =   ""
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   ""
+      Left            =   36
+      LimitText       =   0
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   ""
+      ReadOnly        =   ""
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   189
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   195
+   End
 End
 #tag EndWindow
 
@@ -228,6 +270,12 @@ End
 		  TextField1.Text = me.StringValue
 		  beep
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function InsertTab() As Boolean
+		  TextField2.SetFocus
+		  return true
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events SendWholeSearchCheckbox

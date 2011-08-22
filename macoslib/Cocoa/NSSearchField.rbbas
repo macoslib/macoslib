@@ -64,6 +64,26 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Shared Function DispatchcontrolDoCommandBySelector(id as Ptr, sel as Ptr, cntl as Ptr, textView as Ptr, command as Ptr) As Boolean
+		  #if targetCocoa
+		    dim obj as NSSearchField = FindObjectByID(id)
+		    if obj <> nil then
+		      
+		      dim selectorName as String = Cocoa.NSStringFromSelector(command)
+		      if selectorName = "insertTab:" then
+		        return obj.InsertTab
+		      else
+		        return false
+		      end if
+		      
+		    else
+		      //
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Shared Sub DispatchcontrolTextDidBeginEditing(id as Ptr, sel as Ptr, notification as Ptr)
 		  #pragma unused sel
 		  
@@ -170,14 +190,9 @@ Inherits NSControl
 		  
 		  #pragma stackOverflowChecking false
 		  
-		  if CocoaDelegateMap.HasKey(id) then
-		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
-		    dim obj as NSSearchField = NSSearchField(w.Value)
-		    if obj <> nil then
-		      obj.MenuAction new NSMenuItem(sender)
-		    else
-		      //something might be wrong.
-		    end if
+		  dim obj as NSSearchField = FindObjectByID(id)
+		  if obj <> nil then
+		    obj.MenuAction new NSMenuItem(sender)
 		  else
 		    //something might be wrong.
 		  end if
@@ -209,6 +224,14 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Shared Function FindObjectByID(id as Ptr) As NSSearchField
+		  dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		  return NSSearchField(w.Value)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Shared Function FPtr(p as Ptr) As Ptr
 		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
 		  //dim v as Variant = AddressOf Foo
@@ -229,6 +252,12 @@ Inherits NSControl
 		    
 		    return delegate_(self)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function InsertTab() As Boolean
+		  return raiseEvent InsertTab
 		End Function
 	#tag EndMethod
 
@@ -256,6 +285,8 @@ Inherits NSControl
 		    methodList.Append new Tuple("controlTextDidChange:", FPtr(AddressOf DispatchcontrolTextDidChange), "v@:@")
 		    methodList.Append new Tuple("control:textShouldBeginEditing:", FPtr(AddressOf DispatchcontrolTextShouldBeginEditing), "B@:@@")
 		    methodList.Append new Tuple("controlTextDidBeginEditing:", FPtr(AddressOf DispatchcontrolTextDidBeginEditing), "v@:@")
+		    methodList.Append new Tuple("control:textView:doCommandBySelector:", FPtr(AddressOf DispatchcontrolDoCommandBySelector), "v@:@@:")
+		    
 		    
 		    dim methodsAdded as Boolean = true
 		    for each item as Tuple in methodList
@@ -495,6 +526,10 @@ Inherits NSControl
 
 	#tag Hook, Flags = &h0
 		Event EditStarted(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event InsertTab() As Boolean
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
