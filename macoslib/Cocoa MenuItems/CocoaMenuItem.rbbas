@@ -47,10 +47,9 @@ Inherits MenuItem
 		      dim respondsTovalidateUserInterfaceItem as Boolean = respondsToSelector(T, Cocoa.NSSelectorFromString("validateUserInterfaceItem:"))
 		      
 		      if respondsTovalidateMenuItem or respondsTovalidateUserInterfaceItem then
-		        dim validateMenuItem_ as Boolean = validateMenuItem(T, nsref)
-		        dim validateUserInterfaceItem_ as Boolean = validateUserInterfaceItem(T, nsref)
-		        self.Enabled = (respondsTovalidateMenuItem and validateMenuItem(T, nsref)) or _
-		        (respondsTovalidateUserInterfaceItem and validateUserInterfaceItem(T, nsref))
+		        dim menuItemValidated as Boolean = respondsTovalidateMenuItem and validateMenuItem(T, nsref)
+		        dim userInterfaceItemValidated as Boolean = respondsTovalidateUserInterfaceItem and validateUserInterfaceItem(T, nsref)
+		        self.Enabled = menuItemValidated or userInterfaceItemValidated
 		      else
 		        self.Enabled = true
 		      end if
