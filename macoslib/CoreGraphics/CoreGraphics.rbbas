@@ -34,7 +34,7 @@ Protected Module CoreGraphics
 
 	#tag Method, Flags = &h0
 		Function CGAffineTransformIdentity() As CGAffineTransform
-		  dim carbon as CFBundle = CFBundle.CarbonFramework
+		  dim carbon as CFBundle = Carbon.Bundle
 		  if carbon is nil then
 		    dim oops as CGAffineTransform
 		    return oops
@@ -138,7 +138,7 @@ Protected Module CoreGraphics
 
 	#tag Method, Flags = &h0
 		Function CGRectInfinite() As CGRect
-		  dim carbon as CFBundle = CFBundle.CarbonFramework
+		  dim carbon as CFBundle = Carbon.Bundle
 		  if carbon is nil then
 		    dim oops as CGRect
 		    return oops
@@ -193,7 +193,7 @@ Protected Module CoreGraphics
 
 	#tag Method, Flags = &h0
 		Function CGRectNull() As CGRect
-		  dim carbon as CFBundle = CFBundle.CarbonFramework
+		  dim carbon as CFBundle = Carbon.Bundle
 		  if carbon is nil then
 		    dim oops as CGRect
 		    return oops

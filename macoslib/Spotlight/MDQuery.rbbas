@@ -9,12 +9,12 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    
 		    soft declare function MDQueryGetTypeID lib CarbonLib () as Integer
 		    
-		    static id as CFTypeID = CFTypeID(MDQueryGetTypeID)
+		    static id as UInt32 = UInt32(MDQueryGetTypeID)
 		    return id
 		  #endif
 		  

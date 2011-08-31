@@ -2,17 +2,17 @@
 Class CFRunLoopTimer
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    soft declare function TypeID lib CarbonLib alias "CFRunLoopTimerGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -156,7 +156,7 @@ Inherits CFType
 			    
 			    dim p as Ptr = me.Reference
 			    if p <> nil then
-			      return CFRunLoopContainsTimer(MainRunLoop, p, CFBundle.CarbonFramework.StringPointerRetained(kCFRunLoopCommonModes))
+			      return CFRunLoopContainsTimer(MainRunLoop, p, Carbon.Bundle.StringPointerRetained(kCFRunLoopCommonModes))
 			    end
 			  #endif
 			End Get
@@ -177,11 +177,11 @@ Inherits CFType
 			    if value then
 			      soft declare sub CFRunLoopAddTimer lib CarbonLib (rl as Ptr, t as Ptr, mode as CFStringRef)
 			      
-			      CFRunLoopAddTimer MainRunLoop, me.Reference, CFBundle.CarbonFramework.StringPointerRetained(kCFRunLoopCommonModes)
+			      CFRunLoopAddTimer MainRunLoop, me.Reference, Carbon.Bundle.StringPointerRetained(kCFRunLoopCommonModes)
 			    else
 			      soft declare sub CFRunLoopRemoveTimer lib CarbonLib (rl as Ptr, t as Ptr, mode as CFStringRef)
 			      
-			      CFRunLoopRemoveTimer MainRunLoop, me.Reference, CFBundle.CarbonFramework.StringPointerRetained(kCFRunLoopCommonModes)
+			      CFRunLoopRemoveTimer MainRunLoop, me.Reference, Carbon.Bundle.StringPointerRetained(kCFRunLoopCommonModes)
 			    end if
 			  #endif
 			End Set

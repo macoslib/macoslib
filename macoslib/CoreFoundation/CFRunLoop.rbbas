@@ -2,7 +2,7 @@
 Class CFRunLoop
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return CFRunLoop.ClassID
 		End Function
 	#tag EndEvent
@@ -28,7 +28,7 @@ Inherits CFType
 
 	#tag Method, Flags = &h21
 		Private Shared Function CFRunLoopCommonModes() As Ptr
-		  dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained(kCFRunLoopCommonModes)
+		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(kCFRunLoopCommonModes)
 		  if p <> nil then
 		    return p.Ptr(0)
 		  else
@@ -38,10 +38,10 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    soft declare function TypeID lib CarbonLib alias "CFRunLoopGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function

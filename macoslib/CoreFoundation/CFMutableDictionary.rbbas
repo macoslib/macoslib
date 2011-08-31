@@ -43,7 +43,7 @@ Inherits CFDictionary
 
 	#tag Method, Flags = &h21
 		Private Function DefaultCallbacks(name as String) As Ptr
-		  return CFBundle.CarbonFramework.DataPointerNotRetained(name)
+		  return Carbon.Bundle.DataPointerNotRetained(name)
 		End Function
 	#tag EndMethod
 

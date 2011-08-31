@@ -45,14 +45,12 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-<<<<<<< HEAD
-=======
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
->>>>>>> master
 			Name="Super"
 			Visible=true
 			Group="ID"

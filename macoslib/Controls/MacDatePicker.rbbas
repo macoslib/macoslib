@@ -98,7 +98,7 @@ Inherits Canvas
 		  
 		  declare Function CFBundleGetBundleWithIdentifier lib CarbonLib (bundleID as CFStringRef) as Integer
 		  
-		  dim carbonBundle as Integer = CFBundleGetBundleWithIdentifier("com.apple.Carbon")
+		  dim carbonBundle as Integer = CFBundleGetBundleWithIdentifier(Carbon.BundleID)
 		  
 		  declare Function CFBundleGetDataPointerForName lib CarbonLib (bundle as Integer, symbolName as CFStringRef) as Ptr
 		  dim contentViewID as Ptr = CFBundleGetDataPointerForName(carbonBundle, "kHIViewWindowContentID")

@@ -9,11 +9,11 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CGShadingGetTypeID" () as UInt32
 		    
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function

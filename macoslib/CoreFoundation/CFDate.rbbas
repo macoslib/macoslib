@@ -3,7 +3,7 @@ Class CFDate
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -26,10 +26,10 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFDateGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -105,7 +105,7 @@ Implements CFPropertyList
 			    if not initialized then
 			      initialized = true // if it doesn't work the first time, there's no need to try again, or is there?
 			      const kCFAbsoluteTimeIntervalSince1904 = "kCFAbsoluteTimeIntervalSince1904"
-			      dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained(kCFAbsoluteTimeIntervalSince1904)
+			      dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(kCFAbsoluteTimeIntervalSince1904)
 			      if p <> nil then
 			        value = p.Double(0)
 			      end if

@@ -1,9 +1,9 @@
 #tag Class
-Class CFCalendar
+Class CFError
 Inherits CFType
 	#tag Event
 		Function ClassID() As UInt32
-		  return me.ClassID
+		  return CFError.ClassID
 		End Function
 	#tag EndEvent
 
@@ -11,9 +11,9 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFCalendarGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
-		    return id
+		    declare function CFErrorGetTypeID lib CarbonLib () as UInt32
+		    
+		    return CFErrorGetTypeID
 		  #endif
 		End Function
 	#tag EndMethod
@@ -23,21 +23,60 @@ Inherits CFType
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    soft declare function CFCalendarGetIdentifier lib CarbonLib (calendar as Ptr) as CFStringRef
+			    soft declare function CFErrorGetCode lib CarbonLib (err as Ptr) as Integer
 			    
-			    dim theIdentifier as CFStringRef = CFCalendarGetIdentifier(me.Reference)
-			    soft declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
-			    theIdentifier.Retain
-			    return theIdentifier
+			    if (self <> nil) then
+			      return CFErrorGetCode(self)
+			    else
+			      return 0
+			    end if
 			  #endif
-			  
 			End Get
 		#tag EndGetter
-		Identifier As String
+		Code As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    soft declare function CFErrorCopyDescription lib CarbonLib (err as Ptr) as CFStringRef
+			    
+			    if (self <> nil) then
+			      return CFErrorCopyDescription(self)
+			    else
+			      return ""
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		Description As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    soft declare function CFErrorGetDomain lib CarbonLib (err as Ptr) as Ptr
+			    
+			    if (self <> nil) then
+			      return CFStringRetain(CFErrorGetDomain(self))
+			    else
+			      return ""
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		Domain As String
 	#tag EndComputedProperty
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Code"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
@@ -46,10 +85,9 @@ Inherits CFType
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Identifier"
+			Name="Domain"
 			Group="Behavior"
 			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

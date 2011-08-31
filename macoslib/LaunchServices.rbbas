@@ -175,7 +175,7 @@ Protected Module LaunchServices
 		    dim theList() as FolderItem
 		    for i as Integer = 0 to theArray.Count - 1
 		      try
-		        dim theURL as CFURL = CFURL(theArray.Value(i))
+		        dim theURL as CFURL = CFURL(theArray.CFValue(i))
 		        theList.Append theURL.Item
 		        
 		      catch ice as IllegalCastException

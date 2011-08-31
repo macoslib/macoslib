@@ -36,8 +36,9 @@ Class CFType
 		  // The 'hasOwnership' parameter tells this object whether to balance the
 		  // release call in its destructor with a retain call.
 		  
-		  me.AdoptNoVerify (ref, hasOwnership)
-		  me.VerifyType()
+		  
+		  
+		  self.AdoptNoVerify(VerifyType(ref), hasOwnership)
 		End Sub
 	#tag EndMethod
 
@@ -112,20 +113,18 @@ Class CFType
 		      hasOwnership = true
 		    end if
 		    
-		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
-		    
 		    dim theTypeID as UInt32 = CFGetTypeID(ref)
 		    
 		    select case theTypeID
 		      
-		    case TypeValue(CFArray.ClassID)
+		    case CFArray.ClassID
 		      if mutability <> kCFPropertyListImmutable then
 		        return new CFMutableArray(ref, hasOwnership)
 		      else
 		        return new CFArray(ref, hasOwnership)
 		      end
 		      
-		    case TypeValue(CFBoolean.ClassID)
+		    case CFBoolean.ClassID
 		      static b as CFType = CFBoolean.GetTrue //needed to get the compiler to see the private mRef property
 		      if ref = b.mRef then
 		        return CFBoolean.GetTrue
@@ -133,44 +132,44 @@ Class CFType
 		        return CFBoolean.GetFalse
 		      end if
 		      
-		    case TypeValue(CFBundle.ClassID)
+		    case CFBundle.ClassID
 		      dim b as new CFBundle(ref, hasOwnership)
 		      return b
 		      
-		    case TypeValue(CFData.ClassID)
+		    case CFData.ClassID
 		      if mutability = kCFPropertyListMutableContainersAndLeaves then
 		        return new CFMutableData(ref, hasOwnership)
 		      else
 		        return new CFData(ref, hasOwnership)
 		      end
 		      
-		    case TypeValue(CFDate.ClassID)
+		    case CFDate.ClassID
 		      dim b as new CFDate(ref, hasOwnership)
 		      return b
 		      
-		    case TypeValue(CFDictionary.ClassID)
+		    case CFDictionary.ClassID
 		      if mutability <> kCFPropertyListImmutable then
 		        return new CFMutableDictionary(ref, hasOwnership)
 		      else
 		        return new CFDictionary(ref, hasOwnership)
 		      end
 		      
-		    case TypeValue(CFNumber.ClassID)
+		    case CFNumber.ClassID
 		      dim b as new CFNumber(ref, hasOwnership)
 		      return b
 		      
-		    case TypeValue(CFString.ClassID)
+		    case CFString.ClassID
 		      if mutability = kCFPropertyListMutableContainersAndLeaves then
 		        return new CFMutableString(ref, hasOwnership)
 		      else
 		        return new CFString(ref, hasOwnership)
 		      end
 		      
-		    case TypeValue(CFURL.ClassID)
+		    case CFURL.ClassID
 		      dim url as new CFURL(ref, hasOwnership)
 		      return url
 		      
-		    case TypeValue(CFNull.ClassID)
+		    case CFNull.ClassID
 		      dim null as new CFNull(ref, hasOwnership)
 		      return null
 		      
@@ -320,34 +319,28 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TypeDescription(id as CFTypeID) As String
+		 Shared Function TypeDescription(id as UInt32) As String
 		  #if TargetMacOS
-		    declare function CFCopyTypeIDDescription lib CarbonLib (id as UInt32) as Ptr
-		    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
-		    // Instead, "new CFString()" takes care of that below
+		    declare function CFCopyTypeIDDescription lib CarbonLib (id as UInt32) as CFStringRef
 		    
-		    if id.opaque <> 0 then
-		      return new CFString(CFCopyTypeIDDescription(id.opaque), true)
+		    if id <> 0 then
+		      return CFCopyTypeIDDescription(id)
+		    else
+		      return ""
 		    end if
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TypeID() As CFTypeID
+		Function TypeID() As UInt32
 		  #if TargetMacOS
-		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
-		    
 		    if me.mRef <> nil then
-		      return CFTypeID (CFGetTypeID(me.mRef))
+		      return CFGetTypeID(self.mRef)
+		    else
+		      return 0
 		    end if
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function TypeValue(id as CFTypeID) As UInt32
-		  return id.opaque
 		End Function
 	#tag EndMethod
 
@@ -363,16 +356,22 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub VerifyType()
-		  if not IsNULL and TypeValue(raiseEvent ClassID()) <> TypeValue(me.TypeID()) then
-		    raise new TypeMismatchException
-		  end if
-		End Sub
+		Private Function VerifyType(ref as Ptr) As Ptr
+		  #if targetMacOS
+		    if ref = nil or (raiseEvent ClassID()) = CFGetTypeID(ref) then
+		      return ref
+		    else
+		      dim e as new TypeMismatchException
+		      e.Message = "CFTypeRef &h" + Hex(ref) + " has CFTypeID " + Str(CFGetTypeID(ref)) + "; CFTypeID " + Str(raiseEvent ClassID()) + " was expected."
+		      raise e
+		    end if
+		  #endif
+		End Function
 	#tag EndMethod
 
 
 	#tag Hook, Flags = &h0
-		Event ClassID() As CFTypeID
+		Event ClassID() As UInt32
 	#tag EndHook
 
 	#tag Hook, Flags = &h0

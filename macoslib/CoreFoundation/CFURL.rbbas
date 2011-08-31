@@ -2,7 +2,7 @@
 Class CFURL
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -29,10 +29,22 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		Function AppendComponent(pathComponent as String, isDirectory as Boolean) As CFURL
+		  //creates a new CFURL object with pathComponent appended to the path of this object.  
+		  //isDirectory tells the function whether to add a trailing slash.
+		  #if targetMacOS
+		    declare function CFURLCreateCopyAppendingPathComponent lib CarbonLib (allocator as Ptr, url as Ptr, pathComponent as CFStringRef, isDirectory as Boolean) as Ptr
+		    
+		    return new CFURL(CFURLCreateCopyAppendingPathComponent(nil, self, pathComponent, isDirectory), CFType.hasOwnership)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFURLGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function

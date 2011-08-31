@@ -3,7 +3,7 @@ Class CFBoolean
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -16,10 +16,10 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFBooleanGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -34,12 +34,12 @@ Implements CFPropertyList
 		    symbolName = "kCFBooleanFalse"
 		  end if
 		  
-		  dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained(symbolName)
-		  if p = nil then
+		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(symbolName)
+		  if p <> nil then
+		    return new CFBoolean(p.Ptr(0), false)
+		  else
 		    return new CFBoolean(nil, false)
 		  end if
-		  
-		  return new CFBoolean(p.Ptr(0), false)
 		End Function
 	#tag EndMethod
 

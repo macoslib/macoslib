@@ -2,7 +2,7 @@
 Class CFTimeZone
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -22,10 +22,10 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFTimeZoneGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -69,17 +69,8 @@ Inherits CFType
 		  #if TargetMacOS
 		    soft declare function CFTimeZoneCopyKnownNames lib CarbonLib () as Ptr
 		    
-		    dim nameArray as new CFArray(CFTimeZoneCopyKnownNames, true)
-		    dim theList() as String
-		    for i as Integer = 0 to nameArray.Count - 1
-		      dim theValue as CFType = nameArray.Value(i)
-		      if theValue isA CFString then
-		        theList.Append CFString(theValue)
-		      else
-		        break // oops, this is unexpected
-		      end if
-		    next
-		    return theList
+		    dim nameArray as new CFArray(CFTimeZoneCopyKnownNames, CFType.HasOwnership)
+		    return nameArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod

@@ -129,8 +129,7 @@ Class NotificationObserver
 		  #if targetMacOS
 		    declare sub addObserver lib CocoaLib selector "addObserver:selector:name:object:" (obj_id as Ptr, notificationObserver as Ptr, notificationSelector as Ptr, notificationName as CFStringRef, notificationSender as Ptr)
 		    
-		    dim b as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
-		    dim s as String = b.StringPointerRetained(notificationName)
+		    dim s as String = Cocoa.StringConstant(notificationName)
 		    if s <> "" then
 		      notificationName = s
 		    end if

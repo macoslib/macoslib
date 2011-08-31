@@ -28,6 +28,12 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Bundle() As CFBundle
+		  return CFBundle.NewCFBundleFromID(BundleID)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CFBoolean(b as Boolean) As CFBoolean
 		  if b then
 		    return CFBoolean.GetTrue
@@ -38,17 +44,25 @@ Module CoreFoundation
 
 	#tag Method, Flags = &h0
 		Function CFConstant(name as String) As CFStringRef
-		  // To be used to lookup kCF... constants only!
+		  // To be used to look up kCF... constants only!
 		  
-		  return CFBundle.CarbonFramework.StringPointerRetained(name)
+		  return CoreFoundation.Bundle.StringPointerRetained(name)
 		End Function
 	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function CFCopyTypeIDDescription Lib CarbonLib (type_id as UInt32) As CFStringRef
+	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
 		Function CFDate(d as Date) As CFDate
 		  return new CFDate(d)
 		End Function
 	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function CFGetTypeID Lib CarbonLib (cf as Ptr) As UInt32
+	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
 		Function CFNumber(dbl as Double) As CFNumber
@@ -91,13 +105,9 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function CFTypeID(id as UInt32) As CFTypeID
-		  dim tid as CFTypeID
-		  tid.opaque = id
-		  return tid
-		End Function
-	#tag EndMethod
+	#tag ExternalMethod, Flags = &h0
+		Declare Function CFStringRetain Lib CarbonLib Alias "CFRetain" (cf as Ptr) As CFStringRef
+	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
 		Function CFURL(f as FolderItem) As CFURL
@@ -238,7 +248,7 @@ Module CoreFoundation
 		  #if targetMacOS
 		    const kCFCoreFoundationVersionNumber = "kCFCoreFoundationVersionNumber"
 		    
-		    dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained(kCFCoreFoundationVersionNumber)
+		    dim p as Ptr = CFBundle.NewCFBundleFromID(CoreFoundation.BundleID).DataPointerNotRetained(kCFCoreFoundationVersionNumber)
 		    if p <> nil then
 		      return p.Double(0)
 		    end if
@@ -297,7 +307,7 @@ Module CoreFoundation
 		  #if DebugBuild
 		    
 		    dim s as String
-		    s = CFBundle.CarbonFramework.Identifier
+		    s = CFBundle.NewCFBundleFromID(BundleID).Identifier
 		    
 		    dim cft as CFType
 		    
@@ -310,7 +320,7 @@ Module CoreFoundation
 		      arr = CFArray(CFType.NewObject(p, false, kCFPropertyListImmutable)) // here the ref needs to be retained
 		      p = arr.Reference
 		      arr = new CFArray(p, false) // here the ref needs to be retained
-		      _testAssert arr.Value(1).Equals(new CFString("b"))
+		      _testAssert arr.CFValue(1).Equals(new CFString("b"))
 		    end // at this point the CFString objects should all get deallocated
 		    
 		    // Test CFNumber operations
@@ -321,9 +331,8 @@ Module CoreFoundation
 		      cf2 = new CFNumber(nil,false)
 		      _testAssert not (cf2 is nil)
 		      _testAssert cf2=nil
-		      _testAssert cf2.IsNULL
 		      cf2 = new CFNumber(0)
-		      _testAssert not cf2.IsNULL
+		      _testAssert (cf2 <> nil)
 		      _testAssert cf1.IntegerValue > cf2.IntegerValue
 		      _testAssert cf1.DoubleValue = 1
 		      _testAssert cf1.Equals(new CFNumber(1.0))
@@ -610,13 +619,7 @@ Module CoreFoundation
 	#tag EndNote
 
 
-	#tag Constant, Name = CarbonBundleID, Type = String, Dynamic = False, Default = \"com.apple.Carbon", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CarbonLib, Type = String, Dynamic = False, Default = \"Carbon.framework", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CocoaBundleID, Type = String, Dynamic = False, Default = \"com.apple.Cocoa", Scope = Public
+	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.CoreFoundation", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = kCFPropertyListBinaryFormat_v1_0, Type = Double, Dynamic = False, Default = \"200", Scope = Public
@@ -637,6 +640,9 @@ Module CoreFoundation
 	#tag Constant, Name = kCFPropertyListXMLFormat_v1_0, Type = Double, Dynamic = False, Default = \"100", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = Name, Type = String, Dynamic = False, Default = \"CoreFoundation.framework", Scope = Protected
+	#tag EndConstant
+
 
 	#tag Structure, Name = CFRange, Flags = &h0
 		location as Int32
@@ -655,7 +661,7 @@ Module CoreFoundation
 		handle As Int32
 	#tag EndStructure
 
-	#tag Structure, Name = CFTypeID, Flags = &h0
+	#tag Structure, Name = UInt32, Flags = &h0
 		opaque as UInt32
 	#tag EndStructure
 

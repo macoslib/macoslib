@@ -1,5 +1,11 @@
 #tag Module
 Protected Module Carbon
+	#tag Method, Flags = &h1
+		Protected Function Bundle() As CFBundle
+		  return CFBundle.NewCFBundleFromID(BundleID)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function GetSystemVersionFromCoreServices() As String
 		  #if targetMacOS
@@ -104,7 +110,7 @@ Protected Module Carbon
 		  
 		  dim theList() as String
 		  for i as Integer = 0 to languagelist.Count - 1
-		    theList.Append CFString(languagelist.Value(i))
+		    theList.Append languagelist.CFStringRefValue(i)
 		  next
 		  
 		  return theList
@@ -132,6 +138,7 @@ Protected Module Carbon
 		    soft declare function HIAboutBox lib CarbonLib (inOptions as Ptr) as Integer
 		    
 		    dim OSError as Integer = HIAboutBox(d)
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -164,10 +171,11 @@ Protected Module Carbon
 
 	#tag Method, Flags = &h0
 		Sub SystemUIMode(mode as UIMode, options as UIOptions)
-		  #if targetMacOS
+		  #if targetCarbon
 		    soft declare function SetSystemUIMode lib CarbonLib (inMode as UIMode, inOptions as UIOptions) as Integer
 		    
 		    dim OSError as Integer = SetSystemUIMode(mode, options)
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -284,8 +292,10 @@ Protected Module Carbon
 	#tag Constant, Name = btnStateBit, Type = Double, Dynamic = False, Default = \"7", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = CarbonLib, Type = String, Dynamic = False, Default = \"", Scope = Public
-		#Tag Instance, Platform = Any, Language = Default, Definition  = \"Carbon.framework"
+	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.Carbon", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = CarbonLib, Type = String, Dynamic = False, Default = \"Carbon.framework", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = cmdKeyBit, Type = Double, Dynamic = False, Default = \"8", Scope = Public

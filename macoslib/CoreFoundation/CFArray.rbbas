@@ -3,7 +3,7 @@ Class CFArray
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -15,7 +15,7 @@ Implements CFPropertyList
 		  dim result() as Variant
 		  
 		  for i as Integer = 0 to up
-		    result.Append me.Value(i).VariantValue
+		    result.Append me.CFValue(i).VariantValue
 		  next
 		  
 		  return result
@@ -24,10 +24,10 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFArrayGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -38,10 +38,11 @@ Implements CFPropertyList
 		  #if TargetMacOS
 		    declare function CFArrayCreateCopy lib CarbonLib (allocator as Ptr, theArray as Ptr) as Ptr
 		    
-		    dim p as Ptr = CFArrayCreateCopy(nil, me.Reference)
-		    // Note - since this obj (me) exists, the Clone shall also exist, even if the ref is nil.
-		    // therefore, do not test for p=nil here
-		    return new CFArray(p, true)
+		    if self <> nil then
+		      return new CFArray(CFArrayCreateCopy(nil, self), CFType.hasOwnership)
+		    else
+		      return new CFArray(nil, CFType.hasOwnership)
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,7 +66,7 @@ Implements CFPropertyList
 	#tag Method, Flags = &h1
 		Protected Function DefaultCallbacks() As Ptr
 		  const kCFTypeArrayCallBacks = "kCFTypeArrayCallBacks"
-		  return CFBundle.CarbonFramework.DataPointerNotRetained(kCFTypeArrayCallBacks)
+		  return CFBundle.NewCFBundleFromID(CoreFoundation.BundleID).DataPointerNotRetained(kCFTypeArrayCallBacks)
 		End Function
 	#tag EndMethod
 
@@ -87,16 +88,20 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Value(index as Integer) As CFType
+		Function Value(index as Integer) As Ptr
 		  #if TargetMacOS
 		    declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
 		    declare function CFArrayGetValueAtIndex lib CarbonLib (theArray as Ptr, idx as Integer) as Ptr
 		    
-		    if index < 0 or index >= me.Count() then
-		      raise new OutOfBoundsException
+		    if self <> nil then
+		      if index < 0 or index >= CFArrayGetCount(self) then
+		        raise new OutOfBoundsException
+		      end if
+		      
+		      return CFArrayGetValueAtIndex(me.Reference, index)
+		    else
+		      return nil
 		    end if
-		    
-		    return CFType.NewObject(CFArrayGetValueAtIndex(me.Reference, index), false, kCFPropertyListImmutable)
 		  #endif
 		End Function
 	#tag EndMethod

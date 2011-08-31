@@ -110,7 +110,7 @@ Protected Class UTI
 	#tag Method, Flags = &h21
 		Private Shared Function ResolveTagClass(symbol as String) As Ptr
 		  #if targetMacOS
-		    dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained(symbol)
+		    dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(symbol)
 		    if p <> nil then
 		      return p.Ptr(0)
 		    else

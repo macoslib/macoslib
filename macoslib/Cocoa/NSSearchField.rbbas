@@ -382,9 +382,7 @@ Inherits NSControl
 		    end if
 		    dim recentsArray as new CFArray(recentsArrayPtr, not CFType.hasOwnership)
 		    for i as Integer = 0 to recentsArray.Count - 1
-		      dim recentSearch as CFString = CFString(recentsArray.Value(i))
-		      recentSearch.Retain
-		      L.Append recentSearch
+		      L.Append recentsArray.CFStringRefValue(i)
 		    next
 		    
 		    return L

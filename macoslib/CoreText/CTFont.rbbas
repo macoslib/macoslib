@@ -2,17 +2,17 @@
 Class CTFont
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return CTFont.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CTFontGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -47,20 +47,9 @@ Inherits CFType
 		  #if targetMacOS
 		    soft declare function CTFontCopySupportedLanguages lib CarbonLib (font as Ptr) as Ptr
 		    
-		    dim p as Ptr = CTFontCopySupportedLanguages(me)
-		    if p = nil then
-		      dim emptylist(-1) as String
-		      return emptylist
-		    end if
-		    
 		    dim theList() as String
-		    dim languageArray as new CFArray(p, true)
-		    for i as Integer = 0 to languageArray.Count - 1
-		      dim lang as CFString = CFString(languageArray.Value(i))
-		      theList.Append lang
-		    next
-		    
-		    return theList
+		    dim languageArray as new CFArray(CTFontCopySupportedLanguages(self), CFType.hasOwnership)
+		    return languageArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod

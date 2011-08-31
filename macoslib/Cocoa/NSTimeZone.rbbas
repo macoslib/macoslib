@@ -116,8 +116,7 @@ Inherits NSObject
 		    end if
 		    dim nameArray as new CFArray(nameArrayPtr, CFType.HasOwnership)
 		    for i as Integer = 0 to nameArray.Count - 1
-		      dim name as CFString = CFString(nameArray.Value(i))
-		      names.Append name.StringValue
+		      names.Append nameArray.CFStringRefValue(i)
 		    next
 		    return names
 		  #endif

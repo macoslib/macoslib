@@ -23,7 +23,7 @@ Class CFPreferences
 
 	#tag Method, Flags = &h21
 		Private Shared Function GetAnyHost() As Ptr
-		  dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained("kCFPreferencesAnyHost")
+		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained("kCFPreferencesAnyHost")
 		  if p <> nil then
 		    return p.Ptr(0)
 		  end if
@@ -32,7 +32,7 @@ Class CFPreferences
 
 	#tag Method, Flags = &h21
 		Private Shared Function GetCurrentApplication() As Ptr
-		  dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained("kCFPreferencesCurrentApplication")
+		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained("kCFPreferencesCurrentApplication")
 		  if p <> nil then
 		    return p.Ptr(0)
 		  end if
@@ -41,7 +41,7 @@ Class CFPreferences
 
 	#tag Method, Flags = &h21
 		Private Shared Function GetCurrentUser() As Ptr
-		  dim p as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained("kCFPreferencesCurrentUser")
+		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained("kCFPreferencesCurrentUser")
 		  if p <> nil then
 		    return p.Ptr(0)
 		  end if
@@ -64,10 +64,9 @@ Class CFPreferences
 		    soft declare function CFPreferencesCopyKeyList lib CarbonLib (applicationID as Ptr, userName as Ptr, hostName as Ptr) as Ptr
 		    
 		    dim p as Ptr = CFPreferencesCopyKeyList(appID, user, host)
-		    dim keyArray as new CFArray(p, true) // CFArray can deal with p=nil, so there's no need to check for it here
+		    dim keyArray as new CFArray(p, CFType.hasOwnership) // CFArray can deal with p=nil, so there's no need to check for it here
 		    for i as Integer = 0 to keyArray.Count - 1
-		      dim theValue as CFType = keyArray.Value(i)
-		      theList.Append CFString(theValue)
+		      theList.Append keyArray.CFStringRefValue(i)
 		    next
 		    
 		  #endif

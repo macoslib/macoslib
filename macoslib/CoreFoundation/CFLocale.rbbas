@@ -2,7 +2,7 @@
 Class CFLocale
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -14,22 +14,17 @@ Inherits CFType
 		    //added in 10.4
 		    soft declare function CFLocaleCopyAvailableLocaleIdentifiers lib CarbonLib () as Ptr
 		    
-		    dim thearray as new CFArray(CFLocaleCopyAvailableLocaleIdentifiers(), true)
-		    dim theList() as String
-		    
-		    for i as Integer = 0 to thearray.Count - 1
-		      theList.Append CFString(thearray.Value(i))
-		    next
-		    return theList
+		    dim theArray as new CFArray(CFLocaleCopyAvailableLocaleIdentifiers(), CFType.hasOwnership)
+		    return theArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As CFTypeID
+		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    soft declare function TypeID lib CarbonLib alias "CFLocaleGetTypeID" () as UInt32
-		    static id as CFTypeID = CFTypeID(TypeID)
+		    static id as UInt32 = TypeID
 		    return id
 		  #endif
 		End Function
@@ -77,7 +72,7 @@ Inherits CFType
 
 	#tag Method, Flags = &h21
 		Private Shared Function DataPointer(key as String) As Ptr
-		  dim b as CFBundle = CFBundle.CarbonFramework
+		  dim b as CFBundle = Carbon.Bundle
 		  if b = nil then
 		    return nil
 		  end if
@@ -94,7 +89,7 @@ Inherits CFType
 		      value = CFString(me.Value(key))
 		    end if
 		    
-		    dim keyPtr as Ptr = CFBundle.CarbonFramework.DataPointerNotRetained(key)
+		    dim keyPtr as Ptr = Carbon.Bundle.DataPointerNotRetained(key)
 		    
 		    return CFLocaleCopyDisplayNameForPropertyValue(me, keyPtr.Ptr(0), value)
 		  #endif
@@ -107,13 +102,8 @@ Inherits CFType
 		    //added in 10.5
 		    soft declare function CFLocaleCopyCommonISOCurrencyCodes lib CarbonLib () as Ptr
 		    
-		    dim thearray as new CFArray(CFLocaleCopyCommonISOCurrencyCodes(), true)
-		    dim theList() as String
-		    
-		    for i as Integer = 0 to thearray.Count - 1
-		      theList.Append CFString(thearray.Value(i))
-		    next
-		    return theList
+		    dim theArray as new CFArray(CFLocaleCopyCommonISOCurrencyCodes(), CFType.hasOwnership)
+		    return theArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod
@@ -124,13 +114,8 @@ Inherits CFType
 		    //added in 10.4
 		    soft declare function CFLocaleCopyISOCountryCodes lib CarbonLib () as Ptr
 		    
-		    dim thearray as new CFArray(CFLocaleCopyISOCountryCodes(), true)
-		    dim theList() as String
-		    
-		    for i as Integer = 0 to thearray.Count - 1
-		      theList.Append CFString(thearray.Value(i))
-		    next
-		    return theList
+		    dim theArray as new CFArray(CFLocaleCopyISOCountryCodes(), CFType.hasOwnership)
+		    return theArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod
@@ -141,13 +126,8 @@ Inherits CFType
 		    //added in 10.4
 		    soft declare function CFLocaleCopyISOCurrencyCodes lib CarbonLib () as Ptr
 		    
-		    dim thearray as new CFArray(CFLocaleCopyISOCurrencyCodes(), true)
-		    dim theList() as String
-		    
-		    for i as Integer = 0 to thearray.Count - 1
-		      theList.Append CFString(thearray.Value(i))
-		    next
-		    return theList
+		    dim theArray as new CFArray(CFLocaleCopyISOCurrencyCodes(), CFType.hasOwnership)
+		    return theArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod
@@ -158,13 +138,8 @@ Inherits CFType
 		    //added in 10.5
 		    soft declare function CFLocaleCopyPreferredLanguages lib CarbonLib () as Ptr
 		    
-		    dim thearray as new CFArray(CFLocaleCopyPreferredLanguages(), true)
-		    dim theList() as String
-		    
-		    for i as Integer = 0 to thearray.Count - 1
-		      theList.Append CFString(thearray.Value(i))
-		    next
-		    return theList
+		    dim theArray as new CFArray(CFLocaleCopyPreferredLanguages(), CFType.hasOwnership)
+		    return theArray.StringValues
 		  #endif
 		End Function
 	#tag EndMethod
