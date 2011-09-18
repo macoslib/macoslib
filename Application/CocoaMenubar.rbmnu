@@ -876,6 +876,12 @@ Begin Menu CocoaMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSHost
+            SpecialMenu = 0
+            Text = "NSHost"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSLevelIndicator
             SpecialMenu = 0
             Text = "NSLevelIndicator"

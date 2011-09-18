@@ -41,6 +41,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSHost() As Boolean Handles CocoaNSHost.Action
+			NSHostExampleWindow.Show
+			return true
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSLevelIndicator() As Boolean Handles CocoaNSLevelIndicator.Action
 			NSLevelIndicatorWindow.Show
 			return true
