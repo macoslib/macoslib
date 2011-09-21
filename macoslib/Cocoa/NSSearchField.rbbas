@@ -279,13 +279,13 @@ Inherits NSControl
 		    objc_registerClassPair newClassId
 		    
 		    dim methodList() as Tuple
-		    methodList.Append new Tuple("menuAction:", FPtr(AddressOf DispatchMenuAction), "v@:@")
-		    methodList.Append new Tuple("controlTextDidEndEditing:", FPtr(AddressOf DispatchcontrolTextDidEndEditing), "v@:@")
-		    methodList.Append new Tuple("control:textShouldEndEditing:", FPtr(AddressOf DispatchcontrolTextShouldEndEditing),  "B@:@@")
-		    methodList.Append new Tuple("controlTextDidChange:", FPtr(AddressOf DispatchcontrolTextDidChange), "v@:@")
-		    methodList.Append new Tuple("control:textShouldBeginEditing:", FPtr(AddressOf DispatchcontrolTextShouldBeginEditing), "B@:@@")
-		    methodList.Append new Tuple("controlTextDidBeginEditing:", FPtr(AddressOf DispatchcontrolTextDidBeginEditing), "v@:@")
-		    methodList.Append new Tuple("control:textView:doCommandBySelector:", FPtr(AddressOf DispatchcontrolDoCommandBySelector), "v@:@@:")
+		    methodList.Append "menuAction:" : FPtr(AddressOf DispatchMenuAction) : "v@:@"
+		    methodList.Append "controlTextDidEndEditing:" : FPtr(AddressOf DispatchcontrolTextDidEndEditing) : "v@:@"
+		    methodList.Append "control:textShouldEndEditing:" : FPtr(AddressOf DispatchcontrolTextShouldEndEditing) : "B@:@@"
+		    methodList.Append "controlTextDidChange:" : FPtr(AddressOf DispatchcontrolTextDidChange) : "v@:@"
+		    methodList.Append "control:textShouldBeginEditing:" : FPtr(AddressOf DispatchcontrolTextShouldBeginEditing) : "B@:@@"
+		    methodList.Append "controlTextDidBeginEditing:" : FPtr(AddressOf DispatchcontrolTextDidBeginEditing) : "v@:@"
+		    methodList.Append "control:textView:doCommandBySelector:" : FPtr(AddressOf DispatchcontrolDoCommandBySelector) : "v@:@@:"
 		    
 		    
 		    dim methodsAdded as Boolean = true

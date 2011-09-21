@@ -63,25 +63,6 @@ Protected Class Tuple
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Shared Sub Test_Operator_Compare_Nil()
-		  dim t as Tuple = 1 : 2
-		  t.Operator_Compare(nil).ShouldEqual 1
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Sub Test_Operator_Convert()
-		  dim v0 as Variant = 1
-		  dim v1 as Variant = "foo"
-		  dim v2 as Variant = true
-		  dim t as Tuple = v0 : v1 : v2
-		  t(0).ShouldEqual v0
-		  t(1).ShouldEqual v1
-		  t(2).ShouldEqual v2
-		End Sub
-	#tag EndMethod
-
 
 	#tag Note, Name = Read Me
 		Tuple is an extension of the Pair class that holds more than two objects.  A Tuple is not the same as a list object; it is intended to 
