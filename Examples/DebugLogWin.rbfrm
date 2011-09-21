@@ -27,7 +27,6 @@ Begin Window DebugLogWin
    Begin Listbox theList
       AutoDeactivate  =   True
       AutoHideScrollbars=   False
-      BehaviorIndex   =   0
       Bold            =   ""
       Border          =   False
       ColumnCount     =   2
@@ -46,7 +45,7 @@ Begin Window DebugLogWin
       Height          =   204
       HelpTag         =   ""
       Hierarchical    =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   ""
@@ -66,6 +65,7 @@ Begin Window DebugLogWin
       TabStop         =   False
       TextFont        =   "SmallSystem"
       TextSize        =   0
+      TextUnit        =   0
       Top             =   27
       Underline       =   ""
       UseFocusRing    =   False
@@ -75,15 +75,15 @@ Begin Window DebugLogWin
    End
    Begin PushButton markBut
       AutoDeactivate  =   True
-      BehaviorIndex   =   1
       Bold            =   ""
+      ButtonStyle     =   0
       Cancel          =   ""
       Caption         =   "Mark"
       Default         =   ""
       Enabled         =   True
       Height          =   16
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
       Left            =   9
@@ -98,6 +98,7 @@ Begin Window DebugLogWin
       TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
+      TextUnit        =   0
       Top             =   3
       Underline       =   ""
       Visible         =   True
@@ -105,15 +106,15 @@ Begin Window DebugLogWin
    End
    Begin PushButton clearBut
       AutoDeactivate  =   True
-      BehaviorIndex   =   2
       Bold            =   ""
+      ButtonStyle     =   0
       Cancel          =   ""
       Caption         =   "Clear"
       Default         =   ""
       Enabled         =   True
       Height          =   16
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
       Left            =   109
@@ -128,6 +129,7 @@ Begin Window DebugLogWin
       TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
+      TextUnit        =   0
       Top             =   3
       Underline       =   ""
       Visible         =   True

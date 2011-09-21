@@ -16,9 +16,6 @@ Inherits Canvas
 
 	#tag Event
 		Sub GotFocus()
-		  #if DebugBuild
-		    DebugLogWin.AddLine "Canvas.GetFocus event"
-		  #endif
 		  if suppressEvents = 0 then
 		    SetKbdFocus true
 		  end if
@@ -27,9 +24,6 @@ Inherits Canvas
 
 	#tag Event
 		Sub LostFocus()
-		  #if DebugBuild
-		    DebugLogWin.AddLine "Canvas.LostFocus event"
-		  #endif
 		  if suppressEvents = 0 then
 		    SetKbdFocus false
 		  end if
@@ -184,10 +178,6 @@ Inherits Canvas
 		  dim eventClass as String = GetEventClass(EventRef)
 		  dim eventKind as UInt32 = GetEventKind(EventRef)
 		  
-		  #if DebugBuild
-		    DebugLogWin.AddLine "HandleCarbonEvent "+eventClass+": " + Str(eventKind)
-		  #endif
-		  
 		  select case eventClass
 		    
 		  case kEventClassMouse
@@ -226,15 +216,9 @@ Inherits Canvas
 		        err = GetEventParameter(EventRef, kEventParamTextInputSendText, typeUnicodeText, nil, 2, nil, code)
 		        if err = 0 and code = 9 then // Tab key? (no need to mess with encodings here because we already requested to get the code as unicode)
 		          declare function HIViewAdvanceFocus lib CarbonLib (inRootForFocus as Ptr, inModifiers as Integer) as Integer
-		          #if DebugBuild
-		            DebugLogWin.AddLine "Advancing focus ..."
-		          #endif
 		          me.AcceptFocus = false // so that that our superclass (Canvas) isn't getting the focus
 		          err = HIViewAdvanceFocus(me.ContentViewRef, GetCurrentEventKeyModifiers())
 		          me.AcceptFocus = true
-		          #if DebugBuild
-		            DebugLogWin.AddLine "Advancing focus done"
-		          #endif
 		          return noErr
 		        end if
 		      end if
@@ -253,20 +237,10 @@ Inherits Canvas
 		      call GetEventParameter(EventRef, kEventParamControlPart, typeControlPartCode, nil, 2, nil, part)
 		      
 		      if suppressEvents = 0 then
-		        
-		        #if DebugBuild
-		          DebugLogWin.AddLine "setfocus part "+str(part)
-		          'DebugLogWin.AddLine "passing event on..."+Str(Integer(ctrl))
-		        #endif
-		        
 		        suppressEvents = 1
 		        err = SendEventToEventTarget (EventRef, GetControlEventTarget(me.ControlRef))
 		        suppressEvents = 0
 		        if err <> 0 then break
-		        
-		        #if DebugBuild
-		          DebugLogWin.AddLine "passing event done. "+Str(HIViewSubtreeContainsFocus(me.ControlRef))
-		        #endif
 		        
 		        if part <> 0 then
 		          suppressEvents = suppressEvents + 1
@@ -278,19 +252,6 @@ Inherits Canvas
 		        
 		      end
 		      
-		      'if part = 0 then
-		      'if HasFocus then
-		      'HasFocus = false
-		      'DebugLogWin.AddLine " -> lost"
-		      'end if
-		      'elseif part <> 0 then
-		      'if not HasFocus then
-		      'HasFocus = true
-		      'DebugLogWin.AddLine " -> gained"
-		      'else
-		      'end if
-		      'end
-		      'return noErr
 		    end
 		    
 		  end select
@@ -422,9 +383,6 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub SetFocus()
-		  #if DebugBuild
-		    DebugLogWin.AddLine "Canvas.SetFocus call"
-		  #endif
 		  SetKbdFocus true
 		End Sub
 	#tag EndMethod
@@ -434,18 +392,12 @@ Inherits Canvas
 		  dim err as Integer
 		  if me.Visible and me.Enabled then
 		    if gained then
-		      #if DebugBuild
-		        DebugLogWin.AddLine "SetKeyboardFocus"
-		      #endif
 		      declare function SetKeyboardFocus lib CarbonLib (inWindow as WindowPtr, inControl as Ptr, inPart as Int16) as Integer
 		      dim part as Integer
 		      part = -1
 		      err = SetKeyboardFocus(me.ParentWindow, me.ControlRef, part)
 		      super.SetFocus
 		    else
-		      #if DebugBuild
-		        DebugLogWin.AddLine "clearing focus"
-		      #endif
 		      declare sub ClearKeyboardFocus lib CarbonLib (window as WindowPtr)
 		      declare sub HIViewAdvanceFocus lib CarbonLib (view as WindowPtr, modifiers as Integer)
 		      'ClearKeyboardFocus me.ParentWindow
