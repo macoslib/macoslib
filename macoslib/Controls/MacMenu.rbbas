@@ -76,7 +76,7 @@ Protected Class MacMenu
 		    try
 		      self.Constructor(theMenuRef)
 		      
-		    finally 
+		    finally
 		      if theMenuRef <> nil then
 		        dim err as Integer = ReleaseMenu(theMenuRef)
 		        if err = 0 then
@@ -424,7 +424,7 @@ Protected Class MacMenu
 		    soft declare function SetMenuItemTextWithCFString Lib CarbonLib (inMenu as Ptr, inItem as Short, inString as CFStringRef) as Integer
 		    
 		    dim OSError as Integer = SetMenuItemTextWithCFString(self.Ref, index, value)
-		    if OSError <> 0 then 
+		    if OSError <> 0 then
 		      MacOSError "SetText", "SetMenuItemTextWithCFString", OSError
 		    end if
 		  #endif

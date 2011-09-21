@@ -127,7 +127,7 @@ Inherits Canvas
 		  
 		  Soft Declare Function HIViewFindByID Lib CarbonLib (inStartView as Integer, signature as Integer, id as Integer, byRef outControl as Integer) as Integer
 		  
-		  dim theViewRef as Integer 
+		  dim theViewRef as Integer
 		  dim OSError as Integer = HIViewFindByID(me.RootView, contentViewID.Integer(0), contentViewID.Integer(4), theViewRef)
 		  If OSError <> 0 then
 		    break
@@ -273,7 +273,7 @@ Inherits Canvas
 		        dim buffer as new MemoryBlock(sizeOfHICommand)
 		        dim OSError as Integer = GetEventParameter(EventRef, kEventParamDirectObject, typeHICommand, Nil, buffer.Size, Nil, buffer)
 		        #pragma unused OSError
-		        MenuItemSelected new MacMenu(buffer.Ptr(8)), buffer.Short(12) 
+		        MenuItemSelected new MacMenu(buffer.Ptr(8)), buffer.Short(12)
 		        Return noErr
 		        
 		      Else
@@ -766,7 +766,7 @@ Inherits Canvas
 			    Const sizeOfControlEditTextSelectionRec = 4
 			    dim buffer as new MemoryBlock(sizeOfControlEditTextSelectionRec)
 			    buffer.Short(0) = value
-			    buffer.Short(2) = buffer.Short(0) + me.SelLength 
+			    buffer.Short(2) = buffer.Short(0) + me.SelLength
 			    
 			    dim OSError as Integer = SetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextSelectionTag, sizeOfControlEditTextSelectionRec, buffer)
 			  #endif

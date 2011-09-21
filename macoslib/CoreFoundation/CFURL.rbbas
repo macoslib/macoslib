@@ -30,7 +30,7 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function AppendComponent(pathComponent as String, isDirectory as Boolean) As CFURL
-		  //creates a new CFURL object with pathComponent appended to the path of this object.  
+		  //creates a new CFURL object with pathComponent appended to the path of this object.
 		  //isDirectory tells the function whether to add a trailing slash.
 		  #if targetMacOS
 		    declare function CFURLCreateCopyAppendingPathComponent lib CarbonLib (allocator as Ptr, url as Ptr, pathComponent as CFStringRef, isDirectory as Boolean) as Ptr
