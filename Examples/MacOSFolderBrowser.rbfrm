@@ -296,7 +296,7 @@ End
 		  ListBox1.DeleteAllRows
 		  dim domain as Integer = PopupMenu1.RowTag(PopupMenu1.ListIndex)
 		  for i as Integer = 0 to folderTypes.Count - 1
-		    ListBox1.AddRow folderTypes.Key(i)
+		    ListBox1.AddRow folderTypes.Key(i).StringValue
 		    dim f as FolderItem = FolderManager.FindFolder(domain, FolderTypes.value(folderTypes.Key(i)).StringValue, false)
 		    if f <> nil then
 		      ListBox1.Cell(ListBox1.LastIndex, 1) = f.AbsolutePath

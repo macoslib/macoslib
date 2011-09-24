@@ -130,7 +130,7 @@ End
 		  "ControlTintGraphite" : NSColor.ControlTintGraphite)
 		  
 		  for each item as Pair in colors
-		    me.AddRow item.Left
+		    me.AddRow item.Left.StringValue
 		    me.CellTag(me.LastIndex, 1) = item.Right
 		  next
 		  
