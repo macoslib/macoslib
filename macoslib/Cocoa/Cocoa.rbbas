@@ -107,6 +107,17 @@ Protected Module Cocoa
 		Protected Declare Function NSHomeDirectory Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h21
+		Private Function NSMakeRect(x as Double, y as Double,  w as Double, h as Double) As NSRect
+		  dim r as NSRect
+		  r.x = x
+		  r.y = y
+		  r.w = w
+		  r.h = h
+		  return r
+		End Function
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h0
 		Declare Function NSSearchPathForDirectoriesInDomains Lib CocoaLib (directory as Integer, domainMask as Integer, expandTilde as Boolean) As Ptr
 	#tag EndExternalMethod
