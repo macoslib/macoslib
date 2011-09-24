@@ -253,7 +253,7 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    declare function usesAlternatingRowBackgroundColors lib CocoaLib selector "usesAlternatingRowBackgroundColors:" (obj_id as Ptr) as Boolean
+			    declare function usesAlternatingRowBackgroundColors lib CocoaLib selector "usesAlternatingRowBackgroundColors" (obj_id as Ptr) as Boolean
 			    
 			    if self.id <> nil then
 			      return usesAlternatingRowBackgroundColors(self)
