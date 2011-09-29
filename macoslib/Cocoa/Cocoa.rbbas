@@ -108,7 +108,7 @@ Protected Module Cocoa
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h21
-		Private Function NSMakeRect(x as Double, y as Double,  w as Double, h as Double) As NSRect
+		Private Function NSMakeRect(x as Double, y as Double, w as Double, h as Double) As NSRect
 		  dim r as NSRect
 		  r.x = x
 		  r.y = y
