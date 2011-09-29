@@ -64,6 +64,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSPrinter() As Boolean Handles CocoaNSPrinter.Action
+			NSPrinterExampleWindow.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSSearchField() As Boolean Handles CocoaNSSearchField.Action
 			NSSearchFieldExample.Show
 			return true

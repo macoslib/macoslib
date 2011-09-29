@@ -894,6 +894,12 @@ Begin Menu CocoaMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSPrinter
+            SpecialMenu = 0
+            Text = "NSPrinter"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSSearchField
             SpecialMenu = 0
             Text = "NSSearchField"
