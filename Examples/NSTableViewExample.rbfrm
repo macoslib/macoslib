@@ -27,6 +27,8 @@ Begin Window NSTableViewExample
    Begin Cocoa.NSTableView NSTableView1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
+      AllowColumnReordering=   ""
+      AlternatingRowBackground=   ""
       AutoDeactivate  =   True
       autoresizesSubviews=   ""
       Backdrop        =   ""
@@ -36,6 +38,7 @@ Begin Window NSTableViewExample
       EraseBackground =   ""
       Height          =   400
       HelpTag         =   ""
+      HorizontalGrid  =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       IsFlipped       =   ""
@@ -45,12 +48,16 @@ Begin Window NSTableViewExample
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   True
+      RowHeight       =   ""
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   ""
       Top             =   0
+      TypeSelect      =   ""
       UseFocusRing    =   ""
+      VerticalGrid    =   ""
+      VerticalScrollbar=   ""
       Visible         =   True
       Width           =   315
    End
