@@ -237,6 +237,26 @@ Module CoreFoundation
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Retained(extends s as CFStringRef) As CFStringRef
+		  #if targetMacOS
+		    declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    
+		    //why two CFRetain calls?  Suppose we use this declaration.
+		    //declare function CFRetain lib CarbonLib (cf as CFStringRef) as CFStringRef
+		    //when passed in, s has retain count N.  CFRetain(s) returns a CFStringRef with
+		    //retain count N + 1.  But because a CFStringRef is always released when the variable is
+		    //destroyed, the effect of the first retain is negated.  Since Rb doesn't provide for conversion
+		    //between CFStringRef and Ptr, we need to pass the reference through some function to
+		    //achieve the conversion.
+		    
+		    
+		    return CFRetain(CFRetain(p))
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag DelegateDeclaration, Flags = &h1
 		Protected Delegate Sub TimerActionDelegate()
 	#tag EndDelegateDeclaration
