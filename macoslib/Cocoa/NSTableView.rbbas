@@ -182,7 +182,11 @@ Inherits NSControl
 		  #if targetCocoa
 		    declare sub setHeaderView lib CocoaLib selector "setHeaderView:" (obj_id as Ptr, aHeaderView as Ptr)
 		    
-		    setHeaderView self, value
+		    if value <> nil then
+		      setHeaderView self, value
+		    else
+		      setHeaderView self, nil
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -275,6 +279,28 @@ Inherits NSControl
 			End Set
 		#tag EndSetter
 		AlternatingRowBackground As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function autohidesScrollers lib CocoaLib selector "autohidesScrollers" (obj_id as Ptr) as Boolean
+			    
+			    return autohidesScrollers(self.scrollview)
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setAutohidesScrollers lib CocoaLib selector "setAutohidesScrollers:" (obj_id as Ptr, value as Boolean)
+			    
+			    setAutohidesScrollers(self.scrollview, value)
+			  #endif
+			End Set
+		#tag EndSetter
+		AutohideScrollbars As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
