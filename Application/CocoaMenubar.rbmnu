@@ -20,6 +20,31 @@ Begin Menu CocoaMenubar
          Index = -2147483648
          AutoEnable = True
       End
+      Begin CocoaMenuItemPageSetup CocoaFilePageSetup
+         SpecialMenu = 0
+         Text = "#CocoaMenuItemPageSetup.LocalizedText"
+         Index = -2147483648
+         ShortcutKey = "P"
+         Shortcut = "Cmd+Shift+P"
+         MenuModifier = True
+         AltMenuModifier = True
+         AutoEnable = False
+      End
+      Begin CocoaMenuItemPrint CocoaFilePrint
+         SpecialMenu = 0
+         Text = "#CocoaMenuItemPrint.LocalizedText"
+         Index = -2147483648
+         ShortcutKey = "P"
+         Shortcut = "Cmd+P"
+         MenuModifier = True
+         AutoEnable = True
+      End
+      Begin MenuItem UntitledSeparator2
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+      End
       Begin QuitMenuItem FileQuit
          SpecialMenu = 0
          Text = "#App.kFileQuit"
