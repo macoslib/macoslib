@@ -184,6 +184,7 @@ Inherits NSObject
 			Name="LocalizedName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
