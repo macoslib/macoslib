@@ -119,6 +119,20 @@ Inherits NSObject
 	#tag EndNote
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function isLoaded lib CocoaLib selector "isLoaded" (obj_id as Ptr) as Boolean
+			    
+			    return isLoaded(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		IsLoaded As Boolean
+	#tag EndComputedProperty
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
