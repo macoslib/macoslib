@@ -45,8 +45,17 @@ Class NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(obj_id as Ptr)
-		  me._id = obj_id
+		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean=false)
+		  self._id = obj_id
+		  if not hasOwnership then
+		    call self.Retain
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  self.Release
 		End Sub
 	#tag EndMethod
 
@@ -61,6 +70,16 @@ Class NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Compare(obj as NSObject) As Integer
+		  if obj <> nil then
+		    return Integer(self.id) - Integer(obj.id)
+		  else
+		    return Integer(self.id)
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As Ptr
 		  return self.id
 		End Function
@@ -69,7 +88,7 @@ Class NSObject
 	#tag Method, Flags = &h0
 		Sub Release()
 		  #if targetCocoa
-		    declare sub release lib CocoaLib (id as Ptr)
+		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
 		    if self.id <> nil then
 		      release self.id
@@ -124,6 +143,10 @@ Class NSObject
 	#tag Property, Flags = &h1
 		Protected _id As Ptr
 	#tag EndProperty
+
+
+	#tag Constant, Name = hasOwnership, Type = Boolean, Dynamic = False, Default = \"true", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior
