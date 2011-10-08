@@ -220,44 +220,6 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Retain(extends s as CFStringRef)
-		  // This function is needed for CFStringRef values returned by a Mac OS CF...Get... function.
-		  //
-		  // That's because the CFStringRef destructor will call CFRelease on the reference,
-		  // which must be balanced with a CFRetain call so that the object does not get freed.
-		  // This is because of the ownership rules which say that a CF-Get function does not
-		  // transfer ownership.
-		  
-		  #if targetMacOS
-		    declare function CFRetain lib CarbonLib (cf as CFStringRef) as Integer
-		    
-		    call CFRetain(s)
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Retained(extends s as CFStringRef) As CFStringRef
-		  #if targetMacOS
-		    declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
-		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		    
-		    //why two CFRetain calls?  Suppose we use this declaration.
-		    //declare function CFRetain lib CarbonLib (cf as CFStringRef) as CFStringRef
-		    //when passed in, s has retain count N.  CFRetain(s) returns a CFStringRef with
-		    //retain count N + 1.  But because a CFStringRef is always released when the variable is
-		    //destroyed, the effect of the first retain is negated when the variable returned by 
-		    //CFRetain is destroyed.  Since Rb doesn't provide for conversion
-		    //between CFStringRef and Ptr, we need to pass the reference through some function to
-		    //achieve the conversion.
-		    
-		    
-		    return CFRetain(CFRetain(s))
-		  #endif
-		End Function
-	#tag EndMethod
-
 	#tag DelegateDeclaration, Flags = &h1
 		Protected Delegate Sub TimerActionDelegate()
 	#tag EndDelegateDeclaration
