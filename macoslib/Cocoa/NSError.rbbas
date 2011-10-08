@@ -18,9 +18,14 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function localizedDescription lib CocoaLib selector "localizedDescription" (obj_id as Ptr) as CFStringRef
+			    declare function localizedDescription lib CocoaLib selector "localizedDescription" (obj_id as Ptr) as Ptr
 			    
-			    return localizedDescription(self).Retained
+			    dim p as Ptr =  localizedDescription(self)
+			    if p <> nil then
+			      return CFStringRetain(p)
+			    else
+			      return ""
+			    end if
 			  #endif
 			End Get
 		#tag EndGetter
@@ -31,9 +36,14 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function domain lib CocoaLib selector "domain" (obj_id as Ptr) as CFStringRef
+			    declare function domain lib CocoaLib selector "domain" (obj_id as Ptr) as Ptr
 			    
-			    return domain(self).Retained
+			    dim p as Ptr =  domain(self)
+			    if p <> nil then
+			      return CFStringRetain(p)
+			    else
+			      return ""
+			    end if
 			  #endif
 			End Get
 		#tag EndGetter
@@ -44,9 +54,14 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function localizedFailureReason lib CocoaLib selector "localizedFailureReason" (obj_id as Ptr) as CFStringRef
+			    declare function localizedFailureReason lib CocoaLib selector "localizedFailureReason" (obj_id as Ptr) as Ptr
 			    
-			    return localizedFailureReason(self).Retained
+			    dim p as Ptr =  localizedFailureReason(self)
+			    if p <> nil then
+			      return CFStringRetain(p)
+			    else
+			      return ""
+			    end if
 			  #endif
 			End Get
 		#tag EndGetter
@@ -56,11 +71,26 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Code"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Domain"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FailureReason"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
