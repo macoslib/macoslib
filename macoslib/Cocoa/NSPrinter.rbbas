@@ -111,9 +111,14 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function StringValue(key as String, table as String) As String
 		  #if targetMacOS
-		    declare function stringforKey lib CocoaLib selector "stringForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as CFStringRef
+		    declare function stringforKey lib CocoaLib selector "stringForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Ptr
 		    
-		    return stringForKey(self, key, table).Retained
+		    dim p as Ptr = stringForKey(self, key, table)
+		    if p <> nil then
+		      return CFStringRetain(p)
+		    else
+		      return ""
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
@@ -157,9 +162,14 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as CFStringRef
+			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as Ptr
 			    
-			    return name(self).Retained
+			    dim p as Ptr = name(self)
+			    if p <> nil then
+			      return CFStringRetain(p)
+			    else
+			      return ""
+			    end if
 			  #endif
 			End Get
 		#tag EndGetter
@@ -170,9 +180,14 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function type lib CocoaLib selector "type" (obj_id as Ptr) as CFStringRef
+			    declare function type lib CocoaLib selector "type" (obj_id as Ptr) as Ptr
 			    
-			    return type(self).Retained
+			    dim p as Ptr = type(self)
+			    if p <> nil then
+			      return CFStringRetain(p)
+			    else
+			      return ""
+			    end if
 			  #endif
 			End Get
 		#tag EndGetter
@@ -237,6 +252,7 @@ Inherits NSObject
 			Name="Type"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
