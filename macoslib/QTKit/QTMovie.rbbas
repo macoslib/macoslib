@@ -41,8 +41,7 @@ Inherits NSObject
 		    if p <> nil then
 		      return new QTMovie(p, NSObject.hasOwnership)
 		    else
-		      dim error as new NSObject(errorPtr)
-		      return nil
+		      raise new NSException(errorPtr)
 		    end if
 		  #endif
 		End Function
@@ -68,12 +67,16 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTIs() As String()
+		 Shared Function UTIs() As UTI()
 		  #if targetCocoa
 		    declare function movieTypesWithOptions lib QTKit.framework selector "movieTypesWithOptions:" (class_id as Ptr, types as Integer) as Ptr
 		    
 		    dim theArray as new CFArray(movieTypesWithOptions(Cocoa.NSClassFromString("QTMovie"), QTIncludeCommonTypes), not CFType.hasOwnership)
-		    return theArray.StringValues
+		    dim utiList() as UTI
+		    for each item as String in theArray.StringValues
+		      utiList.Append item
+		    next
+		    return utiList
 		  #endif
 		End Function
 	#tag EndMethod
@@ -109,6 +112,13 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -121,6 +131,11 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Muted"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
