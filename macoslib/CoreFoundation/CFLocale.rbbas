@@ -338,12 +338,9 @@ Inherits CFType
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    soft declare function CFLocaleGetIdentifier lib CarbonLib (locale as Ptr) as CFStringRef
+			    soft declare function CFLocaleGetIdentifier lib CarbonLib (locale as Ptr) as Ptr
 			    
-			    dim theIdentifier as CFStringRef = CFLocaleGetIdentifier(me.Reference)
-			    soft declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
-			    theIdentifier.Retain
-			    return theIdentifier
+			    return CFStringRetain(CFLocaleGetIdentifier(me.Reference))
 			  #endif
 			  
 			End Get
