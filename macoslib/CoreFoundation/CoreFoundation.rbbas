@@ -105,9 +105,19 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
-	#tag ExternalMethod, Flags = &h0
-		Declare Function CFStringRetain Lib CarbonLib Alias "CFRetain" (cf as Ptr) As CFStringRef
-	#tag EndExternalMethod
+	#tag Method, Flags = &h0
+		Function CFStringRetain(p as Ptr) As CFStringRef
+		  #if targetMacOS
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    
+		    if p <> nil then
+		      return CFRetain(p)
+		    else
+		      return nil
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function CFURL(f as FolderItem) As CFURL
