@@ -1,6 +1,16 @@
 #tag Class
 Protected Class UTI
 	#tag Method, Flags = &h0
+		Function ConformsTo(type as UTI) As Boolean
+		  #if targetMacOS
+		    declare function UTTypeConformsTo lib CarbonLib (inUTI as CFStringRef, inConformsToUTI as CFStringRef) as Boolean
+		    
+		    return (type <> nil) and UTTypeConformsTo(self, type)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromExtension(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
 		    return CreateUTI(tag, UTTagClassFilenameExtension, conformsTo)
@@ -70,6 +80,24 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Extensions() As String()
+		  return self.Tags(UTTagClassFilenameExtension)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MacTypes() As String()
+		  return self.Tags(UTTagClassOSType)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MIMETypes() As String()
+		  return self.Tags(UTTagClassMIMEType)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Compare(operand as UTI) As Integer
 		  #if targetMacOS
 		    soft declare function UTTypeEqual lib CarbonLib (uti1 as CFStringRef, uti2 as CFStringRef) as Boolean
@@ -80,45 +108,6 @@ Protected Class UTI
 		      return 1
 		    end if
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Operator_Convert() As FileType
-		  #if targetMacOS
-		    declare function UTTypeCopyDeclaration lib CarbonLib (uti as CFStringRef) as Ptr
-		    declare function CFDictionaryGetValueIfPresent lib CarbonLib (theDict as Ptr, key as Ptr, ByRef value as Ptr) as Boolean
-		    
-		    dim declaration as Ptr = UTTypeCopyDeclaration(self.Value)
-		    if declaration = nil then
-		      return new FileType
-		    end if
-		    
-		    dim specification as Ptr
-		    if not CFDictionaryGetValueIfPresent(declaration, UTTypeTagSpecificationKey, specification) then
-		      return new FileType
-		    end if
-		    
-		    dim f as new FileType
-		    dim value as Ptr
-		    
-		    if CFDictionaryGetValueIfPresent(specification, UTTagClassMIMEType, value) then
-		      f.Name = CFStringRetain(value)
-		    end if
-		    if CFDictionaryGetValueIfPresent(specification, UTTagClassFilenameExtension, value) then
-		      f.Extensions = CFStringRetain(value)
-		    end if
-		    if CFDictionaryGetValueIfPresent(specification, UTTagClassOSType, value) then
-		      f.MacType = CFStringRetain(value)
-		    end if
-		    
-		    return f
-		  #endif
-		  
-		  
-		  
-		  
-		  
 		End Function
 	#tag EndMethod
 
@@ -134,6 +123,12 @@ Protected Class UTI
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function PasteboardTypes() As String()
+		  return self.Tags(UTTagClassNSPboardType)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function Resolve(symbol as String) As Ptr
 		  #if targetMacOS
@@ -144,6 +139,48 @@ Protected Class UTI
 		      return nil
 		    end if
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function Tags(tagType as Ptr) As String()
+		  #if targetMacOS
+		    declare function UTTypeCopyDeclaration lib CarbonLib (uti as CFStringRef) as Ptr
+		    declare function CFDictionaryGetValueIfPresent lib CarbonLib (theDict as Ptr, key as Ptr, ByRef value as Ptr) as Boolean
+		    
+		    dim declaration as Ptr = UTTypeCopyDeclaration(self.Value)
+		    if declaration = nil then
+		      dim s(-1) as String
+		      return s
+		    end if
+		    
+		    dim specification as Ptr
+		    if not CFDictionaryGetValueIfPresent(declaration, UTTypeTagSpecificationKey, specification) then
+		      dim s(-1) as String
+		      return s
+		    end if
+		    
+		    
+		    dim tags() as String
+		    dim value as Ptr
+		    
+		    if CFDictionaryGetValueIfPresent(specification, tagType, value) then
+		      dim foo as CFType = CFType.NewObject(value, not CFType.hasOwnership)
+		      if foo isA CFString then
+		        tags = Array(CFString(foo).StringValue)
+		      elseIf foo isA CFArray then
+		        tags = CFArray(foo).StringValues
+		      else
+		        //
+		      end if
+		    end if
+		    
+		    return tags
+		  #endif
+		  
+		  
+		  
+		  
 		End Function
 	#tag EndMethod
 
@@ -187,6 +224,14 @@ Protected Class UTI
 		This is part of the open source "MacOSLib"
 		
 		Original sources are located here:  http://code.google.com/p/macoslib
+		
+		
+		UTI is a class representing a uniform type identifier. It wraps a UTI string; conversion to and from String is 
+		implemented.
+		
+		dim item as UTI = "public.data"
+		
+		
 	#tag EndNote
 
 
@@ -210,6 +255,11 @@ Protected Class UTI
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
