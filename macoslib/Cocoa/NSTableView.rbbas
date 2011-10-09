@@ -561,6 +561,11 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="AutohideScrollbars"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="autoresizesSubviews"
 			Group="Behavior"
 			Type="Boolean"

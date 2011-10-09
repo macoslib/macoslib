@@ -1,11 +1,11 @@
 #tag Class
 Protected Class UTI
 	#tag Method, Flags = &h0
-		 Shared Function AreEqual(uti1 as CFStringRef, uti2 as CFStringRef) As Boolean
+		Function ConformsTo(type as UTI) As Boolean
 		  #if targetMacOS
-		    soft declare function UTTypeEqual lib CarbonLib (uti1 as CFStringRef, uti2 as CFStringRef) as Boolean
+		    declare function UTTypeConformsTo lib CarbonLib (inUTI as CFStringRef, inConformsToUTI as CFStringRef) as Boolean
 		    
-		    return UTTypeEqual(uti1, uti2)
+		    return (type <> nil) and UTTypeConformsTo(self, type)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -13,9 +13,7 @@ Protected Class UTI
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromExtension(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
-		    static tagClass as Ptr = ResolveTagClass("kUTTagClassFilenameExtension")
-		    
-		    return CreateUTI(tag, tagClass, conformsTo)
+		    return CreateUTI(tag, UTTagClassFilenameExtension, conformsTo)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -23,9 +21,7 @@ Protected Class UTI
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromMIMEType(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
-		    static tagClass as Ptr = ResolveTagClass("kUTTagClassMIMEType")
-		    
-		    return CreateUTI(tag, tagClass, conformsTo)
+		    return CreateUTI(tag, UTTagClassMIMEType, conformsTo)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -33,13 +29,9 @@ Protected Class UTI
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromOSType(tag as OSType, conformsTo as String = "") As String
 		  #if targetMacOS
-		    soft declare function UTCreateStringForOSType lib CarbonLib (inOSType as OSType) as Ptr
-		    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
-		    // Instead, "new CFString()" takes care of that below
+		    declare function UTCreateStringForOSType lib CarbonLib (inOSType as OSType) as CFStringRef
 		    
-		    static tagClass as Ptr = ResolveTagClass("kUTTagClassOSType")
-		    
-		    return CreateUTI(new CFString(UTCreateStringForOSType(tag), true), tagClass, conformsTo)
+		    return CreateUTI(UTCreateStringForOSType(tag), UTTagClassOSType, conformsTo)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -47,7 +39,7 @@ Protected Class UTI
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPasteboardType(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
-		    static tagClass as Ptr = ResolveTagClass("kUTTagClassNSPboardType")
+		    static tagClass as Ptr = Resolve("kUTTagClassNSPboardType")
 		    
 		    return CreateUTI(tag, tagClass, conformsTo)
 		  #endif
@@ -73,45 +65,75 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DeclaringBundleURL(uti as CFStringRef) As CFURL
+		Function DeclaringBundleURL() As CFURL
 		  #if targetMacOS
 		    soft declare function UTTypeCopyDeclaringBundleURL lib CarbonLib (uti as CFStringRef) as Ptr
 		    
-		    dim theURL as new CFURL(UTTypeCopyDeclaringBundleURL(uti), true)
+		    dim theURL as new CFURL(UTTypeCopyDeclaringBundleURL(self.Value), CFType.hasOwnership)
 		    if theURL <> nil then
 		      return theURL
+		    else
+		      return nil
 		    end if
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Description(uti as CFStringRef) As String
-		  #if targetMacOS
-		    soft declare function UTTypeCopyDescription lib CarbonLib (uti as CFStringRef) as Ptr
-		    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
-		    // Instead, "new CFString()" takes care of that below
-		    
-		    return new CFString(UTTypeCopyDescription(uti), true)
-		  #endif
+		Function Extensions() As String()
+		  return self.Tags(UTTagClassFilenameExtension)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function OSType(uti as CFStringRef) As OSType
+		Function MacTypes() As String()
+		  return self.Tags(UTTagClassOSType)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MIMETypes() As String()
+		  return self.Tags(UTTagClassMIMEType)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Compare(operand as UTI) As Integer
 		  #if targetMacOS
-		    soft declare function UTGetOSTypeFromString lib CarbonLib (uti as CFStringRef) as OSType
+		    soft declare function UTTypeEqual lib CarbonLib (uti1 as CFStringRef, uti2 as CFStringRef) as Boolean
 		    
-		    return UTGetOSTypeFromString(uti)
+		    if UTTypeEqual(self.Value, operand.Value) then
+		      return 0
+		    else
+		      return 1
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function ResolveTagClass(symbol as String) As Ptr
+		Private Function Operator_Convert() As String
+		  return self.Value
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(s as String)
+		  self.Value = s
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PasteboardTypes() As String()
+		  return self.Tags(UTTagClassNSPboardType)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function Resolve(symbol as String) As Ptr
 		  #if targetMacOS
 		    dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(symbol)
-		    if p <> nil then
+		    if p <>nil then
 		      return p.Ptr(0)
 		    else
 		      return nil
@@ -120,15 +142,124 @@ Protected Class UTI
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function Tags(tagType as Ptr) As String()
+		  #if targetMacOS
+		    declare function UTTypeCopyDeclaration lib CarbonLib (uti as CFStringRef) as Ptr
+		    declare function CFDictionaryGetValueIfPresent lib CarbonLib (theDict as Ptr, key as Ptr, ByRef value as Ptr) as Boolean
+		    
+		    dim declaration as Ptr = UTTypeCopyDeclaration(self.Value)
+		    if declaration = nil then
+		      dim s(-1) as String
+		      return s
+		    end if
+		    
+		    dim specification as Ptr
+		    if not CFDictionaryGetValueIfPresent(declaration, UTTypeTagSpecificationKey, specification) then
+		      dim s(-1) as String
+		      return s
+		    end if
+		    
+		    
+		    dim tags() as String
+		    dim value as Ptr
+		    
+		    if CFDictionaryGetValueIfPresent(specification, tagType, value) then
+		      dim foo as CFType = CFType.NewObject(value, not CFType.hasOwnership)
+		      if foo isA CFString then
+		        tags = Array(CFString(foo).StringValue)
+		      elseIf foo isA CFArray then
+		        tags = CFArray(foo).StringValues
+		      else
+		        //
+		      end if
+		    end if
+		    
+		    return tags
+		  #endif
+		  
+		  
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function UTTagClassFilenameExtension() As Ptr
+		  static tagClass as Ptr = Resolve("kUTTagClassFilenameExtension")
+		  return tagClass
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function UTTagClassMIMEType() As Ptr
+		  static tagClass as Ptr = Resolve("kUTTagClassMIMEType")
+		  return tagClass
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function UTTagClassNSPboardType() As Ptr
+		  static tagClass as Ptr = Resolve("kUTTagClassNSPboardType")
+		  return tagClass
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function UTTagClassOSType() As Ptr
+		  static tagClass as Ptr = Resolve("kUTTagClassOSType")
+		  return tagClass
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function UTTypeTagSpecificationKey() As Ptr
+		  static p as Ptr = Resolve("kUTTypeTagSpecificationKey")
+		  return p
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		This is part of the open source "MacOSLib"
 		
 		Original sources are located here:  http://code.google.com/p/macoslib
+		
+		
+		UTI is a class representing a uniform type identifier. It wraps a UTI string; conversion to and from String is 
+		implemented.
+		
+		dim item as UTI = "public.data"
+		
+		
 	#tag EndNote
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    soft declare function UTTypeCopyDescription lib CarbonLib (uti as CFStringRef) as CFStringRef
+			    
+			    return UTTypeCopyDescription(self.Value)
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Description As String
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private Value As String
+	#tag EndProperty
+
+
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true

@@ -788,11 +788,9 @@ Class NavigationDialog
 			  if me.DialogRef = nil then
 			    return me.pSaveFileName
 			  else
-			    soft declare function NavDialogGetSaveFileName lib CarbonLib (inPutFileDialog as Ptr) as CFStringRef
+			    soft declare function NavDialogGetSaveFileName lib CarbonLib (inPutFileDialog as Ptr) as Ptr
 			    
-			    dim value as CFStringRef = NavDialogGetSaveFileName(me.DialogRef)  //problem here?
-			    value.Retain
-			    return value
+			    return CFStringRetain(NavDialogGetSaveFileName(self.DialogRef))
 			  end if
 			End Get
 		#tag EndGetter

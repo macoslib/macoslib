@@ -4,7 +4,7 @@ Inherits NSControl
 	#tag Event
 		Sub Action()
 		  #if targetCocoa
-		    soft declare function clickedPathComponentCell lib CocoaFramework selector "clickedPathComponentCell" (id as Ptr) as Ptr
+		    soft declare function clickedPathComponentCell lib CocoaLib selector "clickedPathComponentCell" (id as Ptr) as Ptr
 		    
 		    dim p as Ptr = clickedPathComponentCell(me.id)
 		    if p <> nil then
@@ -43,7 +43,7 @@ Inherits NSControl
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare function backgroundColor lib CocoaFramework selector "backgroundColor" (id as Ptr) as Ptr
+			      soft declare function backgroundColor lib CocoaLib selector "backgroundColor" (id as Ptr) as Ptr
 			      
 			      dim c as new NSColor(backgroundColor(me.id))
 			      return c.ColorValue
@@ -57,7 +57,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare sub setBackgroundColor lib CocoaFramework selector "setBackgroundColor:" (id as Ptr, c as Ptr)
+			      soft declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (id as Ptr, c as Ptr)
 			      
 			      dim c as new NSColor(value)
 			      setBackgroundColor me.id, c
@@ -78,7 +78,7 @@ Inherits NSControl
 			      return 0
 			    end if
 			    
-			    soft declare function pathStyle lib CocoaFramework selector "pathStyle" (id as Ptr) as Integer
+			    soft declare function pathStyle lib CocoaLib selector "pathStyle" (id as Ptr) as Integer
 			    
 			    return pathStyle(me.id)
 			  #endif
@@ -91,7 +91,7 @@ Inherits NSControl
 			      return
 			    end if
 			    
-			    soft declare sub setPathStyle lib CocoaFramework selector "setPathStyle:" (id as Ptr, style as Integer)
+			    soft declare sub setPathStyle lib CocoaLib selector "setPathStyle:" (id as Ptr, style as Integer)
 			    
 			    setPathStyle me.id, value
 			  #endif
@@ -105,11 +105,11 @@ Inherits NSControl
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare function getURL lib CocoaFramework selector "URL" (id as Ptr) as Ptr
+			      soft declare function getURL lib CocoaLib selector "URL" (id as Ptr) as Ptr
 			      
 			      dim p as Ptr = getURL(me.id)
 			      if p <> nil then
-			        soft declare function absoluteString lib CocoaFramework selector "absoluteString" (id as Ptr) as CFStringRef
+			        soft declare function absoluteString lib CocoaLib selector "absoluteString" (id as Ptr) as CFStringRef
 			        return absoluteString(p)
 			      else
 			        return ""
@@ -125,17 +125,17 @@ Inherits NSControl
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    soft declare sub setURL lib CocoaFramework selector "setURL:" (id as Ptr, url as Ptr)
+			    soft declare sub setURL lib CocoaLib selector "setURL:" (id as Ptr, url as Ptr)
 			    
-			    soft declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
-			    soft declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
-			    soft declare function initWithString lib CocoaFramework selector "initWithString:" (id as Ptr, URLString as CFStringRef) as Ptr
+			    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+			    soft declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
+			    soft declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, URLString as CFStringRef) as Ptr
 			    
 			    dim url_id as Ptr = initWithString(alloc(NSClassFromString("NSURL")), value)
 			    
 			    setURL me.id, url_id
 			    
-			    soft declare sub release lib CocoaFramework selector "release" (id as Ptr)
+			    soft declare sub release lib CocoaLib selector "release" (id as Ptr)
 			    release url_id
 			  #endif
 			End Set
@@ -143,9 +143,6 @@ Inherits NSControl
 		URL As String
 	#tag EndComputedProperty
 
-
-	#tag Constant, Name = CocoaFramework, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Private
-	#tag EndConstant
 
 	#tag Constant, Name = NSPathStyleNavigationBar, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant

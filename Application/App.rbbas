@@ -204,6 +204,21 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function QTKitQTCaptureView() As Boolean Handles QTKitQTCaptureView.Action
+			QTCaptureViewExample.Show
+			return true
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function QTKitQTMovieView() As Boolean Handles QTKitQTMovieView.Action
+			QTMovieViewExample.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function WindowManagerAlpha() As Boolean Handles WindowManagerAlpha.Action
 			AlphaWindow.Show
 			return true

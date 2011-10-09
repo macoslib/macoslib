@@ -1065,6 +1065,25 @@ Begin Menu CocoaMenubar
             AutoEnable = True
          End
       End
+      Begin MenuItem ExamplesQTKit
+         SpecialMenu = 0
+         Text = "QTKit"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem QTKitQTCaptureView
+            SpecialMenu = 0
+            Text = "QTCaptureView"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem QTKitQTMovieView
+            SpecialMenu = 0
+            Text = "QTMovieView"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
       Begin MenuItem ExamplesWindowManager
          SpecialMenu = 0
          Text = "Window Manager"

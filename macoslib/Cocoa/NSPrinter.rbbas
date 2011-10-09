@@ -111,9 +111,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function StringValue(key as String, table as String) As String
 		  #if targetMacOS
-		    declare function stringforKey lib CocoaLib selector "stringForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as CFStringRef
+		    declare function stringforKey lib CocoaLib selector "stringForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Ptr
 		    
-		    return stringForKey(self, key, table).Retained
+		    return CFStringRetain(stringForKey(self, key, table))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -157,9 +157,9 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as CFStringRef
+			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as Ptr
 			    
-			    return name(self).Retained
+			    return CFStringRetain(name(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -170,9 +170,9 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function type lib CocoaLib selector "type" (obj_id as Ptr) as CFStringRef
+			    declare function type lib CocoaLib selector "type" (obj_id as Ptr) as Ptr
 			    
-			    return type(self).Retained
+			    return CFStringRetain(type(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -203,6 +203,11 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="LanguageLevel"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
@@ -227,6 +232,12 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Type"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

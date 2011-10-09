@@ -1,37 +1,20 @@
 #tag Class
-Class CFCalendar
-Inherits CFType
-	#tag Event
-		Function ClassID() As UInt32
-		  return me.ClassID
-		End Function
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+Class QTCaptureDeviceInput
+Inherits NSObject
+	#tag Method, Flags = &h1000
+		Sub Constructor(device as QTCaptureDevice)
 		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFCalendarGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
-		    return id
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    declare function initWithDevice lib CocoaLib selector "initWithDevice:" (obj_id as Ptr, device as Ptr) as Ptr
+		    
+		    dim p as Ptr = initWithDevice(alloc(Cocoa.NSClassFromString("QTCaptureDeviceInput")), device)
+		    if p <> nil then
+		      super.Constructor(p, NSObject.hasOwnership)
+		    end if
 		  #endif
-		End Function
+		  
+		End Sub
 	#tag EndMethod
-
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  #if targetMacOS
-			    soft declare function CFCalendarGetIdentifier lib CarbonLib (calendar as Ptr) as Ptr
-			    
-			    return CFStringRetain(CFCalendarGetIdentifier(me.Reference))
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		Identifier As String
-	#tag EndComputedProperty
 
 
 	#tag ViewBehavior
@@ -40,13 +23,7 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Identifier"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
