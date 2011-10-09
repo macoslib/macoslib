@@ -119,12 +119,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function uniqueID lib QTKit.framework selector "uniqueID" (obj_id as Ptr) as Ptr
 			    
-			    dim p as Ptr = uniqueID(self)
-			    if p <> nil then
-			      return CFStringRetain(p)
-			    else
-			      return ""
-			    end if
+			    return CFStringRetain(uniqueID(self))
 			  #endif
 			End Get
 		#tag EndGetter

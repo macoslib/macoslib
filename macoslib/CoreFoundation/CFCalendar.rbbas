@@ -25,12 +25,7 @@ Inherits CFType
 			  #if targetMacOS
 			    soft declare function CFCalendarGetIdentifier lib CarbonLib (calendar as Ptr) as Ptr
 			    
-			    dim theIdentifier as Ptr = CFCalendarGetIdentifier(me.Reference)
-			    if theIdentifier <> nil then
-			      return CFStringRetain(theIdentifier)
-			    else
-			      return ""
-			    end if
+			    return CFStringRetain(CFCalendarGetIdentifier(me.Reference))
 			  #endif
 			  
 			End Get
