@@ -31,6 +31,8 @@ Inherits Canvas
 		    setAutoresizingMask self, NSViewWidthSizable or NSViewHeightSizable
 		    setAutoresizingMask self, NSViewWidthSizable or NSViewHeightSizable
 		    
+		    raiseEvent Open
+		    
 		  #endif
 		  
 		  
@@ -308,6 +310,11 @@ Inherits Canvas
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0
+		Event Open()
+	#tag EndHook
+
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -416,12 +423,27 @@ Inherits Canvas
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ControllerBarHeight"
+			Group="Behavior"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ControllerVisible"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Editable"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -507,6 +529,11 @@ Inherits Canvas
 			Group="ID"
 			Type="String"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PreservesAspectRatio"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
