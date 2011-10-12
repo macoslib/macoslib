@@ -327,6 +327,7 @@ Class=HISearchField;macoslib/Controls/HISearchField.rbbas;&h8DC2FDB;&h175B17B;fa
 Class=MacMenu;macoslib/Controls/MacMenu.rbbas;&h2FCA190E;&h175B17B;false
 Class=CocoaMenuItemPrint;macoslib/Cocoa MenuItems/File Menu/CocoaMenuItemPrint.rbbas;&h62AC0C10;&h3E97F8A5;false
 Class=CocoaMenuItemPageSetup;macoslib/Cocoa MenuItems/File Menu/CocoaMenuItemPageSetup.rbbas;&hD4C62B2;&h3E97F8A5;false
+Window=HISearchFieldExample;Examples/HISearchFieldExample.rbfrm;&h2034F020;&h4BD59C08;false
 AppMenuBar=CocoaMenubar
 MajorVersion=1
 MinorVersion=0

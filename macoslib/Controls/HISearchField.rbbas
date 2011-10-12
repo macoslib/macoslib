@@ -26,7 +26,7 @@ Inherits Canvas
 
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  soft declare function HandleControlClick Lib CarbonLib (inControl as Integer, inWhere as Integer, inModifiers as Integer, inAction as Integer) as Int16
+		  declare function HandleControlClick Lib CarbonLib (inControl as Integer, inWhere as Integer, inModifiers as Integer, inAction as Integer) as Int16
 		  
 		  dim click as new MemoryBlock(4)
 		  click.Short(0) = Y
@@ -43,7 +43,9 @@ Inherits Canvas
 		  ObjectMap.Value(v.Hash) = me
 		  
 		  me.HISearchFieldRef = CreateSearchField
-		  
+		  me.Text = mPresetText
+		  me.CancelButton = mPresetCancelButton
+		  me.EraseBackground = false
 		  
 		  me.RegisterCarbonEventHandler
 		  
@@ -62,7 +64,7 @@ Inherits Canvas
 		  OSError = HIViewSetFrame(me.HISearchFieldRef, theBounds)
 		  
 		  
-		  soft declare function HIViewSetVisible Lib CarbonLib (inView as Integer, inVisible as Boolean) as Integer
+		  declare function HIViewSetVisible Lib CarbonLib (inView as Integer, inVisible as Boolean) as Integer
 		  
 		  
 		  OSError = HIViewSetVisible(me.HISearchFieldRef, true)
@@ -82,7 +84,7 @@ Inherits Canvas
 		      return
 		    end if
 		    
-		    soft declare function HIViewSetFrame Lib CarbonLib (inView as Integer, inRect as Ptr) as Integer
+		    declare function HIViewSetFrame Lib CarbonLib (inView as Integer, inRect as Ptr) as Integer
 		    
 		    dim theBounds as new MemoryBlock(sizeOfHIRect)
 		    theBounds.SingleValue(0) = me.Left
@@ -92,7 +94,7 @@ Inherits Canvas
 		    
 		    dim OSError as Integer = HIViewSetFrame(me.HISearchFieldRef, theBounds)
 		    
-		    soft declare function HIViewSetEnabled Lib CarbonLib (inView as Integer, inSetEnabled as Boolean) as Integer
+		    declare function HIViewSetEnabled Lib CarbonLib (inView as Integer, inSetEnabled as Boolean) as Integer
 		    
 		    OSError = HIViewSetEnabled(me.HISearchFieldRef, me.Enabled)
 		  #endif
@@ -115,17 +117,17 @@ Inherits Canvas
 		  'typedef struct ControlID ControlID;
 		  'typedef ControlID HIViewID;
 		  
-		  Soft Declare Function CFBundleGetBundleWithIdentifier Lib CarbonLib (bundleID as CFStringRef) as Integer
+		  declare Function CFBundleGetBundleWithIdentifier Lib CarbonLib (bundleID as CFStringRef) as Integer
 		  
 		  dim CarbonBundle as Integer = CFBundleGetBundleWithIdentifier("com.apple.Carbon")
 		  
-		  Soft Declare Function CFBundleGetDataPointerForName Lib CarbonLib (bundle as Integer, symbolName as CFStringRef) as Ptr
+		  declare Function CFBundleGetDataPointerForName Lib CarbonLib (bundle as Integer, symbolName as CFStringRef) as Ptr
 		  dim contentViewID as Ptr = CFBundleGetDataPointerForName(CarbonBundle, "kHIViewWindowContentID")
 		  if contentViewID = nil then
 		    return 0
 		  end if
 		  
-		  Soft Declare Function HIViewFindByID Lib CarbonLib (inStartView as Integer, signature as Integer, id as Integer, byRef outControl as Integer) as Integer
+		  declare Function HIViewFindByID Lib CarbonLib (inStartView as Integer, signature as Integer, id as Integer, byRef outControl as Integer) as Integer
 		  
 		  dim theViewRef as Integer
 		  dim OSError as Integer = HIViewFindByID(me.RootView, contentViewID.Integer(0), contentViewID.Integer(4), theViewRef)
@@ -140,17 +142,19 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Function CreateSearchField() As Integer
 		  #if TargetCarbon
-		    Soft Declare Function HISearchFieldCreate Lib CarbonLib (inBounds as Ptr, inAttributes as Integer, inSearchMenu as Integer, inDescriptiveText as CFStringRef, ByRef outRef as Integer) as Integer
+		    declare Function HISearchFieldCreate Lib CarbonLib (inBounds as Ptr, inAttributes as Integer, inSearchMenu as Ptr, inDescriptiveText as CFStringRef, ByRef outRef as Integer) as Integer
 		    
 		    dim hiRect as new MemoryBlock(sizeOfHIRect)
 		    hiRect.SingleValue(0) = me.Left
 		    hiRect.SingleValue(4) = me.Top
 		    hiRect.SingleValue(8) = me.Width
 		    hiRect.SingleValue(12) = me.Height
-		    Const hiAttributes = 0
-		    Const NoMenu = 0
+		    dim hiAttributes as Integer
+		    if mPresetSearchIcon then
+		      hiAttributes = kHISearchFieldAttributesSearchIcon
+		    end if
 		    dim theSearchField as Integer
-		    dim OSError as Integer = HISearchFieldCreate(hiRect, hiAttributes, NoMenu, "Descriptive Text", theSearchField)
+		    dim OSError as Integer = HISearchFieldCreate(hiRect, hiAttributes, nil, mPresetDescriptiveText, theSearchField)
 		    If OSError <> 0 then
 		      System.Log System.LogLevelError,  "HISearchFieldCreate failed with error " + Str(OSError) + "."
 		      Return 0
@@ -183,10 +187,10 @@ Inherits Canvas
 		  
 		  #if targetCarbon
 		    
-		    Soft Declare Function GetEventClass Lib CarbonLib (inEvent as Integer) as OSType
-		    Soft Declare Function GetEventKind Lib CarbonLib (inEvent as Integer) as UInt32
-		    Soft Declare Function GetEventParameter Lib CarbonLib (inEvent as Integer, inName as OSType, inDesiredType as OSType, outActualType as Ptr, inBufferSize as Integer, outBufferSize as Ptr, outData as Ptr) as Integer
-		    Soft Declare Function SetEventParameter Lib CarbonLib (inEvent as Integer, inName as OSType, inType as OSType, inSize as Integer, inDataPtr as Ptr) as Integer
+		    declare Function GetEventClass Lib CarbonLib (inEvent as Integer) as OSType
+		    declare Function GetEventKind Lib CarbonLib (inEvent as Integer) as UInt32
+		    declare Function GetEventParameter Lib CarbonLib (inEvent as Integer, inName as OSType, inDesiredType as OSType, outActualType as Ptr, inBufferSize as Integer, outBufferSize as Ptr, outData as Ptr) as Integer
+		    declare Function SetEventParameter Lib CarbonLib (inEvent as Integer, inName as OSType, inType as OSType, inSize as Integer, inDataPtr as Ptr) as Integer
 		    
 		    dim eventClass as String = GetEventClass(EventRef)
 		    dim eventKind as UInt32 = GetEventKind(EventRef)
@@ -300,7 +304,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function HasFocus() As Boolean
-		  soft declare function GetKeyboardFocus lib CarbonLib (inWindow as WindowPtr, ByRef outControl as Integer) as Short
+		  declare function GetKeyboardFocus lib CarbonLib (inWindow as WindowPtr, ByRef outControl as Integer) as Short
 		  
 		  dim controlRef as Integer
 		  dim OSErr as Short = GetKeyboardFocus(me.Window, controlRef)
@@ -319,7 +323,7 @@ Inherits Canvas
 		      Return nil
 		    End if
 		    
-		    Soft Declare Function HISearchFieldGetSearchMenu Lib CarbonLib (inSearchField as Integer, ByRef outSearchMenu as Ptr) as Integer
+		    declare Function HISearchFieldGetSearchMenu Lib CarbonLib (inSearchField as Integer, ByRef outSearchMenu as Ptr) as Integer
 		    
 		    dim menuRef as Ptr
 		    dim OSError as Integer = HISearchFieldGetSearchMenu(me.HISearchFieldRef, menuRef)
@@ -335,7 +339,7 @@ Inherits Canvas
 		      Return
 		    End if
 		    
-		    Soft Declare Function HISearchFieldSetSearchMenu Lib CarbonLib (inSearchField as Integer, inSearchmenu as Ptr) as Integer
+		    declare Function HISearchFieldSetSearchMenu Lib CarbonLib (inSearchField as Integer, inSearchmenu as Ptr) as Integer
 		    
 		    If theMenu <> nil then
 		      dim OSError as Integer = HISearchFieldSetSearchMenu(me.HISearchFieldRef, theMenu)
@@ -349,11 +353,9 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Shared Function OSTypeToUInt(s as OSType) As UInt32
-		  static m as new MemoryBlock(4)
-		  m.LittleEndian = false
-		  m.StringValue(0, 4) = s
-		  return m.UInt32Value(0)
-		  
+		  dim v as Variant = s
+		  dim n as UInt32 = v.UInt32Value
+		  return n
 		End Function
 	#tag EndMethod
 
@@ -365,10 +367,10 @@ Inherits Canvas
 		  
 		  #Pragma StackOverflowChecking False
 		  
-		  Soft Declare Function InstallEventHandler Lib CarbonLib (inTarget as Integer, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
+		  declare Function InstallEventHandler Lib CarbonLib (inTarget as Integer, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
 		  
 		  //inTarget
-		  Soft Declare Function HIObjectGetEventTarget Lib CarbonLib (inObject as Integer) as Integer
+		  declare Function HIObjectGetEventTarget Lib CarbonLib (inObject as Integer) as Integer
 		  
 		  dim eventTarget as Integer = HIObjectGetEventTarget(me.HISearchFieldRef)
 		  If eventTarget = 0 then
@@ -376,7 +378,7 @@ Inherits Canvas
 		  End if
 		  
 		  //inHandler
-		  Soft Declare Function NewEventHandlerUPP Lib CarbonLib (userRoutine as Ptr) as Integer
+		  declare Function NewEventHandlerUPP Lib CarbonLib (userRoutine as Ptr) as Integer
 		  
 		  Static CallbackUPP as Integer = 0
 		  If CallbackUPP = 0 then
@@ -426,10 +428,10 @@ Inherits Canvas
 		    
 		    #Pragma StackOverflowChecking False
 		    
-		    Soft Declare Function InstallEventHandler Lib CarbonLib (inTarget as Integer, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
+		    declare Function InstallEventHandler Lib CarbonLib (inTarget as Integer, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
 		    
 		    //inTarget
-		    Soft Declare Function HIObjectGetEventTarget Lib CarbonLib (inObject as Ptr) as Integer
+		    declare Function HIObjectGetEventTarget Lib CarbonLib (inObject as Ptr) as Integer
 		    
 		    dim eventTarget as Integer = HIObjectGetEventTarget(theMenu)
 		    If eventTarget = 0 then
@@ -437,7 +439,7 @@ Inherits Canvas
 		    End if
 		    
 		    //inHandler
-		    Soft Declare Function NewEventHandlerUPP Lib CarbonLib (userRoutine as Ptr) as Integer
+		    declare Function NewEventHandlerUPP Lib CarbonLib (userRoutine as Ptr) as Integer
 		    
 		    Static CallbackUPP as Integer = 0
 		    If CallbackUPP = 0 then
@@ -470,13 +472,15 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Function RootView() As Integer
-		  Soft Declare Function HIViewGetRoot Lib CarbonLib (inWindow as WindowPtr) as Integer
-		  
-		  If Window Is Nil then
-		    Return 0
-		  End if
-		  
-		  Return HIViewGetRoot(Window)
+		  #if TargetCarbon
+		    declare Function HIViewGetRoot Lib CarbonLib (inWindow as WindowPtr) as Integer
+		    
+		    If Window Is Nil then
+		      Return 0
+		    End if
+		    
+		    Return HIViewGetRoot(Window)
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -567,7 +571,7 @@ Inherits Canvas
 			      Return false
 			    End if
 			    
-			    Soft Declare Function HISearchFieldGetAttributes Lib CarbonLib (inSearchField as Integer, ByRef outAttributes as Integer) as Integer
+			    declare Function HISearchFieldGetAttributes Lib CarbonLib (inSearchField as Integer, ByRef outAttributes as Integer) as Integer
 			    
 			    dim hiAttributes as Integer
 			    dim OSError as Integer = HISearchFieldGetAttributes(me.HISearchFieldRef, hiAttributes)
@@ -578,9 +582,10 @@ Inherits Canvas
 		#tag Setter
 			Set
 			  #if TargetCarbon
-			    Soft Declare Function HISearchFieldChangeAttributes Lib CarbonLib (inSearchField as Integer, inAttributesToSet as Integer, inAttributesToClear as Integer) as Integer
+			    declare Function HISearchFieldChangeAttributes Lib CarbonLib (inSearchField as Integer, inAttributesToSet as Integer, inAttributesToClear as Integer) as Integer
 			    
 			    If me.HISearchFieldRef = 0 then
+			      mPresetCancelButton = value
 			      Return
 			    End if
 			    
@@ -604,7 +609,7 @@ Inherits Canvas
 			      return ""
 			    end If
 			    
-			    Soft Declare Function HISearchFieldCopyDescriptiveText lib CarbonLib (inSearchField as Integer, ByRef outDescription as CFStringRef) as integer
+			    declare Function HISearchFieldCopyDescriptiveText lib CarbonLib (inSearchField as Integer, ByRef outDescription as CFStringRef) as integer
 			    
 			    dim description as CFStringRef
 			    dim OSError as integer = HISearchFieldCopyDescriptiveText(me.HISearchFieldRef, description)
@@ -620,10 +625,11 @@ Inherits Canvas
 			Set
 			  #if TargetCarbon
 			    If me.HISearchFieldRef = 0 then
+			      mPresetDescriptiveText = value
 			      Return
 			    End if
 			    
-			    Soft Declare Function HISearchFieldSetDescriptiveText Lib CarbonLib (inSearchField as Integer, inDescription as CFStringRef) as Integer
+			    declare Function HISearchFieldSetDescriptiveText Lib CarbonLib (inSearchField as Integer, inDescription as CFStringRef) as Integer
 			    
 			    dim OSError as Integer = HISearchFieldSetDescriptiveText(me.HISearchFieldRef, value)
 			  #endif
@@ -634,6 +640,22 @@ Inherits Canvas
 
 	#tag Property, Flags = &h21
 		Private HISearchFieldRef As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mPresetCancelButton As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mPresetDescriptiveText As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mPresetSearchIcon As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mPresetText As String
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h21
@@ -654,7 +676,7 @@ Inherits Canvas
 			      Return false
 			    End if
 			    
-			    Soft Declare Function HISearchFieldGetAttributes Lib CarbonLib (inSearchField as Integer, ByRef outAttributes as Integer) as Integer
+			    declare Function HISearchFieldGetAttributes Lib CarbonLib (inSearchField as Integer, ByRef outAttributes as Integer) as Integer
 			    
 			    dim hiAttributes as Integer
 			    dim OSError as Integer = HISearchFieldGetAttributes(me.HISearchFieldRef, hiAttributes)
@@ -665,9 +687,10 @@ Inherits Canvas
 		#tag Setter
 			Set
 			  #if TargetCarbon
-			    Soft Declare Function HISearchFieldChangeAttributes Lib CarbonLib (inSearchField as Integer, inAttributesToSet as Integer, inAttributesToClear as Integer) as Integer
+			    declare Function HISearchFieldChangeAttributes Lib CarbonLib (inSearchField as Integer, inAttributesToSet as Integer, inAttributesToClear as Integer) as Integer
 			    
 			    If me.HISearchFieldRef = 0 then
+			      mPresetSearchIcon = value
 			      Return
 			    End if
 			    
@@ -691,8 +714,8 @@ Inherits Canvas
 			      Return 0
 			    End If
 			    
-			    Soft Declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
-			    Soft Declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer, inBuffer as Ptr, outActualSize as Ptr) as Short
+			    declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
+			    declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer, inBuffer as Ptr, outActualSize as Ptr) as Short
 			    
 			    dim bufferSize as Integer
 			    dim OSError as Integer = GetControlDataSize(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextSelectionTag, bufferSize)
@@ -715,7 +738,7 @@ Inherits Canvas
 			      Return
 			    End if
 			    
-			    Soft Declare Function SetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inSize as Integer, inBuffer as Ptr) as Short
+			    declare Function SetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inSize as Integer, inBuffer as Ptr) as Short
 			    
 			    Const sizeOfControlEditTextSelectionRec = 4
 			    dim buffer as new MemoryBlock(sizeOfControlEditTextSelectionRec)
@@ -737,8 +760,8 @@ Inherits Canvas
 			  end if
 			  
 			  #if TargetCarbon
-			    Soft Declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
-			    Soft Declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer, inBuffer as Ptr, outActualSize as Ptr) as Short
+			    declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
+			    declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer, inBuffer as Ptr, outActualSize as Ptr) as Short
 			    
 			    dim bufferSize as Integer
 			    dim OSError as Integer = GetControlDataSize(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextSelectionTag, bufferSize)
@@ -761,7 +784,7 @@ Inherits Canvas
 			      Return
 			    End if
 			    
-			    Soft Declare Function SetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inSize as Integer, inBuffer as Ptr) as Short
+			    declare Function SetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inSize as Integer, inBuffer as Ptr) as Short
 			    
 			    Const sizeOfControlEditTextSelectionRec = 4
 			    dim buffer as new MemoryBlock(sizeOfControlEditTextSelectionRec)
@@ -778,8 +801,8 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  Soft Declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
-			  Soft Declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer,ByRef inBuffer as CFStringRef, outActualSize as Ptr) as Short
+			  declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
+			  declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer,ByRef inBuffer as CFStringRef, outActualSize as Ptr) as Short
 			  
 			  dim bufferSize as Integer
 			  dim OSError as Integer = GetControlDataSize(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, bufferSize)
@@ -798,8 +821,13 @@ Inherits Canvas
 		#tag Setter
 			Set
 			  #if TargetCarbon
-			    Soft Declare Function SetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inSize as Integer, ByRef inBuffer as CFStringRef) as Short
-			    Soft Declare Sub CFRelease Lib CarbonLib (cf as Integer)
+			    declare Function SetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inSize as Integer, ByRef inBuffer as CFStringRef) as Short
+			    declare Sub CFRelease Lib CarbonLib (cf as Integer)
+			    
+			    if me.HISearchFieldRef = 0 then
+			      mPresetText = value
+			      return
+			    end
 			    
 			    dim cfValue as CFStringRef = value
 			    dim OSError as Integer = SetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, 4, cfValue)
@@ -917,12 +945,12 @@ Inherits Canvas
 			Name="AcceptFocus"
 			Visible=true
 			Group="Behavior"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AcceptTabs"
-			Visible=true
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
@@ -945,19 +973,20 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CancelButton"
+			Visible=true
 			Group="Behavior"
-			InitialValue="0"
+			InitialValue="False"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DescriptiveText"
+			Visible=true
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
-			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
@@ -973,9 +1002,8 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="EraseBackground"
-			Visible=true
 			Group="Behavior"
-			InitialValue="True"
+			InitialValue="False"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -1004,6 +1032,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Group="Initial State"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1050,8 +1079,9 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SearchIcon"
+			Visible=true
 			Group="Behavior"
-			InitialValue="0"
+			InitialValue="False"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1097,6 +1127,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Text"
+			Visible=true
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
@@ -1110,9 +1141,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseFocusRing"
-			Visible=true
 			Group="Appearance"
-			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty

@@ -15,11 +15,6 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
-		  #if targetCocoa
-		    self.MenuBar = CocoaMenubar
-		  #else
-		    self.MenuBar = CarbonMenubar
-		  #endif
 		  
 		  WindowMenu.Initialize
 		End Sub
@@ -95,6 +90,14 @@ Inherits Application
 		Function CocoaTextArea() As Boolean Handles CocoaTextArea.Action
 			TextAreaExample.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ControlsHISearchField() As Boolean Handles ControlsHISearchField.Action
+			HISearchFieldExample.Show
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 

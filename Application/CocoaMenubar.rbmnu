@@ -962,6 +962,12 @@ Begin Menu CocoaMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem ControlsHISearchField
+            SpecialMenu = 0
+            Text = "HISearchField"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesCoreFoundation
          SpecialMenu = 0
