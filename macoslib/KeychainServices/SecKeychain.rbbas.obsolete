@@ -1,9 +1,9 @@
 #tag Class
-Protected Class Keychain
+Class SecKeychain
 Inherits CFType
 	#tag Event
 		Function ClassID() As UInt32
-		  return ClassID
+		  return SecKeychain.ClassID
 		End Function
 	#tag EndEvent
 
@@ -68,81 +68,20 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FindGenericPasswordItem(serviceName as String, accountName as String) As KeychainServices.KeychainItem
+		Function FindGenericPasswordItem(serviceName as String, accountName as String) As SecKeychainItem
 		  #if targetMacOS
 		    declare function SecKeychainFindGenericPassword lib KeychainServices.framework (keychainOrArray as Ptr, serviceNameLength as UInt32, serviceName as CString, accountNameLength as UInt32, accountName as CString, passwordLength as Ptr, passwordData as Ptr, ByRef itemRef as Ptr) as Integer
 		    
 		    dim itemRef as Ptr
 		    dim err as Integer = SecKeychainFindGenericPassword(self, CType(LenB(serviceName), UInt32), serviceName, CType(LenB(accountName), UInt32), accountName, nil, nil, itemRef)
 		    if err = Error.Success then
-		      return new KeychainServices.KeychainItem(itemRef, not CFType.hasOwnership)
+		      return new SecKeychainItem(itemRef, not CFType.hasOwnership)
 		    elseIf err = Error.ItemNotFound then
 		      return nil
 		    else
 		      raise new Error(err)
 		    end if
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function FindInternetPassword(serverName as String, accountName as String, securityDomain as String="", path as String="", port as UInt16=0, protocol as FourCharCode="", authenticationType as FourCharCode="") As String
-		  #if targetMacOS
-		    declare function SecKeychainFindInternetPassword lib KeychainServices.framework (_
-		    keychainOrArray as Ptr, _
-		    serverNameLength as UInt32,_
-		    serverName as CString, _
-		    securityDomainLength as Ptr, _
-		    securityDomain as Ptr, _
-		    accountNameLength as UInt32, _
-		    accountName as CString, _
-		    pathLength as UInt32, _
-		    path as CString, _
-		    port as UInt16, _
-		    protocol as UInt32, _
-		    authenticationType as UInt32, _
-		    ByRef passwordLength as UInt32, _
-		    ByRef password as Ptr, _
-		    itemRef as Ptr) _
-		    as Integer
-		    
-		    dim passwordLength as UInt32
-		    dim pwd as Ptr
-		    dim err as Integer = SecKeychainFindInternetPassword(_
-		    self, _
-		    LenB(serverName), _
-		    serverName, _
-		    nil, _
-		    nil, _
-		    LenB(accountName), _
-		    accountName, _
-		    LenB(path), _
-		    path, _
-		    port, _
-		    protocol, _
-		    authenticationType, _
-		    passwordLength, _
-		    pwd, _
-		    nil)
-		    
-		    if err = Error.Success then
-		      dim m as MemoryBlock = pwd
-		      dim password as String = m.StringValue(0, passwordLength)
-		      self.FreeContent(nil, pwd)
-		      return password
-		    else
-		      raise new Error(err)
-		    end if
-		  #endif
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
 		End Function
 	#tag EndMethod
 
@@ -189,13 +128,6 @@ Inherits CFType
 		      raise new KeychainServices.Error(err)
 		    end if
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function UInt32Value(type as OSType) As UInt32
-		  dim v as Variant = type
-		  return v.UInt32Value
 		End Function
 	#tag EndMethod
 
