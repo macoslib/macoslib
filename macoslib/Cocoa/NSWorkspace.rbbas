@@ -37,6 +37,24 @@ Class NSWorkspace
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function RunningApplications() As NSRunningApplication()
+		  #if targetMacOS
+		    declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
+		    
+		    dim theList() as NSRunningApplication
+		    dim theArray as new CFArray(runningApplications(sharedInstance), not CFType.hasOwnership)
+		    for i as Integer = 0 to theArray.Count - 1
+		      dim p as Ptr = theArray.Value(i)
+		      if p <> nil then
+		        theList.Append new NSRunningApplication(p)
+		      end if
+		    next
+		    return theList
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function sharedInstance() As Ptr
 		  #if targetCocoa

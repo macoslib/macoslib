@@ -925,6 +925,12 @@ Begin Menu CocoaMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSRunningApplication
+            SpecialMenu = 0
+            Text = "NSRunningApplication"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSSearchField
             SpecialMenu = 0
             Text = "NSSearchField"

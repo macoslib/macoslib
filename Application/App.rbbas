@@ -66,6 +66,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSRunningApplication() As Boolean Handles CocoaNSRunningApplication.Action
+			NSRunningApplicationsExample.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSSearchField() As Boolean Handles CocoaNSSearchField.Action
 			NSSearchFieldExample.Show
 			return true
