@@ -2,7 +2,7 @@
 Class CGImage
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -150,6 +150,15 @@ Inherits CFType
 		    
 		    return new CGDataProvider(CGImageGetDataProvider(me), false)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MakePicture() As Picture
+		  dim p as new Picture(self.Width, self.Height, 32)
+		  dim context as new CGContextGraphicsPort(p.Graphics)
+		  context.DrawImage(self, CGRectMake(0.0, 0.0, p.Width, p.Height))
+		  return p
 		End Function
 	#tag EndMethod
 
