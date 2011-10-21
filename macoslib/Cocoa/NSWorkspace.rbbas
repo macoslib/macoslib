@@ -1,6 +1,23 @@
 #tag Class
 Class NSWorkspace
 	#tag Method, Flags = &h0
+		 Shared Function IconForFile(f as FolderItem) As NSImage
+		  #if targetMacOS
+		    declare function iconForFile lib CocoaLib selector "iconForFile:" (obj_id as Ptr, fullPath as CFStringRef) as Ptr
+		    
+		    dim p as Ptr
+		    if f <> nil then
+		      p = iconForFile(sharedInstance, f.POSIXPath)
+		    else
+		      p = nil
+		    end if
+		    return new NSImage(p)
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function OpenFile(f as FolderItem) As Boolean
 		  if f is nil then
 		    return false
