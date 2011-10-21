@@ -101,6 +101,15 @@ Inherits NSObject
 	#tag EndMethod
 
 
+	#tag Note, Name = Conversion to Picture
+		Given an NSImage, you can convert it to a REALbasic Picture object by first converting to a CGimage, then to a Picture.
+		
+		dim cg_image as CGImage = image.MakeCGImage
+		dim p as Picture = cg_image.MakePicture
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
