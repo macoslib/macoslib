@@ -101,12 +101,23 @@ Inherits NSObject
 	#tag EndMethod
 
 
+	#tag Note, Name = Conversion from Picture
+		To create an NSimage from a REALbasic Picture, create a CGImage from the Picture, then make an NSImage.
+		
+		  dim p as new Picture(32, 32, 32)
+		  p.Graphics.ForeColor = &cff0000
+		  p.Graphics.FillRect 0, 0, p.Width, p.Height
+		  
+		  dim cg_image as CGImage = CGImage.NewCGImage(p)
+		  dim nsimage as NSImage = cg_image.MakeNSImage
+		
+	#tag EndNote
+
 	#tag Note, Name = Conversion to Picture
 		Given an NSImage, you can convert it to a REALbasic Picture object by first converting to a CGimage, then to a Picture.
 		
 		dim cg_image as CGImage = image.MakeCGImage
 		dim p as Picture = cg_image.MakePicture
-		
 	#tag EndNote
 
 
