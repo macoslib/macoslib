@@ -154,6 +154,21 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function MakeNSImage() As NSImage
+		  #if targetMacOS
+		    
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    declare function initWithCGImage lib CocoaLib selector "initWithCGImage:size:" (obj_id as Ptr, image as Ptr, size as Cocoa.NSSize) as Ptr
+		    
+		    //we pass zeroSize to create an NSImage of the same size as the CGImage.
+		    dim zeroSize as Cocoa.NSSize
+		    dim p as Ptr = initWithCGImage(alloc(Cocoa.NSClassFromString("NSImage")), self, zeroSize)
+		    return new NSImage(p, NSObject.hasOwnership)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MakePicture() As Picture
 		  dim p as new Picture(self.Width, self.Height, 32)
 		  dim context as new CGContextGraphicsPort(p.Graphics)
@@ -167,6 +182,7 @@ Inherits CFType
 		  if p is nil then
 		    return nil
 		  end if
+		  
 		  dim g as Graphics = p.Graphics
 		  
 		  if g is nil then //copy into new picture
@@ -183,29 +199,36 @@ Inherits CFType
 		    return nil
 		  end if
 		  
-		  dim gworldData as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGrafPtr))
-		  if gworldData = nil then
-		    return nil
-		  end if
-		  
 		  soft declare function QDBeginCGContext lib CarbonLib (port as Ptr, ByRef contextPtr as Ptr) as Integer
-		  
-		  dim c as Ptr
-		  dim OSError as Integer = QDBeginCGContext(gworldData, c)
-		  if OSError <> 0 or c = nil then
-		    return nil
-		  end if
-		  
-		  
 		  soft declare function CGBitmapContextCreateImage lib CarbonLib (c as Ptr) as Ptr
-		  
-		  dim image as new CGImage(CGBitmapContextCreateImage(c), true)
-		  
 		  soft declare function QDEndCGContext lib CarbonLib (port as Ptr, ByRef context as Ptr) as Integer
 		  
-		  OSError = QDEndCGContext(gworldData, c)
 		  
-		  return image
+		  #if targetCarbon
+		    dim gworldData as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGrafPtr))
+		    if gworldData = nil then
+		      return nil
+		    end if
+		    
+		    dim c as Ptr
+		    dim OSError as Integer = QDBeginCGContext(gworldData, c)
+		    if OSError <> 0 or c = nil then
+		      return nil
+		    end if
+		    dim image as new CGImage(CGBitmapContextCreateImage(c), CFType.hasOwnership)
+		    OSError = QDEndCGContext(gworldData, c)
+		    
+		    return image
+		  #endif
+		  
+		  #if targetCocoa
+		    dim context as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGContextRef))
+		    dim image as new CGImage(CGBitmapContextCreateImage(context), CFType.hasOwnership)
+		    return image
+		  #endif
+		  
+		  
+		  
 		End Function
 	#tag EndMethod
 
