@@ -110,7 +110,6 @@ Inherits NSObject
 		  
 		  dim cg_image as CGImage = CGImage.NewCGImage(p)
 		  dim nsimage as NSImage = cg_image.MakeNSImage
-		
 	#tag EndNote
 
 	#tag Note, Name = Conversion to Picture

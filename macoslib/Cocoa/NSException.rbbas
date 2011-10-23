@@ -20,7 +20,6 @@ Inherits RuntimeException
 		NSException is essentially a wrapper for the Cocoa NSError class.  It's not named NSError
 		because it does not inherit from NSObject, so I decided to tweak the name; also, NSException 
 		fits standard Rb naming of RuntimeException subclasses.
-		
 	#tag EndNote
 
 
@@ -34,6 +33,7 @@ Inherits RuntimeException
 			Name="Domain"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ErrorNumber"
