@@ -202,6 +202,11 @@ Protected Module Cocoa
 		y as Single
 	#tag EndStructure
 
+	#tag Structure, Name = NSRange, Flags = &h1
+		location as Integer
+		length as Integer
+	#tag EndStructure
+
 	#tag Structure, Name = NSRect, Flags = &h1
 		x as Single
 		  y as Single

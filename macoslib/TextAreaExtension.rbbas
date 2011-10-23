@@ -21,6 +21,45 @@ Protected Module TextAreaExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function RTFValue(extends t as TextArea) As String
+		  #if targetCocoa
+		    declare function RTFFromRange lib CocoaLib selector "RTFFromRange:" (obj_id as Ptr, range as Cocoa.NSRange) as Ptr
+		    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Integer
+		    declare sub getBytes lib CocoaLib selector "getBytes:length:" (obj_id as Ptr, buffer as Ptr, length as Integer)
+		    
+		    dim range as Cocoa.NSRange
+		    range.length = Len(t.Text)
+		    dim p as Ptr = RTFFromRange(t.TextViewRef, range)
+		    if p <> nil then
+		      dim m as new MemoryBlock(length(p))
+		      getBytes(p, m, m.Size)
+		      return m.StringValue(0, m.Size)
+		    else
+		      return ""
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RTFValue(extends t as TextArea, assigns value as String)
+		  #if targetCocoa
+		    declare function dataWithBytes lib CocoaLib selector "dataWithBytes:length:" (class_id as Ptr, bytes as CString, length as Integer) as Ptr
+		    declare sub replaceCharactersInRange lib CocoaLib selector "replaceCharactersInRange:withRTF:" (obj_id as Ptr, range as Cocoa.NSRange, rtfData as Ptr)
+		    declare sub release lib CocoaLib selector "release" (obj_id as Ptr)
+		    
+		    dim data as Ptr = dataWithBytes(Cocoa.NSClassFromString("NSData"), value, LenB(value))
+		    dim range as Cocoa.NSRange
+		    range.length = Len(t.Text)
+		    replaceCharactersInRange(t.TextViewRef, range, data)
+		    release(data)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ShowRuler(extends t as TextArea) As Boolean
 		  #if targetCocoa
 		    declare function isRulerVisible lib CocoaLib selector "isRulerVisible" (obj_id as Ptr) as Boolean
