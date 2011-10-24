@@ -2,7 +2,7 @@
 Class CGContext
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -338,6 +338,36 @@ Inherits CFType
 		    CGContextConcatCTM me, transform
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ConvertToDeviceSpace(rect as Cocoa.NSRect) As Cocoa.NSRect
+		  #if targetMacOS
+		    soft declare function CGContextConvertRectToDeviceSpace lib CarbonLib (c as Ptr, rect as Cocoa.NSRect) as Cocoa.NSRect
+		    
+		    if self <> nil then
+		      return CGContextConvertRectToDeviceSpace(self, rect)
+		    else
+		      dim r as Cocoa.NSRect
+		      return r
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ConvertToUserSpace(rect as Cocoa.NSRect) As Cocoa.NSRect
+		  #if targetMacOS
+		    soft declare function CGContextConvertRectToUserSpace lib CarbonLib (c as Ptr, rect as Cocoa.NSRect) as Cocoa.NSRect
+		    
+		    if self <> nil then
+		      return CGContextConvertRectToUserSpace(self, rect)
+		    else
+		      dim r as Cocoa.NSRect
+		      return r
+		    end if
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
