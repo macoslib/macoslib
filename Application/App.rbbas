@@ -94,6 +94,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaSystemImages() As Boolean Handles CocoaSystemImages.Action
+			SystemImages.Show
+			return true
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaTextArea() As Boolean Handles CocoaTextArea.Action
 			TextAreaExample.Show
 			return true

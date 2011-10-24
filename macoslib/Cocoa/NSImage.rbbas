@@ -2,8 +2,26 @@
 Class NSImage
 Inherits NSObject
 	#tag Method, Flags = &h0
+		 Shared Function Advanced() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameAdvanced"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function ApplicationIcon() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNameApplicationIcon"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Bonjour() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameBonjour"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Caution() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameCaution"))
 		End Function
 	#tag EndMethod
 
@@ -16,12 +34,66 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function ColorPanel() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameColorPanel"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Computer() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameComputer"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Copy() As NSImage
 		  #if targetMacOS
 		    declare function copyWithZone lib CocoaLib selector "copyWithZone:" (obj_id as Ptr, zone as Ptr) as Ptr
 		    
 		    return new NSImage(copyWithZone(self, nil))
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function DotMac() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameDotMac"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Everyone() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameEveryone"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Folder() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameFolder"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FolderBurnable() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameFolderBurnable"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FolderSmart() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameFolderSmart"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FontPanel() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameFontPanel"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Info() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameInfo"))
 		End Function
 	#tag EndMethod
 
@@ -66,6 +138,30 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function MobileMe() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameMobileMe"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function MultipleDocuments() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameMultipleDocuments"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Network() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameNetwork"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function PreferencesGeneral() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNamePreferencesGeneral"))
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function ResolveSymbol(symbolName as String) As CFStringRef
 		  dim b as CFBundle = CFBundle.NewCFBundleFromID(Cocoa.BundleID)
@@ -98,6 +194,66 @@ Inherits NSObject
 		    setSize(self, value)
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function StatusAvailable() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameStatusAvailable"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function StatusNone() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameStatusNone"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function StatusPartiallyAvailable() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameStatusPartiallyAvailable"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function StatusUnavailable() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameStatusUnavailable"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function TrashEmpty() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameTrashEmpty"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function TrashFull() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameTrashFull"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function User() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameUser"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function UserAccounts() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameUserAccounts"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function UserGroup() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameUserGroup"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function UserGuest() As NSImage
+		  return LoadByName(ResolveSymbol("NSImageNameUserGuest"))
+		End Function
 	#tag EndMethod
 
 

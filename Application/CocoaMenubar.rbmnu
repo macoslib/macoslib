@@ -949,6 +949,12 @@ Begin Menu CocoaMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaSystemImages
+            SpecialMenu = 0
+            Text = "System Images"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaTextArea
             SpecialMenu = 0
             Text = "Text Area"
