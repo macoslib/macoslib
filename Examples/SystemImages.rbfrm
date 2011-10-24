@@ -50,7 +50,7 @@ Begin Window SystemImages
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   21
+      Top             =   14
       Underline       =   ""
       Visible         =   True
       Width           =   270
@@ -69,22 +69,17 @@ End
 		  
 		  dim f as NSImageSystemMethod = PopupMenu1.RowTag(PopupMenu1.ListIndex)
 		  dim image as NSImage = f.Invoke
+		  dim point as Cocoa.NSPoint
+		  point.x = (g.Width - image.Size.width)/2
+		  point.y = self.Height - 64.0 - image.Size.height
+		  image.Draw point, NSImage.NSComposite.SourceOver
 		  
-		  
-		  declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as Integer, delta as Single)
-		  
-		  
-		  dim dstRect as Cocoa.NSRect
-		  dstRect.x = (g.Width - image.Size.width)/2
-		  dstRect.y = self.Height - 64.0 - image.Size.height
-		  dstRect.w = image.Size.width
-		  dstRect.h = image.Size.height
-		  
-		  dim zeroRect as Cocoa.NSRect
-		  
-		  const NSCompositeSourceOver = 2
-		  drawInRect(image, dstRect, zeroRect, NSCompositeSourceOver , 1.0)
-		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resized()
+		  PopupMenu1.Left = (self.Width - PopupMenu1.Width)\2
 		End Sub
 	#tag EndEvent
 

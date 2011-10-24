@@ -62,6 +62,41 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Draw(point as Cocoa.NSPoint, operation as NSComposite, opacity as Double=1.0)
+		  //Draws the image to the current NSGraphicsContext.
+		  
+		  dim zeroRect as Cocoa.NSRect
+		  self.Draw point, zeroRect, operation, opacity
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Draw(point as Cocoa.NSPoint, fromRect as NSRect, operation as NSComposite, opacity as Double=1.0)
+		  //Draws the part of the image defined by fromRect to the current NSGraphicsContext.
+		  //pass fromRect = zeroRect to draw the entire image.
+		  
+		  #if targetCocoa
+		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Single)
+		    
+		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Single))
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double)
+		  //draws part of image defined by srcRect into dstRect in the current context.  The image is scaled as needed.
+		  //Pass srcRect = zeroRect to draw the entire image.
+		  
+		  #if targetMacOS
+		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Single)
+		    
+		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Single))
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Everyone() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNameEveryone"))
 		End Function
@@ -274,6 +309,24 @@ Inherits NSObject
 		dim cg_image as CGImage = image.MakeCGImage
 		dim p as Picture = cg_image.MakePicture
 	#tag EndNote
+
+
+	#tag Enum, Name = NSComposite, Type = Integer, Flags = &h0
+		Clear = 0
+		  Copy = 1
+		  SourceOver = 2
+		  SourceIn = 3
+		  SourceOut = 4
+		  SourceAtop = 5
+		  DestinationOver = 6
+		  DestinationIn = 7
+		  DestinationOut = 8
+		  DestinationAtop = 9
+		  X_OR = 10
+		  PlusDarker = 11
+		  Highlight = 12
+		PlusLighter = 13
+	#tag EndEnum
 
 
 	#tag ViewBehavior
