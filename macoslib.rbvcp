@@ -339,7 +339,6 @@ Class=CocoaMenuItemPageSetup;macoslib/Cocoa MenuItems/File Menu/CocoaMenuItemPag
 Window=HISearchFieldExample;Examples/HISearchFieldExample.rbfrm;&h2034F020;&h4BD59C08;false
 Window=NSRunningApplicationsExample;Examples/NSRunningApplicationsExample.rbfrm;&h69F3F5CD;&h4BD59C08;false
 Window=SystemImages;Examples/SystemImages.rbfrm;&h7E969020;&h4BD59C08;false
-Window=Window1;Window1.rbfrm;&h61135A44;&h0;false
 AppMenuBar=CocoaMenubar
 MajorVersion=1
 MinorVersion=0
