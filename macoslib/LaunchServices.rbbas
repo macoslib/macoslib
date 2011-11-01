@@ -197,28 +197,33 @@ Protected Module LaunchServices
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub OpenApp(theApp as FolderItem, launchFlags as UInt32 = 1, argv as String)
+		Sub OpenApp(theApp as FolderItem, launchFlags as UInt32=kLSLaunchDefaults, optional argv() as String)
 		  if theApp is nil then
 		    return
 		  end if
 		  
+		  
 		  #if targetMacOS
-		    soft declare function LSOpenApplication lib CarbonLib (inAppParams as Ptr, outPSN as Ptr) as Integer
+		    soft declare function LSOpenApplication lib CarbonLib (byref inAppParams as LSApplicationParameters, outPSN as Ptr) as Integer
 		    
-		    dim inAppParams as new MemoryBlock(LSApplicationParameters.Size)
-		    inAppParams.UInt32Value(4) = launchFlags
-		    inAppParams.Ptr(8) = FileManager.GetFSRefFromFolderItem(theApp)
+		    dim params as LSApplicationParameters
+		    params.application = FileManager.GetFSRefFromFolderItem(theApp)
+		    params.flags = launchFlags
 		    
+		    // This variable is in the outer scope because it needs to remain valid until
+		    // LSOpenApplication has been called!
+		    dim cfArgs as CFMutableArray
+		    if argv <> nil and argv.ubound >= 0 then
+		      cfArgs = new CFMutableArray()
+		      for each arg as string in argv
+		        cfArgs.append( new CFString( arg ) )
+		      next
+		      params.argv = cfArgs
+		    end if
 		    
-		    dim argvWrapper as CFString = argv
-		    dim argvArray as new CFArray(Array(argvWrapper))
-		    inAppParams.Ptr(20) = argvArray
-		    
-		    
-		    dim OSError as Integer = LSOpenApplication(inAppParams, nil)
+		    dim OSError as Integer = LSOpenApplication(params, nil)
+		    #pragma unused OSError
 		  #endif
-		  
-		  
 		End Sub
 	#tag EndMethod
 
