@@ -1139,6 +1139,12 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
       End
+      Begin MenuItem ExamplesCarbonPasteboard
+         SpecialMenu = 0
+         Text = "Carbon Pasteboard"
+         Index = -2147483648
+         AutoEnable = True
+      End
    End
    Begin WindowMenu WindowMenu
       SpecialMenu = 0

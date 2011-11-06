@@ -1,5 +1,5 @@
 #tag Window
-Begin Window NSPasteboardExample
+Begin Window CarbonPasteboardExample
    BackColor       =   16777215
    Backdrop        =   ""
    CloseButton     =   True
@@ -21,7 +21,7 @@ Begin Window NSPasteboardExample
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "NSPasteboard"
+   Title           =   "Carbon Pasteboard"
    Visible         =   True
    Width           =   512
    Begin Listbox TypesList
@@ -29,7 +29,7 @@ Begin Window NSPasteboardExample
       AutoHideScrollbars=   True
       Bold            =   ""
       Border          =   True
-      ColumnCount     =   1
+      ColumnCount     =   2
       ColumnsResizable=   ""
       ColumnWidths    =   ""
       DataField       =   ""
@@ -44,7 +44,7 @@ Begin Window NSPasteboardExample
       HeadingIndex    =   -1
       Height          =   335
       HelpTag         =   ""
-      Hierarchical    =   ""
+      Hierarchical    =   True
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
@@ -210,12 +210,60 @@ End
 
 	#tag Event
 		Sub Open()
-		  self.pboard = NSPasteboard.GeneralPboard
+		  self.pboard = CarbonPasteboard.Clipboard
 		  
 		  reload
 		End Sub
 	#tag EndEvent
 
+
+	#tag Method, Flags = &h21
+		Private Sub addItemToList(itemNumber as Integer)
+		  dim id as Ptr = pboard.ItemIdentifier(itemNumber)
+		  
+		  dim types() as String = pboard.ItemFlavors (id)
+		  
+		  if types = nil then
+		    TypesList.AddRow "<Error: "+Str(pboard.LastError)+">"
+		  else
+		    dim prevType as String
+		    for i as integer = 0 to types.Ubound
+		      dim type as String = types(i)
+		      TypesList.AddRow type
+		      TypesList.CellTag (TypesList.LastIndex,0) = type
+		      TypesList.Cell (TypesList.LastIndex, 1) = flagsToText (pboard.ItemFlavorFlags (id, type))
+		      TypesList.RowTag (TypesList.LastIndex) = id
+		      prevType = type
+		    next
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function flagsToText(flags as UInt32) As String
+		  dim s() as String
+		  if 0 <> (flags and CarbonPasteboard.kPasteboardFlavorSenderOnly) then
+		    s.Append "SenderOnly"
+		  end if
+		  if 0 <> (flags and CarbonPasteboard.kPasteboardFlavorNotSaved) then
+		    s.Append "NotSaved"
+		  end if
+		  if 0 <> (flags and CarbonPasteboard.kPasteboardFlavorPromised) then
+		    s.Append "Promised"
+		  end if
+		  if 0 <> (flags and CarbonPasteboard.kPasteboardFlavorRequestOnly) then
+		    s.Append "RequestOnly"
+		  end if
+		  if 0 <> (flags and CarbonPasteboard.kPasteboardFlavorSenderTranslated) then
+		    s.Append "SenderTranslated"
+		  end if
+		  if 0 <> (flags and CarbonPasteboard.kPasteboardFlavorSystemTranslated) then
+		    s.Append "SystemTranslated"
+		  end if
+		  return Join (s, ",")
+		  
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub refreshTypeValue()
@@ -226,11 +274,22 @@ End
 		  if selectedIndex < 0 then
 		    TypeValue.Text = ""
 		  else
-		    dim s as String = self.pboard.DataForType (TypesList.CellTag (selectedIndex, 0)).Data
-		    if s.Len > 1000 then
-		      s = s.Left (1000) + " [...]"
-		    end
-		    TypeValue.Text = s
+		    dim type as Variant = TypesList.CellTag (selectedIndex, 0)
+		    if type.IsNull then
+		      // probably the folder
+		    else
+		      dim id as Ptr = TypesList.RowTag(selectedIndex)
+		      dim mb as MemoryBlock = self.pboard.ItemFlavorData (id, type.StringValue)
+		      if mb <> nil then
+		        dim s as String = mb
+		        if s.Len > 1000 then
+		          s = s.Left (1000) + " [...]"
+		        end
+		        TypeValue.Text = s
+		      else
+		        TypeValue.Text = "<Error: "+Str(pboard.LastError)+">"
+		      end
+		    end if
 		  end if
 		End Sub
 	#tag EndMethod
@@ -239,47 +298,18 @@ End
 		Private Sub reload()
 		  // rebuilds the types list
 		  
-		  dim types as NSArray = pboard.Types
-		  
-		  'if types.Count mod 2 <> 0 then
-		  '// we expect to always see pairs of equal values with different types
-		  'break
-		  'end if
-		  
 		  TypeValue.Text = ""
-		  
 		  TypesList.DeleteAllRows
 		  
-		  dim prevType as String
-		  for i as integer = 0 to types.Count-1
-		    dim origType as String = types.CFStringRefValue(i)
-		    dim type as String = origType
-		    if type.InStr("CorePasteboardFlavorType") = 1 then
-		      // get the hex code past this word
-		      dim hexCode as String = type.NthField(" ",2)
-		      if hexCode.Left(2) = "0x" then
-		        dim mb as new MemoryBlock(4)
-		        mb.LittleEndian = false
-		        mb.UInt32Value(0) = Val("&h"+hexCode.Mid(3))
-		        dim code as String = mb
-		        type = "'" + code + "'"
-		      end
-		    end if
-		    'if i mod 2 = 0 then
-		    TypesList.AddRow type
-		    TypesList.CellTag (TypesList.LastIndex,0) = origType
-		    prevType = origType
-		    'else
-		    'TypesList.Cell (TypesList.LastIndex,1) = type
-		    'TypesList.CellTag (TypesList.LastIndex,1) = origType
-		    '
-		    '// make sure the paired values match
-		    'dim t1 as String = self.pboard.DataForType (prevType).Data
-		    'dim t2 as String = self.pboard.DataForType (origType).Data
-		    'if StrComp (t1, t2, 0) <> 0 then
-		    'break
-		    'end
-		    'end
+		  dim url as CFURL = pboard.PasteLocation()
+		  if url <> nil then
+		    TypesList.AddRow url.StringValue
+		  end if
+		  
+		  for i as integer = 1 to self.pboard.ItemCount
+		    TypesList.AddFolder "Item "+Str(i)
+		    TypesList.RowTag (TypesList.LastIndex) = i
+		    TypesList.Expanded (TypesList.LastIndex) = true
 		  next
 		  
 		  dim now as new Date
@@ -291,10 +321,11 @@ End
 		Sub UpdateIfChanged()
 		  // checks if clipboard has changed, and refreshes our UI then
 		  
-		  dim changeCount as Integer = pboard.ChangeCount
+		  dim changed, isOwn as Boolean
+		  self.pboard.Synchronize (changed, isOwn)
 		  
-		  if mLastChangeCount <> changeCount then
-		    mLastChangeCount = changeCount
+		  if changed then
+		    mLastChangeCount = mLastChangeCount + 1
 		    reload
 		  end
 		End Sub
@@ -306,7 +337,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private pboard As NSPasteboard
+		Private pboard As CarbonPasteboard
 	#tag EndProperty
 
 
@@ -318,11 +349,16 @@ End
 		  refreshTypeValue
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub ExpandRow(row As Integer)
+		  addItemToList me.RowTag(row)
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events RefreshButton
 	#tag Event
 		Sub Action()
-		  UpdateIfChanged
+		  reload
 		End Sub
 	#tag EndEvent
 #tag EndEvents

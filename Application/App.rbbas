@@ -169,6 +169,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ExamplesCarbonPasteboard() As Boolean Handles ExamplesCarbonPasteboard.Action
+			CarbonPasteboardExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ExamplesLanguages() As Boolean Handles ExamplesLanguages.Action
 			LanguagesWindow.Show
 			return true
