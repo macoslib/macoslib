@@ -1,5 +1,5 @@
 #tag Menu
-Begin Menu CocoaMenubar
+Begin Menu MainMenubar
    Begin MenuItemFileMenu FileMenu
       SpecialMenu = 0
       Text = "#MenuItemFileMenu.LocalizedText"
@@ -946,6 +946,12 @@ Begin Menu CocoaMenubar
          Begin MenuItem CocoaNSTimeZone
             SpecialMenu = 0
             Text = "NSTimeZone"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSPasteboard
+            SpecialMenu = 0
+            Text = "NSPasteboard"
             Index = -2147483648
             AutoEnable = True
          End

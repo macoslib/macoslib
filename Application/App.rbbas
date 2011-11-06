@@ -52,6 +52,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSPasteboard() As Boolean Handles CocoaNSPasteboard.Action
+			NSPasteboardExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSPathControl() As Boolean Handles CocoaNSPathControl.Action
 			NSPathControlWindow.Show
 			return true

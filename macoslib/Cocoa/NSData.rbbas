@@ -1,39 +1,20 @@
 #tag Class
-Protected Class Tuple
-	#tag Method, Flags = &h0
-		Sub Constructor(paramArray items() as Variant)
-		  for each item as Variant in items
-		    self.Elements.Append item
-		  next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Operator_Subscript(index as Integer) As Variant
-		  return self.Elements(index)
-		End Function
-	#tag EndMethod
-
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  return 1 + UBound(self.Elements)
-			End Get
-		#tag EndGetter
-		Count As Integer
-	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private Elements() As Variant
-	#tag EndProperty
-
-
+Class NSData
+Inherits CFData
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Count"
 			Group="Behavior"
+			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="CFArray"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
