@@ -85,7 +85,7 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsSlowLeopard() As Boolean
+		Function IsSnowLeopard() As Boolean
 		  // Tells you if this OS has features of this version
 		  // This means that it returns true for later OS versions as well.
 		  // If you want to test for a particular version, use SystemVersionAsInt
@@ -263,13 +263,13 @@ Protected Module Carbon
 		  case "10.5"
 		    _testAssert IsTiger
 		    _testAssert IsLeopard
-		    _testAssert not IsSlowLeopard
+		    _testAssert not IsSnowLeopard
 		  case "10.6"
 		    _testAssert IsLeopard
-		    _testAssert IsSlowLeopard
+		    _testAssert IsSnowLeopard
 		    _testAssert not IsLion
 		  else
-		    _testAssert IsSlowLeopard
+		    _testAssert IsSnowLeopard
 		    _testAssert IsLion
 		  end select
 		End Sub
