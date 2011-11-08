@@ -93,15 +93,12 @@ End
 		  if row < me.ListCount then
 		    if column = 1 then
 		      dim c as NSColor = me.CellTag(row, 1)
-		      g.ForeColor = c.ColorValue
-		      g.FillRect 0, 0, g.Width, g.Height
-		      return true
-		    else
-		      return false
+		      if c <> nil then
+		        g.ForeColor = c.ColorValue
+		        g.FillRect 0, 0, g.Width, g.Height
+		        return true
+		      end if
 		    end if
-		    
-		  else
-		    return false
 		  end if
 		End Function
 	#tag EndEvent
