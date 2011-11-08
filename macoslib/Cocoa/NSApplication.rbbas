@@ -2,6 +2,15 @@
 Class NSApplication
 Inherits NSObject
 	#tag Method, Flags = &h0
+		 Shared Function App() As NSApplication
+		  declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
+		  
+		  static c as new NSApplication(Cocoa.NSClassFromString(NSClassName))
+		  return c
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function ClassRef() As Ptr
 		  static ref as Ptr = Cocoa.NSClassFromString(NSClassName)
 		  return ref
@@ -28,15 +37,6 @@ Inherits NSObject
 		  
 		  
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function SharedApplication() As NSApplication
-		  declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
-		  
-		  static c as new NSApplication(Cocoa.NSClassFromString(NSClassName))
-		  return c
-		End Function
 	#tag EndMethod
 
 

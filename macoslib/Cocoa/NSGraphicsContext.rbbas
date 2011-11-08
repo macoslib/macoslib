@@ -79,6 +79,11 @@ Inherits NSObject
 			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Flipped"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"

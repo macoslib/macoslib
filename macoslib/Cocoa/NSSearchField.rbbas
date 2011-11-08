@@ -406,7 +406,7 @@ Inherits NSControl
 		    
 		    
 		    dim button as Ptr = searchButtonCell(self.Cell)
-		    dim b as Boolean = (button <> nil) and sendAction(App.NSApplication, action(button),target(button), self.Cell)
+		    dim b as Boolean = (button <> nil) and sendAction(NSApplication.App, action(button),target(button), self.Cell)
 		  #endif
 		  
 		  

@@ -2,7 +2,6 @@
 Begin Window HISearchFieldExample
    BackColor       =   16777215
    Backdrop        =   ""
-   BalloonHelp     =   ""
    CloseButton     =   True
    Composite       =   True
    Frame           =   0
