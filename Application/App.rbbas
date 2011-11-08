@@ -15,6 +15,7 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
+		  Cocoa.Initialize
 		  
 		  WindowMenu.Initialize
 		End Sub

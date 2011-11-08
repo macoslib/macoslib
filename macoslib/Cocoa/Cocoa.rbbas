@@ -34,12 +34,21 @@ Protected Module Cocoa
 	#tag Method, Flags = &h1
 		Protected Sub Initialize()
 		  #if TargetCarbon
+		    // This function needs to be called once to set up the Cocoa environment.
+		    
 		    Declare Function NSApplicationLoad Lib CocoaLib () as Boolean
 		    
 		    static inited as Boolean
 		    if not inited then // we should do this only once!
 		      inited = true
-		      autoreleasePool = new AutoreleaseTimer
+		      
+		      #if RBVersion < 2010
+		        autoreleasePool = new AutoreleaseTimer
+		      #else
+		        // Newer RB versions (actually, since any release after July 2009) create
+		        // an autorelease pool for us, so we don't need this any more.
+		      #endif
+		      
 		      if not NSApplicationLoad() then
 		        break
 		      end
