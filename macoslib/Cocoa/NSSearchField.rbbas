@@ -26,6 +26,7 @@ Inherits NSControl
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		    declare function initWithTitle lib CocoaLib selector "initWithTitle:action:keyEquivalent:" (obj_id as Ptr, title as CFStringRef, action as Ptr, keyEquiv as CFStringRef) as Ptr
 		    declare sub setTarget lib CocoaLib selector "setTarget:" (obj_id as Ptr, target_id as Ptr)
+		    declare sub release lib CocoaLib selector "release" (obj_id as Ptr)
 		    
 		    dim items() as Ptr
 		    
@@ -46,6 +47,12 @@ Inherits NSControl
 		    SetMenu items
 		  #endif
 		  
+		finally
+		  #if targetCocoa
+		    release(newItem)
+		  #endif
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -65,6 +72,10 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function DispatchcontrolDoCommandBySelector(id as Ptr, sel as Ptr, cntl as Ptr, textView as Ptr, command as Ptr) As Boolean
+		  #pragma unused sel
+		  #pragma unused cntl
+		  #pragma unused textView
+		  
 		  #if targetCocoa
 		    dim obj as NSSearchField = FindObjectByID(id)
 		    if obj <> nil then
@@ -146,6 +157,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Shared Function DispatchcontrolTextShouldBeginEditing(id as Ptr, sel as Ptr, cntl as Ptr, fieldEditor as Ptr) As Boolean
 		  #pragma unused sel
+		  #pragma unused cntl
 		  
 		  #pragma stackOverflowChecking false
 		  
@@ -166,6 +178,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Shared Function DispatchcontrolTextShouldEndEditing(id as Ptr, sel as Ptr, cntl as Ptr, fieldEditor as Ptr) As Boolean
 		  #pragma unused sel
+		  #pragma cntl
 		  
 		  #pragma stackOverflowChecking false
 		  
@@ -444,17 +457,15 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Sub SetMenu(items() as Ptr)
 		  #if targetCocoa
-		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
-		    declare function initWithTitle lib CocoaLib selector "initWithTitle:" (obj_id as Ptr, title as CFStringRef) as Ptr
 		    declare sub addItem lib CocoaLib selector "addItem:" (obj_id as Ptr, item as Ptr)
 		    declare sub setSearchMenuTemplate lib CocoaLib selector "setSearchMenuTemplate:" (obj_id as Ptr, menu as Ptr)
 		    
-		    dim menuRef as Ptr = initWithTitle(alloc(Cocoa.NSClassFromString("NSMenu")), "")
+		    dim searchMenu as new NSMenu()
 		    for each item as Ptr in items
-		      addItem(menuRef, item)
+		      addItem(searchMenu, item)
 		    next
 		    
-		    setSearchMenuTemplate(self, menuRef)
+		    setSearchMenuTemplate(self, searchMenu)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -664,17 +675,13 @@ Inherits NSControl
 			  end if
 			  
 			  #if targetCocoa
-			    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
-			    declare function initWithTitle lib CocoaLib selector "initWithTitle:" (obj_id as Ptr, title as CFStringRef) as Ptr
 			    declare sub setSearchMenuTemplate lib CocoaLib selector "setSearchMenuTemplate:" (obj_id as Ptr, menu as Ptr)
 			    declare function searchMenuTemplate lib CocoaLib selector "searchMenuTemplate" (obj_id as Ptr) as Ptr
-			    declare sub setAutoenablesItems lib CocoaLib selector "setAutoenablesItems:" (obj_id as Ptr, flag as Boolean)
 			    
 			    if value then
 			      if searchMenuTemplate(self) = nil then
-			        dim menuRef as Ptr = initWithTitle(alloc(Cocoa.NSClassFromString("NSMenu")), "")
-			        'setAutoenablesItems(menuRef, true)
-			        setSearchMenuTemplate self,  menuRef
+			        dim searchMenu as new NSMenu()
+			        setSearchMenuTemplate self,  searchMenu
 			      else
 			        //menu already exists
 			      end if

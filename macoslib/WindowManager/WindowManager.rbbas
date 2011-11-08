@@ -188,7 +188,12 @@ Module WindowManager
 		  #if targetCocoa
 		    declare sub setTitleWithRepresentedFilename lib CocoaLib selector "setTitleWithRepresentedFilename:" (id as Ptr, filePath as CFStringRef)
 		    
-		    setTitleWithRepresentedFilename Ptr(w.Handle), f.POSIXPath
+		    if f <> nil then
+		      setTitleWithRepresentedFilename Ptr(w.Handle), f.POSIXPath
+		    else
+		      //passing filePath = nil results in an Objective-C exception.
+		      setTitleWithRepresentedFilename Ptr(w.Handle), ""
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
