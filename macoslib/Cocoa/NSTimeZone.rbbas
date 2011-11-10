@@ -18,7 +18,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromAbbreviation(abbreviation as String) As NSTimeZone
 		  #if targetMacOS
-		    declare function timeZoneWithAbbreviation lib CocoaLib selector "timeZoneWithAbbreviation" (class_id as Ptr, name as CFStringRef) as Ptr
+		    declare function timeZoneWithAbbreviation lib CocoaLib selector "timeZoneWithAbbreviation:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    
 		    dim tz as Ptr = timeZoneWithAbbreviation(Cocoa.NSClassFromString("NSTimeZone"), abbreviation)
 		    if tz <> nil then
