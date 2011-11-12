@@ -62,7 +62,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Draw(point as Cocoa.NSPoint, operation as NSComposite, opacity as Double=1.0)
+		Sub Draw(point as Cocoa.NSPoint, operation as NSComposite, opacity as Double = 1.0)
 		  //Draws the image to the current NSGraphicsContext.
 		  
 		  dim zeroRect as Cocoa.NSRect
@@ -71,7 +71,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Draw(point as Cocoa.NSPoint, fromRect as NSRect, operation as NSComposite, opacity as Double=1.0)
+		Sub Draw(point as Cocoa.NSPoint, fromRect as NSRect, operation as NSComposite, opacity as Double = 1.0)
 		  //Draws the part of the image defined by fromRect to the current NSGraphicsContext.
 		  //pass fromRect = zeroRect to draw the entire image.
 		  

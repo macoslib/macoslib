@@ -18,6 +18,8 @@ Inherits NSControl
 
 	#tag Event
 		Sub DoubleClick(X As Integer, Y As Integer)
+		  #pragma unused X
+		  #pragma unused Y
 		  //
 		End Sub
 	#tag EndEvent

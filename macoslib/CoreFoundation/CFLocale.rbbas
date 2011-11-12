@@ -340,7 +340,11 @@ Inherits CFType
 			  #if targetMacOS
 			    soft declare function CFLocaleGetIdentifier lib CarbonLib (locale as Ptr) as Ptr
 			    
-			    return CFStringRetain(CFLocaleGetIdentifier(me.Reference))
+			    if self <> nil then
+			      return RetainedStringValue(CFLocaleGetIdentifier(self))
+			    else
+			      return ""
+			    end if
 			  #endif
 			  
 			End Get

@@ -164,7 +164,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function MakeCFURL(urlRef as Ptr, hasOwnership as Boolean=true) As CFURL
+		Private Shared Function MakeCFURL(urlRef as Ptr, hasOwnership as Boolean = true) As CFURL
 		  #if TargetMacOS
 		    soft declare function CFBundleCopyExecutableURL lib CarbonLib (theBundle as Ptr) as Ptr
 		    
@@ -316,11 +316,9 @@ Inherits CFType
 			Get
 			  #if targetMacOS
 			    soft declare function CFBundleGetIdentifier lib CarbonLib (bundle as Ptr) as Ptr
-			    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
-			    // Instead, "CFStringRetain" takes care of that below
 			    
 			    if (self <> nil) then
-			      return CFStringRetain(CFBundleGetIdentifier(self))
+			      return RetainedStringValue(CFBundleGetIdentifier(self))
 			    else
 			      return ""
 			    end if

@@ -60,7 +60,7 @@ Inherits CFType
 			    soft declare function CFErrorGetDomain lib CarbonLib (err as Ptr) as Ptr
 			    
 			    if (self <> nil) then
-			      return CFStringRetain(CFErrorGetDomain(self))
+			      return RetainedStringValue(CFErrorGetDomain(self))
 			    else
 			      return ""
 			    end if

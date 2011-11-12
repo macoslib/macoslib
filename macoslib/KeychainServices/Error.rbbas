@@ -9,7 +9,7 @@ Inherits RuntimeException
 		    declare function SecCopyErrorMessageString lib KeychainServices.framework (status as Integer, reserved as Ptr) as Ptr
 		    
 		    const reserved = nil
-		    self.Message = CFStringRetain(SecCopyErrorMessageString(errorCode, reserved))
+		    self.Message = NotRetainedStringValue(SecCopyErrorMessageString(errorCode, reserved))
 		  #endif
 		End Sub
 	#tag EndMethod

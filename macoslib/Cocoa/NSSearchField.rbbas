@@ -178,7 +178,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Shared Function DispatchcontrolTextShouldEndEditing(id as Ptr, sel as Ptr, cntl as Ptr, fieldEditor as Ptr) As Boolean
 		  #pragma unused sel
-		  #pragma cntl
+		  #pragma unused cntl
 		  
 		  #pragma stackOverflowChecking false
 		  
@@ -420,6 +420,7 @@ Inherits NSControl
 		    
 		    dim button as Ptr = searchButtonCell(self.Cell)
 		    dim b as Boolean = (button <> nil) and sendAction(NSApplication.App, action(button),target(button), self.Cell)
+		    #pragma unused b
 		  #endif
 		  
 		  

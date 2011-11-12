@@ -197,7 +197,7 @@ Protected Module LaunchServices
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub OpenApp(theApp as FolderItem, launchFlags as UInt32=kLSLaunchDefaults, optional argv() as String)
+		Sub OpenApp(theApp as FolderItem, launchFlags as UInt32 = kLSLaunchDefaults, optional argv() as String)
 		  if theApp is nil then
 		    return
 		  end if
