@@ -342,10 +342,10 @@ Inherits Canvas
 		Function StringValue() As String
 		  #if targetCocoa
 		    if me.id <> nil then
-		      soft declare function stringValue lib CocoaFramework selector "stringValue" (id as Ptr) as CFStringRef
+		      soft declare function stringValue lib CocoaFramework selector "stringValue" (id as Ptr) as Ptr
 		      
 		      
-		      return stringValue(me.id)
+		      return new CFString(stringValue(me.id), not CFString.hasOwnership)
 		    else
 		      return ""
 		    end if

@@ -790,7 +790,7 @@ Class NavigationDialog
 			  else
 			    soft declare function NavDialogGetSaveFileName lib CarbonLib (inPutFileDialog as Ptr) as Ptr
 			    
-			    return CFStringRetain(NavDialogGetSaveFileName(self.DialogRef))
+			    return RetainedStringValue(NavDialogGetSaveFileName(self.DialogRef))
 			  end if
 			End Get
 		#tag EndGetter

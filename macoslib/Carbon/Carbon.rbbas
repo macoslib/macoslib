@@ -27,7 +27,8 @@ Protected Module Carbon
 		      try
 		        dim d as CFDictionary = CFDictionary(pList)
 		        const ProductVersionKey = "ProductVersion"
-		        dim ProductVersionValue as CFString = CFString(d.Value(new CFString(ProductVersionKey)))
+		        dim key as CFString = ProductVersionKey
+		        dim ProductVersionValue as new CFString(d.Value(key), not CFString.hasOwnership)
 		        return ProductVersionValue.StringValue
 		        
 		        

@@ -60,8 +60,8 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
-	#tag ExternalMethod, Flags = &h0
-		Declare Function CFGetTypeID Lib CarbonLib (cf as Ptr) As UInt32
+	#tag ExternalMethod, Flags = &h21
+		Private Declare Function CFGetTypeID Lib CarbonLib (cf as Ptr) As UInt32
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
@@ -105,19 +105,9 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function CFStringRetain(p as Ptr) As CFStringRef
-		  #if targetMacOS
-		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		    
-		    if p <> nil then
-		      return CFRetain(p)
-		    else
-		      return nil
-		    end if
-		  #endif
-		End Function
-	#tag EndMethod
+	#tag ExternalMethod, Flags = &h21
+		Private Declare Function CFStringGetTypeID Lib CarbonLib () As Uint32
+	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
 		Function CFURL(f as FolderItem) As CFURL
@@ -230,6 +220,52 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function NotRetainedStringValue(p as Ptr) As String
+		  #if targetMacOS
+		    if p = nil then
+		      return ""
+		    end if
+		    
+		    if CFGetTypeID(p) <> CFStringGetTypeID then
+		      dim e as new TypeMismatchException
+		      e.Message = "CFTypeRef &h" + Hex(Integer(p)) + " has unexpected type " + CFCopyTypeIDDescription(CFGetTypeID(p)) + "."
+		      raise e
+		    end if
+		    
+		    soft declare function CFStringGetLength lib CarbonLib (cf as Ptr) as Integer
+		    soft declare function CFStringGetMaximumSizeForEncoding lib CarbonLib (length as Integer, enc as Integer) as Integer
+		    soft declare function CFStringGetCString lib CarbonLib (theString as Ptr, buffer as Ptr, bufferSize as Integer, enc as Integer) as Boolean
+		    
+		    dim maxSize as Integer = CFStringGetMaximumSizeForEncoding(CFStringGetLength(p), kCFStringEncodingUTF8)
+		    if maxSize <= 0 then
+		      return ""
+		    end if
+		    
+		    dim buffer as new MemoryBlock(1 + maxSize)
+		    if CFStringGetCString(p, buffer, buffer.Size, kCFStringEncodingUTF8) then
+		      return DefineEncoding(buffer.CString(0), Encodings.UTF8)
+		    else
+		      return ""
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RetainedStringValue(p as Ptr) As String
+		  #if targetMacOS
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as Ptr
+		    
+		    if p <> nil then
+		      return NotRetainedStringValue(CFRetain(p))
+		    else
+		      return ""
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag DelegateDeclaration, Flags = &h1
 		Protected Delegate Sub TimerActionDelegate()
 	#tag EndDelegateDeclaration
@@ -306,7 +342,7 @@ Module CoreFoundation
 		    
 		    if true then
 		      dim vals() as CFString
-		      vals.Append new CFString("a")
+		      vals.Append "a"
 		      vals.Append "b"
 		      dim arr as new CFArray(vals)
 		      dim p as Ptr = arr.Reference
@@ -631,6 +667,9 @@ Module CoreFoundation
 	#tag EndConstant
 
 	#tag Constant, Name = kCFPropertyListXMLFormat_v1_0, Type = Double, Dynamic = False, Default = \"100", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFStringEncodingUTF8, Type = Double, Dynamic = False, Default = \"&h08000100", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = Name, Type = String, Dynamic = False, Default = \"CoreFoundation.framework", Scope = Protected

@@ -113,7 +113,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function stringforKey lib CocoaLib selector "stringForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Ptr
 		    
-		    return CFStringRetain(stringForKey(self, key, table))
+		    return RetainedStringValue(stringForKey(self, key, table))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -159,7 +159,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(name(self))
+			    return RetainedStringValue(name(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -172,7 +172,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function type lib CocoaLib selector "type" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(type(self))
+			    return RetainedStringValue(type(self))
 			  #endif
 			End Get
 		#tag EndGetter

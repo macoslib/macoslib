@@ -30,6 +30,7 @@ Begin Window NSPrinterExampleWindow
       AllowColumnReordering=   ""
       AlternatingRowBackground=   ""
       AutoDeactivate  =   True
+      AutohideScrollbars=   ""
       autoresizesSubviews=   ""
       Backdrop        =   ""
       ColumnCount     =   ""

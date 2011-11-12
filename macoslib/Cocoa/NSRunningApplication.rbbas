@@ -48,7 +48,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function localizedName lib CocoaLib selector "localizedName" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(localizedName(self))
+			    return RetainedStringValue(localizedName(self))
 			  #endif
 			End Get
 		#tag EndGetter

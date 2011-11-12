@@ -10,6 +10,7 @@ Inherits NSObject
 		      const sizeOfNSUInteger = 4
 		      dim indexBuffer as new MemoryBlock(sizeOfNSUInteger*self.Count)
 		      dim indexCount as Integer = getIndexes(self, indexBuffer, self.Count, nil)
+		      #pragma unused indexCount
 		      dim L() as Integer
 		      dim offset as Integer = 0
 		      while offset < indexBuffer.Size

@@ -81,9 +81,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function CopyHostName(url as CFURL) As CFStringRef
+		Private Shared Function CopyHostName(url as CFURL) As Ptr
 		  #if targetMacOS
-		    soft declare function CFURLCopyHostName lib CarbonLib (anURL as Ptr) as CFStringRef
+		    soft declare function CFURLCopyHostName lib CarbonLib (anURL as Ptr) as Ptr
 		    
 		    return CFURLCopyHostName(url)
 		  #endif
@@ -91,9 +91,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function CopyNetLocation(url as CFURL) As CFStringRef
+		Private Shared Function CopyNetLocation(url as CFURL) As Ptr
 		  #if targetMacOS
-		    soft declare function CFURLCopyNetLocation lib CarbonLib (anURL as Ptr) as CFStringRef
+		    soft declare function CFURLCopyNetLocation lib CarbonLib (anURL as Ptr) as Ptr
 		    
 		    return CFURLCopyNetLocation(url)
 		  #endif
@@ -101,9 +101,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function CopyPassword(url as CFURL) As CFStringRef
+		Private Shared Function CopyPassword(url as CFURL) As Ptr
 		  #if targetMacOS
-		    soft declare function CFURLCopyPassword lib CarbonLib (anURL as Ptr) as CFStringRef
+		    soft declare function CFURLCopyPassword lib CarbonLib (anURL as Ptr) as Ptr
 		    
 		    return CFURLCopyPassword(url)
 		  #endif
@@ -111,9 +111,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function CopyQueryString(url as CFURL) As CFStringRef
+		Private Shared Function CopyQueryString(url as CFURL) As Ptr
 		  #if targetMacOS
-		    soft declare function CFURLCopyQueryString lib CarbonLib (anURL as Ptr) as CFStringRef
+		    soft declare function CFURLCopyQueryString lib CarbonLib (anURL as Ptr) as Ptr
 		    
 		    return CFURLCopyQueryString(url)
 		  #endif
@@ -121,9 +121,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function CopyScheme(url as CFURL) As CFStringRef
+		Private Shared Function CopyScheme(url as CFURL) As Ptr
 		  #if targetMacOS
-		    soft declare function CFURLCopyScheme lib CarbonLib (anURL as Ptr) as CFStringRef
+		    soft declare function CFURLCopyScheme lib CarbonLib (anURL as Ptr) as Ptr
 		    
 		    return CFURLCopyScheme(url)
 		  #endif
@@ -131,13 +131,13 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag DelegateDeclaration, Flags = &h21
-		Private Delegate Function CopyStringValueDelegate(url as CFURL) As CFStringRef
+		Private Delegate Function CopyStringValueDelegate(url as CFURL) As Ptr
 	#tag EndDelegateDeclaration
 
 	#tag Method, Flags = &h21
-		Private Shared Function CopyUserName(url as CFURL) As CFStringRef
+		Private Shared Function CopyUserName(url as CFURL) As Ptr
 		  #if targetMacOS
-		    soft declare function CFURLCopyUserName lib CarbonLib (anURL as Ptr) as CFStringRef
+		    soft declare function CFURLCopyUserName lib CarbonLib (anURL as Ptr) as Ptr
 		    
 		    return CFURLCopyUserName(url)
 		  #endif
@@ -251,10 +251,9 @@ Inherits CFType
 	#tag Method, Flags = &h21
 		Private Function StringValue(f as CopyStringValueDelegate) As String
 		  //if f  = nil, then that's a programmer error.
-		  
 		  #if TargetMacOS
-		    if me <> nil then
-		      return f.Invoke(me)
+		    if self <> nil then
+		      return NotRetainedStringValue(f.Invoke(self))
 		    else
 		      return ""
 		    end if

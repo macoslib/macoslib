@@ -97,7 +97,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function address lib CocoaLib selector "address" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(address(self))
+			    return RetainedStringValue(address(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -112,7 +112,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function localizedName lib CocoaLib selector "localizedName" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(localizedName(self))
+			    return RetainedStringValue(localizedName(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -126,7 +126,7 @@ Inherits NSObject
 			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as Ptr
 			    
 			    if self <> nil then
-			      return CFStringRetain(name(self))
+			      return RetainedStringValue(name(self))
 			      
 			    else
 			      return ""

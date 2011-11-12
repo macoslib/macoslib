@@ -9,8 +9,8 @@ Inherits RuntimeException
 		    declare function domain lib CocoaLib selector "domain" (obj_id as Ptr) as Ptr
 		    
 		    self.ErrorNumber = code(p)
-		    self.Message = CFStringRetain(localizedDescription(p))
-		    self.Domain = CFStringRetain(domain(p))
+		    self.Message = RetainedStringValue(localizedDescription(p))
+		    self.Domain = RetainedStringValue(domain(p))
 		  #endif
 		End Sub
 	#tag EndMethod

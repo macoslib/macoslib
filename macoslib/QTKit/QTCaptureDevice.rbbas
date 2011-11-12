@@ -67,7 +67,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function localizedDisplayName lib QTKit.framework selector "localizedDisplayName" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(localizedDisplayName(self))
+			    return RetainedStringValue(localizedDisplayName(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -119,7 +119,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function uniqueID lib QTKit.framework selector "uniqueID" (obj_id as Ptr) as Ptr
 			    
-			    return CFStringRetain(uniqueID(self))
+			    return RetainedStringValue(uniqueID(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -140,11 +140,31 @@ Inherits NSObject
 			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DisplayName"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsConnected"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsInUseByAnotherApplication"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsOpen"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -171,6 +191,11 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UniqueID"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

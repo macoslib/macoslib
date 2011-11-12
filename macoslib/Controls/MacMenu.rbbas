@@ -405,15 +405,15 @@ Protected Class MacMenu
 	#tag Method, Flags = &h0
 		Function Text(index as Integer) As String
 		  #if TargetCarbon
-		    soft declare function CopyMenuItemTextAsCFString Lib CarbonLib (inMenu as Ptr, inItem as Short, ByRef outString as CFStringRef) as Integer
+		    soft declare function CopyMenuItemTextAsCFString Lib CarbonLib (inMenu as Ptr, inItem as Short, ByRef outString as Ptr) as Integer
 		    
-		    dim theText as CFStringRef
+		    dim theText as Ptr
 		    dim OSError as Integer = CopyMenuItemTextAsCFString(self.Ref, index, theText)
 		    if OSError <> 0 then
 		      MacOSError "GetText", "CopyMenuItemTextAsCFString", OSError
 		      return ""
 		    end if
-		    return theText
+		    return new CFString(theText, not CFString.hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
