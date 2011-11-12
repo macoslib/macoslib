@@ -250,9 +250,9 @@ Begin Menu MainMenubar
             MenuModifier = True
             AutoEnable = False
          End
-         Begin MenuItem UntitledItem4
+         Begin CocoaMenuItemSelectLine UntitledItem4
             SpecialMenu = 0
-            Text = "Select Line..."
+            Text = "#CocoaMenuItemSelectLine.LocalizedText"
             Index = -2147483648
             ShortcutKey = "L"
             Shortcut = "Cmd+L"
@@ -657,7 +657,7 @@ Begin Menu MainMenubar
       End
       Begin MenuItem FormatText
          SpecialMenu = 0
-         Text = "Text"
+         Text = "#CocoaMenuItemFormatText.LocalizedText"
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
@@ -849,13 +849,13 @@ Begin Menu MainMenubar
       End
       Begin CocoaMenuItemList FormatList
          SpecialMenu = 0
-         Text = "List..."
+         Text = "#CocoaMenuItemList.LocalizedText"
          Index = -2147483648
          AutoEnable = False
       End
       Begin CocoaMenuItemTable FormatTable
          SpecialMenu = 0
-         Text = "Table..."
+         Text = "#CocoaMenuItemTable.LocalizedText"
          Index = -2147483648
          AutoEnable = False
       End
@@ -878,9 +878,9 @@ Begin Menu MainMenubar
          AutoEnable = False
       End
    End
-   Begin MenuItem ExamplesMenu
+   Begin MenuItemExamplesMenu ExamplesMenu
       SpecialMenu = 0
-      Text = "Examples"
+      Text = "#MenuItemExamplesMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
       Begin MenuItem ExamplesCocoa
@@ -1146,14 +1146,14 @@ Begin Menu MainMenubar
          AutoEnable = True
       End
    End
-   Begin WindowMenu WindowMenu
+   Begin MenuItemWindowMenu WindowMenu
       SpecialMenu = 0
-      Text = "Window"
+      Text = "#MenuItemWindowMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
       Begin WindowMenuItemMinimize WindowMinimize
          SpecialMenu = 0
-         Text = "Minimize"
+         Text = "#WindowMenuItemMinimize.LocalizedText"
          Index = -2147483648
          ShortcutKey = "M"
          Shortcut = "Cmd+M"
@@ -1162,7 +1162,7 @@ Begin Menu MainMenubar
       End
       Begin WindowMenuItemZoom AppWindowMenuTitleZoom
          SpecialMenu = 0
-         Text = "Zoom"
+         Text = "#WindowMenuItemZoom.LocalizedText"
          Index = -2147483648
          AutoEnable = False
       End
@@ -1174,7 +1174,7 @@ Begin Menu MainMenubar
       End
       Begin WindowMenuItemBringAllToFront AppWindowMenuTitleBringAllToFront
          SpecialMenu = 0
-         Text = "Bring All To Front"
+         Text = "#WindowMenuItemBringAllToFront.LocalizedText"
          Index = -2147483648
          AutoEnable = False
       End
