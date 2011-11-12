@@ -698,6 +698,7 @@ Inherits NSControl
 
 	#tag Constant, Name = ClearSearchesLocalizedText, Type = String, Dynamic = True, Default = \"Clear", Scope = Private
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Clear"
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Effacer"
 	#tag EndConstant
 
 	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibNSSearchFieldDelegate", Scope = Private
@@ -705,6 +706,7 @@ Inherits NSControl
 
 	#tag Constant, Name = NoRecentSearchesLocalizedText, Type = String, Dynamic = True, Default = \"No Recent Searches", Scope = Private
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"No Recent Searches"
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Pas de recherche r\xC3\xA9cente"
 	#tag EndConstant
 
 	#tag Constant, Name = NSSearchFieldClearRecentsMenuItemTag, Type = Double, Dynamic = False, Default = \"1002", Scope = Private
@@ -721,6 +723,7 @@ Inherits NSControl
 
 	#tag Constant, Name = RecentSearchesLocalizedText, Type = String, Dynamic = True, Default = \"Recent Searches", Scope = Private
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Recent Searches"
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Recherches r\xC3\xA9centes"
 	#tag EndConstant
 
 
