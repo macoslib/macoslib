@@ -12,6 +12,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Zoom"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Zoomen"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Zoom"
+		#Tag Instance, Platform = Any, Language = it, Definition  = \"Ridimensiona"
 	#tag EndConstant
 
 
