@@ -11,6 +11,7 @@ Inherits CocoaMenuItem
 	#tag Constant, Name = LocalizedText, Type = String, Dynamic = True, Default = \"Zoom", Scope = Public
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Zoom"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Zoomen"
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Zoom"
 	#tag EndConstant
 
 

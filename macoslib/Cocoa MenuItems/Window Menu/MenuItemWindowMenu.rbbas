@@ -5,6 +5,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Window"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Finestra"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Fenster"
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Fen\xC3\xAAtre"
 	#tag EndConstant
 
 
