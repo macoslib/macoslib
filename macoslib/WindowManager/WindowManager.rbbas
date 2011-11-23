@@ -270,6 +270,64 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsResizeable(extends w as Window) As Boolean
+		  #if targetCocoa
+		    declare function styleMask lib CocoaLib selector "styleMask" (handle as Integer) as Integer
+		    
+		    const NSResizableWindowMask = 8
+		    return (styleMask(w.Handle) and NSResizableWindowMask) = NSResizableWindowMask
+		  #endif
+		  
+		  #if targetCarbon
+		    soft declare function GetWindowAttributes lib CarbonLib (w as Integer, ByRef outAttributes as Integer) as Integer
+		    const kWindowResizableAttribute = 16
+		    
+		    if w.Handle = 0 then
+		      return false
+		    end if
+		    
+		    dim outAttributes as Integer
+		    dim err as Integer = GetWindowAttributes(w.Handle, outAttributes)
+		    return (err = noErr) and ((outAttributes and kWindowResizableAttribute) = kWindowResizableAttribute)
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub IsResizeable(extends w as Window, assigns value as Boolean)
+		  #if targetCocoa
+		    declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (handle as Integer, mask as Integer)
+		    declare function styleMask lib CocoaLib selector "styleMask" (handle as Integer) as Integer
+		    
+		    const NSResizableWindowMask = 8
+		    if value then
+		      setStyleMask(w.Handle, styleMask(w.Handle) or NSResizableWindowMask)
+		    else
+		      setStyleMask(w.Handle, styleMask(w.Handle) and not NSResizableWindowMask)
+		    end if
+		  #endif
+		  
+		  #if targetCarbon
+		    soft declare function ChangeWindowAttributes lib CarbonLib (w as WindowPtr, setTheseAttributes as UInt32, clearTheseAttributes as UInt32) as Integer
+		    const kWindowNoAttributes = 0
+		    const kWindowResizableAttribute = 16
+		    
+		    dim setTheseAttributes as UInt32
+		    dim clearTheseAttributes as UInt32
+		    if value then
+		      setTheseAttributes = kWindowResizableAttribute
+		      clearTheseAttributes = kWindowNoAttributes
+		    else
+		      setTheseAttributes = kWindowNoAttributes
+		      clearTheseAttributes = kWindowResizableAttribute
+		    end if
+		    dim err as Integer = ChangeWindowAttributes(w, setTheseAttributes, clearTheseAttributes)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SendBehind(extends w as Window, behindWindow as Window)
 		  if behindWindow is nil then
 		    return
