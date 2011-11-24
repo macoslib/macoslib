@@ -33,6 +33,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FrameImage() As NSImage
+		  #if targetCocoa
+		    declare function currentFrameImage lib QTKit.framework selector "currentFrameImage" (obj_id as Ptr, time as QTTime)
+		    
+		    return new NSImage(currentFrameImage(self, time), not hasOwnership)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FrameImage(time as QTTime) As NSImage
+		  #if targetCocoa
+		    declare function frameImageAtTime lib QTKit.framework selector "frameImageAtTime:" (obj_id as Ptr, time as QTTime)
+		    
+		    return new NSImage(frameImageAtTime(self, time), not hasOwnership)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function LoadFromFolderItem(f as FolderItem) As QTMovie
 		  if f = nil then
 		    return nil
