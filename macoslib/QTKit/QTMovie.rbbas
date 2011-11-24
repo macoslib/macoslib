@@ -80,7 +80,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function SelectionDuration() As QTTime
 		  #if targetCocoa
-		    declare function selectionDuration lib CocoaLib selector "selectionDuration" (obj_id as Ptr) as QTTime
+		    declare function selectionDuration lib QTKit.framework selector "selectionDuration" (obj_id as Ptr) as QTTime
 		    
 		    return selectionDuration(self)
 		  #endif
@@ -90,7 +90,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function SelectionEnd() As QTTime
 		  #if targetCocoa
-		    declare function selectionEnd lib CocoaLib selector "selectionEnd" (obj_id as Ptr) as QTTime
+		    declare function selectionEnd lib QTKit.framework selector "selectionEnd" (obj_id as Ptr) as QTTime
 		    
 		    return selectionEnd(self)
 		  #endif
@@ -100,11 +100,21 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function SelectionStart() As QTTime
 		  #if targetCocoa
-		    declare function selectionStart lib CocoaLib selector "selectionStart" (obj_id as Ptr) as QTTime
+		    declare function selectionStart lib QTKit.framework selector "selectionStart" (obj_id as Ptr) as QTTime
 		    
 		    return selectionStart(self)
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetSelection(range as QTTimeRange)
+		  #if targetCocoa
+		    declare sub setSelection lib QTKit.framework selector "setSelection:" (obj_id as Ptr, selection as QTTimeRange)
+		    
+		    setSelection(self, selection)
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
