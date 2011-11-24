@@ -387,6 +387,15 @@ Inherits Canvas
 			  #endif
 			End Get
 		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setPreservesAspectRatio lib QTKit.framework (obj_id as Ptr, value as Boolean)
+			    
+			    setPreservesAspectRatio(self, value)
+			  #endif
+			End Set
+		#tag EndSetter
 		PreservesAspectRatio As Boolean
 	#tag EndComputedProperty
 
