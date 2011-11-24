@@ -12,6 +12,17 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub CurrentTime(assigns value as QTTime)
+		  #if targetCocoa
+		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime" (obj_id as Ptr, time as QTTime)
+		    
+		    setCurrentTime(self, time)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Duration() As QTTime
 		  #if targetMacOS
 		    declare function duration lib QTKit.framework selector "duration" (obj_id as Ptr) as QTTime
