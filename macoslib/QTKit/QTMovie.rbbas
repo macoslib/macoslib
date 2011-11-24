@@ -78,6 +78,36 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function SelectionDuration() As QTTime
+		  #if targetCocoa
+		    declare function selectionDuration lib CocoaLib selector "selectionDuration" (obj_id as Ptr) as QTTime
+		    
+		    return selectionDuration(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SelectionEnd() As QTTime
+		  #if targetCocoa
+		    declare function selectionEnd lib CocoaLib selector "selectionEnd" (obj_id as Ptr) as QTTime
+		    
+		    return selectionEnd(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SelectionStart() As QTTime
+		  #if targetCocoa
+		    declare function selectionStart lib CocoaLib selector "selectionStart" (obj_id as Ptr) as QTTime
+		    
+		    return selectionStart(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function UTIs() As UTI()
 		  #if targetCocoa
 		    declare function movieTypesWithOptions lib QTKit.framework selector "movieTypesWithOptions:" (class_id as Ptr, types as Integer) as Ptr
