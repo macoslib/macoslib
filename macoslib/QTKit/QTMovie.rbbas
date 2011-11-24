@@ -16,7 +16,7 @@ Inherits NSObject
 		  #if targetCocoa
 		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime" (obj_id as Ptr, time as QTTime)
 		    
-		    setCurrentTime(self, time)
+		    setCurrentTime(self, value)
 		  #endif
 		  
 		End Sub
@@ -35,9 +35,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function FrameImage() As NSImage
 		  #if targetCocoa
-		    declare function currentFrameImage lib QTKit.framework selector "currentFrameImage" (obj_id as Ptr, time as QTTime)
+		    declare function currentFrameImage lib QTKit.framework selector "currentFrameImage" (obj_id as Ptr) as Ptr
 		    
-		    return new NSImage(currentFrameImage(self, time), not hasOwnership)
+		    return new NSImage(currentFrameImage(self), not hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -45,7 +45,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function FrameImage(time as QTTime) As NSImage
 		  #if targetCocoa
-		    declare function frameImageAtTime lib QTKit.framework selector "frameImageAtTime:" (obj_id as Ptr, time as QTTime)
+		    declare function frameImageAtTime lib QTKit.framework selector "frameImageAtTime:" (obj_id as Ptr, time as QTTime) as Ptr
 		    
 		    return new NSImage(frameImageAtTime(self, time), not hasOwnership)
 		  #endif
@@ -132,7 +132,7 @@ Inherits NSObject
 		  #if targetCocoa
 		    declare sub setSelection lib QTKit.framework selector "setSelection:" (obj_id as Ptr, selection as QTTimeRange)
 		    
-		    setSelection(self, selection)
+		    setSelection(self, range)
 		  #endif
 		End Sub
 	#tag EndMethod
