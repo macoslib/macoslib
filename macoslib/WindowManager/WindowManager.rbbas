@@ -270,7 +270,7 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsResizeable(extends w as Window) As Boolean
+		Function IsResizable(extends w as Window) As Boolean
 		  #if targetCocoa
 		    declare function styleMask lib CocoaLib selector "styleMask" (handle as Integer) as Integer
 		    
@@ -295,7 +295,7 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub IsResizeable(extends w as Window, assigns value as Boolean)
+		Sub IsResizable(extends w as Window, assigns value as Boolean)
 		  #if targetCocoa
 		    declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (handle as Integer, mask as Integer)
 		    declare function styleMask lib CocoaLib selector "styleMask" (handle as Integer) as Integer
