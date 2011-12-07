@@ -14,7 +14,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub CurrentTime(assigns value as QTTime)
 		  #if targetCocoa
-		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime" (obj_id as Ptr, time as QTTime)
+		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime:" (obj_id as Ptr, time as QTTime)
 		    
 		    setCurrentTime(self, value)
 		  #endif
