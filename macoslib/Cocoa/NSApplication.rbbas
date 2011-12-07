@@ -5,7 +5,7 @@ Inherits NSObject
 		 Shared Function App() As NSApplication
 		  declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
 		  
-		  static c as new NSApplication(Cocoa.NSClassFromString(NSClassName))
+		  static c as new NSApplication(sharedApplication_(Cocoa.NSClassFromString(NSClassName)))
 		  return c
 		End Function
 	#tag EndMethod
@@ -37,6 +37,17 @@ Inherits NSObject
 		  
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Windows() As CFArray
+		  #if targetCocoa
+		    declare function windows lib CocoaLib selector "windows" (obj_id as Ptr) as Ptr
+		    
+		    dim p as Ptr = windows(self)
+		    return new CFArray(windows(self), not CFArray.hasOwnership)
+		  #endif
+		End Function
 	#tag EndMethod
 
 
