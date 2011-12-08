@@ -99,6 +99,17 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub QTAttribute(key as String, assigns value as Ptr)
+		  #if targetCocoa
+		    declare sub setAttribute lib CocoaLib selector "setAttribute:" (obj_id as Ptr, value as Ptr, key as CFStringRef)
+		    
+		    setAttribute(self, value, key)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Rate() As Double
 		  #if targetCocoa
 		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Single
