@@ -4,7 +4,7 @@ Inherits NSValue
 	#tag Method, Flags = &h21
 		Private Shared Function ClassRef() As Ptr
 		  #if targetMacOS
-		    static p as Ptr = return Cocoa.NSClassFromString("NSNumber")
+		    static p as Ptr = Cocoa.NSClassFromString("NSNumber")
 		    return p
 		  #endif
 		End Function
@@ -15,7 +15,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithBool lib CocoaLib selector "numberWithBool:" (class_id as Ptr, value as Boolean) as Ptr
 		    
-		    self.Constructor(numberWithBool(ClassRef, value)
+		    self.Constructor(numberWithBool(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -25,7 +25,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithDouble lib CocoaLib selector "numberWithDouble:" (class_id as Ptr, value as Double) as Ptr
 		    
-		    self.Constructor(numberWithDouble(ClassRef, value)
+		    self.Constructor(numberWithDouble(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -35,7 +35,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithShort lib CocoaLib selector "numberWithShort:" (class_id as Ptr, value as Int16) as Ptr
 		    
-		    self.Constructor(numberWithShort(ClassRef, value)
+		    self.Constructor(numberWithShort(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -45,7 +45,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithLong lib CocoaLib selector "numberWithLong:" (class_id as Ptr, value as Int32) as Ptr
 		    
-		    self.Constructor(numberWithLong(ClassRef, value)
+		    self.Constructor(numberWithLong(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -55,7 +55,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithLongLong lib CocoaLib selector "numberWithLongLong:" (class_id as Ptr, value as Int64) as Ptr
 		    
-		    self.Constructor(numberWithLongLong(ClassRef, value)
+		    self.Constructor(numberWithLongLong(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -65,7 +65,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithChar lib CocoaLib selector "numberWithChar:" (class_id as Ptr, value as Int8) as Ptr
 		    
-		    self.Constructor(numberWithChar(ClassRef, value)
+		    self.Constructor(numberWithChar(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -75,7 +75,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithFloat lib CocoaLib selector "numberWithFloat:" (class_id as Ptr, value as Single) as Ptr
 		    
-		    self.Constructor(numberWithFloat(ClassRef, value)
+		    self.Constructor(numberWithFloat(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -85,7 +85,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithUnsignedShort lib CocoaLib selector "numberWithUnsignedShort:" (class_id as Ptr, value as UInt16) as Ptr
 		    
-		    self.Constructor(numberWithUnsignedShort(ClassRef, value)
+		    self.Constructor(numberWithUnsignedShort(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -95,7 +95,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithUnsignedLong lib CocoaLib selector "numberWithUnsignedLong:" (class_id as Ptr, value as UInt32) as Ptr
 		    
-		    self.Constructor(numberWithUnsignedLong(ClassRef, value)
+		    self.Constructor(numberWithUnsignedLong(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -105,7 +105,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithUnsignedLongLong lib CocoaLib selector "numberWithUnsignedLongLong:" (class_id as Ptr, value as UInt64) as Ptr
 		    
-		    self.Constructor(numberWithUnsignedLongLong(ClassRef, value)
+		    self.Constructor(numberWithUnsignedLongLong(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -115,7 +115,7 @@ Inherits NSValue
 		  #if targetMacOS
 		    declare function numberWithUnsignedChar lib CocoaLib selector "numberWithUnsignedChar:" (class_id as Ptr, value as UInt8) as Ptr
 		    
-		    self.Constructor(numberWithUnsignedChar(ClassRef, value)
+		    self.Constructor(numberWithUnsignedChar(ClassRef, value))
 		  #endif
 		End Sub
 	#tag EndMethod

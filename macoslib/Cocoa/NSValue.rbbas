@@ -1,6 +1,16 @@
 #tag Class
 Class NSValue
 Inherits NSObject
+	#tag Method, Flags = &h1000
+		Sub Constructor(data as MemoryBlock, objc_type as String)
+		  #if targetMacOS
+		    declare function valueWithBytes lib CocoaLib selector "valueWithBytes:objCType:" (class_id as Ptr, value as Ptr, type as CString) as Ptr
+		    
+		    self.Constructor(Cocoa.NSClassFromString("NSValue"), data, objc_type)
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub CopyInto(buffer as MemoryBlock)
 		  //copies the value into buffer. It's the caller's job to get the buffer size correct.
