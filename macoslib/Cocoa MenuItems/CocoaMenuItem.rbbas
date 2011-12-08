@@ -75,7 +75,9 @@ Inherits MenuItem
 		    soft declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
 		    soft declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
 		    
-		    if m = App.MenuBar then
+		    if m is nil then
+		      return nil
+		    elseif m = App.MenuBar then
 		      return MainMenu
 		    else
 		      dim parent_nsmenu as Ptr = GetNSMenu(GetParentOf(m))
@@ -123,12 +125,19 @@ Inherits MenuItem
 		  
 		  while UBound(parentStack) > -1
 		    dim parent as MenuItem = parentStack.Pop
-		    if parent.Child(theItem.Name) Is theItem then
-		      return parent
-		    end if
 		    for i as Integer = 0 to parent.Count - 1
-		      if parent.Item(i).Count > 0 then
-		        parentStack.Append parent.Item(i)
+		      dim childItem as MenuItem = parent.Item(i)
+		      if childItem = nil then
+		        //the unthinkable has happened.
+		        continue
+		      end if
+		      
+		      if childItem = theItem then
+		        return parent
+		      else
+		        if childItem.Count > 0 then
+		          parentStack.Append childItem
+		        end if
 		      end if
 		    next
 		  wend

@@ -174,6 +174,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function MixedState() As NSImage
+		  
+		  return LoadByName(ResolveSymbol("NSImageNameMenuMixedStateTemplate"))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function MobileMe() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNameMobileMe"))
 		End Function
