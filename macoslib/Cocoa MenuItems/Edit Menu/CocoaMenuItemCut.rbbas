@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xAB\xE3\x83\x83\xE3\x83\x88"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Couper"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Taglia"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x95\xE0\xA6\xBE\xE0\xA6\x9F\xE0\xA6\xBE"
 	#tag EndConstant
 
 

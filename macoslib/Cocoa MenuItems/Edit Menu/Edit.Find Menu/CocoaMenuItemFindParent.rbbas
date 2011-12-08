@@ -7,6 +7,7 @@ Inherits CocoaMenuItemSupermenu
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\xA4\x9C\xE7\xB4\xA2"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Rechercher"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Cerca"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x85\xE0\xA6\xA8\xE0\xA7\x81\xE0\xA6\xB8\xE0\xA6\xA8\xE0\xA7\x8D\xE0\xA6\xA7\xE0\xA6\xBE\xE0\xA6\xA8"
 	#tag EndConstant
 
 

@@ -29,6 +29,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x84\xE3\x83\xBC\xE3\x83\xAB\xE3\x83\x90\xE3\x83\xBC\xE3\x82\x92\xE9\x9A\xA0\xE3\x81\x99"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Masquer la barre d\'outils"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Nascondi la barra strumenti"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x9F\xE0\xA7\x81\xE0\xA6\xB2\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\xB0 \xE0\xA6\x86\xE0\xA7\x9C\xE0\xA6\xBE\xE0\xA6\xB2 \xE0\xA6\x95\xE0\xA6\xB0\xE0\xA6\xBE"
 	#tag EndConstant
 
 	#tag Constant, Name = LocalizedTextShow, Type = String, Dynamic = True, Default = \"Show Toolbar", Scope = Public
@@ -37,6 +38,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x84\xE3\x83\xBC\xE3\x83\xAB\xE3\x83\x90\xE3\x83\xBC\xE3\x82\x92\xE8\xA1\xA8\xE7\xA4\xBA"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Afficher la barre d\'outils"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Mostra la barra strumenti"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x9F\xE0\xA7\x81\xE0\xA6\xB2\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\xB0 \xE0\xA6\xAA\xE0\xA7\x8D\xE0\xA6\xB0\xE0\xA6\xA6\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xB6\xE0\xA6\xA8 \xE0\xA6\x95\xE0\xA6\xB0\xE0\xA6\xBE"
 	#tag EndConstant
 
 

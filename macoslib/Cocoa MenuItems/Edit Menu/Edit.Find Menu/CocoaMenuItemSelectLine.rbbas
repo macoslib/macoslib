@@ -7,6 +7,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE8\xA1\x8C\xE3\x82\x92\xE9\x81\xB8\xE6\x8A\x9E..."
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Selectionner la ligne\xE2\x80\xA6"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Seleziona linea\xE2\x80\xA6"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAA\xE0\xA6\x82\xE0\xA6\x95\xE0\xA7\x8D\xE0\xA6\xA4\xE0\xA6\xBF \xE0\xA6\xA8\xE0\xA6\xBF\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\x9A\xE0\xA6\xA8"
 	#tag EndConstant
 
 

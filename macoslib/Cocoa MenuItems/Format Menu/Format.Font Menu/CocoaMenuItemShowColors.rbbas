@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xAB\xE3\x83\xA9\xE3\x83\xBC\xE3\x83\x91\xE3\x83\x8D\xE3\x83\xAB\xE3\x82\x92\xE8\xA1\xA8\xE7\xA4\xBA"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Afficher les couleurs"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Mostra colori"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xB0\xE0\xA6\x82 \xE0\xA6\xAA\xE0\xA7\x8D\xE0\xA6\xB0\xE0\xA6\xA6\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xB6\xE0\xA6\xA8"
 	#tag EndConstant
 
 

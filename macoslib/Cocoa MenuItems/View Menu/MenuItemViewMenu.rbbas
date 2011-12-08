@@ -7,6 +7,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE8\xA1\xA8\xE7\xA4\xBA"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Pr\xC3\xA9sentation"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Vista"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAA\xE0\xA7\x8D\xE0\xA6\xB0\xE0\xA6\xA6\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xB6\xE0\xA6\xA8"
 	#tag EndConstant
 
 

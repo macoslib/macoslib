@@ -7,6 +7,7 @@ Inherits CocoaMenuItemSupermenu
 		#Tag Instance, Platform = Any, Language = he, Definition  = \"\xE3\x83\x95\xE3\x82\xA9\xE3\x83\xB3\xE3\x83\x88"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Police"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Font"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAB\xE0\xA6\xA8\xE0\xA7\x8D\xE0\xA6\x9F"
 	#tag EndConstant
 
 

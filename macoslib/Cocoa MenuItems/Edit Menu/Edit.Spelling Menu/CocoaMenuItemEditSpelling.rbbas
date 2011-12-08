@@ -7,6 +7,7 @@ Inherits CocoaMenuItemSupermenu
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xB9\xE3\x83\x9A\xE3\x83\xAB\xE3\x81\xA8\xE6\x96\x87\xE6\xB3\x95"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Grammaire et orthographe"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Ortografia e grammatica"
+		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\xA8\xE0\xA6\xBE\xE0\xA6\xA8 \xE0\xA6\x93 \xE0\xA6\xAC\xE0\xA7\x8D\xE0\xA6\xAF\xE0\xA6\xBE\xE0\xA6\x95\xE0\xA6\xB0\xE0\xA6\xA3"
 	#tag EndConstant
 
 
