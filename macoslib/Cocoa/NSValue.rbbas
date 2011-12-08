@@ -31,12 +31,40 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function NSPointValue() As NSPoint
-		  pointValue
-		  
 		  #if targetMacOS
 		    declare function pointValue lib CocoaLib selector "pointerValue" (obj_id as Ptr) as NSPoint
 		    
 		    return pointValue(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSRangeValue() As NSRange
+		  #if targetMacOS
+		    declare function rangeValue lib CocoaLib selector "rangeValue" (obj_id as Ptr) as NSPoint
+		    
+		    return rangeValue(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSRectValue() As NSRange
+		  #if targetMacOS
+		    declare function rectValue lib CocoaLib selector "rectValue" (obj_id as Ptr) as NSPoint
+		    
+		    return rectValue(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSSizeValue() As NSSize
+		  #if targetMacOS
+		    declare function sizeValue lib CocoaLib selector "sizeValue" (obj_id as Ptr) as NSPoint
+		    
+		    return sizeValue(self)
 		  #endif
 		End Function
 	#tag EndMethod

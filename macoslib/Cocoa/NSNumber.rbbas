@@ -44,6 +44,19 @@ Inherits NSValue
 		#tag Getter
 			Get
 			  #if targetMacOS
+			    declare function longValue lib CocoaLib selector "longValue" (obj_id as Ptr) as Int32
+			    
+			    return longValue(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		Int32Value As Int32
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
 			    declare function longLongValue lib CocoaLib selector "longLongValue" (obj_id as Ptr) as Int64
 			    
 			    return longLongValue(self)
@@ -90,6 +103,71 @@ Inherits NSValue
 			End Get
 		#tag EndGetter
 		SingleValue As Single
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function stringValue lib CocoaLib selector "stringValue" (obj_id as Ptr) as Ptr
+			    
+			    return RetainedStringValue(stringValue(self))
+			  #endif
+			End Get
+		#tag EndGetter
+		StringValue As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function unsignedShortValue lib CocoaLib selector "unsignedShortValue" (obj_id as Ptr) as Int16
+			    
+			    return unsignedShortValue(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		UInt16Value As UInt16
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function unsignedLongValue lib CocoaLib selector "unsignedLongValue" (obj_id as Ptr) as UInt32
+			    
+			    return unsignedLongValue(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		UInt32Value As UInt32
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function unsignedLongLongValue lib CocoaLib selector "unsignedLongLongValue" (obj_id as Ptr) as UInt64
+			    
+			    return unsignedLongLongValue(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		UInt64Value As UInt64
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function unsignedCharValue lib CocoaLib selector "unsignedCharValue" (obj_id as Ptr) as UInt8
+			    
+			    return unsignedCharValue(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		UInt8Value As UInt8
 	#tag EndComputedProperty
 
 
