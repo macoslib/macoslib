@@ -88,12 +88,34 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function QTAttribute(key as String) As Ptr
+		  #if targetCocoa
+		    declare function attributeForKey lib CocoaLib selector "attributeForKey:" (obj_id as Ptr, key as Ptr) as Ptr
+		    
+		    return attributeForKey(self, ResolveAttributeKey(key))
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Rate() As Double
 		  #if targetCocoa
 		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Single
 		    
 		    return CType(rate(self), Double)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function ResolveAttributeKey(name as String) As Ptr
+		  dim b as CFBundle = CFBundle.NewCFBundleFromID(Cocoa.BundleID)
+		  if b <> nil then
+		    return b.DataPointerNotRetained(name)
+		  else
+		    return nil
+		  end if
 		End Function
 	#tag EndMethod
 
