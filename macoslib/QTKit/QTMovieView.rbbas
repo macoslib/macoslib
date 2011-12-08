@@ -390,7 +390,7 @@ Inherits Canvas
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    declare sub setPreservesAspectRatio lib QTKit.framework (obj_id as Ptr, value as Boolean)
+			    declare sub setPreservesAspectRatio lib QTKit.framework selector "setPreservesAspectRatio:" (obj_id as Ptr, value as Boolean)
 			    
 			    setPreservesAspectRatio(self, value)
 			  #endif
