@@ -90,9 +90,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function QTAttribute(key as String) As Ptr
 		  #if targetCocoa
-		    declare function attributeForKey lib CocoaLib selector "attributeForKey:" (obj_id as Ptr, key as Ptr) as Ptr
+		    declare function attributeForKey lib CocoaLib selector "attributeForKey:" (obj_id as Ptr, key as CFStringRef) as Ptr
 		    
-		    return attributeForKey(self, ResolveAttributeKey(key))
+		    return attributeForKey(self, key)
 		  #endif
 		  
 		End Function
@@ -105,17 +105,6 @@ Inherits NSObject
 		    
 		    return CType(rate(self), Double)
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function ResolveAttributeKey(name as String) As Ptr
-		  dim b as CFBundle = CFBundle.NewCFBundleFromID(Cocoa.BundleID)
-		  if b <> nil then
-		    return b.DataPointerNotRetained(name)
-		  else
-		    return nil
-		  end if
 		End Function
 	#tag EndMethod
 
@@ -183,6 +172,26 @@ Inherits NSObject
 		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = QTMovie Attributes
+		So far, QTMovie only has a method for retrieving attribute values. Because attributeForKey can return any of an number of Objective-C objects, 
+		the Rb QTAttribute method simply returns a Ptr, leaving it to you to choose the right NSObject as specified in the QTMovie documentation.
+		
+		A few code examples for retrieval of attributes:
+		
+		  dim X as new NSNumber(qt_movie.QTAttribute("QTMovieDataSizeAttribute"))
+		
+		  dim displayName as String = RetainedStringValue(qt_movie.QTAttribute("QTMovieDisplayNameAttribute"))
+		  
+		  
+		  dim value as new NSValue(qt_movie.QTAttribute("QTMoviePreviewRangeAttribute"))
+		  dim previewRangeBuffer as new MemoryBlock(QTKit.QTTimeRange.Size)
+		  value.CopyInto(previewRangeBuffer)
+		  dim previewRange as QTKit.QTTimeRange
+		  previewRange.StringValue(previewRangeBuffer.LittleEndian) = previewRangeBuffer
+		  
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0
