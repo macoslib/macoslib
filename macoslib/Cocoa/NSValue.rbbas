@@ -2,7 +2,7 @@
 Class NSValue
 Inherits NSObject
 	#tag Method, Flags = &h1000
-		Sub Constructor(data as MemoryBlock, objc_type as String)
+		Sub Constructor(data as Ptr, objc_type as String)
 		  #if targetMacOS
 		    declare function valueWithBytes lib CocoaLib selector "valueWithBytes:objCType:" (class_id as Ptr, value as Ptr, type as CString) as Ptr
 		    
