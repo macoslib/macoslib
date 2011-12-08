@@ -143,6 +143,7 @@ Inherits NSObject
 			Name="DisplayName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -196,6 +197,7 @@ Inherits NSObject
 			Name="UniqueID"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
