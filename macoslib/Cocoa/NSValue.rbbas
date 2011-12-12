@@ -6,7 +6,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function valueWithBytes lib CocoaLib selector "valueWithBytes:objCType:" (class_id as Ptr, value as Ptr, type as CString) as Ptr
 		    
-		    self.Constructor(Cocoa.NSClassFromString("NSValue"), data, objc_type)
+		    self.Constructor(valueWithBytes(Cocoa.NSClassFromString("NSValue"), data, objc_type))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -136,6 +136,7 @@ Inherits NSObject
 			Name="objCType"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
