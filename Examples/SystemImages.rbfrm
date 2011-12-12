@@ -61,7 +61,6 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Paint(g As Graphics)
-		  System.DebugLog CurrentMethodName
 		  if PopupMenu1.ListIndex = -1 then
 		    return
 		  end if
