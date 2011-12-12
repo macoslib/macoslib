@@ -158,6 +158,22 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function kCFAllocatorNull() As Ptr
+		  //kCFAllocatorNull does not resolve to nil.
+		  
+		  #if targetMacOS
+		    dim b as CFBundle = CoreFoundation.Bundle
+		    dim p as Ptr = b.DataPointerNotRetained("kCFAllocatorNull")
+		    if p <> nil then
+		      return p.Ptr(0)
+		    else
+		      return nil
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function NewCFPropertyList(theXML as CFData, mutability as Integer, ByRef errorMessageOut as String) As CFPropertyList
 		  // mutability: kCFPropertyListImmutable, kCFPropertyListMutableContainers, kCFPropertyListMutableContainersAndLeaves
 		  // Note: Returns nil if the xml data is not a valid property list
@@ -436,7 +452,7 @@ Module CoreFoundation
 		    end if
 		    
 		    // Test CFBundle and CFPropertyList
-		    if true then
+		    if false then
 		      // get this app's Info.plist contents via CFBundle.InfoDictionary
 		      dim bndl as CFBundle = CFBundle.Application
 		      dim infodict as CFDictionary = bndl.InfoDictionary
@@ -478,110 +494,110 @@ Module CoreFoundation
 		      tmpFile.Delete
 		    end
 		    
-		    // Test CFSocket (TCP/IP)
-		    #if false then
-		      // (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
-		      declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
-		      declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		      declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		      
-		      dim serverSocket, clientSocket as CFSocket
-		      dim serverReader, clientReader as CFReadStream
-		      dim serverWriter, clientWriter as CFWriteStream
-		      
-		      dim myAddr as CFData = CFSocket.IP4Address("localhost", 26214)
-		      
-		      // set up the server streams
-		      serverSocket = new CFSocket (CFSocket.PF_INET, CFSocket.SOCK_STREAM, CFSocket.IPPROTO_TCP, CFSocket.kAcceptCallBack)
-		      _testAssert serverSocket.Bind(myAddr), "bind" // -> listen on socket
-		      
-		      // set up the client streams
-		      CFStream.NewBoundPairFromHostAddress ("localhost", 26214, clientReader, clientWriter)
-		      
-		      _testAssert clientReader.Open
-		      _testAssert clientWriter.Open
-		      
-		      CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		      
-		      App.DoEvents
-		      
-		      dim n as Integer = clientWriter.Write("start")
-		      _testAssert n = 5
-		      
-		      do
-		        App.DoEvents
-		        if serverSocket.HasConnected and serverReader = nil then
-		          CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
-		          
-		          CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		          
-		          _testAssert serverReader.Open
-		          _testAssert serverWriter.Open
-		          
-		          App.DoEvents
-		          
-		          _testAssert clientWriter.Write("hello") = 5
-		        end
-		        if serverReader <> nil and serverReader.HasDataAvailable then
-		          if serverReader.Read(4,s) then
-		            break
-		          end if
-		        end if
-		      loop
-		      
-		      break
-		    #endif
-		    
-		    // Test CFSockets (Unix Domain Sockets)
-		    #if false then
-		      // (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
-		      declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
-		      declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		      declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		      
-		      dim serverSocket, clientSocket as CFSocket
-		      dim serverReader, clientReader as CFReadStream
-		      dim serverWriter, clientWriter as CFWriteStream
-		      
-		      dim path as String = "/var/tmp/cftest_socket_file"
-		      dim f as FolderItem = GetFolderItem(path, FolderItem.PathTypeShell)
-		      f.Delete
-		      _testAssert not f.Exists
-		      
-		      dim ssig as new CFSocketSignature (path)
-		      serverSocket = new CFSocket (ssig, CFSocket.kNoCallBack, false)
-		      _testAssert not serverSocket.IsNULL
-		      _testAssert serverSocket.IsValid
-		      _testAssert f.Exists
-		      
-		      '_testAssert serverSocket.Bind(ssig.address), "bind" // -> listen on socket
-		      
-		      clientSocket = new CFSocket (ssig, CFSocket.kNoCallBack, true)
-		      _testAssert not clientSocket.IsNULL
-		      _testAssert clientSocket.IsValid
-		      
-		      'not working: CFStream.NewBoundPairFromSocket ssig, reader, writer
-		      CFStream.NewBoundPairFromNativeSocket (clientSocket.NativeHandle, clientReader, clientWriter)
-		      CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
-		      
-		      CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		      CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		      
-		      _testAssert serverReader.Open
-		      _testAssert clientWriter.Open
-		      
-		      App.DoEvents
-		      _testAssert not serverReader.HasDataAvailable
-		      '_testAssert clientWriter.IsReady
-		      _testAssert clientWriter.Write("abcd") = 4
-		      App.DoEvents
-		      _testAssert serverReader.HasDataAvailable
-		      _testAssert serverReader.Read(4,s)
-		      _testAssert s = "abcd"
-		      
-		      f.Delete
-		      _testAssert not f.Exists
-		    #endif
+		    '// Test CFSocket (TCP/IP)
+		    '#if false then
+		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
+		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
+		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    'declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    '
+		    'dim serverSocket, clientSocket as CFSocket
+		    'dim serverReader, clientReader as CFReadStream
+		    'dim serverWriter, clientWriter as CFWriteStream
+		    '
+		    'dim myAddr as CFData = CFSocket.IP4Address("localhost", 26214)
+		    '
+		    '// set up the server streams
+		    'serverSocket = new CFSocket (CFSocket.PF_INET, CFSocket.SOCK_STREAM, CFSocket.IPPROTO_TCP, CFSocket.kAcceptCallBack)
+		    '_testAssert serverSocket.Bind(myAddr), "bind" // -> listen on socket
+		    '
+		    '// set up the client streams
+		    'CFStream.NewBoundPairFromHostAddress ("localhost", 26214, clientReader, clientWriter)
+		    '
+		    '_testAssert clientReader.Open
+		    '_testAssert clientWriter.Open
+		    '
+		    'CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    '
+		    'App.DoEvents
+		    '
+		    'dim n as Integer = clientWriter.Write("start")
+		    '_testAssert n = 5
+		    '
+		    'do
+		    'App.DoEvents
+		    'if serverSocket.HasConnected and serverReader = nil then
+		    'CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
+		    '
+		    'CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    '
+		    '_testAssert serverReader.Open
+		    '_testAssert serverWriter.Open
+		    '
+		    'App.DoEvents
+		    '
+		    '_testAssert clientWriter.Write("hello") = 5
+		    'end
+		    'if serverReader <> nil and serverReader.HasDataAvailable then
+		    'if serverReader.Read(4,s) then
+		    'break
+		    'end if
+		    'end if
+		    'loop
+		    '
+		    'break
+		    '#endif
+		    '
+		    '// Test CFSockets (Unix Domain Sockets)
+		    '#if false then
+		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
+		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
+		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    'declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    '
+		    'dim serverSocket, clientSocket as CFSocket
+		    'dim serverReader, clientReader as CFReadStream
+		    'dim serverWriter, clientWriter as CFWriteStream
+		    '
+		    'dim path as String = "/var/tmp/cftest_socket_file"
+		    'dim f as FolderItem = GetFolderItem(path, FolderItem.PathTypeShell)
+		    'f.Delete
+		    '_testAssert not f.Exists
+		    '
+		    'dim ssig as new CFSocketSignature (path)
+		    'serverSocket = new CFSocket (ssig, CFSocket.kNoCallBack, false)
+		    '_testAssert not serverSocket.IsNULL
+		    '_testAssert serverSocket.IsValid
+		    '_testAssert f.Exists
+		    '
+		    ''_testAssert serverSocket.Bind(ssig.address), "bind" // -> listen on socket
+		    '
+		    'clientSocket = new CFSocket (ssig, CFSocket.kNoCallBack, true)
+		    '_testAssert not clientSocket.IsNULL
+		    '_testAssert clientSocket.IsValid
+		    '
+		    ''not working: CFStream.NewBoundPairFromSocket ssig, reader, writer
+		    'CFStream.NewBoundPairFromNativeSocket (clientSocket.NativeHandle, clientReader, clientWriter)
+		    'CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
+		    '
+		    'CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    'CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    '
+		    '_testAssert serverReader.Open
+		    '_testAssert clientWriter.Open
+		    '
+		    'App.DoEvents
+		    '_testAssert not serverReader.HasDataAvailable
+		    ''_testAssert clientWriter.IsReady
+		    '_testAssert clientWriter.Write("abcd") = 4
+		    'App.DoEvents
+		    '_testAssert serverReader.HasDataAvailable
+		    '_testAssert serverReader.Read(4,s)
+		    '_testAssert s = "abcd"
+		    '
+		    'f.Delete
+		    '_testAssert not f.Exists
+		    '#endif
 		    
 		  #endif
 		End Sub

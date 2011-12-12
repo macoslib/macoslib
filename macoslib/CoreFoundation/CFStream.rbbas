@@ -13,8 +13,8 @@ Inherits CFType
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Destructor()
+	#tag Method, Flags = &h0
+		Sub Destructor()
 		  me.Close()
 		End Sub
 	#tag EndMethod

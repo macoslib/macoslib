@@ -68,8 +68,7 @@ Inherits CFStream
 		    declare function CFReadStreamCreateWithBytesNoCopy lib CarbonLib (allocator as Ptr, data as Ptr, size as Integer, deallocator as Ptr) as Ptr
 		    
 		    mData = data // we need to keep a ref to the MemoryBlock as long as the stream exists
-		    
-		    super.Constructor CFReadStreamCreateWithBytesNoCopy (nil, data, data.Size, nil), true
+		    super.Constructor CFReadStreamCreateWithBytesNoCopy (nil, data, data.Size, kCFAllocatorNull), hasOwnership
 		  #endif
 		End Sub
 	#tag EndMethod

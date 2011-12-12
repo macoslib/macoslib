@@ -73,8 +73,7 @@ Inherits CFStream
 		    declare function CFWriteStreamCreateWithBuffer lib CarbonLib (allocator as Ptr, data as Ptr, size as Integer) as Ptr
 		    
 		    mData = outputBuffer // we need to keep a ref to the MemoryBlock as long as the stream exists
-		    
-		    super.Constructor CFWriteStreamCreateWithBuffer (nil, outputBuffer, outputBuffer.Size), true
+		    super.Constructor CFWriteStreamCreateWithBuffer (nil, outputBuffer, outputBuffer.Size), hasOwnership
 		  #endif
 		End Sub
 	#tag EndMethod
