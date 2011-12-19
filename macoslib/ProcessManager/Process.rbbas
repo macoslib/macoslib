@@ -51,6 +51,9 @@ Protected Class Process
 		    dim theResult as Boolean
 		    dim OSError as Int16 = SameProcess(psn, theOtherPSN, theResult)
 		    return theResult
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,6 +68,9 @@ Protected Class Process
 		    dim p as new Process
 		    p.psn = thePSN
 		    return p
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -78,13 +84,16 @@ Protected Class Process
 		  soft declare function SetFrontProcessWithOptions lib CarbonLib (ByRef psn as ProcessSerialNumber, inOptions as UInt32) as Int32
 		  
 		  dim thePSN as ProcessSerialNumber = p.psn
+		  dim OSError as Int32
 		  if frontWindowOnly then
 		    const kSetFrontProcessFrontWindowOnly = 1
-		    dim OSError as Int32 = SetFrontProcessWithOptions(thePSN, kSetFrontProcessFrontWindowOnly)
-		    
+		    OSError = SetFrontProcessWithOptions(thePSN, kSetFrontProcessFrontWindowOnly)
 		  else
-		    dim OSError as Int32 = SetFrontProcessWithOptions(thePSN, 0)
+		    OSError = SetFrontProcessWithOptions(thePSN, 0)
 		  end if
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused OSError
 		  
 		End Sub
 	#tag EndMethod
@@ -95,6 +104,9 @@ Protected Class Process
 		    soft declare function KillProcess lib CarbonLib (ByRef inProcess as ProcessSerialNumber) as Int16
 		    
 		    dim OSError as Int16 = KillProcess(psn)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -154,6 +166,9 @@ Protected Class Process
 			    dim theName as CFStringRef
 			    dim OSError as Int32 = CopyProcessName(psn, theName)
 			    return theName
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			  
 			End Get
@@ -200,6 +215,9 @@ Protected Class Process
 			    soft declare function ShowHideProcess lib CarbonLib (ByRef psn as ProcessSerialNumber, visible as Boolean) as Int16
 			    
 			    dim OSError as Int16 = ShowHideProcess(psn, value)
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter

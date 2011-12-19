@@ -83,6 +83,10 @@ Class NSColor
 		    soft declare function colorFromRGBA lib Cocoa selector "colorWithCalibratedRed:green:blue:alpha:" (class_id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
 		    
 		    me.id = colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha)
+		    
+		  #else
+		    #pragma unused c
+		    #pragma unused alpha
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -103,6 +107,9 @@ Class NSColor
 		    dim c as new NSColor
 		    c.id = colorForControlTint(NSClassFromString(NSClassName), controlTint)
 		    return c
+		    
+		  #else
+		    #pragma unused controlTint
 		  #endif
 		End Function
 	#tag EndMethod
@@ -153,6 +160,9 @@ Class NSColor
 		      //conversion could not be done
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused spaceName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -213,6 +223,9 @@ Class NSColor
 		    dim c as new NSColor
 		    c.id = d.Invoke(NSClassFromString(NSClassName))
 		    return c
+		    
+		  #else
+		    #pragma unused d
 		  #endif
 		End Function
 	#tag EndMethod
@@ -285,6 +298,9 @@ Class NSColor
 		    soft declare function alternateSelectedControlColor lib Cocoa selector "alternateSelectedControlColor" (id as Ptr) as Ptr
 		    
 		    return alternateSelectedControlColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -295,6 +311,9 @@ Class NSColor
 		    soft declare function alternateSelectedControlTextColor lib Cocoa selector "alternateSelectedControlTextColor" (id as Ptr) as Ptr
 		    
 		    return alternateSelectedControlTextColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -305,6 +324,9 @@ Class NSColor
 		    soft declare function blackColor lib Cocoa selector "blackColor" (id as Ptr) as Ptr
 		    
 		    return blackColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -315,6 +337,9 @@ Class NSColor
 		    soft declare function blueColor lib Cocoa selector "blueColor" (id as Ptr) as Ptr
 		    
 		    return blueColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -325,6 +350,9 @@ Class NSColor
 		    soft declare function brownColor lib Cocoa selector "brownColor" (id as Ptr) as Ptr
 		    
 		    return brownColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -335,6 +363,9 @@ Class NSColor
 		    soft declare function clearColor lib Cocoa selector "clearColor" (id as Ptr) as Ptr
 		    
 		    return clearColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -345,6 +376,9 @@ Class NSColor
 		    soft declare function cyanColor lib Cocoa selector "cyanColor" (id as Ptr) as Ptr
 		    
 		    return cyanColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -355,6 +389,9 @@ Class NSColor
 		    soft declare function darkGrayColor lib Cocoa selector "darkGrayColor" (id as Ptr) as Ptr
 		    
 		    return darkGrayColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -365,6 +402,9 @@ Class NSColor
 		    soft declare function grayColor lib Cocoa selector "grayColor" (id as Ptr) as Ptr
 		    
 		    return grayColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -375,6 +415,9 @@ Class NSColor
 		    soft declare function greenColor lib Cocoa selector "greenColor" (id as Ptr) as Ptr
 		    
 		    return greenColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -385,6 +428,9 @@ Class NSColor
 		    soft declare function lightGrayColor lib Cocoa selector "lightGrayColor" (id as Ptr) as Ptr
 		    
 		    return lightGrayColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -395,6 +441,9 @@ Class NSColor
 		    soft declare function magentaColor lib Cocoa selector "magentaColor" (id as Ptr) as Ptr
 		    
 		    return magentaColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -405,6 +454,9 @@ Class NSColor
 		    soft declare function orangeColor lib Cocoa selector "orangeColor" (id as Ptr) as Ptr
 		    
 		    return orangeColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -415,6 +467,9 @@ Class NSColor
 		    soft declare function purpleColor lib Cocoa selector "purpleColor" (id as Ptr) as Ptr
 		    
 		    return purpleColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -425,6 +480,9 @@ Class NSColor
 		    soft declare function redColor lib Cocoa selector "redColor" (id as Ptr) as Ptr
 		    
 		    return redColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -435,6 +493,9 @@ Class NSColor
 		    soft declare function whiteColor lib Cocoa selector "whiteColor" (id as Ptr) as Ptr
 		    
 		    return whiteColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -445,6 +506,9 @@ Class NSColor
 		    soft declare function yellowColor lib Cocoa selector "yellowColor" (id as Ptr) as Ptr
 		    
 		    return yellowColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod

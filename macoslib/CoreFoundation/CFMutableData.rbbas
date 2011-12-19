@@ -6,7 +6,7 @@ Inherits CFData
 		  #if targetMacOS
 		    soft declare sub CFDataAppendBytes lib CarbonLib (theData as Ptr, bytes as Ptr, length as Integer)
 		    
-		    if not me.IsNULL and p <> nil then
+		    if not ( self = nil ) and p <> nil then
 		      CFDataAppendBytes me.Reference, p, length
 		    end if
 		  #endif
@@ -19,7 +19,7 @@ Inherits CFData
 		    soft declare sub CFDataAppendBytes lib CarbonLib (theData as Ptr, bytes as CString, length as Integer)
 		    
 		    dim slen as Integer = LenB(s)
-		    if not me.IsNULL and slen > 0 then
+		    if not ( self = nil ) and slen > 0 then
 		      CFDataAppendBytes me.Reference, s, slen
 		    end if
 		  #endif
@@ -58,7 +58,7 @@ Inherits CFData
 		  #if targetMacOS
 		    soft declare sub CFDataDeleteBytes lib CarbonLib (theData as Ptr, range as CFRange)
 		    
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      CFDataDeleteBytes me.Reference, CFRangeMake(start, length)
 		    end if
 		  #endif
@@ -67,7 +67,7 @@ Inherits CFData
 
 	#tag Method, Flags = &h0
 		Sub Replace(start as Integer, length as Integer, newData as Ptr, newLength as Integer)
-		  if not me.IsNULL then
+		  if not ( self = nil ) then
 		    if newData = nil then
 		      me.Delete start, length
 		    else

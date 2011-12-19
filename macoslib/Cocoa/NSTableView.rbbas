@@ -14,6 +14,9 @@ Inherits NSControl
 		    setDocumentView(self.scrollview, self.id)
 		    
 		    return self.scrollview
+		    
+		  #else
+		    #pragma unused frame
 		  #endif
 		End Function
 	#tag EndEvent
@@ -35,6 +38,9 @@ Inherits NSControl
 		    else
 		      
 		    end if
+		    
+		  #else
+		    #pragma unused c
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -45,6 +51,9 @@ Inherits NSControl
 		    declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (obj_id as Ptr, aColor as Ptr)
 		    
 		    setBackgroundColor self, value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -64,6 +73,9 @@ Inherits NSControl
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused identifier
 		  #endif
 		End Function
 	#tag EndMethod
@@ -78,6 +90,9 @@ Inherits NSControl
 		    else
 		      return -1
 		    end if
+		    
+		  #else
+		    #pragma unused identifier
 		  #endif
 		End Function
 	#tag EndMethod
@@ -121,6 +136,9 @@ Inherits NSControl
 		    setDelegate self, value
 		    //an interim hack to ensure object existence.
 		    self.pdatasource = value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -173,6 +191,9 @@ Inherits NSControl
 		    if self.id <> nil then
 		      setGridStyleMask(self, value)
 		    end if
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -187,6 +208,9 @@ Inherits NSControl
 		    else
 		      setHeaderView self, nil
 		    end if
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -247,6 +271,9 @@ Inherits NSControl
 			    else
 			      //
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -275,6 +302,9 @@ Inherits NSControl
 			    if self.id <> nil then
 			      setUsesAlternatingRowBackgroundColors(self, value)
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -297,6 +327,9 @@ Inherits NSControl
 			    declare sub setAutohidesScrollers lib CocoaLib selector "setAutohidesScrollers:" (obj_id as Ptr, value as Boolean)
 			    
 			    setAutohidesScrollers(self.scrollview, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -350,6 +383,9 @@ Inherits NSControl
 			    declare sub setSelectionHighlightStyle lib CocoaLib selector "setSelectionHighlightStyle:" (obj_id as Ptr, value as SelectionHighlightStyle)
 			    
 			    setSelectionHighlightStyle(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -370,6 +406,7 @@ Inherits NSControl
 			    self.GridStyleMask = self.GridStyleMask and not NSTableViewSolidHorizontalGridLineMask
 			  end if
 			  
+			  #pragma unused value
 			End Set
 		#tag EndSetter
 		HorizontalGrid As Boolean
@@ -402,6 +439,9 @@ Inherits NSControl
 			    if self.id <> nil then
 			      setIntercellSpacing(self, value)
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -434,6 +474,9 @@ Inherits NSControl
 			    if self <> nil then
 			      setRowHeight(self.id, CType(value, Single))
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -464,6 +507,9 @@ Inherits NSControl
 			    declare sub setAllowsTypeSelect lib CocoaLib selector "setAllowsTypeSelect:" (obj_id as Ptr, value as Boolean)
 			    
 			    setAllowsTypeSelect(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -508,6 +554,9 @@ Inherits NSControl
 			    declare sub setHasVerticalScroller lib CocoaLib selector "setHasVerticalScroller:" (obj_id as Ptr, value as Boolean)
 			    
 			    setHasVerticalScroller(self.scrollview, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

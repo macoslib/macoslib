@@ -6,7 +6,7 @@ Inherits CFDictionary
 		  #if targetMacOS
 		    declare sub CFDictionaryRemoveAllValues lib CarbonLib (theDict as Ptr)
 		    
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      CFDictionaryRemoveAllValues me.Reference
 		    end if
 		  #endif
@@ -53,7 +53,7 @@ Inherits CFDictionary
 		    //this function would be more accurately named "RemoveIfPresent"; if the key is not found, it just returns
 		    declare sub CFDictionaryRemoveValue lib CarbonLib (theDict as ptr, key as Ptr)
 		    
-		    if not me.IsNULL and not (key is nil) then
+		    if not ( self = nil ) and not (key is nil) then
 		      CFDictionaryRemoveValue me.Reference, key.Reference
 		    end if
 		  #endif
@@ -67,7 +67,7 @@ Inherits CFDictionary
 		  #if targetMacOS
 		    declare sub CFDictionarySetValue lib CarbonLib (theDict as Ptr, key as Ptr, value as Ptr)
 		    
-		    if not me.IsNULL and not (key is nil) and not (value is nil) then
+		    if not ( self = nil ) and not (key is nil) and not (value is nil) then
 		      CFDictionarySetValue me.Reference, key.Reference, value.Reference
 		    end if
 		  #endif

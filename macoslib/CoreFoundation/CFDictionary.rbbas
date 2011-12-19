@@ -91,7 +91,7 @@ Implements CFPropertyList
 		  #if TargetMacOS
 		    declare function CFDictionaryContainsKey lib CarbonLib (theDict as Ptr, key as Ptr) as Boolean
 		    
-		    if not me.IsNULL and not (key is nil) then
+		    if not ( self = nil ) and not (key is nil) then
 		      return CFDictionaryContainsKey(me.Reference, key.Reference)
 		    end if
 		  #endif
@@ -103,7 +103,7 @@ Implements CFPropertyList
 		  #if TargetMacOS
 		    declare function CFDictionaryContainsValue lib CarbonLib (theDict as Ptr, value as Ptr) as Boolean
 		    
-		    if not me.IsNULL and not (value is nil) then
+		    if not ( self = nil ) and not (value is nil) then
 		      return CFDictionaryContainsValue(me.Reference, value.Reference)
 		    end if
 		  #endif
@@ -114,7 +114,7 @@ Implements CFPropertyList
 		Function Keys() As CFType()
 		  dim theList() as CFType
 		  #if TargetMacOS
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      dim dictCount as Integer = me.Count
 		      if dictCount > 0 then
 		        declare sub CFDictionaryGetKeysAndValues lib CarbonLib (theDict as Ptr, keys as Ptr, values as Ptr)
@@ -141,7 +141,7 @@ Implements CFPropertyList
 		  #if TargetMacOS
 		    declare function CFDictionaryGetValueIfPresent lib CarbonLib (theDict as Ptr, key as Ptr, ByRef value as Ptr) as Boolean
 		    
-		    if not me.IsNULL and not (key is nil) then
+		    if not ( self = nil ) and not (key is nil) then
 		      dim theValue as Ptr
 		      if CFDictionaryGetValueIfPresent(me.Reference, key.Reference, theValue) then
 		        return CFType.NewObject(theValue, false, kCFPropertyListImmutable)
@@ -160,7 +160,7 @@ Implements CFPropertyList
 		  #if TargetMacOS
 		    declare function CFDictionaryGetValueIfPresent lib CarbonLib (theDict as Ptr, key as Ptr, ByRef value as Ptr) as Boolean
 		    
-		    if not me.IsNULL and not (key is nil) then
+		    if not ( self = nil ) and not (key is nil) then
 		      dim theValue as Ptr
 		      if CFDictionaryGetValueIfPresent(me.Reference, key.Reference, theValue) then
 		        return CFType.NewObject(theValue, false, kCFPropertyListImmutable)
@@ -177,7 +177,7 @@ Implements CFPropertyList
 			  #if TargetMacOS
 			    declare function CFDictionaryGetCount lib CarbonLib (theDict as Ptr) as Integer
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      return CFDictionaryGetCount(me.Reference)
 			    end if
 			  #endif

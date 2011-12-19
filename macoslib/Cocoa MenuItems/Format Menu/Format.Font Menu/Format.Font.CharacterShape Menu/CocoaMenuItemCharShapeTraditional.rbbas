@@ -33,6 +33,9 @@ Inherits CocoaMenuItem
 		    'self.Checked =  integerValue(p) = kTraditionalCharactersSelector
 		    
 		  #endif
+		  
+		  #pragma unused target
+		  
 		End Sub
 	#tag EndEvent
 

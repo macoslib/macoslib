@@ -41,6 +41,7 @@ Module WindowManager
 		    soft declare function SetWindowAlpha lib CarbonLib (inWindow as WindowPtr, inAlpha as Single) as Integer
 		    
 		    dim OSError as Integer = SetWindowAlpha(w, value)
+		    #pragma unused OSError
 		  #endif
 		  
 		  #if targetCocoa
@@ -63,6 +64,9 @@ Module WindowManager
 		    soft declare function carbonCollapseAllWindows lib CarbonLib alias "CollapseAllWindows" (collapse as Boolean) as Integer
 		    
 		    dim OSError as Integer = carbonCollapseAllWindows(collapse)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -164,6 +168,7 @@ Module WindowManager
 		      declare function RemoveWindowProxy lib CarbonLib (inWindow as WindowPtr) as Integer
 		      
 		      dim OSError as Integer = RemoveWindowProxy(w)
+		      #pragma unused OSError
 		    else
 		      declare function FSNewAlias lib CarbonLib (fromFile as Ptr, fsRef as Ptr, ByRef inAlias as Ptr) as Short
 		      
@@ -214,6 +219,9 @@ Module WindowManager
 		    declare function CollapseWindow lib CarbonLib (window as WindowPtr, collapse as Boolean) as Integer
 		    
 		    dim OSError as Integer = CollapseWindow(w, theValue)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -259,6 +267,7 @@ Module WindowManager
 		    declare function SetWindowModified lib CarbonLib (w as WindowPtr, modified as Boolean) as Integer
 		    
 		    dim OSError as Integer = SetWindowModified(w, value)
+		    #pragma unused OSError
 		  #endif
 		  
 		  #if targetCocoa
@@ -323,6 +332,7 @@ Module WindowManager
 		      clearTheseAttributes = kWindowResizableAttribute
 		    end if
 		    dim err as Integer = ChangeWindowAttributes(w, setTheseAttributes, clearTheseAttributes)
+		    #pragma unused err
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -394,9 +404,13 @@ Module WindowManager
 		  #if targetMacOS
 		    declare function UpdateCollapsedWindowDockTile lib CarbonLib (inWindow as WindowPtr) as Integer
 		    
+		    dim OSError as Integer
 		    If w.IsCollapsed then
-		      dim OSError as Integer = UpdateCollapsedWindowDockTile(w)
+		      OSError = UpdateCollapsedWindowDockTile(w)
 		    end if
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod

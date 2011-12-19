@@ -8,6 +8,9 @@ Inherits NSObject
 		    
 		    dim menuRef as Ptr = initWithTitle(Allocate("NSMenu"), title)
 		    self.Constructor(menuRef, NSObject.hasOwnership)
+		    
+		  #else
+		    #pragma unused title
 		  #endif
 		End Sub
 	#tag EndMethod

@@ -14,6 +14,9 @@ Class WindowGroup
 		    soft declare function SetWindowGroup lib CarbonLib (inWindow as Ptr, inNewGroup as Ptr) as Integer
 		    
 		    dim OSError as Integer = SetWindowGroup(w, me.GroupRef)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		  
 		End Sub
@@ -74,6 +77,9 @@ Class WindowGroup
 		    soft declare function ReleaseWindowGroup lib CarbonLib (inGroup as Ptr) as Integer
 		    
 		    dim OSError as Integer = ReleaseWindowGroup(me.GroupRef)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		  
 		End Sub
@@ -97,7 +103,13 @@ Class WindowGroup
 		    dim theAttributes as UInt32
 		    dim OSError as Integer = GetWindowGroupAttributes(me.GroupRef, theAttributes)
 		    return ((theAttributes and kWindowGroupAttrHideOnCollapse) = kWindowGroupAttrHideOnCollapse)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
+		  
+		  #pragma unused theAttribute
+		  
 		End Function
 	#tag EndMethod
 
@@ -151,6 +163,9 @@ Class WindowGroup
 		    soft declare function SetWindowGroupParent lib CarbonLib (inGroup as Ptr, inNewGroup as Ptr) as Integer
 		    
 		    dim OSError as Integer = SetWindowGroupParent(me, value)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		  
 		End Sub
@@ -166,6 +181,9 @@ Class WindowGroup
 		    soft declare function ReleaseWindowGroup lib CarbonLib (inGroup as Ptr) as Integer
 		    
 		    dim OSError as Integer = ReleaseWindowGroup(me)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -180,6 +198,9 @@ Class WindowGroup
 		    soft declare function RetainWindowGroup lib CarbonLib (inGroup as Ptr) as Integer
 		    
 		    dim OSError as Integer = RetainWindowGroup(me.GroupRef)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		  
 		End Sub
@@ -198,6 +219,9 @@ Class WindowGroup
 		    soft declare function SendWindowGroupBehind lib CarbonLib (inGroup as Ptr, behindGroup as Ptr) as Integer
 		    
 		    dim OSError as Integer = SendWindowGroupBehind(me, theGroup)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -324,6 +348,9 @@ Class WindowGroup
 			    dim theName as CFStringRef
 			    dim OSError as Integer = CopyWindowGroupName(me.GroupRef, theName)
 			    return theName
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			  
 			End Get
@@ -338,6 +365,9 @@ Class WindowGroup
 			    soft declare function SetWindowGroupName lib CarbonLib (inGroup as Ptr, inName as CFStringRef) as Integer
 			    
 			    dim OSError as Integer = SetWindowGroupName(me, value)
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter

@@ -195,6 +195,7 @@ End
 	#tag Event
 		Sub Action()
 		  dim foo as String = HISearchField1.Text
+		  #pragma unused foo
 		End Sub
 	#tag EndEvent
 #tag EndEvents

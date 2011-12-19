@@ -183,7 +183,6 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Function HandleCarbonEvent(EventHandlerCallRef As Integer, EventRef As Integer) As Integer
-		  #pragma unused EventHandlerCallRef
 		  
 		  #if targetCarbon
 		    
@@ -298,7 +297,13 @@ Inherits Canvas
 		    Else
 		      Return eventNotHandledErr
 		    End Select
+		    
+		  #else
+		    #pragma unused EventRef
 		  #endif
+		  
+		  #pragma unused EventHandlerCallRef
+		  
 		End Function
 	#tag EndMethod
 
@@ -328,6 +333,8 @@ Inherits Canvas
 		    dim menuRef as Ptr
 		    dim OSError as Integer = HISearchFieldGetSearchMenu(me.HISearchFieldRef, menuRef)
 		    Return new MacMenu(menuRef)
+		    
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -341,12 +348,17 @@ Inherits Canvas
 		    
 		    declare Function HISearchFieldSetSearchMenu Lib CarbonLib (inSearchField as Integer, inSearchmenu as Ptr) as Integer
 		    
+		    dim OSError as Integer
 		    If theMenu <> nil then
-		      dim OSError as Integer = HISearchFieldSetSearchMenu(me.HISearchFieldRef, theMenu)
+		      OSError = HISearchFieldSetSearchMenu(me.HISearchFieldRef, theMenu)
 		      RegisterCarbonEventHandlerForMenu theMenu
 		    Else
-		      dim OSError as Integer = HISearchFieldSetSearchMenu(me.HISearchFieldRef, nil) //clears menu; carbon event handler is removed with menu
+		      OSError = HISearchFieldSetSearchMenu(me.HISearchFieldRef, nil) //clears menu; carbon event handler is removed with menu
 		    End if
+		    
+		    #pragma unused OSError
+		  #else
+		    #pragma unused theMenu
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -414,7 +426,8 @@ Inherits Canvas
 		  
 		  dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, eventList.Size\sizeOfEventTypeSpec, eventList, v.Hash, Nil)
 		  
-		  
+		  // Keep the compiler from complaining
+		  #pragma unused OSError
 		  
 		End Sub
 	#tag EndMethod
@@ -466,6 +479,10 @@ Inherits Canvas
 		    //I don't want it returned
 		    
 		    dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, eventList.Size\sizeOfEventTypeSpec, eventList, v.Hash, Nil)
+		    #pragma unused OSError
+		    
+		  #else
+		    #pragma unused theMenu
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -576,6 +593,8 @@ Inherits Canvas
 			    dim hiAttributes as Integer
 			    dim OSError as Integer = HISearchFieldGetAttributes(me.HISearchFieldRef, hiAttributes)
 			    Return Bitwise.BitAnd(hiAttributes, kHISearchFieldAttributesCancel) = kHISearchFieldAttributesCancel
+			    
+			    #pragma unused OSError
 			  #endif
 			End Get
 		#tag EndGetter
@@ -595,6 +614,9 @@ Inherits Canvas
 			    Else
 			      OSError = HISearchFieldChangeAttributes(me.HISearchFieldRef, 0, kHISearchFieldAttributesCancel)
 			    End if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -632,6 +654,10 @@ Inherits Canvas
 			    declare Function HISearchFieldSetDescriptiveText Lib CarbonLib (inSearchField as Integer, inDescription as CFStringRef) as Integer
 			    
 			    dim OSError as Integer = HISearchFieldSetDescriptiveText(me.HISearchFieldRef, value)
+			    
+			    #pragma unused OSError
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -681,6 +707,8 @@ Inherits Canvas
 			    dim hiAttributes as Integer
 			    dim OSError as Integer = HISearchFieldGetAttributes(me.HISearchFieldRef, hiAttributes)
 			    Return Bitwise.BitAnd(hiAttributes,kHISearchFieldAttributesSearchIcon) = kHISearchFieldAttributesSearchIcon
+			    
+			    #pragma unused OSError
 			  #endif
 			End Get
 		#tag EndGetter
@@ -700,6 +728,10 @@ Inherits Canvas
 			    Else
 			      OSError = HISearchFieldChangeAttributes(me.HISearchFieldRef, 0, kHISearchFieldAttributesSearchIcon)
 			    End if
+			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -746,6 +778,10 @@ Inherits Canvas
 			    buffer.Short(2) = buffer.Short(0) + value
 			    
 			    dim OSError as Integer = SetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextSelectionTag, sizeOfControlEditTextSelectionRec, buffer)
+			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -792,6 +828,10 @@ Inherits Canvas
 			    buffer.Short(2) = buffer.Short(0) + me.SelLength
 			    
 			    dim OSError as Integer = SetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextSelectionTag, sizeOfControlEditTextSelectionRec, buffer)
+			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -831,6 +871,11 @@ Inherits Canvas
 			    
 			    dim cfValue as CFStringRef = value
 			    dim OSError as Integer = SetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, 4, cfValue)
+			    
+			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

@@ -500,6 +500,9 @@ End
 	#tag Event
 		Sub HandleNotification(notification as NSNotification)
 		  SetTimeZone
+		  
+		  #pragma unused notification
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

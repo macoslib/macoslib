@@ -17,6 +17,9 @@ Class PowerSource
 		  if PowerSourceChanged <>nil then
 		    PowerSourceChanged.Invoke
 		  end if
+		  
+		  #pragma unused context
+		  
 		End Sub
 	#tag EndMethod
 
@@ -32,7 +35,7 @@ Class PowerSource
 		    
 		    const hasOwnership = true
 		    dim sourcesInfo as new CFType(IOPSCopyPowerSourcesInfo(), hasOwnership)
-		    if sourcesInfo.IsNull then
+		    if ( sourcesInfo is nil ) then
 		      return theList
 		    end if
 		    

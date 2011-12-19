@@ -8,6 +8,9 @@ Inherits Canvas
 		  end if
 		  
 		  return true
+		  
+		  #pragma unused X
+		  #pragma unused Y
 		End Function
 	#tag EndEvent
 
@@ -30,6 +33,7 @@ Inherits Canvas
 		    end if
 		    
 		    dim partCode as Int16 = HandleControlClick(me.ControlRef, where, Modifiers(Keyboard.CommandKey, Keyboard.ShiftKey, Keyboard.OptionKey, Keyboard.ControlKey), nil)
+		    #pragma unused partCode
 		  #endif
 		End Sub
 	#tag EndEvent
@@ -50,6 +54,8 @@ Inherits Canvas
 		  end if
 		  
 		  me.ControlEnabled = me.Enabled
+		  
+		  #pragma unused g
 		  
 		End Sub
 	#tag EndEvent
@@ -179,13 +185,17 @@ Inherits Canvas
 			  //see note Setting Values in IDE for info on pCaption
 			  
 			  #if targetMacOS
+			    dim OSError as Integer
 			    if me.ControlRef  <> nil then
 			      soft declare function SetControlTitleWithCFString lib CarbonLib (inControl as Ptr, inString as CFStringRef) as Int32
 			      
-			      dim OSError as Integer = SetControlTitleWithCFString(me.ControlRef, value)
+			      OSError = SetControlTitleWithCFString(me.ControlRef, value)
 			    else
 			      me.InitialCaption = value
 			    end if
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter
@@ -205,23 +215,27 @@ Inherits Canvas
 			    if w is nil then
 			      return
 			    end if
+			    dim OSError as Integer
 			    if w.Composite then
 			      soft declare function HIViewSetEnabled lib CarbonLib (inView as Ptr, inSetEnabled as Boolean) as Integer
 			      
-			      dim OSError as Integer = HIViewSetEnabled(me.ControlRef, value)
+			      OSError = HIViewSetEnabled(me.ControlRef, value)
 			      
 			    else
 			      if me.Enabled then
 			        soft declare function EnableControl lib CarbonLib (inControl as Ptr) as Integer
 			        
-			        dim OSError as Integer = EnableControl(me.ControlRef)
+			        OSError = EnableControl(me.ControlRef)
 			        
 			      else
 			        soft declare function DisableControl lib CarbonLib (inControl as Ptr) as Integer
 			        
-			        dim OSError as Integer = DisableControl(me.ControlRef)
+			        OSError = DisableControl(me.ControlRef)
 			      end if
 			    end if
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter
@@ -258,15 +272,19 @@ Inherits Canvas
 			    if w is nil then
 			      return
 			    end if
+			    dim OSError as Integer
 			    if w.Composite then
 			      soft declare function HIViewSetVisible lib CarbonLib (inView as Ptr, visible as Boolean) as Integer
 			      
-			      dim OSError as Integer = HIViewSetVisible(me.ControlRef, value)
+			      OSError = HIViewSetVisible(me.ControlRef, value)
 			    else
 			      soft declare function SetControlVisibility lib CarbonLib (inControl as Ptr, inIsVisible as Boolean, inDoDraw as Boolean) as Integer
 			      
-			      dim OSError as Integer = SetControlVisibility(me.ControlRef, value, true)
+			      OSError = SetControlVisibility(me.ControlRef, value, true)
 			    end if
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter

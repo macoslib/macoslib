@@ -8,6 +8,9 @@ Inherits NSObject
 		    
 		    dim p as Ptr = initWithIdentifier(Allocate("NSTableColumn"), identifier)
 		    self.Constructor(p)
+		    
+		  #else
+		    #pragma unused identifier
 		  #endif
 		  
 		End Sub
@@ -24,6 +27,9 @@ Inherits NSObject
 		    else
 		      break
 		    end if
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -45,6 +51,9 @@ Inherits NSObject
 			    declare sub setWidth lib CocoaLib selector "setWidth:" (obj_id as Ptr, newWidth as Single)
 			    
 			    setWidth self, CType(Value, Single)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			  
 			  

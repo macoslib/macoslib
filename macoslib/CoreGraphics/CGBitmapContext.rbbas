@@ -27,10 +27,19 @@ Inherits CGContext
 		    dim bytesPerRow as Integer = width*bitsPerComponent\8
 		    me.Data = new MemoryBlock(bytesPerRow*height)
 		    super.Constructor CGBitmapContextCreate(me.Data, width, height, bitsPerComponent, bytesPerRow, colorspace, bitmapInfo), true
+		    
+		  #else
+		    #pragma unused width
+		    #pragma unused height
+		    #pragma unused colorSpace
+		    #pragma unused bitsPerComponent
+		    #pragma unused bitmapInfo
 		  #endif
 		  
 		  
 		  //the bitmapInfo parameter is set using one of the Coregraphics.kCGImageAlpha* constants plus the CoreGraphics.kCGBitmapByteOrder* constants.   The default value here is kCGImageAlphaNone.
+		  
+		  #pragma unused bitsPerPixel
 		End Sub
 	#tag EndMethod
 

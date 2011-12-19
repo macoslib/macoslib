@@ -20,6 +20,9 @@ Protected Module IOKit
 		    dim kernResult as Integer = IOServiceGetMatchingServices(kIOMasterPortDefault, matchDict, matchingServices)
 		    
 		    return matchingServices
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused kernResult
 		  #endif
 		  
 		  
@@ -86,12 +89,16 @@ Protected Module IOKit
 		    dim MACAddress as String = GetMACAddress(matchingservices)
 		    
 		finally
+		  dim err as Integer
 		  if matchingservices <> 0 then
 		    soft declare function IOObjectRelease lib IOKit (obj as UInt32) as Integer
 		    
-		    dim err as Integer = IOObjectRelease(matchingservices)
+		    err = IOObjectRelease(matchingservices)
 		  end if
 		  return MACAddress
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused err
 		  #endif
 		End Function
 	#tag EndMethod

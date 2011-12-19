@@ -60,6 +60,10 @@ Inherits NSControl
 		    else
 		      return initial_value
 		    end if
+		    
+		  #else
+		    #pragma unused ValueGetter
+		    #pragma unused initial_value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -85,6 +89,9 @@ Inherits NSControl
 		    else
 		      return 0.0
 		    end if
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -115,6 +122,9 @@ Inherits NSControl
 			    else
 			      self.initialcriticalvalue = value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -170,6 +180,9 @@ Inherits NSControl
 			    else
 			      return
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -192,6 +205,9 @@ Inherits NSControl
 			    else
 			      self.initialmaxvalue = value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -214,6 +230,9 @@ Inherits NSControl
 			    else
 			      self.initialminvalue = value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -257,6 +276,9 @@ Inherits NSControl
 			    else
 			      self.initialstyle = value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -285,6 +307,9 @@ Inherits NSControl
 			    if self.id <> nil then
 			      setTickMarkPosition self.id, value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -316,6 +341,9 @@ Inherits NSControl
 			    else
 			      return
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -356,6 +384,9 @@ Inherits NSControl
 			    else
 			      self.initialwarningvalue = value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

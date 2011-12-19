@@ -33,7 +33,7 @@ Inherits CFStream
 		  #if TargetMacOS
 		    declare sub CFReadStreamClose lib CarbonLib (stream as Ptr)
 		    
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      CFReadStreamClose (me.Reference)
 		    end if
 		  #endif
@@ -117,7 +117,8 @@ Inherits CFStream
 		    declare function CFReadStreamRead lib CarbonLib (stream as Ptr, buffer as Ptr, bufLen as Integer) as Integer
 		    
 		    dim mb as MemoryBlock
-		    mb = NewMemoryBlock (maxBytes)
+		    'mb = NewMemoryBlock (maxBytes)
+		    mb = New MemoryBlock (maxBytes)
 		    dim n as Integer = CFReadStreamRead (me.Reference, mb, mb.Size)
 		    if n >= 0 then
 		      data = mb.StringValue(0,n)

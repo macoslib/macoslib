@@ -22,6 +22,8 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function GetProperty(name as String) As CFType
 		  // needs to be overwritten
+		  
+		  #pragma unused name
 		End Function
 	#tag EndMethod
 
@@ -107,6 +109,11 @@ Inherits CFType
 		  'return false
 		  'end try
 		  '#endif
+		  
+		  #pragma unused reader
+		  #pragma unused writer
+		  #pragma unused transferBufferSize
+		  
 		End Function
 	#tag EndMethod
 
@@ -161,6 +168,10 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function SetProperty(name as String, value as CFType) As Boolean
 		  // needs to be overwritten
+		  
+		  #pragma unused name
+		  #pragma unused value
+		  
 		End Function
 	#tag EndMethod
 

@@ -44,6 +44,10 @@ Inherits MenuItem
 		        d.Value(w) = nil
 		      end if
 		    next
+		    
+		  #else
+		    #pragma unused mainMenu
+		    #pragma unused windowList
 		  #endif
 		  
 		End Sub
@@ -105,6 +109,9 @@ Inherits MenuItem
 		      end if
 		    next
 		    return theItem
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		  
 		End Function
@@ -117,6 +124,9 @@ Inherits MenuItem
 		  end if
 		  
 		  AddNewWindowItems(notification.AssociatedObject, self.Windows)
+		  
+		  #pragma unused observer
+		  
 		End Sub
 	#tag EndMethod
 
@@ -132,8 +142,12 @@ Inherits MenuItem
 		    //testing for this case requires more code and thus more chance for bugs.  The current implementation
 		    //simply burns a few cycles for windows excluded from the windows menu.
 		    SetStateOfMenuItemForTarget(notification.AssociatedObject, NSOnState)
+		    
+		  #else
+		    #pragma unused notification
 		  #endif
 		  
+		  #pragma unused observer
 		End Sub
 	#tag EndMethod
 
@@ -150,8 +164,12 @@ Inherits MenuItem
 		    //simply burns a few cycles for windows excluded from the windows menu.
 		    
 		    SetStateOfMenuItemForTarget(notification.AssociatedObject, NSOffState)
+		    
+		  #else
+		    #pragma unused notification
 		  #endif
 		  
+		  #pragma unused observer
 		End Sub
 	#tag EndMethod
 
@@ -184,7 +202,12 @@ Inherits MenuItem
 		    else
 		      //it's possible that the window has been excluded from windows menu. I could check first, I suppose.
 		    end if
+		    
+		  #else
+		    #pragma unused notification
 		  #endif
+		  
+		  #pragma unused observer
 		End Sub
 	#tag EndMethod
 
@@ -216,8 +239,12 @@ Inherits MenuItem
 		        exit
 		      end if
 		    next
+		    
+		  #else
+		    #pragma unused notification
 		  #endif
 		  
+		  #pragma unused observer
 		End Sub
 	#tag EndMethod
 
@@ -228,6 +255,10 @@ Inherits MenuItem
 		    declare sub setState lib CocoaLib selector "setState:" (obj_id as Ptr, value as Integer)
 		    
 		    setState(FindMenuItemByTarget(t), state)
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused state
 		  #endif
 		  
 		End Sub

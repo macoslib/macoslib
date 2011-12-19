@@ -4,12 +4,19 @@ Inherits NSTableViewDataSource
 	#tag Event
 		Function DisallowTableEdit(tableView as NSTableView, rowIndex as Integer, column as NSTableColumn) As Boolean
 		  return rowIndex = 0
+		  
+		  #pragma unused tableView
+		  #pragma unused column
+		  
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Function GetValue(row as Integer, columnID as String) As String
 		  return self.RowValues(row)
+		  
+		  #pragma unused columnID
+		  
 		End Function
 	#tag EndEvent
 
@@ -22,6 +29,10 @@ Inherits NSTableViewDataSource
 	#tag Event
 		Sub SetValue(tableView as NSTableView, rowIndex as Integer, column as NSTableColumn, value as String)
 		  RowValues(rowIndex) = value
+		  
+		  #pragma unused tableView
+		  #pragma unused column
+		  
 		End Sub
 	#tag EndEvent
 

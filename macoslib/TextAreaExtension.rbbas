@@ -6,6 +6,9 @@ Protected Module TextAreaExtension
 		    declare function isRichText lib CocoaLib selector "isRichText" (obj_id as Ptr) as Boolean
 		    
 		    return isRichText(t.TextViewRef)
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		End Function
 	#tag EndMethod
@@ -16,6 +19,10 @@ Protected Module TextAreaExtension
 		    declare sub setRichText lib CocoaLib selector "setRichText:" (obj_id as Ptr, value as Boolean)
 		    
 		    setRichText t.TextViewRef, value
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -37,6 +44,9 @@ Protected Module TextAreaExtension
 		    else
 		      return ""
 		    end if
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		  
 		End Function
@@ -53,6 +63,10 @@ Protected Module TextAreaExtension
 		    dim range as Cocoa.NSRange
 		    range.length = Len(t.Text)
 		    replaceCharactersInRange(t.TextViewRef, range, data)
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused value
 		  #endif
 		  
 		End Sub
@@ -64,6 +78,9 @@ Protected Module TextAreaExtension
 		    declare function isRulerVisible lib CocoaLib selector "isRulerVisible" (obj_id as Ptr) as Boolean
 		    
 		    return isRulerVisible(t.TextViewRef)
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		End Function
 	#tag EndMethod
@@ -74,6 +91,10 @@ Protected Module TextAreaExtension
 		    declare sub setRulerVisible lib CocoaLib selector "setRulerVisible:"  (obj_id as Ptr, value as Boolean)
 		    
 		    setRulerVisible t.TextViewRef, value
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -84,6 +105,9 @@ Protected Module TextAreaExtension
 		    declare function documentView lib CocoaLib selector "documentView" (obj_id as Integer) as Ptr
 		    
 		    return documentView(t.Handle)
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		End Function
 	#tag EndMethod
@@ -94,6 +118,9 @@ Protected Module TextAreaExtension
 		    declare function usesFindPanel lib CocoaLib selector "usesFindPanel" (obj_id as Ptr) as Boolean
 		    
 		    return usesFindPanel(t.TextViewRef)
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		End Function
 	#tag EndMethod
@@ -104,6 +131,10 @@ Protected Module TextAreaExtension
 		    declare sub setUsesFindPanel lib CocoaLib selector "setUsesFindPanel:" (obj_id as Ptr, value as Boolean)
 		    
 		    setUsesFindPanel t.TextViewRef, value
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -114,6 +145,9 @@ Protected Module TextAreaExtension
 		    declare function usesFontPanel lib CocoaLib selector "usesFontPanel" (obj_id as Ptr) as Boolean
 		    
 		    return usesFontPanel(t.TextViewRef)
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		End Function
 	#tag EndMethod
@@ -124,6 +158,10 @@ Protected Module TextAreaExtension
 		    declare sub setUsesFontPanel lib CocoaLib selector "setUsesFontPanel:" (obj_id as Ptr, value as Boolean)
 		    
 		    setUsesFontPanel t.TextViewRef, value
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -134,6 +172,9 @@ Protected Module TextAreaExtension
 		    declare function usesRuler lib CocoaLib selector "usesRuler" (obj_id as Ptr) as Boolean
 		    
 		    return usesRuler(t.TextViewRef)
+		    
+		  #else
+		    #pragma unused t
 		  #endif
 		End Function
 	#tag EndMethod
@@ -144,6 +185,10 @@ Protected Module TextAreaExtension
 		    declare sub setUsesRuler lib CocoaLib selector "setUsesRuler:"  (obj_id as Ptr, value as Boolean)
 		    
 		    setUsesRuler t.TextViewRef, value
+		    
+		  #else
+		    #pragma unused t
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod

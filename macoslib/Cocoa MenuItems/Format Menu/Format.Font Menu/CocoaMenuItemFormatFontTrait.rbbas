@@ -39,10 +39,14 @@ Inherits CocoaMenuItem
 		    if font <> nil then
 		      declare function displayName lib CocoaLib selector "displayName" (obj_id as Ptr) as CFStringRef
 		      dim fontName as String = displayName(font)
+		      #pragma unused fontName
 		      self.Checked = ((traitsOfFont(fontMgr, font) and raiseEvent FormatOn) = raiseEvent FormatOn)
 		    else
 		      self.Enabled = false
 		    end if
+		    
+		  #else
+		    #pragma unused target
 		  #endif
 		End Sub
 	#tag EndEvent
@@ -54,6 +58,9 @@ Inherits CocoaMenuItem
 		    
 		    return sharedFontManager(Cocoa.NSClassFromString("NSFontManager"))
 		  #endif
+		  
+		  #pragma unused menuItemRef
+		  
 		End Function
 	#tag EndEvent
 

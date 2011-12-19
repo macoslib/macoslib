@@ -18,6 +18,9 @@ Inherits CocoaMenuItem
 		    else
 		      self.Text = LocalizedTextShow
 		    end if
+		    
+		  #else
+		    #pragma unused target
 		  #endif
 		End Sub
 	#tag EndEvent

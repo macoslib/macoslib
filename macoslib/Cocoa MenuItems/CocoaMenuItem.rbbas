@@ -83,6 +83,9 @@ Inherits MenuItem
 		      dim parent_nsmenu as Ptr = GetNSMenu(GetParentOf(m))
 		      return submenu(itemWithTitle(parent_nsmenu, m.Text))
 		    end if
+		    
+		  #else
+		    #pragma unused m
 		  #endif
 		  
 		  
@@ -104,6 +107,9 @@ Inherits MenuItem
 		      'System.debugLog foo.Description
 		      return itemWithTitle(parent_menu, m.Text)
 		    end if
+		    
+		  #else
+		    #pragma unused m
 		  #endif
 		  
 		  

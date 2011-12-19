@@ -103,6 +103,10 @@ Class NotificationObserver
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused className
+		    #pragma unused superclassName
 		  #endif
 		End Function
 	#tag EndMethod

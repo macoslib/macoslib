@@ -662,6 +662,9 @@ End
 		    self.Icon = MacIcon.NewIconFromFolderItem(obj.FolderItem)
 		    self.Refresh
 		  end if
+		  
+		  #pragma unused action
+		  
 		End Sub
 	#tag EndEvent
 

@@ -45,6 +45,9 @@ Inherits NSControl
 		    items.Append newItem
 		    
 		    SetMenu items
+		    
+		  #else
+		    #pragma unused title
 		  #endif
 		  
 		finally
@@ -72,10 +75,6 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function DispatchcontrolDoCommandBySelector(id as Ptr, sel as Ptr, cntl as Ptr, textView as Ptr, command as Ptr) As Boolean
-		  #pragma unused sel
-		  #pragma unused cntl
-		  #pragma unused textView
-		  
 		  #if targetCocoa
 		    dim obj as NSSearchField = FindObjectByID(id)
 		    if obj <> nil then
@@ -90,7 +89,17 @@ Inherits NSControl
 		    else
 		      //
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused command
 		  #endif
+		  
+		  #pragma unused sel
+		  #pragma unused cntl
+		  #pragma unused textView
+		  
+		  
 		End Function
 	#tag EndMethod
 
@@ -311,6 +320,10 @@ Inherits NSControl
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused className
+		    #pragma unused superClassName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -378,6 +391,9 @@ Inherits NSControl
 		    declare sub setRecentsAutosaveName lib CocoaLib selector "setRecentsAutosaveName:" (obj_id as Ptr, value as CFStringRef)
 		    
 		    setRecentsAutosaveName(self, value)
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -405,7 +421,9 @@ Inherits NSControl
 
 	#tag Method, Flags = &h0
 		Sub RecentSearches(assigns value() as String)
+		  return
 		  
+		  #pragma unused value
 		End Sub
 	#tag EndMethod
 
@@ -467,6 +485,9 @@ Inherits NSControl
 		    next
 		    
 		    setSearchMenuTemplate(self, searchMenu)
+		    
+		  #else
+		    #pragma unused items
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -510,6 +531,9 @@ Inherits NSControl
 		    loop
 		    
 		    SetMenu items
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		  
 		End Sub
@@ -571,6 +595,8 @@ Inherits NSControl
 			    declare sub setMaximumRecents lib CocoaLib selector "setMaximumRecents:" (obj_id as Ptr, value as Integer)
 			    
 			    setMaximumRecents(self, value)
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -593,6 +619,8 @@ Inherits NSControl
 			    declare sub setPlaceholderString lib CocoaLib selector "setPlaceholderString:" (obj_id as Ptr, value as CFStringRef)
 			    
 			    setPlaceholderString(self.Cell, value)
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -623,6 +651,8 @@ Inherits NSControl
 			    else
 			      //to be implemented if this property is exposed in IDE.
 			    end if
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -653,6 +683,9 @@ Inherits NSControl
 			    else
 			      //to be implemented if this property is exposed in IDE.
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -689,6 +722,9 @@ Inherits NSControl
 			    else
 			      setSearchMenuTemplate self, nil
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

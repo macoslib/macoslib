@@ -56,6 +56,9 @@ Inherits NSObject
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused bundleID
 		  #endif
 		End Function
 	#tag EndMethod
@@ -71,6 +74,9 @@ Inherits NSObject
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused path
 		  #endif
 		End Function
 	#tag EndMethod

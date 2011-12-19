@@ -14,6 +14,9 @@ Inherits CocoaMenuItem
 		    
 		    return sharedFontManager(Cocoa.NSClassFromString("NSFontManager"))
 		  #endif
+		  
+		  #pragma unused menuItemRef
+		  
 		End Function
 	#tag EndEvent
 

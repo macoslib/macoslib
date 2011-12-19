@@ -45,7 +45,7 @@ End
 		  context.SetFillColor &cffffff, 1
 		  context.FillRect CGRectMake(0.0, 0.0, 1.0, 1.0)
 		  context.BeginPath
-		  static Pi as Double = 4.0*ATan(1)
+		  static Pi as Double = 4.0*ATan(1.)
 		  context.AddArc 0.5, 0.5, 0.3, 0.0, Pi, 0
 		  context.ClosePath
 		  context.Clip

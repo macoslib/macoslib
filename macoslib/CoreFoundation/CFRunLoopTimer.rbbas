@@ -113,6 +113,10 @@ Inherits CFType
 		  end if
 		  
 		  CFRunLoopTimer(w.Value).InvokeAction
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused info
+		  
 		End Sub
 	#tag EndMethod
 

@@ -57,6 +57,9 @@ Inherits Canvas
 		    
 		    MoveControl me.ControlRef, me.LocalLeft, me.LocalTop
 		  #endif
+		  
+		  #pragma unused g
+		  
 		End Sub
 	#tag EndEvent
 
@@ -257,6 +260,8 @@ Inherits Canvas
 		  end select
 		  
 		  return eventNotHandledErr
+		  
+		  #pragma unused EventHandlerCallRef
 		End Function
 	#tag EndMethod
 
@@ -441,24 +446,28 @@ Inherits Canvas
 			    if w is nil then
 			      return
 			    end if
+			    dim OSError as Integer
 			    if w.Composite then
 			      soft declare function HIViewSetEnabled lib CarbonLib (inView as Ptr, inSetEnabled as Boolean) as Integer // available in 10.4 and later only!
 			      
 			      // if you want to use this on OS 10.3 or earlier, you need to set the window's Composite property to false
-			      dim OSError as Integer = HIViewSetEnabled(me.ControlRef, value)
+			      OSError = HIViewSetEnabled(me.ControlRef, value)
 			      
 			    else
 			      if me.Enabled then
 			        declare function EnableControl lib CarbonLib (inControl as Ptr) as Integer
 			        
-			        dim OSError as Integer = EnableControl(me.ControlRef)
+			        OSError = EnableControl(me.ControlRef)
 			        
 			      else
 			        declare function DisableControl lib CarbonLib (inControl as Ptr) as Integer
 			        
-			        dim OSError as Integer = DisableControl(me.ControlRef)
+			        OSError = DisableControl(me.ControlRef)
 			      end if
 			    end if
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter
@@ -495,15 +504,19 @@ Inherits Canvas
 			    if w is nil then
 			      return
 			    end if
+			    dim OSError as Integer
 			    if w.Composite then
 			      declare function HIViewSetVisible lib CarbonLib (inView as Ptr, visible as Boolean) as Integer
 			      
-			      dim OSError as Integer = HIViewSetVisible(me.ControlRef, value)
+			      OSError = HIViewSetVisible(me.ControlRef, value)
 			    else
 			      declare function SetControlVisibility lib CarbonLib (inControl as Ptr, inIsVisible as Boolean, inDoDraw as Boolean) as Integer
 			      
-			      dim OSError as Integer = SetControlVisibility(me.ControlRef, value, true)
+			      OSError = SetControlVisibility(me.ControlRef, value, true)
 			    end if
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Set
 		#tag EndSetter
@@ -598,12 +611,13 @@ Inherits Canvas
 			  end if
 			  
 			  #if targetMacOS
+			    dim OSErr as Int16
 			    if isLeopard then
 			      declare function GetControlData lib CarbonLib (theControl as Ptr, inPart as Int16, inTagName as OSType, inBufferSize as Integer, ByRef inBuffer as Double, ByRef outActualSize as Integer) as Int16
 			      
 			      dim absTime as Double
 			      dim actualSize as Integer
-			      dim OSErr as Int16 = GetControlData(me.ControlRef, kControlNoPart, kControlClockAbsoluteTimeTag, sizeOfCFAbsoluteTime, absTime, actualSize)
+			      OSErr = GetControlData(me.ControlRef, kControlNoPart, kControlClockAbsoluteTimeTag, sizeOfCFAbsoluteTime, absTime, actualSize)
 			      
 			      dim d as new Date
 			      d.TotalSeconds = absTime + CFAbsoluteTimeEpoch.TotalSeconds + 3600.0*d.GMTOffset
@@ -615,7 +629,7 @@ Inherits Canvas
 			      
 			      dim theRec as LongDateRec
 			      dim actualSize as Integer
-			      dim OSErr as Int16 = GetControlData(me.ControlRef, kControlNoPart, kControlClockLongDateTag, LongDateRec.Size, theRec, actualSize)
+			      OSErr = GetControlData(me.ControlRef, kControlNoPart, kControlClockLongDateTag, LongDateRec.Size, theRec, actualSize)
 			      
 			      dim d as new Date
 			      d.Year = theRec.year
@@ -627,6 +641,8 @@ Inherits Canvas
 			      
 			      return d
 			    end if
+			    
+			    #pragma unused OSErr
 			  #endif
 			End Get
 		#tag EndGetter
@@ -656,6 +672,9 @@ Inherits Canvas
 			    dim oserr as Int16 = SetControlData(me.ControlRef, kControlNoPart, kControlClockAbsoluteTimeTag, sizeOfCFAbsoluteTime, abstime)
 			    //The control needs to be told to redraw following the set.
 			    me.Invalidate
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused oserr
 			  #endif
 			End Set
 		#tag EndSetter

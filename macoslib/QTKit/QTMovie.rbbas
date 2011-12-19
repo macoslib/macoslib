@@ -17,6 +17,9 @@ Inherits NSObject
 		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime:" (obj_id as Ptr, time as QTTime)
 		    
 		    setCurrentTime(self, value)
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		  
 		End Sub
@@ -48,6 +51,9 @@ Inherits NSObject
 		    declare function frameImageAtTime lib QTKit.framework selector "frameImageAtTime:" (obj_id as Ptr, time as QTTime) as Ptr
 		    
 		    return new NSImage(frameImageAtTime(self, time), not hasOwnership)
+		    
+		  #else
+		    #pragma unused time
 		  #endif
 		End Function
 	#tag EndMethod
@@ -74,6 +80,9 @@ Inherits NSObject
 		    else
 		      raise new NSException(errorPtr)
 		    end if
+		    
+		  #else
+		    #pragma unused path
 		  #endif
 		End Function
 	#tag EndMethod
@@ -84,6 +93,9 @@ Inherits NSObject
 		  'f.MacType = UTI.OSType(uti)
 		  'f.Extensions = UTI.
 		  'f.Name = uti
+		  
+		  #pragma unused uti
+		  
 		End Function
 	#tag EndMethod
 
@@ -93,6 +105,9 @@ Inherits NSObject
 		    declare function attributeForKey lib CocoaLib selector "attributeForKey:" (obj_id as Ptr, key as CFStringRef) as Ptr
 		    
 		    return attributeForKey(self, key)
+		    
+		  #else
+		    #pragma unused key
 		  #endif
 		  
 		End Function
@@ -104,6 +119,10 @@ Inherits NSObject
 		    declare sub setAttribute lib CocoaLib selector "setAttribute:" (obj_id as Ptr, value as Ptr, key as CFStringRef)
 		    
 		    setAttribute(self, value, key)
+		    
+		  #else
+		    #pragma unused key
+		    #pragma unused value
 		  #endif
 		  
 		End Sub
@@ -155,6 +174,9 @@ Inherits NSObject
 		    declare sub setSelection lib QTKit.framework selector "setSelection:" (obj_id as Ptr, selection as QTTimeRange)
 		    
 		    setSelection(self, range)
+		    
+		  #else
+		    #pragma unused range
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -201,7 +223,6 @@ Inherits NSObject
 		  value.CopyInto(previewRangeBuffer)
 		  dim previewRange as QTKit.QTTimeRange
 		  previewRange.StringValue(previewRangeBuffer.LittleEndian) = previewRangeBuffer
-		  
 	#tag EndNote
 
 

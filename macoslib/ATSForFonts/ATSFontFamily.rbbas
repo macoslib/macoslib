@@ -60,6 +60,9 @@ Class ATSFontFamily
 			    dim qdName as new MemoryBlock(256)
 			    dim OSError as Integer = ATSFontFamilyGetQuickDrawName(me.ATSFontFamilyRef, qdName)
 			    return DefineEncoding(qdName.PString(0), Encodings.MacRoman)
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  #endif
 			End Get
 		#tag EndGetter

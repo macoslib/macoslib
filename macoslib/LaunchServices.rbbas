@@ -18,6 +18,9 @@ Protected Module LaunchServices
 		    dim outAcceptsItem as Boolean
 		    dim OSError as Integer = LSCanURLAcceptURL(theItem, inTargetURL, roles, flags, outAcceptsItem)
 		    return outAcceptsItem
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -41,6 +44,9 @@ Protected Module LaunchServices
 		    dim outAcceptsItem as Boolean
 		    dim OSError as Integer = LSCanRefAcceptItem(inItemFSRef, inTargetFSRef, roles, flags, outAcceptsItem)
 		    return outAcceptsItem
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -61,6 +67,9 @@ Protected Module LaunchServices
 		    soft declare function LSSetDefaultHandlerForURLScheme lib CarbonLib (inURLScheme as CFStringRef, inHandlerBundleID as CFStringRef) as Integer
 		    
 		    dim OSError as Integer = LSSetDefaultHandlerForURLScheme(urlScheme, bundleID)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -68,24 +77,28 @@ Protected Module LaunchServices
 	#tag Method, Flags = &h0
 		Function FindApp(creator as OSType, bundleID as String, name as String) As FolderItem
 		  #if targetMacOS
+		    dim OSError as Integer
 		    soft declare function LSFindApplicationForInfo lib CarbonLib (inCreator as OSType, inBundleID as CFStringRef, inName as CFStringRef, outAppRef as Ptr, outAppURL as Ptr) as Integer
 		    
 		    dim outAppRef as new FSRef
 		    
 		    if bundleID <> "" then
 		      if name <> "" then
-		        dim OSError as Integer = LSFindApplicationForInfo(creator, bundleID, name, outAppRef, nil)
+		        OSError = LSFindApplicationForInfo(creator, bundleID, name, outAppRef, nil)
 		      else
-		        dim OSError as Integer = LSFindApplicationForInfo(creator, bundleID, nil, outAppRef, nil)
+		        OSError = LSFindApplicationForInfo(creator, bundleID, nil, outAppRef, nil)
 		      end if
 		    else
 		      if name <> "" then
-		        dim OSError as Integer = LSFindApplicationForInfo(creator, nil, name, outAppRef, nil)
+		        OSError = LSFindApplicationForInfo(creator, nil, name, outAppRef, nil)
 		      else
-		        dim OSError as Integer = LSFindApplicationForInfo(creator, nil, nil, outAppRef, nil)
+		        OSError = LSFindApplicationForInfo(creator, nil, nil, outAppRef, nil)
 		      end if
 		    end if
 		    return FileManager.GetFolderItemFromFSRef(outAppRef)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -248,6 +261,10 @@ Protected Module LaunchServices
 		    appParams.application = FileManager.GetFSRefFromFolderItem(appItem)
 		    
 		    dim OSError as Integer = LSOpenURLsWithRole(theArray, paramIgnoredBecauseinAppParamsNotNil, nil, appParams, nil, 0)
+		    return
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod

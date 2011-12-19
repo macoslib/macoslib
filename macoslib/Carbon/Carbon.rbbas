@@ -154,6 +154,9 @@ Protected Module Carbon
 		    
 		    const kNilOptions = 0
 		    dim OSError as Integer = HISearchWindowShow(searchTerm, kNilOptions)
+		    return
+		    
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -176,7 +179,11 @@ Protected Module Carbon
 		    soft declare function SetSystemUIMode lib CarbonLib (inMode as UIMode, inOptions as UIOptions) as Integer
 		    
 		    dim OSError as Integer = SetSystemUIMode(mode, options)
+		    
 		    #pragma unused OSError
+		  #else
+		    #pragma unused mode
+		    #pragma unused options
 		  #endif
 		End Sub
 	#tag EndMethod

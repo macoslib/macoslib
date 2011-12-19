@@ -17,6 +17,7 @@ Protected Module MacOSFolderItemExtension
 		      dim options as UInt32 = kUCCollateTypeHFSExtended
 		      dim equivalent as Boolean
 		      dim err as Integer = UCCompareTextNoLocale(options, uname1, Len(uname1), uname2, Len(uname2), equivalent, nil)
+		      #pragma unused err
 		      return equivalent
 		    end If
 		  #endif
@@ -134,6 +135,7 @@ Protected Module MacOSFolderItemExtension
 		    
 		    dim cataloginfo as FileManager.FSCatalogInfo
 		    dim err as Int16 = FSGetCatalogInfo(ref, FileManager.kFSCatInfoNodeID, cataloginfo, nil, nil, nil)
+		    #pragma unused err
 		    
 		    return cataloginfo.nodeid
 		  #endif
@@ -196,6 +198,7 @@ Protected Module MacOSFolderItemExtension
 		        dim isWholeMedia as Boolean = p <> nil and CFBooleanGetValue(p)
 		        if isWholeMedia then
 		          dim getClassError as Integer = IOObjectGetClass(service, className)
+		          #pragma unused getClassError
 		          exit
 		        else
 		          //another iteration
@@ -207,6 +210,7 @@ Protected Module MacOSFolderItemExtension
 		      
 		      soft declare function IOIteratorNext lib IOKitFramework (iterator as Ptr) as Ptr
 		      dim releaseError as Integer = IOObjectRelease(service)
+		      #pragma unused releaseError
 		      service = IOIteratorNext(iterator)
 		      if service = nil then
 		        exit
@@ -217,6 +221,10 @@ Protected Module MacOSFolderItemExtension
 		    dim releaseError as Integer = IOObjectRelease(service)
 		    
 		    return DefineEncoding(className.CString(0), Encodings.SystemDefault)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused retainErr
+		    #pragma unused releaseError
 		  #endif
 		  
 		  
@@ -280,6 +288,9 @@ Protected Module MacOSFolderItemExtension
 		    soft declare function FSMoveObjectToTrashSync lib CarbonLib (fsRef as Ptr, target as Ptr, options as UInt32) as Integer
 		    
 		    dim OSError as Integer = FSMoveObjectToTrashSync(source, nil, 0)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		  
 		  

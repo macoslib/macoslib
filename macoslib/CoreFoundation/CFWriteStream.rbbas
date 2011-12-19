@@ -33,7 +33,7 @@ Inherits CFStream
 		  #if TargetMacOS
 		    declare sub CFWriteStreamClose lib CarbonLib (stream as Ptr)
 		    
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      CFWriteStreamClose (me.Reference)
 		    end if
 		  #endif

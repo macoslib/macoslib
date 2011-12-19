@@ -100,7 +100,7 @@ Implements CFPropertyList
 			  #if TargetMacOS
 			    soft declare function CFNumberGetValue lib CarbonLib (number as Ptr, theType as Integer, ByRef valuePtr as Double) as Boolean
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      dim theValue as Double
 			      if CFNumberGetValue(me.Reference, kCFNumberDoubleType, theValue) then
 			        return theValue
@@ -120,7 +120,7 @@ Implements CFPropertyList
 			  #if TargetMacOS
 			    soft declare function CFNumberGetValue lib CarbonLib (number as Ptr, theType as Integer, ByRef valuePtr as Int64) as Boolean
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      dim theValue as Int64
 			      if CFNumberGetValue(me.Reference, kCFNumberSInt64Type, theValue) then
 			        return theValue
@@ -140,7 +140,7 @@ Implements CFPropertyList
 			  #if TargetMacOS
 			    soft declare function CFNumberGetValue lib CarbonLib (number as Ptr, theType as Integer, ByRef valuePtr as Integer) as Boolean
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      dim theValue as Integer
 			      if CFNumberGetValue(me.Reference, kCFNumberSInt32Type, theValue) then
 			        return theValue
@@ -160,7 +160,7 @@ Implements CFPropertyList
 			  #if TargetMacOS
 			    soft declare function CFNumberIsFloatType lib CarbonLib (number as Ptr) as Boolean
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      return CFNumberIsFloatType(me.Reference)
 			    end if
 			  #endif
@@ -175,7 +175,7 @@ Implements CFPropertyList
 			  #if TargetMacOS
 			    soft declare function CFNumberGetType lib CarbonLib (number as Ptr) as Integer
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      return CFNumberGetType(me.Reference)
 			    end if
 			  #endif
@@ -193,7 +193,7 @@ Implements CFPropertyList
 			    soft declare function CFNumberGetValue lib CarbonLib (number as Ptr, theType as Integer, valuePtr as Ptr) as Boolean
 			    soft declare function CFNumberGetType lib CarbonLib (number as Ptr) as Integer
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      dim numType as Integer = CFNumberGetType(me.Reference)
 			      
 			      // adjust the type we want

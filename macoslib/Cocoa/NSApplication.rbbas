@@ -46,6 +46,9 @@ Inherits NSObject
 		    
 		    dim p as Ptr = windows(self)
 		    return new CFArray(windows(self), not CFArray.hasOwnership)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused p
 		  #endif
 		End Function
 	#tag EndMethod

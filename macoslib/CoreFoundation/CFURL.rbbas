@@ -239,6 +239,9 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function QueryString(charactersToLeaveEscaped as String = "") As String
 		  return me.StringValue(AddressOf CopyQueryString)
+		  
+		  #pragma unused charactersToLeaveEscaped
+		  
 		End Function
 	#tag EndMethod
 
@@ -274,9 +277,9 @@ Inherits CFType
 			  #if TargetMacOS
 			    soft declare function CFURLGetBaseURL lib CarbonLib (anURL as Ptr) as Ptr
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      dim theBaseURL as new CFURL(CFURLGetBaseURL(me.Reference), false)
-			      if not theBaseURL.IsNULL then
+			      if not ( theBaseURL = nil ) then
 			        return theBaseURL
 			      end if
 			    end if
@@ -289,7 +292,7 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  if not me.IsNULL then
+			  if not ( self = nil ) then
 			    return GetFolderItem(me.StringValue, FolderItem.PathTypeURL)
 			  end if
 			End Get
@@ -307,7 +310,7 @@ Inherits CFType
 			    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
 			    // Instead, "new CFString()" takes care of that below
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      return new CFString(CFURLGetString(me.Reference), false)
 			    end if
 			  #endif

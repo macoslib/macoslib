@@ -219,7 +219,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function Resource(name as String, type as String, subDirectoryName as String) As CFURL
 		  raise new RuntimeException // not available
-		  'if not me.IsNULL then
+		  'if not ( self = nil ) then
 		  '#if targetMacOS
 		  'soft declare function CFBundleCopyResourceURL lib CarbonLib (bundle as Integer, resourceName as Integer, resourceType as Integer, subDirName as Integer) as Integer
 		  'soft declare function CFBundleCopyResourceURLInDirectory lib CarbonLib (bundleURL as Integer, resourceName as Integer, resourceType as Integer, subDirName as Integer) as Integer
@@ -257,6 +257,10 @@ Inherits CFType
 		  'CoreFoundation.Release theRef
 		  'Return theURL
 		  'End
+		  
+		  #pragma unused name
+		  #pragma unused type
+		  #pragma unused subDirectoryName
 		End Function
 	#tag EndMethod
 

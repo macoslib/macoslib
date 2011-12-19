@@ -25,6 +25,9 @@ Inherits NSObject
 		    declare sub setDateFormat lib CocoaLib selector "setDateFormat:" (id as Ptr, s as CFStringRef)
 		    
 		    setDateFormat self.id, value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod

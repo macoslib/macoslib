@@ -212,6 +212,10 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  return true
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -235,6 +239,10 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  return true
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Function
 	#tag EndEvent
 #tag EndEvents

@@ -82,18 +82,32 @@ End
 	#tag Method, Flags = &h21
 		Private Function PrinterListDisallowTableEdit(source as NSTableViewDataSource, tableView as NSTableView, rowIndex as Integer, column as NSTableColumn) As Boolean
 		  return true
+		  
+		  #pragma unused source
+		  #pragma unused tableView
+		  #pragma unused rowIndex
+		  #pragma unused column
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function PrinterListGetValue(source as NSTableViewDataSource, row as Integer, columnID as String) As String
 		  return  PrinterNames(row)
+		  
+		  #pragma unused source
+		  #pragma unused row
+		  #pragma unused columnID
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function PrinterListRowCount(source as NSTableViewDataSource) As Integer
 		  return 1 + UBound(PrinterNames)
+		  
+		  #pragma unused source
+		  
 		End Function
 	#tag EndMethod
 

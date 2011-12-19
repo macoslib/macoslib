@@ -133,6 +133,9 @@ End
 		  'if image <> nil then
 		  'DrawImages g
 		  'end if
+		  
+		  #pragma unused g
+		  
 		End Sub
 	#tag EndEvent
 
@@ -224,7 +227,7 @@ End
 		    select case eventKind
 		    case kEventControlDraw
 		      dim f as Integer = CallNextEventHandler(EventHandlerCallRef, EventRef)
-		      
+		      #pragma unused f
 		      
 		      soft declare function GetEventParameter lib CarbonLib (inEvent as Ptr, inName as OSType, inDesiredType as OSType, outActualType as Ptr, inBufferSize as Integer, outBufferSize as Ptr, ByRef outData as Ptr) as Integer
 		      dim contextRef as Ptr
@@ -244,8 +247,6 @@ End
 		  else
 		    return eventNotHandledErr
 		  end select
-		  
-		  
 		  
 		End Function
 	#tag EndMethod
@@ -291,7 +292,8 @@ End
 		  
 		  dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, 1 + UBound(eventList), eventList.CArray, self.Handle, Nil)
 		  
-		  
+		  // Keep the compiler from complaining
+		  #pragma unused OSError
 		  
 		End Sub
 	#tag EndMethod

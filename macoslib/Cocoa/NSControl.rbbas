@@ -30,12 +30,18 @@ Inherits Canvas
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
 		  //
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused Key
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub KeyUp(Key As String)
 		  //
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused Key
 		End Sub
 	#tag EndEvent
 
@@ -133,6 +139,9 @@ Inherits Canvas
 		    soft declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
 		    
 		    return alloc(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -149,6 +158,9 @@ Inherits Canvas
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused NSClassName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -215,6 +227,9 @@ Inherits Canvas
 		    soft declare sub setDoubleValue lib CocoaFramework selector "setDoubleValue:"  (id as Ptr, aDouble as Double)
 		    
 		    setDoubleValue me.id, value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		  
 		End Sub
@@ -252,6 +267,9 @@ Inherits Canvas
 		    soft declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
 		    
 		    setFrame me.id, value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -278,7 +296,14 @@ Inherits Canvas
 		    end if
 		    
 		    return obj_id
+		    
+		  #else
+		    #pragma unused newobj_id
 		  #endif
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused frame
+		  
 		End Function
 	#tag EndMethod
 
@@ -307,6 +332,10 @@ Inherits Canvas
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused className
+		    #pragma unused superClassName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -360,6 +389,9 @@ Inherits Canvas
 		    declare sub setStringValue lib CocoaLib selector "setStringValue:" (obj_id as Ptr, value as CFStringRef)
 		    
 		    setStringValue(self, value)
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod

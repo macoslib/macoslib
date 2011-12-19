@@ -24,6 +24,9 @@ Inherits NSControl
 		    soft declare sub setBackgroundColor lib Cocoa selector "setBackgroundColor:" (id as Ptr, c as Ptr)
 		    
 		    setBackgroundColor self,  new NSColor(value)
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -49,6 +52,9 @@ Inherits NSControl
 		    declare sub setDateValue lib CocoaLib selector "setDateValue:" (id as Ptr, newStartDate as Ptr)
 		    
 		    setDateValue self.id, value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -76,6 +82,9 @@ Inherits NSControl
 			    if self.id <> nil then
 			      setBezeled self.id, value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -104,6 +113,9 @@ Inherits NSControl
 			    if self.id <> nil then
 			      setBordered self.id, value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -130,6 +142,9 @@ Inherits NSControl
 			    soft declare sub setDrawsBackground lib Cocoa selector "setDrawsBackground:" (id as Ptr, flag as Boolean)
 			    
 			    setDrawsBackground self, value
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -167,6 +182,9 @@ Inherits NSControl
 			        setMaxDate self.id, nil
 			      end if
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -204,6 +222,9 @@ Inherits NSControl
 			        setMinDate self.id, nil
 			      end if
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -232,6 +253,9 @@ Inherits NSControl
 			    if self.id <> nil then
 			      setDatePickerMode self.id, value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -261,6 +285,9 @@ Inherits NSControl
 			    else
 			      //
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

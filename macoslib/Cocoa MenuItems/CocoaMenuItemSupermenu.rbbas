@@ -20,6 +20,9 @@ Inherits CocoaMenuItem
 		    declare function submenu lib CocoaLib selector "submenu" (obj_id as Ptr) as Ptr
 		    
 		    return submenu(menuitemRef)
+		    
+		  #else
+		    #pragma unused menuItemRef
 		  #endif
 		End Function
 	#tag EndEvent

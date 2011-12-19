@@ -6,6 +6,9 @@ Class NSObject
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		    
 		    return alloc(Cocoa.NSClassFromString(NSClassName))
+		    
+		  #else
+		    #pragma unused NSClassName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,6 +68,9 @@ Class NSObject
 		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
 		    
 		    return init(obj_id)
+		    
+		  #else
+		    #pragma unused obj_id
 		  #endif
 		End Function
 	#tag EndMethod

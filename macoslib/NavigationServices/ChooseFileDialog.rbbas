@@ -158,6 +158,8 @@ Inherits NavigationDialog
 		  ''OSType signature;
 		  ''OSType kind;
 		  ''};
+		  
+		  #pragma unused callbackParms
 		End Sub
 	#tag EndEvent
 
@@ -233,6 +235,9 @@ Inherits NavigationDialog
 		  'DisposeNibReference nibRef
 		  'nibRef = 0
 		  'End if
+		  
+		  #pragma unused callbackParms
+		  
 		End Sub
 	#tag EndEvent
 

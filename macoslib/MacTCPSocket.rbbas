@@ -42,16 +42,21 @@ Inherits TCPSocket
 		  // the checking of new data, which will then invoke then DataAvailable
 		  // event.
 		  
+		  dim mb As MemoryBlock
 		  if incomingData <> nil then
 		    // Oops - when does this happen?
 		    // This is unexpected because we'd have no way to pass
 		    // this data on to the Poll, unless we overwrite the Read...
 		    // functions to supply that data there.
-		    dim mb as MemoryBlock = incomingData.Data
+		    mb = incomingData.Data
 		    break // let's look at what we got here
 		  end if
 		  
 		  me.Poll()
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused sender
+		  #pragma unused mb
 		End Sub
 	#tag EndMethod
 

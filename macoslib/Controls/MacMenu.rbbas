@@ -13,6 +13,8 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "Append", "AppendMenuItemTextWithCFString", OSError
 		    end if
+		  #else
+		    #pragma unused itemText
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -41,6 +43,8 @@ Protected Class MacMenu
 		    dim theMark as Int16
 		    GetItemMark(self.Ref, index, theMark)
 		    return theMark = kMenuCheckmarkGlyph
+		  #else
+		    #pragma unused index
 		  #endif
 		  
 		  
@@ -57,6 +61,9 @@ Protected Class MacMenu
 		    declare sub CheckMenuItem Lib CarbonLib (theMenu as Ptr, item as Short, checked as Boolean)
 		    
 		    CheckMenuItem self.Ref, index, theValue
+		  #else
+		    #pragma unused index
+		    #pragma unused theValue
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -108,6 +115,9 @@ Protected Class MacMenu
 		      return
 		    end if
 		    self.Constructor(newMenuRef)
+		    
+		  #else
+		    #pragma unused menu
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -129,6 +139,9 @@ Protected Class MacMenu
 		    else
 		      MacOSError "Constructor", "RetainMenu", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused menuRef
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -172,6 +185,9 @@ Protected Class MacMenu
 		      return false
 		    end if
 		    return (hiAttributes and kMenuItemAttrDisabled) <> kMenuItemAttrDisabled
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -191,6 +207,10 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "SetEnabled", "ChangeMenuItemAttributes", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused index
+		    #pragma unused theValue
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -213,6 +233,10 @@ Protected Class MacMenu
 		      next
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused parentMenu
+		    #pragma unused menuID
 		  #endif
 		End Function
 	#tag EndMethod
@@ -228,6 +252,10 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "SetIcon", "SetMenuItemIconHandle", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused index
+		    #pragma unused type
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -244,6 +272,9 @@ Protected Class MacMenu
 		      return 0
 		    end if
 		    return indentLevel
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -261,6 +292,10 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "SetIndent", "SetMenuItemIndent", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused index
+		    #pragma unused theValue
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -278,6 +313,10 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "Insert", "InsertMenuItemTextWithCFString", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused index
+		    #pragma unused itemText
 		  #endif
 		  
 		  
@@ -311,6 +350,9 @@ Protected Class MacMenu
 		    
 		    soft declare sub DeleteMenuItem Lib CarbonLib (theMenu as Ptr, item as Short)
 		    DeleteMenuItem self.Ref, index
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -355,6 +397,10 @@ Protected Class MacMenu
 		    else
 		      //
 		    end if
+		    
+		  #else
+		    #pragma unused windowX
+		    #pragma unused windowY
 		  #endif
 		  
 		  
@@ -377,6 +423,9 @@ Protected Class MacMenu
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -398,6 +447,10 @@ Protected Class MacMenu
 		    end if
 		    self.LastMenuIDAssigned = self.LastMenuIDAssigned + 1
 		    SetMenuID theMenu.Ref, self.LastMenuIDAssigned
+		    
+		  #else
+		    #pragma unused index
+		    #pragma unused theMenu
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -414,6 +467,9 @@ Protected Class MacMenu
 		      return ""
 		    end if
 		    return new CFString(theText, not CFString.hasOwnership)
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -427,6 +483,10 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "SetText", "SetMenuItemTextWithCFString", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused index
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -472,6 +532,9 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "SetTextFont", "SetMenuFont", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused theValue
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -519,6 +582,9 @@ Protected Class MacMenu
 		    if OSError <> 0 then
 		      MacOSError "SetTextSize", "SetMenuFont", OSError
 		    end if
+		    
+		  #else
+		    #pragma unused theValue
 		  #endif
 		End Sub
 	#tag EndMethod

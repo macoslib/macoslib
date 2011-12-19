@@ -139,6 +139,9 @@ End
 	#tag Event
 		Sub Action(clickedComponentCell as NSPathComponentCell)
 		  break
+		  
+		  #pragma unused clickedComponentCell
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

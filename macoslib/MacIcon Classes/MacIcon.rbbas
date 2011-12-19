@@ -10,6 +10,9 @@ Protected Class MacIcon
 		    soft declare function AcquireIconRef lib CarbonLib (theIconRef as Ptr) as Int16
 		    
 		    dim OSError as Integer = AcquireIconRef(iconRef)
+		    
+		    #pragma unused OSError
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -351,6 +354,9 @@ Protected Class MacIcon
 		    soft declare function ReleaseIconRef lib CarbonLib (theIconRef as Ptr) as Int16
 		    
 		    dim OSError as Int16 = ReleaseIconRef(theIconRef)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod

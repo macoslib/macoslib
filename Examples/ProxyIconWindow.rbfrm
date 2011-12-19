@@ -151,6 +151,8 @@ End
 		  
 		  
 		  dim f as FolderItem = self.DocumentFile
+		  #pragma unused f
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

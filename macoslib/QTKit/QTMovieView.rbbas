@@ -110,6 +110,9 @@ Inherits Canvas
 		    else
 		      setFillColor(self, nil)
 		    end if
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -189,6 +192,9 @@ Inherits Canvas
 		    else
 		      setMovie(self, nil)
 		    end if
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -344,6 +350,9 @@ Inherits Canvas
 			    declare sub setControllerVisible lib QTKit.framework selector "setControllerVisible:" (obj_id as Ptr, value as Boolean)
 			    
 			    setControllerVisible(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			  
 			End Set
@@ -367,6 +376,9 @@ Inherits Canvas
 			    declare sub setEditable lib QTKit.framework selector "setEditable:" (obj_id as Ptr, value as Boolean)
 			    
 			    setEditable(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -393,6 +405,9 @@ Inherits Canvas
 			    declare sub setPreservesAspectRatio lib QTKit.framework selector "setPreservesAspectRatio:" (obj_id as Ptr, value as Boolean)
 			    
 			    setPreservesAspectRatio(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

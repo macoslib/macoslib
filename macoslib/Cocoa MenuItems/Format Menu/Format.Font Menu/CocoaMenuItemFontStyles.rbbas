@@ -16,6 +16,9 @@ Inherits CocoaMenuItem
 		    dim NSApp as Ptr = sharedApplication(Cocoa.NSClassFromString("NSApplication"))
 		    self.Enabled = (targetForAction(NSApp, Cocoa.NSSelectorFromString("changeFont:"), nil, nil) <> nil)
 		  #endif
+		  
+		  #pragma unused target
+		  
 		End Sub
 	#tag EndEvent
 
@@ -26,6 +29,9 @@ Inherits CocoaMenuItem
 		    
 		    return sharedFontManager(Cocoa.NSClassFromString("NSFontManager"))
 		  #endif
+		  
+		  #pragma unused menuItemRef
+		  
 		End Function
 	#tag EndEvent
 

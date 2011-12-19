@@ -86,7 +86,17 @@ Class NSTableViewDataSource
 		    end if
 		    
 		    return theSource.AllowDrag(tableView, new NSIndexSet(rowIndexes), new NSPasteboard(pboard))
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused aTableView
+		    #pragma unused rowIndexes
+		    #pragma unused pboard
 		  #endif
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused sel
+		  
 		End Function
 	#tag EndMethod
 
@@ -105,6 +115,9 @@ Class NSTableViewDataSource
 		  dim tableColumn as new NSTableColumn(aTableColumn)
 		  
 		  return not theSource.DisallowTableEdit(tableView, rowIndex, tableColumn)
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused sel
 		End Function
 	#tag EndMethod
 
@@ -123,6 +136,10 @@ Class NSTableViewDataSource
 		  dim v as CFStringRef = value
 		  declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
 		  return  CFRetain(v)
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused sel
+		  #pragma unused tableView
 		End Function
 	#tag EndMethod
 
@@ -133,11 +150,10 @@ Class NSTableViewDataSource
 		    return 0
 		  end if
 		  
-		  
 		  return theSource.RowCount
 		  
-		  
-		  
+		  #pragma unused sel
+		  #pragma unused tableView
 		End Function
 	#tag EndMethod
 
@@ -159,6 +175,8 @@ Class NSTableViewDataSource
 		  dim stringValue as String = CFRetain(value)
 		  
 		  theSource.SetValue tableView, row, tableColumn, stringValue
+		  
+		  #pragma unused sel
 		End Sub
 	#tag EndMethod
 
@@ -208,6 +226,10 @@ Class NSTableViewDataSource
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused className
+		    #pragma unused superclassName
 		  #endif
 		End Function
 	#tag EndMethod

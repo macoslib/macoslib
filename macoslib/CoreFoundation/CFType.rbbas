@@ -413,7 +413,7 @@ Class CFType
 			    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
 			    // Instead, "new CFString()" takes care of that below
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      return new CFString(CFCopyDescription(me.mRef), true)
 			    end if
 			  #endif

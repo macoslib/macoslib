@@ -13,7 +13,7 @@ Inherits CFType
 		  #if TargetMacOS
 		    declare function CFSocketSetAddress lib CarbonLib (socketRef as Ptr, addr as Ptr) as Integer
 		    
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      dim errCode as Integer = CFSocketSetAddress (me.Reference, address.Reference)
 		      return errCode = 0
 		    end if
@@ -145,7 +145,7 @@ Inherits CFType
 		  #if TargetMacOS
 		    declare function CFSocketIsValid lib CarbonLib (socketRef as Ptr) as Boolean
 		    
-		    if not me.IsNULL then
+		    if not ( self = nil ) then
 		      return CFSocketIsValid (me.Reference)
 		    end if
 		  #endif
@@ -181,6 +181,10 @@ Inherits CFType
 		  else
 		    break //oops - unknown type
 		  end
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused socketRef
+		  
 		End Sub
 	#tag EndMethod
 
@@ -280,7 +284,7 @@ Inherits CFType
 			  #if TargetMacOS
 			    declare function CFSocketGetNative lib CarbonLib (socketRef as Ptr) as CFSocketNativeHandle
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      return CFSocketGetNative (me.Reference)
 			    end if
 			  #endif

@@ -52,7 +52,7 @@ Implements CFPropertyList
 			    soft declare function CFDataGetLength lib CarbonLib (theData as Ptr) as Integer
 			    soft declare sub CFDataGetBytes lib CarbonLib (theData as Ptr, range as CFRange, buffer as Ptr)
 			    
-			    if not me.IsNULL then
+			    if not ( self = nil ) then
 			      dim dataLength as Integer = CFDataGetLength(me.Reference)
 			      if dataLength > 0 then
 			        dim m as new MemoryBlock(dataLength)

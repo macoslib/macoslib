@@ -173,8 +173,10 @@ Class NavigationDialog
 		        soft declare function NavCompleteSave lib CarbonLib (ByRef reply as NavReplyRecord, howToTranslate as UInt32) as Int16
 		        const kNavTranslateCopy = 1
 		        dim NavCompleteSaveError as Int16 = NavCompleteSave(navReply, kNavTranslateCopy)
+		        #pragma unused NavCompleteSaveError
 		        soft declare function NavDisposeReply lib CarbonLib (ByRef outReply as NavReplyRecord) as Int16
 		        dim NavDisposeReplyError as Int16 = NavDisposeReply(navReply)
+		        #pragma unused NavDisposeReplyError
 		        
 		      else
 		        //break
@@ -325,14 +327,14 @@ Class NavigationDialog
 		    
 		    dim itemCount as Integer
 		    dim theErr as Int16 = AECountItems(theAEDesc, itemCount)
-		    
+		    dim OSErr as Int16
 		    for index as Integer = 1 to itemCount
 		      soft declare function AEGetNthPtr lib CarbonLib (ByRef theAEDesc as AEDesc, index as Integer, desiredType as OSType, ByRef theAEKeyword as OSType, ByRef typeCode as OSType, dataPtr as Ptr, maximumSize as Integer, ByRef actualSize as Integer) as Int16
 		      dim keyword as OSType
 		      dim typeCode as OSType = typeFSRef
 		      dim theFSRef as new FSRef
 		      dim actualSize as Integer
-		      dim OSErr as Int16 = AEGetNthPtr(theAEDesc, index, typeFSRef, keyword, typeCode, theFSRef, theFSRef.Operator_Convert.Size, actualSize)
+		      OSErr = AEGetNthPtr(theAEDesc, index, typeFSRef, keyword, typeCode, theFSRef, theFSRef.Operator_Convert.Size, actualSize)
 		      dim f as FolderItem = FileManager.GetFolderItemFromFSRef(theFSRef)
 		      if f <> nil then
 		        theList.Append f
@@ -347,6 +349,11 @@ Class NavigationDialog
 		    end if
 		    
 		    return theList
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSErr
+		    #pragma unused theErr
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -422,6 +429,8 @@ Class NavigationDialog
 		    //this case shouldn't occur
 		  end select
 		  
+		  #pragma unused callbackUD
+		  
 		End Sub
 	#tag EndMethod
 
@@ -479,6 +488,9 @@ Class NavigationDialog
 		    soft declare function NavDialogSetFilterTypeIdentifiers lib CarbonLib (inGetFileDialog as Ptr, inTypeIdentifiers as Ptr) as Integer
 		    
 		    dim OSError as Integer = NavDialogSetFilterTypeIdentifiers(me.DialogRef, theArray)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -801,6 +813,9 @@ Class NavigationDialog
 			    soft declare function NavDialogSetSaveFileName lib CarbonLib (inPutFileDialog as Ptr, inFileName as CFStringRef) as Integer
 			    
 			    dim OSError as Integer = NavDialogSetSaveFileName(me.DialogRef, value)
+			    
+			    // Keep the compiler from complaining
+			    #pragma unused OSError
 			  end if
 			End Set
 		#tag EndSetter

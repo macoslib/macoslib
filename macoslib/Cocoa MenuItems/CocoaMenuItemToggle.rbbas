@@ -17,6 +17,10 @@ Inherits CocoaMenuItem
 		    
 		    dim testSelector as Ptr = Cocoa.NSSelectorFromString(name)
 		    return respondsToSelector(target, testSelector) and objc_msgSend(target, testSelector)
+		    
+		  #else
+		    #pragma unused target
+		    #pragma unused name
 		  #endif
 		End Function
 	#tag EndMethod

@@ -79,6 +79,9 @@ Class ExternalPowerAdapter
 		  if InformationChanged <>nil then
 		    InformationChanged.Invoke
 		  end if
+		  
+		  #pragma unused context
+		  
 		End Sub
 	#tag EndMethod
 

@@ -71,6 +71,10 @@ End
 		    me.Icon(PopupMenu1.ListCount - 1) = runningApp.Icon
 		  next
 		  return false
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -78,6 +82,7 @@ End
 		  if me.ListIndex > -1 then
 		    dim theApp as NSRunningApplication = me.RowTag(me.ListIndex)
 		    dim b as Boolean = theApp.Activate
+		    #pragma unused b
 		  end if
 		End Sub
 	#tag EndEvent

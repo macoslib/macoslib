@@ -325,6 +325,10 @@ End
 		  else
 		    return false
 		  end if
+		  
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event

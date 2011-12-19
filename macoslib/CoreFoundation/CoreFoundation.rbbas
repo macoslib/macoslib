@@ -390,6 +390,7 @@ Module CoreFoundation
 		      dim prefKeys() as String = prefs.Keys
 		      for each key as String in prefKeys
 		        dim desc as String = CFType(prefs.Value(key)).Description
+		        #pragma unused desc
 		      next
 		      cf1 = CFNumber(prefs.Value("RunCount"))
 		      dim runCount as Integer
@@ -421,7 +422,7 @@ Module CoreFoundation
 		    // Test CFStreams
 		    if true then
 		      dim reader as CFReadStream
-		      dim writer as CFWriteStream
+		      'dim writer as CFWriteStream
 		      reader = new CFReadStream("12345")
 		      _testAssert reader.Status = 0
 		      _testAssert reader.Open()
@@ -437,7 +438,6 @@ Module CoreFoundation
 		      _testAssert not reader.IsOpen
 		      _testAssert not reader.Open()
 		      _testAssert not reader.IsOpen
-		      
 		      ' not usable due to bug(?) in OS 10.5:
 		      'if CFStream.NewBoundPair (reader, writer) then
 		      '_testAssert reader.Open

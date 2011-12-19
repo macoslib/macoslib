@@ -10,7 +10,7 @@ Class ATSFont
 		    
 		    if System.IsFunctionAvailable("ATSFontGetFileReference", CarbonLib) then
 		      dim ref as new FSRef
-		      dim theSpec as FSSpec
+		      'dim theSpec as FSSpec
 		      dim OSError as Integer = ATSFontGetFileReference(me, ref)
 		      if OSError <> noErr then
 		        return nil
@@ -71,6 +71,9 @@ Class ATSFont
 		    dim metrics as ATSFontMetrics
 		    dim OSError as Integer = ATSFontGetHorizontalMetrics(me, kATSOptionFlagsDefault, metrics)
 		    return metrics
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod
@@ -84,7 +87,7 @@ Class ATSFont
 	#tag Method, Flags = &h0
 		 Shared Sub SelfTest()
 		  #if TargetMacOS
-		    dim s as String
+		    'dim s as String
 		    dim f as ATSFont
 		    f = FindFromName("Lucida Grande")
 		    if f = nil then
@@ -103,6 +106,9 @@ Class ATSFont
 		    dim metrics as ATSFontMetrics
 		    dim OSError as Integer = ATSFontGetVerticalMetrics(me, kATSOptionFlagsDefault, metrics)
 		    return metrics
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod

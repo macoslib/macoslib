@@ -190,6 +190,9 @@ Module FileManager
 		    dim OSError as Int16 = FSpMakeFSRef(theFSSpec, theFSRef)
 		    //you can check the return value using IsValid.
 		    return theFSRef
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
 		  #endif
 		End Function
 	#tag EndMethod

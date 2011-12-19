@@ -127,6 +127,9 @@ Inherits CFType
 		    soft declare function CGPDFDocumentUnlockWithPassword lib CarbonLib (document as Ptr, password as CString) as Boolean
 		    
 		    dim b as Boolean = CGPDFDocumentUnlockWithPassword(me, password) //can check result with IsUnlocked
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused b
 		  #endif
 		End Sub
 	#tag EndMethod

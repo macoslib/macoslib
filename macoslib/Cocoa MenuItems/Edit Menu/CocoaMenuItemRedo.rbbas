@@ -20,6 +20,9 @@ Inherits CocoaMenuItem
 		    else
 		      self.Enabled = false
 		    end if
+		    
+		  #else
+		    #pragma unused target
 		  #endif
 		  
 		End Sub

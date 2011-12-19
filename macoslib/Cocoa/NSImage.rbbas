@@ -79,6 +79,12 @@ Inherits NSObject
 		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Single)
 		    
 		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Single))
+		    
+		  #else
+		    #pragma unused point
+		    #pragma unused fromRect
+		    #pragma unused operation
+		    #pragma unused opacity
 		  #endif
 		End Sub
 	#tag EndMethod

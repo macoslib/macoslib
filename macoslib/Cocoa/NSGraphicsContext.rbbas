@@ -31,6 +31,9 @@ Inherits NSObject
 		    declare sub setCurrentContext lib CocoaLib selector "setCurrentContext:" (class_id as Ptr, context as Ptr)
 		    
 		    setCurrentContext(Cocoa.NSClassFromString("NSGraphicsContext"), context)
+		    
+		  #else
+		    #pragma unused context
 		  #endif
 		End Sub
 	#tag EndMethod

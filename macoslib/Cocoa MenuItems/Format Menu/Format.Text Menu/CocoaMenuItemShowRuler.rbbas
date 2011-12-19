@@ -27,6 +27,9 @@ Inherits CocoaMenuItem
 		      //I wouldn't expect this to happen, but just in case...
 		      self.Text = LocalizedTextShow
 		    end if
+		    
+		  #else
+		    #pragma unused target
 		  #endif
 		  
 		End Sub

@@ -66,6 +66,9 @@ Inherits NSControl
 			    else
 			      //
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -96,6 +99,9 @@ Inherits NSControl
 			    soft declare sub setPathStyle lib CocoaLib selector "setPathStyle:" (id as Ptr, style as Integer)
 			    
 			    setPathStyle me.id, value
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -139,6 +145,9 @@ Inherits NSControl
 			    
 			    soft declare sub release lib CocoaLib selector "release" (id as Ptr)
 			    release url_id
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

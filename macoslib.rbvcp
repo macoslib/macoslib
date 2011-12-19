@@ -1,6 +1,6 @@
 Type=Desktop
-RBProjectVersion=2011.03
-MinIDEVersion=20110100
+RBProjectVersion=2011.04
+MinIDEVersion=20070100
 Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false
 Class=CFBoolean;macoslib/CoreFoundation/CFBoolean.rbbas;&hBD0F4E7D;&h72896D36;false
@@ -358,7 +358,7 @@ WinCompanyName=
 WinInternalName=
 WinProductName=
 AutoIncrementVersionInformation=False
-BuildFlags=&h4900
+BuildFlags=&h4100
 BuildLanguage=&h0
 DebugLanguage=&h0
 Region=

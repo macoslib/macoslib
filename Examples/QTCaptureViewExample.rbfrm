@@ -141,6 +141,10 @@ End
 		      PopupMenu1.RowTag(PopupMenu1.ListCount - 1) = device
 		    end if
 		  next
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event

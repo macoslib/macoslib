@@ -50,6 +50,9 @@ Inherits CFType
 		    dim theList() as String
 		    dim languageArray as new CFArray(CTFontCopySupportedLanguages(self), CFType.hasOwnership)
 		    return languageArray.StringValues
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused theList
 		  #endif
 		End Function
 	#tag EndMethod
