@@ -7,43 +7,6 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function GetSystemVersionFromCoreServices() As String
-		  #if targetMacOS
-		    const SystemVersionPListFile = "/System/Library/CoreServices/SystemVersion.plist"
-		    const isDirectory = true
-		    dim SystemVersionURL as CFURL = CFURL.CreateFromPOSIXPath(SystemVersionPListFile, not isDirectory)
-		    if SystemVersionURL = nil then
-		      return ""
-		    end if
-		    
-		    soft declare function CFURLCreateDataAndPropertiesFromResource lib CarbonLib (alloc as Ptr, url as Ptr, ByRef resourceData as Ptr, properties as Ptr, desiredProperties as Ptr, ByRef errorCode as Int32) as Boolean
-		    
-		    dim errorCode as Int32
-		    dim xmlDataPtr as Ptr
-		    if CFURLCreateDataAndPropertiesFromResource(nil, SystemVersionURL, xmlDataPtr, nil, nil, errorCode) then
-		      dim xmlData as new CFData(xmlDataPtr, CFType.hasOwnership)
-		      dim errorMessageOut as String
-		      dim pList as CFPropertyList = NewCFPropertyList(xmlData, kCFPropertyListImmutable, errorMessageOut)
-		      try
-		        dim d as CFDictionary = CFDictionary(pList)
-		        const ProductVersionKey = "ProductVersion"
-		        dim key as CFString = ProductVersionKey
-		        dim ProductVersionValue as new CFString(d.Value(key), not CFString.hasOwnership)
-		        return ProductVersionValue.StringValue
-		        
-		        
-		      catch e as IllegalCastException
-		        //file format was changed....
-		        return ""
-		      end try
-		    else
-		      return ""
-		    end if
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Function GetSystemVersionFromGestalt() As String
 		  dim sys1, sys2, sys3 as Integer
 		  call System.Gestalt("sys1", sys1)
@@ -234,10 +197,7 @@ Protected Module Carbon
 		  // with the actual OS X version being 10.11: Then the string "10.6" will be
 		  // greater than "10.11", which is the wrong result for your test.
 		  
-		  static version as String = GetSystemVersionFromCoreServices
-		  if version = "" then
-		    version = GetSystemVersionFromGestalt
-		  end if
+		  static version as String = GetSystemVersionFromGestalt
 		  return version
 		End Function
 	#tag EndMethod
@@ -259,7 +219,6 @@ Protected Module Carbon
 
 	#tag Method, Flags = &h1
 		Protected Sub _TestSelf()
-		  _testAssert GetSystemVersionFromCoreServices = GetSystemVersionFromGestalt // this test might fail with x.y.0 versions - should fix either function accordingly then
 		  select case GetSystemVersionFromGestalt.Left(4)
 		  case "10.3"
 		    _testAssert IsPanther
