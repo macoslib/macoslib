@@ -1,6 +1,12 @@
 #tag Interface
 Interface CFPropertyList
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As Ptr
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Reference() As Ptr
 		  
 		End Function
