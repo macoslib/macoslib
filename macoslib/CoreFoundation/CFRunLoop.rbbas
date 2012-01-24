@@ -68,6 +68,17 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function DefaultMode() As Ptr
+		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(kCFRunLoopDefaultMode)
+		  if p <> nil then
+		    return p.Ptr(0)
+		  else
+		    return nil
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Main() As CFRunLoop
 		  #if targetMacOS
 		    //Available in Mac OS X v10.5 and later.
@@ -103,6 +114,9 @@ Inherits CFType
 
 
 	#tag Constant, Name = kCFRunLoopCommonModes, Type = String, Dynamic = False, Default = \"kCFRunLoopCommonModes", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = kCFRunLoopDefaultMode, Type = String, Dynamic = False, Default = \"kCFRunLoopDefaultMode", Scope = Private
 	#tag EndConstant
 
 
