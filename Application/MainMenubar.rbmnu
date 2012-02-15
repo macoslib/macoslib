@@ -999,6 +999,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CoreFoundationStringTokenizer
+            SpecialMenu = 0
+            Text = "String Tokenizer"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesCoreGraphics
          SpecialMenu = 0

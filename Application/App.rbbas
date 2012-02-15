@@ -139,6 +139,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CoreFoundationStringTokenizer() As Boolean Handles CoreFoundationStringTokenizer.Action
+			StringTokenizerExample.Show
+			return true
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CoreGraphicsAxialShadingExample() As Boolean Handles CoreGraphicsAxialShadingExample.Action
 			AxialShadingExample.Show
 			return true
