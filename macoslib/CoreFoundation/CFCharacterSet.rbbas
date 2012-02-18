@@ -18,6 +18,16 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(theSetIdentifier as PredefinedSet)
+		  #if TargetMacOS
+		    declare function CFCharacterSetGetPredefined lib CarbonLib (theSetIdentifier as Integer) as Ptr
+		    
+		    super.Constructor (CFCharacterSetGetPredefined (Integer(theSetIdentifier)), false)
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function Contains(char as String) As Boolean
 		  #if targetMacOS
@@ -31,6 +41,26 @@ Inherits CFType
 		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag Enum, Name = PredefinedSet, Type = Integer, Flags = &h0
+		unused
+		  control = 1
+		  whitespace
+		  whitespaceAndNewline
+		  decimalDigit
+		  letter
+		  lowercaseLetter
+		  uppercaseLetter
+		  nonBase
+		  decomposable
+		  alphaNumeric
+		  punctuation
+		  capitalizedLetter
+		  symbol
+		  newline
+		illegal
+	#tag EndEnum
 
 
 	#tag ViewBehavior
