@@ -128,7 +128,7 @@ End
 		  
 		  outputList.DeleteAllRows
 		  
-		  dim tokenizer as new CFStringTokenizer (input, CFStringTokenizer.kCFStringTokenizerUnitWord, nil)
+		  dim tokenizer as new CFStringTokenizer (input, CFStringTokenizer.kUnitWord, nil)
 		  dim prevEnd as Integer = 1, foundAnotherWord as Boolean
 		  do
 		    tokenizer.AdvanceToNextToken

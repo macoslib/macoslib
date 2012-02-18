@@ -32,7 +32,7 @@ Inherits CFType
 	#tag Method, Flags = &h1000
 		Sub Constructor(input as CFStringRef, options as UInt32, locale as CFLocale)
 		  // Recommeded defaults:
-		  //   options: pass one of the kCFStringTokenizerUnit... constants
+		  //   options: pass one of the kUnit... constants
 		  //   locale: pass CoreFoundation.CFLocale.UserLocale()
 		  
 		  #if targetMacOS
@@ -77,6 +77,20 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GoToTokenAtIndex(idx as Integer) As Integer
+		  #if targetMacOS
+		    // Only available in 10.5 and later!
+		    soft declare function CFStringTokenizerGoToTokenAtIndex lib CarbonLib (handle as Ptr, idx as Integer) as Integer
+		    
+		    dim ttype as Integer = CFStringTokenizerGoToTokenAtIndex (self.Reference, idx)
+		    
+		    return ttype
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SetString(input as String)
 		  #if targetMacOS
 		    // Only available in 10.5 and later!
@@ -101,25 +115,46 @@ Inherits CFType
 	#tag EndProperty
 
 
-	#tag Constant, Name = kCFStringTokenizerAttributeLanguage, Type = Double, Dynamic = False, Default = \"&h20000", Scope = Public
+	#tag Constant, Name = kAttributeLanguage, Type = Double, Dynamic = False, Default = \"&h20000", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kCFStringTokenizerAttributeLatinTranscription, Type = Double, Dynamic = False, Default = \"&h1000", Scope = Public
+	#tag Constant, Name = kAttributeLatinTranscription, Type = Double, Dynamic = False, Default = \"&h1000", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kCFStringTokenizerUnitLineBreak, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag Constant, Name = kTokenHasDerivedSubTokensMask, Type = Double, Dynamic = False, Default = \"4", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kCFStringTokenizerUnitParagraph, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag Constant, Name = kTokenHasHasNumbersMask, Type = Double, Dynamic = False, Default = \"8", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kCFStringTokenizerUnitSentence, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag Constant, Name = kTokenHasNonLettersMask, Type = Double, Dynamic = False, Default = \"16", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kCFStringTokenizerUnitWord, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag Constant, Name = kTokenHasSubTokensMask, Type = Double, Dynamic = False, Default = \"2", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kCFStringTokenizerUnitWordBoundary, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag Constant, Name = kTokenIsCJWordMask, Type = Double, Dynamic = False, Default = \"32", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kTokenNone, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kTokenNormal, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kUnitLineBreak, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kUnitParagraph, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kUnitSentence, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kUnitWord, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kUnitWordBoundary, Type = Double, Dynamic = False, Default = \"4", Scope = Public
 	#tag EndConstant
 
 
@@ -149,12 +184,6 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="StringValue"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
