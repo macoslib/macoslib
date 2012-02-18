@@ -2,6 +2,8 @@
 Class CarbonPasteboard
 	#tag Method, Flags = &h0
 		Sub Clear()
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardClear lib "Carbon" (ref as Ptr) as Integer
 		  
 		  mLastError = PasteboardClear (mRef)
@@ -49,6 +51,8 @@ Class CarbonPasteboard
 
 	#tag Method, Flags = &h0
 		Function ItemFlavorData(itemID as Ptr, flavor as String) As MemoryBlock
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardCopyItemFlavorData lib "Carbon" (ref as Ptr, id as Ptr, type as CFStringRef, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
@@ -63,6 +67,8 @@ Class CarbonPasteboard
 
 	#tag Method, Flags = &h0
 		Function ItemFlavorFlags(itemID as Ptr, flavor as String) As UInt32
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardGetItemFlavorFlags lib "Carbon" (ref as Ptr, id as Ptr, type as CFStringRef, ByRef data as UInt32) as Integer
 		  
 		  dim d as UInt32
@@ -76,6 +82,8 @@ Class CarbonPasteboard
 
 	#tag Method, Flags = &h0
 		Function ItemFlavors(itemID as Ptr) As String()
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardCopyItemFlavors lib "Carbon" (ref as Ptr, id as Ptr, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
@@ -90,6 +98,8 @@ Class CarbonPasteboard
 
 	#tag Method, Flags = &h0
 		Function ItemIdentifier(index_1based as Integer) As Ptr
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardGetItemIdentifier lib "Carbon" (ref as Ptr, idx as Integer, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
@@ -97,6 +107,8 @@ Class CarbonPasteboard
 		  
 		  if mLastError = 0 then
 		    return d
+		  else
+		    return Ptr(index_1based)
 		  end if
 		End Function
 	#tag EndMethod
@@ -109,6 +121,8 @@ Class CarbonPasteboard
 
 	#tag Method, Flags = &h0
 		Function PasteLocation() As CFURL
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardCopyPasteLocation lib "Carbon" (ref as Ptr, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
@@ -122,7 +136,21 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PutItemFlavor(itemID as Ptr, flavor as String, data as MemoryBlock, flags as UInt32) As Boolean
+		  #pragma DisableBackgroundTasks
+		  
+		  declare function PasteboardPutItemFlavor lib "Carbon" (ref as Ptr, id as Ptr, flavor as CFStringRef, data as Ptr, flags as UInt32) as Integer
+		  
+		  mLastError = PasteboardPutItemFlavor (mRef, itemID, flavor, new CFData (data), flags)
+		  
+		  return mLastError = 0
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ResolvePromises()
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardResolvePromises lib "Carbon" (ref as Ptr) as Integer
 		  
 		  mLastError = PasteboardResolvePromises (mRef)
@@ -130,7 +158,21 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function SetPasteLocation(url as CFURL) As Boolean
+		  #pragma DisableBackgroundTasks
+		  
+		  declare function PasteboardSetPasteLocation lib "Carbon" (ref as Ptr, url as Ptr) as Integer
+		  
+		  mLastError = PasteboardSetPasteLocation (mRef, url.Reference)
+		  
+		  return mLastError = 0
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Synchronize(ByRef modified as Boolean, ByRef isOwn as Boolean)
+		  #pragma DisableBackgroundTasks
+		  
 		  declare function PasteboardSynchronize lib "Carbon" (ref as Ptr) as UInt32
 		  
 		  dim n as UInt32 = PasteboardSynchronize (mRef)
