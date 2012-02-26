@@ -2,7 +2,7 @@
 Class CGImageSource
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -43,6 +43,16 @@ Inherits CFType
 		    soft declare function CGImageSourceCreateImageAtIndex lib CarbonLib (isrc as Ptr, index as Integer, options as Ptr) as Ptr
 		    
 		    return new CGImage(CGImageSourceCreateImageAtIndex(me, index, nil), true)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MetaData(index as Integer) As CFDictionary
+		  #if TargetMacOS
+		    soft declare function CGImageSourceCopyPropertiesAtIndex lib CarbonLib (isrc as Ptr, index as Integer, options as Ptr) as Ptr
+		    
+		    return new CFDictionary(CGImageSourceCopyPropertiesAtIndex(me, index, nil), hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
