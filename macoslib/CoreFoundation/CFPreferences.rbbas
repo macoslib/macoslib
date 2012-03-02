@@ -76,6 +76,33 @@ Class CFPreferences
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function KeysForApp(appID As String) As String()
+		  dim theList() as String
+		  
+		  #if targetMacOS
+		    
+		    dim user as Ptr = CurrentUser
+		    dim host as Ptr = AnyHost
+		    if user = nil or host = nil then
+		      return theList
+		    end if
+		    
+		    declare function CFPreferencesCopyKeyList lib CarbonLib (applicationID as CFStringRef, userName as Ptr, hostName as Ptr) as Ptr
+		    
+		    dim p as Ptr = CFPreferencesCopyKeyList(appID, user, host)
+		    dim keyArray as new CFArray(p, true) // CFArray can deal with p=nil, so there's no need to check for it here
+		    for i as Integer = 0 to keyArray.Count - 1
+		      dim theValue as CFType = keyArray.CFValue(i)
+		      theList.Append CFString(theValue)
+		    next
+		    
+		  #endif
+		  
+		  return theList
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Sync() As Boolean
 		  #if targetMacOS
 		    soft declare function CFPreferencesAppSynchronize lib CarbonLib (applicationID as Ptr) as Boolean
