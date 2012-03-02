@@ -156,6 +156,19 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromFSRef(fsRef as MemoryBlock) As CFURL
+		  #if targetMacOS
+		    declare function CFURLCreateFromFSRef lib CarbonLib (allocator as Ptr, fsRef as Ptr) as Ptr
+		    
+		    const kCFAllocatorDefault = nil
+		    
+		    dim p as Ptr = CFURLCreateFromFSRef (kCFAllocatorDefault, fsRef)
+		    return new CFURL(p, CFType.hasOwnership)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromHFSPath(path as String, isDirectory as Boolean) As CFURL
 		  return CreateFromFilesystemPath(path, CFURL.HFSPathStyle, isDirectory)
 		End Function
@@ -213,7 +226,7 @@ Inherits CFType
 		          buffer.Size = 2*buffer.Size
 		        end if
 		      loop until buffer.Size > 65536
-		      return DefineEncoding(buffer.CString(0), Encodings.SystemDefault)
+		      return DefineEncoding(buffer.CString(0), Encodings.UTF8) // 29Feb12 - used to be SystemDefault, but that's not working with non-ASCII file CFURLs constructed from FolderItems (on Lion)
 		      
 		    else
 		      return ""
