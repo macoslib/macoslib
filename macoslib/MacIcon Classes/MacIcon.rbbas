@@ -93,7 +93,6 @@ Protected Class MacIcon
 		    return
 		  end if
 		  
-		  
 		  #if targetMacOS
 		    soft declare function QDBeginCGContext lib CarbonLib (port as Integer, ByRef context as Integer) as Integer
 		    soft declare sub CGContextSynchronize lib CarbonLib (context as Integer)
@@ -163,15 +162,22 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromFolderItem(f as FolderItem) As MacIcon
+		 Shared Function NewIconFromFolderItem(f as FolderItem, quick as Boolean = false) As MacIcon
 		  if not (f is nil) and f.Exists then
-		    dim fileRef as FSRef = FileManager.GetFSRefFromFolderItem(f)
-		    return NewIconFromFSRef (fileRef)
+		    if quick then
+		      if f.Directory then
+		        return NewIconFromOSInfo(kGenericFolderIcon)
+		      else
+		        return NewIconFromOSInfo(kUnknownFileType)
+		      end
+		    else
+		      dim fileRef as FSRef = FileManager.GetFSRefFromFolderItem(f)
+		      return NewIconFromFSRef (fileRef)
+		    end if
 		  end
 		  
-		  // fallback:
+		  // fallback, faster:
 		  return NewIconFromOSInfo(kUnknownFileType)
-		  
 		End Function
 	#tag EndMethod
 
