@@ -75,6 +75,20 @@ Protected Module LaunchServices
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function DisplayNameForURL(inURL as CFURL) As String
+		  #if targetMacOS
+		    declare function LSCopyDisplayNameForURL lib CarbonLib (inURL as Ptr, ByRef outDisplayName as CFStringRef) as Integer
+		    
+		    dim s as CFStringRef
+		    dim result as Integer = LSCopyDisplayNameForURL (inURL, s)
+		    if result = 0 then
+		      return s
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function FindApp(creator as OSType, bundleID as String, name as String) As FolderItem
 		  #if targetMacOS
 		    dim OSError as Integer
