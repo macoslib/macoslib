@@ -238,6 +238,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function MenuItemExamplesMenuLocalizedTextThemeColors() As Boolean Handles MenuItemExamplesMenuLocalizedTextThemeColors.Action
+			ThemeColorExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function NavigationServicesOpenExampleWindow() As Boolean Handles NavigationServicesOpenExampleWindow.Action
 			NavServicesParentWindow.Show
 			return true

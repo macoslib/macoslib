@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2011.04
+RBProjectVersion=2011.03
 MinIDEVersion=20070100
 Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false
@@ -341,6 +341,7 @@ Window=SystemImages;Examples/SystemImages.rbfrm;&h7E969020;&h4BD59C08;false
 Window=NSPasteboardExample;Examples/NSPasteboardExample.rbfrm;&h57E8BEDF;&h4BD59C08;false
 Window=CarbonPasteboardExample;Examples/CarbonPasteboardExample.rbfrm;&h1915007E;&h4BD59C08;false
 Window=StringTokenizerExample;Examples/StringTokenizerExample.rbfrm;&h44ABC266;&h4BD59C08;false
+Window=ThemeColorExample;Examples/ThemeColorExample.rbfrm;&h15281877;&h4BD59C08;false
 Folder=Window Menu;macoslib/Cocoa MenuItems/Window Menu;&hDAE5E07;&h678C5DB5;false
 Class=MenuItemWindowMenu;macoslib/Cocoa MenuItems/Window Menu/MenuItemWindowMenu.rbbas;&h329F663B;&hDAE5E07;false
 Class=MenuItemBringAllToFront;macoslib/Cocoa MenuItems/Window Menu/MenuItemBringAllToFront.rbbas;&h7EF10719;&hDAE5E07;false

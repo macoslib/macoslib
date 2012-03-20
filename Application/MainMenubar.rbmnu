@@ -1151,6 +1151,12 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
       End
+      Begin MenuItem MenuItemExamplesMenuLocalizedTextThemeColors
+         SpecialMenu = 0
+         Text = "Theme Colors"
+         Index = -2147483648
+         AutoEnable = True
+      End
    End
    Begin MenuItemWindowMenu WindowMenu
       SpecialMenu = 0
