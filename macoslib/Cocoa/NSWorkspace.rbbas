@@ -72,6 +72,16 @@ Class NSWorkspace
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function SelectFile(f as FolderItem) As Boolean
+		  #if targetCocoa
+		    declare function selectFile lib CocoaLib selector "selectFile:inFileViewerRootedAtPath:" (obj_id as Ptr, fullPath as CFStringRef, rootFullPath as CFStringRef) as Boolean
+		    
+		    return f <> nil and selectFile(sharedInstance, f.POSIXPath, "")
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function sharedInstance() As Ptr
 		  #if targetCocoa
