@@ -2,10 +2,10 @@
 Protected Module CFArrayExtension
 	#tag Method, Flags = &h0
 		Function CFStringRefValue(extends theArray as CFArray, index as Integer) As CFStringRef
-		  #if targetMacOS
-		    soft declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
-		    soft declare function CFStringGetTypeID lib CarbonLib () as UInt32
-		    soft declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		  #if TargetMacOS
+		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
+		    declare function CFStringGetTypeID lib CarbonLib () as UInt32
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
 		    
 		    dim p as Ptr = theArray.Value(index)
 		    if CFGetTypeID(p) = CFStringGetTypeID then
@@ -31,7 +31,7 @@ Protected Module CFArrayExtension
 
 	#tag Method, Flags = &h0
 		Function StringValues(extends theArray as CFArray) As String()
-		  #if targetMacOS
+		  #if TargetMacOS
 		    dim L() as String
 		    dim lastIndex as Integer = theArray.Count - 1
 		    for index as Integer = 0 to lastIndex

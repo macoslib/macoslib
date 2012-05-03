@@ -28,7 +28,7 @@ Implements CFPropertyList
 	#tag Method, Flags = &h1000
 		Sub Constructor(s as String)
 		  #if targetMacOS
-		    soft declare function CFStringCreateWithCString lib CarbonLib (alloc as Ptr, cStr as CString, encoding as Integer) as Ptr
+		    declare function CFStringCreateWithCString lib CarbonLib (alloc as Ptr, cStr as CString, encoding as Integer) as Ptr
 		    
 		    dim p as Ptr
 		    if Encoding(s) <> nil then
