@@ -63,6 +63,18 @@ Implements CFPropertyList
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(strings() as String)
+		  #if TargetMacOS
+		    dim cfstr() as CFString
+		    for each str as String in strings
+		      cfstr.Append str
+		    next
+		    self.Constructor (cfstr)
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Function DefaultCallbacks() As Ptr
 		  const kCFTypeArrayCallBacks = "kCFTypeArrayCallBacks"
