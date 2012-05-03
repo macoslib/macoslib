@@ -84,7 +84,7 @@ Class NotificationObserver
 		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
 		  
 		  
-		  #if targetCocoa
+		  #if TargetMacOS
 		    soft declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)

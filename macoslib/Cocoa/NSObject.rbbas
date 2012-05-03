@@ -2,7 +2,7 @@
 Class NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Allocate(NSClassName as String) As Ptr
-		  #if targetCocoa
+		  #if TargetMacOS
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		    
 		    return alloc(Cocoa.NSClassFromString(NSClassName))
@@ -15,7 +15,7 @@ Class NSObject
 
 	#tag Method, Flags = &h0
 		Sub Autorelease()
-		  #if targetCocoa
+		  #if TargetMacOS
 		    declare sub autorelease lib CocoaLib selector "autorelease" (id as Ptr)
 		    
 		    autorelease self.id
@@ -29,7 +29,7 @@ Class NSObject
 		  //of Cocoa class methods in Rb.
 		  
 		  
-		  #if targetCocoa
+		  #if TargetMacOS
 		    soft declare function klass lib CocoaLib selector "class" (id as Ptr) as Ptr
 		    
 		    if self._id <> nil then
@@ -64,7 +64,7 @@ Class NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function Initialize(obj_id as Ptr) As Ptr
-		  #if targetCocoa
+		  #if TargetMacOS
 		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
 		    
 		    return init(obj_id)
@@ -93,7 +93,7 @@ Class NSObject
 
 	#tag Method, Flags = &h0
 		Sub Release()
-		  #if targetCocoa
+		  #if TargetMacOS
 		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
 		    if self.id <> nil then
@@ -105,7 +105,7 @@ Class NSObject
 
 	#tag Method, Flags = &h0
 		Function Retain() As NSObject
-		  #if targetCocoa
+		  #if TargetMacOS
 		    declare function retain lib CocoaLib selector "retain" (id as Ptr) as Ptr
 		    
 		    if self.id <> nil then
@@ -123,7 +123,7 @@ Class NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
+			  #if TargetMacOS
 			    declare function description lib CocoaLib selector "description" (id as Ptr) as CFStringRef
 			    
 			    if self.id <> nil then

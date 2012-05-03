@@ -8,7 +8,7 @@ Class NSColorspace
 
 	#tag Method, Flags = &h0
 		 Shared Function DeviceRGBColorSpace() As NSColorspace
-		  #if targetCocoa
+		  #if TargetMacOS
 		    soft declare function deviceRGBColorSpace lib Cocoa selector "deviceRGBColorSpace" (class_id as Ptr) as Ptr
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
@@ -27,7 +27,7 @@ Class NSColorspace
 
 	#tag Method, Flags = &h0
 		 Shared Function sRGBColorSpace() As NSColorspace
-		  #if targetCocoa
+		  #if TargetMacOS
 		    soft declare function sRGBColorSpace lib Cocoa selector "sRGBColorSpace" (class_id as Ptr) as Ptr
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
@@ -46,7 +46,7 @@ Class NSColorspace
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
+			  #if TargetMacOS
 			    if me.id = nil then
 			      return ""
 			    end if
