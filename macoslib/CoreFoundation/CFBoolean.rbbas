@@ -69,10 +69,6 @@ Implements CFPropertyList
 	#tag EndMethod
 
 
-	#tag Constant, Name = ClassName, Type = String, Dynamic = False, Default = \"CFBoolean", Scope = Private
-	#tag EndConstant
-
-
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"

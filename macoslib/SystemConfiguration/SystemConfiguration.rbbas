@@ -1,16 +1,19 @@
-#tag Interface
-Interface CFPropertyList
-	#tag Method, Flags = &h0
-		Function Operator_Convert() As Ptr
-		  
-		End Function
-	#tag EndMethod
+#tag Module
+Protected Module SystemConfiguration
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function ErrorCode Lib Framework Alias "SCError" () As Integer
+	#tag EndExternalMethod
 
-	#tag Method, Flags = &h0
-		Function Reference() As Ptr
-		  
-		End Function
-	#tag EndMethod
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function ErrorMessage Lib Framework Alias "SCErrorString" (status as Integer) As CString
+	#tag EndExternalMethod
+
+
+	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.SystemConfiguration", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = Framework, Type = String, Dynamic = False, Default = \"SystemConfiguration.framework", Scope = Protected
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -48,5 +51,5 @@ Interface CFPropertyList
 			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Interface
-#tag EndInterface
+End Module
+#tag EndModule

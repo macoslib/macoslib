@@ -187,10 +187,6 @@ Implements CFPropertyList
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = ClassName, Type = String, Dynamic = False, Default = \"CFDictionary", Scope = Private
-	#tag EndConstant
-
-
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Count"
