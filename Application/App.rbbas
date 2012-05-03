@@ -305,6 +305,14 @@ Inherits Application
 		    // Try to register something with the Services API
 		    Cocoa.NSApplication.App.RegisterServices
 		    
+		    // Copy a file
+		    dim srcFile as FolderItem = App.ExecutableFile // let's copy our code file (we just need to use some file we know to exist)
+		    dim dstDir as FolderItem = SpecialFolder.Temporary
+		    dstDir.Child(srcFile.Name).Delete
+		    dim ok as Boolean
+		    ok = NSWorkspace.PerformCopy (srcFile.Parent, dstDir, Array(srcFile.Name))
+		    if not ok then break
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
