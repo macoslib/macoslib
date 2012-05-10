@@ -1,5 +1,175 @@
 #tag Class
 Class NSWorkspace
+	#tag Method, Flags = &h21
+		Private Sub handle_NSWorkspaceNotification(observer as NotificationObserver, notification as NSNotification)
+		  //Handle notifications, extract interesting value(s) and dispatch them to their respective event
+		  
+		  #pragma unused observer
+		  
+		  #if TargetMacOS
+		    dim userinfo as CoreFoundation.CFDictionary
+		    dim appl as Cocoa.NSRunningApplication
+		    dim locName as string
+		    dim url as CoreFoundation.CFURL
+		    
+		    declare function valueForKey lib CocoaLib selector "valueForKey:" (id as Ptr, key as CFStringRef) as Ptr //Access to NSDictionary for non-CFType values
+		    
+		    select case notification.Name
+		    case "NSWorkspaceWillLaunchApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceWillLaunchApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceDidLaunchApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceDidLaunchApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceDidTerminateApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceDidTerminateApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceSessionDidBecomeActiveNotification"
+		      RaiseEvent   NSWorkspaceSessionDidBecomeActiveNotification( notification )
+		      
+		      
+		    case "NSWorkspaceSessionDidResignActiveNotification"
+		      RaiseEvent   NSWorkspaceSessionDidResignActiveNotification( notification )
+		      
+		      
+		    case "NSWorkspaceDidHideApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceDidHideApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceDidUnhideApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceDidUnhideApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceDidActivateApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceDidActivateApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceDidDeactivateApplicationNotification"
+		      userinfo = notification.UserInfo
+		      if IsSnowLeopard then
+		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		      end if
+		      
+		      RaiseEvent   NSWorkspaceDidDeactivateApplicationNotification( notification, appl )
+		      
+		      
+		    case "NSWorkspaceDidRenameVolumeNotification"
+		      userinfo = notification.UserInfo
+		      dim oldLocName as string
+		      dim oldurl as CoreFoundation.CFURL
+		      
+		      if IsSnowLeopard then
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		        oldLocName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldLocalizedNameKey" ))).VariantValue
+		        oldurl = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldURLKey" ))))
+		      end if
+		      
+		      RaiseEvent  NSWorkspaceDidRenameVolumeNotification( notification, oldurl, oldLocName, url, locName )
+		      
+		      
+		    case "NSWorkspaceDidMountNotification"
+		      userinfo = notification.UserInfo
+		      
+		      if IsSnowLeopard then
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		      end if
+		      
+		      RaiseEvent  NSWorkspaceDidMountNotification( notification, url, locName )
+		      
+		      
+		    case "NSWorkspaceWillUnmountNotification"
+		      userinfo = notification.UserInfo
+		      
+		      if IsSnowLeopard then
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		      end if
+		      
+		      RaiseEvent  NSWorkspaceWillUnmountNotification( notification, url, locName )
+		      
+		      
+		    case "NSWorkspaceDidUnmountNotification"
+		      userinfo = notification.UserInfo
+		      
+		      if IsSnowLeopard then
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		      end if
+		      
+		      RaiseEvent  NSWorkspaceDidUnmountNotification( notification, url, locName )
+		      
+		      
+		    case "NSWorkspaceDidPerformFileOperationNotification"
+		      dim opNbr as Cocoa.NSNumber
+		      userinfo = notification.UserInfo
+		      opNbr = new NSNumber( valueForKey( userinfo, CFString( "NSOperationNumber" )), false )
+		      
+		      RaiseEvent   NSWorkspaceDidPerformFileOperationNotification( notification, opNbr.Int32Value )
+		      
+		      
+		    case "NSWorkspaceDidChangeFileLabelsNotification"
+		      RaiseEvent   NSWorkspaceDidChangeFileLabelsNotification( notification )
+		      
+		    case "NSWorkspaceActiveSpaceDidChangeNotification"
+		      RaiseEvent   NSWorkspaceActiveSpaceDidChangeNotification( notification )
+		      
+		    case "NSWorkspaceDidWakeNotification"
+		      RaiseEvent   NSWorkspaceDidWakeNotification( notification )
+		      
+		    case "NSWorkspaceWillPowerOffNotification"
+		      RaiseEvent   NSWorkspaceWillPowerOffNotification( notification )
+		      
+		    case "NSWorkspaceWillSleepNotification"
+		      RaiseEvent   NSWorkspaceWillSleepNotification( notification )
+		      
+		    case "NSWorkspaceScreensDidSleepNotification"
+		      RaiseEvent   NSWorkspaceScreensDidSleepNotification( notification )
+		      
+		    case "NSWorkspaceScreensDidWakeNotification"
+		      RaiseEvent   NSWorkspaceScreensDidWakeNotification( notification )
+		      
+		    else
+		      RaiseEvent   NSWorkspaceOtherNotification( notification )
+		    end select
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		 Shared Function IconForFile(f as FolderItem) As NSImage
 		  #if TargetMacOS
@@ -89,6 +259,26 @@ Class NSWorkspace
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RegisterNotifications()
+		  //Register NSWorkspace notifications
+		  
+		  #if TargetMacOS
+		    declare function notificationCenter lib CocoaLib selector "notificationCenter" (id as Ptr) as Ptr
+		    
+		    observer_NSWorkspaceNotification = new NotificationObserver
+		    
+		    AddHandler  observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_NSWorkspaceNotification
+		    
+		    observer_NSWorkspaceNotification.pNotificationCenter = notificationCenter( self.sharedInstance )
+		    observer_NSWorkspaceNotification.Register   ""  //Register all notifications
+		    
+		    System.Log   System.LogLevelError, "NSWorkspace: registration done"
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function RunningApplications() As NSRunningApplication()
 		  #if TargetMacOS
 		    declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
@@ -150,12 +340,115 @@ Class NSWorkspace
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceActiveSpaceDidChangeNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidActivateApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidChangeFileLabelsNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidDeactivateApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidHideApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidLaunchApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidMountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidPerformFileOperationNotification(notification as NSNotification, operationID as integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidRenameVolumeNotification(notification as NSNotification, oldURL as CoreFoundation.CFURL, oldLocalizedName as string, newURL as CoreFoundation.CFURL, newLocalizedName as string)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidTerminateApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidUnhideApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidUnmountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceDidWakeNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceOtherNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceScreensDidSleepNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceScreensDidWakeNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceSessionDidBecomeActiveNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceSessionDidResignActiveNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceWillLaunchApplicationNotification(notification as NSNotification, theApplication as NSRunningApplication)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceWillPowerOffNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceWillSleepNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NSWorkspaceWillUnmountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+	#tag EndHook
+
+
+	#tag Note, Name = Notifications
+		https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html
+		
+		On systems running Leopard (10.5) or below, some parameters passed to the events may be null, e.g. URLs, application.
+		
+	#tag EndNote
+
+
+	#tag Property, Flags = &h21
+		Private observer_NSWorkspaceNotification As NotificationObserver
+	#tag EndProperty
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
+			Type="Integer"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

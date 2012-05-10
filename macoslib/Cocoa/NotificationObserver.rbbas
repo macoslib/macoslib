@@ -38,6 +38,16 @@ Class NotificationObserver
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function DefaultCenter() As Ptr
+		  #if targetMacOS
+		    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
+		    
+		    return defaultCenter(Cocoa.NSClassFromString("NSNotificationCenter"))
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  self.Unregister
@@ -68,6 +78,7 @@ Class NotificationObserver
 		    dim observer as NotificationObserver = NotificationObserver(ref.Value)
 		    observer.HandleNotification new NSNotification(notification)
 		  else
+		    break
 		    //something might be wrong.
 		  end if
 		End Sub
@@ -112,16 +123,6 @@ Class NotificationObserver
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function NotificationCenter() As Ptr
-		  #if targetMacOS
-		    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
-		    
-		    return defaultCenter(Cocoa.NSClassFromString("NSNotificationCenter"))
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Shared Function ObjectMap() As Dictionary
 		  static d as new Dictionary
 		  return d
@@ -130,6 +131,8 @@ Class NotificationObserver
 
 	#tag Method, Flags = &h0
 		Sub Register(notificationName as String, notificationSender as Ptr = nil)
+		  //Register a notification. Pass empty string to register all notifications
+		  
 		  #if targetMacOS
 		    declare sub addObserver lib CocoaLib selector "addObserver:selector:name:object:" (obj_id as Ptr, notificationObserver as Ptr, notificationSelector as Ptr, notificationName as CFStringRef, notificationSender as Ptr)
 		    
@@ -138,7 +141,11 @@ Class NotificationObserver
 		      notificationName = s
 		    end if
 		    
-		    addObserver(NotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), notificationName, notificationSender)
+		    if notificationName<>"" then
+		      addObserver(pNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), notificationName, notificationSender)
+		    else
+		      addObserver(pNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), nil, notificationSender)
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -148,7 +155,7 @@ Class NotificationObserver
 		  #if targetMacOS
 		    declare sub removeObserver lib CocoaLib selector "removeObserver:" (obj_id as Ptr, notificationObserver as Ptr)
 		    
-		    removeObserver(NotificationCenter, self.Observer)
+		    removeObserver(pNotificationCenter, self.Observer)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -167,8 +174,35 @@ Class NotificationObserver
 
 
 	#tag Property, Flags = &h21
+		Private mpNotificationCenter As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private Observer As Ptr
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
+			    
+			    if mpNotificationCenter = nil then  //Use default center if none defined
+			      mpNotificationCenter = defaultCenter(Cocoa.NSClassFromString("NSNotificationCenter"))
+			    end if
+			    
+			    return mpNotificationCenter
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mpNotificationCenter = value
+			End Set
+		#tag EndSetter
+		pNotificationCenter As Ptr
+	#tag EndComputedProperty
 
 
 	#tag Constant, Name = NotificationSelector, Type = String, Dynamic = False, Default = \"macoslibDispatchNotification:", Scope = Private

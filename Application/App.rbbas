@@ -102,6 +102,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSWorkspaceNotifications() As Boolean Handles CocoaNSWorkspaceNotifications.Action
+			NSWorkspaceEventsExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaSystemImages() As Boolean Handles CocoaSystemImages.Action
 			SystemImages.Show
 			return true
