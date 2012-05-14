@@ -171,6 +171,18 @@ Class NSWorkspace
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Sub HideOtherApplications()
+		  //Hides all applications other than the sender.
+		  
+		  #if TargetCocoa
+		    declare sub hideOtherApplications lib CocoaLib Selector "hideOtherApplications" (id as Ptr)
+		    
+		    hideOtherApplications( sharedInstance )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function IconForFile(f as FolderItem) As NSImage
 		  #if TargetMacOS
 		    declare function iconForFile lib CocoaLib selector "iconForFile:" (obj_id as Ptr, fullPath as CFStringRef) as Ptr
@@ -182,6 +194,22 @@ Class NSWorkspace
 		      p = nil
 		    end if
 		    return new NSImage(p)
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function IconForFile(f as FolderItem, theIcon as NSImage, options as integer = 0) As Boolean
+		  #if TargetMacOS
+		    declare function setIconForFile lib CocoaLib selector "setIcon:forFile:options:" (obj_id as Ptr, img as Ptr, fullPath as CFStringRef, opt as integer) as boolean
+		    
+		    if f=nil or theIcon=nil then
+		      return false
+		    end if
+		    
+		    return   setIconForFile(sharedInstance, theIcon, f.POSIXPath, options)
+		    
 		  #endif
 		  
 		End Function
@@ -214,9 +242,23 @@ Class NSWorkspace
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function PerformDestroy(sourceDir as FolderItem, itemNames() as String) As Boolean
+		  static op as CFStringRef = Cocoa.StringConstant ("NSWorkspaceDestroyOperation")
+		  return performOperation (sourceDir, nil, itemNames, op)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function PerformMove(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
 		  static op as CFStringRef = Cocoa.StringConstant ("NSWorkspaceMoveOperation")
 		  return performOperation (sourceDir, destDir, itemNames, op)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function PerformMoveToTrash(sourceDir as FolderItem, itemNames() as String) As Boolean
+		  static op as CFStringRef = Cocoa.StringConstant ("NSWorkspaceRecycleOperation")
+		  return performOperation (sourceDir, nil, itemNames, op)
 		End Function
 	#tag EndMethod
 
@@ -324,6 +366,38 @@ Class NSWorkspace
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function UnmountAndEjectDevice(device as FolderItem) As Boolean
+		  
+		  #if TargetMacOS
+		    declare function unmountAndEjectDeviceAtPath lib CocoaLib selector "unmountAndEjectDeviceAtPath:" (ws as Ptr, path as CFStringRef) as Boolean
+		    
+		    if device=nil then
+		      return false
+		    end if
+		    
+		    return  unmountAndEjectDeviceAtPath( sharedInstance, device.POSIXPath )
+		  #endif
+		  
+		  //We may use unmountAndEjectDeviceAtURL:error: for Snow Leopard and beyond to get the error code
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function URLForApplicationWithBundleIdentifier(bundleIdentifier as String) As CFURL
+		  
+		  #if TargetMacOS
+		    dim url as CFURL
+		    
+		    declare function URLForApplicationWithBundleIdentifier lib CocoaLib selector "URLForApplicationWithBundleIdentifier:" (ws as Ptr, id as CFStringRef) as Ptr
+		    
+		    url = new CFURL( URLForApplicationWithBundleIdentifier( sharedInstance, bundleIdentifier ), false)
+		    
+		    return  url
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function URLForAppToOpenURL(url as CFURL) As CFURL
 		  #if TargetMacOS
 		    declare function getapp lib CocoaLib selector "URLForApplicationToOpenURL:" (id as Ptr, url as Ptr) as Ptr
@@ -335,6 +409,21 @@ Class NSWorkspace
 		        return new CFURL (p, false)
 		      end if
 		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function UTIConformsTo(UTI as string, ConformsTo as String) As Boolean
+		  
+		  #if TargetMacOS
+		    declare function type_conformsToType lib CocoaLib selector "type:conformsToType:" (ws as Ptr, UTI1 as CFStringRef, UTI2 as CFStringRef) as Boolean
+		    
+		    if UTI="" OR ConformsTo="" then
+		      return  false
+		    end if
+		    
+		    return   type_conformsToType( sharedInstance, UTI, ConformsTo )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -433,13 +522,19 @@ Class NSWorkspace
 		https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html
 		
 		On systems running Leopard (10.5) or below, some parameters passed to the events may be null, e.g. URLs, application.
-		
 	#tag EndNote
 
 
 	#tag Property, Flags = &h21
 		Private observer_NSWorkspaceNotification As NotificationObserver
 	#tag EndProperty
+
+
+	#tag Constant, Name = NSExclude10_4ElementsIconCreationOption, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSExcludeQuickDrawElementsIconCreationOption, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior
