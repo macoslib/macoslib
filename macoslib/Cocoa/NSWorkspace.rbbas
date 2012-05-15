@@ -383,14 +383,14 @@ Class NSWorkspace
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function URLForApplicationWithBundleIdentifier(bundleIdentifier as String) As CFURL
+		 Shared Function URLForApplicationWithBundleIdentifier(bundleIdentifier as String) As NSURL
 		  
 		  #if TargetMacOS
-		    dim url as CFURL
+		    dim url as NSURL
 		    
 		    declare function URLForApplicationWithBundleIdentifier lib CocoaLib selector "URLForApplicationWithBundleIdentifier:" (ws as Ptr, id as CFStringRef) as Ptr
 		    
-		    url = new CFURL( URLForApplicationWithBundleIdentifier( sharedInstance, bundleIdentifier ), false)
+		    url = new NSURL( URLForApplicationWithBundleIdentifier( sharedInstance, bundleIdentifier ), false)
 		    
 		    return  url
 		  #endif

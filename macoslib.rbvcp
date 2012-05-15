@@ -202,6 +202,7 @@ Class=NSTableHeaderView;macoslib/Cocoa/NSTableHeaderView.rbbas;&h55263436;&h36D6
 Class=NSTableViewDataSource;macoslib/Cocoa/NSTableViewDataSource.rbbas;&h3F2E328C;&h36D6C6CC;false
 Class=NSText;macoslib/Cocoa/NSText.rbbas;&h363511D5;&h36D6C6CC;false
 Class=NSTimeZone;macoslib/Cocoa/NSTimeZone.rbbas;&h7B76DE6C;&h36D6C6CC;false
+Class=NSURL;macoslib/Cocoa/NSURL.rbbas;&h485D4086;&h36D6C6CC;false
 Class=NSValue;macoslib/Cocoa/NSValue.rbbas;&h2BA8F3FB;&h36D6C6CC;false
 Class=NSWorkspace;macoslib/Cocoa/NSWorkspace.rbbas;&h298133CF;&h36D6C6CC;false
 Window=NSLevelIndicatorWindow;Examples/NSLevelIndicatorWindow.rbfrm;&h1E433500;&h4BD59C08;false
