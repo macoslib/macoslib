@@ -34,9 +34,45 @@ Inherits CFString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(s as String)
-		  me.Constructor
-		  me.Append s
+		Sub Constructor(s as string)
+		  //15% faster than previous implementation (running Cocoa)
+		  
+		  declare function CFStringCreateMutableCopy Lib CarbonLib (alloc as Ptr, maxLength as Integer, theString as CFStringRef ) as Ptr
+		  
+		  dim theRef as Ptr
+		  theRef = CFStringCreateMutableCopy( nil, 0, s )
+		  super.Constructor   theRef, true
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub InsertString(StringToInsert as CFStringRef, AtIndex as integer)
+		  //Warning: this is very slow (3x) compared to pure RB code, at least on Cocoa
+		  
+		  #if TargetMacOS
+		    soft declare sub CFStringInsert lib CarbonLib ( theString as Ptr, idx as integer, insertedStr as CFStringRef )
+		    
+		    CFStringInsert   me.Reference, AtIndex, StringToInsert
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub NormalizeUnicode(form as String)
+		  
+		  #if TargetMacOS
+		    static forms() as string = Array( "NFD", "NFKD", "NFC", "NFKC" )
+		    
+		    declare sub CFStringNormalize Lib CarbonLib (strg as Ptr, form as integer)
+		    
+		    dim normidx as integer = forms.IndexOf( form )
+		    
+		    if normidx<>-1 then
+		      CFStringNormalize( me.Reference, normidx )
+		      
+		    end if
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -68,6 +104,27 @@ Inherits CFString
 		    if systemLocale <> 0 then
 		      CFStringUppercase me.Reference, systemLocale
 		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TrimString(StringToDelete as CFStringRef)
+		  #if TargetMacOS
+		    soft declare sub CFStringTrim lib CarbonLib ( theString as Ptr, trimString as CFStringRef )
+		    
+		    CFStringTrim  me.Reference, StringToDelete
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TrimWhitespace()
+		  #if TargetMacOS
+		    soft declare sub CFStringTrimWhitespace lib CarbonLib ( theString as Ptr )
+		    
+		    CFStringTrimWhitespace   me.Reference
+		    
 		  #endif
 		End Sub
 	#tag EndMethod

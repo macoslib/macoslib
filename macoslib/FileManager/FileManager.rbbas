@@ -13,7 +13,7 @@ Module FileManager
 
 	#tag Method, Flags = &h0
 		Function FSRef(extends f as FolderItem) As FSRef
-		  // This is a renamed function from older MacOSLib versions. It used to be called "MacFSRef",
+		  //# This is a renamed function from older MacOSLib versions. It used to be called "MacFSRef",
 		  // but this name is now provided by RB's framework since REAL Studio 2010r5.
 		  
 		  return GetFSRefFromFolderItem (f)
@@ -210,12 +210,8 @@ Module FileManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsVolumeCaseSensitive(f as FolderItem) As Boolean
-		  if f is nil then
-		    dim e as new NilObjectException
-		    e.Message = CurrentMethodName + ": parameter f is nil."
-		    raise e
-		  end if
+		Function IsVolumeCaseSensitive(extends f as FolderItem) As Boolean
+		  //# Indicates if the volume on which f resides is case sensitive
 		  
 		  #if targetMacOS
 		    soft declare function FSGetVolumeParms lib CarbonLib (volume as Int16, ByRef buffer as GetVolParmsInfoBuffer, bufferSize as Integer) as Integer
@@ -234,7 +230,7 @@ Module FileManager
 
 	#tag Method, Flags = &h0
 		Function NativePath(extends f as FolderItem) As String
-		  // This gives a path that fits what the OS likes - i.e. a POSIX Path on Mac and Linux
+		  //# This gives a path that fits what the OS likes - i.e. a POSIX Path on Mac and Linux
 		  
 		  #if TargetMacOS
 		    return f.POSIXPath
@@ -247,9 +243,9 @@ Module FileManager
 
 	#tag Method, Flags = &h0
 		Function POSIXPath(extends f as FolderItem) As String
-		  // Returns a POSIX path (such as "/usr/bin/ls") on OS X and Linux.
-		  // NOT working on Windows because Windows does not use POSIX paths!
-		  // Consider calling NativePath instead if you need a low level path that works on all platforms
+		  //# Returns a POSIX path (such as "/usr/bin/ls") on OS X and Linux.
+		  //@ NOT working on Windows because Windows does not use POSIX paths!
+		  //@ Consider calling NativePath instead if you need a low level path that works on all platforms
 		  
 		  #if TargetMacOS
 		    dim url as CFURL = CFURL.CreateFromHFSPath(f.AbsolutePath, f.Directory)

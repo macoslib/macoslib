@@ -49,11 +49,10 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    soft declare function CFDataGetLength lib CarbonLib (theData as Ptr) as Integer
 			    soft declare sub CFDataGetBytes lib CarbonLib (theData as Ptr, range as CFRange, buffer as Ptr)
 			    
 			    if not ( self = nil ) then
-			      dim dataLength as Integer = CFDataGetLength(me.Reference)
+			      dim dataLength as Integer = me.Length
 			      if dataLength > 0 then
 			        dim m as new MemoryBlock(dataLength)
 			        dim range as CFRange = CFRangeMake(0, dataLength)
@@ -67,6 +66,19 @@ Implements CFPropertyList
 			End Get
 		#tag EndGetter
 		Data As MemoryBlock
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    soft declare function CFDataGetLength lib CarbonLib (theData as Ptr) as Integer
+			    
+			    return  CFDataGetLength( me.Reference )
+			  #endif
+			End Get
+		#tag EndGetter
+		Length As Integer
 	#tag EndComputedProperty
 
 

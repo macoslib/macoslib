@@ -19,6 +19,38 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromFile(f as FolderItem) As String
+		  
+		  #if TargetMacOS
+		    soft declare function LSCopyItemAttribute lib "Carbon.framework" ( inItem as ptr, inRoles as UInt32, inAttributeName as CFStringRef, byref outValue as integer) as integer
+		    soft declare function CFStringGetCString lib "Carbon" (ref as integer, char as ptr, size as integer, encoding as UInt32) as boolean
+		    soft declare sub CFRelease lib "Carbon" (obj as integer)
+		    
+		    const kLSItemContentType = "LSItemContentType"
+		    const kLSRoleAll = &hFFFFFFFF
+		    const kCFStringEncodingUTF8 = &h08000100
+		    
+		    dim outRef as integer
+		    dim s as string
+		    dim mb as MemoryBlock
+		    dim err as integer = LSCopyItemAttribute( f.FSRef, kLSRoleAll, kLSItemContentType, outRef )
+		    
+		    if err=0 then
+		      mb = New MemoryBlock( 512 )
+		      if CFStringGetCString( outRef, mb, mb.size, kCFStringEncodingUTF8 ) then
+		        s = mb.CString( 0 )
+		      end if
+		      
+		      CFRelease   outRef
+		      
+		    end if
+		    
+		    return  s
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromMIMEType(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
 		    return CreateUTI(tag, UTTagClassMIMEType, conformsTo)
@@ -230,8 +262,6 @@ Protected Class UTI
 		implemented.
 		
 		dim item as UTI = "public.data"
-		
-		
 	#tag EndNote
 
 
@@ -259,6 +289,7 @@ Protected Class UTI
 			Name="Description"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

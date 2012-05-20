@@ -45,6 +45,32 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CreateArrayWithFindResults(substring as CFStringRef, options as integer = 0, optional range as CFRange) As CFArray
+		  #if TargetMacOS
+		    soft declare function CFStringCreateArrayWithFindResults lib CarbonLib (alloc as Ptr, theString as Ptr, stringToFind as CFStringRef, range as CFRange, options as integer) as Ptr
+		    
+		    dim searchRange as CFRange
+		    dim result as Ptr
+		    
+		    if range.location=0 AND range.length=0 then //Use full range if none specified
+		      searchRange = CFRangeMake( 0, me.Length )
+		    else
+		      searchRange = range
+		    end if
+		    
+		    result = CFStringCreateArrayWithFindResults( nil, me.Reference, substring, searchRange, options )
+		    
+		    if result<>nil then
+		      return   new CFArray( result, true )
+		    else
+		      return   nil
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As String
 		  return self.StringValue
 		End Function
@@ -56,11 +82,67 @@ Implements CFPropertyList
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function StringCompareWithOptions(stringToCompare as CFStringRef, options as integer = 0) As integer
+		  #if TargetMacOS
+		    soft declare function CFStringCompareWithOptions lib CarbonLib (string1 as Ptr, string2 as CFStringRef, range as CFRange, options as integer) as integer
+		    
+		    return  CFStringCompareWithOptions( me.Reference, stringToCompare, CFRangeMake( 0, me.Length ), options )
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StringFindWithOptions(substring as CFStringRef, options as integer = 0, optional range as CFRange) As CFRange
+		  #if TargetMacOS
+		    soft declare function CFStringFindWithOptions lib CarbonLib (theString as Ptr, stringToFind as CFStringRef, rangeToSearch as CFRange, searchOptions as integer, byref result as CFRange) as Boolean
+		    
+		    dim searchRange as CFRange
+		    dim result as CFRange
+		    dim found as Boolean
+		    
+		    if range.location=0 AND range.length=0 then //Use full range if none specified
+		      searchRange = CFRangeMake( 0, me.Length )
+		    else
+		      searchRange = range
+		    end if
+		    
+		    found = CFStringFindWithOptions( me.Reference, substring, searchRange, options, result )
+		    
+		    if found then
+		      return   result
+		    else
+		      result.location = 0
+		      result.length = 0
+		      return  result
+		    end if
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = Note
 		This is an alternative to CFStringRef.
 	#tag EndNote
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    soft declare function CFStringGetLength lib CarbonLib (theString as Ptr) as integer
+			    
+			    return  CFStringGetLength( me.Reference )
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		Length As Integer
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

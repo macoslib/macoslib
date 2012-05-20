@@ -3,13 +3,6 @@ Class NSData
 Inherits CFData
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Count"
-			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
-			InheritedFrom="CFArray"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"

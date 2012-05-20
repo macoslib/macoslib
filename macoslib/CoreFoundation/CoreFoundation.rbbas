@@ -667,6 +667,36 @@ Module CoreFoundation
 	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.CoreFoundation", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = kCFCompareAnchored, Type = Double, Dynamic = False, Default = \"8", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareBackwards, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareCaseInsensitive, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareDiacriticInsensitive, Type = Double, Dynamic = False, Default = \"128", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareForcedOrdering, Type = Double, Dynamic = False, Default = \"512", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareLikeFinder, Type = Double, Dynamic = False, Default = \"881", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareLocalized, Type = Double, Dynamic = False, Default = \"32", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareNonliteral, Type = Double, Dynamic = False, Default = \"16", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareNumerically, Type = Double, Dynamic = False, Default = \"64", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kCFCompareWidthInsensitive, Type = Double, Dynamic = False, Default = \"256", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = kCFPropertyListBinaryFormat_v1_0, Type = Double, Dynamic = False, Default = \"200", Scope = Public
 	#tag EndConstant
 

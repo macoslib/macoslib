@@ -135,6 +135,13 @@ Protected Module Cocoa
 		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h0
+		Function NSString(ImmutableString as String) As NSString
+		  
+		  return   NSString.InitFromString( ImmutableString )
+		End Function
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h0
 		Declare Function NSStringFromClass Lib CocoaLib (aClass as Ptr) As CFStringRef
 	#tag EndExternalMethod

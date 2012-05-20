@@ -23,7 +23,6 @@ Inherits Timer
 		
 		This is only needed for RB versions released before July 2009, as
 		later versions auto-create an autorelease pool for every Thread.
-		
 	#tag EndNote
 
 
