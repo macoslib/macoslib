@@ -41,6 +41,34 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As Dictionary
+		  //# Convert the NSRunningApplication to a RS Dictionary
+		  
+		  dim dict as new Dictionary
+		  
+		  dict.Value( "Localized Name" ) = me.LocalizedName
+		  dict.Value( "NSRunningApplication object" ) = me
+		  'dict.Value( "BundleIdentifier" ) = me.BundleIdentifier
+		  
+		  return  dict
+		  
+		End Function
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function CFBundleIdentifier lib CocoaLib selector "CFBundleIdentifier" (obj_id as Ptr) as Ptr
+			    
+			    return RetainedStringValue( CFBundleIdentifier(self) )
+			  #endif
+			End Get
+		#tag EndGetter
+		BundleIdentifier As String
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

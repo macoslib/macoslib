@@ -73,6 +73,21 @@ End
 		  point.y = self.Height - 64.0 - image.Size.height
 		  image.Draw point, NSImage.NSComposite.SourceOver
 		  
+		  'dim pict as Picture
+		  'dim cgi as CGImage
+		  'dim ctx as new CGContextGraphicsPort( g )
+		  'cgi = image.MakeCGImage
+		  '
+		  ''dim context as new CGContextGraphicsPort( p.Graphics )
+		  '
+		  'report   "Alpha info:", cgi.GetAlphaInfo
+		  '
+		  ''ctx.DrawImage   cgi, CGRectMake( g.Width\2 - 256, 128, 32, 32 )
+		  ''ctx.Flush
+		  '
+		  'pict = image
+		  'g.DrawPicture   pict, (g.Width - pict.width)/2, 128
+		  
 		End Sub
 	#tag EndEvent
 

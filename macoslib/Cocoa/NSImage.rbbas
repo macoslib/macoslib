@@ -3,7 +3,8 @@ Class NSImage
 Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Advanced() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameAdvanced"))
+		  dim sym as string = ResolveSymbol("NSImageNameAdvanced")
+		  return LoadByName( sym )
 		End Function
 	#tag EndMethod
 
@@ -51,6 +52,25 @@ Inherits NSObject
 		    declare function copyWithZone lib CocoaLib selector "copyWithZone:" (obj_id as Ptr, zone as Ptr) as Ptr
 		    
 		    return new NSImage(copyWithZone(self, nil))
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPicture(pict as Picture) As NSImage
+		  //To create an NSimage from a REALbasic Picture, create a CGImage from the Picture, then make an NSImage.
+		  
+		  #if TargetMacOS
+		    dim cg_image as CGImage = CGImage.NewCGImage( pict )
+		    
+		    if cg_image<>nil then
+		      dim nsimg as NSImage = cg_image.MakeNSImage
+		      
+		      return   nsimg
+		    else
+		      return nil
+		    end if
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -154,18 +174,41 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadByName(name as String) As NSImage
+		 Shared Function LoadByNameWithSymbolResolution(name as String) As NSImage
+		  dim sym as string = ResolveSymbol( name )
+		  return LoadByName( sym )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function LoadByName__(name as String) As NSImage
 		  dim cfName as CFStringRef = name
 		  return LoadByName(cfName)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MakeCGImage() As CGImage
+		Function MakeCGImage(proposedWidth as double = 0.0, proposedHeight as double = 0.0) As CGImage
 		  #if targetMacOS
-		    declare function CGImageForProposedRect lib CocoaLib selector "CGImageForProposedRect:context:hints:" (obj_id as Ptr, proposedDestRect as Ptr, referenceContext as Ptr, hints as Ptr) as Ptr
+		    declare function CGImageForProposedRect lib CocoaLib selector "CGImageForProposedRect:context:hints:" (obj_id as Ptr, byref proposedDestRect as NSRect, referenceContext as Ptr, hints as Ptr) as Ptr
 		    
-		    dim imagePtr as Ptr = CGImageForProposedRect(self, nil, nil, nil)
+		    dim r as NSRect
+		    dim s as NSSize = me.Size
+		    
+		    //Set default size
+		    r.w = s.width
+		    r.h = s.height
+		    
+		    //Overwrite size if given
+		    if proposedWidth>0.0 then
+		      r.w = proposedWidth
+		    end if
+		    
+		    if proposedHeight>0.0 then
+		      r.h = proposedHeight
+		    end if
+		    
+		    dim imagePtr as Ptr = CGImageForProposedRect(self, r, nil, nil)
 		    if imagePtr <> nil then
 		      return new CGImage(imagePtr, not CFType.hasOwnership)
 		    else
@@ -205,6 +248,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As Picture
+		  //Given an NSImage, you can convert it to a REALbasic Picture object by first converting to a CGimage, then to a Picture.
+		  
+		  #if TargetMacOS
+		    
+		    dim cg_image as CGImage = me.MakeCGImage
+		    
+		    if cg_image<>nil then
+		      dim p as Picture = cg_image.MakePicture
+		      return   p
+		      
+		    else
+		      return  nil
+		      
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function PreferencesGeneral() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNamePreferencesGeneral"))
 		End Function
@@ -212,7 +275,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function ResolveSymbol(symbolName as String) As CFStringRef
-		  dim b as CFBundle = CFBundle.NewCFBundleFromID(Cocoa.BundleID)
+		  static b as CFBundle = CFBundle.NewCFBundleFromID(Cocoa.BundleID)
 		  if b <> nil then
 		    return b.StringPointerRetained(symbolName)
 		    

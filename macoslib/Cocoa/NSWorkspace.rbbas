@@ -1,6 +1,18 @@
 #tag Class
 Class NSWorkspace
 	#tag Method, Flags = &h21
+		Private Sub handle_globalNSWorkspaceNotification(observer as NotificationObserver, notification as NSNotification)
+		  //Handle notifications, extract interesting value(s) and dispatch them to their respective event
+		  
+		  #pragma unused observer
+		  
+		  #if TargetMacOS
+		    RaiseEvent   globalNSWorkspaceNotification( notification )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub handle_NSWorkspaceNotification(observer as NotificationObserver, notification as NSNotification)
 		  //Handle notifications, extract interesting value(s) and dispatch them to their respective event
 		  
@@ -301,20 +313,28 @@ Class NSWorkspace
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RegisterNotifications()
-		  //Register NSWorkspace notifications
+		Sub RegisterNotifications(options as integer = 0)
+		  //# Register NSWorkspace notifications
+		  
+		  //@ Options:
+		  //@    0: each event is declared separately. The NSNotification is passed to the events along with the extracted interesting data
+		  //@    1: all notifications are sent to event globalNSWorkspaceNotification
 		  
 		  #if TargetMacOS
 		    declare function notificationCenter lib CocoaLib selector "notificationCenter" (id as Ptr) as Ptr
 		    
 		    observer_NSWorkspaceNotification = new NotificationObserver
 		    
-		    AddHandler  observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_NSWorkspaceNotification
+		    select case options
+		    case 0  //Register an event for each notification
+		      AddHandler  observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_NSWorkspaceNotification
+		    case 1  //All notifications are sent to globalNSWorkspaceNotification
+		      AddHandler  observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_globalNSWorkspaceNotification
+		    end select
 		    
 		    observer_NSWorkspaceNotification.pNotificationCenter = notificationCenter( self.sharedInstance )
 		    observer_NSWorkspaceNotification.Register   ""  //Register all notifications
 		    
-		    System.Log   System.LogLevelError, "NSWorkspace: registration done"
 		  #endif
 		  
 		End Sub
@@ -428,6 +448,10 @@ Class NSWorkspace
 		End Function
 	#tag EndMethod
 
+
+	#tag Hook, Flags = &h0
+		Event globalNSWorkspaceNotification(notification as NSNotification)
+	#tag EndHook
 
 	#tag Hook, Flags = &h0
 		Event NSWorkspaceActiveSpaceDidChangeNotification(notification as NSNotification)

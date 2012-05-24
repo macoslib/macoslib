@@ -883,6 +883,31 @@ Begin Menu MainMenubar
       Text = "#MenuItemExamplesMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Begin MenuItem ConvenienceMethodsMenu
+         SpecialMenu = 0
+         Text = "Convenience Extensions"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem StringExtensionsMenu
+            SpecialMenu = 0
+            Text = "Strings and Unicode Extensions"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem SystemIconsMenuItem
+            SpecialMenu = 0
+            Text = "System Icons Extension"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
+      Begin MenuItem UntitledSeparator3
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+      End
       Begin MenuItem ExamplesCocoa
          SpecialMenu = 0
          Text = "Cocoa"

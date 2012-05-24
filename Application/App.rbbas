@@ -17,6 +17,8 @@ Inherits Application
 		Sub Open()
 		  Cocoa.Initialize
 		  
+		  CustomWorkspaceEvents.Register
+		  
 		End Sub
 	#tag EndEvent
 
@@ -273,6 +275,23 @@ Inherits Application
 		Function QTKitQTMovieView() As Boolean Handles QTKitQTMovieView.Action
 			QTMovieViewExample.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function StringExtensionsMenu() As Boolean Handles StringExtensionsMenu.Action
+			StringExtensionsExample.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function SystemIconsMenuItem() As Boolean Handles SystemIconsMenuItem.Action
+			SystemIconsExampleWindow.Show
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 

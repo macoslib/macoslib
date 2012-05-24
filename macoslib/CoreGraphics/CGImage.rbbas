@@ -154,6 +154,16 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetAlphaInfo() As integer
+		  
+		  soft declare function CGImageGetAlphaInfo lib CarbonLib ( image as Ptr ) as integer
+		  
+		  return  CGImageGetAlphaInfo( me )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MakeNSImage() As NSImage
 		  #if targetMacOS
 		    
@@ -170,9 +180,20 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function MakePicture() As Picture
-		  dim p as new Picture(self.Width, self.Height, 32)
-		  dim context as new CGContextGraphicsPort(p.Graphics)
-		  context.DrawImage(self, CGRectMake(0.0, 0.0, p.Width, p.Height))
+		  
+		  dim p as Picture
+		  
+		  #if RBVersion >= 2011.04  //Keep alpha channel
+		    p = new Picture( self.Width, self.Height )
+		    
+		  #else  //No alpha channel in previous versions
+		    p = new Picture( self.Width, self.Height, 32 )
+		    #pragma warning "CGImage.MakePicture does not handle alpha channel in your version of Real Studio. You'd need Real Studio 2011r4 or higher."
+		  #endif
+		  
+		  dim context as new CGContextGraphicsPort( p.Graphics )
+		  
+		  context.DrawImage(self, CGRectMake( 0.0, 0.0, p.Width, p.Height) )
 		  return p
 		End Function
 	#tag EndMethod

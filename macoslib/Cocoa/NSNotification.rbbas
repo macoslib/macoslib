@@ -12,6 +12,22 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As Dictionary
+		  //# Converts the NSNotification into a RS Dictionary object. Used for Convenience Methods
+		  
+		  dim dict as new Dictionary
+		  
+		  dict.Value( "Name" ) = me.Name
+		  dict.Value( "AssociatedObject" ) = me.AssociatedObject
+		  dict.Value( "UserInfo" ) = me.UserInfo.VariantValue
+		  
+		  return   dict
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function UserInfo() As CFDictionary
 		  #if targetMacOS
 		    declare function userInfo lib CocoaLib selector "userInfo" (obj_id as Ptr) as Ptr
