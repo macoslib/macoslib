@@ -218,7 +218,7 @@ Begin Window SystemIconsExampleWindow
    Begin BevelButton BB1
       AcceptFocus     =   False
       AutoDeactivate  =   True
-      BackColor       =   &c00000000
+      BackColor       =   "&c00000000"
       Bevel           =   3
       Bold            =   False
       ButtonType      =   0
@@ -249,7 +249,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   &c00000000
+      TextColor       =   "&c00000000"
       TextFont        =   "System"
       TextSize        =   ""
       TextUnit        =   0
@@ -264,11 +264,11 @@ Begin Window SystemIconsExampleWindow
       Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   747
+      Left            =   745
       LockedInPosition=   False
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   6
+      Top             =   9
       Visible         =   True
       Width           =   100
    End

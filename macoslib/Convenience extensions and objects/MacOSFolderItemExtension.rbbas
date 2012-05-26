@@ -108,6 +108,24 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Extension(extends f as FolderItem) As string
+		  //# Extract the extension of the folderitem name
+		  
+		  //@ [Cross-platform]
+		  
+		  dim i as integer
+		  i = CountFields(f.name, ".")
+		  
+		  if i=2 and Left(f.name, 1)="." then
+		    //Filename begins with a dot so this is not a true extension
+		    return ""
+		  else
+		    return NThField(f.name, ".", i)
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function FreeSpace(extends theVolume as FolderItem) As UInt64
 		  #if targetMacOS
 		    
@@ -360,6 +378,31 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function NameNoExtension(extends f as FolderItem) As string
+		  //#Extract the name without extension of the folderitem name
+		  
+		  //@ [Cross-platform]
+		  
+		  dim i, j as integer
+		  dim s as string
+		  
+		  i = CountFields(f.name, ".")
+		  
+		  if i=2 and Left(f.name, 1)="." then
+		    //Filename begins with a dot so this is not a true extension
+		    return f.name
+		  else
+		    s = ""
+		    for j=1 to i-1
+		      s = s + "." + NthField(f.name, ".", j)
+		    next
+		    return Mid(s, 2)
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RevealInFinder(extends f as FolderItem)
 		  //# Reveal the FolderItem in the Finder (or third party replacement)
 		  
@@ -367,6 +410,22 @@ Protected Module MacOSFolderItemExtension
 		    call   NSWorkspace.SelectFile( f )
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Sibling(extends f as FolderItem, filename as String) As FolderItem
+		  //# Get a FolderItem to a sibling whose name is "filename"
+		  
+		  //@ [Cross-platform]
+		  
+		  if f.Parent<>nil then
+		    return   f.Parent.Child( filename )
+		    
+		  else
+		    return   nil
+		    
+		  end if
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

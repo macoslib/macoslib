@@ -286,6 +286,69 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SetMaxSize(maxSideLength as double)
+		  //Set the NSImage size to maxSideLength on one side while the other is computed for keeping aspect ratio. If the NSImage is smaller than maxSideLength, it does nothing.
+		  
+		  dim theSize as Cocoa.NSSize
+		  dim currentSize as Cocoa.NSSize = me.Size
+		  dim scale as double
+		  dim w, h as double
+		  
+		  if maxSideLength=0.0 then  //Full size
+		    return
+		  else
+		    scale = currentSize.width / currentSize.height
+		    if currentSize.width >= maxSideLength  then
+		      w = maxSideLength
+		      h = w / scale
+		      
+		    elseif currentSize.height >= maxSideLength then
+		      h = maxSideLength
+		      w = h * scale
+		      
+		    else
+		      w = currentSize.width
+		      h = currentSize.height
+		    end if
+		    
+		    theSize.width = w
+		    theSize.height = h
+		  end if
+		  
+		  me.Size = theSize
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetSize(wantedWidth as double = 0.0, wantedHeight as double = 0.0)
+		  //Set the NSImage size with the possibility of setting only one dimension while the other is computed for keeping aspect ratio
+		  
+		  dim theSize as Cocoa.NSSize
+		  dim scale as double
+		  dim w, h as double
+		  
+		  if wantedWidth=0.0 AND wantedHeight=0.0 then  //Full size
+		    theSize = me.Size
+		  else
+		    scale = size.width / size.height
+		    if wantedWidth=0.0 then
+		      w = scale * h
+		    elseif wantedHeight=0.0 then
+		      h = w / scale
+		    else
+		      w = wantedWidth
+		      h = wantedHeight
+		    end if
+		    
+		    theSize.width = w
+		    theSize.height = h
+		  end if
+		  
+		  me.Size = theSize
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Size() As Cocoa.NSSize
 		  #if targetMacOS
 		    declare function size lib CocoaLib selector "size" (obj_id as Ptr) as Cocoa.NSSize

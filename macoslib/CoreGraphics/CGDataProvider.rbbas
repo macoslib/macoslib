@@ -2,7 +2,7 @@
 Class CGDataProvider
 Inherits CFType
 	#tag Event
-		Function ClassID() As CFTypeID
+		Function ClassID() As UInt32
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -45,6 +45,16 @@ Inherits CFType
 		    super.Constructor CGDataProviderCreateWithURL(url), true
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CopyData() As CFData
+		  
+		  #if TargetMacOS
+		    soft declare function CGDataProviderCopyData lib CarbonLib ( provider as Ptr ) as Ptr
+		    return  new CFData( CGDataProviderCopyData( me ), false )
+		  #endif
+		End Function
 	#tag EndMethod
 
 
