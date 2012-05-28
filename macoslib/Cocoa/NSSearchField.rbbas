@@ -10,6 +10,13 @@ Inherits NSControl
 	#tag Event
 		Sub Open()
 		  SetDelegate
+		  #if targetCocoa
+		    //this is required to get text to scroll horizontally.  In an XCode app, this property would be
+		    //set automatically by IB.
+		    declare sub setScrollable lib CocoaLib selector "setScrollable:" (obj_id as Ptr, value as Boolean)
+		    
+		    setScrollable(self.Cell, true)
+		  #endif
 		  raiseEvent Open
 		End Sub
 	#tag EndEvent
