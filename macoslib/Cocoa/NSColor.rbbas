@@ -1,5 +1,6 @@
 #tag Class
 Class NSColor
+Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function AlternateSelectedControlColor() As NSColor
 		  #if TargetMacOS
@@ -63,7 +64,11 @@ Class NSColor
 		    dim green as Single
 		    dim blue as Single
 		    
-		    getRGBComponents c.id, red, green, blue, nil
+		    if c<>nil then
+		      getRGBComponents c.id, red, green, blue, nil
+		    else
+		      getRGBComponents me.id, red, green, blue, nil
+		    end if
 		    
 		    return RGB(255.0*red, 255.0*green, 255.0*blue)
 		  #endif
@@ -82,7 +87,7 @@ Class NSColor
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    soft declare function colorFromRGBA lib Cocoa selector "colorWithCalibratedRed:green:blue:alpha:" (class_id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
 		    
-		    me.id = colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha)
+		    me._id = colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha)
 		    
 		  #else
 		    #pragma unused c
@@ -93,7 +98,7 @@ Class NSColor
 
 	#tag Method, Flags = &h0
 		Sub Constructor(obj_id as Ptr)
-		  me.id = obj_id
+		  me._id = obj_id
 		End Sub
 	#tag EndMethod
 
@@ -105,7 +110,7 @@ Class NSColor
 		    
 		    
 		    dim c as new NSColor
-		    c.id = colorForControlTint(NSClassFromString(NSClassName), controlTint)
+		    c._id = colorForControlTint(NSClassFromString(NSClassName), controlTint)
 		    return c
 		    
 		  #else
@@ -153,7 +158,7 @@ Class NSColor
 		        return me
 		      else
 		        dim c as new NSColor
-		        c.id = p
+		        c._id = p
 		        return c
 		      end if
 		    else
@@ -221,7 +226,7 @@ Class NSColor
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
 		    dim c as new NSColor
-		    c.id = d.Invoke(NSClassFromString(NSClassName))
+		    c._id = d.Invoke(NSClassFromString(NSClassName))
 		    return c
 		    
 		  #else
@@ -273,6 +278,13 @@ Class NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf _redColor)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  
+		  return  ColorValue
 		End Function
 	#tag EndMethod
 
@@ -545,10 +557,6 @@ Class NSColor
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
-		Private id As Ptr
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
 		Attributes( Hidden = true ) Private rbcolor As Color
 	#tag EndProperty
 
@@ -576,6 +584,13 @@ Class NSColor
 			Group="Behavior"
 			InitialValue="&h000000"
 			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

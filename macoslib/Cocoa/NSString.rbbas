@@ -1,6 +1,16 @@
 #tag Class
 Class NSString
 Inherits NSObject
+	#tag Method, Flags = &h1000
+		Sub Constructor(immutableString as string)
+		  
+		  declare function stringWithString lib CocoaLib selector "stringWithString:" ( cls as Ptr, value as CFStringRef ) as Ptr
+		  
+		  Super.Constructor( stringWithString( Cocoa.NSClassFromString( "NSMutableString" ), immutableString ), false )
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function decomposedStringWithCanonicalMapping() As NSString
 		  
@@ -74,6 +84,12 @@ Inherits NSObject
 		    dim CFS as CoreFoundation.CFString = new CFString( self.id, false )
 		    return   CFS.StringValue
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  return  me.StringValue
 		End Function
 	#tag EndMethod
 

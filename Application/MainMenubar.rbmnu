@@ -897,7 +897,25 @@ Begin Menu MainMenubar
          End
          Begin MenuItem SystemIconsMenuItem
             SpecialMenu = 0
-            Text = "System Icons Extension"
+            Text = "System Icons Extensions"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem FolderItemExtensionMenu
+            SpecialMenu = 0
+            Text = "FolderItem Extensions"
+            Index = -2147483648
+            AutoEnable = False
+         End
+         Begin MenuItem SystemExtensionsMenu
+            SpecialMenu = 0
+            Text = "System Extensions"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem ApplicationExtensionsMenu
+            SpecialMenu = 0
+            Text = "Application Extensions"
             Index = -2147483648
             AutoEnable = True
          End

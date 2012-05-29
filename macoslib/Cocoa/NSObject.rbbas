@@ -1,5 +1,6 @@
 #tag Class
 Class NSObject
+Implements objHasVariantValue
 	#tag Method, Flags = &h0
 		 Shared Function Allocate(NSClassName as String) As Ptr
 		  #if TargetMacOS
@@ -116,6 +117,12 @@ Class NSObject
 		      return nil
 		    end if
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  
 		End Function
 	#tag EndMethod
 

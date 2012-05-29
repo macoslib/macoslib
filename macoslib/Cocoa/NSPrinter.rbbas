@@ -12,6 +12,14 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function DeviceDescription() As CFDictionary
+		  declare function deviceDescription lib CocoaLib selector "deviceDescription" (id as Ptr) as Ptr
+		  
+		  return   new CFDictionary( deviceDescription( me.id ), false )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Get(name as String) As NSPrinter
 		  #if targetMacOS
 		    declare function printerWithName lib CocoaLib selector "printerWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
@@ -178,6 +186,22 @@ Inherits NSObject
 		#tag EndGetter
 		Type As String
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = kMainPPDTable, Type = String, Dynamic = False, Default = \"PPD", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kPPDArgumentTranslationTable, Type = String, Dynamic = False, Default = \"PPDArgumentTranslation", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kPPDOptionTranslationTable, Type = String, Dynamic = False, Default = \"PPDOptionTranslation", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kPPDOrderDependencyTable, Type = String, Dynamic = False, Default = \"PPDOrderDependency", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kPPDUIConstraintsTable, Type = String, Dynamic = False, Default = \"PPDUIConstraints", Scope = Public
+	#tag EndConstant
 
 
 	#tag Enum, Name = TableStatus, Type = Integer, Flags = &h0

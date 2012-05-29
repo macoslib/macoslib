@@ -126,7 +126,7 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FreeSpace(extends theVolume as FolderItem) As UInt64
+		Function FreeSpaceOnVolume(extends theVolume as FolderItem) As UInt64
 		  #if targetMacOS
 		    
 		    soft declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
@@ -139,6 +139,55 @@ Protected Module MacOSFolderItemExtension
 		    end if
 		    
 		    return theInfo.freeBytes
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetAppThatWillOpenFolderItem(extends f as FolderItem) As FolderItem
+		  //# Returns the application (as FolderItem) that will open the passed FolderItem based on default settings.
+		  
+		  #if TargetMacOS
+		    dim url as CFURL
+		    
+		    url = NSWorkspace.URLForAppToOpenURL( new CFURL( f ))
+		    
+		    if url=nil then
+		      return  nil
+		    else
+		      return  url.Item
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Icon(extends f as FolderItem, preferredSize as integer = 32) As Picture
+		  //# Returns a Picture corresponding to the icon of the passed FolderItem or Nil on error.
+		  
+		  //@ The icon is the custom icon (if any), the preview icon computed by the Finder or the generic icon for such file type.
+		  //@ For optimal results, you should pass a preferredSize (in pixels) rather than scaling the Picture
+		  
+		  #if TargetMacOS
+		    dim nsi as NSImage
+		    
+		    nsi = NSWorkspace.IconForFile( f )
+		    
+		    if nsi<>nil then
+		      dim  size as Cocoa.NSSize
+		      'if preferredSize=0 then
+		      'size.width = 1024
+		      'size.height = 1024
+		      'else
+		      size.width = preferredSize
+		      size.height = preferredSize
+		      'end if
+		      nsi.Size = size
+		      return  nsi.MakePicture  //Convert NSImage to Picture
+		    else
+		      return  nil
+		    end if
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -333,6 +382,111 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Label(extends f as FolderItem) As integer
+		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
+		  
+		  #if TargetMacOS
+		    soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
+		    
+		    const kFSCatInfoFinderInfo = &h00000800
+		    const LabelMask = &h0E
+		    
+		    dim theRef as FSRef = f.FSRef
+		    dim itemInfo as new MemoryBlock( 144 )
+		    dim finfo as UInt16
+		    
+		    dim OSError as Int16 = FSGetCatalogInfo(theRef, kFSCatInfoFinderInfo, itemInfo, nil, nil, nil)
+		    if OSError <> 0 then
+		      raise   new MacOSError( OSError )
+		    end if
+		    
+		    finfo = itemInfo.UInt16Value( 80 ) //Finder info
+		    finfo = (finfo AND LabelMask) \ 2
+		    
+		    return   finfo
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Label(extends f as FolderItem, labelIndex as integer)
+		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
+		  
+		  #if TargetMacOS
+		    soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
+		    soft declare function FSSetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr ) as Int16
+		    
+		    const kFSCatInfoFinderInfo = &h00000800
+		    const LabelMask = &h0E
+		    
+		    dim theRef as FSRef = f.FSRef
+		    dim itemInfo as new MemoryBlock( 144 )
+		    dim finfo as UInt16
+		    
+		    if labelIndex<0 OR labelIndex>7 then
+		      raise new OutOfBoundsException
+		    end if
+		    
+		    dim OSError as Int16 = FSGetCatalogInfo(theRef, kFSCatInfoFinderInfo, itemInfo, nil, nil, nil)
+		    if OSError <> 0 then
+		      raise   new MacOSError( OSError )
+		    end if
+		    
+		    finfo = itemInfo.UInt16Value( 80 ) //Finder info
+		    finfo = (finfo AND &hFFF0) OR (labelIndex * 2 OR (finfo AND 1))  //Set bits 1, 2, 3 and keep bit 0 and all bits 4+
+		    
+		    itemInfo.UInt16Value( 80 ) = finfo
+		    
+		    OSError = FSSetCatalogInfo( theRef, kFSCatInfoFinderInfo, iteminfo )
+		    
+		    if OSError <> 0 then
+		      raise   new MacOSError( OSError )
+		    end if
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LabelColor(extends f as FolderItem) As Color
+		  //# Returns the color of the Finder label for the passed FolderItem
+		  
+		  #if TargetMacOS
+		    dim colors() as Color = SystemFinderLabelColors
+		    dim idx as integer = f.Label
+		    
+		    if idx=0 then
+		      return  &c000000
+		      
+		    else
+		      return   colors( idx - 1 )
+		      
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LabelText(extends f as FolderItem) As string
+		  //# Returns the text of the Finder label for the passed FolderItem
+		  
+		  #if TargetMacOS
+		    dim labels() as string = SystemFinderLabels
+		    dim idx as integer = f.Label
+		    
+		    if idx=0 then
+		      return  ""
+		      
+		    else
+		      return   labels( idx - 1 )
+		      
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MoveToTrash(extends f as FolderItem)
 		  //# Move the FolderItem to the trash. If such item already exists, the FolderItem is renamed. If there is no Trash on the given volume, the method fails.
 		  
@@ -434,6 +588,16 @@ Protected Module MacOSFolderItemExtension
 		  
 		  #if TargetMacOS
 		    return   UTI.CreateFromFile( f )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function UTIConformsTo(extends f as FolderItem, conformsTo as String) As Boolean
+		  //# Returns true if the Uniform Type Identifier of the passed FolderItem conforms to the UTI passed as string
+		  
+		  #if TargetMacOS
+		    return  NSWorkspace.UTIConformsTo( f.UniformTypeIdentifier, conformsTo )
 		  #endif
 		End Function
 	#tag EndMethod

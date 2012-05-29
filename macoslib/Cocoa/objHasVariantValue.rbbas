@@ -1,22 +1,13 @@
-#tag Class
-Class NSCell
-Inherits NSObject
-	#tag Enum, Name = NSImageScaling, Type = Integer, Flags = &h0
-		ProportionallyDown=0
-		  AxesIndependently=1
-		  None=2
-		ProportionallyUpOrDown=3
-	#tag EndEnum
+#tag Interface
+Protected Interface objHasVariantValue
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  
+		End Function
+	#tag EndMethod
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
@@ -51,5 +42,5 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Class
-#tag EndClass
+End Interface
+#tag EndInterface

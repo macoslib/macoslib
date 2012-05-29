@@ -10,6 +10,65 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function ClassNameForObjectPointer(p as ptr) As String
+		  
+		  #if TargetMacOS
+		    declare function object_getClassName lib CocoaLib ( id as Ptr ) as Ptr
+		    
+		    dim s as string
+		    
+		    dim mb as MemoryBlock
+		    if p<>nil then
+		      mb = object_getClassName( p )
+		      s = mb.CString( 0 )
+		    else
+		      break
+		    end if
+		    declare function object_getClass lib CocoaLib (id as Ptr ) as Ptr
+		    declare function class_getName lib CocoaLib (id as Ptr) as Ptr
+		    declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
+		    dim cls as Ptr
+		    
+		    cls = object_getClass( p )
+		    while cls<>nil
+		      mb = class_getName( cls )
+		      if mb<>nil then
+		      end if
+		      
+		      cls = class_getSuperclass( cls )
+		    wend
+		    
+		    return  s
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ClassNameTreeForObjectPointer(p as ptr) As String()
+		  
+		  declare function object_getClass lib CocoaLib (id as Ptr ) as Ptr
+		  declare function class_getName lib CocoaLib (id as Ptr) as Ptr
+		  declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
+		  
+		  dim result() as string
+		  dim cls as Ptr
+		  dim mb as MemoryBlock
+		  
+		  cls = object_getClass( p )
+		  while cls<>nil
+		    mb = class_getName( cls )
+		    if mb<>nil then
+		      result.Append   mb.CString( 0 )
+		    end if
+		    
+		    cls = class_getSuperclass( cls )
+		  wend
+		  
+		  return  result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
 		  // Note: The passed path must be absolute, i.e. start from root with "/"
 		  
@@ -28,6 +87,19 @@ Protected Module Cocoa
 		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
 		    return f
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function InheritsFromClass(p as Ptr, classname as string) As Boolean
+		  //Check if the Ptr (corresponding to any NS object) has "classname" in its inheritance tree
+		  
+		  dim tree() as string
+		  
+		  tree = ClassNameTreeForObjectPointer( p )
+		  
+		  return  ( tree.IndexOf( classname ) <> -1 )
+		  
 		End Function
 	#tag EndMethod
 
@@ -153,6 +225,130 @@ Protected Module Cocoa
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
+
+	#tag Method, Flags = &h1
+		Protected Function RBObjectFromNSPtr(id as Ptr, hasOwnership as Boolean = false) As variant
+		  //Creates an instance of an RB Cocoa object from the passed Cocoa object instance id
+		  
+		  dim objClassNameTree() as string = ClassNameTreeForObjectPointer( id )
+		  
+		  for each objClassName as string in objClassNameTree  //Scan inheritance tree down to NSObject (or root class)
+		    select case objClassName
+		    case "NSApplication"
+		      return  new NSApplication( id, hasOwnership )
+		      
+		    case "NSArray"
+		      return  new NSArray( id, hasOwnership )
+		      
+		    case "NSBundle"
+		      return  new NSBundle( id, hasOwnership )
+		      
+		    case "NSColor"
+		      return  new NSColor( id, hasOwnership )
+		      
+		    case "NSColorSpace"
+		      'return  new NSColorSpace( id, hasOwnership )
+		      
+		    case "NSData"
+		      return  new NSData( id, hasOwnership )
+		      
+		    case "NSDate"
+		      return  new NSDate( id, hasOwnership )
+		      
+		    case "NSDateFormatter"
+		      return  new NSDateFormatter( id, hasOwnership )
+		      
+		    case "NSDictionary"
+		      return  new NSDictionary( id, hasOwnership )
+		      
+		    case "NSGraphicsContext"
+		      return  new NSGraphicsContext( id, hasOwnership )
+		      
+		    case "NSHost"
+		      return  new NSHost( id, hasOwnership )
+		      
+		    case "NSImage"
+		      return  new NSImage( id, hasOwnership )
+		      
+		    case "NSIndexSet"
+		      return  new NSIndexSet( id, hasOwnership )
+		      
+		    case "NSMenu"
+		      return  new NSMenu( id, hasOwnership )
+		      
+		    case "NSMenuItem"
+		      return  new NSMenuItem( id, hasOwnership )
+		      
+		    case "NSMutableArray" //No such class for the moment
+		      'return  new NSMutableArray( id, hasOwnership )
+		      
+		    case "NSMutableDictionary"
+		      return  new NSMutableDictionary( id, hasOwnership )
+		      
+		    case "NSMutableString"
+		      return  new NSMutableString( id, hasOwnership )
+		      
+		    case "NSNotification"
+		      return  new NSNotification( id, hasOwnership )
+		      
+		    case "NSNotificationCenter"
+		      return  new NSNotificationCenter( id, hasOwnership )
+		      
+		    case "NSNumber"
+		      return  new NSNumber( id, hasOwnership )
+		      
+		    case "NSPasteboard"
+		      return  new NSPasteboard( id, hasOwnership )
+		      
+		    case "NSObject"
+		      return  new NSObject( id, hasOwnership )
+		      
+		    case "NSPathComponentCell"
+		      'return  new NSPathComponentCell( id, hasOwnership )
+		      
+		    case "NSPrinter"
+		      return  new NSPrinter( id, hasOwnership )
+		      
+		    case "NSProcessInfo"
+		      return  new NSProcessInfo( id, hasOwnership )
+		      
+		    case "NSRunLoop"
+		      return  new NSRunLoop( id, hasOwnership )
+		      
+		    case "NSRunningApplication"
+		      return  new NSRunningApplication( id, hasOwnership )
+		      
+		    case "NSString"
+		      return  new NSString( id, hasOwnership )
+		      
+		    case "NSTableColumn"
+		      return  new NSTableColumn( id, hasOwnership )
+		      
+		    case "NSTableHeaderView"
+		      return  new NSTableHeaderView( id, hasOwnership )
+		      
+		    case "NSTableViewDataSource"
+		      'return  new NSTableViewDataSource( id, hasOwnership )
+		      
+		    case "NSText"
+		      return  new NSText( id, hasOwnership )
+		      
+		    case "NSTimeZone"
+		      return  new NSTimeZone( id, hasOwnership )
+		      
+		    case "NSURL"
+		      return  new NSURL( id, hasOwnership )
+		      
+		    case "NSValue"
+		      return  new NSValue( id, hasOwnership )
+		      
+		    case "NSWorkspace"
+		      return  new NSWorkspace( id, hasOwnership )
+		      
+		    end select
+		  next
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Function StringConstant(symbolName as String) As String

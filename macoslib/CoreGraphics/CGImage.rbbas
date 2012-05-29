@@ -182,10 +182,6 @@ Inherits CFType
 		Function MakePicture() As Picture
 		  
 		  dim p as Picture
-		  dim mask as Picture
-		  dim gray as Int8
-		  dim maskFactor as double
-		  dim c as color
 		  
 		  #if RBVersion >= 2011.04  //Keep alpha channel
 		    p = new Picture( self.Width, self.Height )

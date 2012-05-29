@@ -223,6 +223,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function MakePicture() As Picture
+		  //Given an NSImage, you can convert it to a REALbasic Picture object by first converting to a CGimage, then to a Picture.
+		  
+		  #if TargetMacOS
+		    
+		    dim cg_image as CGImage = me.MakeCGImage
+		    
+		    if cg_image<>nil then
+		      dim p as Picture = cg_image.MakePicture
+		      return   p
+		      
+		    else
+		      return  nil
+		      
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function MixedState() As NSImage
 		  
 		  return LoadByName(ResolveSymbol("NSImageNameMenuMixedStateTemplate"))

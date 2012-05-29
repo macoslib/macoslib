@@ -1,5 +1,44 @@
 #tag Class
 Class NSWorkspace
+Inherits NSObject
+	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FinderLabelColors() As NSArray
+		  //Get the Finder labels
+		  
+		  #if TargetMacOS
+		    declare function fileLabelColors lib CocoaLib selector "fileLabelColors" (obj_id as Ptr) as Ptr
+		    
+		    dim p as Ptr
+		    p = fileLabelColors( sharedInstance )
+		    
+		    return new NSArray( p, false )
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FinderLabels() As NSArray
+		  //Get the Finder labels
+		  
+		  #if TargetMacOS
+		    declare function fileLabels lib CocoaLib selector "fileLabels" (obj_id as Ptr) as Ptr
+		    
+		    dim p as Ptr
+		    p = fileLabels( sharedInstance )
+		    
+		    return new NSArray( p, false )
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub handle_globalNSWorkspaceNotification(observer as NotificationObserver, notification as NSNotification)
 		  //Handle notifications, extract interesting value(s) and dispatch them to their respective event

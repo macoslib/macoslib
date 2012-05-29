@@ -318,6 +318,18 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
+			  #if TargetMacOS
+			    return   URL.Item
+			  #endif
+			End Get
+		#tag EndGetter
+		FolderItemValue As FolderItem
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetMacOS
 			    soft declare function CFBundleGetIdentifier lib CarbonLib (bundle as Ptr) as Ptr
 			    

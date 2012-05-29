@@ -1380,7 +1380,9 @@ End
 #tag EndEvents
 #tag Events UnicodeNF1
 	#tag Event
-		Sub Action()
+		Sub Action(index as Integer)
+		  
+		  #pragma unused index
 		  
 		  'if index=0 AND me.Value then  //Convert as NFC
 		  'TA1.Text = TA1.Text.MacNormalizeUnicode( "NFC" )
@@ -1437,7 +1439,9 @@ End
 #tag EndEvents
 #tag Events UnicodeNF2
 	#tag Event
-		Sub Action()
+		Sub Action(index as Integer)
+		  
+		  #pragma unused index
 		  
 		  'if index=0 AND me.Value then  //Convert as NFC
 		  'TA1.Text = TA1.Text.MacNormalizeUnicode( "NFC" )

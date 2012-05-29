@@ -95,8 +95,6 @@ Protected Module AttachedPropertiesModule
 		    return
 		  end if
 		  
-		  dim wr as WeakRef
-		  
 		  for i as integer = Storage.Count - 1 downto 0
 		    if WeakRef( Storage.Key( i )).Value = nil then
 		      Storage.Remove   Storage.Key( i )

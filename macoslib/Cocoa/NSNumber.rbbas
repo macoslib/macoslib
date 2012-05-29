@@ -120,6 +120,49 @@ Inherits NSValue
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function GetObjcType() As String
+		  
+		  declare function _objCType lib CocoaLib selector "objCType" (id as Ptr) as Ptr
+		  
+		  dim mb as MemoryBlock
+		  
+		  mb = _objCType( me.id )
+		  
+		  return   mb.CString( 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  
+		  dim type as string = GetObjcType
+		  
+		  select case type
+		  case "f" //Float (single)
+		    return  SingleValue
+		    
+		  case "d" //Double
+		    return  DoubleValue
+		    
+		  case "c" //Char, Int8 or boolean
+		    return  Int8Value
+		    
+		  case "i" //Int32, UInt16
+		    return  Int32Value
+		    
+		  case "q" //Int64, UInt32, UInt64
+		    return  Int64Value
+		    
+		  case "s" //Int16 or UInt8
+		    return  Int16Value
+		    
+		  else
+		    return  0
+		  end select
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

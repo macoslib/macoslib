@@ -1,5 +1,6 @@
 #tag Class
 Class NSColorspace
+Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
 		  //
@@ -13,7 +14,7 @@ Class NSColorspace
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
 		    dim s as new NSColorspace
-		    s.id = deviceRGBColorSpace(NSClassFromString("NSColorSpace"))
+		    s._id = deviceRGBColorSpace(NSClassFromString("NSColorSpace"))
 		    return s
 		  #endif
 		End Function
@@ -32,16 +33,12 @@ Class NSColorspace
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
 		    dim s as new NSColorspace
-		    s.id = sRGBColorSpace(NSClassFromString("NSColorSpace"))
+		    s._id = sRGBColorSpace(NSClassFromString("NSColorSpace"))
 		    return s
 		  #endif
 		End Function
 	#tag EndMethod
 
-
-	#tag Property, Flags = &h21
-		Private id As Ptr
-	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -66,6 +63,13 @@ Class NSColorspace
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true

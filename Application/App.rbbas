@@ -24,6 +24,14 @@ Inherits Application
 
 
 	#tag MenuHandler
+		Function ApplicationExtensionsMenu() As Boolean Handles ApplicationExtensionsMenu.Action
+			ApplicationExtensionsWindow.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSColorBrowser() As Boolean Handles CocoaNSColorBrowser.Action
 			NSColorWindow.Show
 			return true
@@ -218,6 +226,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FolderItemExtensionMenu() As Boolean Handles FolderItemExtensionMenu.Action
+			FolderItemExtensionsWindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FolderManagerShowFolders() As Boolean Handles FolderManagerShowFolders.Action
 			MacOSFolderBrowser.Show
 			return true
@@ -282,6 +298,14 @@ Inherits Application
 		Function StringExtensionsMenu() As Boolean Handles StringExtensionsMenu.Action
 			StringExtensionsExample.Show
 			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function SystemExtensionsMenu() As Boolean Handles SystemExtensionsMenu.Action
+			SystemExtensionsWindow.Show
 			Return True
 			
 		End Function

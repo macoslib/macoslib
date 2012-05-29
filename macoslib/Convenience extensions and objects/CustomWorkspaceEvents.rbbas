@@ -4,6 +4,8 @@ Protected Module CustomWorkspaceEvents
 		Private Sub DispatcherMethod(ws as NSWorkspace, notification as NSNotification)
 		  //Handle notifications, extract interesting value(s) and dispatch them to their respective method
 		  
+		  #pragma unused ws
+		  
 		  #if TargetMacOS
 		    dim CFuserinfo as CoreFoundation.CFDictionary
 		    dim UserInfo as Dictionary
