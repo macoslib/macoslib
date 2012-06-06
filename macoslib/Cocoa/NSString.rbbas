@@ -54,6 +54,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As String
+		  
+		  return   me.StringValue
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function precomposedStringWithCanonicalMapping() As NSString
 		  
 		  #if TargetMacOS

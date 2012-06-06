@@ -1,6 +1,34 @@
 #tag Class
 Class NSDictionary
 Inherits NSObject
+	#tag Method, Flags = &h0
+		Function AllKeys() As NSArray
+		  #if TargetMacOS
+		    declare function _allKeys lib CocoaLib selector "allKeys" (id as Ptr) as Ptr
+		    
+		    dim p as Ptr = _allKeys( me.id )
+		    
+		    if p<>nil then
+		      return   new NSArray( p, false )
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function AllValues() As NSArray
+		  #if TargetMacOS
+		    declare function _allValues lib CocoaLib selector "allValues" (id as Ptr) as Ptr
+		    
+		    dim p as Ptr = _allValues( me.id )
+		    
+		    if p<>nil then
+		      return   new NSArray( p, false )
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub Constructor(keys as NSArray, values as NSArray)
 		  
@@ -10,6 +38,48 @@ Inherits NSObject
 		    Super.Constructor( dictionaryWithObjectsforKeys( Cocoa.NSClassFromString( "NSDictionary" ), values.id, keys.id ), false )
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Copy() As NSDictionary
+		  #if TargetMacOS
+		    declare function _copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
+		    
+		    return   new NSDictionary( _copy( me.id ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromFile(file as FolderItem) As NSDictionary
+		  //# Create a new NSDictionary from a file (like as .plist file)
+		  
+		  #if TargetMacOS
+		    declare function dictionaryWithContentsOfFile lib CocoaLib selector "dictionaryWithContentsOfFile:" (cls as Ptr, path as CFStringRef) as Ptr
+		    
+		    dim p as Ptr = dictionaryWithContentsOfFile( Cocoa.NSClassFromString( "NSDictionary" ), file.POSIXPath )
+		    
+		    if p<>nil then
+		      return   new NSDictionary( p, false )
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromRSDictionary(dict as Dictionary) As NSDictionary
+		  #if TargetMacOS
+		    dim md as new NSMutableDictionary
+		    
+		    for i as integer=0 to dict.Count - 1
+		      md.Value( Cocoa.NSObjectFromRSVariant( dict.Key( i ))) = Cocoa.NSObjectFromRSVariant( dict.value( dict.key( i )))
+		    next
+		    
+		    return   md.Copy
+		    
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -32,7 +102,7 @@ Inherits NSObject
 		      return  defaultValue
 		    end if
 		    
-		    return   Cocoa.RBObjectFromNSPtr( p, false )
+		    return   Cocoa.NSObjectFromNSPtr( p, false )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -50,7 +120,42 @@ Inherits NSObject
 		      return   nil
 		    end if
 		    
-		    return   Cocoa.RBObjectFromNSPtr( p, false )
+		    return   Cocoa.NSObjectFromNSPtr( p, false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  // Create a RS Dictionary
+		  
+		  #if TargetMacOS
+		    dim dict as new Dictionary
+		    
+		    dim keys as NSArray = me.AllKeys
+		    dim values as NSArray = me.AllValues
+		    dim oneKey, oneValue as objHasVariantValue
+		    
+		    for i as integer = 0 to keys.Count - 1
+		      oneKey = Cocoa.NSObjectFromNSPtr( keys.Value( i ))
+		      oneValue = Cocoa.NSObjectFromNSPtr( values.Value( i ))
+		      
+		      dict.Value( oneKey.VariantValue ) = oneValue.VariantValue
+		    next
+		    
+		    return  dict
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem) As Boolean
+		  //# Write the NSDictionary to 'file'. Returns true on success
+		  
+		  #if TargetMacOS
+		    declare function writeToFile lib CocoaLib selector "writeToFile:atomically:" ( id as Ptr, path as CFStringRef, atomically as Boolean ) as Boolean
+		    
+		    return   writeToFile( me.id, file.POSIXPath, true ) //Always write atomically
 		  #endif
 		End Function
 	#tag EndMethod
@@ -71,5 +176,52 @@ Inherits NSObject
 	#tag EndComputedProperty
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Count"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Class
 #tag EndClass

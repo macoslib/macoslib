@@ -18,6 +18,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function KeyWindow() As NSWindow
+		  #if TargetMacOS
+		    declare function _keyWindow lib CocoaLib selector "keyWindow" ( id as Ptr ) as Ptr
+		    
+		    return   new NSWindow( _keyWindow( me.id ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MainWindow() As NSWindow
+		  #if TargetMacOS
+		    declare function _mainWindow lib CocoaLib selector "mainWindow" ( id as Ptr ) as Ptr
+		    
+		    return   new NSWindow( _mainWindow( me.id ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RegisterServices()
 		  // Unfinished (by TT) - needs values passed
 		  // Also, it hasn't been tested yet if this actually does the right thing.

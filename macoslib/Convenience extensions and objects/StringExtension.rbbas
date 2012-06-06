@@ -154,6 +154,16 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function StringBefore(extends s as string, beforeString as string) As string
+		  //#Returns the string before 'beforeString' or the whole string if the latter was not found
+		  
+		  //@ [Cross-platform]
+		  
+		  return   NthField(s, beforeString, 1)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function TrimWhitespace(extends s as string) As string
 		  //# Trim whitespaces at both ends of the passed string.
 		  

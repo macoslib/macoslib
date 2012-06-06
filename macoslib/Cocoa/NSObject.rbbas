@@ -77,6 +77,16 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function MutableCopy() As Ptr
+		  #if TargetMacOS
+		    declare function mutableCopy lib Cocoalib selector "mutableCopy" (id as Ptr) as Ptr
+		    
+		    return  mutableCopy( me.id )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Compare(obj as NSObject) As Integer
 		  if obj <> nil then
 		    return Integer(self.id) - Integer(obj.id)

@@ -49,7 +49,7 @@ Inherits Canvas
 		Sub Open()
 		  self.AcceptFocus = false
 		  
-		  #if targetCocoa
+		  #if targetMacOS
 		    dim frame as NSRect
 		    frame.x = 0.0
 		    frame.y = 0.0
@@ -107,6 +107,9 @@ Inherits Canvas
 		    TargetMap.Value(self.TargetID) = AddressOf self.HandleAction
 		    
 		    ControlMap.Value(self.id) = self
+		    
+		    //Set the use selected font
+		    InvalidateFont
 		  #endif
 		  
 		  raiseEvent Open
@@ -242,6 +245,16 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Font() As NSFont
+		  #if TargetMacOS
+		    declare function getFont lib CocoaLib selector "font" (id as Ptr) as Ptr
+		    
+		    return  new NSFont( getFont( me.id ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Frame() As NSRect
 		  #if targetCocoa
 		    if me.id = nil then
@@ -305,6 +318,30 @@ Inherits Canvas
 		  #pragma unused frame
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub InvalidateFont()
+		  //# Invalidate the font after changing TextFont, TextSize, Bold or Italic
+		  
+		  #if TargetMacOS
+		    declare sub setFont lib CocoaLib selector "setFont:" (id as Ptr, theFont as Ptr)
+		    
+		    //Recompute the correct NSFont and apply it to the control
+		    dim nsf as NSFont
+		    dim nsfm as new NSFontManager
+		    
+		    nsf = nsfm.GetFont( TextFont, TextSize, bold, italic )
+		    if nsf<>nil then
+		      setFont( me.id, nsf.id )
+		    else
+		      //Couldn't get the specified font description
+		      //We should try to find the closest match
+		      //For now, we do nothing
+		      break
+		    end if
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -451,6 +488,10 @@ Inherits Canvas
 		autoresizesSubviews As Boolean
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0
+		Bold As Boolean = false
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
@@ -482,8 +523,24 @@ Inherits Canvas
 		IsFlipped As Boolean
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0
+		Italic As Boolean = false
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private TargetID As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TextFont As String = "System"
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TextSize As double = 0.0
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Underlined As Boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -531,6 +588,13 @@ Inherits Canvas
 			Type="Picture"
 			EditorType="Picture"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bold"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
@@ -584,6 +648,13 @@ Inherits Canvas
 		#tag ViewProperty
 			Name="IsFlipped"
 			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Italic"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -653,11 +724,33 @@ Inherits Canvas
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="TextFont"
+			Visible=true
+			Group="Behavior"
+			InitialValue="System"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TextSize"
+			Visible=true
+			Group="Behavior"
+			InitialValue="0.0"
+			Type="double"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Underlined"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseFocusRing"

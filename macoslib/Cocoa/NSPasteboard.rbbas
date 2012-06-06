@@ -2,6 +2,16 @@
 Class NSPasteboard
 Inherits NSObject
 	#tag Method, Flags = &h0
+		Sub ClearContents()
+		  #if TargetMacOS
+		    declare function clearContents lib CocoaLib selector "clearContents" (id as Ptr) as integer
+		    
+		    call  clearContents( me.id )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DataForType(type as String) As NSData
 		  #if targetMacOS
 		    declare function dataForType lib CocoaLib selector "dataForType:" (obj_id as Ptr, type as CFStringRef) as Ptr
@@ -87,6 +97,32 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #if TargetMacOS
+			    declare function pasteboardItems lib CocoaLib selector "pasteboardItems" (id as Ptr) as Ptr
+			    
+			    dim p as Ptr = pasteboardItems( me.id )
+			    
+			    if p=nil then   return nil
+			    
+			    return  new NSArray( p, false )
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetMacOS
+			    declare function writeObjects lib CocoaLib selector "writeObjects:" (id as Ptr, nsa as Ptr) as Boolean
+			    
+			    call   writeObjects( me.id, value.id )
+			  #endif
+			End Set
+		#tag EndSetter
+		Items As NSArray
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetMacOS
 			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as CFStringRef
 			    
@@ -103,7 +139,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function types lib CocoaLib selector "types" (obj_id as Ptr) as Ptr
 			    
-			    return new NSArray (types (self), false)
+			    return   new NSArray (types (self), false)
 			  #endif
 			End Get
 		#tag EndGetter

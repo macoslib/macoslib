@@ -199,35 +199,8 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag ExternalMethod, Flags = &h0
-		Declare Function NSSearchPathForDirectoriesInDomains Lib CocoaLib (directory as Integer, domainMask as Integer, expandTilde as Boolean) As Ptr
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
-	#tag EndExternalMethod
-
-	#tag Method, Flags = &h0
-		Function NSString(ImmutableString as String) As NSString
-		  
-		  return   NSString.InitFromString( ImmutableString )
-		End Function
-	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h0
-		Declare Function NSStringFromClass Lib CocoaLib (aClass as Ptr) As CFStringRef
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function NSStringFromSelector Lib CocoaLib (aSelector as Ptr) As CFStringRef
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
-	#tag EndExternalMethod
-
 	#tag Method, Flags = &h1
-		Protected Function RBObjectFromNSPtr(id as Ptr, hasOwnership as Boolean = false) As variant
+		Protected Function NSObjectFromNSPtr(id as Ptr, hasOwnership as Boolean = false, DontReturnNSObject as boolean = false) As variant
 		  //Creates an instance of an RB Cocoa object from the passed Cocoa object instance id
 		  
 		  dim objClassNameTree() as string = ClassNameTreeForObjectPointer( id )
@@ -301,7 +274,11 @@ Protected Module Cocoa
 		      return  new NSPasteboard( id, hasOwnership )
 		      
 		    case "NSObject"
-		      return  new NSObject( id, hasOwnership )
+		      if DontReturnNSObject then
+		        return  nil
+		      else
+		        return  new NSObject( id, hasOwnership )
+		      end if
 		      
 		    case "NSPathComponentCell"
 		      'return  new NSPathComponentCell( id, hasOwnership )
@@ -349,6 +326,68 @@ Protected Module Cocoa
 		  next
 		End Function
 	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function NSObjectFromRSVariant(v as variant) As variant
+		  if v.IsArray then
+		    return   NSArray.CreateFromRSObjectsArray( v )
+		  end if
+		  
+		  select case v.Type
+		  case Variant.TypeBoolean
+		    return  new NSNumber( v.BooleanValue )
+		    
+		  case Variant.TypeInteger
+		    return   new NSNumber( v.IntegerValue )
+		    
+		  case Variant.TypeString
+		    return   new NSString( v.StringValue )
+		    
+		  case Variant.TypeDouble, Variant.TypeSingle
+		    return   new NSNumber( v.DoubleValue )
+		    
+		  case Variant.TypeObject  //->Dictionary, MemoryBlock
+		    if v IsA Dictionary then
+		      return   NSDictionary.CreateFromRSDictionary( Dictionary( v ))
+		    elseif v IsA MemoryBlock then
+		      return   new NSData( MemoryBlock( v ))
+		    end if
+		    
+		  case Variant.TypeDate
+		    return   new NSDate( v.DateValue )
+		    
+		  case Variant.TypeNil
+		    return   new NSNull
+		  end select
+		End Function
+	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function NSSearchPathForDirectoriesInDomains Lib CocoaLib (directory as Integer, domainMask as Integer, expandTilde as Boolean) As Ptr
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
+	#tag EndExternalMethod
+
+	#tag Method, Flags = &h0
+		Function NSString(ImmutableString as String) As NSString
+		  
+		  return   NSString.InitFromString( ImmutableString )
+		End Function
+	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function NSStringFromClass Lib CocoaLib (aClass as Ptr) As CFStringRef
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSStringFromSelector Lib CocoaLib (aSelector as Ptr) As CFStringRef
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
+	#tag EndExternalMethod
 
 	#tag Method, Flags = &h1
 		Protected Function StringConstant(symbolName as String) As String

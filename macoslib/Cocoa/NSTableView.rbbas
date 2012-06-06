@@ -629,6 +629,14 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Bold"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ColumnCount"
 			Group="Behavior"
 			Type="Integer"
@@ -696,6 +704,14 @@ Inherits NSControl
 		#tag ViewProperty
 			Name="IsFlipped"
 			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Italic"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
 			Type="Boolean"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
@@ -771,6 +787,23 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="TextFont"
+			Visible=true
+			Group="Behavior"
+			InitialValue="System"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TextSize"
+			Visible=true
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
@@ -781,6 +814,14 @@ Inherits NSControl
 			Name="TypeSelect"
 			Group="Behavior"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Underlined"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseFocusRing"

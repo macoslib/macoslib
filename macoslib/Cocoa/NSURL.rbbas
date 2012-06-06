@@ -1,7 +1,65 @@
 #tag Class
 Class NSURL
-Inherits CFURL
+Inherits NSObject
+	#tag Method, Flags = &h0
+		Sub Constructor(f as FolderItem)
+		  if not (f is nil) then
+		    me.Constructor  f.URLPath
+		  else
+		    raise  new NilObjectException
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(theURL as String)
+		  #if targetMacOS
+		    declare function URLWithString lib CocoaLib selector "URLWithString:" ( id as Ptr, URLString as CFStringRef ) as Ptr
+		    
+		    super.Constructor URLWithString( Cocoa.NSClassFromString( "NSURL" ), theURL ), true
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  return  me.absoluteString
+		  
+		End Function
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    declare function absoluteString lib CocoaLib selector "absoluteString" ( id as Ptr ) as CFStringRef
+			    
+			    return   absoluteString( me.id )
+			  #endif
+			End Get
+		#tag EndGetter
+		absoluteString As string
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if not ( self = nil ) then
+			    return  new FolderItem( me.absoluteString, FolderItem.PathTypeURL )
+			  end if
+			End Get
+		#tag EndGetter
+		Item As FolderItem
+	#tag EndComputedProperty
+
+
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="absoluteString"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
@@ -27,20 +85,6 @@ Inherits CFURL
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RelativeURL"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="CFURL"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="StringValue"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="CFURL"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

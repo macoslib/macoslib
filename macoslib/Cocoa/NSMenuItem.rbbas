@@ -1,6 +1,117 @@
 #tag Class
 Class NSMenuItem
 Inherits NSObject
+	#tag Method, Flags = &h1021
+		Private Sub Constructor(mi as MenuItem)
+		  me.Constructor( mi.Text, 0 )
+		  
+		  fromRBMenuItem = mi
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(theTitle as string, aTag as integer)
+		  #if TargetMacOS
+		    dim p as Ptr
+		    
+		    p = NSObject.Initialize( NSObject.Allocate( "NSMenuItem" ))
+		    
+		    Super.Constructor( p, false )
+		    
+		    Title = theTitle
+		    Tag = aTag
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromMenuItem(mi as MenuItem) As NSMenuItem
+		  
+		  dim nsm as NSMenuItem
+		  
+		  declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
+		  
+		  if mi=nil then
+		    return  nil
+		  end if
+		  
+		  if mi.Text = "-" then //A separator
+		    nsm = NSMenuItem.CreateSeparatorItem
+		    nsm.fromRBMenuItem = mi
+		  else
+		    nsm = new NSMenuItem( mi )
+		  end if
+		  
+		  return  nsm
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateSeparatorItem() As NSMenuItem
+		  #if TargetMacOS
+		    declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
+		    
+		    dim nsm as NSMenuItem
+		    
+		    nsm = new NSMenuItem( separatorItem( Cocoa.NSClassFromString( "NSMenuItem" )), false )
+		    return  nsm
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetAction(selectorName as string)
+		  #if TargetMacOS
+		    declare sub _setAction lib CocoaLib selector "setAction:" (id as Ptr, SEL as ptr)
+		    
+		    _setAction   me.id, Cocoa.NSSelectorFromString( selectorName )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetTarget(targetObject as Ptr)
+		  #if TargetMacOS
+		    declare sub _setTarget lib CocoaLib selector "setTarget:" (id as Ptr, target as Ptr)
+		    
+		    _setTarget  me.id, targetObject
+		  #endif
+		End Sub
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    declare function isEnabled lib CocoaLib selector "isEnabled" (id as Ptr) as Boolean
+			    
+			    return  isEnabled( me.id )
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetMacOS
+			    declare sub setEnabled lib CocoaLib selector "setEnabled:" (id as Ptr, value as Boolean)
+			    
+			    setEnabled   me.id, value
+			  #endif
+			End Set
+		#tag EndSetter
+		Enabled As Boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		#tag Note
+			//The original MenuItem if created from a RS MenuItem
+		#tag EndNote
+		fromRBMenuItem As MenuItem
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -53,6 +164,11 @@ Inherits NSObject
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Enabled"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

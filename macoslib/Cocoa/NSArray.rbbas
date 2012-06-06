@@ -5,9 +5,92 @@ Inherits NSObject
 		Sub Constructor(cfa as CFArray)
 		  //Make a copy of the original CFArray
 		  
-		  Super.Constructor( cfa.Clone.Reference, true )
+		  Super.Constructor( cfa.Clone.Reference, false )
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Copy() As NSArray
+		  #if TargetMacOS
+		    declare function _copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
+		    
+		    return   new NSArray( _copy( me.id ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromArrayOfStrings(Strings() as String) As NSArray
+		  #if TargetMacOS
+		    dim cfa as new CFArray( Strings )
+		    dim nsa as new NSArray( cfa )
+		    
+		    return  nsa
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromNSArray(theArray as NSArray, indexSet as NSIndexSet) As NSArray
+		  #if TargetMacOS
+		    declare function objectsAtIndexes lib CocoaLib selector "objectsAtIndexes:" (id as Ptr, indexes as Ptr) as Ptr
+		    
+		    dim p as Ptr = objectsAtIndexes( theArray.id, indexSet.id )
+		    
+		    if p=nil then
+		      return  nil
+		    else
+		      return  new NSArray( p, false )
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromRSObjectsArray(theArray as variant) As NSArray
+		  dim nsma as new NSMutableArray
+		  
+		  select case theArray.ArrayElementType
+		  case Variant.TypeBoolean
+		    dim arb() as Boolean = theArray
+		    for each b as Boolean in arb
+		      nsma.Append   new NSNumber( b )
+		    next
+		    
+		  case Variant.TypeInteger
+		    dim ari() as Integer = theArray
+		    for each i as integer in ari
+		      nsma.Append   new NSNumber( i )
+		    next
+		    
+		  case Variant.TypeString
+		    dim ars() as string = theArray
+		    for each s as String in ars
+		      nsma.Append   new NSString( s )
+		    next
+		    
+		  case Variant.TypeDouble, Variant.TypeSingle
+		    dim ard() as double = theArray
+		    for each d as double in ard
+		      nsma.Append   new NSNumber( d )
+		    next
+		    
+		  case Variant.TypeDate
+		    dim ardate() as Date = theArray
+		    for each dd as date in ardate
+		      nsma.Append   new NSDate( dd )
+		    next
+		    
+		  case 9
+		    dim arv() as variant = theArray
+		    for each v as variant in arv
+		      nsma.Append   NSArray.CreateFromRSObjectsArray( v )
+		    next
+		  end select
+		  
+		  return  nsma.Copy
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -39,6 +122,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ValuesAsArrayOfStrings() As string()
+		  #if TargetMacOS
+		    dim result() as string
+		    dim p as Ptr
+		    dim nss as NSString
+		    
+		    for i as integer=0 to me.Count - 1
+		      p = me.Value( i )
+		      if Cocoa.InheritsFromClass( p, "NSString" ) then
+		        nss = new NSString( p, false )
+		        result.Append   nss.StringValue
+		      end if
+		    next
+		    
+		    return result
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function VariantValue() As variant
 		  dim up as Integer = me.Count - 1
 		  
@@ -46,7 +149,7 @@ Inherits NSObject
 		  dim v as objHasVariantValue
 		  
 		  for i as Integer = 0 to up
-		    v = objHasVariantValue( Cocoa.RBObjectFromNSPtr( value( i )))
+		    v = objHasVariantValue( Cocoa.NSObjectFromNSPtr( value( i )))
 		    result.Append   v.VariantValue
 		  next
 		  

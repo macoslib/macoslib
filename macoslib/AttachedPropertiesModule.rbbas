@@ -104,6 +104,31 @@ Protected Module AttachedPropertiesModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function FindDictionaryForNSObject(obj as NSObject, createIfNecessary as boolean = false) As Dictionary
+		  //Find an existing key
+		  
+		  CleanUp  //Create Storage if necessary and remove AttachedProperties for destroyed objects
+		  
+		  for i as integer = 0 to NSStorage.Count - 1
+		    if NSStorage.Key( i )=obj.id then
+		      return   NSStorage.Value( NSStorage.Key( i ))
+		    end if
+		  next
+		  
+		  if createIfNecessary then
+		    dim dict as new Dictionary
+		    NSStorage.Value( obj.id ) = dict
+		    
+		    return  dict
+		    
+		  else
+		    return  nil
+		    
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Function FindDictionaryForObject(obj as Object, createIfNecessary as boolean = false) As Dictionary
 		  //Find an existing key
 		  
@@ -120,6 +145,7 @@ Protected Module AttachedPropertiesModule
 		  
 		  if createIfNecessary then
 		    dim dict as new Dictionary
+		    
 		    wr = new WeakRef( obj )
 		    Storage.Value( wr ) = dict
 		    
@@ -135,7 +161,94 @@ Protected Module AttachedPropertiesModule
 	#tag Method, Flags = &h21
 		Private Sub Init()
 		  
+		  NSStorage = new Dictionary
 		  Storage = new Dictionary
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSAttachedProperty(extends o as NSObject, key as String) As Variant
+		  //Get the stored value
+		  
+		  dim dict as Dictionary
+		  
+		  dict = FindDictionaryForNSObject( o, false )
+		  if dict=nil OR NOT dict.HasKey( key ) then
+		    dim e as new KeyNotFoundException
+		    e.Message = "This AttachedProperty does not exist"
+		    raise  e
+		  end if
+		  
+		  return   dict.Value( key )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub NSAttachedProperty(extends o as NSObject, key as string, assigns value as Variant)
+		  //Attach a key/value pair to the given object
+		  
+		  dim dict as Dictionary
+		  
+		  dict = FindDictionaryForNSObject( o, true )
+		  dict.Value( key ) = value
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSAttachedPropertyGetAll(extends o as NSObject, createIfNecessary as Boolean = false) As Dictionary
+		  //Get all the stored value as a Dictionary
+		  
+		  return   FindDictionaryForNSObject( o, createIfNecessary )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSAttachedPropertyLookup(extends o as NSObject, key as String, defaultValue as variant, storeDefault as Boolean = false) As Variant
+		  //Get the stored value or default value (which is stored if storeDefault is true)
+		  
+		  dim dict as Dictionary
+		  
+		  dict = FindDictionaryForNSObject( o, storeDefault )
+		  if dict=nil then
+		    return   defaultValue
+		  end if
+		  
+		  if NOT dict.HasKey( key ) then
+		    if storeDefault then
+		      dict.Value( key ) = defaultValue
+		    end if
+		    return  defaultValue
+		    
+		  else
+		    return   dict.Value( key )
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub NSAttachedPropertyRemove(extends o as NSObject, key as String, raiseExceptionOnFailure as boolean = false)
+		  //Remove an AttachedProperty
+		  
+		  dim dict as Dictionary
+		  
+		  dict = FindDictionaryForNSObject( o, false )
+		  if dict=nil OR NOT dict.HasKey( key ) then
+		    if raiseExceptionOnFailure then
+		      dim e as new KeyNotFoundException
+		      e.Message = "This AttachedProperty does not exist"
+		      raise  e
+		      
+		    else
+		      return
+		      
+		    end if
+		  end if
+		  
+		  dict.Remove( key )
 		  
 		End Sub
 	#tag EndMethod
@@ -153,6 +266,10 @@ Protected Module AttachedPropertiesModule
 		NOTE: an AttachedProperty is completely independant of a real Property even if you use the same property name.
 	#tag EndNote
 
+
+	#tag Property, Flags = &h21
+		Private NSStorage As Dictionary
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private Storage As Dictionary

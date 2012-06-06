@@ -932,6 +932,42 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Begin MenuItem CocoaNSLevelIndicator
+            SpecialMenu = 0
+            Text = "NSLevelIndicator"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSPathControl
+            SpecialMenu = 0
+            Text = "NSPathControl"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSSearchField
+            SpecialMenu = 0
+            Text = "NSSearchField"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSTableView
+            SpecialMenu = 0
+            Text = "NSTableView"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem NSTokenFieldMenuItem
+            SpecialMenu = 0
+            Text = "NSTokenField"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem UntitledSeparator15
+            SpecialMenu = 0
+            Text = "-"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSColorBrowser
             SpecialMenu = 0
             Text = "NSColor Browser"
@@ -950,18 +986,6 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaNSLevelIndicator
-            SpecialMenu = 0
-            Text = "NSLevelIndicator"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSPathControl
-            SpecialMenu = 0
-            Text = "NSPathControl"
-            Index = -2147483648
-            AutoEnable = True
-         End
          Begin MenuItem CocoaNSPrinter
             SpecialMenu = 0
             Text = "NSPrinter"
@@ -971,18 +995,6 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaNSRunningApplication
             SpecialMenu = 0
             Text = "NSRunningApplication"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSSearchField
-            SpecialMenu = 0
-            Text = "NSSearchField"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSTableView
-            SpecialMenu = 0
-            Text = "NSTableView"
             Index = -2147483648
             AutoEnable = True
          End
