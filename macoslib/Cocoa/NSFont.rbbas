@@ -38,8 +38,6 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function CoveredCharacterSet() As NSCharacterSet
 		  #if TargetMacOS
-		    dim nsf as NSFont
-		    
 		    declare function coveredCharacterSet lib CocoaLib selector "coveredCharacterSet" (Cls as Ptr) as Ptr
 		    
 		    dim p as Ptr

@@ -26,6 +26,22 @@ Protected Module IntrospectionExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function HasMethod(extends obj as Object, wantedName as string) As Boolean
+		  //# Returns true if the object has the given method name
+		  
+		  Dim myMethods() as Introspection.MethodInfo= Introspection.GetType( obj ).GetMethods
+		  
+		  For i as Integer = 0 to Ubound( myMethods )
+		    if myMethods(i).Name = wantedName then
+		      return true //found
+		    end if
+		  Next
+		  
+		  return false //Not found
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HasProperty(extends obj as Object, wantedProperty as string) As boolean
 		  //# Returns true if the object has the given property name
 		  
@@ -39,6 +55,43 @@ Protected Module IntrospectionExtensions
 		  Next
 		  
 		  return false //Not found
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub InvokeMethod(extends obj as Object, methodName as string, paramarray params as Variant)
+		  //# Returns true if the object has the given method name
+		  
+		  Dim myMethods() as Introspection.MethodInfo= Introspection.GetType( obj ).GetMethods
+		  
+		  For i as Integer = 0 to Ubound( myMethods )
+		    if myMethods(i).Name = methodName then
+		      myMethods( i ).Invoke( obj, params )
+		      return
+		    end if
+		  Next
+		  
+		  dim e as new RuntimeException
+		  e.ErrorNumber = -50 //paramErr
+		  e.Message = "Couldn't invoke the passed method"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function InvokeMethod(extends obj as Object, methodName as string, paramarray params as Variant) As variant
+		  //# Returns true if the object has the given method name
+		  
+		  Dim myMethods() as Introspection.MethodInfo= Introspection.GetType( obj ).GetMethods
+		  
+		  For i as Integer = 0 to Ubound( myMethods )
+		    if myMethods(i).Name = methodName then
+		      return   myMethods( i ).Invoke( obj, params )
+		    end if
+		  Next
+		  
+		  dim e as new RuntimeException
+		  e.ErrorNumber = -50 //paramErr
+		  e.Message = "Couldn't invoke the passed method"
 		End Function
 	#tag EndMethod
 
@@ -76,5 +129,40 @@ Protected Module IntrospectionExtensions
 	#tag EndMethod
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Module
 #tag EndModule

@@ -60,6 +60,12 @@ Inherits NSDictionary
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Count"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSDictionary"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"

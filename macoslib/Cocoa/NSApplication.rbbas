@@ -1,6 +1,6 @@
 #tag Class
 Class NSApplication
-Inherits NSObject
+Inherits NSResponder
 	#tag Method, Flags = &h0
 		 Shared Function App() As NSApplication
 		  declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr

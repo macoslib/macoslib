@@ -142,7 +142,6 @@ Inherits NSControl
 		    dim nsa as NSArray = new NSArray( objectValue( me.id ), false )
 		    dim nsma as NSMutableArray = new NSMutableArray( nsa.MutableCopy, false )
 		    
-		    dim content() as variant
 		    dim nso as NSObjectRBWrapper
 		    
 		    if newObject isa NSObject then
@@ -394,7 +393,6 @@ Inherits NSControl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  dim OK as Boolean
 		  dim nsa as NSArray
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
@@ -486,7 +484,6 @@ Inherits NSControl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  dim OK as Boolean
 		  dim nsa as NSArray
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
@@ -543,7 +540,6 @@ Inherits NSControl
 		    dim nsa as NSArray = new NSArray( objectValue( me.id ), false )
 		    dim result() as variant
 		    dim up as Integer = nsa.Count - 1
-		    dim v as variant
 		    dim p as Ptr
 		    dim nso as NSObjectRBWrapper
 		    dim obj as NSObject
@@ -572,11 +568,8 @@ Inherits NSControl
 		    declare sub setObjectValue lib CocoaLib selector "setObjectValue:" ( id as Ptr, nsa as Ptr )
 		    
 		    dim nsa as new NSMutableArray
-		    dim content() as variant
 		    dim v as variant
-		    dim p as Ptr
 		    dim nso as NSObjectRBWrapper
-		    dim obj as NSObject
 		    
 		    for i as integer = 0 to objs.Ubound
 		      v = objs( i )
@@ -773,7 +766,6 @@ Inherits NSControl
 		  //Periodically called
 		  
 		  #if TargetMacOS
-		    dim p as Ptr
 		    dim nso as NSObjectRBWrapper
 		    
 		    nso = FindNSWrapper( obj )
@@ -888,7 +880,6 @@ Inherits NSControl
 		    const kTypeData = 1
 		    const kTypePropertyList = 2
 		    
-		    dim hasAtLeastOneValue as Boolean
 		    dim validData as Boolean
 		    dim dict as Dictionary
 		    dim OK as Boolean

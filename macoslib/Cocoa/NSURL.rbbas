@@ -59,6 +59,7 @@ Inherits NSObject
 			Name="absoluteString"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"

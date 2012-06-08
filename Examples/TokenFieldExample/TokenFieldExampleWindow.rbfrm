@@ -870,7 +870,7 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   00.0
+         Text            =   0.00
          TextColor       =   &h000000
          TextFont        =   "System"
          TextSize        =   0

@@ -77,7 +77,6 @@ Inherits NSObject
 		  
 		  #if targetMacOS
 		    dim nsf as NSFont
-		    dim p as Ptr
 		    dim traits as integer
 		    
 		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr
@@ -123,7 +122,6 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function GetFontFromFamily(familyName as string, traits as integer, size as double = 0.0) As NSFont
 		  //Find a font
-		  dim nsf as NSFont
 		  dim p as Ptr
 		  
 		  declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr

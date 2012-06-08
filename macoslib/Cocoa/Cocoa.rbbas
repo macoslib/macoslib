@@ -216,6 +216,12 @@ Protected Module Cocoa
 		    case "NSBundle"
 		      return  new NSBundle( id, hasOwnership )
 		      
+		    case "NSCell"
+		      return  new NSCell( id, hasOwnership )
+		      
+		    case "NSCharacterSet"
+		      return  new NSCharacterSet( id, hasOwnership )
+		      
 		    case "NSColor"
 		      return  new NSColor( id, hasOwnership )
 		      
@@ -233,6 +239,15 @@ Protected Module Cocoa
 		      
 		    case "NSDictionary"
 		      return  new NSDictionary( id, hasOwnership )
+		      
+		    case "NSEvent"
+		      return  new NSEvent( id, hasOwnership )
+		      
+		    case "NSFont"
+		      return  new NSFont( id, hasOwnership )
+		      
+		    case "NSFontManager"
+		      return  new NSFontManager( id, hasOwnership )
 		      
 		    case "NSGraphicsContext"
 		      return  new NSGraphicsContext( id, hasOwnership )
@@ -255,11 +270,23 @@ Protected Module Cocoa
 		    case "NSMutableArray" //No such class for the moment
 		      'return  new NSMutableArray( id, hasOwnership )
 		      
+		    case "NSMutableCharacterSet"
+		      return  new NSMutableCharacterSet( id, hasOwnership )
+		      
 		    case "NSMutableDictionary"
 		      return  new NSMutableDictionary( id, hasOwnership )
 		      
+		    case "NSMutableIndexSet"
+		      return  new NSMutableIndexSet( id, hasOwnership )
+		      
 		    case "NSMutableString"
 		      return  new NSMutableString( id, hasOwnership )
+		      
+		    case "NSNetService"
+		      return  new NSNetService( id, hasOwnership )
+		      
+		    case "NSNetServiceBrowser"
+		      return  new NSNetServiceBrowser( id, hasOwnership )
 		      
 		    case "NSNotification"
 		      return  new NSNotification( id, hasOwnership )
@@ -267,11 +294,17 @@ Protected Module Cocoa
 		    case "NSNotificationCenter"
 		      return  new NSNotificationCenter( id, hasOwnership )
 		      
+		    case "NSNull"
+		      return  new NSNull( id, hasOwnership )
+		      
 		    case "NSNumber"
 		      return  new NSNumber( id, hasOwnership )
 		      
 		    case "NSPasteboard"
 		      return  new NSPasteboard( id, hasOwnership )
+		      
+		    case "NSPasteboardItem"
+		      return  new NSPasteboardItem( id, hasOwnership )
 		      
 		    case "NSObject"
 		      if DontReturnNSObject then
@@ -288,6 +321,9 @@ Protected Module Cocoa
 		      
 		    case "NSProcessInfo"
 		      return  new NSProcessInfo( id, hasOwnership )
+		      
+		    case "NSResponder"
+		      return  new NSResponder( id, hasOwnership )
 		      
 		    case "NSRunLoop"
 		      return  new NSRunLoop( id, hasOwnership )
@@ -318,6 +354,12 @@ Protected Module Cocoa
 		      
 		    case "NSValue"
 		      return  new NSValue( id, hasOwnership )
+		      
+		    case "NSView"
+		      return  new NSView( id, hasOwnership )
+		      
+		    case "NSWindow"
+		      return  new NSWindow( id, hasOwnership )
 		      
 		    case "NSWorkspace"
 		      return  new NSWorkspace( id, hasOwnership )
