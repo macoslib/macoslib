@@ -33,6 +33,41 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub MediaOptions()
+		  
+		  soft declare Function SCNetworkInterfaceCopyMediaOptions lib SystemConfiguration.framework (intf as Ptr, Byref current as Ptr, byref active as Ptr, byref available as Ptr, filter as Boolean) as boolean
+		  
+		  dim current, active, available as Ptr
+		  dim OK as Boolean
+		  
+		  OK = SCNetworkInterfaceCopyMediaOptions( self, current, active, available, false )
+		  
+		  'if OK then
+		  if current<>nil then
+		    dim currentDict as NSDictionary = new NSDictionary( current, false )
+		    DReport   "Current:", currentDict
+		  end if
+		  if active<>nil then
+		    dim activeDict as NSDictionary = new NSDictionary( active, false )
+		    DReport   "Active:", activeDict
+		  end if
+		  if available<>nil then
+		    dim availableArray as NSArray = new NSArray( available, false )
+		    DReport   "Available:", availableArray
+		  end if
+		  
+		  
+		  'Boolean SCNetworkInterfaceCopyMediaOptions (
+		  'SCNetworkInterfaceRef interface,
+		  'CFDictionaryRef *current,
+		  'CFDictionaryRef *active,
+		  'CFArrayRef *available,
+		  'Boolean filter
+		  ');
+		End Sub
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -44,6 +79,26 @@ Inherits CFType
 			End Get
 		#tag EndGetter
 		BSDName As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function SCNetworkInterfaceGetConfiguration lib SystemConfiguration.framework (obj as ptr) as Ptr
+			    
+			    dim nsd as NSDictionary
+			    dim p as Ptr = SCNetworkInterfaceGetConfiguration( self )
+			    if p=nil then
+			      return  nil
+			    else
+			      nsd = new NSDictionary( p, false )
+			      return   nsd.VariantValue
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		Configuration As Dictionary
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -88,6 +143,7 @@ Inherits CFType
 			Name="BSDName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
@@ -98,6 +154,12 @@ Inherits CFType
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisplayName"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HardwareAddress"
 			Group="Behavior"
 			Type="String"
 		#tag EndViewProperty
@@ -138,6 +200,7 @@ Inherits CFType
 			Name="Type"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

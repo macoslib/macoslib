@@ -224,6 +224,17 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Domain() As String
+		  
+		  #if TargetMacOS
+		    declare function _domain lib CocoaLib selector "domain" (id as Ptr) as CFStringRef
+		    
+		    return  _domain( me.id )
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function FindObjectByID(id as Ptr) As NSSearchField
 		  dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
@@ -259,6 +270,14 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotPublish(errDict as Dictionary)
 		  
+		  'if parent<>nil AND parent.Value<>nil then
+		  'BonjourControl( parent.Right ).Private_HandleCallbacks   me, "DidNotPublish", errDict
+		  'end if
+		  
+		  mState = kStateIsServer
+		  
+		  BonjourModule.DidNotPublish   me, errDict
+		  
 		  RaiseEvent   DidNotPublish( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
 		  
 		  DReportError   "DidNotPublished", errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 )
@@ -267,6 +286,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotResolve(errDict as Dictionary)
+		  
+		  'if parent<>nil AND parent.Value<>nil then
+		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidNotResolve", errDict
+		  'end if
+		  
 		  RaiseEvent   DidNotResolve( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
 		  
 		  DReportError   "DidNotResolved", errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 )
@@ -275,6 +299,14 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidPublish()
+		  'if parent<>nil AND parent.Value<>nil then
+		  'BonjourControl( parent.Right ).Private_HandleCallbacks   me, "DidPublish"
+		  'end if
+		  
+		  mState = kStatePublished
+		  
+		  BonjourModule.DidPublish   me
+		  
 		  RaiseEvent   DidPublish
 		  
 		  DReport   "DidPublish"
@@ -285,6 +317,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidResolve()
+		  'if parent<>nil AND parent.Value<>nil then
+		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidResolve"
+		  'end if
+		  
+		  mState = kStateResolved
 		  
 		  RaiseEvent  DidResolve
 		  
@@ -296,13 +333,29 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidStop()
-		  RaiseEvent   DidStop
+		  'if parent<>nil AND parent.Value<>nil then
+		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidStop"
+		  'end if
+		  
+		  if State=kStateIsResolving then
+		    RaiseEvent   DidStopResolving
+		  elseif State=kStateIsTryingToPublish OR State=kStatePublished then
+		    RaiseEvent   DidStopPublishing
+		  end if
+		  
+		  DReport   "Service stopped"
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidUpdateTXTRecord(data as NSData)
+		  'if parent<>nil AND parent.Value<>nil then
+		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidUpdateTXTRecord", data
+		  'end if
+		  
+		  RaiseEvent   DidUpdateTXTRecord( data.data )
+		  
 		  
 		  
 		End Sub
@@ -332,6 +385,7 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      nsns = new NSNetService( p, false )
+		      nsns.mState = kStateIsServer
 		      nsns.SetDelegate
 		      return  nsns
 		    end if
@@ -353,6 +407,7 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      nsns = new NSNetService( p, false )
+		      nsns.mState = kStateIsClient
 		      nsns.SetDelegate
 		      return  nsns
 		    end if
@@ -416,6 +471,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Port() As integer
+		  
+		  #if TargetMacOS
+		    declare function _port lib CocoaLib selector "port" (id as Ptr) as integer
+		    
+		    return  _port( me.id )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Private_SetParent(bc as BonjourControl)
+		  
+		  #if TargetMacOS
+		    parent = new WeakRef( bc )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Publish(allowAutoRenaming as boolean = true)
 		  
 		  #if TargetMacOS
@@ -424,12 +499,13 @@ Inherits NSObject
 		    
 		    '_publishWithOptions  me.id, IFTE( allowAutoRenaming, 0, 1 )
 		    _publish me.id
+		    mState = kStateIsTryingToPublish
 		  #endif
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub RemoveFromRunLoop()
+	#tag Method, Flags = &h0
+		Sub RemoveFromRunLoop()
 		  
 		  #if TargetMacOS
 		    declare sub removeFromRunLoop lib CocoaLib selector "removeFromRunLoop:forMode:" ( id as Ptr, aRunLoop as Ptr, mode as CFStringRef )
@@ -522,6 +598,61 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub StartMonitoring()
+		  
+		  #if TargetMacOS
+		    declare sub _StartMonitoring lib CocoaLib selector "startMonitoring" (id as Ptr)
+		    
+		    if State=kStateResolved then
+		      _StartMonitoring   me.id
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Stop()
+		  
+		  #if TargetMacOS
+		    declare sub _stop lib CocoaLib selector "stop" (id as Ptr)
+		    
+		    if State>=kStateIsServer then
+		      mState = kStateIsTryingToUnpublish
+		    else
+		      mState = kStateIsResolving
+		    end if
+		    _stop  me.id
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub StopMonitoring()
+		  
+		  #if TargetMacOS
+		    declare sub _StopMonitoring lib CocoaLib selector "stopMonitoring" (id as Ptr)
+		    
+		    if State=kStateResolved then
+		      _StopMonitoring   me.id
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Type() As String
+		  
+		  #if TargetMacOS
+		    declare function _type lib CocoaLib selector "type" (id as Ptr) as CFStringRef
+		    
+		    return  _type( me.id )
+		  #endif
+		End Function
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event DidNotPublish(errorCode as integer, errorDomain as integer)
@@ -540,7 +671,15 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event DidStop()
+		Event DidStopPublishing()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event DidStopResolving()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event DidUpdateTXTRecord(newRecord as MemoryBlock)
 	#tag EndHook
 
 
@@ -558,10 +697,17 @@ Inherits NSObject
 		
 		CONNECTING TO A SERVICE: no matter how you get a NSNetService object, you first need to resolve the actual address(es) of the service. Depending on how many interfaces
 		   are active (1 or 2 Ethernet cards, the WiFi network...) you will get a number of IPv4 and IPv6 addresses. Fortunately, you do not need to pick one when using
-		   NSNetService. 
-		
+		   NSNetService.
 	#tag EndNote
 
+
+	#tag Property, Flags = &h21
+		Private mState As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		parent As Weakref
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -595,6 +741,15 @@ Inherits NSObject
 			End Set
 		#tag EndSetter
 		ServiceTXTDictionary As Dictionary
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return mState
+			End Get
+		#tag EndGetter
+		State As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -657,90 +812,35 @@ Inherits NSObject
 	#tag Constant, Name = kNSNetServicesUnknownError, Type = Double, Dynamic = False, Default = \"-72000", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = kStateIsClient, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kStateIsResolving, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kStateIsServer, Type = Double, Dynamic = False, Default = \"100", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kStateIsTryingToPublish, Type = Double, Dynamic = False, Default = \"101", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kStateIsTryingToUnpublish, Type = Double, Dynamic = False, Default = \"103", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kStatePublished, Type = Double, Dynamic = False, Default = \"102", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kStateResolved, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="AcceptFocus"
+			Name="Description"
 			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AcceptTabs"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AutoDeactivate"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="autoresizesSubviews"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Backdrop"
-			Visible=true
-			Group="Appearance"
-			Type="Picture"
-			EditorType="Picture"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Bold"
-			Visible=true
-			Group="Behavior"
-			InitialValue="false"
-			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CompletionDelay"
-			Group="Behavior"
-			Type="double"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DoubleBuffer"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Enabled"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="EraseBackground"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Height"
-			Visible=true
-			Group="Position"
-			InitialValue="100"
-			Type="Integer"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HelpTag"
-			Visible=true
-			Group="Appearance"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="Canvas"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -751,58 +851,11 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="InitialParent"
-			Group="Initial State"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsFlipped"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Italic"
-			Visible=true
-			Group="Behavior"
-			InitialValue="false"
-			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockBottom"
-			Visible=true
-			Group="Position"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockLeft"
-			Visible=true
-			Group="Position"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockRight"
-			Visible=true
-			Group="Position"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockTop"
-			Visible=true
-			Group="Position"
-			Type="Boolean"
-			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
@@ -817,83 +870,11 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TabIndex"
-			Group="Position"
-			Type="Integer"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabPanelIndex"
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabStop"
-			Group="Position"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TextFont"
-			Visible=true
-			Group="Behavior"
-			InitialValue="System"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TextSize"
-			Visible=true
-			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TokenizingCharacters"
-			Group="Behavior"
-			Type="string"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Underlined"
-			Visible=true
-			Group="Behavior"
-			InitialValue="false"
-			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="UseFocusRing"
-			Group="Appearance"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Visible"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Width"
-			Visible=true
-			Group="Position"
-			InitialValue="100"
-			Type="Integer"
-			InheritedFrom="Canvas"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

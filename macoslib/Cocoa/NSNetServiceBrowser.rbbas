@@ -200,6 +200,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidFindDomain(DomainName as string, moreComing as Boolean)
+		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  
+		  if bc<>nil then
+		    bc.Private_HandleCallbacks( me, "DidFindDomain", DomainName, moreComing )
+		  end if
 		  
 		  RaiseEvent   DomainAdded  DomainName, moreComing
 		  
@@ -208,6 +213,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidFindService(Service as NSNetService, moreComing as Boolean)
+		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  
+		  if bc<>nil then
+		    bc.Private_HandleCallbacks( me, "DidFindService", service, moreComing )
+		  end if
 		  
 		  RaiseEvent   ServiceAdded  Service.Name + " @ " + Service.HostName, Service.ServiceTXTDictionary, moreComing, Service
 		  
@@ -217,6 +227,12 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotSearch(errDict as Dictionary)
+		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  
+		  if bc<>nil then
+		    bc.Private_HandleCallbacks( me, "DidNotSearch", errDict )
+		  end if
+		  
 		  RaiseEvent   SearchError( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
 		  
 		  DReportError   "DidNotResolved", errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 )
@@ -225,6 +241,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidRemoveDomain(DomainName as string, moreComing as Boolean)
+		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  
+		  if bc<>nil then
+		    bc.Private_HandleCallbacks( me, "DidRemoveDomain", DomainName, moreComing )
+		  end if
 		  
 		  RaiseEvent   DomainRemoved  DomainName, moreComing
 		  
@@ -233,6 +254,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidRemoveService(Service as NSNetService, moreComing as Boolean)
+		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  
+		  if bc<>nil then
+		    bc.Private_HandleCallbacks( me, "DidRemoveService", service, moreComing )
+		  end if
 		  
 		  RaiseEvent   ServiceRemoved  Service.Name, moreComing, service
 		  
@@ -241,6 +267,12 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidStop()
+		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  
+		  if bc<>nil then
+		    bc.Private_HandleCallbacks( me, "DidStop" )
+		  end if
+		  
 		  RaiseEvent   SearchStopped
 		  
 		  
@@ -315,6 +347,14 @@ Inherits NSObject
 		    scheduleInRunLoop   me.id, nsrl.id, Cocoa.StringConstant( "NSDefaultRunLoopMode" )
 		    
 		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SearchForAllServiceTypes(inDomain as string = "")
+		  
+		  
+		  //dns-sd -B _services._dns-sd._udp .
 		End Sub
 	#tag EndMethod
 

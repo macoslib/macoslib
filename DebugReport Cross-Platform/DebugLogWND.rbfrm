@@ -328,9 +328,9 @@ Begin Window DebugLogWND
       InitialParent   =   ""
       Italic          =   ""
       Left            =   218
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
       Multiline       =   ""
@@ -362,9 +362,9 @@ Begin Window DebugLogWND
       InitialParent   =   ""
       Italic          =   ""
       Left            =   247
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
       Multiline       =   ""
@@ -393,9 +393,9 @@ Begin Window DebugLogWND
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   276
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
@@ -412,7 +412,7 @@ Begin Window DebugLogWND
       Caption         =   "Syslog"
       DataField       =   ""
       DataSource      =   ""
-      Enabled         =   False
+      Enabled         =   True
       Height          =   16
       HelpTag         =   "Also log Errors and Warnings to the System log"
       Index           =   -2147483648

@@ -17,7 +17,7 @@ Inherits Application
 		Sub Open()
 		  Cocoa.Initialize
 		  
-		  CustomWorkspaceEvents.Register
+		  CustomWorkspaceEvents.Init
 		  
 		End Sub
 	#tag EndEvent

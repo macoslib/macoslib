@@ -6,7 +6,6 @@ Protected Module DebugReportOptions
 		• UseMacoslib: set it to true if macoslib is installed
 		• AutomaticallyDisableInFinalBuilds: if true (even if AllowDebugReport is true), debug reports are disabled in final builds (but allowed when debugging). This way, you are
 		   sure that the Debug Report window will not show up in the built applications, even if you forgot to set "AllowDebugReport" to false.
-		
 	#tag EndNote
 
 

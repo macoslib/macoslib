@@ -483,7 +483,7 @@ Protected Module CustomWorkspaceEvents
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub Register()
+		Protected Sub Init()
 		  //# Initialize the event listening system.
 		  
 		  //@ Put some code in the "event..." methods you are interested in and call this method once.
@@ -509,6 +509,9 @@ Protected Module CustomWorkspaceEvents
 		a single global object so each instance of NSWorkspace is the same. NSWorkspace methods are implemented in other extensions.
 		
 		Write some code in the "event..." methods you are interested in and call CustomWorkspaceEvents.Register from App.Open to initialize listening for notifications.
+		
+		
+		BEWARE: do not replace your CustomWorkspaceEvents module when updating macoslib
 	#tag EndNote
 
 
@@ -516,6 +519,9 @@ Protected Module CustomWorkspaceEvents
 		Private sharedWorkspace As NSWorkspace
 	#tag EndProperty
 
+
+	#tag Constant, Name = kCustomWorkspaceEventsVersion, Type = Double, Dynamic = False, Default = \"100", Scope = Protected
+	#tag EndConstant
 
 	#tag Constant, Name = kLogEvents, Type = Boolean, Dynamic = False, Default = \"true", Scope = Protected
 	#tag EndConstant

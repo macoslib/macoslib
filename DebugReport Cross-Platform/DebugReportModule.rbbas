@@ -27,6 +27,18 @@ Protected Module DebugReportModule
 		      LogText = LogText + sr2.Text
 		    end if
 		    
+		    //Should we log to the system ?
+		    if DebugLogWND.SyslogCB.Value then
+		      select case level
+		      case 0 //Normal
+		        System.Log   System.LogLevelNotice, sr1.Text
+		      case 1 //Warning
+		        System.Log   System.LogLevelWarning, IFTE( sr2=nil, sr1.Text, sr2.Text )
+		      case 2 //Error
+		        System.Log   System.LogLevelError, IFTE( sr2=nil, sr1.Text, sr2.Text )
+		      end select
+		    end if
+		    
 		    DebugLogWND.LogTA.ScrollPosition = 1e+6
 		    
 		    if DebugLogWND.ImmediateReportCB.Value AND NOT (Keyboard.AsyncKeyDown( 79 )) then
@@ -306,7 +318,6 @@ Protected Module DebugReportModule
 		
 		FUTURE FEATURES: in the future, some methods will use a format specification which allows developpers to choose some options for representing the contents of
 		   a Real Studio type or of an Object.
-		
 	#tag EndNote
 
 
