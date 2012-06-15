@@ -962,6 +962,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem NSImageViewMenu
+            SpecialMenu = 0
+            Text = "NSImageView (incl. ImageWell)"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem UntitledSeparator15
             SpecialMenu = 0
             Text = "-"

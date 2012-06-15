@@ -1356,7 +1356,7 @@ Inherits NSControl
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="20"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -1457,7 +1457,9 @@ Inherits NSControl
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
+			Visible=true
 			Group="Position"
+			InitialValue="true"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -1501,7 +1503,9 @@ Inherits NSControl
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseFocusRing"
+			Visible=true
 			Group="Appearance"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty

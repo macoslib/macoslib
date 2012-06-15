@@ -29,8 +29,8 @@ Begin BetterContainerControl CheckboxContainer
       AutoDeactivate  =   True
       AutoToggle      =   0
       Backdrop        =   ""
-      BehaviorIndex   =   0
       Caption         =   "MacCheckbox"
+      DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
       Height          =   20

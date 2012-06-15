@@ -486,7 +486,7 @@ Inherits NSControl
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="20"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty

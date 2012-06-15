@@ -280,6 +280,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function NSImageViewMenu() As Boolean Handles NSImageViewMenu.Action
+			NSImageViewExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function NSTokenFieldMenuItem() As Boolean Handles NSTokenFieldMenuItem.Action
 			TokenFieldExampleWindow.Show
 			Return True

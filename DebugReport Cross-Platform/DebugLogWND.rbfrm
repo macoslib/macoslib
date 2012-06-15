@@ -92,7 +92,7 @@ Begin Window DebugLogWND
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   True
+      AutomaticallyCheckSpelling=   False
       BackColor       =   &hFFFFFF
       Bold            =   ""
       Border          =   True
@@ -344,7 +344,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   423
+      Top             =   426
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -378,7 +378,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   423
+      Top             =   426
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -402,7 +402,7 @@ Begin Window DebugLogWND
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   427
+      Top             =   430
       Visible         =   True
       Width           =   10
    End
