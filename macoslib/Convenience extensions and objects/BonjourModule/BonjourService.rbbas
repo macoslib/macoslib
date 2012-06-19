@@ -1,6 +1,15 @@
 #tag Class
 Class BonjourService
 	#tag Method, Flags = &h0
+		Sub AddParent(parent as BonjourControl)
+		  
+		  if parent<>nil then
+		    ParentBonjourControls.Append   new WeakRef( parent )
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Addresses() As String()
 		  #if TargetMacOS
 		    return  nsns.Addresses
@@ -31,7 +40,6 @@ Class BonjourService
 		  dim bs as new BonjourService
 		  
 		  bs.nsns = service
-		  bs.RegisterHandlers
 		  
 		  return  bs
 		End Function
@@ -48,6 +56,25 @@ Class BonjourService
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function FindParents() As BonjourControl()
+		  
+		  dim result() as BonjourControl
+		  dim wr as WeakRef
+		  
+		  for i as integer = ParentBonjourControls.Ubound downto 0
+		    wr = ParentBonjourControls( i )
+		    if wr=nil OR wr.Value=nil then
+		      ParentBonjourControls.Remove i
+		    else
+		      result.Append  BonjourControl( wr.Value )
+		    end if
+		  next
+		  
+		  Return  result
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function Handle() As Ptr
 		  
@@ -59,11 +86,15 @@ Class BonjourService
 		Private Sub Handle_DidNotResolve(sender as NSNetService, errorCode as integer, errorDomain as integer)
 		  
 		  #if TargetMacOS
-		    if me.Parent = nil then //Standalone object
+		    dim parents() as BonjourControl
+		    
+		    parents = FindParents
+		    if parents.Ubound=-1 then //Standalone object
 		      CustomBonjourEvents.event_ServiceResolutionError   me, errorcode, errorDomain
 		    else
 		      RaiseEvent   ResolutionError( errorCode, errorDomain )
 		    end if
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -72,11 +103,17 @@ Class BonjourService
 		Private Sub Handle_DidResolve(sender as NSNetService)
 		  
 		  #if TargetMacOS
-		    if me.Parent = nil then //Standalone object
+		    dim parents() as BonjourControl
+		    
+		    parents = FindParents
+		    if parents.Ubound=-1 then //Standalone object
 		      CustomBonjourEvents.event_ServiceResolved   me
 		    else
 		      RaiseEvent   Resolved()
 		    end if
+		    
+		    nsns.StartMonitoring
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -85,25 +122,33 @@ Class BonjourService
 		Private Sub Handle_DidStopResolving(sender as NSNetService)
 		  
 		  #if TargetMacOS
-		    if me.Parent = nil then //Standalone object
+		    dim parents() as BonjourControl
+		    
+		    parents = FindParents
+		    if parents.Ubound=-1 then //Standalone object
 		      CustomBonjourEvents.event_ServiceStoppedResolving   me
 		    else
 		      RaiseEvent   StoppedResolving()
 		    end if
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub Handle_DidUpdateTXTRecord(sender as NSNetService, newData as MemoryBlock)
+		Private Sub Handle_DidUpdateTXTRecord(sender as NSNetService)
 		  
 		  #if TargetMacOS
-		    if me.Parent = nil then //Standalone object
+		    dim parents() as BonjourControl
+		    
+		    parents = FindParents
+		    if parents.Ubound=-1 then //Standalone object
 		      CustomBonjourEvents.event_ServiceTXTRecordChanged   me
 		    else
 		      RaiseEvent   TXTDataChanged
 		    end if
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
@@ -115,16 +160,6 @@ Class BonjourService
 		      return  nsns.Name
 		    end if
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Parent() As BonjourControl
-		  
-		  if ParentBonjourControl <> nil AND ParentBonjourControl.Value <> nil then
-		    return   BonjourControl( ParentBonjourControl.Value )
-		  end if
-		  
 		End Function
 	#tag EndMethod
 
@@ -147,19 +182,18 @@ Class BonjourService
 		  #if TargetMacOS
 		    if nsns<>nil then
 		      nsns.Resolve   timeoutInSeconds
+		    else
+		      raise new NilObjectException
 		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SetParent(parent as BonjourControl)
+		Sub StopResolving()
+		  //# Interrupt resolving a service
 		  
-		  if parent<>nil then
-		    ParentBonjourControl = new WeakRef( parent )
-		  else
-		    ParentBonjourControl = nil
-		  end if
+		  nsns.Stop
 		End Sub
 	#tag EndMethod
 
@@ -203,18 +237,39 @@ Class BonjourService
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21
-		#tag Note
-			// The underlying Cocoa object
-		#tag EndNote
-		Private nsns As NSNetService
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h1
+		#tag Getter
+			Get
+			  return _nsns
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  'if _nsns<>nil then
+			  'DReportTitle   self.ClassName
+			  'if value.id=_nsns.id then
+			  'DReportWarning    "NSNetService has changed for BonjourService", Hex(value.id), "but with same value"
+			  'else
+			  'DReport  "NSNetService has changed for BonjourService", Hex(value.id), value.Name, value.type, value.State
+			  'end if
+			  'end if
+			  
+			  if value.GetDelegate=nil then
+			    value.SetDelegate
+			  end if
+			  _nsns = value
+			  RegisterHandlers
+			End Set
+		#tag EndSetter
+		Protected nsns As NSNetService
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		#tag Note
-			//The parent BonjourControl, when necessary
+			//The parent BonjourControl(s), when necessary
 		#tag EndNote
-		Private ParentBonjourControl As WeakRef
+		Private ParentBonjourControls() As WeakRef
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -226,6 +281,13 @@ Class BonjourService
 		#tag EndGetter
 		TXTRecord As Dictionary
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h1
+		#tag Note
+			// The underlying Cocoa object
+		#tag EndNote
+		Protected _nsns As NSNetService
+	#tag EndProperty
 
 
 	#tag ViewBehavior

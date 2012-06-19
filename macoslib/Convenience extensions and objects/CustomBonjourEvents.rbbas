@@ -3,11 +3,17 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServicePublished(service as BonjourServiceForPublishing)
 		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub event_ServicePublishingError(service as BonjourServiceForPublishing, errorCode as integer, errorDomain as integer)
+		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
 		  
 		End Sub
 	#tag EndMethod
@@ -15,11 +21,17 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceResolutionError(service as BonjourService, errorCode as integer, errorDomain as integer)
 		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceResolved(service as BonjourService)
+		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
 		  
 		End Sub
 	#tag EndMethod
@@ -27,17 +39,26 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceStoppedPublishing(service as BonjourServiceForPublishing)
 		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceStoppedResolving(service as BonjourService)
 		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceTXTRecordChanged(service as BonjourService)
+		  
+		  DReportTitle   "In CustomBonjourEvents module:"
+		  DReport   CurrentMethodName, "has been invoked"
 		  
 		End Sub
 	#tag EndMethod

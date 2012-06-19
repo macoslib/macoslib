@@ -72,6 +72,10 @@ Inherits NSObject
 		  #if TargetMacOS
 		    dim md as new NSMutableDictionary
 		    
+		    if dict=nil then
+		      return   nil
+		    end if
+		    
 		    for i as integer=0 to dict.Count - 1
 		      md.Value( Cocoa.NSObjectFromRSVariant( dict.Key( i ))) = Cocoa.NSObjectFromRSVariant( dict.value( dict.key( i )))
 		    next

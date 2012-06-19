@@ -1,14 +1,134 @@
 #tag Class
 Class BonjourControl
 Inherits Canvas
+	#tag Event
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub DoubleClick(X As Integer, Y As Integer)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function DragEnter(obj As DragItem, action As Integer) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub DragExit(obj As DragItem, action As Integer)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function DragOver(x As Integer, y As Integer, obj As DragItem, action As Integer) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub DropObject(obj As DragItem, action As Integer)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub EnableMenuItems()
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub GotFocus()
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub KeyUp(Key As String)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub LostFocus()
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseDrag(X As Integer, Y As Integer)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseEnter()
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseExit()
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseMove(X As Integer, Y As Integer)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  //
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function MouseWheel(X As Integer, Y As Integer, deltaX as Integer, deltaY as Integer) As Boolean
+		  //
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub Paint(g As Graphics)
+		  //
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub BrowseBonjourServicesOfType(type as string, inDomain as string = "")
 		  
 		  #if TargetMacOS
-		    if NetBrowser=nil then
-		      NetBrowser = new NSNetServiceBrowser
-		      NetBrowser.AttachedProperty( "ParentBonjourControl" ) = me
-		    end if
+		    NetBrowser = new NSNetServiceBrowser
+		    
+		    RegisterServiceBrowser   NetBrowser
 		    
 		    NetBrowser.SearchForServicesOfType   type, inDomain
 		    
@@ -26,6 +146,17 @@ Inherits Canvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function DoesUseObject(obj as BonjourService) As Boolean
+		  
+		  for each bs as BonjourService in BSS
+		    if bs.Handle = obj.Handle then
+		      return   true
+		    end if
+		  next
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function FindService(nsservice as NSNetService, andRemove as Boolean = false) As BonjourService
 		  
@@ -41,6 +172,69 @@ Inherits Canvas
 		    end if
 		  next
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Handle_SearchError(browser as NSNetServiceBrowser, errorCode as integer, errorDomain as integer)
+		  
+		  #if TargetMacOS
+		    RaiseEvent   BrowsingError( errorCode, errorDomain )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Handle_SearchStopped(browser as NSNetServiceBrowser)
+		  
+		  RaiseEvent   BrowsingStopped
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Handle_ServiceAdded(browser as NSNetServiceBrowser, ServiceName as string, TXTDict as Dictionary, moreComing as Boolean, NSService as NSNetService)
+		  
+		  #if TargetMacOS
+		    dim service as BonjourService = BonjourService.CreateFromCocoaObject( NSService )
+		    
+		    if service=nil then
+		      DReportError  CurrentMethodName, "Could not create BonjourService from the passed NSNetService"
+		      return
+		    end if
+		    
+		    RegisterBonjourService   service
+		    
+		    RaiseEvent    ServiceAdded( service, moreComing )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Handle_ServiceRemoved(browser as NSNetServiceBrowser, ServiceName as string, moreComing as Boolean, NSService as NSNetService)
+		  
+		  #if TargetMacOS
+		    dim service as BonjourService
+		    dim index as integer
+		    
+		    for i as integer=0 to BSS.Ubound
+		      if BSS( i ).Handle = NSService.id then
+		        index = i
+		        service = BSS( i )
+		        exit
+		      end if
+		    next
+		    
+		    if service=nil then
+		      DReportError   CurrentMethodName, "Couldn't retrieve existing BonjourService for NSNetService:", NSService
+		      return
+		    end if
+		    
+		    RaiseEvent  ServiceRemoved   service, moreComing
+		    
+		    BSS.Remove   index
+		    
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -73,52 +267,12 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Private_HandleCallbacks(sender as NSNetService, action as string, paramarray params as variant)
-		  dim errDict as Dictionary
-		  dim nsservice as NSNetService
-		  dim moreToCome as Boolean
-		  dim bs as BonjourService
+		Sub PublishBonjourService(Name as string, type as string, domain as string, port as integer, TXTDictionary as Dictionary = nil)
+		  //# Register a Bonjour service
 		  
-		  select case action
-		    'case "DidFindService"
-		    'nsservice = params( 0 )
-		    'moreToCome = params( 1 )
-		    'bs = BonjourService.CreateFromCocoaObject( nsservice )
-		    'BSS.Append  bs
-		    'RaiseEvent   ServiceAdded( bs, moreToCome )
-		    '
-		    'case "DidRemoveService"
-		    'nsservice = params( 0 )
-		    'moreToCome = params( 1 )
-		    'bs = FindService( nsservice, true )
-		    'RaiseEvent  ServiceRemoved( bs, moreToCome )
-		    
-		  end select
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Private_HandleCallbacks(sender as NSNetServiceBrowser, action as string, paramarray params as variant)
-		  dim errDict as Dictionary
-		  dim nsservice as NSNetService
-		  dim moreToCome as Boolean
-		  dim bs as BonjourService
+		  BonjourModule.PublishService   name, type, domain, port, TXTDictionary
 		  
-		  select case action
-		  case "DidFindService"
-		    nsservice = params( 0 )
-		    moreToCome = params( 1 )
-		    bs = BonjourService.CreateFromCocoaObject( nsservice )
-		    BSS.Append  bs
-		    RaiseEvent   ServiceAdded( bs, moreToCome )
-		    
-		  case "DidRemoveService"
-		    nsservice = params( 0 )
-		    moreToCome = params( 1 )
-		    bs = FindService( nsservice, true )
-		    RaiseEvent  ServiceRemoved( bs, moreToCome )
-		    
-		  end select
+		  
 		End Sub
 	#tag EndMethod
 
@@ -126,6 +280,7 @@ Inherits Canvas
 		Private Sub RegisterBonjourService(service as BonjourService)
 		  
 		  BSS.Append   service
+		  service.AddParent   me
 		  
 		  AddHandler   service.Resolved, AddressOf Handle_ServiceResolved
 		  AddHandler   service.ResolutionError, AddressOf Handle_ServiceResolutionError
@@ -135,18 +290,14 @@ Inherits Canvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub RegisterBonjourService(Name as string, type as string, domain as string, port as integer, TXTDictionary as Dictionary = nil)
-		  //# Register a Bonjour service
+	#tag Method, Flags = &h21
+		Private Sub RegisterServiceBrowser(browser as NSNetServiceBrowser)
 		  
-		  dim nsns as NSNetService = NSNetService.InitForPublishing( name, domain, type, port )
+		  AddHandler   browser.ServiceAdded, AddressOf Handle_ServiceAdded
+		  AddHandler   browser.ServiceRemoved, AddressOf Handle_ServiceRemoved
+		  AddHandler   browser.SearchError, AddressOf Handle_SearchError
+		  AddHandler   browser.SearchStopped, AddressOf Handle_SearchStopped
 		  
-		  if nsns<>nil then
-		    nsns.ServiceTXTDictionary = TXTDictionary
-		    'nsns.Private_SetParent   me
-		    'nsns.AttachedProperty( "BonjourControlParent" ) = me
-		    BonjourModule.PublishService   nsns
-		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -168,15 +319,15 @@ Inherits Canvas
 
 
 	#tag Hook, Flags = &h0
-		Event RegisterError(name as string, type as string, domain as string, err as integer)
+		Event BrowsingError(errorCode as integer, errorDomain as integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event BrowsingStopped()
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
 		Event ServiceAdded(service as BonjourService, moreComing as Boolean)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event ServiceRegistered(name as string, type as string, domain as string, port as string, TXTDict as Dictionary)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0

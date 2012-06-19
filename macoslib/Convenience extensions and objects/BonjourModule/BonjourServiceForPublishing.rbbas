@@ -49,11 +49,13 @@ Inherits BonjourService
 	#tag Method, Flags = &h0
 		Sub Constructor(name as string, type as string, domain as string = "", port as integer)
 		  
-		  nsns = NSNetService.InitForResolving( name, domain, type )
+		  nsns = NSNetService.InitForPublishing( name, domain, type, port )
 		  
 		  if nsns=nil then
 		    raise  new MacOSError( -50, "Impossible to create an instance of BonjourService. Parameter error." )
 		  end if
+		  
+		  RegisterHandlers
 		End Sub
 	#tag EndMethod
 
@@ -67,7 +69,6 @@ Inherits BonjourService
 		  end if
 		  
 		  bs.nsns = service
-		  bs.RegisterHandlers
 		  
 		  return  bs
 		End Function
@@ -84,22 +85,15 @@ Inherits BonjourService
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function Handle() As Ptr
-		  
-		  return   nsns.id
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h21
 		Private Sub Handle_DidNotPublish(sender as NSNetService, errorCode as integer, errorDomain as integer)
 		  #pragma unused sender
 		  
-		  if me.Parent = nil then //Standalone object
-		    CustomBonjourEvents.event_ServicePublishingError   me, errorcode, errorDomain
-		  else
-		    RaiseEvent   PublishingError( errorCode, errorDomain )
-		  end if
+		  'if me.Parent = nil then //Standalone object
+		  CustomBonjourEvents.event_ServicePublishingError   me, errorcode, errorDomain
+		  'else
+		  RaiseEvent   PublishingError( errorCode, errorDomain )
+		  'end if
 		  
 		End Sub
 	#tag EndMethod
@@ -108,11 +102,11 @@ Inherits BonjourService
 		Private Sub Handle_DidPublish(sender as NSNetService)
 		  #pragma Unused sender
 		  
-		  if me.Parent = nil then //Standalone object
-		    CustomBonjourEvents.event_ServicePublished   me
-		  else
-		    RaiseEvent  Published()
-		  end if
+		  'if me.Parent = nil then //Standalone object
+		  CustomBonjourEvents.event_ServicePublished   me
+		  'else
+		  RaiseEvent  Published()
+		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -120,11 +114,11 @@ Inherits BonjourService
 		Private Sub Handle_DidStop(sender as NSNetService)
 		  #pragma unused sender
 		  
-		  if me.Parent = nil then //Standalone object
-		    CustomBonjourEvents.event_ServiceStoppedPublishing   me
-		  else
-		    RaiseEvent  StoppedPublishing()
-		  end if
+		  'if me.Parent = nil then //Standalone object
+		  CustomBonjourEvents.event_ServiceStoppedPublishing   me
+		  'else
+		  RaiseEvent  StoppedPublishing()
+		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -194,6 +188,21 @@ Inherits BonjourService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub StopPublishing()
+		  //# Stop publishing
+		  
+		  nsns.Stop
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub StopResolving()
+		  //Only available for Super
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Type() As string
 		  
 		  #if TargetMacOS
@@ -231,19 +240,14 @@ Inherits BonjourService
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21
-		#tag Note
-			// The underlying Cocoa object
-		#tag EndNote
-		Private nsns As NSNetService
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		#tag Note
-			//The parent BonjourControl, when necessary
-		#tag EndNote
-		Private ParentBonjourControl As WeakRef
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return  nsns.State
+			End Get
+		#tag EndGetter
+		State As Integer
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

@@ -44,6 +44,10 @@ Inherits NSObject
 		    
 		    dim p as Ptr
 		    
+		    if dict=nil then
+		      return  nil
+		    end if
+		    
 		    p = _dataFromTXTRecordDictionary( Cocoa.NSClassFromString( "NSNetService" ), dict.id )
 		    
 		    if p<>nil then
@@ -78,12 +82,13 @@ Inherits NSObject
 		      dim dict as Dictionary = NSDict.VariantValue
 		      
 		      obj.HandleDidNotPublish   dict
+		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
-		      //something might be wrong.
+		      Raise new macoslibException( "Target object no longer exists." )
 		    end if
 		  else
-		    //something might be wrong.
+		    Raise new macoslibException( "Target object not found." )
 		  end if
 		  
 		End Sub
@@ -103,12 +108,13 @@ Inherits NSObject
 		      dim dict as Dictionary = NSDict.VariantValue
 		      
 		      obj.HandleDidNotResolve  dict
+		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
-		      //something might be wrong.
+		      Raise new macoslibException( "Target object no longer exists." )
 		    end if
 		  else
-		    //something might be wrong.
+		    Raise new macoslibException( "Target object not found." )
 		  end if
 		  
 		End Sub
@@ -125,6 +131,7 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidPublish
+		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      //something might be wrong.
@@ -147,12 +154,13 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidResolve
+		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
-		      //something might be wrong.
+		      Raise new macoslibException( "Target object no longer exists." )
 		    end if
 		  else
-		    //something might be wrong.
+		    Raise new macoslibException( "Target object not found." )
 		  end if
 		  
 		End Sub
@@ -169,12 +177,13 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidStop
+		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
-		      //something might be wrong.
+		      Raise new macoslibException( "Target object no longer exists." )
 		    end if
 		  else
-		    //something might be wrong.
+		    Raise new macoslibException( "Target object not found." )
 		  end if
 		  
 		End Sub
@@ -190,14 +199,61 @@ Inherits NSObject
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
-		      dim data as NSData = new NSData( dataPtr, false )
-		      obj.HandleDidUpdateTXTRecord  data
+		      'dim data as NSData = new NSData( dataPtr, false )
+		      obj.HandleDidUpdateTXTRecord
+		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      //something might be wrong.
 		    end if
 		  else
 		    //something might be wrong.
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub delegate_WillPublish(id as Ptr, sel as Ptr, cntl as Ptr)
+		  
+		  #pragma unused sel
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey( id ) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
+		    dim obj as NSNetService = NSNetService( w.Value )
+		    if obj <> nil then
+		      obj.HandleWillPublish
+		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      
+		    else
+		      Raise new macoslibException( "Target object no longer exists." )
+		    end if
+		  else
+		    Raise new macoslibException( "Target object not found." )
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub delegate_WillResolve(id as Ptr, sel as Ptr, cntl as Ptr)
+		  
+		  #pragma unused sel
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey( id ) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
+		    dim obj as NSNetService = NSNetService( w.Value )
+		    if obj <> nil then
+		      obj.HandleWillResolve
+		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      
+		    else
+		      Raise new macoslibException( "Target object no longer exists." )
+		    end if
+		  else
+		    Raise new macoslibException( "Target object not found." )
 		  end if
 		  
 		End Sub
@@ -269,94 +325,68 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotPublish(errDict as Dictionary)
-		  
-		  'if parent<>nil AND parent.Value<>nil then
-		  'BonjourControl( parent.Right ).Private_HandleCallbacks   me, "DidNotPublish", errDict
-		  'end if
-		  
 		  mState = kStateIsServer
-		  
-		  BonjourModule.DidNotPublish   me, errDict
 		  
 		  RaiseEvent   DidNotPublish( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
 		  
-		  DReportError   "DidNotPublished", errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 )
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotResolve(errDict as Dictionary)
-		  
-		  'if parent<>nil AND parent.Value<>nil then
-		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidNotResolve", errDict
-		  'end if
-		  
 		  RaiseEvent   DidNotResolve( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
 		  
-		  DReportError   "DidNotResolved", errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 )
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidPublish()
-		  'if parent<>nil AND parent.Value<>nil then
-		  'BonjourControl( parent.Right ).Private_HandleCallbacks   me, "DidPublish"
-		  'end if
-		  
 		  mState = kStatePublished
-		  
-		  BonjourModule.DidPublish   me
 		  
 		  RaiseEvent   DidPublish
 		  
-		  DReport   "DidPublish"
-		  
-		  call  me.Addresses
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidResolve()
-		  'if parent<>nil AND parent.Value<>nil then
-		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidResolve"
-		  'end if
-		  
 		  mState = kStateResolved
 		  
 		  RaiseEvent  DidResolve
 		  
-		  DReport  "DidResolve"
-		  
-		  call  me.Addresses
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidStop()
-		  'if parent<>nil AND parent.Value<>nil then
-		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidStop"
-		  'end if
-		  
 		  if State=kStateIsResolving then
 		    RaiseEvent   DidStopResolving
-		  elseif State=kStateIsTryingToPublish OR State=kStatePublished then
+		    
+		  elseif State=kStateIsTryingToPublish OR State=kStatePublished OR State=kStateIsTryingToUnpublish then
 		    RaiseEvent   DidStopPublishing
+		    
 		  end if
-		  
-		  DReport   "Service stopped"
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub HandleDidUpdateTXTRecord(data as NSData)
-		  'if parent<>nil AND parent.Value<>nil then
-		  'BonjourControl( parent.Value ).Private_HandleCallbacks   me, "DidUpdateTXTRecord", data
-		  'end if
+		Private Sub HandleDidUpdateTXTRecord()
+		  RaiseEvent   DidUpdateTXTRecord
 		  
-		  RaiseEvent   DidUpdateTXTRecord( data.data )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleWillPublish()
+		  RaiseEvent   WillPublish
 		  
-		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleWillResolve()
+		  RaiseEvent   WillResolve
 		  
 		End Sub
 	#tag EndMethod
@@ -398,7 +428,7 @@ Inherits NSObject
 		 Shared Function InitForResolving(name as String, domain as string, type as string) As NSNetService
 		  
 		  #if TargetMacOS
-		    declare function initWithDomain lib CocoaLib selector "initWithDomain:type:name:port:" ( id as Ptr, domain as CFStringRef, type as CFStringRef, name as CFStringRef ) as Ptr
+		    declare function initWithDomain lib CocoaLib selector "initWithDomain:type:name:" ( id as Ptr, domain as CFStringRef, type as CFStringRef, name as CFStringRef ) as Ptr
 		    
 		    dim p as Ptr = NSObject.Allocate( "NSNetService" )
 		    dim nsns as NSNetService
@@ -428,8 +458,11 @@ Inherits NSObject
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
 		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new ObjCException
 		      return nil
 		    end if
+		    
+		    DReport   CurrentMethodName, "executing"
 		    
 		    objc_registerClassPair newClassId
 		    
@@ -440,10 +473,14 @@ Inherits NSObject
 		    methodList.Append  "netServiceDidPublish:" : FPtr( AddressOf delegate_DidPublish ) : "v@:@"
 		    methodList.Append  "netServiceDidResolveAddress:" : FPtr ( AddressOf delegate_DidResolve ) : "v@:@"
 		    methodList.Append  "netServiceDidStop:" : FPtr( AddressOf delegate_DidStop ) : "v@:@"
+		    methodList.Append  "netServiceWillPublish:" : FPtr( AddressOf delegate_WillPublish ) : "v@:@"
+		    methodList.Append  "netServiceWillResolve:" : FPtr( AddressOf delegate_WillResolve ) : "v@:@"
 		    
 		    dim methodsAdded as Boolean = true
 		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
+		      if NOT class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2)) then
+		        Raise new ObjCException
+		      end if
 		    next
 		    
 		    if methodsAdded then
@@ -524,7 +561,10 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub resolveWithTimeout lib CocoaLib selector "resolveWithTimeout:" ( id as Ptr, timeout as double )
 		    
+		    mState = kStateIsResolving
 		    resolveWithTimeout   me.id, timeoutInSeconds
+		    
+		    DReport   CurrentMethodName, "fired"
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -543,8 +583,8 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub SetDelegate()
+	#tag Method, Flags = &h0
+		Sub SetDelegate()
 		  #if targetCocoa
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		    declare function init lib CocoaLib selector "init" (obj_id as Ptr) as Ptr
@@ -679,7 +719,15 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event DidUpdateTXTRecord(newRecord as MemoryBlock)
+		Event DidUpdateTXTRecord()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event WillPublish()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event WillResolve()
 	#tag EndHook
 
 
@@ -773,7 +821,13 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function TXTRecordData lib CocoaLib selector "setTXTRecordData:" (id as Ptr, data as Ptr) as boolean
 			    
-			    dim OK as Boolean = TXTRecordData( me.id, value.id )
+			    dim OK as Boolean
+			    
+			    if value = nil then
+			      OK = TXTRecordData( me.id, nil )
+			    else
+			      OK = TXTRecordData( me.id, value.id )
+			    end if
 			    
 			    if not OK then
 			      break

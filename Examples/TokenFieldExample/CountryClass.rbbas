@@ -1,5 +1,6 @@
 #tag Class
 Protected Class CountryClass
+Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  
@@ -16,6 +17,22 @@ Protected Class CountryClass
 		  URL = "http://en.wikipedia.org/wiki/" + Name  //Of course, this will not always work
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function DebugReportRepresentation(formatSpec as string = "") As variant
+		  // Part of the DebugReportFormatter interface.
+		  dim result() as variant
+		  
+		  result.Append   "name = " + me.Name
+		  result.Append   "abbreviation = " + me.ISOAbbreviation
+		  result.Append   "URL = " + me.URL
+		  
+		  return  result
+		  
+		  //We also can return a string like:
+		  'return   "<CountryClass: name=" + me.Name + ", abbreviation=" + me.ISOAbbreviation + ", URL=" + me.URL + " >"
+		End Function
 	#tag EndMethod
 
 
@@ -44,6 +61,7 @@ Protected Class CountryClass
 			Name="ISOAbbreviation"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -75,6 +93,7 @@ Protected Class CountryClass
 			Name="URL"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

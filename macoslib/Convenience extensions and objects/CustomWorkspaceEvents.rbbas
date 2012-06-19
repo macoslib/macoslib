@@ -20,7 +20,7 @@ Protected Module CustomWorkspaceEvents
 		    end if
 		    
 		    #if kLogEvents
-		      System.Log   System.LogLevelError, "CustomWorkspaceEvents: going to call method event_" + notification.Name
+		      DReport    "CustomWorkspaceEvents: going to call method event_" + notification.Name
 		    #endif
 		    
 		    declare function valueForKey lib CocoaLib selector "valueForKey:" (id as Ptr, key as CFStringRef) as Ptr //Access to NSDictionary for non-CFType values

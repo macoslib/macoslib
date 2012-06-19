@@ -919,6 +919,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem BonjourExampleMenu
+            SpecialMenu = 0
+            Text = "Bonjour Services"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem UntitledSeparator3
          SpecialMenu = 0

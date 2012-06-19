@@ -36,6 +36,8 @@ Protected Module DebugReportModule
 		        System.Log   System.LogLevelWarning, IFTE( sr2=nil, sr1.Text, sr2.Text )
 		      case 2 //Error
 		        System.Log   System.LogLevelError, IFTE( sr2=nil, sr1.Text, sr2.Text )
+		      case 3 //Debug
+		        
 		      end select
 		    end if
 		    
@@ -72,10 +74,42 @@ Protected Module DebugReportModule
 		    
 		    result = Join( results, " " ) + EndOfLine
 		    
+		    if DebugLogWND.SyslogCB.Value then
+		      System.Log   System.LogLevelInformation, result
+		    end if
+		    
 		    sr.Text = result
 		    sr.Font = "SmallSystem"
 		    
 		    AppendToWindow  0, sr
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub DReportDebug(ParamArray values() as variant)
+		  
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    dim results() as string
+		    dim result as string
+		    dim sr1 as new StyleRun
+		    dim sr2 as new StyleRun
+		    
+		    for each v as variant in values
+		      results.Append  FormatVariant( v )
+		    next
+		    
+		    result = Join( results, " " ) + EndOfLine
+		    
+		    if DebugLogWND.SyslogCB.Value then
+		      System.Log   System.LogLevelInformation, result
+		    end if
+		    
+		    sr1.Text = result
+		    sr1.Font = "SmallSystem"
+		    sr1.TextColor = &c4C4C4C00
+		    
+		    AppendToWindow  1, sr1, sr2
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -94,6 +128,10 @@ Protected Module DebugReportModule
 		    next
 		    
 		    result = Join( results, " " ) + EndOfLine
+		    
+		    if DebugLogWND.SyslogCB.Value then
+		      System.Log   System.LogLevelError, result
+		    end if
 		    
 		    sr1.Text = "ERROR: "
 		    sr1.Font = "SmallSystem"
@@ -121,6 +159,10 @@ Protected Module DebugReportModule
 		    next
 		    
 		    result = Join( results, " " ) + EndOfLine
+		    
+		    if DebugLogWND.SyslogCB.Value then
+		      System.Log   System.LogLevelNotice, result
+		    end if
 		    
 		    sr.Text = result
 		    sr.Font = "SmallSystem"
@@ -181,6 +223,10 @@ Protected Module DebugReportModule
 		    
 		    result = Join( results, " " ) + EndOfLine
 		    
+		    if DebugLogWND.SyslogCB.Value then
+		      System.Log   System.LogLevelWarning, result
+		    end if
+		    
 		    sr1.Text = "WARNING: "
 		    sr1.Font = "SmallSystem"
 		    sr1.TextColor = &c0000FF00
@@ -200,6 +246,9 @@ Protected Module DebugReportModule
 		  dim results() as string
 		  dim s as string
 		  dim obj as Object
+		  dim drfResult as variant
+		  dim vresult() as variant
+		  dim result() as string
 		  
 		  if v.IsNull then
 		    return  "nil"
@@ -234,6 +283,14 @@ Protected Module DebugReportModule
 		        next
 		        results.Append ")"
 		        
+		      case Variant.TypeDouble
+		        dim ard() as integer = v
+		        results.Append   "Array of doubles: ("
+		        for i as integer = 0 to ard.Ubound
+		          results.Append  Str( i ) + ": " + Str( ard( i ))
+		        next
+		        results.Append ")"
+		        
 		      case Variant.TypeBoolean
 		        dim arb() as boolean = v
 		        results.Append   "Array of booleans: ("
@@ -241,6 +298,21 @@ Protected Module DebugReportModule
 		          results.Append  Str( i ) + ": " + IFTE( arb( i ), "true", "false" )
 		        next
 		        results.Append ")"
+		        
+		      case 9
+		        dim arv() as variant = v
+		        if formatSpec<>"-" then
+		          results.Append   "Array of variants: ("
+		          for i as integer = 0 to arv.Ubound
+		            results.Append  Str( i ) + ": " + FormatVariant( arv( i ))
+		          next
+		          results.Append ")"
+		        else
+		          for i as integer = 0 to arv.Ubound
+		            results.Append  FormatVariant( arv( i ))
+		          next
+		        end if
+		        
 		      else
 		        
 		      end Select
@@ -248,11 +320,21 @@ Protected Module DebugReportModule
 		      return   Join( Results, EndOfLine )
 		      
 		    else  //Single values
+		      if v isa DebugReportFormatter then //Object has a formatter method
+		        drfResult = DebugReportFormatter( v ).DebugReportRepresentation
+		        
+		        if VarType( drfResult ) = Variant.TypeString then
+		          return   drfResult.StringValue
+		        else
+		          return   "<" + v.ClassName + EndOfLine + FormatVariant( drfResult, "-" ) + " >"
+		        end if
+		      end if
+		      
 		      select case VarType( v )
 		      case  variant.TypeObject
 		        if v isa FolderItem then //FolderItem
 		          dim f as FolderItem = v
-		          return   "<FolderItem: POSIX path:" + f.POSIXPath + ">"
+		          return   "<FolderItem: POSIX path:" + f.POSIXPath + " >"
 		          
 		        elseif v isa MemoryBlock then //MemoryBlock
 		          dim mb as MemoryBlock = v
@@ -268,9 +350,23 @@ Protected Module DebugReportModule
 		          dim p as Pair = v
 		          return  "<Pair: " + FormatVariant( p.Left ) + " : " + FormatVariant( p.Right ) + ">"
 		          
-		        else
+		        else //We have no special code to format the Object. Let's use Introspection.
+		          
+		          //Does not work. It crashes the App
+		          
 		          obj = v
-		          return  "<" + obj.ClassName + ">"
+		          'dim ppts() as Introspection.PropertyInfo
+		          'redim result( -1 )
+		          '
+		          'ppts = Introspection.GetType( obj ).GetProperties
+		          '
+		          'for each ppt as Introspection.PropertyInfo in ppts
+		          'result.Append   ppt.Name + " = " + FormatVariant( ppt.Value( obj ))
+		          'next
+		          '
+		          'return  "<" + obj.ClassName + EndOfLine + Join( result, EndOfLine ) +  " >"
+		          
+		          return  "<" + obj.ClassName + " >"
 		        end if
 		        
 		      else
@@ -339,6 +435,10 @@ Protected Module DebugReportModule
 	#tag Property, Flags = &h1
 		Protected WarningCnt As Integer
 	#tag EndProperty
+
+
+	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"100", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior

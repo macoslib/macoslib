@@ -4,7 +4,7 @@ Begin Window DebugLogWND
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   7
+   Frame           =   3
    FullScreen      =   False
    HasBackColor    =   False
    Height          =   4.42e+2
@@ -54,7 +54,7 @@ Begin Window DebugLogWND
       Underline       =   ""
       Value           =   True
       Visible         =   True
-      Width           =   85
+      Width           =   93
    End
    Begin CheckBox ImmediateReportCB
       AutoDeactivate  =   True

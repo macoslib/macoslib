@@ -32,6 +32,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function BonjourExampleMenu() As Boolean Handles BonjourExampleMenu.Action
+			BonjourPublishingExampleWindow.Show
+			BonjourBrowsingExampleWindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSColorBrowser() As Boolean Handles CocoaNSColorBrowser.Action
 			NSColorWindow.Show
 			return true

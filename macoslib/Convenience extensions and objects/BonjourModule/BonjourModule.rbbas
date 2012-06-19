@@ -1,46 +1,60 @@
 #tag Module
 Protected Module BonjourModule
 	#tag Method, Flags = &h1
-		Protected Sub DidNotPublish(sender as NSNetService, errDict as Dictionary)
-		  //A service failed to be published. Broadcast the event to all the BonjourControls
-		  
-		  dim wr as WeakRef
-		  dim bc as BonjourControl
-		  
-		  for i as integer=BonjourControls.Ubound downto 0
-		    wr = BonjourControls( i )
-		    if wr.Value = nil then
-		      BonjourControls.Remove  i
-		      
-		    else
-		      bc = BonjourControl( wr.Value )
-		      bc.Private_HandleCallbacks   sender, "DidNotPublish", errDict
-		      
-		    end if
-		    
-		  next
+		Protected Sub DidNotPublish(sender as NSNetService, errCode as integer, errDomain as integer)
+		  '//A service failed to be published. Broadcast the event to all the BonjourControls and the CustomBonjourEvents module.
+		  '
+		  '#if TargetMacOS
+		  'dim wr as WeakRef
+		  'dim bc as BonjourControl
+		  '
+		  'CustomBonjourEvents.event_ServicePublishingError   
+		  '
+		  'for i as integer=BonjourControls.Ubound downto 0
+		  'wr = BonjourControls( i )
+		  'if wr.Value = nil then
+		  'BonjourControls.Remove  i
+		  '
+		  'else
+		  'bc = BonjourControl( wr.Value )
+		  'bc.Private_HandleCallbacks   sender, "DidNotPublish", errDict
+		  '
+		  'end if
+		  '
+		  'next
+		  '#endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub DidPublish(sender as NSNetService)
-		  //A service has been published. Broadcast the event to all the BonjourControls
+		  '//A service has been published. Broadcast the event to all the BonjourControls
+		  '
+		  '#if targetMacOS
+		  'dim wr as WeakRef
+		  'dim bc as BonjourControl
+		  '
+		  'for i as integer=BonjourControls.Ubound downto 0
+		  'wr = BonjourControls( i )
+		  'if wr.Value = nil then
+		  'BonjourControls.Remove  i
+		  '
+		  'else
+		  'bc = BonjourControl( wr.Value )
+		  'bc.Private_HandleCallbacks   sender, "DidPublish"
+		  '
+		  'end if
+		  '
+		  'next
+		  '#endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub PublishService(service as BonjourServiceForpublishing)
 		  
-		  dim wr as WeakRef
-		  dim bc as BonjourControl
-		  
-		  for i as integer=BonjourControls.Ubound downto 0
-		    wr = BonjourControls( i )
-		    if wr.Value = nil then
-		      BonjourControls.Remove  i
-		      
-		    else
-		      bc = BonjourControl( wr.Value )
-		      bc.Private_HandleCallbacks   sender, "DidPublish"
-		      
-		    end if
-		    
-		  next
+		  RegisteredServices.Append   service
+		  service.Publish
 		End Sub
 	#tag EndMethod
 
@@ -48,54 +62,40 @@ Protected Module BonjourModule
 		Protected Sub PublishService(nsns as NSNetService)
 		  
 		  if nsns<>nil then
-		    RegisteredServices.Append   nsns
-		    nsns.Publish
+		    dim service as BonjourServiceForPublishing = BonjourServiceForPublishing.CreateFromCocoaObject( nsns )
+		    RegisteredServices.Append   service
+		    service.Publish
 		  end if
-		  
-		  'dim nsns as NSNetService = NSNetService.InitForPublishing( name, domain, type, port )
-		  '
-		  'if TXTDictionary<>nil then
-		  'nsns.ServiceTXTDictionary = TXTDictionary
-		  'end if
-		  '
-		  'RegisteredServices.Append   nsns
-		  '
-		  'nsns.AttachedProperty( "Callback" ) = callback
-		  '
-		  'AddHandler  nsns.DidPublish, AddressOf DidPublishCallback
-		  'AddHandler  nsns.DidNotPublish, AddressOf DidNotPublishCallback
-		  'nsns.Publish
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub PublishService(Name as string, type as string, domain as string, port as integer, TXTDictionary as Dictionary = nil)
+		Protected Sub PublishService(Name as string, type as string, domain as string = "", port as integer, TXTDictionary as Dictionary = nil)
+		  //# Publish a new service but does not return the new object (which is stored internally)
 		  
-		  dim nsns as NSNetService = NSNetService.InitForPublishing( name, domain, type, port )
-		  
-		  if nsns<>nil then
-		    nsns.ServiceTXTDictionary = TXTDictionary
-		    'nsns.Private_SetParent   me
-		    'nsns.AttachedProperty( "BonjourControlParent" ) = me
-		    BonjourModule.PublishService   nsns
-		  end if
-		  
-		  'dim nsns as NSNetService = NSNetService.InitForPublishing( name, domain, type, port )
-		  '
-		  'if TXTDictionary<>nil then
-		  'nsns.ServiceTXTDictionary = TXTDictionary
-		  'end if
-		  '
-		  'RegisteredServices.Append   nsns
-		  '
-		  'nsns.AttachedProperty( "Callback" ) = callback
-		  '
-		  'AddHandler  nsns.DidPublish, AddressOf DidPublishCallback
-		  'AddHandler  nsns.DidNotPublish, AddressOf DidNotPublishCallback
-		  'nsns.Publish
-		  
+		  #if TargetMacOS
+		    dim service as BonjourServiceForPublishing
+		    service = PublishService( Name, type, domain, port, TXTDictionary )
+		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function PublishService(Name as string, type as string, domain as string = "", port as integer, TXTDictionary as Dictionary = nil) As BonjourServiceForPublishing
+		  //# Publish a new service and return the created object
+		  
+		  #if TargetMacOS
+		    dim service as BonjourServiceForPublishing
+		    
+		    service = new BonjourServiceForPublishing( name, type, domain, port )
+		    service.TXTRecord = TXTDictionary
+		    RegisteredServices.Append   service
+		    service.Publish
+		    
+		    return  service
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -126,13 +126,26 @@ Protected Module BonjourModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub UnregisterService(Name as string, type as string, domain as string, port as integer)
-		  dim nsns as NSNetService
+		Protected Sub UnpublishAllServices()
+		  //# Unpublish all the services (usually when the application quits)
+		  
+		  for each service as BonjourServiceForPublishing in RegisteredServices
+		    if service.State <>NSNetService.kStatePublished then
+		      service.StopPublishing
+		    end if
+		  next
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub UnpublishService(Name as string, type as string, domain as string, port as integer)
+		  dim service as BonjourServiceForPublishing
 		  
 		  for i as integer=0 to RegisteredServices.Ubound
-		    nsns = RegisteredServices( i )
-		    if nsns.Name = name AND nsns.Type = type AND nsns.Domain = domain AND nsns.port = port then
-		      
+		    service = RegisteredServices( i )
+		    if service.Name = name AND service.Type = type AND service.Domain = domain AND service.port = port then
+		      service.StopPublishing
 		    end if
 		  next
 		  
@@ -155,7 +168,7 @@ Protected Module BonjourModule
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected RegisteredServices() As NSNetService
+		Protected RegisteredServices() As BonjourServiceForPublishing
 	#tag EndProperty
 
 

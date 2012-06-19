@@ -200,11 +200,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidFindDomain(DomainName as string, moreComing as Boolean)
-		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  
-		  if bc<>nil then
-		    bc.Private_HandleCallbacks( me, "DidFindDomain", DomainName, moreComing )
-		  end if
+		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  '
+		  'if bc<>nil then
+		  'bc.Private_HandleCallbacks( me, "DidFindDomain", DomainName, moreComing )
+		  'end if
 		  
 		  RaiseEvent   DomainAdded  DomainName, moreComing
 		  
@@ -213,11 +213,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidFindService(Service as NSNetService, moreComing as Boolean)
-		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  
-		  if bc<>nil then
-		    bc.Private_HandleCallbacks( me, "DidFindService", service, moreComing )
-		  end if
+		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  '
+		  'if bc<>nil then
+		  'bc.Private_HandleCallbacks( me, "DidFindService", service, moreComing )
+		  'end if
 		  
 		  RaiseEvent   ServiceAdded  Service.Name + " @ " + Service.HostName, Service.ServiceTXTDictionary, moreComing, Service
 		  
@@ -227,11 +227,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotSearch(errDict as Dictionary)
-		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  
-		  if bc<>nil then
-		    bc.Private_HandleCallbacks( me, "DidNotSearch", errDict )
-		  end if
+		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  '
+		  'if bc<>nil then
+		  'bc.Private_HandleCallbacks( me, "DidNotSearch", errDict )
+		  'end if
 		  
 		  RaiseEvent   SearchError( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
 		  
@@ -241,11 +241,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidRemoveDomain(DomainName as string, moreComing as Boolean)
-		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  
-		  if bc<>nil then
-		    bc.Private_HandleCallbacks( me, "DidRemoveDomain", DomainName, moreComing )
-		  end if
+		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  '
+		  'if bc<>nil then
+		  'bc.Private_HandleCallbacks( me, "DidRemoveDomain", DomainName, moreComing )
+		  'end if
 		  
 		  RaiseEvent   DomainRemoved  DomainName, moreComing
 		  
@@ -254,11 +254,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidRemoveService(Service as NSNetService, moreComing as Boolean)
-		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  
-		  if bc<>nil then
-		    bc.Private_HandleCallbacks( me, "DidRemoveService", service, moreComing )
-		  end if
+		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  '
+		  'if bc<>nil then
+		  'bc.Private_HandleCallbacks( me, "DidRemoveService", service, moreComing )
+		  'end if
 		  
 		  RaiseEvent   ServiceRemoved  Service.Name, moreComing, service
 		  
@@ -267,11 +267,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidStop()
-		  dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  
-		  if bc<>nil then
-		    bc.Private_HandleCallbacks( me, "DidStop" )
-		  end if
+		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
+		  '
+		  'if bc<>nil then
+		  'bc.Private_HandleCallbacks( me, "DidStop" )
+		  'end if
 		  
 		  RaiseEvent   SearchStopped
 		  
@@ -297,10 +297,10 @@ Inherits NSObject
 		    objc_registerClassPair newClassId
 		    
 		    dim methodList() as Tuple
-		    methodList.Append  "netServiceBrowser:didFindDomain:moreComing:" : FPtr( AddressOf  delegate_DidFindDomain ) : "v@:@@@"
-		    methodList.Append  "netServiceBrowser:didRemoveDomain:moreComing:" : FPtr( AddressOf  delegate_DidRemoveDomain ) : "v@:@@@"
-		    methodList.Append  "netServiceBrowser:didFindService:moreComing:" : FPtr( AddressOf  delegate_DidFindService ) : "v@:@@@"
-		    methodList.Append  "netServiceBrowser:didRemoveService:moreComing:" : FPtr( AddressOf delegate_DidRemoveService ) : "v@:@@@"
+		    methodList.Append  "netServiceBrowser:didFindDomain:moreComing:" : FPtr( AddressOf  delegate_DidFindDomain ) : "v@:@@B"
+		    methodList.Append  "netServiceBrowser:didRemoveDomain:moreComing:" : FPtr( AddressOf  delegate_DidRemoveDomain ) : "v@:@@B"
+		    methodList.Append  "netServiceBrowser:didFindService:moreComing:" : FPtr( AddressOf  delegate_DidFindService ) : "v@:@@B"
+		    methodList.Append  "netServiceBrowser:didRemoveService:moreComing:" : FPtr( AddressOf delegate_DidRemoveService ) : "v@:@@B"
 		    methodList.Append  "netServiceBrowser:didNotSearch:" : FPtr ( AddressOf delegate_DidNotSearch ) : "v@:@@"
 		    methodList.Append  "netServiceBrowserDidStopSearch:" : FPtr( AddressOf delegate_DidStopSearch ) : "v@:@"
 		    
@@ -312,6 +312,9 @@ Inherits NSObject
 		    if methodsAdded then
 		      return newClassId
 		    else
+		      dim e as new ObjCException
+		      e.Message = CurrentMethodName + ". Couldn't create delegate"
+		      raise  e
 		      return nil
 		    end if
 		    
@@ -478,7 +481,7 @@ Inherits NSObject
 	#tag EndHook
 
 
-	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibNSNetServiceDelegate", Scope = Private
+	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibNSNetServiceBrowserDelegate", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kNSNetServicesActivityInProgress, Type = Double, Dynamic = False, Default = \"-72003", Scope = Public
