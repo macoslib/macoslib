@@ -925,6 +925,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem DebugReportMenu
+            SpecialMenu = 0
+            Text = "Debug Reports"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem UntitledSeparator3
          SpecialMenu = 0

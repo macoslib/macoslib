@@ -3,43 +3,52 @@ Class BonjourControl
 Inherits Canvas
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
-		  //
+		  #pragma unused base
+		  #pragma unused x
+		  #pragma unused y
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
-		  //
+		  #pragma unused hitItem
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DoubleClick(X As Integer, Y As Integer)
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function DragEnter(obj As DragItem, action As Integer) As Boolean
-		  //
+		  #pragma unused obj
+		  #pragma unused action
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DragExit(obj As DragItem, action As Integer)
-		  //
+		  #pragma unused obj
+		  #pragma unused action
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function DragOver(x As Integer, y As Integer, obj As DragItem, action As Integer) As Boolean
-		  //
+		  #pragma unused x
+		  #pragma unused y
+		  #pragma unused obj
+		  #pragma unused action
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DropObject(obj As DragItem, action As Integer)
-		  //
+		  #pragma unused obj
+		  #pragma unused action
 		End Sub
 	#tag EndEvent
 
@@ -57,13 +66,13 @@ Inherits Canvas
 
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  //
+		  #pragma unused key
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub KeyUp(Key As String)
-		  //
+		  #pragma unused Key
 		End Sub
 	#tag EndEvent
 
@@ -75,13 +84,15 @@ Inherits Canvas
 
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		End Sub
 	#tag EndEvent
 
@@ -99,25 +110,30 @@ Inherits Canvas
 
 	#tag Event
 		Sub MouseMove(X As Integer, Y As Integer)
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function MouseWheel(X As Integer, Y As Integer, deltaX as Integer, deltaY as Integer) As Boolean
-		  //
+		  #pragma unused X
+		  #pragma unused Y
+		  #pragma unused deltaX
+		  #pragma unused deltaY
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub Paint(g As Graphics)
-		  //
+		  #pragma unused g
 		End Sub
 	#tag EndEvent
 
@@ -216,8 +232,10 @@ Inherits Canvas
 		    dim service as BonjourService
 		    dim index as integer
 		    
+		    //The NSService passed is not the same as the one in Handle_ServiceAdded. We must search by name+type+domain
+		    
 		    for i as integer=0 to BSS.Ubound
-		      if BSS( i ).Handle = NSService.id then
+		      if BSS( i ).Name=NSService.Name AND BSS( i ).Type=NSService.Type AND BSS( i ).Domain=NSService.Domain then
 		        index = i
 		        service = BSS( i )
 		        exit
@@ -423,7 +441,7 @@ Inherits Canvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="32"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -444,6 +462,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Group="Initial State"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -544,7 +563,7 @@ Inherits Canvas
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="32"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty

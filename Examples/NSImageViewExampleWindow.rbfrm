@@ -193,6 +193,7 @@ Begin Window NSImageViewExampleWindow
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Bordeless"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -227,6 +228,7 @@ Begin Window NSImageViewExampleWindow
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Black square"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -261,6 +263,7 @@ Begin Window NSImageViewExampleWindow
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "ImageWell"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -295,6 +298,7 @@ Begin Window NSImageViewExampleWindow
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "And 2 more ugly presentations..."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -456,6 +460,7 @@ Begin Window NSImageViewExampleWindow
       Selectable      =   False
       TabIndex        =   14
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Image scaling:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -521,6 +526,7 @@ Begin Window NSImageViewExampleWindow
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Image alignment:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -543,8 +549,6 @@ End
 	#tag Event
 		Sub Open(index as Integer)
 		  
-		  dim nsi as NSImage
-		  
 		  select case index
 		  case 0
 		    me.NativeImage = NSImage.Folder
@@ -561,6 +565,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(index as Integer, base as MenuItem, x as integer, y as integer) As Boolean
+		  #pragma unused x
+		  #pragma unused y
 		  
 		  base.Append   new MenuItem( "Copy" )
 		  base.Append   new MenuItem( "Paste" )
@@ -572,7 +578,7 @@ End
 		Function ContextualMenuAction(index as Integer, hitItem as MenuItem) As Boolean
 		  
 		  if hitItem<>nil then
-		    DReport  hitItem.Text
+		    'DReport hitItem.Text
 		    return  true
 		  end if
 		End Function
@@ -580,30 +586,24 @@ End
 	#tag Event
 		Sub MouseEnter(index as Integer)
 		  
-		  DReport  "MouseEntered", index
+		  'DReport "MouseEntered", index
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub MouseExit(index as Integer)
 		  
-		  DReport   "MouseExit", index
+		  'DReport  "MouseExit", index
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub ImageChanged(index as Integer)
 		  
-		  DReport  "ImageChanged", index
+		  'DReport "ImageChanged", index
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function MouseDown(index as Integer, X As Integer, Y As Integer) As Boolean
-		  
-		  DReport   "MouseDown", X, Y
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub MouseDrag(index as Integer, X As Integer, Y As Integer)
+		Sub MouseDrag(index as Integer, X as integer, Y as integer)
 		  //Initiate a DragItem
 		  
 		  dim di as new DragItem( me.TrueWindow, me.left + X, me.top + Y, me.Image.Width, me.Image.Height, me.Image )
@@ -615,9 +615,9 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub MouseUp(index as Integer, X As Integer, Y As Integer)
+		Sub MouseUp(index as Integer, X as integer, Y as integer)
 		  
-		  DReport  "MouseUp", X, Y
+		  'DReport "MouseUp", X, Y
 		End Sub
 	#tag EndEvent
 #tag EndEvents

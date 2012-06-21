@@ -236,6 +236,7 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -270,6 +271,7 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -304,6 +306,7 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -338,6 +341,7 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "F18"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -372,6 +376,7 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "F19"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -484,6 +489,8 @@ End
 #tag Events PopupArrow1
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  #pragma unused X
+		  #pragma unused Y
 		  
 		  dim base as new MenuItem( "MENU" )
 		  dim mi as MenuItem

@@ -8,7 +8,7 @@ Protected Module BonjourModule
 		  'dim wr as WeakRef
 		  'dim bc as BonjourControl
 		  '
-		  'CustomBonjourEvents.event_ServicePublishingError   
+		  'CustomBonjourEvents.event_ServicePublishingError
 		  '
 		  'for i as integer=BonjourControls.Ubound downto 0
 		  'wr = BonjourControls( i )

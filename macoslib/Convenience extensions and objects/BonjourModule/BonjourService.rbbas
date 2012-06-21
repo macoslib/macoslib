@@ -163,6 +163,17 @@ Class BonjourService
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Port() As integer
+		  
+		  #if TargetMacOS
+		    if nsns<>nil then
+		      return  nsns.Port
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub RegisterHandlers()
 		  //# Setup communication between the underlying object and BonjourService
@@ -233,7 +244,6 @@ Class BonjourService
 		
 		
 		NOTE: once you got a BonjourService, you need to call Resolve to determine the IP addresses allowing connection.
-		
 	#tag EndNote
 
 
@@ -247,7 +257,7 @@ Class BonjourService
 			Set
 			  
 			  'if _nsns<>nil then
-			  'DReportTitle   self.ClassName
+			  'DReportTitled   self.ClassName
 			  'if value.id=_nsns.id then
 			  'DReportWarning    "NSNetService has changed for BonjourService", Hex(value.id), "but with same value"
 			  'else

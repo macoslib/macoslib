@@ -204,6 +204,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function DebugReportMenu() As Boolean Handles DebugReportMenu.Action
+			DebugReportExampleWindow.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ExamplesCarbonPasteboard() As Boolean Handles ExamplesCarbonPasteboard.Action
 			CarbonPasteboardExample.Show
 			Return True

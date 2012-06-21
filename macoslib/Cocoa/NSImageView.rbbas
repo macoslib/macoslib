@@ -9,57 +9,71 @@ Inherits NSControl
 
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
-		  //
+		  #pragma unused base
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
-		  //
+		  #pragma unused hitItem
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Function DragEnter(obj As DragItem, action As Integer) As Boolean
-		  //
+		  #pragma unused obj
+		  #pragma unused action
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DragExit(obj As DragItem, action As Integer)
-		  //
+		  #pragma unused obj
+		  #pragma unused action
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function DragOver(x As Integer, y As Integer, obj As DragItem, action As Integer) As Boolean
-		  //
+		  #pragma unused x
+		  #pragma unused y
+		  #pragma unused obj
+		  #pragma unused action
+		  
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DropObject(obj As DragItem, action As Integer)
-		  //
+		  #pragma unused obj
+		  #pragma unused action
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		  
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
-		  //
+		  #pragma unused X
+		  #pragma unused Y
 		  
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
-		  //
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -117,13 +131,6 @@ Inherits NSControl
 		  ObjectList.Append self
 		  
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function DelegateClassID() As Ptr
-		  static p as Ptr = MakeDelegateClass
-		  return p
-		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -192,7 +199,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Shared Function impl_CanBecomeKeyView(id as Ptr, sel as Ptr) As Boolean
 		  #if targetCocoa
-		    DReport  "impl_CanBecomeKeyView called"
+		    'DReport "impl_CanBecomeKeyView called"
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
@@ -329,44 +336,6 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		   //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  '#if targetCocoa
-		  'declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		  'declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		  'declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		  '
-		  'dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		  'if newClassId = nil then
-		  '//perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		  'return nil
-		  'end if
-		  '
-		  'objc_registerClassPair newClassId
-		  '
-		  'dim methodList() as Tuple
-		  ''methodList.Append  "tokenField:displayStringForRepresentedObject:" : FPtr( AddressOf  delegate_displayStringForRepresentedObject ) : "@@:@@"
-		  '
-		  'dim methodsAdded as Boolean = true
-		  'for each item as Tuple in methodList
-		  'methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		  'next
-		  '
-		  'if methodsAdded then
-		  'return newClassId
-		  'else
-		  'return nil
-		  'end if
-		  '
-		  '#else
-		  '#pragma unused className
-		  '#pragma unused superClassName
-		  '#endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Shared Function MakeObjCClass(className as String = "NSImageViewmacoslib", superclassName as String = "NSImageView") As Ptr
 		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
 		  
@@ -377,7 +346,7 @@ Inherits NSControl
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
-		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
 		      return nil
 		    end if
 		    
@@ -482,7 +451,6 @@ Inherits NSControl
 		In order to work, we also have to use Canvas.AcceptFocus and Canvas.TabStop to use Tab to move the focus.
 		
 		The Paint event is called but it (really) works only with borderless NSImageView, in which case only the background can be drawn.
-		
 	#tag EndNote
 
 	#tag Note, Name = Documentation

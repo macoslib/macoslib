@@ -140,17 +140,6 @@ Inherits BonjourService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Port() As integer
-		  
-		  #if TargetMacOS
-		    if nsns<>nil then
-		      return  nsns.Port
-		    end if
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Publish()
 		  
 		  #if TargetMacOS
@@ -235,8 +224,6 @@ Inherits BonjourService
 		The events will automatically be raised:
 		  • In the CustomBonjourEvents module
 		  • In any existing BonjourControl object
-		
-		
 	#tag EndNote
 
 
@@ -287,6 +274,11 @@ Inherits BonjourService
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="State"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

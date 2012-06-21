@@ -22,6 +22,9 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Function DebugReportRepresentation(formatSpec as string = "") As variant
 		  // Part of the DebugReportFormatter interface.
+		  
+		  #pragma unused formatSpec
+		  
 		  dim result() as variant
 		  
 		  result.Append   "name = " + me.Name

@@ -46,15 +46,15 @@ Inherits CFType
 		  'if OK then
 		  if current<>nil then
 		    dim currentDict as NSDictionary = new NSDictionary( current, false )
-		    DReport   "Current:", currentDict
+		    'DReport  "Current:", currentDict
 		  end if
 		  if active<>nil then
 		    dim activeDict as NSDictionary = new NSDictionary( active, false )
-		    DReport   "Active:", activeDict
+		    'DReport  "Active:", activeDict
 		  end if
 		  if available<>nil then
 		    dim availableArray as NSArray = new NSArray( available, false )
-		    DReport   "Available:", availableArray
+		    'DReport  "Available:", availableArray
 		  end if
 		  
 		  
@@ -162,6 +162,7 @@ Inherits CFType
 			Name="HardwareAddress"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

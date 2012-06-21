@@ -12,14 +12,14 @@ Inherits NSObject
 		    dim nsd as NSData
 		    dim result() as string
 		    
-		    DReportTitle  "Adresses:"
+		    'DReportTitled  "Adresses:"
 		    
 		    for i as integer=0 to nsa.Count - 1
 		      nsd = new NSData( nsa.Value( i ))
 		      result.Append  sockaddrToString( nsd.Data )
 		    next
 		    
-		    DReport  result
+		    'DReport result
 		    
 		    return   result
 		  #endif
@@ -70,7 +70,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidNotPublish(id as Ptr, sel as Ptr, cntl as Ptr, err as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -82,7 +82,7 @@ Inherits NSObject
 		      dim dict as Dictionary = NSDict.VariantValue
 		      
 		      obj.HandleDidNotPublish   dict
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -96,7 +96,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidNotResolve(id as Ptr, sel as Ptr, cntl as Ptr, err as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -108,7 +108,7 @@ Inherits NSObject
 		      dim dict as Dictionary = NSDict.VariantValue
 		      
 		      obj.HandleDidNotResolve  dict
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -122,7 +122,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidPublish(id as Ptr, sel as Ptr, cntl as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -131,7 +131,7 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidPublish
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      //something might be wrong.
@@ -145,7 +145,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidResolve(id as Ptr, sel as Ptr, cntl as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -154,7 +154,7 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidResolve
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -168,7 +168,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidStop(id as Ptr, sel as Ptr, cntl as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -177,7 +177,7 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidStop
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -191,7 +191,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidUpdateTXTRecord(id as Ptr, sel as Ptr, cntl as Ptr, dataPtr as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -200,8 +200,8 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      'dim data as NSData = new NSData( dataPtr, false )
-		      obj.HandleDidUpdateTXTRecord
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      obj.HandleDidUpdateTXTRecord( dataPtr )
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      //something might be wrong.
@@ -215,7 +215,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_WillPublish(id as Ptr, sel as Ptr, cntl as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -224,7 +224,7 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleWillPublish
-		      DReport  CurrentMethodName, Hex( id ), "fired"
+		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -238,7 +238,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_WillResolve(id as Ptr, sel as Ptr, cntl as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -247,7 +247,6 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleWillResolve
-		      DReport  CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -371,7 +370,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub HandleDidUpdateTXTRecord()
+		Private Sub HandleDidUpdateTXTRecord(dataPtr as Ptr)
+		  
+		  me.TXTData = new NSData( dataPtr, false )
+		  
 		  RaiseEvent   DidUpdateTXTRecord
 		  
 		End Sub
@@ -457,12 +459,12 @@ Inherits NSObject
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
-		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
 		      raise new ObjCException
 		      return nil
 		    end if
 		    
-		    DReport   CurrentMethodName, "executing"
+		    'DReport  CurrentMethodName, "executing"
 		    
 		    objc_registerClassPair newClassId
 		    
@@ -531,11 +533,11 @@ Inherits NSObject
 		Sub Publish(allowAutoRenaming as boolean = true)
 		  
 		  #if TargetMacOS
-		    declare sub _publish lib CocoaLib selector "publish" ( id as Ptr )
-		    'declare sub _publishWithOptions lib CocoaLib selector "publishWithOptions:" ( id as Ptr, opt as integer )
+		    'declare sub _publish lib CocoaLib selector "publish" ( id as Ptr )
+		    declare sub _publishWithOptions lib CocoaLib selector "publishWithOptions:" ( id as Ptr, opt as integer )
 		    
-		    '_publishWithOptions  me.id, IFTE( allowAutoRenaming, 0, 1 )
-		    _publish me.id
+		    _publishWithOptions  me.id, IFTE( allowAutoRenaming, 0, 1 )
+		    '_publish me.id
 		    mState = kStateIsTryingToPublish
 		  #endif
 		End Sub
@@ -564,7 +566,7 @@ Inherits NSObject
 		    mState = kStateIsResolving
 		    resolveWithTimeout   me.id, timeoutInSeconds
 		    
-		    DReport   CurrentMethodName, "fired"
+		    'DReport  CurrentMethodName, "fired"
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -807,12 +809,15 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function TXTRecordData lib CocoaLib selector "TXTRecordData" (id as Ptr) as Ptr
 			    
+			    if updatedData<>nil then
+			      return  updatedData
+			    end if
+			    
 			    dim p as Ptr = TXTRecordData( me.id )
 			    if p<>nil then
 			      return   new NSData( p, false )
-			    else
-			      return nil
 			    end if
+			    
 			  #endif
 			End Get
 		#tag EndGetter
@@ -829,14 +834,19 @@ Inherits NSObject
 			      OK = TXTRecordData( me.id, value.id )
 			    end if
 			    
-			    if not OK then
-			      break
+			    if NOT OK then //Couldn't update
+			      updatedData = value //Set in cache even in case of failure
 			    end if
+			    
 			  #endif
 			End Set
 		#tag EndSetter
 		TXTData As NSData
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private updatedData As NSData
+	#tag EndProperty
 
 
 	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibNSNetServiceDelegate", Scope = Private
@@ -916,6 +926,11 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="State"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

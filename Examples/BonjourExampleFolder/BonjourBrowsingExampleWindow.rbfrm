@@ -77,11 +77,11 @@ Begin Window BonjourBrowsingExampleWindow
       AcceptFocus     =   ""
       AcceptTabs      =   ""
       AutoDeactivate  =   True
-      Backdrop        =   ""
+      Backdrop        =   1976802531
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   56
+      Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -98,7 +98,7 @@ Begin Window BonjourBrowsingExampleWindow
       Top             =   -13
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   50
+      Width           =   32
    End
    Begin TextField TypeTF
       AcceptTabs      =   ""
@@ -372,13 +372,13 @@ End
 	#tag Event
 		Sub BrowsingStopped()
 		  
-		  DReport   "BrowsingStopped raised"
+		  'DReport  "BrowsingStopped raised"
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub BrowsingError(errorCode as integer, errorDomain as integer)
 		  
-		  DReport   "BrowsingError raised", errorCode, errorDomain
+		  'DReport  "BrowsingError raised", errorCode, errorDomain
 		  
 		End Sub
 	#tag EndEvent

@@ -994,6 +994,7 @@ End
 #tag Events NSTokenField1
 	#tag Event
 		Function CompletionForSubstring(substring as string, tokenIndex as integer, byref selectedItemInArray as integer) As String()
+		  #pragma unused tokenIndex
 		  
 		  dim suggestions() as string
 		  
@@ -1071,6 +1072,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub ConstructMenuForObject(obj as Variant, baseMenu as MenuItem)
+		  #pragma unused obj
 		  
 		  baseMenu.Append   new MenuItem( "Copy country name", "_COPY_" )
 		  baseMenu.Append   new MenuItem( "Get info on Wikipedia", "_WIKI_" )
@@ -1152,24 +1154,6 @@ End
 		  //This is the UTI we use for Country objects
 		  
 		  me.AcceptRawDataDrop( "com.macoslib.country" )
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DropObject(obj As DragItem, action As Integer)
-		  
-		  'dim pboard as NSPasteboard = NSPasteboard.DragPboard
-		  '
-		  'dim PL as new PropertyList( obj.RawData( "com.macoslib.country" ))
-		  '
-		  ''report  obj.RawData( "com.macoslib.country" )
-		  '
-		  'dim cc as new CountryClass
-		  '
-		  'cc.Name = PL.Value( "Name" )
-		  'cc.ISOAbbreviation = PL.Value( "ISOAbbreviation" )
-		  'cc.URL = PL.Value( "URL" )
-		  '
-		  'me.AppendObject   cc
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1264,40 +1248,11 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events LB1
-	#tag Event
-		Function DragRow(drag As DragItem, row As Integer) As Boolean
-		  '
-		  'dim dict as new Dictionary
-		  'dim PL as new PropertyList
-		  'dim cc as CountryClass
-		  '
-		  'cc = me.RowTag( row )
-		  '
-		  'PL.Value( "Name" ) = cc.Name
-		  'PL.Value( "ISOAbbreviation" ) = cc.ISOAbbreviation
-		  'PL.Value( "URL" ) = cc.URL
-		  ''PL = PropertyList( dict )
-		  'drag.RawData( "com.macoslib.country" ) = PL.Serialize( true, true )
-		  '
-		  '//As a second value (for copying), we copy the country name so it can be pasted in a text editor
-		  ''ValuesForPasteboard.Value( "public.utf8-plain-text" ) = cc.Name
-		  '
-		  'return   true
-		End Function
-	#tag EndEvent
-#tag EndEvents
 #tag Events Canvas1
 	#tag Event
 		Sub Open()
 		  
 		  'me.AcceptRawDataDrop( "com.macoslib.country" )
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DropObject(obj As DragItem, action As Integer)
-		  
-		  'report   "Drop onto Canvas"
 		End Sub
 	#tag EndEvent
 #tag EndEvents

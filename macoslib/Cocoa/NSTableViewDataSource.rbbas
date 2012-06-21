@@ -191,7 +191,7 @@ Class NSTableViewDataSource
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
-		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
 		      return nil
 		    end if
 		    

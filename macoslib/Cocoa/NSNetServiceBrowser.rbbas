@@ -27,7 +27,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidFindDomain(id as Ptr, sel as Ptr, cntl as Ptr, domain as Ptr, more as Boolean)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -50,7 +50,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidFindService(id as Ptr, sel as Ptr, cntl as Ptr, service as Ptr, more as Boolean)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -73,7 +73,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidNotSearch(id as Ptr, sel as Ptr, cntl as Ptr, err as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -99,7 +99,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidRemoveDomain(id as Ptr, sel as Ptr, cntl as Ptr, domain as Ptr, more as Boolean)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -123,7 +123,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidRemoveService(id as Ptr, sel as Ptr, cntl as Ptr, service as Ptr, more as Boolean)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -146,7 +146,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidStopSearch(id as Ptr, sel as Ptr, cntl as Ptr)
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -290,7 +290,7 @@ Inherits NSObject
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
-		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
 		      return nil
 		    end if
 		    
@@ -355,7 +355,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub SearchForAllServiceTypes(inDomain as string = "")
-		  
+		  #pragma unused inDomain
 		  
 		  //dns-sd -B _services._dns-sd._udp .
 		End Sub

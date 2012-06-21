@@ -17,90 +17,92 @@ Inherits NSControl
 
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
-		  
-		  'report  "ConstructContextualMenu"
+		  #pragma unused base
+		  #pragma unused x
+		  #pragma unused y
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub Deactivate()
-		  
-		  'report  "Deactivate"
+		  //
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub DoubleClick(X As Integer, Y As Integer)
+		  #pragma unused X
+		  #pragma unused Y
 		  
-		  'report  "doubleClick"
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function DragEnter(obj As DragItem, action As Integer) As Boolean
-		  '
-		  'Report  "DragEnter"
+		  #pragma unused obj
+		  #pragma unused action
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DragExit(obj As DragItem, action As Integer)
-		  '
-		  'Report  "DragExit"
+		  #pragma unused obj
+		  #pragma unused action
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function DragOver(x As Integer, y As Integer, obj As DragItem, action As Integer) As Boolean
-		  '
-		  'Report  "DragOver"
+		  #pragma unused x
+		  #pragma unused y
+		  #pragma unused obj
+		  #pragma unused action
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub GotFocus()
-		  
-		  'report  "GotFocus"
+		  //
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub LostFocus()
-		  
-		  'report  "LostFocus"
+		  //
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  
-		  'report  "MouseDown"
+		  #pragma unused X
+		  #pragma unused Y
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
-		  
-		  'report  "MouseDrag"
+		  #pragma unused X
+		  #pragma unused Y
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseEnter()
-		  'report  "MouseEnter"
+		  //
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseExit()
-		  'report  "MouseExit"
+		  //
 		  
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseMove(X As Integer, Y As Integer)
-		  'report  "MouseMove"
+		  #pragma unused X
+		  #pragma unused Y
 		End Sub
 	#tag EndEvent
 
@@ -126,7 +128,7 @@ Inherits NSControl
 
 	#tag Event
 		Sub Paint(g As Graphics)
-		  'report  "Paint"
+		  #pragma unused g
 		End Sub
 	#tag EndEvent
 
@@ -235,7 +237,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_completionsForSubstring(id as Ptr, sel as Ptr, cntl as Ptr, substring as CFStringRef, tokenIndex as integer, byref indexOfSelectedItem as integer) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -267,7 +269,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_displayStringForRepresentedObject(id as Ptr, sel as Ptr, cntl as Ptr, representedObject as Ptr) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -292,7 +294,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_editingStringForRepresentedObject(id as Ptr, sel as Ptr, cntl as Ptr, representedObject as Ptr) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -317,7 +319,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_hasMenuForRepresentedObject(id as Ptr, sel as Ptr, cntl as Ptr, representedObject as Ptr) As Boolean
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -364,7 +366,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_menuForRepresentedObject(id as Ptr, sel as Ptr, cntl as Ptr, representedObject as Ptr) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -389,7 +391,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_readRepresentedObjectsFromPasteboard(id as Ptr, sel as Ptr, cntl as Ptr, pboard as Ptr) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -419,7 +421,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_representedObjectForEditingString(id as Ptr, sel as Ptr, cntl as Ptr, editingString as CFStringRef) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -480,7 +482,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_shouldAddObjects(id as Ptr, sel as Ptr, cntl as Ptr, representedObjects as Ptr, idx as integer) As Ptr
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -505,7 +507,7 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_writeRepresentedObjectstoPasteboard(id as Ptr, sel as Ptr, cntl as Ptr, representedObjects as Ptr, pboard as Ptr) As Boolean
-		  
+		  #pragma unused cntl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
@@ -880,18 +882,13 @@ Inherits NSControl
 		    const kTypeData = 1
 		    const kTypePropertyList = 2
 		    
-		    dim validData as Boolean
 		    dim dict as Dictionary
-		    dim OK as Boolean
-		    dim usetype as integer
-		    dim pobjs as new NSMutableArray
 		    dim obj as objHasVariantValue
 		    dim p as Ptr
 		    dim nso as NSObjectRBWrapper
 		    dim pitems as NSArray
 		    dim pitem as NSPasteboardItem
 		    dim types() as string
-		    dim values() as variant
 		    dim v as variant
 		    dim result as new NSMutableArray
 		    
@@ -1015,7 +1012,7 @@ Inherits NSControl
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
-		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
 		      return nil
 		    end if
 		    
