@@ -428,7 +428,7 @@ Protected Module DebugReportModule
 		  case kLevelWarning //Warning
 		    sr1.Font = "SmallSystem"
 		    sr1.Text = "WARNING: "
-		    sr1.TextColor = &c0000FF00
+		    sr1.TextColor = &c0000FF
 		    sr1.Bold = true
 		    
 		    for each v as variant in values
@@ -439,7 +439,7 @@ Protected Module DebugReportModule
 		  case kLevelError //Error
 		    sr1.Font = "SmallSystem"
 		    sr1.Text = "ERROR: "
-		    sr1.TextColor = &c9C312000
+		    sr1.TextColor = &c9C3120
 		    sr1.Bold = true
 		    
 		    for each v as variant in values

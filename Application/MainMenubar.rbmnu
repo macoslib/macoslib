@@ -901,12 +901,6 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem FolderItemExtensionMenu
-            SpecialMenu = 0
-            Text = "FolderItem Extensions"
-            Index = -2147483648
-            AutoEnable = False
-         End
          Begin MenuItem SystemExtensionsMenu
             SpecialMenu = 0
             Text = "System Extensions"

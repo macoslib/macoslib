@@ -461,8 +461,7 @@ End
 #tag Events Canvas1
 	#tag Event
 		Sub Paint(g As Graphics)
-		  
-		  g.ForeColor = &c9C312000
+		  g.ForeColor = &c9C3120
 		  g.FillOval   0, 0, 12, 12
 		  
 		End Sub
@@ -471,8 +470,7 @@ End
 #tag Events Canvas2
 	#tag Event
 		Sub Paint(g As Graphics)
-		  
-		  g.ForeColor = &c0000FF00
+		  g.ForeColor = &c0000FF
 		  g.FillOval   0, 0, 12, 12
 		End Sub
 	#tag EndEvent
@@ -480,8 +478,7 @@ End
 #tag Events Canvas3
 	#tag Event
 		Sub Paint(g As Graphics)
-		  
-		  g.ForeColor = &c00000000
+		  g.ForeColor = &c000000
 		  g.FillOval   0, 0, 12, 12
 		End Sub
 	#tag EndEvent

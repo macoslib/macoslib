@@ -243,14 +243,6 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function FolderItemExtensionMenu() As Boolean Handles FolderItemExtensionMenu.Action
-			FolderItemExtensionsWindow.Show
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function FolderManagerShowFolders() As Boolean Handles FolderManagerShowFolders.Action
 			MacOSFolderBrowser.Show
 			return true

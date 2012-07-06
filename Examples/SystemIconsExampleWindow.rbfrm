@@ -267,9 +267,7 @@ Begin Window SystemIconsExampleWindow
       Left            =   745
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   100
@@ -291,7 +289,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   0
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   142
@@ -313,7 +310,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   71
@@ -335,7 +331,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   43
@@ -357,7 +352,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   43
@@ -379,7 +373,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   499
       Visible         =   True
       Width           =   66
@@ -406,7 +399,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Your age"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -510,7 +502,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   14
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Colored icons (Templates only)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -566,7 +557,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "All the icons in this window have been obtained from the convenience SystemIcons module. They are all simple Pictures, e.g.\r\rpict = SystemIcons.Network\r\rfor the Network icon in the toolbar."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -601,7 +591,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Warning: you need Real Studio 2011.r4 or higher and Mac OS X 10.6 or higher for optimum results (especially transparency)."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -719,22 +708,21 @@ End
 #tag Events CVS1
 	#tag Event
 		Sub Paint(g As Graphics)
-		  
-		  if LB1.ListIndex=-1 then   RETURN
+		  if LB1.ListIndex=-1 then return
 		  
 		  dim pict1, mask as Picture
 		  
 		  pict1 = LB1.RowPicture( LB1.ListIndex )
 		  
 		  g.DrawPicture   pict1.IconTemplateSetColor( &cFF9C30 ), 2, 0
-		  g.DrawPicture   pict1.IconTemplateSetColor( &c95959500 ), 26, 0
-		  g.DrawPicture   pict1.IconTemplateSetColor( &c00408000 ), 50, 0
+		  g.DrawPicture   pict1.IconTemplateSetColor( &c959595 ), 26, 0
+		  g.DrawPicture   pict1.IconTemplateSetColor( &c004080 ), 50, 0
 		  
-		  g.ForeColor = &c95959500
+		  g.ForeColor = &c959595
 		  g.FillRect   0, 20, g.Width, 45
 		  g.DrawPicture   pict1.IconTemplateSetColor( &cFFFFFF ), 2, 21
-		  g.DrawPicture   pict1.IconTemplateSetColor( &cCCFF6600 ), 26, 21
-		  g.DrawPicture   pict1.IconTemplateSetColor( &cFFCC6600 ), 50, 21
+		  g.DrawPicture   pict1.IconTemplateSetColor( &cCCFF66 ), 26, 21
+		  g.DrawPicture   pict1.IconTemplateSetColor( &cFFCC66 ), 50, 21
 		  
 		End Sub
 	#tag EndEvent
@@ -788,7 +776,7 @@ End
 #tag Events SegmentedControl4
 	#tag Event
 		Sub Open()
-		  me.Items( 0 ).Icon = SystemIcons.QuickLookTemplate.IconTemplateSetColor( &cA6A6A600 )
+		  me.Items( 0 ).Icon = SystemIcons.QuickLookTemplate.IconTemplateSetColor( &cA6A6A6 )
 		  
 		  
 		  

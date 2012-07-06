@@ -226,6 +226,19 @@ Class CFPreferences
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function VariantValue(key as String, default as Variant) As Variant
+		  // "smart" version that returns a fitting type as a variant or returns the default if no such key exists in the prefs
+		  
+		  dim v as CFType = CFType(Value(key))
+		  if v = nil then
+		    return default
+		  end if
+		  
+		  return v.VariantValue
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

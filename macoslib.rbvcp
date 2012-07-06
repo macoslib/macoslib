@@ -1,6 +1,6 @@
 Type=Desktop
-RBProjectVersion=2011.043
-MinIDEVersion=20070100
+RBProjectVersion=2011.03
+MinIDEVersion=20110100
 Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false
 Class=CFBoolean;macoslib/CoreFoundation/CFBoolean.rbbas;&hBD0F4E7D;&h72896D36;false
@@ -395,7 +395,6 @@ Module=ApplicationExtensions;macoslib/Convenience extensions and objects/Applica
 Module=SystemExtensions;macoslib/Convenience extensions and objects/SystemExtensions.rbbas;&h2EA49966;&h2AC71A61;false
 Module=IntrospectionExtensions;macoslib/Convenience extensions and objects/IntrospectionExtensions.rbbas;&h547CB724;&h2AC71A61;false
 Interface=objHasVariantValue;macoslib/Cocoa/objHasVariantValue.rbbas;&h3853511C;&h36D6C6CC;false
-Window=FolderItemExtensionsWindow;Examples/FolderItemExtensionsWindow.rbfrm;&hC769DAB;&h4BD59C08;false
 Window=SystemExtensionsWindow;Examples/SystemExtensionsWindow.rbfrm;&h3F698D97;&h4BD59C08;false
 Window=ApplicationExtensionsWindow;Examples/ApplicationExtensionsWindow.rbfrm;&h2ACF16AD;&h4BD59C08;false
 Interface=NSPasteboardWriting;macoslib/Cocoa/NSPasteboardWriting.rbbas;&h47F7A817;&h36D6C6CC;false
