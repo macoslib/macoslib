@@ -408,6 +408,20 @@ Inherits Application
 	#tag EndMethod
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  static gPrefs as TTsSmartPreferences
+			  if gPrefs = nil then
+			    gPrefs = new TTsSmartPreferences ("") // <- enter your app's name here, it's necessary for Windows and Linux
+			  end
+			  return gPrefs
+			End Get
+		#tag EndGetter
+		Prefs As TTsSmartPreferences
+	#tag EndComputedProperty
+
+
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"&Delete"
