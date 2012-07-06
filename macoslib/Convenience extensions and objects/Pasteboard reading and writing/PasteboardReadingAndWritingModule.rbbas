@@ -84,7 +84,6 @@ Protected Module PasteboardReadingAndWritingModule
 		    The advised implementation is CreateFromPasteboardDataAndType( type as string, data as variant ) as variant.
 		4. Create an instance of your class (even a dummy instance which cannot really be useful and/or work properly)
 		5. Call RegisterPasteboardTypes (defined in this module). See RegisterPasteboardTypes for the parameters.
-		
 	#tag EndNote
 
 

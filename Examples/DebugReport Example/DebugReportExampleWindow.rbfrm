@@ -39,7 +39,6 @@ Begin Window DebugReportExampleWindow
       LockTop         =   True
       Scope           =   0
       TabIndex        =   0
-      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   24
@@ -161,6 +160,7 @@ Begin Window DebugReportExampleWindow
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Description:"
       TextAlign       =   0
       TextColor       =   &h000000

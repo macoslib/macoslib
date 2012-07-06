@@ -80,6 +80,43 @@ Implements CFPropertyList
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFDictionary
+		  #if targetMacOS
+		    dim bs as BinaryStream = BinaryStream.Open( file, false )
+		    dim datamb as MemoryBlock = bs.Read( bs.Length )
+		    bs.close
+		    
+		    dim errMsg as string
+		    dim data as CFData = new CFData( datamb )
+		    dim plist as CFPropertyList = NewCFPropertyList( data, 0, errMsg ) //Immutable
+		    dim cfd as CFDictionary = CFDictionary( plist )
+		    
+		    return  cfd
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromRSDictionary(dict as Dictionary) As CFDictionary
+		  #if TargetMacOS
+		    dim md as new CFMutableDictionary
+		    
+		    if dict=nil then
+		      return   nil
+		    end if
+		    
+		    for i as integer=0 to dict.Count - 1
+		      md.Value( CFTypeFromRSVariant( dict.Key( i ))) = CFTypeFromRSVariant( dict.value( dict.key( i )))
+		    next
+		    
+		    return   md
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function DefaultCallbacks(name as String) As Ptr
 		  return Carbon.Bundle.DataPointerNotRetained(name)
@@ -167,6 +204,27 @@ Implements CFPropertyList
 		      end if
 		    end if
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem, asXML as Boolean = true) As boolean
+		  #if targetMacOS
+		    dim plist as CFPropertyList = CFPropertyList( me )
+		    dim url as new CFURL( file )
+		    dim stream as new CFWriteStream( url, false ) //Replace file
+		    dim errMsg as string
+		    dim OK as Boolean
+		    
+		    if stream.Open then
+		      OK = plist.Write( stream, IFTE( asXML, 100, 200 ), errMsg )
+		    end if
+		    
+		    stream.Close
+		    
+		    return  OK
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 

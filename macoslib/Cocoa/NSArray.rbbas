@@ -101,6 +101,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert(p as Ptr) As CFArray
+		  
+		  return  new CFArray( p, false )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Value(index as Integer) As Ptr
 		  #if TargetMacOS
 		    'declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer

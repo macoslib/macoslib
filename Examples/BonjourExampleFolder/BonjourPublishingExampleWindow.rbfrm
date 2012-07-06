@@ -849,7 +849,7 @@ Begin Window BonjourPublishingExampleWindow
    Begin BevelButton AddTXT
       AcceptFocus     =   False
       AutoDeactivate  =   True
-      BackColor       =   "&c00000000"
+      BackColor       =   "&c000000"
       Bevel           =   0
       Bold            =   False
       ButtonType      =   0
@@ -880,7 +880,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   27
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   "&c00000000"
+      TextColor       =   "&c000000"
       TextFont        =   "System"
       TextSize        =   ""
       TextUnit        =   0
@@ -893,7 +893,7 @@ Begin Window BonjourPublishingExampleWindow
    Begin BevelButton RemoveTXT
       AcceptFocus     =   False
       AutoDeactivate  =   True
-      BackColor       =   &h00000000
+      BackColor       =   "&c000000"
       Bevel           =   0
       Bold            =   False
       ButtonType      =   0
@@ -924,7 +924,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   28
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   &h00000000
+      TextColor       =   "&c000000"
       TextFont        =   "System"
       TextSize        =   ""
       TextUnit        =   0

@@ -46,6 +46,7 @@ Begin Window ApplicationExtensionsWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -111,6 +112,7 @@ Begin Window ApplicationExtensionsWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "With the bundle as a base, you can easily get informations, FolderItems to the different folders inside the bundle and access the resources (even localized) very easily."
       TextAlign       =   0
       TextColor       =   &h000000

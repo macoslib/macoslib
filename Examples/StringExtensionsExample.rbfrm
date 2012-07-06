@@ -1380,7 +1380,7 @@ End
 #tag EndEvents
 #tag Events UnicodeNF1
 	#tag Event
-		Sub Action(index as Integer)
+		Sub Action()
 		  
 		  #pragma unused index
 		  
@@ -1439,7 +1439,7 @@ End
 #tag EndEvents
 #tag Events UnicodeNF2
 	#tag Event
-		Sub Action(index as Integer)
+		Sub Action()
 		  
 		  #pragma unused index
 		  

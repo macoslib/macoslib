@@ -75,6 +75,59 @@ Implements CFPropertyList
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromRSObjectsArray(theArray as variant) As CFArray
+		  
+		  #if TargetMacOS
+		    dim cfma as new CFMutableArray
+		    
+		    select case theArray.ArrayElementType
+		    case Variant.TypeBoolean
+		      dim arb() as Boolean = theArray
+		      for each b as Boolean in arb
+		        if b then
+		          cfma.Append   CFBoolean.GetTrue
+		        else
+		          cfma.Append   CFBoolean.GetFalse
+		        end if
+		      next
+		      
+		    case Variant.TypeInteger
+		      dim ari() as Integer = theArray
+		      for each i as integer in ari
+		        cfma.Append   new CFNumber( i )
+		      next
+		      
+		    case Variant.TypeString
+		      dim ars() as string = theArray
+		      for each s as String in ars
+		        cfma.Append   new CFString( s )
+		      next
+		      
+		    case Variant.TypeDouble, Variant.TypeSingle
+		      dim ard() as double = theArray
+		      for each d as double in ard
+		        cfma.Append   new CFNumber( d )
+		      next
+		      
+		    case Variant.TypeDate
+		      dim ardate() as Date = theArray
+		      for each dd as date in ardate
+		        cfma.Append   new CFDate( dd )
+		      next
+		      
+		    case 9
+		      dim arv() as variant = theArray
+		      for each v as variant in arv
+		        cfma.Append   CFArray.CreateFromRSObjectsArray( v )
+		      next
+		    end select
+		    
+		    return  cfma
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Function DefaultCallbacks() As Ptr
 		  const kCFTypeArrayCallBacks = "kCFTypeArrayCallBacks"

@@ -26,7 +26,6 @@ Inherits RuntimeException
 
 	#tag Note, Name = Documentation
 		macoslibException represents any exception that must have occurred because of the macoslib implementation itself. The errorCode usually has no meaning and is -1 by default.
-		
 	#tag EndNote
 
 
@@ -63,6 +62,11 @@ Inherits RuntimeException
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="RuntimeException"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MethodName"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

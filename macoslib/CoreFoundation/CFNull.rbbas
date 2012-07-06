@@ -24,6 +24,12 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function NewCFNullRef() As Ptr
 		  return Carbon.Bundle.DataPointerNotRetained("kCFNull")

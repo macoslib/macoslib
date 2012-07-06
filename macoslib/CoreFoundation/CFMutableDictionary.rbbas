@@ -41,6 +41,24 @@ Inherits CFDictionary
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableDictionary
+		  #if targetMacOS
+		    dim bs as BinaryStream = BinaryStream.Open( file, false )
+		    dim datamb as MemoryBlock = bs.Read( bs.Length )
+		    bs.close
+		    
+		    dim errMsg as string
+		    dim data as CFData = new CFData( datamb )
+		    dim plist as CFPropertyList = NewCFPropertyList( data, 2, errMsg )
+		    dim cfd as CFMutableDictionary = CFMutableDictionary( plist )
+		    
+		    return  cfd
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function DefaultCallbacks(name as String) As Ptr
 		  return Carbon.Bundle.DataPointerNotRetained(name)

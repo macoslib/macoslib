@@ -632,6 +632,24 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetAttributedStringValue() As NSAttributedString
+		  
+		  #if TargetMacOS
+		    declare function _attributedStringValue lib CocoaLib selector "attributedStringValue" (id as Ptr) as Ptr
+		    
+		    dim p as Ptr = _attributedStringValue( me.id )
+		    
+		    if p<>nil then
+		      DReport   CurrentMethodName, "pointer corresponds to object", Cocoa.ClassNameTreeForObjectPointer( p )
+		      return   Cocoa.NSObjectFromNSPtr( p )
+		    else
+		      DReportError   CurrentMethodName, "pointer if nil"
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetDelegate() As Ptr
 		  #if targetCocoa
 		    declare function delegate_ lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr

@@ -110,6 +110,53 @@ Module CoreFoundation
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
+		Function CFTypeFromRSVariant(theValue as Variant) As CFType
+		  // Transform a simple RS variant into a CFType
+		  
+		  #if TargetMacOS
+		    if theValue=nil then
+		      return   new CFNull
+		    end if
+		    
+		    if theValue.IsArray then
+		      return   CFArray.CreateFromRSObjectsArray( theValue )
+		    end if
+		    
+		    select case theValue.Type
+		    case  Variant.TypeInteger, Variant.TypeLong, Variant.TypeSingle, Variant.TypeDouble
+		      return  new CFNumber( theValue )
+		      
+		    case  Variant.TypeDate
+		      Return  new CFDate( theValue.DateValue )
+		      
+		    case  Variant.TypeBoolean
+		      if theValue.BooleanValue then
+		        return   CFBoolean.GetTrue
+		      else
+		        return  CFBoolean.GetFalse
+		      end if
+		      
+		    case  Variant.TypeString
+		      return  new CFString( theValue )
+		      
+		    case  Variant.TypeObject
+		      if theValue isa Dictionary then  //Dictionary
+		        return  CFDictionary.CreateFromRSDictionary( Dictionary( theValue ))
+		        
+		      elseif theValue isa MemoryBlock then  //MemoryBlock
+		        return  new CFData( MemoryBlock( theValue ))
+		        
+		      end if
+		      
+		    end select
+		    
+		    raise  new TypeMismatchException
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CFURL(f as FolderItem) As CFURL
 		  return new CFURL(f)
 		End Function

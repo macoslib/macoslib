@@ -143,7 +143,9 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function _sharedFontManager lib CocoaLib selector "sharedFontManager" (Cls as Ptr) as Ptr
 		    
-		    return   new NSFontManager( _sharedFontManager( Cocoa.NSClassFromString( "NSFontManager" )), false )
+		    static mgr as NSFontManager = new NSFontManager( _sharedFontManager( Cocoa.NSClassFromString( "NSFontManager" )), false )
+		    
+		    return  mgr
 		  #endif
 		End Function
 	#tag EndMethod

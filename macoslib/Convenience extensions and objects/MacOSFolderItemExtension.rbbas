@@ -382,6 +382,61 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ItemAttribute(extends file as FolderItem, attributeConstant as String) As variant
+		  //# Set some file attributes.
+		  
+		  
+		  //@ Available from 10.5. Only quarantine attributes can be set.
+		  
+		  #if TargetMacOS
+		    declare function LSCopyItemAttribute lib "Carbon.framework" (inItem as Ptr, inRoles as UInt32, inAttributeName as CFStringRef, byref outValue as integer) as integer
+		    
+		    const kLSRoleAll = &hFFFFFFFF
+		    
+		    dim err as integer
+		    dim ref as integer
+		    dim theFSRef as MemoryBlock = file.FSRef
+		    
+		    err = LSCopyItemAttribute( theFSRef, kLSRoleAll, attributeConstant, ref )
+		    
+		    if err<>0 then
+		      DReportError  "ItemAttribute error", err
+		      return  nil
+		    end if
+		    
+		    dim cft as CFType = new CFDictionary( Ptr( ref ), false )
+		    
+		    return   cft.VariantValue
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ItemAttribute(extends file as FolderItem, attributeConstant as string, assigns value as variant)
+		  //# Set some file attributes.
+		  
+		  
+		  //@ Available from 10.5. Only quarantine attributes can be set.
+		  
+		  #if TargetMacOS
+		    declare function LSSetItemAttribute lib CarbonLib (inItem as Ptr, inRoles as integer, inAttributeName as CFStringRef, inValue as Ptr) as integer
+		    
+		    dim err as integer
+		    
+		    err = LSSetItemAttribute( file.FSRef, &hFFFFFFFF, CFConstant( attributeConstant ), CFTypeFromRSVariant( value ).Reference )
+		    
+		    if err<>0 then
+		      DReportError  "ItemAttribute error", err
+		    end if
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Label(extends f as FolderItem) As integer
 		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
 		  
@@ -554,6 +609,34 @@ Protected Module MacOSFolderItemExtension
 		  end if
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function QuarantineData(extends file as FolderItem) As Dictionary
+		  //# Retrieve the quarantine attributes of the given file
+		  
+		  #if TargetMacOS
+		    dim cfd as CFDictionary = file.ItemAttribute( "LSItemQuarantineProperties" )
+		    
+		    return   cfd.VariantValue
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub QuarantineData(extends file as FolderItem, assigns data as Dictionary)
+		  //# Retrieve the quarantine attributes of the given file
+		  
+		  #if TargetMacOS
+		    dim cfd as CFDictionary = CFDictionary.CreateFromRSDictionary( data )
+		    
+		    if cfd<>nil then
+		      file.ItemAttribute( "LSItemQuarantineProperties" ) = cfd
+		    else
+		      raise   new MacOSError( -50, "Parameter error" )
+		    end if
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

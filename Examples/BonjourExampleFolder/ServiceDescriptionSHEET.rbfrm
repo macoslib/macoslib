@@ -175,6 +175,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Name:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -209,6 +210,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -243,6 +245,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -277,6 +280,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Type:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -311,6 +315,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -345,6 +350,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Domain:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -379,6 +385,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -413,6 +420,7 @@ Begin Window ServiceDescriptionSHEET
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Port:"
       TextAlign       =   0
       TextColor       =   &h000000

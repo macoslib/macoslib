@@ -2,6 +2,13 @@
 Class NSString
 Inherits NSObject
 	#tag Method, Flags = &h1000
+		Sub Constructor(cf as CFStringRef)
+		  soft declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
+		  me._id = CFRetain( cf )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(immutableString as string)
 		  
 		  declare function stringWithString lib CocoaLib selector "stringWithString:" ( cls as Ptr, value as CFStringRef ) as Ptr

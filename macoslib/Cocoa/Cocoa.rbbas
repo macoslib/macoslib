@@ -44,6 +44,30 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function ClassNameTreeForClass(aClass as Ptr) As String()
+		  
+		  declare function class_getName lib CocoaLib (id as Ptr) as Ptr
+		  declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
+		  
+		  dim result() as string
+		  dim cls as Ptr
+		  dim mb as MemoryBlock
+		  
+		  cls = aClass
+		  while cls<>nil
+		    mb = class_getName( cls )
+		    if mb<>nil then
+		      result.Append   mb.CString( 0 )
+		    end if
+		    
+		    cls = class_getSuperclass( cls )
+		  wend
+		  
+		  return  result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function ClassNameTreeForObjectPointer(p as ptr) As String()
 		  
 		  declare function object_getClass lib CocoaLib (id as Ptr ) as Ptr
@@ -130,6 +154,64 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function Introspection_GetMethods(aClass as Ptr) As variant
+		  
+		  #if TargetMacOS
+		    declare function class_copyMethodList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		    declare function class_copyPropertyList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		    declare function class_copyIvarList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		    declare sub free lib "System" (p as Ptr)
+		    
+		    dim mb as MemoryBlock
+		    dim cnt as integer
+		    dim tree() as string = Cocoa.ClassNameTreeForClass( aClass )
+		    dim forClass as Ptr
+		    
+		    for j as integer=0 to tree.ubound
+		      forClass = Cocoa.NSClassFromString( tree( j ))
+		      DReportTitled   tree( j )
+		      
+		      mb = class_copyMethodList( forClass, cnt )
+		      if mb<>nil then
+		        declare function method_getName lib CocoaLib ( meth as Ptr ) as Ptr
+		        declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		        
+		        for i as integer = 0 to cnt - 1
+		          DReport   "meth", sel_getName( method_getName( mb.Ptr( i*4 )))
+		        next
+		        
+		        free( mb )
+		      end if
+		      
+		      mb = class_copyPropertyList( forClass, cnt )
+		      if mb<>nil then
+		        declare function property_getName lib CocoaLib ( meth as Ptr ) as CString
+		        'declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		        
+		        for i as integer = 0 to cnt - 1
+		          DReport   "prop", property_getName( mb.Ptr( i*4 ))
+		        next
+		        
+		        free( mb )
+		      end if
+		      
+		      mb = class_copyIvarList( forClass, cnt )
+		      if mb<>nil then
+		        declare function ivar_getName lib CocoaLib ( meth as Ptr ) as CString
+		        'declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		        
+		        for i as integer = 0 to cnt - 1
+		          DReport   "ivar", ivar_getName( mb.Ptr( i*4 ))
+		        next
+		        
+		        free( mb )
+		      end if
+		    next
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function LoadFramework(frameworkName as String, searchPublicFrameworks as Boolean = true) As CFBundle
 		  // Call this to make a framework known to the app, so that its classRef etc. can be looked up
 		  
@@ -167,6 +249,7 @@ Protected Module Cocoa
 		    
 		    dim b as CFBundle = CFBundle.NewCFBundleFromURL(bundleURL)
 		    if b <> nil and b.Load then
+		      LoadedFrameworks.Append   b
 		      return b
 		    else
 		      return nil
@@ -189,6 +272,16 @@ Protected Module Cocoa
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h1
+		Protected Function NSMakeRange(start as integer, length as integer) As NSRange
+		  dim r as NSRange
+		  
+		  r.location = start
+		  r.length = length
+		  return r
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function NSMakeRect(x as Double, y as Double, w as Double, h as Double) As NSRect
 		  dim r as NSRect
 		  r.x = x
@@ -207,11 +300,29 @@ Protected Module Cocoa
 		  
 		  for each objClassName as string in objClassNameTree  //Scan inheritance tree down to NSObject (or root class)
 		    select case objClassName
+		    case "ABAddressBook"
+		      return   new ABAddressBook( id, hasOwnership )
+		      
+		    case "ABGroup"
+		      return   new ABGroup( id, hasOwnership )
+		      
+		    case "ABMultiValue"
+		      return   new ABMultiValue( id, hasOwnership )
+		      
+		    case "ABPerson"
+		      return   new ABPerson( id, hasOwnership )
+		      
+		    case "ABRecord"
+		      return   new ABRecord( id, hasOwnership )
+		      
 		    case "NSApplication"
 		      return  new NSApplication( id, hasOwnership )
 		      
 		    case "NSArray"
 		      return  new NSArray( id, hasOwnership )
+		      
+		    case "NSAttributedString"
+		      return  new NSAttributedString( id, hasOwnership )
 		      
 		    case "NSBundle"
 		      return  new NSBundle( id, hasOwnership )
@@ -267,8 +378,11 @@ Protected Module Cocoa
 		    case "NSMenuItem"
 		      return  new NSMenuItem( id, hasOwnership )
 		      
-		    case "NSMutableArray" //No such class for the moment
-		      'return  new NSMutableArray( id, hasOwnership )
+		    case "NSMutableArray"
+		      return  new NSMutableArray( id, hasOwnership )
+		      
+		    case "NSMutableAttributedString"
+		      return  new NSMutableAttributedString( id, hasOwnership )
 		      
 		    case "NSMutableCharacterSet"
 		      return  new NSMutableCharacterSet( id, hasOwnership )
@@ -278,6 +392,9 @@ Protected Module Cocoa
 		      
 		    case "NSMutableIndexSet"
 		      return  new NSMutableIndexSet( id, hasOwnership )
+		      
+		    case "NSMutableParagraphStyle"
+		      return  new NSMutableParagraphStyle( id, hasOwnership )
 		      
 		    case "NSMutableString"
 		      return  new NSMutableString( id, hasOwnership )
@@ -299,6 +416,9 @@ Protected Module Cocoa
 		      
 		    case "NSNumber"
 		      return  new NSNumber( id, hasOwnership )
+		      
+		    case "NSParagraphStyle"
+		      return  new NSParagraphStyle( id, hasOwnership )
 		      
 		    case "NSPasteboard"
 		      return  new NSPasteboard( id, hasOwnership )
@@ -363,6 +483,12 @@ Protected Module Cocoa
 		      
 		    case "NSWorkspace"
 		      return  new NSWorkspace( id, hasOwnership )
+		      
+		    case "ODNode"
+		      return  new ODNode( id, hasOwnership )
+		      
+		    case "ODSession"
+		      return  new ODSession( id, hasOwnership )
 		      
 		    end select
 		  next
@@ -431,12 +557,51 @@ Protected Module Cocoa
 		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h0
+		Sub RequireFramework(frameworkName as string)
+		  
+		  dim fname as string
+		  
+		  if frameworkName.Instr( ".framework" ) = 0 then
+		    fname = frameworkName + ".framework"
+		  else
+		    fname = frameworkName
+		  end if
+		  
+		  for each cfb as CFBundle in LoadedFrameworks
+		    if cfb.FolderItemValue.Name = fname then
+		      return
+		    end if
+		  next
+		  
+		  //Load the framework
+		  dim cfb as CFBundle = LoadFramework( frameworkName )
+		  if cfb<>nil then
+		    LoadedFrameworks.Append   cfb
+		  else
+		    raise  new MacOSError( 100002, "Library not found: " + fname ) //POSIX error: kPOSIXErrorENOENT
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Function StringConstant(symbolName as String) As String
 		  //NSBundle doesn't support loading of data pointers; for this we must use a CFBundle.
 		  #if targetMacOS
+		    dim s as string
 		    dim b as CFBundle = CFBundle.NewCFBundleFromID(BundleID)
-		    return b.StringPointerRetained(symbolName)
+		    s = b.StringPointerRetained(symbolName)
+		    if s<>"" then
+		      return  s
+		    end if
+		    
+		    //Not found. Search in loaded frameworks
+		    for i as integer=0 to LoadedFrameworks.Ubound
+		      s = LoadedFrameworks( i ).StringPointerRetained( symbolName )
+		      if s<>"" then
+		        return  s
+		      end if
+		    next
 		  #endif
 		End Function
 	#tag EndMethod
@@ -477,6 +642,10 @@ Protected Module Cocoa
 
 	#tag Property, Flags = &h21
 		Private autoreleasePool As AutoreleaseTimer
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected LoadedFrameworks() As CFBundle
 	#tag EndProperty
 
 

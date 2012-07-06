@@ -51,6 +51,7 @@ Implements objHasVariantValue
 	#tag Method, Flags = &h0
 		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false)
 		  self._id = obj_id
+		  
 		  if not hasOwnership then
 		    call self.Retain
 		  end if

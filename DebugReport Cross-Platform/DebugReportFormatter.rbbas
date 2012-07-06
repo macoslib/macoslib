@@ -11,7 +11,6 @@ Protected Interface DebugReportFormatter
 		The DebugReportFormatter interface implements a single method "DebugReportStringRepresentation( formatSpec as string = "" ) as string"
 		
 		This allows you to add a specific object textual representation for debugging purpose. The parameter "formatSpec" is not used yet.
-		
 	#tag EndNote
 
 

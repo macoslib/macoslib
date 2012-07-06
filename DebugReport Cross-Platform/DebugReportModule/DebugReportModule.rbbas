@@ -118,6 +118,17 @@ Protected Module DebugReportModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DReportWaitAction(paramArray items as string)
+		  //# Displays a message then presents the user a sheet window to make a choice before the execution goes on
+		  
+		  //@ The first value is the message to be displayed
+		  //@ All the following values are considered as choices. They must be formatted as "<shortcut>:<the message>" (as a Pair)
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub DReportWarning(ParamArray values() as variant)
 		  //# Make a Debug Report as a warning
 		  
@@ -418,7 +429,7 @@ Protected Module DebugReportModule
 		  case kLevelTitled //Titled
 		    sr1.Font = "SmallSystem"
 		    sr1.Bold = true
-		    sr1.Text = values( 0 ) + ": "
+		    sr1.Text = values( 0 )
 		    
 		    sr2.Font = "SmallSystem"
 		    for i as integer = 1 to values.Ubound
@@ -470,13 +481,14 @@ Protected Module DebugReportModule
 		    AppendToWindow   type, sr1
 		  end if
 		  
-		  if not Dequeueing then
-		    if realImmediate then
-		      DebugLogWND.LogTA.Refresh
-		    else
-		      DebugLogWND.LogTA.Invalidate
-		    end if
+		  'if not Dequeueing then
+		  'if realImmediate then
+		  if immediate then
+		    DebugLogWND.LogTA.Refresh
+		    'else
+		    'DebugLogWND.LogTA.Invalidate
 		  end if
+		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -551,6 +563,9 @@ Protected Module DebugReportModule
 		Protected WarningCnt As Integer
 	#tag EndProperty
 
+
+	#tag Constant, Name = DRSeparation, Type = String, Dynamic = False, Default = \"_.$separation$._", Scope = Public
+	#tag EndConstant
 
 	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"100", Scope = Private
 	#tag EndConstant

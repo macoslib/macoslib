@@ -36,6 +36,20 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ConvertFontToHaveTrait(font as NSFont, traitMask as integer) As NSFont
+		  //# Return a NSFont where traitMask is activated (if available).
+		  
+		  //@ Use the NSFont.kNS... constants to specify one or more traits (combine values with OR)
+		  
+		  #if TargetMacOS
+		    declare function convertFont lib CocoaLib selector "convertFont:toHaveTrait:" (id as Ptr, fontid as Ptr, mask as Integer) as Ptr
+		    
+		    return  new NSFont( convertFont( me.id, font.id, traitMask ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CoveredCharacterSet() As NSCharacterSet
 		  #if TargetMacOS
 		    declare function coveredCharacterSet lib CocoaLib selector "coveredCharacterSet" (Cls as Ptr) as Ptr
@@ -118,6 +132,43 @@ Inherits NSObject
 		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag Constant, Name = kNSBoldFontMask, Type = Double, Dynamic = False, Default = \"&h2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSCompressedFontMask, Type = Double, Dynamic = False, Default = \"&h200", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSCondensedFontMask, Type = Double, Dynamic = False, Default = \"&h40", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSExpandedFontMask, Type = Double, Dynamic = False, Default = \"&h20", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSFixedPitchFontMask, Type = Double, Dynamic = False, Default = \"&h400", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSItalicFontMask, Type = Double, Dynamic = False, Default = \"&h1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSNarrowFontMask, Type = Double, Dynamic = False, Default = \"&h10", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSNonStandardCharacterSetFontMask, Type = Double, Dynamic = False, Default = \"&h8", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSPosterFontMask, Type = Double, Dynamic = False, Default = \"&h100", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSSmallCapsFontMask, Type = Double, Dynamic = False, Default = \"&h80", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSUnboldFontMask, Type = Double, Dynamic = False, Default = \"&h4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kNSUnitalicFontMask, Type = Double, Dynamic = False, Default = \"&h1000000", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior

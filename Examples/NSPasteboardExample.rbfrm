@@ -185,6 +185,7 @@ Begin Window NSPasteboardExample
       Width           =   144
    End
    Begin Timer Timer1
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -54
@@ -196,6 +197,7 @@ Begin Window NSPasteboardExample
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -18
+      Visible         =   True
       Width           =   32
    End
 End
