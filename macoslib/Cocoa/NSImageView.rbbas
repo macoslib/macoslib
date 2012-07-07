@@ -211,9 +211,6 @@ Inherits NSControl
 		    
 		  #else
 		    #pragma unused id
-		    #pragma unused aTableView
-		    #pragma unused rowIndexes
-		    #pragma unused pboard
 		  #endif
 		  
 		  // Keep the compiler from complaining
@@ -239,6 +236,7 @@ Inherits NSControl
 		    
 		  #else
 		    #pragma unused id
+		    #pragma unused evt
 		  #endif
 		  
 		  // Keep the compiler from complaining
@@ -265,9 +263,7 @@ Inherits NSControl
 		    
 		  #else
 		    #pragma unused id
-		    #pragma unused aTableView
-		    #pragma unused rowIndexes
-		    #pragma unused pboard
+		    #pragma unused evt
 		  #endif
 		  
 		  // Keep the compiler from complaining
