@@ -72,6 +72,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "The port number that the clients must connect to. This is mandatory."
          TextAlign       =   0
          TextColor       =   &h000000
@@ -149,6 +150,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Port:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -183,6 +185,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Usually """", ""."" or ""local."""
          TextAlign       =   0
          TextColor       =   &h000000
@@ -260,6 +263,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Domain:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -294,6 +298,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "See IANA defined services"
          TextAlign       =   0
          TextColor       =   &h000000FF
@@ -328,6 +333,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "incl. ._udp or ._tcp"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -405,6 +411,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Service type:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -482,6 +489,7 @@ Begin Window BonjourPublishingExampleWindow
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Service name:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -517,6 +525,7 @@ Begin Window BonjourPublishingExampleWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Before publishing a BonjourService, you should first create a Socket or a ServerSocket with a given port to accept connections from the outside. Then you can publish the Service so clients can find and connect to you.\r\rThe TXTRecord contains some data that the service requires. TXTRecords are usually private."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -582,6 +591,7 @@ Begin Window BonjourPublishingExampleWindow
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TXT Record:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -616,6 +626,7 @@ Begin Window BonjourPublishingExampleWindow
       Selectable      =   False
       TabIndex        =   18
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "(optional)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -800,6 +811,7 @@ Begin Window BonjourPublishingExampleWindow
       Selectable      =   False
       TabIndex        =   25
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Status"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -834,6 +846,7 @@ Begin Window BonjourPublishingExampleWindow
       Selectable      =   False
       TabIndex        =   26
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "This example window allows you to publish only one service. In the real life, you can register as many services as you want."
       TextAlign       =   0
       TextColor       =   &h00800040
@@ -956,6 +969,7 @@ Begin Window BonjourPublishingExampleWindow
       Selectable      =   False
       TabIndex        =   30
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "You can add/remove/modify the records even after the service has been published."
       TextAlign       =   2
       TextColor       =   &h000000

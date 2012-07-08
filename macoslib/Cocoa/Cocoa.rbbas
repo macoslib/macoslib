@@ -153,23 +153,193 @@ Protected Module Cocoa
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function Introspection_FormatType(type as String) As string
+		  //Format ObjC-Type Encodings into a C-like notation
+		  
+		  dim affix as string
+		  
+		  if LenB( type )>1 then //Composite type
+		    dim L as string = type.LeftB( 1 )
+		    
+		    if L="^" then
+		      dim s as string
+		      
+		      if MidB( type, 2, 1 )="^" then //Double pointer. Avoid another recurrence.
+		        affix = " **"
+		        s = Introspection_FormatType( type.MidB( 3 ))
+		      else
+		        affix = " *"
+		        s = Introspection_FormatType( type.MidB( 2 ))
+		      end if
+		      if s="BOOL" then //We usually consider 'char' to be a 'BOOL', but it is not usually the case with a (char *)
+		        return   "char *"
+		      else
+		        return   s + affix
+		      end if
+		      
+		    elseif L="@" then  //Class name
+		      return  type.MidB( 3, type.lenB - 3 )
+		      
+		    elseif StrComp( L, "{", 0 )=0 then //Structure
+		      return   "struct " + type.MidB( 2 ).StringBefore( "=" )
+		      
+		    elseif StrComp( L, "[", 0 )=0 then //Array
+		      return  Introspection_FormatType( type.MidB( 2 )) + "[ ]"
+		      
+		    elseif StrComp( L, "(", 0 )=0 then //Union
+		      return   "union " + type.MidB( 2 ).StringBefore( "=" )
+		      
+		    elseif StrComp( L, "V", 0 )=0 then //Oneway
+		      return  Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "r", 0 )=0 then //const
+		      return  "const " + Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "R", 0 )=0 then //Byref
+		      return  "byref " + Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "n", 0 )=0 then //in
+		      return  "in " + Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "N", 0 )=0 then //in/out
+		      return  "inout " + Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "o", 0 )=0 then //out
+		      return  "out " + Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "O", 0 )=0 then //By copy
+		      return  "bycopy " + Introspection_FormatType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "b", 0 )=0 then //Bitfield
+		      return  "bitfield " + type.MidB( 2 )
+		      
+		    end if
+		  end if
+		  
+		  select case type
+		  case "v"  //Void
+		    return  "void"
+		    
+		  case "@"
+		    return  "id"
+		    
+		  case "c", "B" //"c" is not strictly a boolean but mostly used as such
+		    return  "BOOL"
+		    
+		  case "i", "s", "c", "l", "q"
+		    if StrComp( type, Uppercase( type ), 0 )=0 then //Uppercase value, i.e. unsigned
+		      affix = "unsigned "
+		    end if
+		    
+		    select case type
+		    case "i"
+		      return  affix + "int"
+		      
+		    case "s"
+		      return  affix + "int16"
+		      
+		    case "c"
+		      return  affix + "char"
+		      
+		    case "l"
+		      return  affix + "int32"
+		      
+		    case "q"
+		      return  affix + "int64"
+		      
+		    end select
+		    
+		  case "f"
+		    return  "float"
+		    
+		  case "d"
+		    return  "double"
+		    
+		  case "*"
+		    return  "char *"
+		    
+		  case ":"
+		    return  "SEL"
+		    
+		  case "#"
+		    return  "Class"
+		    
+		  case "?"
+		    return  "void *"
+		    
+		  case "" //Shouldn't happen... but still...
+		    return   ""
+		    
+		  else
+		    QReportWarning   "macoslib: Couldn't convert type", type, "in", CurrentMethodName
+		    return   type
+		    
+		  end select
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
-		Protected Function Introspection_GetMethods(aClass as Ptr) As variant
+		Protected Sub Introspection_ReportAllForClass(aClass as Ptr)
 		  
 		  #if TargetMacOS
 		    declare function class_copyMethodList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
 		    declare function class_copyPropertyList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
 		    declare function class_copyIvarList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		    declare function object_getClass lib CocoaLib (obj as Ptr) as Ptr
+		    declare function class_copyProtocolList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		    declare function method_getNumberOfArguments lib CocoaLib (meth as Ptr) as integer
+		    declare sub method_getArgumentType lib CocoaLib (meth as Ptr, index as integer, buffer as Ptr, bufferSize as integer)
+		    declare sub method_getReturnType lib CocoaLib (meth as Ptr, buffer as Ptr, bufferSize as integer)
+		    
 		    declare sub free lib "System" (p as Ptr)
 		    
 		    dim mb as MemoryBlock
 		    dim cnt as integer
 		    dim tree() as string = Cocoa.ClassNameTreeForClass( aClass )
 		    dim forClass as Ptr
+		    dim buffer as new MemoryBlock( 256 )
+		    dim params() as string
+		    dim paramCnt as integer
+		    dim s as string
 		    
 		    for j as integer=0 to tree.ubound
 		      forClass = Cocoa.NSClassFromString( tree( j ))
-		      DReportTitled   tree( j )
+		      QReportTitled   tree( j )
+		      
+		      mb = class_copyProtocolList( forClass, cnt )
+		      if mb<>nil then
+		        declare function protocol_getName lib CocoaLib ( proto as Ptr ) as CString
+		        
+		        for i as integer=0 to cnt - 1
+		          QReport   "Conforms to:", protocol_getName( mb.Ptr( i*4 ))
+		        next
+		        
+		        free( mb )
+		      end if
+		      
+		      mb = class_copyMethodList( object_getClass( forClass ), cnt )
+		      if mb<>nil then
+		        declare function method_getName lib CocoaLib ( meth as Ptr ) as Ptr
+		        declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		        
+		        for i as integer = 0 to cnt - 1
+		          redim params( -1 )
+		          paramCnt = method_getNumberOfArguments( mb.Ptr( i*4 ))
+		          for k as integer=0 to paramCnt - 1
+		            method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
+		            params.Append   Introspection_FormatType( buffer.CString( 0 ))
+		          next
+		          
+		          params.remove  0 //The 2 first are for NS messaging
+		          params.Remove 0
+		          
+		          method_getReturnType( mb.Ptr( i*4 ), buffer, buffer.size )
+		          QReport   "+", "(" + Introspection_FormatType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
+		        next
+		        
+		        free( mb )
+		      end if
 		      
 		      mb = class_copyMethodList( forClass, cnt )
 		      if mb<>nil then
@@ -177,7 +347,18 @@ Protected Module Cocoa
 		        declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
 		        
 		        for i as integer = 0 to cnt - 1
-		          DReport   "meth", sel_getName( method_getName( mb.Ptr( i*4 )))
+		          redim params( -1 )
+		          paramCnt = method_getNumberOfArguments( mb.Ptr( i*4 ))
+		          for k as integer=0 to paramCnt - 1
+		            method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
+		            params.Append   Introspection_FormatType( buffer.CString( 0 ))
+		          next
+		          
+		          params.remove  0 //The 2 first are for NS messaging
+		          params.Remove 0
+		          
+		          method_getReturnType( mb.Ptr( i*4 ), buffer, buffer.size )
+		          QReport   "–", "(" + Introspection_FormatType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
 		        next
 		        
 		        free( mb )
@@ -185,11 +366,44 @@ Protected Module Cocoa
 		      
 		      mb = class_copyPropertyList( forClass, cnt )
 		      if mb<>nil then
-		        declare function property_getName lib CocoaLib ( meth as Ptr ) as CString
-		        'declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		        declare function property_getName lib CocoaLib ( prop as Ptr ) as CString
+		        declare function property_getAttributes lib CocoaLib ( prop as Ptr ) as CString
 		        
 		        for i as integer = 0 to cnt - 1
-		          DReport   "prop", property_getName( mb.Ptr( i*4 ))
+		          redim params( -1 )
+		          
+		          params = Split( property_getAttributes( mb.Ptr( i*4 )), "," )
+		          for k as integer=0 to params.Ubound
+		            select case params( k ).LeftB( 1 )
+		            case "T"
+		              params( k ) = Introspection_FormatType( params( k ).MidB( 2 ))
+		            case "C"
+		              params( k ) = "copy"
+		            case "P"
+		              params( k ) = "garb.coll."
+		            case "R"
+		              params( k ) = "readonly"
+		            case "&"
+		              params( k ) = "retain"
+		            case "N"
+		              params( k ) = "nonatomic"
+		            case "G"
+		              params( k ) = "getter=" + params( k ).MidB( 2 )
+		            case "S"
+		              params( k ) = "setter=" + params( k ).MidB( 2 )
+		            case "D"
+		              params( k ) = "@dynamic"
+		            case "W"
+		              params( k ) = "__weak"
+		            case "V"
+		              params( k ) = "ivar " + params( k ).MidB( 2 )
+		            end select
+		          next
+		          
+		          s = params( 0 )
+		          params.Remove  0
+		          
+		          QReport   "@property", "(", Join( params, ", " ), ")", s, property_getName( mb.Ptr( i*4 ))
 		        next
 		        
 		        free( mb )
@@ -197,18 +411,18 @@ Protected Module Cocoa
 		      
 		      mb = class_copyIvarList( forClass, cnt )
 		      if mb<>nil then
-		        declare function ivar_getName lib CocoaLib ( meth as Ptr ) as CString
-		        'declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		        declare function ivar_getName lib CocoaLib ( ivar as Ptr ) as CString
+		        declare function ivar_getTypeEncoding lib CocoaLib ( ivar as Ptr ) as CString
 		        
 		        for i as integer = 0 to cnt - 1
-		          DReport   "ivar", ivar_getName( mb.Ptr( i*4 ))
+		          QReport   "ivar: (" + Introspection_FormatType( ivar_getTypeEncoding( mb.Ptr( i*4 ))) + ")", ivar_getName( mb.Ptr( i*4 ))
 		        next
 		        
 		        free( mb )
 		      end if
 		    next
 		  #endif
-		End Function
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
