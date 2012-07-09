@@ -32,7 +32,9 @@ Inherits MenuItem
 		    
 		    
 		    for each w as Ptr in windowList
-		      if not (d.HasKey(w) or isExcludedFromWindowsMenu(w)) then
+		      //Apple recommends not to display Panels in the Window menu.
+		      //We must also block Cocoa autocompletion windows (in fact, any non-RBNSWindow should be blocked)
+		      if not (d.HasKey(w) OR isExcludedFromWindowsMenu(w) OR Cocoa.InheritsFromClass( w, "NSPanel" ) OR Cocoa.InheritsFromClass( w, "NSTextViewCompletionWindow" )) then
 		        //make new item
 		        dim newItem as Ptr = addItem(windowsMenu, title(w), Cocoa.NSSelectorFromString("makeKeyAndOrderFront:"), "")
 		        setTarget(newItem, w)

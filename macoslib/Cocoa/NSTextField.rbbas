@@ -19,6 +19,20 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function CurrentEditor() As FieldEditor
+		  
+		  #if TargetMacOS
+		    declare Function currentEditor lib CocoaLib selector "currentEditor" (id as Ptr) as Ptr
+		    
+		    dim p as Ptr = currentEditor( me.id )
+		    if p<>nil then
+		      return  new FieldEditor( p )
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
