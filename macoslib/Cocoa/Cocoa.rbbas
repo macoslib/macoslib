@@ -733,6 +733,8 @@ Protected Module Cocoa
 		      return   NSDictionary.CreateFromRSDictionary( Dictionary( v ))
 		    elseif v IsA MemoryBlock then
 		      return   new NSData( MemoryBlock( v ))
+		    elseif v isa NSObject //Already a NSObject
+		      return  v
 		    end if
 		    
 		  case Variant.TypeDate
@@ -740,6 +742,9 @@ Protected Module Cocoa
 		    
 		  case Variant.TypeNil
 		    return   new NSNull
+		    
+		  else
+		    raise new TypeMismatchException
 		  end select
 		End Function
 	#tag EndMethod
