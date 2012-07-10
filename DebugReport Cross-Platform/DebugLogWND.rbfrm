@@ -114,7 +114,7 @@ Begin Window DebugLogWND
       LockTop         =   True
       Mask            =   ""
       Multiline       =   True
-      ReadOnly        =   ""
+      ReadOnly        =   True
       Scope           =   0
       ScrollbarHorizontal=   ""
       ScrollbarVertical=   True
@@ -236,7 +236,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -271,7 +270,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -306,7 +304,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -341,7 +338,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F18"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -376,7 +372,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F19"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -451,6 +446,16 @@ End
 		Sub Open()
 		  
 		  me.Left = Screen( 0 ).AvailableWidth - me.Width
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Paint(g As Graphics)
+		  
+		  WarningCountLBL.Text = Str( DebugReportModule.WarningCnt )
+		  ErrorCountLBL.Text = Str( DebugReportModule.ErrorCnt )
+		  ReportCountLBL.Text = Str( DebugReportModule.ReportCnt )
 		  
 		End Sub
 	#tag EndEvent

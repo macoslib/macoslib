@@ -1,31 +1,26 @@
 #tag Class
 Protected Class ReportEvent
 	#tag Method, Flags = &h0
-		Sub Constructor(type as integer, FormatType as integer, RequiresUserInteraction as boolean, values() as variant)
+		Sub Constructor(type as integer, sr1 as StyleRun, sr2 as StyleRun)
 		  
 		  me.Type = type
-		  me.FormatType = FormatType
-		  me.RequiresUserInteraction = RequiresUserInteraction
-		  me.Values = values
+		  me.sr1 = sr1
+		  me.sr2 = sr2
 		  
 		End Sub
 	#tag EndMethod
 
 
 	#tag Property, Flags = &h0
-		FormatType As Integer
+		sr1 As StyleRun
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		RequiresUserInteraction As Boolean
+		sr2 As StyleRun
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Type As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		values() As variant
 	#tag EndProperty
 
 
