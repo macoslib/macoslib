@@ -95,7 +95,12 @@ Class BonjourService
 		      RaiseEvent   ResolutionError( errorCode, errorDomain )
 		    end if
 		    
+		  #else
+		    #pragma unused errorCode
+		    #pragma unused errorDomain
 		  #endif
+		  
+		  #pragma unused sender
 		End Sub
 	#tag EndMethod
 
@@ -115,6 +120,9 @@ Class BonjourService
 		    nsns.StartMonitoring
 		    
 		  #endif
+		  
+		  #pragma unused sender
+		  
 		End Sub
 	#tag EndMethod
 
@@ -132,6 +140,7 @@ Class BonjourService
 		    end if
 		  #endif
 		  
+		  #pragma unused sender
 		End Sub
 	#tag EndMethod
 
@@ -148,6 +157,8 @@ Class BonjourService
 		      RaiseEvent   TXTDataChanged
 		    end if
 		  #endif
+		  
+		  #pragma unused sender
 		  
 		End Sub
 	#tag EndMethod

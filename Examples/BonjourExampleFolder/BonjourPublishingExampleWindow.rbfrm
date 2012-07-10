@@ -1016,6 +1016,8 @@ End
 		  IMG1.NativeImage = NSIMage.StatusUnavailable
 		  Group1.Enabled = true
 		  
+		  #pragma unused service
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1026,6 +1028,9 @@ End
 		  PublishBTN.Enabled = true
 		  IMG1.NativeImage = NSIMage.StatusNone
 		  Group1.Enabled = true
+		  
+		  #pragma unused service
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1037,6 +1042,9 @@ End
 		  PublishBTN.Enabled = true
 		  IMG1.NativeImage = NSIMage.StatusAvailable
 		  Group1.Enabled = false
+		  
+		  #pragma unused service
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1053,6 +1061,9 @@ End
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
 		  ShowURL   "http://www.dns-sd.org/ServiceTypes.html"
+		  
+		  #pragma unused X
+		  #pragma unused Y
 		  
 		End Function
 	#tag EndEvent
@@ -1116,6 +1127,10 @@ End
 		Sub CellTextChange(row as Integer, column as Integer)
 		  
 		  ChangeTXTBTN.Enabled = true
+		  
+		  #pragma unused row
+		  #pragma unused column
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

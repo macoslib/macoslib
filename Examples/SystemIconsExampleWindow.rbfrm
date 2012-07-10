@@ -721,7 +721,7 @@ End
 		Sub Paint(g As Graphics)
 		  if LB1.ListIndex=-1 then return
 		  
-		  dim pict1, mask as Picture
+		  dim pict1 as Picture
 		  
 		  pict1 = LB1.RowPicture( LB1.ListIndex )
 		  

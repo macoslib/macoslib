@@ -324,6 +324,9 @@ End
 		  LB1.AddRow   service.Name, service.Type, "Resolving…"
 		  LB1.RowTag( LB1.LastIndex ) = service
 		  service.Resolve   20.0
+		  
+		  #pragma unused moreComing
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -334,6 +337,9 @@ End
 		  idx = FindServiceInListBox( service )
 		  
 		  LB1.Cell( idx, 2 ) = "Resolution error " + Str( errorCode )
+		  
+		  #pragma unused errorCode
+		  #pragma unused errorDomain
 		  
 		End Sub
 	#tag EndEvent
@@ -358,6 +364,9 @@ End
 		  if idx<>-1 then
 		    LB1.RemoveRow   idx
 		  end if
+		  
+		  #pragma unused moreComing
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -381,6 +390,9 @@ End
 		Sub BrowsingError(errorCode as integer, errorDomain as integer)
 		  
 		  'DReport  "BrowsingError raised", errorCode, errorDomain
+		  
+		  #pragma unused errorCode
+		  #pragma unused errorDomain
 		  
 		End Sub
 	#tag EndEvent

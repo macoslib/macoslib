@@ -10,6 +10,7 @@ Inherits NSObject
 		    if v=nil then   return ""
 		    
 		    dim s as string = NSString( v ).StringValue
+		    #pragma unused s
 		  #endif
 		End Function
 	#tag EndMethod

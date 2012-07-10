@@ -23,6 +23,11 @@ Protected Module BonjourModule
 		  '
 		  'next
 		  '#endif
+		  
+		  #pragma unused sender
+		  #pragma unused errCode
+		  #pragma unused errDomain
+		  
 		End Sub
 	#tag EndMethod
 
@@ -47,6 +52,9 @@ Protected Module BonjourModule
 		  '
 		  'next
 		  '#endif
+		  
+		  #pragma unused sender
+		  
 		End Sub
 	#tag EndMethod
 

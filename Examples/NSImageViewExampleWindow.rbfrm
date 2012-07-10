@@ -547,7 +547,7 @@ End
 
 #tag Events NSImageView1
 	#tag Event
-		Sub Open()
+		Sub Open(index as Integer)
 		  
 		  select case index
 		  case 0
@@ -564,7 +564,8 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function ConstructContextualMenu(base as MenuItem, x as integer, y as integer) As Boolean
+		Function ConstructContextualMenu(index as Integer, base as MenuItem, x as integer, y as integer) As Boolean
+		  #pragma unused index
 		  #pragma unused x
 		  #pragma unused y
 		  
@@ -575,7 +576,8 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		Function ContextualMenuAction(index as Integer, hitItem as MenuItem) As Boolean
+		  #pragma unused index
 		  
 		  if hitItem<>nil then
 		    'DReport hitItem.Text
@@ -584,27 +586,32 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Sub MouseEnter()
+		Sub MouseEnter(index as Integer)
+		  #pragma unused index
 		  
 		  'DReport "MouseEntered", index
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub MouseExit()
+		Sub MouseExit(index as Integer)
+		  #pragma unused index
 		  
 		  'DReport  "MouseExit", index
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub ImageChanged()
+		Sub ImageChanged(index as Integer)
+		  #pragma unused index
 		  
 		  'DReport "ImageChanged", index
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub MouseDrag(X as integer, Y as integer)
+		Sub MouseDrag(index as Integer, X as integer, Y as integer)
 		  //Initiate a DragItem
+		  
+		  #pragma unused index
 		  
 		  dim di as new DragItem( me.TrueWindow, me.left + X, me.top + Y, me.Image.Width, me.Image.Height, me.Image )
 		  di.Picture = me.Image
@@ -615,9 +622,14 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub MouseUp(X as integer, Y as integer)
+		Sub MouseUp(index as Integer, X as integer, Y as integer)
 		  
 		  'DReport "MouseUp", X, Y
+		  
+		  #pragma unused index
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
