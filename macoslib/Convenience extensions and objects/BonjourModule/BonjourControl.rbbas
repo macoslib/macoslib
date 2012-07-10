@@ -195,12 +195,19 @@ Inherits Canvas
 		  
 		  #if TargetMacOS
 		    RaiseEvent   BrowsingError( errorCode, errorDomain )
+		  #else
+		    #pragma unused errorCode
+		    #pragma unused errorDomain
 		  #endif
+		  
+		  #pragma unused browser
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_SearchStopped(browser as NSNetServiceBrowser)
+		  #pragma unused browser
 		  
 		  RaiseEvent   BrowsingStopped
 		  
@@ -222,6 +229,10 @@ Inherits Canvas
 		    
 		    RaiseEvent    ServiceAdded( service, moreComing )
 		  #endif
+		  
+		  #pragma unused browser
+		  #pragma unused ServiceName
+		  #pragma unused TXTDict
 		End Sub
 	#tag EndMethod
 
@@ -252,6 +263,10 @@ Inherits Canvas
 		    BSS.Remove   index
 		    
 		  #endif
+		  
+		  #pragma unused browser
+		  #pragma unused ServiceName
+		  
 		End Sub
 	#tag EndMethod
 

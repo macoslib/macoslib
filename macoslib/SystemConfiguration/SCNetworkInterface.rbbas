@@ -46,14 +46,17 @@ Inherits CFType
 		  'if OK then
 		  if current<>nil then
 		    dim currentDict as NSDictionary = new NSDictionary( current, false )
+		    #pragma unused currentDict
 		    'DReport  "Current:", currentDict
 		  end if
 		  if active<>nil then
 		    dim activeDict as NSDictionary = new NSDictionary( active, false )
+		    #pragma unused activeDict
 		    'DReport  "Active:", activeDict
 		  end if
 		  if available<>nil then
 		    dim availableArray as NSArray = new NSArray( available, false )
+		    #pragma unused availableArray
 		    'DReport  "Available:", availableArray
 		  end if
 		  

@@ -182,6 +182,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -196,6 +197,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -210,6 +213,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -224,6 +228,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -238,6 +244,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -252,6 +260,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -266,6 +276,9 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused MountPoint
+		  #pragma unused LocalizedName
 		  
 		End Sub
 	#tag EndMethod
@@ -280,6 +293,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused OperationNumber
 		  
 		End Sub
 	#tag EndMethod
@@ -293,6 +308,12 @@ Protected Module CustomWorkspaceEvents
 		  //@     "Name" as string: the name of the Notification
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
+		  
+		  #pragma unused notification
+		  #pragma unused oldMountPoint
+		  #pragma unused oldLocalizedName
+		  #pragma unused newMountPoint
+		  #pragma unused newLocalizedName
 		  
 		  
 		End Sub
@@ -308,6 +329,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -322,6 +345,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -337,6 +362,10 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused MountPoint
+		  #pragma unused LocalizedName
+		  
 		  
 		End Sub
 	#tag EndMethod
@@ -351,6 +380,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -365,6 +395,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -379,6 +410,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -393,6 +425,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -407,6 +440,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -421,6 +455,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -435,6 +470,8 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
+		  #pragma unused appl
 		  
 		End Sub
 	#tag EndMethod
@@ -449,6 +486,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -463,6 +501,7 @@ Protected Module CustomWorkspaceEvents
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
 		  
+		  #pragma unused notification
 		  
 		End Sub
 	#tag EndMethod
@@ -477,6 +516,10 @@ Protected Module CustomWorkspaceEvents
 		  //@     "Name" as string: the name of the Notification
 		  //@     "AssociatedObject": a Ptr to the original NSNotification
 		  //@     "UserInfo": the main Dictionary which contains per-notification values
+		  
+		  #pragma unused notification
+		  #pragma unused MountPoint
+		  #pragma unused LocalizedName
 		  
 		  
 		End Sub

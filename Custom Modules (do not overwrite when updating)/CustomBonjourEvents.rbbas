@@ -5,6 +5,7 @@ Protected Module CustomBonjourEvents
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
+		  #pragma unused service
 		End Sub
 	#tag EndMethod
 
@@ -12,6 +13,10 @@ Protected Module CustomBonjourEvents
 		Protected Sub event_ServicePublishingError(service as BonjourServiceForPublishing, errorCode as integer, errorDomain as integer)
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  
+		  #pragma unused service
+		  #pragma unused errorCode
+		  #pragma unused errorDomain
 		  
 		End Sub
 	#tag EndMethod
@@ -21,6 +26,10 @@ Protected Module CustomBonjourEvents
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
+		  #pragma unused service
+		  #pragma unused errorCode
+		  #pragma unused errorDomain
+		  
 		End Sub
 	#tag EndMethod
 
@@ -28,6 +37,8 @@ Protected Module CustomBonjourEvents
 		Protected Sub event_ServiceResolved(service as BonjourService)
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  
+		  #pragma unused service
 		  
 		End Sub
 	#tag EndMethod
@@ -37,6 +48,9 @@ Protected Module CustomBonjourEvents
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
+		  #pragma unused service
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -45,6 +59,8 @@ Protected Module CustomBonjourEvents
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
+		  #pragma unused service
+		  
 		End Sub
 	#tag EndMethod
 
@@ -52,6 +68,8 @@ Protected Module CustomBonjourEvents
 		Protected Sub event_ServiceTXTRecordChanged(service as BonjourService)
 		  
 		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  
+		  #pragma unused service
 		  
 		End Sub
 	#tag EndMethod

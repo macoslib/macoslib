@@ -35,6 +35,8 @@ Inherits NSObject
 		    
 		    'beginSheetModalForWindow:modalDelegate:didEndSelector:contextInfo:
 		  #endif
+		  
+		  #pragma unused parentWindow
 		End Sub
 	#tag EndMethod
 

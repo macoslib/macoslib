@@ -26,11 +26,6 @@ Protected Class ReportEvent
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="FormatType"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -49,11 +44,6 @@ Protected Class ReportEvent
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RequiresUserInteraction"
-			Group="Behavior"
-			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

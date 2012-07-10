@@ -394,6 +394,7 @@ Protected Module DebugReportModule
 		  //General Report function
 		  
 		  #pragma unused immediate
+		  #pragma unused FormatType
 		  #pragma DisableBackgroundTasks
 		  
 		  dim results1() as string

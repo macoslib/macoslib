@@ -166,12 +166,17 @@ Inherits BonjourService
 	#tag Method, Flags = &h21
 		Private Sub Resolve(timeoutInSeconds as double)
 		  //Block this inherited method which does not apply here
+		  
+		  #pragma unused timeoutInSeconds
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub SetParent(parent as BonjourControl)
 		  //Not applicable in BonjourServiceForPublishing
+		  
+		  #pragma unused parent
 		  
 		End Sub
 	#tag EndMethod

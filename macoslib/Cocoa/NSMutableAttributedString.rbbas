@@ -105,6 +105,8 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h0
 		Function SetAttributes(forRange as NSRange, attrs as NSDictionary) As boolean
+		  #pragma unused forRange
+		  #pragma unused attrs
 		  '
 		  '#if TargetMacOS
 		  'declare sub addAttribute lib CocoaLib selector "addAttribute:value:range:" (id as Ptr, name as CFStringRef, value as Ptr, aRange as NSRange)

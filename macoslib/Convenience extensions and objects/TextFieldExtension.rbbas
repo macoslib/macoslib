@@ -29,6 +29,8 @@ Protected Module TextFieldExtension
 		    dim p as Ptr
 		    p = attributedStringValue( ctrl )
 		    dim s() as string = Cocoa.ClassNameTreeForObjectPointer( p )
+		    #pragma unused s
+		    
 		    dim nsas as NSMutableAttributedString
 		    
 		    if p<>nil then

@@ -2,8 +2,6 @@
 Protected Module XMLDictionary
 	#tag Method, Flags = &h21
 		Private Sub ClearStorage(storage As Variant)
-		  Dim i, n As Integer
-		  
 		  If storage.Type = 9 Then
 		    If storage.ObjectValue IsA Dictionary Then
 		      Dictionary(storage).Clear
@@ -188,13 +186,12 @@ Protected Module XMLDictionary
 
 	#tag Method, Flags = &h21
 		Private Sub ParseStorage(storage As Variant, parent As XmlNode, alreadySeen As Dictionary, indentLevel As Integer, plist As Boolean = False)
-		  Dim i, n, x As Integer
 		  Dim key, value As Variant
 		  Dim node, tempNode As XmlNode
 		  Dim xdoc As XmlDocument
 		  Dim s, data(-1) As String
 		  Dim multilineTag As Boolean
-		  Dim mb As MemoryBlock
+		  Dim i, n As Integer
 		  
 		  // First, make sure we haven't already seen this dictionary
 		  // This protects against circular dictionary references
@@ -319,8 +316,7 @@ Protected Module XMLDictionary
 
 	#tag Method, Flags = &h21
 		Private Sub ParseXML(parent As XmlNode, storage As Variant)
-		  Dim i As Integer
-		  Dim node, tempNode As XmlNode
+		  Dim node As XmlNode
 		  Dim key As Variant
 		  Dim v As Variant
 		  Dim d As Dictionary
