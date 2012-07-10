@@ -400,56 +400,6 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ToolbarButton(extends w as Window) As Boolean
-		  #if targetCarbon
-		    soft declare function GetWindowAttributes lib CarbonLib (w as WindowPtr, ByRef outAttributes as Integer) as Integer
-		    
-		    dim outAttributes as Integer
-		    dim OSError as Integer = GetWindowAttributes(w, outAttributes)
-		    if OSError <> noErr then
-		      System.DebugLog "GetWindowAttributes returned error " + Str(OSError) + "."
-		    end if
-		    return (outAttributes and kWindowToolbarButtonAttribute) = kWindowToolbarButtonAttribute
-		  #endif
-		  
-		  #if targetCocoa
-		    declare function showsToolbarButton lib CocoaLib selector "showsToolbarButton" (obj_id as Ptr) as Boolean
-		    
-		    return showsToolbarButton(Ptr(w.Handle))
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub ToolbarButton(extends w as Window, assigns value as Boolean)
-		  #if targetCarbon
-		    soft declare function ChangeWindowAttributes lib CarbonLib (window as WindowPtr, setTheseAttributes as UInt32, clearTheseAttributes as UInt32) as Integer
-		    
-		    dim setTheseAttributes as Integer
-		    dim clearTheseAttributes as Integer
-		    if value then
-		      setTheseAttributes = kWindowToolbarButtonAttribute
-		      clearTheseAttributes = 0
-		    else
-		      setTheseAttributes = 0
-		      clearTheseAttributes = kWindowToolbarButtonAttribute
-		    end if
-		    
-		    dim OSError as Integer = ChangeWindowAttributes(w, setTheseAttributes, clearTheseAttributes)
-		    if OSError <> noErr then
-		      System.DebugLog "ChangeWindowAttributes returned error " + Str(OSError) + "."
-		    end if
-		  #endif
-		  
-		  #if targetCocoa
-		    declare sub setShowsToolbarButton lib CocoaLib selector "setShowsToolbarButton:" (obj_id as Ptr, showsToolbarButton as Boolean)
-		    
-		    setShowsToolbarButton(Ptr(w.Handle), value)
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub UpdateDockTile(extends w as Window)
 		  #if targetMacOS
 		    declare function UpdateCollapsedWindowDockTile lib CarbonLib (inWindow as WindowPtr) as Integer
@@ -579,9 +529,6 @@ Module WindowManager
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowTitleTextRgn, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowToolbarButtonAttribute, Type = Double, Dynamic = False, Default = \"64", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowToolbarButtonRgn, Type = Double, Dynamic = False, Default = \"41", Scope = Public
