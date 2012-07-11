@@ -19,7 +19,9 @@ Inherits NSObject
 		  
 		  dict.Value( "Name" ) = me.Name
 		  dict.Value( "AssociatedObject" ) = me.AssociatedObject
-		  dict.Value( "UserInfo" ) = me.UserInfo.VariantValue
+		  if me.UserInfo<>nil then
+		    dict.Value( "UserInfo" ) = me.UserInfo.VariantValue
+		  end if
 		  
 		  return   dict
 		  
