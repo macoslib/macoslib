@@ -28,6 +28,18 @@ Protected Module GeneralExtensions
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function NewRange(start as integer, length as integer) As Range
+		  //# Create a Range from the Start and Length parameters
+		  
+		  dim r as new Range
+		  r.StartPos = start
+		  r.Length = length
+		  
+		  return  r
+		End Function
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

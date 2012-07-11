@@ -96,6 +96,31 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function InstrFindAllWithOptions(extends theString as string, substring as string, options as integer = 1) As pair()
+		  //# Find all the occurrences of substring inside theString with the given options and return an array of Pairs.
+		  
+		  //@ Each Pair contain the range of matching characters (start:length).
+		  
+		  #if TargetMacOS
+		    dim cfs as new CFString( theString )
+		    dim nsa as CFArray
+		    dim p() as Pair
+		    dim mb as MemoryBlock
+		    
+		    nsa = cfs.CreateArrayWithFindResults( substring, options )
+		    if nsa<>nil then
+		      for i as integer = 0 to nsa.Count - 1
+		        mb = nsa.Value( i )
+		        p.Append   mb.Int32Value( 0 ) + 1 : mb.Int32Value( 4 )  //+1 to make the char position RB-like
+		      next
+		    end if
+		    
+		    return   p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function InstrFindAllWithOptions(theString as string, substring as string, options as integer = 1) As pair()
 		  //# Find all the occurrences of substring inside theString with the given options and return an array of Pairs.
 		  
@@ -116,6 +141,24 @@ Protected Module StringExtension
 		    end if
 		    
 		    return   p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function InstrWithOptions(extends theString as string, substring as string, options as integer = 1) As pair
+		  //# Find the first occurrence of substring inside theString with the given options and return the range of matching characters as a Pair (start:length) or nil if not found.
+		  
+		  #if TargetMacOS
+		    dim cfs as new CFString( theString )
+		    dim range as CFRange
+		    
+		    range = cfs.StringFindWithOptions( substring, options )
+		    if range.length<>0 then
+		      return   range.location + 1 : range.length  //+1 to make the location RB-like
+		    else
+		      return   nil
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod

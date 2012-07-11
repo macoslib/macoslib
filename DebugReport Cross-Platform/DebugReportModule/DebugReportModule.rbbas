@@ -18,11 +18,13 @@ Protected Module DebugReportModule
 		      'end if
 		    case kLevelError
 		      ErrorCnt = ErrorCnt + 1
+		      ErrorPos.Append   LogText.Len
 		      'if NOT Dequeueing then
 		      'DebugLogWND.ErrorCountLBL.Text = Str( ErrorCnt )
 		      'end if
 		    case kLevelWarning
 		      WarningCnt = WarningCnt + 1
+		      WarningPos.Append   LogText.Len
 		      'if NOT Dequeueing then
 		      'DebugLogWND.WarningCountLBL.Text = Str( WarningCnt )
 		      'end if
@@ -59,6 +61,72 @@ Protected Module DebugReportModule
 		  end if
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function DecomposeFormatString(text as String) As string()
+		  //Detect format indicators (either style of format specs)
+		  dim data as string
+		  dim a, b as integer
+		  dim result() as string
+		  
+		  //Get rid of escaped chars
+		  result.Append   text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, DebugReportOptions.FormatSpecCharacter )
+		  
+		  data = text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, &u29FA )
+		  
+		  while data.Len > 0
+		    a = Instr( data, DebugReportOptions.FormatSpecCharacter )
+		    if a=0 then
+		      result.Append   data
+		      data = ""
+		      
+		    else
+		      result.Append   data.Left( a - 1 )
+		      if data.Mid( a + 1, 1 )="(" then
+		        b = Instr( a + 2, data, ")" )
+		        result.Append   data.Mid( a, b - a + 1 )
+		        data = data.Mid( b + 1 )
+		      else
+		        result.Append   data.Mid( a, 2 )
+		        data = data.Mid( a + 2 )
+		      end if
+		      
+		    end if
+		  wend
+		  
+		  for i as integer=0 to result.Ubound
+		    result( i ) = result( i ).ReplaceAll( &u29FA, DebugReportOptions.FormatSpecCharacter )
+		  next
+		  
+		  return   result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function DetectFormatIndicator(text as String) As string
+		  //Detect format indicators (either style of format specs)
+		  dim s as string
+		  dim a as integer
+		  
+		  //Get rid of escaped chars
+		  s = text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, &u29FA )
+		  
+		  a = Instr( s, DebugReportOptions.FormatSpecCharacter )
+		  
+		  if a=0 then
+		    return ""
+		    
+		  else
+		    if s.Mid( a + 1, 1 )="(" then
+		      return   s.Mid( a ).StringBefore( ")" ) + ")"
+		    else
+		      return   s.Mid( a, 2 )
+		    end if
+		    
+		  end if
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -402,7 +470,12 @@ Protected Module DebugReportModule
 		  dim result1, result2 as string
 		  dim sr1 as new StyleRun
 		  dim sr2 as new StyleRun
+		  dim srs() as StyleRun
 		  dim usesr2 as boolean
+		  'dim pendingSpecs() as string
+		  'dim spec as string
+		  'dim sresult as StyledText
+		  'dim formats() as string
 		  
 		  declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay:" (id as Ptr, flags as Boolean)
 		  
@@ -417,10 +490,28 @@ Protected Module DebugReportModule
 		    sr1.Font = "SmallSystem"
 		    
 		  case kLevelNotice //Normal text
+		    sr1.Font = "SmallSystem"
+		    
+		    'Formats = DecomposeFormatString( FormatVariant( values( 0 ))
+		    '
+		    'if UBound( Formats )>0 then //There is a format spec
+		    '
+		    '
+		    'if Values.Ubound>0 then
+		    'result1 = FormatVariant( v )
+		    'end if
+		    'for i as integer=0 to Ubound( values )
+		    'if i=0 then
+		    'if VarType( values( 0 )) = Variant.TypeString then //There may be some format specs
+		    'spec = DetectFormatIndicator( values( 0 ))
+		    'if spec<>"" then
+		    'next
+		    
+		    
 		    for each v as variant in values
 		      results1.Append  FormatVariant( v )
 		    next
-		    sr1.Font = "SmallSystem"
+		    'sr1.Font = "SmallSystem"
 		    
 		  case kLevelTitled //Titled
 		    sr1.Font = "SmallSystem"
@@ -542,6 +633,10 @@ Protected Module DebugReportModule
 		Protected ErrorCnt As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h1
+		Protected ErrorPos() As Integer
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private inited As boolean
 	#tag EndProperty
@@ -571,6 +666,10 @@ Protected Module DebugReportModule
 
 	#tag Property, Flags = &h1
 		Protected WarningCnt As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected WarningPos() As Integer
 	#tag EndProperty
 
 
