@@ -24,6 +24,7 @@ Protected Module UnicodeFormsExtension
 		  if not inited then Init
 		  
 		  soft declare function unorm2_isNormalized lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, byref pError as integer) as Boolean
+		  soft declare function unorm_isNormalized lib LibICU ( s as Ptr, length as Int32, mode as integer, byref pError as integer) as Boolean
 		  
 		  dim ut16 as string
 		  dim enc as TextEncoding = s.Encoding
@@ -49,9 +50,14 @@ Protected Module UnicodeFormsExtension
 		    dim err as integer
 		    dim mb as MemoryBlock = ut16
 		    dim OK as Boolean
-		    dim norm as Ptr = Normalizers( normidx )
+		    dim norm as Ptr
 		    
-		    OK = unorm2_isNormalized( norm, mb, mb.Size \ 2, err )
+		    if ICU_UseVariant2 then
+		      norm = Normalizers( normidx )
+		      OK = unorm2_isNormalized( norm, mb, mb.Size \ 2, err )
+		    else //Older version
+		      OK = unorm_isNormalized( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), err )
+		    end if
 		    
 		    if err=0 then
 		      return  OK
@@ -97,23 +103,42 @@ Protected Module UnicodeFormsExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function ICU_ConvertModeForOldVersion(idx as integer) As integer
+		  //Convert the Normalizer index used by new libicu to the corresponding UNormalizationMode used by older versions
+		  
+		  select case idx
+		  case 0
+		    return  3  //NFKD
+		  case 1
+		    return  5  //NFKC
+		  case 2
+		    return  2  //NFD
+		  case 3
+		    return  4  //NFC
+		  end select
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub Init()
 		  
 		  #if not TargetWin32
-		    soft declare function unorm2_getInstance lib "libicucore.dylib" ( packageName as Ptr, name as CString, mode as integer, byref pError as integer ) as Ptr
-		    
-		    dim err as integer
+		    soft declare function unorm2_getInstance lib LibICU ( packageName as Ptr, name as CString, mode as integer, byref pError as integer ) as Ptr
 		    
 		    if inited then return
 		    
-		    Normalizers( 0 ) = unorm2_getInstance( nil, "nfkc", 1, err )  //NFKD
-		    'if err<>0 then reporterror   "Couldn't get Normalizer NFKD"
-		    Normalizers( 1 ) = unorm2_getInstance( nil, "nfkc", 0, err )  //NFKC
-		    'if err<>0 then reporterror   "Couldn't get Normalizer NFKC"
-		    Normalizers( 2 ) = unorm2_getInstance( nil, "nfc", 1, err )  //NFD
-		    'if err<>0 then reporterror   "Couldn't get Normalizer NFD"
-		    Normalizers( 3 ) = unorm2_getInstance( nil, "nfc", 0, err )  //NFC
-		    'if err<>0 then reporterror   "Couldn't get Normalizer NFC"
+		    if System.IsFunctionAvailable( "unorm2_getInstance", LibICU ) then
+		      ICU_UseVariant2 = true
+		      Inited = true
+		      
+		      dim err as integer
+		      
+		      Normalizers( 0 ) = unorm2_getInstance( nil, "nfkc", 1, err )  //NFKD
+		      Normalizers( 1 ) = unorm2_getInstance( nil, "nfkc", 0, err )  //NFKC
+		      Normalizers( 2 ) = unorm2_getInstance( nil, "nfc", 1, err )  //NFD
+		      Normalizers( 3 ) = unorm2_getInstance( nil, "nfc", 0, err )  //NFC
+		    end if
 		    
 		    inited = true
 		  #endif
@@ -190,17 +215,16 @@ Protected Module UnicodeFormsExtension
 	#tag Method, Flags = &h21
 		Private Function Normalize(s as string, normidx as integer) As string
 		  
-		  if not inited then
-		    Init
-		  end if
+		  if not inited then  init
 		  
 		  soft declare function unorm2_normalize lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, dest as Ptr, capacity as Int32, byref pError as integer) as int32
+		  soft declare function unorm_normalize lib LibICU ( s as Ptr, length as Int32, mode as integer, opts as int32, dest as Ptr, capacity as Int32, byref pError as integer) as int32
 		  
 		  dim err as integer
 		  dim mb as MemoryBlock
 		  dim result as MemoryBlock
 		  dim resultLen as Int32
-		  dim norm as Ptr = Normalizers( normidx )
+		  dim norm as Ptr
 		  dim enc as TextEncoding
 		  dim ut16 as string
 		  
@@ -219,7 +243,12 @@ Protected Module UnicodeFormsExtension
 		  mb = ut16
 		  result = new MemoryBlock( mb.Size * 2 )
 		  
-		  resultLen = unorm2_normalize( norm, mb, mb.Size \ 2, result, result.Size, err )
+		  if ICU_UseVariant2 then
+		    norm = Normalizers( normidx )
+		    resultLen = unorm2_normalize( norm, mb, mb.Size \ 2, result, result.Size, err )
+		  else //Older versions
+		    resultLen = unorm_normalize( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), 0, result, result.Size, err )
+		  end if
 		  
 		  if err=0 then
 		    ut16 = DefineEncoding( result.StringValue( 0, resultLen * 2 ), Encodings.UTF16 )
@@ -229,7 +258,6 @@ Protected Module UnicodeFormsExtension
 		      return   ut16
 		    end if
 		  else
-		    'ReportError   "Normalize error", err
 		    return  ""
 		  end if
 		  
@@ -240,6 +268,7 @@ Protected Module UnicodeFormsExtension
 		Function NormalizeUnicode(extends s as string, form as String) As string
 		  //# Normalizes the passed Unicode string given the specified form (NFC, NFD, NFKC or NFKD)
 		  
+		  //@ On Mac OS X, you should use MacNormalizeUnicode instead.
 		  //@ If the passed string is not UTF16(LE), a double encoding conversion will occur internally
 		  
 		  static forms() as string = Array( "NFKD", "NFKC", "NFD", "NFC" )
@@ -264,13 +293,19 @@ Protected Module UnicodeFormsExtension
 		  end if
 		  
 		  soft declare function unorm2_quickCheck lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, byref pError as integer) as integer
+		  soft declare function unorm_quickCheck lib LibICU ( s as Ptr, length as Int32, mode as integer, byref pError as integer) as integer
 		  
 		  dim err as integer
 		  dim mb as MemoryBlock = s
 		  dim result as integer
-		  dim norm as Ptr = Normalizers( normidx )
+		  dim norm as Ptr
 		  
-		  result = unorm2_quickCheck( norm, mb, mb.Size \ 2, err )
+		  if ICU_UseVariant2 then
+		    norm = Normalizers( normidx )
+		    result = unorm2_quickCheck( norm, mb, mb.Size \ 2, err )
+		  else
+		    result = unorm_quickCheck( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), err )
+		  end if
 		  
 		  if err=0 then
 		    return  result
@@ -332,6 +367,10 @@ Protected Module UnicodeFormsExtension
 		form and you can get into trouble if you want to get its length or combine it with another string.
 	#tag EndNote
 
+
+	#tag Property, Flags = &h21
+		Private ICU_UseVariant2 As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private inited As Boolean
