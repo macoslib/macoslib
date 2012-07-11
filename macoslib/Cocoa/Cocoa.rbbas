@@ -733,7 +733,7 @@ Protected Module Cocoa
 		      return   NSDictionary.CreateFromRSDictionary( Dictionary( v ))
 		    elseif v IsA MemoryBlock then
 		      return   new NSData( MemoryBlock( v ))
-		    elseif v isa NSObject //Already a NSObject
+		    elseif v isa NSObject then //Already a NSObject
 		      return  v
 		    end if
 		    

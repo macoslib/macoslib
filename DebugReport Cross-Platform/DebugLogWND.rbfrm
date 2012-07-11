@@ -114,7 +114,7 @@ Begin Window DebugLogWND
       LockTop         =   True
       Mask            =   ""
       Multiline       =   True
-      ReadOnly        =   True
+      ReadOnly        =   False
       Scope           =   0
       ScrollbarHorizontal=   ""
       ScrollbarVertical=   True

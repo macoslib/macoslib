@@ -99,8 +99,8 @@ Protected Module TextAreaExtension
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function TextViewRef(extends t as TextArea) As Ptr
+	#tag Method, Flags = &h0
+		Function TextViewRef(extends t as TextArea) As Ptr
 		  #if targetCocoa
 		    declare function documentView lib CocoaLib selector "documentView" (obj_id as Integer) as Ptr
 		    
