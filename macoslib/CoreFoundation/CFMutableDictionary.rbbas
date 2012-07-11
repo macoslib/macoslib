@@ -41,6 +41,28 @@ Inherits CFDictionary
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(dict As Dictionary)
+		  // Added by Kem Tekinay.
+		  
+		  #if targetMacOS
+		    declare function CFDictionaryCreateMutable lib CarbonLib (allocator as Ptr, capacity as Integer, keyCallbacks as Ptr, valueCallbacks as Ptr) as Ptr
+		    
+		    const kCFTypeDictionaryKeyCallBacks = "kCFTypeDictionaryKeyCallBacks"
+		    const kCFTypeDictionaryValueCallBacks = "kCFTypeDictionaryValueCallBacks"
+		    
+		    super.Constructor CFDictionaryCreateMutable(nil, 0, me.DefaultCallbacks(kCFTypeDictionaryKeyCallBacks), me.DefaultCallbacks(kCFTypeDictionaryValueCallBacks)), true '
+		    
+		    if dict=nil then return
+		    
+		    for i as integer=0 to dict.Count - 1
+		      self.Value( CFTypeFromRSVariant( dict.Key( i ))) = CFTypeFromRSVariant( dict.value( dict.key( i )))
+		    next
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableDictionary
 		  #if targetMacOS
@@ -63,6 +85,23 @@ Inherits CFDictionary
 		Private Function DefaultCallbacks(name as String) As Ptr
 		  return Carbon.Bundle.DataPointerNotRetained(name)
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(dict As Dictionary)
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    self.Constructor
+		    
+		    if dict=nil then return
+		    
+		    for i as integer=0 to dict.Count - 1
+		      self.Value( CFTypeFromRSVariant( dict.Key( i ))) = CFTypeFromRSVariant( dict.value( dict.key( i )))
+		    next
+		    
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
