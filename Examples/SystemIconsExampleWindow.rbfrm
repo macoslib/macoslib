@@ -55,7 +55,7 @@ Begin Window SystemIconsExampleWindow
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      RequiresSelection=   ""
+      RequiresSelection=   True
       Scope           =   0
       ScrollbarHorizontal=   ""
       ScrollBarVertical=   True
@@ -82,11 +82,11 @@ Begin Window SystemIconsExampleWindow
       Default         =   True
       Enabled         =   True
       Height          =   20
-      HelpTag         =   ""
+      HelpTag         =   "Resize the icon"
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   464
+      Left            =   463
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -267,9 +267,7 @@ Begin Window SystemIconsExampleWindow
       Left            =   745
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   100
@@ -291,7 +289,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   0
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   142
@@ -313,7 +310,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   71
@@ -335,7 +331,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   43
@@ -357,7 +352,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   43
@@ -379,7 +373,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   499
       Visible         =   True
       Width           =   66
@@ -395,7 +388,7 @@ Begin Window SystemIconsExampleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   283
+      Left            =   302
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -406,14 +399,13 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Your age"
       TextAlign       =   0
       TextColor       =   &h000000
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   217
+      Top             =   242
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -436,7 +428,7 @@ Begin Window SystemIconsExampleWindow
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   ""
-      Left            =   352
+      Left            =   371
       LimitText       =   0
       LockBottom      =   ""
       LockedInPosition=   False
@@ -445,7 +437,7 @@ Begin Window SystemIconsExampleWindow
       LockTop         =   True
       Mask            =   ""
       Password        =   ""
-      ReadOnly        =   ""
+      ReadOnly        =   True
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -455,7 +447,7 @@ Begin Window SystemIconsExampleWindow
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   215
+      Top             =   240
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
@@ -470,10 +462,10 @@ Begin Window SystemIconsExampleWindow
       Enabled         =   True
       EraseBackground =   True
       Height          =   16
-      HelpTag         =   ""
+      HelpTag         =   "Invalid value for your age"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   424
+      Left            =   444
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -483,7 +475,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   218
+      Top             =   242
       UseFocusRing    =   True
       Visible         =   True
       Width           =   16
@@ -495,7 +487,7 @@ Begin Window SystemIconsExampleWindow
       DataSource      =   ""
       Enabled         =   True
       Height          =   16
-      HelpTag         =   ""
+      HelpTag         =   "Select an icon in the list"
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
@@ -510,7 +502,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   14
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Colored icons (Templates only)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -540,7 +531,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   255
+      Top             =   283
       Visible         =   True
       Width           =   400
    End
@@ -566,14 +557,13 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "All the icons in this window have been obtained from the convenience SystemIcons module. They are all simple Pictures, e.g.\r\rpict = SystemIcons.Network\r\rfor the Network icon in the toolbar."
       TextAlign       =   0
       TextColor       =   &h000000
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   265
+      Top             =   293
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -601,7 +591,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Warning: you need Real Studio 2011.r4 or higher and Mac OS X 10.6 or higher for optimum results (especially transparency)."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -613,6 +602,61 @@ Begin Window SystemIconsExampleWindow
       Underline       =   ""
       Visible         =   True
       Width           =   401
+   End
+   Begin Label Label5
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   True
+      Left            =   283
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      Text            =   "Example of a bad entry signalled by a red arrow:"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   214
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   375
+   End
+   Begin Separator Separator2
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   273
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   198
+      Visible         =   True
+      Width           =   400
    End
 End
 #tag EndWindow
@@ -665,6 +709,8 @@ End
 		  next
 		  
 		  #pragma BreakOnExceptions default
+		  
+		  LB1.ListIndex = 0
 		End Sub
 	#tag EndEvent
 	#tag Event

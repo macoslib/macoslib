@@ -710,9 +710,9 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function NSObjectFromRSVariant(v as variant) As variant
+		Protected Function NSObjectFromVariant(v as variant) As variant
 		  if v.IsArray then
-		    return   NSArray.CreateFromRSObjectsArray( v )
+		    return   NSArray.CreateFromObjectsArray( v )
 		  end if
 		  
 		  select case v.Type
@@ -730,7 +730,7 @@ Protected Module Cocoa
 		    
 		  case Variant.TypeObject  //->Dictionary, MemoryBlock
 		    if v IsA Dictionary then
-		      return   NSDictionary.CreateFromRSDictionary( Dictionary( v ))
+		      return   NSDictionary.CreateFromDictionary( Dictionary( v ))
 		    elseif v IsA MemoryBlock then
 		      return   new NSData( MemoryBlock( v ))
 		    elseif v isa NSObject then //Already a NSObject

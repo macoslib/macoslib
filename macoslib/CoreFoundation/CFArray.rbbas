@@ -76,7 +76,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromRSObjectsArray(theArray as variant) As CFArray
+		 Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
 		  
 		  #if TargetMacOS
 		    dim cfma as new CFMutableArray
@@ -119,7 +119,7 @@ Implements CFPropertyList
 		    case 9
 		      dim arv() as variant = theArray
 		      for each v as variant in arv
-		        cfma.Append   CFArray.CreateFromRSObjectsArray( v )
+		        cfma.Append   CFArray.CreateFromObjectsArray( v )
 		      next
 		    end select
 		    

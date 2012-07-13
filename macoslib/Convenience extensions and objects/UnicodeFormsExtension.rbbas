@@ -123,6 +123,22 @@ Protected Module UnicodeFormsExtension
 	#tag Method, Flags = &h21
 		Private Sub Init()
 		  
+		  '#if TargetMacOS
+		  'LibICU = "libicucore.dylib"  //The "soft" declare will find it
+		  '
+		  '#elseif TargetLinux
+		  '#if Target64Bit
+		  'LibICU = "/usr/lib64/libicucore.so"
+		  '#else
+		  'LibICU = "/usr/lib/libicucore.so"
+		  '#endif
+		  '
+		  '#elseif TargetWin32
+		  '
+		  '
+		  '#endif
+		  
+		  
 		  #if not TargetWin32
 		    soft declare function unorm2_getInstance lib LibICU ( packageName as Ptr, name as CString, mode as integer, byref pError as integer ) as Ptr
 		    
@@ -377,12 +393,17 @@ Protected Module UnicodeFormsExtension
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private LibICU_ As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private Normalizers(3) As Ptr
 	#tag EndProperty
 
 
-	#tag Constant, Name = LibICU, Type = String, Dynamic = False, Default = \"libicucore.dylib", Scope = Public
+	#tag Constant, Name = LibICU, Type = String, Dynamic = False, Default = \"", Scope = Private
 		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"libicucore.dylib"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \""
 	#tag EndConstant
 
 

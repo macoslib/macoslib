@@ -144,17 +144,17 @@ Inherits NSControl
 		    dim nsa as NSArray = new NSArray( objectValue( me.id ), false )
 		    dim nsma as NSMutableArray = new NSMutableArray( nsa.MutableCopy, false )
 		    
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    
 		    if newObject isa NSObject then
 		      nsma.Append   NSObject( newObject )
 		      
 		    elseif VarType( newObject ) = Variant.TypeString then
-		      nso = new NSObjectRBWrapper( newObject )
+		      nso = new NSWrapperForObject( newObject )
 		      nsma.Append   nso
 		      
 		    elseif newObject isa Object then
-		      nso = new NSObjectRBWrapper( newObject )
+		      nso = new NSWrapperForObject( newObject )
 		      StoreNSWrapper   nso
 		      nsma.Append   nso
 		      
@@ -203,7 +203,7 @@ Inherits NSControl
 		  
 		  if value.IsArray then
 		    outType = kTypePropertyList
-		    return   NSArray.CreateFromRSObjectsArray( value )
+		    return   NSArray.CreateFromObjectsArray( value )
 		  end if
 		  
 		  if value isa NSObject then
@@ -218,12 +218,12 @@ Inherits NSControl
 		      
 		    elseif value isa Dictionary then
 		      outType = kTypePropertyList
-		      return   NSDictionary.CreateFromRSDictionary( Dictionary( value ))
+		      return   NSDictionary.CreateFromDictionary( Dictionary( value ))
 		    end if
 		    
 		  else
 		    outType = kTypePropertyList
-		    return   Cocoa.NSObjectFromRSVariant( value )
+		    return   Cocoa.NSObjectFromVariant( value )
 		  end if
 		End Function
 	#tag EndMethod
@@ -543,7 +543,7 @@ Inherits NSControl
 		    dim result() as variant
 		    dim up as Integer = nsa.Count - 1
 		    dim p as Ptr
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    dim obj as NSObject
 		    
 		    for i as Integer = 0 to up
@@ -571,7 +571,7 @@ Inherits NSControl
 		    
 		    dim nsa as new NSMutableArray
 		    dim v as variant
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    
 		    for i as integer = 0 to objs.Ubound
 		      v = objs( i )
@@ -580,11 +580,11 @@ Inherits NSControl
 		        nsa.Append   NSObject( v )
 		        
 		      elseif VarType( v ) = Variant.TypeString then
-		        nso = new NSObjectRBWrapper( v )
+		        nso = new NSWrapperForObject( v )
 		        nsa.Append   nso
 		        
 		      elseif v isa Object then
-		        nso = new NSObjectRBWrapper( v )
+		        nso = new NSWrapperForObject( v )
 		        StoreNSWrapper   nso
 		        nsa.Append   nso
 		        
@@ -598,8 +598,8 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function FindNSWrapper(p as Ptr) As NSObjectRBWrapper
-		  for each o as NSObjectRBWrapper in FieldObjects
+		Private Function FindNSWrapper(p as Ptr) As NSWrapperForObject
+		  for each o as NSWrapperForObject in FieldObjects
 		    if o.id = p then
 		      return  o
 		    end if
@@ -683,7 +683,7 @@ Inherits NSControl
 		  #if TargetMacOS
 		    dim Objs() as Variant
 		    dim p as Ptr
-		    dim wrapper as NSObjectRBWrapper
+		    dim wrapper as NSWrapperForObject
 		    dim nsa as NSArray
 		    dim Validation() as Boolean
 		    
@@ -737,16 +737,16 @@ Inherits NSControl
 		Private Function HandleDisplayStringForObject(obj as Ptr) As string
 		  
 		  dim v as Variant
-		  dim nso as NSObjectRBWrapper
+		  dim nso as NSWrapperForObject
 		  dim displayString as string
 		  
-		  //obj is either a native NSObject or a RB object wrapped into a NSObjectRBWrapper
+		  //obj is either a native NSObject or a RB object wrapped into a NSWrapperForObject
 		  
 		  v = FindNSWrapper( obj )
 		  if v=nil then //No wrapper
 		    v = Cocoa.NSObjectFromNSPtr( obj )
 		    
-		  else //Pass the RBObject attached to the NSObjectRBWrapper
+		  else //Pass the RBObject attached to the NSWrapperForObject
 		    nso = v
 		    v = nso.RBObject
 		  end if
@@ -761,16 +761,16 @@ Inherits NSControl
 		Private Function HandleEditingStringForObject(obj as Ptr) As string
 		  
 		  dim v as Variant
-		  dim nso as NSObjectRBWrapper
+		  dim nso as NSWrapperForObject
 		  dim editingString as string
 		  
-		  //obj is either a native NSObject or a RB object wrapped into a NSObjectRBWrapper
+		  //obj is either a native NSObject or a RB object wrapped into a NSWrapperForObject
 		  
 		  v = FindNSWrapper( obj )
 		  if v=nil then //No wrapper
 		    v = Cocoa.NSObjectFromNSPtr( obj )
 		    
-		  else //Pass the RBObject attached to the NSObjectRBWrapper
+		  else //Pass the RBObject attached to the NSWrapperForObject
 		    nso = v
 		    v = nso.RBObject
 		  end if
@@ -786,7 +786,7 @@ Inherits NSControl
 		  //Periodically called
 		  
 		  #if TargetMacOS
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    
 		    nso = FindNSWrapper( obj )
 		    if nso<>nil then
@@ -829,7 +829,7 @@ Inherits NSControl
 		    static nsm as NSMenu //We need to keep a reference to the menu to avoid crashing
 		    dim base as new MenuItem( "Popup Menu" )
 		    dim mi as NSMenuItem
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    dim robj as variant
 		    
 		    nso = FindNSWrapper( obj )
@@ -862,7 +862,7 @@ Inherits NSControl
 		Private Function HandleObjectForEditingString(editingString as CFStringRef) As Ptr
 		  
 		  dim v as Variant
-		  dim nso as NSObjectRBWrapper
+		  dim nso as NSWrapperForObject
 		  dim obj as NSObject
 		  
 		  v = RaiseEvent   ObjectForTokenString( editingString )
@@ -876,12 +876,12 @@ Inherits NSControl
 		    return   obj.id
 		    
 		  elseif VarType( v ) = Variant.TypeString then //A string
-		    nso = new NSObjectRBWrapper( v )
+		    nso = new NSWrapperForObject( v )
 		    StoreNSWrapper   nso
 		    return  nso.id
 		    
 		  elseif v isa Object then //It's a RS object
-		    nso = new NSObjectRBWrapper( v )
+		    nso = new NSWrapperForObject( v )
 		    StoreNSWrapper   nso
 		    return  nso.id
 		    
@@ -903,7 +903,7 @@ Inherits NSControl
 		    dim dict as Dictionary
 		    dim obj as objHasVariantValue
 		    dim p as Ptr
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    dim pitems as NSArray
 		    dim pitem as NSPasteboardItem
 		    dim types() as string
@@ -935,9 +935,9 @@ Inherits NSControl
 		          nso = v
 		          result.Append  nso
 		        else
-		          nso = Cocoa.NSObjectFromRSVariant( v ) //Try to get Cocoa instance
+		          nso = Cocoa.NSObjectFromVariant( v ) //Try to get Cocoa instance
 		          if nso=nil then //Couldn't find an appropriate Cocoa class, so wrap the RS object
-		            nso = new NSObjectRBWrapper( v )
+		            nso = new NSWrapperForObject( v )
 		            StoreNSWrapper   nso
 		          end if
 		          result.Append   nso
@@ -968,7 +968,7 @@ Inherits NSControl
 		    dim pobjs as new NSMutableArray
 		    dim obj as variant
 		    dim p as Ptr
-		    dim nso as NSObjectRBWrapper
+		    dim nso as NSWrapperForObject
 		    
 		    for i as integer = 0 to objects.Count - 1 //Query the user for each individual object
 		      p = objects.Value( i )
@@ -1115,12 +1115,12 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub StoreNSWrapper(nso as NSObjectRBWrapper)
-		  //For RB objects, we need to keep a reference to it while a NSObjectRBWrapper is stored by the NSControl
+		Private Sub StoreNSWrapper(nso as NSWrapperForObject)
+		  //For RB objects, we need to keep a reference to it while a NSWrapperForObject is stored by the NSControl
 		  
 		  //If the object hasn't been stored yet, do it now
 		  
-		  for each o as NSObjectRBWrapper in FieldObjects
+		  for each o as NSWrapperForObject in FieldObjects
 		    if o.id = nso.id then
 		      return  //Already stored
 		    end if
@@ -1218,7 +1218,7 @@ Inherits NSControl
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
-		Private FieldObjects() As NSObjectRBWrapper
+		Private FieldObjects() As NSWrapperForObject
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

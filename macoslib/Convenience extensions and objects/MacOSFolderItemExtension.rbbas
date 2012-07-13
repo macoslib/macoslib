@@ -425,7 +425,7 @@ Protected Module MacOSFolderItemExtension
 		    
 		    dim err as integer
 		    
-		    err = LSSetItemAttribute( file.FSRef, &hFFFFFFFF, CFConstant( attributeConstant ), CFTypeFromRSVariant( value ).Reference )
+		    err = LSSetItemAttribute( file.FSRef, &hFFFFFFFF, CFConstant( attributeConstant ), CFTypeFromVariant( value ).Reference )
 		    
 		    if err<>0 then
 		      DReportError  "ItemAttribute error", err
@@ -628,7 +628,7 @@ Protected Module MacOSFolderItemExtension
 		  //# Retrieve the quarantine attributes of the given file
 		  
 		  #if TargetMacOS
-		    dim cfd as CFDictionary = CFDictionary.CreateFromRSDictionary( data )
+		    dim cfd as CFDictionary = CFDictionary.CreateFromDictionary( data )
 		    
 		    if cfd<>nil then
 		      file.ItemAttribute( "LSItemQuarantineProperties" ) = cfd
