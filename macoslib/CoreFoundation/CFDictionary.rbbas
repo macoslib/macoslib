@@ -108,7 +108,7 @@ Implements CFPropertyList
 		    
 		    dim errMsg as string
 		    dim data as CFData = new CFData( datamb )
-		    dim plist as CFPropertyList = NewCFPropertyList( data, 0, errMsg ) //Immutable
+		    dim plist as CFPropertyList = NewCFPropertyList( data, kCFPropertyListImmutable, errMsg )
 		    dim cfd as CFDictionary = CFDictionary( plist )
 		    
 		    return  cfd
