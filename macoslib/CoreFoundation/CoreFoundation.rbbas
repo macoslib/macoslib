@@ -110,8 +110,8 @@ Module CoreFoundation
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
-		Function CFTypeFromRSVariant(theValue as Variant) As CFType
-		  // Transform a simple RS variant into a CFType
+		Function CFTypeFromVariant(theValue as Variant) As CFType
+		  // Transform a simple RB variant into a CFType
 		  
 		  #if TargetMacOS
 		    if theValue=nil then
@@ -119,13 +119,14 @@ Module CoreFoundation
 		    end if
 		    
 		    if theValue.IsArray then
-		      return   CFArray.CreateFromRSObjectsArray( theValue )
+		      return   CFArray.CreateFromObjectsArray( theValue )
+		    end if
+		    
+		    if theValue.IsNumeric then
+		      return  new CFNumber( theValue )
 		    end if
 		    
 		    select case theValue.Type
-		    case  Variant.TypeInteger, Variant.TypeLong, Variant.TypeSingle, Variant.TypeDouble
-		      return  new CFNumber( theValue )
-		      
 		    case  Variant.TypeDate
 		      Return  new CFDate( theValue.DateValue )
 		      
@@ -141,11 +142,13 @@ Module CoreFoundation
 		      
 		    case  Variant.TypeObject
 		      if theValue isa Dictionary then  //Dictionary
-		        return  CFDictionary.CreateFromRSDictionary( Dictionary( theValue ))
+		        return  CFDictionary.CreateFromDictionary( Dictionary( theValue ))
 		        
 		      elseif theValue isa MemoryBlock then  //MemoryBlock
 		        return  new CFData( MemoryBlock( theValue ))
 		        
+		      elseif theValue isa CFType then  //Already a CFTYpe
+		        return   CFType( theValue )
 		      end if
 		      
 		    end select

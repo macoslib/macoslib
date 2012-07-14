@@ -48,7 +48,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromRSObjectsArray(theArray as variant) As NSArray
+		 Shared Function CreateFromObjectsArray(theArray as variant) As NSArray
 		  dim nsma as new NSMutableArray
 		  
 		  select case theArray.ArrayElementType
@@ -85,7 +85,7 @@ Inherits NSObject
 		  case 9
 		    dim arv() as variant = theArray
 		    for each v as variant in arv
-		      nsma.Append   NSArray.CreateFromRSObjectsArray( v )
+		      nsma.Append   NSArray.CreateFromObjectsArray( v )
 		    next
 		  end select
 		  

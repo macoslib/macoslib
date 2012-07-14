@@ -51,6 +51,25 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromDictionary(dict as Dictionary) As NSDictionary
+		  #if TargetMacOS
+		    dim md as new NSMutableDictionary
+		    
+		    if dict=nil then
+		      return   nil
+		    end if
+		    
+		    for i as integer=0 to dict.Count - 1
+		      md.Value( Cocoa.NSObjectFromVariant( dict.Key( i ))) = Cocoa.NSObjectFromVariant( dict.value( dict.key( i )))
+		    next
+		    
+		    return   md.Copy
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromFile(file as FolderItem) As NSDictionary
 		  //# Create a new NSDictionary from a file (like as .plist file)
 		  
@@ -62,25 +81,6 @@ Inherits NSObject
 		    if p<>nil then
 		      return   new NSDictionary( p, false )
 		    end if
-		    
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function CreateFromRSDictionary(dict as Dictionary) As NSDictionary
-		  #if TargetMacOS
-		    dim md as new NSMutableDictionary
-		    
-		    if dict=nil then
-		      return   nil
-		    end if
-		    
-		    for i as integer=0 to dict.Count - 1
-		      md.Value( Cocoa.NSObjectFromRSVariant( dict.Key( i ))) = Cocoa.NSObjectFromRSVariant( dict.value( dict.key( i )))
-		    next
-		    
-		    return   md.Copy
 		    
 		  #endif
 		End Function

@@ -782,7 +782,7 @@ Inherits NSObject
 			Set
 			  #if TargetMacOS
 			    dim data as NSData
-			    dim nsd as NSDictionary = NSDictionary.CreateFromRSDictionary( value )
+			    dim nsd as NSDictionary = NSDictionary.CreateFromDictionary( value )
 			    
 			    data = NSNetService.DataFromTXTRecordDictionary( nsd )
 			    

@@ -67,7 +67,7 @@ Inherits NSObject
 		    declare function initWithString lib CocoaLib selector "initWithString:attributes:" (id as Ptr, theString as CFStringRef, attr as Ptr) as Ptr
 		    
 		    dim p as Ptr
-		    dim NSDict as NSDictionary = NSDictionary.CreateFromRSDictionary( attr )
+		    dim NSDict as NSDictionary = NSDictionary.CreateFromDictionary( attr )
 		    p = NSAttributedString.Allocate( "NSAttributedString" )
 		    p = initWithString( p, value, NSDict )
 		    
