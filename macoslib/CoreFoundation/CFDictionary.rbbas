@@ -24,7 +24,7 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		Function AsDictionary() As Dictionary
+		Function AsRSDictionary() As Dictionary
 		  // Added by Kem Tekinay.
 		  // Converts the CFDictionary to a native Dictionary
 		  
@@ -219,7 +219,7 @@ Implements CFPropertyList
 		Function Operator_Convert() As Dictionary
 		  // Added by Kem Tekinay.
 		  
-		  return me.AsDictionary
+		  return me.AsRSDictionary
 		  
 		End Function
 	#tag EndMethod
