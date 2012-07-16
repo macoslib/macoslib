@@ -470,7 +470,6 @@ Protected Module DebugReportModule
 		  dim result1, result2 as string
 		  dim sr1 as new StyleRun
 		  dim sr2 as new StyleRun
-		  dim srs() as StyleRun
 		  dim usesr2 as boolean
 		  'dim pendingSpecs() as string
 		  'dim spec as string
