@@ -56,7 +56,7 @@ Inherits CFDictionary
 		    if dict=nil then return
 		    
 		    for i as integer=0 to dict.Count - 1
-		      self.Value( CFTypeFromRSVariant( dict.Key( i ))) = CFTypeFromRSVariant( dict.value( dict.key( i )))
+		      self.Value( CFTypeFromVariant( dict.Key( i ))) = CFTypeFromVariant( dict.value( dict.key( i )))
 		    next
 		    
 		  #endif
@@ -97,7 +97,7 @@ Inherits CFDictionary
 		    if dict=nil then return
 		    
 		    for i as integer=0 to dict.Count - 1
-		      self.Value( CFTypeFromRSVariant( dict.Key( i ))) = CFTypeFromRSVariant( dict.value( dict.key( i )))
+		      self.Value( CFTypeFromVariant( dict.Key( i ))) = CFTypeFromVariant( dict.value( dict.key( i )))
 		    next
 		    
 		  #endif

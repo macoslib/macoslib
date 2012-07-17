@@ -24,26 +24,20 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		Function AsRSDictionary() As Dictionary
+		Function AsDictionary() As Dictionary
 		  // Added by Kem Tekinay.
 		  // Converts the CFDictionary to a native Dictionary
-		  
+		  // A clone of 
 		  dim d as Dictionary
 		  
 		  #if TargetMacOS
-		    d = new Dictionary
-		    dim keyList() As CFType = me.Keys
-		    dim lastIndex as integer = keyList.Ubound
-		    for i as integer = 0 to lastIndex
-		      dim thisKey as CFType = keyList( i )
-		      dim keyAsVariant as variant = thisKey.VariantValue
-		      dim thisValue as CFType = me.Value( thisKey )
-		      dim valueAsVariant as variant = thisValue.VariantValue
-		      d.Value( keyAsVariant ) = valueAsVariant
-		    next i
+		    
+		    d = me // Uses Operator_Convert
+		    
 		  #endif
 		  
 		  return d
+		  
 		  
 		End Function
 	#tag EndMethod
@@ -219,7 +213,15 @@ Implements CFPropertyList
 		Function Operator_Convert() As Dictionary
 		  // Added by Kem Tekinay.
 		  
-		  return me.AsRSDictionary
+		  dim d as Dictionary 
+		  
+		  #if TargetMacOS
+		    
+		    d = me.VariantValue
+		    
+		  #endif
+		  
+		  return d
 		  
 		End Function
 	#tag EndMethod
