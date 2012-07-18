@@ -109,7 +109,8 @@ Protected Module DebugReportModule
 	#tag Method, Flags = &h21
 		Private Function DetectFormatIndicator(text as String) As string
 		  //Detect format indicators (either style of format specs)
-		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)dim s as string
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    dim s as string
 		    dim a as integer
 		    
 		    //Get rid of escaped chars
