@@ -4,128 +4,131 @@ Protected Module DebugReportModule
 		Private Sub AppendToWindow(level as integer, sr1 as StyleRun, sr2 as StyleRun = nil)
 		  #pragma DisableBackgroundTasks
 		  
-		  'if Keyboard.AsyncKeyDown( 80 ) then
-		  'DebugLogWND.ImmediateReportCB.Value = false
-		  'DebugLogWND.ImmediateReportCB.Refresh
-		  'end if
-		  '
-		  if DebugLogWND.AllowReportCB.Value then
-		    select case level
-		    case kLevelNotice
-		      ReportCnt = ReportCnt + 1
-		      'if NOT Dequeueing then
-		      'DebugLogWND.ReportCountLBL.Text = Str( ReportCnt )
-		      'end if
-		    case kLevelError
-		      ErrorCnt = ErrorCnt + 1
-		      ErrorPos.Append   LogText.Len
-		      'if NOT Dequeueing then
-		      'DebugLogWND.ErrorCountLBL.Text = Str( ErrorCnt )
-		      'end if
-		    case kLevelWarning
-		      WarningCnt = WarningCnt + 1
-		      WarningPos.Append   LogText.Len
-		      'if NOT Dequeueing then
-		      'DebugLogWND.WarningCountLBL.Text = Str( WarningCnt )
-		      'end if
-		    end select
-		    
-		    DebugLogWND.LogTA.StyledText.AppendStyleRun   sr1
-		    LogText = LogText + sr1.Text
-		    
-		    if sr2<>nil then
-		      DebugLogWND.LogTA.StyledText.AppendStyleRun   sr2
-		      LogText = LogText + sr2.Text
-		    end if
-		    
-		    //Should we log to the system ?
-		    if DebugLogWND.SyslogCB.Value then
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    'if Keyboard.AsyncKeyDown( 80 ) then
+		    'DebugLogWND.ImmediateReportCB.Value = false
+		    'DebugLogWND.ImmediateReportCB.Refresh
+		    'end if
+		    '
+		    if DebugLogWND.AllowReportCB.Value then
 		      select case level
-		      case kLevelNotice, kLevelTitled //Normal
-		        System.Log   System.LogLevelNotice, sr1.Text
-		      case kLevelWarning //Warning
-		        System.Log   System.LogLevelWarning, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
-		      case kLevelError //Error
-		        System.Log   System.LogLevelError, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
-		      case kLevelDebug //Debug
-		        System.DebugLog   IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		      case kLevelNotice
+		        ReportCnt = ReportCnt + 1
+		        'if NOT Dequeueing then
+		        'DebugLogWND.ReportCountLBL.Text = Str( ReportCnt )
+		        'end if
+		      case kLevelError
+		        ErrorCnt = ErrorCnt + 1
+		        ErrorPos.Append   LogText.Len
+		        'if NOT Dequeueing then
+		        'DebugLogWND.ErrorCountLBL.Text = Str( ErrorCnt )
+		        'end if
+		      case kLevelWarning
+		        WarningCnt = WarningCnt + 1
+		        WarningPos.Append   LogText.Len
+		        'if NOT Dequeueing then
+		        'DebugLogWND.WarningCountLBL.Text = Str( WarningCnt )
+		        'end if
 		      end select
+		      
+		      DebugLogWND.LogTA.StyledText.AppendStyleRun   sr1
+		      LogText = LogText + sr1.Text
+		      
+		      if sr2<>nil then
+		        DebugLogWND.LogTA.StyledText.AppendStyleRun   sr2
+		        LogText = LogText + sr2.Text
+		      end if
+		      
+		      //Should we log to the system ?
+		      if DebugLogWND.SyslogCB.Value then
+		        select case level
+		        case kLevelNotice, kLevelTitled //Normal
+		          System.Log   System.LogLevelNotice, sr1.Text
+		        case kLevelWarning //Warning
+		          System.Log   System.LogLevelWarning, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		        case kLevelError //Error
+		          System.Log   System.LogLevelError, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		        case kLevelDebug //Debug
+		          System.DebugLog   IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		        end select
+		      end if
+		      
+		      'if not Dequeueing then
+		      'if DebugLogWND.ImmediateReportCB.Value AND NOT (Keyboard.AsyncKeyDown( 79 )) then
+		      'DebugLogWND.LogTA.ScrollPosition = 1e+6
+		      'DebugLogWND.LogTA.Refresh
+		      'end if
+		      'end if
 		    end if
-		    
-		    'if not Dequeueing then
-		    'if DebugLogWND.ImmediateReportCB.Value AND NOT (Keyboard.AsyncKeyDown( 79 )) then
-		    'DebugLogWND.LogTA.ScrollPosition = 1e+6
-		    'DebugLogWND.LogTA.Refresh
-		    'end if
-		    'end if
-		  end if
-		  
+		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function DecomposeFormatString(text as String) As string()
 		  //Detect format indicators (either style of format specs)
-		  dim data as string
-		  dim a, b as integer
-		  dim result() as string
-		  
-		  //Get rid of escaped chars
-		  result.Append   text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, DebugReportOptions.FormatSpecCharacter )
-		  
-		  data = text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, &u29FA )
-		  
-		  while data.Len > 0
-		    a = Instr( data, DebugReportOptions.FormatSpecCharacter )
-		    if a=0 then
-		      result.Append   data
-		      data = ""
-		      
-		    else
-		      result.Append   data.Left( a - 1 )
-		      if data.Mid( a + 1, 1 )="(" then
-		        b = Instr( a + 2, data, ")" )
-		        result.Append   data.Mid( a, b - a + 1 )
-		        data = data.Mid( b + 1 )
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    dim data as string
+		    dim a, b as integer
+		    dim result() as string
+		    
+		    //Get rid of escaped chars
+		    result.Append   text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, DebugReportOptions.FormatSpecCharacter )
+		    
+		    data = text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, &u29FA )
+		    
+		    while data.Len > 0
+		      a = Instr( data, DebugReportOptions.FormatSpecCharacter )
+		      if a=0 then
+		        result.Append   data
+		        data = ""
+		        
 		      else
-		        result.Append   data.Mid( a, 2 )
-		        data = data.Mid( a + 2 )
+		        result.Append   data.Left( a - 1 )
+		        if data.Mid( a + 1, 1 )="(" then
+		          b = Instr( a + 2, data, ")" )
+		          result.Append   data.Mid( a, b - a + 1 )
+		          data = data.Mid( b + 1 )
+		        else
+		          result.Append   data.Mid( a, 2 )
+		          data = data.Mid( a + 2 )
+		        end if
+		        
 		      end if
-		      
-		    end if
-		  wend
-		  
-		  for i as integer=0 to result.Ubound
-		    result( i ) = result( i ).ReplaceAll( &u29FA, DebugReportOptions.FormatSpecCharacter )
-		  next
-		  
-		  return   result
+		    wend
+		    
+		    for i as integer=0 to result.Ubound
+		      result( i ) = result( i ).ReplaceAll( &u29FA, DebugReportOptions.FormatSpecCharacter )
+		    next
+		    
+		    return   result
+		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function DetectFormatIndicator(text as String) As string
 		  //Detect format indicators (either style of format specs)
-		  dim s as string
-		  dim a as integer
-		  
-		  //Get rid of escaped chars
-		  s = text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, &u29FA )
-		  
-		  a = Instr( s, DebugReportOptions.FormatSpecCharacter )
-		  
-		  if a=0 then
-		    return ""
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)dim s as string
+		    dim a as integer
 		    
-		  else
-		    if s.Mid( a + 1, 1 )="(" then
-		      return   s.Mid( a ).StringBefore( ")" ) + ")"
+		    //Get rid of escaped chars
+		    s = text.ReplaceAll( "\" + DebugReportOptions.FormatSpecCharacter, &u29FA )
+		    
+		    a = Instr( s, DebugReportOptions.FormatSpecCharacter )
+		    
+		    if a=0 then
+		      return ""
+		      
 		    else
-		      return   s.Mid( a, 2 )
+		      if s.Mid( a + 1, 1 )="(" then
+		        return   s.Mid( a ).StringBefore( ")" ) + ")"
+		      else
+		        return   s.Mid( a, 2 )
+		      end if
+		      
 		    end if
-		    
-		  end if
-		  
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -203,24 +206,25 @@ Protected Module DebugReportModule
 		  
 		  #pragma DisableBackgroundTasks
 		  
-		  dim results() as string
-		  dim obj as Object
-		  dim drfResult as variant
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    dim results() as string
+		    dim obj as Object
+		    dim drfResult as variant
+		    
+		    if v.IsNull then
+		      return  "nil"
+		      
+		      #if DebugReportOptions.UseMacoslib
+		    elseif v isa NSObject then
+		      dim nso as NSObject
+		      nso = v
+		      return   nso.Description
+		      
+		    elseif v isa CFType then
+		      dim cft as CFType
+		      return   cft.Description
+		  #endif
 		  
-		  if v.IsNull then
-		    return  "nil"
-		    
-		    #if DebugReportOptions.UseMacoslib
-		  elseif v isa NSObject then
-		    dim nso as NSObject
-		    nso = v
-		    return   nso.Description
-		    
-		  elseif v isa CFType then
-		    dim cft as CFType
-		    return   cft.Description
-		    #endif
-		    
 		  else
 		    if v.IsArray then  //Arrays
 		      select case v.ArrayElementType
@@ -343,20 +347,21 @@ Protected Module DebugReportModule
 		      end select
 		    end if
 		  end if
-		  
+		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Init()
-		  
-		  LogTimer = new Timer
-		  LogTimer.Period = 0
-		  LogTimer.Mode = 0
-		  
-		  AddHandler   LogTimer.Action, AddressOf  TimerAction
-		  
-		  inited = true
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    LogTimer = new Timer
+		    LogTimer.Period = 0
+		    LogTimer.Mode = 0
+		    
+		    AddHandler   LogTimer.Action, AddressOf  TimerAction
+		    
+		    inited = true
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -430,30 +435,32 @@ Protected Module DebugReportModule
 		  #pragma DisableBackgroundTasks
 		  #pragma unused theTimer
 		  
-		  if App.CurrentThread = nil then
-		    if Queue.Ubound>-1 then
-		      Dequeueing = true
-		      for each re as DebugReportModule.ReportEvent in Queue
-		        if re.sr2<>nil then
-		          AppendToWindow  re.type, re.sr1, re.sr2
-		        else
-		          AppendToWindow   re.type, re.sr1
-		        end if
-		        
-		      next
-		      Dequeueing = false
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    if App.CurrentThread = nil then
+		      if Queue.Ubound>-1 then
+		        Dequeueing = true
+		        for each re as DebugReportModule.ReportEvent in Queue
+		          if re.sr2<>nil then
+		            AppendToWindow  re.type, re.sr1, re.sr2
+		          else
+		            AppendToWindow   re.type, re.sr1
+		          end if
+		          
+		        next
+		        Dequeueing = false
+		      end if
+		      
+		      redim  Queue( -1 )
+		      
+		      DebugLogWND.LogTA.ScrollPosition = 1e+6
+		      DebugLogWND.LogTA.Refresh
+		      LogTimer.mode = 0
+		      
+		    else //We have been called from a Thread ?
+		      DReportWarning   "Timer called from Thread. Go on." //Will queue
+		      LogTimer.Reset
 		    end if
-		    
-		    redim  Queue( -1 )
-		    
-		    DebugLogWND.LogTA.ScrollPosition = 1e+6
-		    DebugLogWND.LogTA.Refresh
-		    LogTimer.mode = 0
-		    
-		  else //We have been called from a Thread ?
-		    DReportWarning   "Timer called from Thread. Go on." //Will queue
-		    LogTimer.Reset
-		  end if
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -465,127 +472,129 @@ Protected Module DebugReportModule
 		  #pragma unused FormatType
 		  #pragma DisableBackgroundTasks
 		  
-		  dim results1() as string
-		  dim results2() as string
-		  dim result1, result2 as string
-		  dim sr1 as new StyleRun
-		  dim sr2 as new StyleRun
-		  dim srs() as StyleRun
-		  dim usesr2 as boolean
-		  'dim pendingSpecs() as string
-		  'dim spec as string
-		  'dim sresult as StyledText
-		  'dim formats() as string
-		  
-		  declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay:" (id as Ptr, flags as Boolean)
-		  
-		  if not inited then   init
-		  
-		  //Format according to parameters
-		  select case Abs( type )
-		  case kLevelDebug //Debug
-		    for each v as variant in values
-		      results1.Append  FormatVariant( v )
-		    next
-		    sr1.Font = "SmallSystem"
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    dim results1() as string
+		    dim results2() as string
+		    dim result1, result2 as string
+		    dim sr1 as new StyleRun
+		    dim sr2 as new StyleRun
+		    dim srs() as StyleRun
+		    dim usesr2 as boolean
+		    'dim pendingSpecs() as string
+		    'dim spec as string
+		    'dim sresult as StyledText
+		    'dim formats() as string
 		    
-		  case kLevelNotice //Normal text
-		    sr1.Font = "SmallSystem"
+		    declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay:" (id as Ptr, flags as Boolean)
 		    
-		    'Formats = DecomposeFormatString( FormatVariant( values( 0 ))
-		    '
-		    'if UBound( Formats )>0 then //There is a format spec
-		    '
-		    '
-		    'if Values.Ubound>0 then
-		    'result1 = FormatVariant( v )
-		    'end if
-		    'for i as integer=0 to Ubound( values )
-		    'if i=0 then
-		    'if VarType( values( 0 )) = Variant.TypeString then //There may be some format specs
-		    'spec = DetectFormatIndicator( values( 0 ))
-		    'if spec<>"" then
-		    'next
+		    if not inited then   init
 		    
+		    //Format according to parameters
+		    select case Abs( type )
+		    case kLevelDebug //Debug
+		      for each v as variant in values
+		        results1.Append  FormatVariant( v )
+		      next
+		      sr1.Font = "SmallSystem"
+		      
+		    case kLevelNotice //Normal text
+		      sr1.Font = "SmallSystem"
+		      
+		      'Formats = DecomposeFormatString( FormatVariant( values( 0 ))
+		      '
+		      'if UBound( Formats )>0 then //There is a format spec
+		      '
+		      '
+		      'if Values.Ubound>0 then
+		      'result1 = FormatVariant( v )
+		      'end if
+		      'for i as integer=0 to Ubound( values )
+		      'if i=0 then
+		      'if VarType( values( 0 )) = Variant.TypeString then //There may be some format specs
+		      'spec = DetectFormatIndicator( values( 0 ))
+		      'if spec<>"" then
+		      'next
+		      
+		      
+		      for each v as variant in values
+		        results1.Append  FormatVariant( v )
+		      next
+		      'sr1.Font = "SmallSystem"
+		      
+		    case kLevelTitled //Titled
+		      sr1.Font = "SmallSystem"
+		      sr1.Bold = true
+		      results1.Append  FormatVariant( values( 0 ))
+		      
+		      sr2.Font = "SmallSystem"
+		      for i as integer = 1 to values.Ubound
+		        results2.Append   FormatVariant( values( i ))
+		      next
+		      
+		    case kLevelWarning //Warning
+		      sr1.Font = "SmallSystem"
+		      sr1.Text = "WARNING: "
+		      sr1.TextColor = &c0000FF
+		      sr1.Bold = true
+		      
+		      for each v as variant in values
+		        results2.Append  FormatVariant( v )
+		      next
+		      sr2.Font = "SmallSystem"
+		      
+		    case kLevelError //Error
+		      sr1.Font = "SmallSystem"
+		      sr1.Text = "ERROR: "
+		      sr1.TextColor = &c9C3120
+		      sr1.Bold = true
+		      
+		      for each v as variant in values
+		        results2.Append  FormatVariant( v )
+		      next
+		      sr2.Font = "SmallSystem"
+		      
+		    end select
 		    
-		    for each v as variant in values
-		      results1.Append  FormatVariant( v )
-		    next
-		    'sr1.Font = "SmallSystem"
-		    
-		  case kLevelTitled //Titled
-		    sr1.Font = "SmallSystem"
-		    sr1.Bold = true
-		    results1.Append  FormatVariant( values( 0 ))
-		    
-		    sr2.Font = "SmallSystem"
-		    for i as integer = 1 to values.Ubound
-		      results2.Append   FormatVariant( values( i ))
-		    next
-		    
-		  case kLevelWarning //Warning
-		    sr1.Font = "SmallSystem"
-		    sr1.Text = "WARNING: "
-		    sr1.TextColor = &c0000FF
-		    sr1.Bold = true
-		    
-		    for each v as variant in values
-		      results2.Append  FormatVariant( v )
-		    next
-		    sr2.Font = "SmallSystem"
-		    
-		  case kLevelError //Error
-		    sr1.Font = "SmallSystem"
-		    sr1.Text = "ERROR: "
-		    sr1.TextColor = &c9C3120
-		    sr1.Bold = true
-		    
-		    for each v as variant in values
-		      results2.Append  FormatVariant( v )
-		    next
-		    sr2.Font = "SmallSystem"
-		    
-		  end select
-		  
-		  if results1.Ubound>-1 then
-		    result1 = Join( results1, " " )
-		    if result1<>"" then
-		      sr1.Text = result1 + EndOfLine
-		    end if
-		  end if
-		  
-		  if results2.Ubound>-1 then
-		    result2 = Join( results2, " " )
-		    if result2<>"" then
-		      sr2.Text = result2 + EndOfLine
-		      usesr2 = true
-		    end if
-		  end if
-		  
-		  
-		  //Enqueue reports if we are not in the main thread or user wants to queue notification
-		  if App.CurrentThread<>nil OR NOT immediate then
-		    Queue.Append   new ReportEvent( type, sr1, IFTE( usesr2, sr2, nil ))
-		    LogTimer.mode = 1
-		    return
-		    
-		  else
-		    //Else report immediately
-		    
-		    //If some reports are queued, we must display it first.
-		    if Queue.Ubound>-1 then
-		      TimerAction( nil )
+		    if results1.Ubound>-1 then
+		      result1 = Join( results1, " " )
+		      if result1<>"" then
+		        sr1.Text = result1 + EndOfLine
+		      end if
 		    end if
 		    
-		    if usesr2 then
-		      AppendToWindow  type, sr1, sr2
+		    if results2.Ubound>-1 then
+		      result2 = Join( results2, " " )
+		      if result2<>"" then
+		        sr2.Text = result2 + EndOfLine
+		        usesr2 = true
+		      end if
+		    end if
+		    
+		    
+		    //Enqueue reports if we are not in the main thread or user wants to queue notification
+		    if App.CurrentThread<>nil OR NOT immediate then
+		      Queue.Append   new ReportEvent( type, sr1, IFTE( usesr2, sr2, nil ))
+		      LogTimer.mode = 1
+		      return
+		      
 		    else
-		      AppendToWindow   type, sr1
+		      //Else report immediately
+		      
+		      //If some reports are queued, we must display it first.
+		      if Queue.Ubound>-1 then
+		        TimerAction( nil )
+		      end if
+		      
+		      if usesr2 then
+		        AppendToWindow  type, sr1, sr2
+		      else
+		        AppendToWindow   type, sr1
+		      end if
+		      
+		      DebugLogWND.LogTA.ScrollPosition = 1e+6
+		      DebugLogWND.LogTA.Refresh
 		    end if
-		    
-		    DebugLogWND.LogTA.ScrollPosition = 1e+6
-		    DebugLogWND.LogTA.Refresh
-		  end if
+		  #endif
 		End Sub
 	#tag EndMethod
 

@@ -321,8 +321,17 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function StringExtensionMenu() As Boolean Handles StringExtensionMenu.Action
+			StringExtensionsExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function StringExtensionsMenu() As Boolean Handles StringExtensionsMenu.Action
-			StringExtensionsExample.Show
+			UnicodeExtensionsExample.Show
 			
 			Return True
 			
@@ -340,6 +349,15 @@ Inherits Application
 	#tag MenuHandler
 		Function SystemIconsMenuItem() As Boolean Handles SystemIconsMenuItem.Action
 			SystemIconsExampleWindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function UnicodeExtensionsMenu() As Boolean Handles UnicodeExtensionsMenu.Action
+			UnicodeExtensionsExample.Show
+			
 			Return True
 			
 		End Function

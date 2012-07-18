@@ -1,5 +1,5 @@
 #tag Window
-Begin Window StringExtensionsExample
+Begin Window UnicodeExtensionsExample
    BackColor       =   16777215
    Backdrop        =   ""
    CloseButton     =   True
@@ -21,7 +21,7 @@ Begin Window StringExtensionsExample
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Strings and Unicode Extensions"
+   Title           =   "Unicode Extensions"
    Visible         =   True
    Width           =   1.051e+3
    Begin TextArea TA1
@@ -562,7 +562,6 @@ Begin Window StringExtensionsExample
       Selectable      =   False
       TabIndex        =   21
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Results:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -597,7 +596,6 @@ Begin Window StringExtensionsExample
       Selectable      =   False
       TabIndex        =   22
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "String 1:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -632,7 +630,6 @@ Begin Window StringExtensionsExample
       Selectable      =   False
       TabIndex        =   23
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "String 2:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -667,7 +664,6 @@ Begin Window StringExtensionsExample
       Selectable      =   True
       TabIndex        =   24
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "This window gives you the possibility to test the advanced options of Mac OS X for comparing and searching strings.\rWith such options, you can search from the end, sort strings with numbers being properly interpreted as numbers (like the Finder does), ignore accents and other diacritics...\rIt may also help you handling Precomposed (NFC, NFKC) and Decomposed (NFD, NFKD) Unicode strings."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -841,7 +837,6 @@ Begin Window StringExtensionsExample
       Selectable      =   False
       TabIndex        =   28
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Binary representations:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -972,7 +967,6 @@ Begin Window StringExtensionsExample
       Selectable      =   False
       TabIndex        =   34
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "(*) The definition of “Finder settings” may vary from one Apple's example code to another."
       TextAlign       =   0
       TextColor       =   &h000000

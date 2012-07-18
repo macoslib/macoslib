@@ -1,10 +1,7 @@
-#tag Interface
-Protected Interface PasteboardReadingAndWriting
-	#tag Method, Flags = &h0
-		Function SerializeForType(forType as String) As variant
-		  
-		End Function
-	#tag EndMethod
+#tag Module
+Protected Module macos
+	#tag Constant, Name = CarbonFramework, Type = String, Dynamic = False, Default = \"Carbon.framework", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -42,5 +39,5 @@ Protected Interface PasteboardReadingAndWriting
 			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Interface
-#tag EndInterface
+End Module
+#tag EndModule

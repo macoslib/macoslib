@@ -889,9 +889,15 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
-         Begin MenuItem StringExtensionsMenu
+         Begin MenuItem StringExtensionMenu
             SpecialMenu = 0
-            Text = "Strings and Unicode Extensions"
+            Text = "String Extensions"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem UnicodeExtensionsMenu
+            SpecialMenu = 0
+            Text = "Unicode Extensions for strings"
             Index = -2147483648
             AutoEnable = True
          End

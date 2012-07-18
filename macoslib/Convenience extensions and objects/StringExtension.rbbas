@@ -182,6 +182,26 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsInArray(extends s as String, L() as String) As Boolean
+		  //# Returns true if the string is contains in the string array
+		  
+		  //@ [Cross-platform]
+		  
+		  return L.IndexOf(s) > -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsNotInArray(extends s as String, L() as String) As Boolean
+		  //# Returns true if the string is NOT contained in the string array
+		  
+		  //@ [Cross-platform]
+		  
+		  return L.IndexOf(s) = -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function StrCompWithOptions(string1 as String, string2 as string, kCFCompareOptions as integer) As integer
 		  //# Compare 2 strings with extended options
 		  
@@ -197,12 +217,81 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function StringBefore(extends s as string, beforeString as string) As string
+		Function StringAfter(extends s as string, beginningString as string, includeBeginningString as Boolean = false) As string
+		  //# Return the string after 'beginning string', except if you set 'includeBeginningString'
+		  
+		  //@ if the 'beginningString' is not found, the whole string is returned
+		  
+		  dim a as integer
+		  
+		  a = Instr(s, beginningString)
+		  
+		  if includeBeginningString then
+		    return  Mid( s, a )
+		  else
+		    return Mid( s, len(beginningString) + a )
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StringBefore(extends s as string, beforeString as string, returnEmptyStringIfNotFound as boolean = false) As string
 		  //#Returns the string before 'beforeString' or the whole string if the latter was not found
 		  
 		  //@ [Cross-platform]
+		  //@ If 'beforeString' is not found, the method returns:
+		  //@     • The full string if returnEmptyStringIfNotFound = false
+		  //@     • An empty string is returnEmptyStringIfNotFound = true
 		  
-		  return   NthField(s, beforeString, 1)
+		  
+		  dim a as integer = s.Instr( beforeString )
+		  
+		  if a=0 then
+		    if returnEmptyStringIfNotFound then
+		      return  ""
+		    else
+		      return  s
+		    end if
+		  else
+		    return   s.Left( a - 1 )
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StringBetween(extends src as string, startTag as string, endTag as string, includeStart as Boolean = false, includeEnd as Boolean = false) As string
+		  //# Return the string between startTag and endTag
+		  
+		  //@ If 'startTag' does not exist, 1 is assumed; if 'endTag' does not exist, the end of the source string 'src' is assumed
+		  //@ If you want the result to include 'startTag' and/or 'endTag', set 'includeStart' and/or 'includeEnd' to true
+		  
+		  dim s as string
+		  dim a, a2, b, b2 as integer
+		  
+		  a = src.Instr( startTag )
+		  if a=0 then
+		    a=1
+		    a2 = 1
+		  else
+		    a2 = a + startTag.Len
+		    if NOT includeStart then
+		      a = a2
+		    end if
+		  end if
+		  
+		  b = src.Instr( a2, endTag )
+		  if b = 0 then
+		    b = src.Len
+		    b2 = b
+		  else
+		    b2 = b + endTag.Len
+		    if NOT includeEnd then
+		      b2 = b
+		    end if
+		  end if
+		  
+		  return   src.Mid( a, b2 - a )
+		  
 		End Function
 	#tag EndMethod
 
