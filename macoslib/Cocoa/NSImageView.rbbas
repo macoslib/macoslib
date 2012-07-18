@@ -289,6 +289,7 @@ Inherits NSControl
 		    
 		  #else
 		    #pragma unused id
+		    #pragma unused evt
 		  #endif
 		  
 		  // Keep the compiler from complaining
