@@ -17,6 +17,11 @@ Inherits NavigationDialog
 		      System.Log System.LogLevelError, "NavigationDialog.Show: NavCreatePutFileDialog returned error " + Str(OSStatus) + "."
 		    End if
 		    return theRef
+		    
+		  #else
+		    #pragma unused CreationOptions
+		    #pragma unused eventHandler
+		    #pragma unused UserData
 		  #endif
 		End Function
 	#tag EndEvent
