@@ -265,7 +265,7 @@ Protected Module StringExtension
 		  //@ If 'startTag' does not exist, 1 is assumed; if 'endTag' does not exist, the end of the source string 'src' is assumed
 		  //@ If you want the result to include 'startTag' and/or 'endTag', set 'includeStart' and/or 'includeEnd' to true
 		  
-		  dim s as string
+		  'dim s as string
 		  dim a, a2, b, b2 as integer
 		  
 		  a = src.Instr( startTag )

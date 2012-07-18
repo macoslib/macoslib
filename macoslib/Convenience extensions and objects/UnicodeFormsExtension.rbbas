@@ -13,6 +13,8 @@ Protected Module UnicodeFormsExtension
 		  '
 		  'return   s1 + s2.NormalizeUnicode( form )
 		  
+		  #pragma unused s1
+		  #pragma unused s2
 		End Function
 	#tag EndMethod
 
@@ -31,11 +33,12 @@ Protected Module UnicodeFormsExtension
 		    ut16 = s.ConvertEncoding( Encodings.UTF16 )
 		  end if
 		  
-		  dim err as integer
 		  dim mb as MemoryBlock
-		  dim OK as Boolean
 		  
 		  #if TargetMacOS OR TargetLinux
+		    dim err as integer
+		    dim OK as Boolean
+		    
 		    select case QuickCheckNormalization( ut16, mode )
 		    case 0 //QuickCheck returned NO
 		      return  false
@@ -56,7 +59,7 @@ Protected Module UnicodeFormsExtension
 		  #endif
 		  
 		  #if TargetWin32
-		    dim mb as MemoryBlock = ut16 + Chr( 0 )
+		    mb = ut16 + Chr( 0 )
 		    
 		  #endif
 		End Function
@@ -79,7 +82,7 @@ Protected Module UnicodeFormsExtension
 		Function GuessUnicodeNormalization(extends s as String) As string
 		  //# Determine the Normalization Form of the passed Unicode string. If the string is not in UTF16(LE) format, internal conversion will occur.
 		  
-		  //@ If you 
+		  //@ If you
 		  //@ You should rarely see the compatibility normalizations (NFKC, NFKD) but rather canonical ones (NFC, NFD).
 		  //@ NFC is usually referred to as "Composed" or "Precomposed" and NFD as "Decomposed"
 		  
@@ -205,9 +208,10 @@ Protected Module UnicodeFormsExtension
 		Private Function libicuuc() As Ptr
 		  #if TargetLinux
 		    static handle as Ptr = open_lib(resolve_lib_name("libicuuc.so"))
-		  #endif
-		  #if TargetMacOS
+		  #elseif TargetMacOS
 		    static handle as Ptr = open_lib(resolve_lib_name("libicucore.dylib"))
+		  #else
+		    static handle as Ptr
 		  #endif
 		  return handle
 		End Function
@@ -229,18 +233,19 @@ Protected Module UnicodeFormsExtension
 		    soft declare function dlerror lib "System" alias "dlerror" () as Ptr
 		  #endif
 		  
-		  dim f as Ptr = dlsym(libHandle, function_name)
-		  dim err as Ptr = dlerror()
-		  if err = nil then
-		    return f
-		  else
-		    dlclose(libicuuc)
-		    dim e as new FunctionNotFoundException
-		    dim m as MemoryBlock = err
-		    e.Message = m.CString(0)
-		    raise e
-		  end if
-		  
+		  #if TargetMacOS or TargetLinux
+		    dim f as Ptr = dlsym(libHandle, function_name)
+		    dim err as Ptr = dlerror()
+		    if err = nil then
+		      return f
+		    else
+		      dlclose(libicuuc)
+		      dim e as new FunctionNotFoundException
+		      dim m as MemoryBlock = err
+		      e.Message = m.CString(0)
+		      raise e
+		    end if
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -351,16 +356,21 @@ Protected Module UnicodeFormsExtension
 		    return normalizedString
 		  #endif
 		  
-		  #if targetWin32
+		  #if targetWin32 and FALSE // Remove "and False" after debug
+		    
+		    // GENERATES ERROR
+		    // NormalizedString is not an array but you are using it as one
+		    // Win32Error doesn't exist
+		    
 		    dim normalizedString as String
 		    
-		    dim estimatedBufferSize as Integer = NormalizeString(form, s, -1, nil, 0)
+		    dim estimatedBufferSize as Integer = NormalizedString(form, s, -1, nil, 0)
 		    if estimatedBufferSize > 0 then
 		      do
 		        const sizeof_WCHAR = 2
 		        dim buffer as new MemoryBlock(1 + estimatedBufferSize * sizeof_WCHAR)
 		        const AssumeNullTerminatedInput = -1
-		        dim newLength as Integer = NormalizeString(form, s, AssumeNullTerminatedInput, buffer, buffer.Size)
+		        dim newLength as Integer = NormalizedString(form, s, AssumeNullTerminatedInput, buffer, buffer.Size)
 		        if newLength > 0 then
 		          normalizedString = ConvertEncoding(buffer.WString(0), s.Encoding)
 		          exit
@@ -460,21 +470,26 @@ Protected Module UnicodeFormsExtension
 		    soft declare function dlerror lib "System" alias "dlerror" () as Ptr
 		  #endif
 		  
-		  const RTLD_NOW = &h00002
-		  dim handle as Ptr = dlopen(libpath, RTLD_NOW)
-		  if handle <> nil then
-		    return handle
-		  else
-		    dim e as new FunctionNotFoundException
-		    dim p as Ptr = dlerror
-		    if p <> nil then
-		      dim m as MemoryBlock = p
-		      e.Message = m.CString(0)
+		  #if TargetMacOS or TargetLinux
+		    const RTLD_NOW = &h00002
+		    dim handle as Ptr = dlopen(libpath, RTLD_NOW)
+		    if handle <> nil then
+		      return handle
 		    else
-		      e.Message = "Unable to load '" + libpath + "'."
+		      dim e as new FunctionNotFoundException
+		      dim p as Ptr = dlerror
+		      if p <> nil then
+		        dim m as MemoryBlock = p
+		        e.Message = m.CString(0)
+		      else
+		        e.Message = "Unable to load '" + libpath + "'."
+		      end if
+		      raise e
 		    end if
-		    raise e
-		  end if
+		    
+		  #else
+		    #pragma unused libpath
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -515,30 +530,36 @@ Protected Module UnicodeFormsExtension
 		  
 		  //@ For non-Unicode strings, this method just returns Len( s )
 		  
-		  soft declare function u_strlen lib LibICU (str as CString) as int32
-		  
-		  dim t as MemoryBlock
-		  dim ut16 as string
-		  dim enc as TextEncoding = s.Encoding
-		  
-		  if enc=nil OR enc.base<>256 then //Not Unicode
-		    return   len( s )
-		  end if
-		  
-		  if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
-		    ut16 = s + Encodings.UTF16.Chr( 0 )
-		  else
-		    ut16 = ut16 + Chr( 0 ) + Chr( 0 )
-		    ut16 = s.ConvertEncoding( Encodings.UTF16 )
-		  end if
-		  
-		  if ut16.IsUnicodeNFD OR ut16.IsUnicodeNFKD then //Result will be incorrect for decomposed Unicode strings
-		    t = ut16.NormalizeUnicodeToNFC
-		  else
-		    t = ut16
-		  end if
-		  
-		  return  u_strlen( t )
+		  #if TargetMacOS
+		    
+		    soft declare function u_strlen lib LibICU (str as CString) as int32
+		    
+		    dim t as MemoryBlock
+		    dim ut16 as string
+		    dim enc as TextEncoding = s.Encoding
+		    
+		    if enc=nil OR enc.base<>256 then //Not Unicode
+		      return   len( s )
+		    end if
+		    
+		    if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
+		      ut16 = s + Encodings.UTF16.Chr( 0 )
+		    else
+		      ut16 = ut16 + Chr( 0 ) + Chr( 0 )
+		      ut16 = s.ConvertEncoding( Encodings.UTF16 )
+		    end if
+		    
+		    if ut16.IsUnicodeNFD OR ut16.IsUnicodeNFKD then //Result will be incorrect for decomposed Unicode strings
+		      t = ut16.NormalizeUnicodeToNFC
+		    else
+		      t = ut16
+		    end if
+		    
+		    return  u_strlen( t )
+		    
+		  #else
+		    #pragma unused s
+		  #endif
 		End Function
 	#tag EndMethod
 
