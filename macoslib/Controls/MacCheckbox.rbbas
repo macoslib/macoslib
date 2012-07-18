@@ -34,6 +34,10 @@ Inherits Canvas
 		    
 		    dim partCode as Int16 = HandleControlClick(me.ControlRef, where, Modifiers(Keyboard.CommandKey, Keyboard.ShiftKey, Keyboard.OptionKey, Keyboard.ControlKey), nil)
 		    #pragma unused partCode
+		    
+		  #else
+		    #pragma unused X
+		    #pragma unused Y
 		  #endif
 		End Sub
 	#tag EndEvent
