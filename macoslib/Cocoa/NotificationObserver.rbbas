@@ -50,18 +50,23 @@ Class NotificationObserver
 
 	#tag Method, Flags = &h0
 		Sub Destructor()
-		  self.Unregister
-		  
-		  if ObjectMap.HasKey(self.Observer) then
-		    ObjectMap.Remove self.Observer
-		  end if
-		  
-		  if self.Observer <> nil then
-		    declare sub release lib CocoaLib selector "release" (obj_id as Ptr)
+		  #if TargetMacOS
 		    
-		    release(self.Observer)
-		    self.Observer = nil
-		  end if
+		    self.Unregister
+		    
+		    if ObjectMap.HasKey(self.Observer) then
+		      ObjectMap.Remove self.Observer
+		    end if
+		    
+		    if self.Observer <> nil then
+		      declare sub release lib CocoaLib selector "release" (obj_id as Ptr)
+		      
+		      release(self.Observer)
+		      self.Observer = nil
+		    end if
+		    
+		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
@@ -70,17 +75,21 @@ Class NotificationObserver
 		  #pragma unused sel
 		  //although I could check the name of the notification.
 		  
-		  #pragma stackOverflowChecking false
-		  
-		  
-		  dim ref as WeakRef = ObjectMap.Lookup(id, new WeakRef(nil))
-		  if ref.Value isA NotificationObserver then
-		    dim observer as NotificationObserver = NotificationObserver(ref.Value)
-		    observer.HandleNotification new NSNotification(notification)
-		  else
-		    break
-		    //something might be wrong.
-		  end if
+		  #if TargetMacOS
+		    
+		    #pragma stackOverflowChecking false
+		    
+		    
+		    dim ref as WeakRef = ObjectMap.Lookup(id, new WeakRef(nil))
+		    if ref.Value isA NotificationObserver then
+		      dim observer as NotificationObserver = NotificationObserver(ref.Value)
+		      observer.HandleNotification new NSNotification(notification)
+		    else
+		      break
+		      //something might be wrong.
+		    end if
+		    
+		  #endif
 		End Sub
 	#tag EndMethod
 

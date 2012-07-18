@@ -51,6 +51,9 @@ Inherits CFType
 		    if not (self = nil) then
 		      return CFBundleGetDataPointerForName(self, symbolName)
 		    end if
+		    
+		  #else
+		    #pragma unused symbolName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -97,6 +100,8 @@ Inherits CFType
 		    else
 		      return nil
 		    end if
+		    
+		    #pragma unused symbolName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -131,6 +136,9 @@ Inherits CFType
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused key
 		  #endif
 		End Function
 	#tag EndMethod
@@ -173,6 +181,10 @@ Inherits CFType
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused urlRef
+		    #pragma unused hasOwnership
 		  #endif
 		  
 		End Function
@@ -184,6 +196,9 @@ Inherits CFType
 		    soft declare function CFBundleGetBundleWithIdentifier lib CarbonLib (bundleID as CFStringRef) as Ptr
 		    
 		    return new CFBundle(CFBundleGetBundleWithIdentifier(bundleIdentifier), false)
+		    
+		  #else
+		    #pragma unused bundleIdentifier
 		  #endif
 		End Function
 	#tag EndMethod
@@ -196,6 +211,9 @@ Inherits CFType
 		      
 		      return new CFBundle(CFBundleCreate(nil, theURL.Reference), true)
 		    end if
+		    
+		  #else
+		    #pragma unused theURL
 		  #endif
 		End Function
 	#tag EndMethod
@@ -211,6 +229,9 @@ Inherits CFType
 		        return new CFArray (p, true)
 		      end if
 		    end if
+		    
+		  #else
+		    #pragma unused folderURL
 		  #endif
 		  
 		End Function
@@ -295,6 +316,9 @@ Inherits CFType
 		    else
 		      return ""
 		    end if
+		    
+		  #else
+		    #pragma unused symbolName
 		  #endif
 		End Function
 	#tag EndMethod

@@ -39,56 +39,74 @@ Protected Module Cocoa
 		    wend
 		    
 		    return  s
+		    
+		  #else
+		    return ""
+		    
+		    #pragma unused p
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Function ClassNameTreeForClass(aClass as Ptr) As String()
-		  
-		  declare function class_getName lib CocoaLib (id as Ptr) as Ptr
-		  declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
-		  
 		  dim result() as string
-		  dim cls as Ptr
-		  dim mb as MemoryBlock
 		  
-		  cls = aClass
-		  while cls<>nil
-		    mb = class_getName( cls )
-		    if mb<>nil then
-		      result.Append   mb.CString( 0 )
-		    end if
+		  #if TargetMacOS
 		    
-		    cls = class_getSuperclass( cls )
-		  wend
+		    declare function class_getName lib CocoaLib (id as Ptr) as Ptr
+		    declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
+		    
+		    dim cls as Ptr
+		    dim mb as MemoryBlock
+		    
+		    cls = aClass
+		    while cls<>nil
+		      mb = class_getName( cls )
+		      if mb<>nil then
+		        result.Append   mb.CString( 0 )
+		      end if
+		      
+		      cls = class_getSuperclass( cls )
+		    wend
+		    
+		  #else
+		    #pragma unused aClass
+		  #endif
 		  
-		  return  result
+		  return result
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Function ClassNameTreeForObjectPointer(p as ptr) As String()
-		  
-		  declare function object_getClass lib CocoaLib (id as Ptr ) as Ptr
-		  declare function class_getName lib CocoaLib (id as Ptr) as Ptr
-		  declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
-		  
 		  dim result() as string
-		  dim cls as Ptr
-		  dim mb as MemoryBlock
 		  
-		  cls = object_getClass( p )
-		  while cls<>nil
-		    mb = class_getName( cls )
-		    if mb<>nil then
-		      result.Append   mb.CString( 0 )
-		    end if
+		  #if TargetMacOS
+		    declare function object_getClass lib CocoaLib (id as Ptr ) as Ptr
+		    declare function class_getName lib CocoaLib (id as Ptr) as Ptr
+		    declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
 		    
-		    cls = class_getSuperclass( cls )
-		  wend
+		    dim cls as Ptr
+		    dim mb as MemoryBlock
+		    
+		    cls = object_getClass( p )
+		    while cls<>nil
+		      mb = class_getName( cls )
+		      if mb<>nil then
+		        result.Append   mb.CString( 0 )
+		      end if
+		      
+		      cls = class_getSuperclass( cls )
+		    wend
+		    
+		  #else
+		    #pragma unused p
+		  #endif
 		  
 		  return  result
+		  
 		End Function
 	#tag EndMethod
 
@@ -118,11 +136,13 @@ Protected Module Cocoa
 		Protected Function InheritsFromClass(p as Ptr, classname as string) As Boolean
 		  //Check if the Ptr (corresponding to any NS object) has "classname" in its inheritance tree
 		  
-		  dim tree() as string
-		  
-		  tree = ClassNameTreeForObjectPointer( p )
-		  
-		  return  ( tree.IndexOf( classname ) <> -1 )
+		  #if TargetMacOS
+		    dim tree() as string
+		    
+		    tree = ClassNameTreeForObjectPointer( p )
+		    
+		    return  ( tree.IndexOf( classname ) <> -1 )
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -421,6 +441,9 @@ Protected Module Cocoa
 		        free( mb )
 		      end if
 		    next
+		    
+		  #else
+		    #pragma unused aClass
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -468,7 +491,13 @@ Protected Module Cocoa
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused frameworkName
+		    #pragma unused searchPublicFrameworks
 		  #endif
+		  
+		  return nil // Shouldn't get here
 		  
 		End Function
 	#tag EndMethod

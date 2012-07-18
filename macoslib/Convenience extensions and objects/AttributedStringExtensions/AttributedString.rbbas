@@ -67,6 +67,8 @@ Inherits NSAttributedString
 			  
 			  #if TargetMacOS
 			    selection.length = value
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -87,6 +89,8 @@ Inherits NSAttributedString
 			  
 			  #if TargetMacOS
 			    selection.location = value
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

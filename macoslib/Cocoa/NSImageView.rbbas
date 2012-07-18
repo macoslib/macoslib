@@ -484,6 +484,9 @@ Inherits NSControl
 			    declare sub setAllowsCutCopyPaste lib CocoaLib selector "setAllowsCutCopyPaste:" (id as Ptr, value as boolean)
 			    
 			    setAllowsCutCopyPaste( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -506,6 +509,9 @@ Inherits NSControl
 			    declare sub _isEditable lib CocoaLib selector "setEditable:" (id as Ptr, value as boolean)
 			    
 			    _isEditable( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -528,6 +534,9 @@ Inherits NSControl
 			    declare sub setFocusRingType lib CocoaLib selector "setFocusRingType:" (id as Ptr, frm as integer)
 			    
 			    setFocusRingType( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -550,6 +559,9 @@ Inherits NSControl
 			    declare sub setImageFrameStyle lib CocoaLib selector "setImageFrameStyle:" (id as Ptr, frm as integer)
 			    
 			    setImageFrameStyle( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -585,6 +597,9 @@ Inherits NSControl
 			      nsi = NSImage.CreateFromPicture( value )
 			      me.NativeImage = nsi
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			  
 			End Set
@@ -608,6 +623,9 @@ Inherits NSControl
 			    declare sub setImageAlignment lib CocoaLib selector "setImageAlignment:" (id as Ptr, frm as integer)
 			    
 			    setImageAlignment( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -630,6 +648,9 @@ Inherits NSControl
 			    declare sub setImageScaling lib CocoaLib selector "setImageScaling:" (id as Ptr, frm as integer)
 			    
 			    setImageScaling( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -705,6 +726,9 @@ Inherits NSControl
 			    else
 			      _setimage( me.id, value.id )
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			  
 			End Set

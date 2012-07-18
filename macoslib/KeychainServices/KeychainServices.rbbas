@@ -42,6 +42,9 @@ Protected Module KeychainServices
 			    if err <> noErr then
 			      raise new KeychainServices.Error(err)
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

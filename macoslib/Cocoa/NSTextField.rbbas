@@ -50,6 +50,9 @@ Inherits NSObject
 			    declare sub attributedStringValue lib CocoaLib selector "setAttributedStringValue:" (id as Ptr, value as Ptr)
 			    
 			    attributedStringValue( me._id, value.id )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -72,6 +75,9 @@ Inherits NSObject
 			    declare sub isEditable lib CocoaLib selector "setIsEditable:" (id as Ptr, value as boolean)
 			    
 			    isEditable( me._id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -94,6 +100,9 @@ Inherits NSObject
 			    declare sub isSelectable lib CocoaLib selector "setIsSelectable:" (id as Ptr, value as boolean)
 			    
 			    isSelectable( me._id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -116,6 +125,9 @@ Inherits NSObject
 			    declare sub allowsEditingTextAttributes lib CocoaLib selector "setAllowsEditingTextAttributes:" (id as Ptr, value as boolean)
 			    
 			    allowsEditingTextAttributes( me._id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
