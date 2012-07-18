@@ -27,7 +27,7 @@ Implements CFPropertyList
 		Function AsDictionary() As Dictionary
 		  // Added by Kem Tekinay.
 		  // Converts the CFDictionary to a native Dictionary
-		  // A clone of 
+		  // A clone of
 		  dim d as Dictionary
 		  
 		  #if TargetMacOS
@@ -213,7 +213,7 @@ Implements CFPropertyList
 		Function Operator_Convert() As Dictionary
 		  // Added by Kem Tekinay.
 		  
-		  dim d as Dictionary 
+		  dim d as Dictionary
 		  
 		  #if TargetMacOS
 		    

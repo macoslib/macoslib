@@ -23,47 +23,55 @@ Protected Module UnicodeFormsExtension
 		Private Function CheckNormalization(s as string, normidx as integer) As boolean
 		  if not inited then Init
 		  
-		  soft declare function unorm2_isNormalized lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, byref pError as integer) as Boolean
-		  soft declare function unorm_isNormalized lib LibICU ( s as Ptr, length as Int32, mode as integer, byref pError as integer) as Boolean
-		  
-		  dim ut16 as string
-		  dim enc as TextEncoding = s.Encoding
-		  
-		  if enc=nil OR enc.base<>256 then //Not Unicode
-		    return false
-		  end if
-		  
-		  if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
-		    ut16 = s
-		  else
-		    ut16 = s.ConvertEncoding( Encodings.UTF16 )
-		  end if
-		  
-		  select case QuickCheckNormalization( ut16, normidx )
-		  case 0 //QuickCheck returned NO
-		    return  false
+		  #if TargetMacOS
 		    
-		  case 1 //QuickCheck returned YES
-		    return  true
+		    soft declare function unorm2_isNormalized lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, byref pError as integer) as Boolean
+		    soft declare function unorm_isNormalized lib LibICU ( s as Ptr, length as Int32, mode as integer, byref pError as integer) as Boolean
 		    
-		  case 2 //QuickCheck returned MAYBE. Use longer algorithm.
-		    dim err as integer
-		    dim mb as MemoryBlock = ut16
-		    dim OK as Boolean
-		    dim norm as Ptr
+		    dim ut16 as string
+		    dim enc as TextEncoding = s.Encoding
 		    
-		    if ICU_UseVariant2 then
-		      norm = Normalizers( normidx )
-		      OK = unorm2_isNormalized( norm, mb, mb.Size \ 2, err )
-		    else //Older version
-		      OK = unorm_isNormalized( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), err )
+		    if enc=nil OR enc.base<>256 then //Not Unicode
+		      return false
 		    end if
 		    
-		    if err=0 then
-		      return  OK
+		    if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
+		      ut16 = s
+		    else
+		      ut16 = s.ConvertEncoding( Encodings.UTF16 )
 		    end if
 		    
-		  end select
+		    select case QuickCheckNormalization( ut16, normidx )
+		    case 0 //QuickCheck returned NO
+		      return  false
+		      
+		    case 1 //QuickCheck returned YES
+		      return  true
+		      
+		    case 2 //QuickCheck returned MAYBE. Use longer algorithm.
+		      dim err as integer
+		      dim mb as MemoryBlock = ut16
+		      dim OK as Boolean
+		      dim norm as Ptr
+		      
+		      if ICU_UseVariant2 then
+		        norm = Normalizers( normidx )
+		        OK = unorm2_isNormalized( norm, mb, mb.Size \ 2, err )
+		      else //Older version
+		        OK = unorm_isNormalized( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), err )
+		      end if
+		      
+		      if err=0 then
+		        return  OK
+		      end if
+		      
+		    end select
+		    
+		  #else
+		    #pragma unused s
+		    #pragma unused normidx
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -230,52 +238,62 @@ Protected Module UnicodeFormsExtension
 
 	#tag Method, Flags = &h21
 		Private Function Normalize(s as string, normidx as integer) As string
-		  
-		  if not inited then  init
-		  
-		  soft declare function unorm2_normalize lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, dest as Ptr, capacity as Int32, byref pError as integer) as int32
-		  soft declare function unorm_normalize lib LibICU ( s as Ptr, length as Int32, mode as integer, opts as int32, dest as Ptr, capacity as Int32, byref pError as integer) as int32
-		  
-		  dim err as integer
-		  dim mb as MemoryBlock
-		  dim result as MemoryBlock
-		  dim resultLen as Int32
-		  dim norm as Ptr
-		  dim enc as TextEncoding
-		  dim ut16 as string
-		  
-		  enc = Encoding( s )
-		  
-		  if enc=nil OR enc.base<>256 then //Not Unicode
-		    return   s
-		  end if
-		  
-		  if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
-		    ut16 = s
-		  else
-		    ut16 = s.ConvertEncoding( Encodings.UTF16 )
-		  end if
-		  
-		  mb = ut16
-		  result = new MemoryBlock( mb.Size * 2 )
-		  
-		  if ICU_UseVariant2 then
-		    norm = Normalizers( normidx )
-		    resultLen = unorm2_normalize( norm, mb, mb.Size \ 2, result, result.Size, err )
-		  else //Older versions
-		    resultLen = unorm_normalize( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), 0, result, result.Size, err )
-		  end if
-		  
-		  if err=0 then
-		    ut16 = DefineEncoding( result.StringValue( 0, resultLen * 2 ), Encodings.UTF16 )
-		    if NOT ( enc.format=0 OR enc.format=5 ) then
-		      return   ut16.ConvertEncoding( enc )
-		    else
-		      return   ut16
+		  #if TargetMacOS
+		    
+		    if not inited then  init
+		    
+		    soft declare function unorm2_normalize lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, dest as Ptr, capacity as Int32, byref pError as integer) as int32
+		    soft declare function unorm_normalize lib LibICU ( s as Ptr, length as Int32, mode as integer, opts as int32, dest as Ptr, capacity as Int32, byref pError as integer) as int32
+		    
+		    dim err as integer
+		    dim mb as MemoryBlock
+		    dim result as MemoryBlock
+		    dim resultLen as Int32
+		    dim norm as Ptr
+		    dim enc as TextEncoding
+		    dim ut16 as string
+		    
+		    enc = Encoding( s )
+		    
+		    if enc=nil OR enc.base<>256 then //Not Unicode
+		      return   s
 		    end if
-		  else
-		    return  ""
-		  end if
+		    
+		    if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
+		      ut16 = s
+		    else
+		      ut16 = s.ConvertEncoding( Encodings.UTF16 )
+		    end if
+		    
+		    mb = ut16
+		    result = new MemoryBlock( mb.Size * 2 )
+		    
+		    if ICU_UseVariant2 then
+		      norm = Normalizers( normidx )
+		      resultLen = unorm2_normalize( norm, mb, mb.Size \ 2, result, result.Size, err )
+		    else //Older versions
+		      resultLen = unorm_normalize( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), 0, result, result.Size, err )
+		    end if
+		    
+		    if err=0 then
+		      ut16 = DefineEncoding( result.StringValue( 0, resultLen * 2 ), Encodings.UTF16 )
+		      if NOT ( enc.format=0 OR enc.format=5 ) then
+		        return   ut16.ConvertEncoding( enc )
+		      else
+		        return   ut16
+		      end if
+		    else
+		      return  ""
+		    end if
+		    
+		  #else
+		    
+		    return ""
+		    
+		    #pragma unused s
+		    #pragma unused normidx
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -303,31 +321,42 @@ Protected Module UnicodeFormsExtension
 
 	#tag Method, Flags = &h21
 		Private Function QuickCheckNormalization(s as string, normidx as integer) As integer
+		  #if TargetMacOS
+		    
+		    if not inited then
+		      Init
+		    end if
+		    
+		    soft declare function unorm2_quickCheck lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, byref pError as integer) as integer
+		    soft declare function unorm_quickCheck lib LibICU ( s as Ptr, length as Int32, mode as integer, byref pError as integer) as integer
+		    
+		    dim err as integer
+		    dim mb as MemoryBlock = s
+		    dim result as integer
+		    dim norm as Ptr
+		    
+		    if ICU_UseVariant2 then
+		      norm = Normalizers( normidx )
+		      result = unorm2_quickCheck( norm, mb, mb.Size \ 2, err )
+		    else
+		      result = unorm_quickCheck( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), err )
+		    end if
+		    
+		    if err=0 then
+		      return  result
+		    else
+		      return  -1
+		    end if
+		    
+		  #else
+		    
+		    return -1
+		    
+		    #pragma unused s
+		    #pragma unused normidx
+		    
+		  #endif
 		  
-		  if not inited then
-		    Init
-		  end if
-		  
-		  soft declare function unorm2_quickCheck lib LibICU ( norm2 as Ptr, s as Ptr, length as Int32, byref pError as integer) as integer
-		  soft declare function unorm_quickCheck lib LibICU ( s as Ptr, length as Int32, mode as integer, byref pError as integer) as integer
-		  
-		  dim err as integer
-		  dim mb as MemoryBlock = s
-		  dim result as integer
-		  dim norm as Ptr
-		  
-		  if ICU_UseVariant2 then
-		    norm = Normalizers( normidx )
-		    result = unorm2_quickCheck( norm, mb, mb.Size \ 2, err )
-		  else
-		    result = unorm_quickCheck( mb, mb.Size \ 2, ICU_ConvertModeForOldVersion( normidx ), err )
-		  end if
-		  
-		  if err=0 then
-		    return  result
-		  else
-		    return  -1
-		  end if
 		  
 		End Function
 	#tag EndMethod
@@ -338,30 +367,39 @@ Protected Module UnicodeFormsExtension
 		  
 		  //@ For non-Unicode strings, this method just returns Len( s )
 		  
-		  soft declare function u_strlen lib LibICU (str as CString) as int32
+		  #if TargetMacOS
+		    
+		    soft declare function u_strlen lib LibICU (str as CString) as int32
+		    
+		    dim t as MemoryBlock
+		    dim ut16 as string
+		    dim enc as TextEncoding = s.Encoding
+		    
+		    if enc=nil OR enc.base<>256 then //Not Unicode
+		      return   len( s )
+		    end if
+		    
+		    if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
+		      ut16 = s + Encodings.UTF16.Chr( 0 )
+		    else
+		      ut16 = ut16 + Chr( 0 ) + Chr( 0 )
+		      ut16 = s.ConvertEncoding( Encodings.UTF16 )
+		    end if
+		    
+		    if ut16.IsUnicodeNFD OR ut16.IsUnicodeNFKD then //Result will be incorrect for decomposed Unicode strings
+		      t = ut16.NormalizeUnicode( "NFC" )
+		    else
+		      t = ut16
+		    end if
+		    
+		    return  u_strlen( t )
+		    
+		  #else
+		    
+		    return s.Len
+		    
+		  #endif
 		  
-		  dim t as MemoryBlock
-		  dim ut16 as string
-		  dim enc as TextEncoding = s.Encoding
-		  
-		  if enc=nil OR enc.base<>256 then //Not Unicode
-		    return   len( s )
-		  end if
-		  
-		  if enc.format=0 OR enc.format=5 then //Encoding must be UTF16 or UTF16LE for ICU
-		    ut16 = s + Encodings.UTF16.Chr( 0 )
-		  else
-		    ut16 = ut16 + Chr( 0 ) + Chr( 0 )
-		    ut16 = s.ConvertEncoding( Encodings.UTF16 )
-		  end if
-		  
-		  if ut16.IsUnicodeNFD OR ut16.IsUnicodeNFKD then //Result will be incorrect for decomposed Unicode strings
-		    t = ut16.NormalizeUnicode( "NFC" )
-		  else
-		    t = ut16
-		  end if
-		  
-		  return  u_strlen( t )
 		End Function
 	#tag EndMethod
 
