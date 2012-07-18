@@ -59,6 +59,9 @@ Inherits NSObject
 			    declare sub setAllowsMultipleSelection lib "AddressBook" selector "setAllowsMultipleSelection:" (id as Ptr, value as boolean)
 			    
 			    setAllowsMultipleSelection( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

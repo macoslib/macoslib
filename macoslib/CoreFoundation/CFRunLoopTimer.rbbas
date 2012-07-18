@@ -187,6 +187,9 @@ Inherits CFType
 			      
 			      CFRunLoopRemoveTimer MainRunLoop, me.Reference, Carbon.Bundle.StringPointerRetained(kCFRunLoopCommonModes)
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

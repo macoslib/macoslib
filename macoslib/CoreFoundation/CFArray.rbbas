@@ -59,6 +59,8 @@ Implements CFPropertyList
 		      super.Constructor CFArrayCreate(nil, nil, 0, me.DefaultCallbacks), true
 		    end if
 		    
+		  #else
+		    #pragma unused theList
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -71,6 +73,9 @@ Implements CFPropertyList
 		      cfstr.Append str
 		    next
 		    self.Constructor (cfstr)
+		    
+		  #else
+		    #pragma unused strings
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -124,6 +129,9 @@ Implements CFPropertyList
 		    end select
 		    
 		    return  cfma
+		    
+		  #else
+		    #pragma unused theArray
 		  #endif
 		End Function
 	#tag EndMethod
@@ -167,6 +175,9 @@ Implements CFPropertyList
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod

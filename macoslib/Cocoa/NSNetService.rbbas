@@ -787,6 +787,9 @@ Inherits NSObject
 			    data = NSNetService.DataFromTXTRecordDictionary( nsd )
 			    
 			    me.TXTData = data
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -838,6 +841,8 @@ Inherits NSObject
 			      updatedData = value //Set in cache even in case of failure
 			    end if
 			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

@@ -1211,6 +1211,9 @@ Inherits NSControl
 			    declare sub setCompletionDelay lib CocoaLib selector "setCompletionDelay:" (id as Ptr, newValue as double)
 			    
 			    setCompletionDelay( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1237,6 +1240,9 @@ Inherits NSControl
 			    cs = NSCharacterSet.CreateFromString( value )
 			    
 			    me.TokenizingCharacterSet = cs
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1259,6 +1265,9 @@ Inherits NSControl
 			    declare sub setTokenizingCharacterSet lib Cocoalib selector "setTokenizingCharacterSet:" (id as Ptr, cs as Ptr)
 			    
 			    setTokenizingCharacterSet( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1281,6 +1290,9 @@ Inherits NSControl
 			    declare sub setTokenStyle lib CocoaLib selector "setTokenStyle::" (id as Ptr, newValue as integer)
 			    
 			    setTokenStyle( me.id, Int32( value ) )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

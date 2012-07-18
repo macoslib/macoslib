@@ -196,6 +196,9 @@ Inherits Canvas
 			    
 			    // Keep the compiler from complaining
 			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -236,6 +239,9 @@ Inherits Canvas
 			    
 			    // Keep the compiler from complaining
 			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -285,6 +291,9 @@ Inherits Canvas
 			    
 			    // Keep the compiler from complaining
 			    #pragma unused OSError
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -328,6 +337,9 @@ Inherits Canvas
 			    else
 			      me.InitialValue = value
 			    end if
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

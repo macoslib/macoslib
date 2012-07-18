@@ -114,6 +114,9 @@ Inherits NSObject
 			    declare function writeObjects lib CocoaLib selector "writeObjects:" (id as Ptr, nsa as Ptr) as Boolean
 			    
 			    call   writeObjects( me.id, value.id )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

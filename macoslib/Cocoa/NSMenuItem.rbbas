@@ -99,6 +99,9 @@ Inherits NSObject
 			    declare sub setEnabled lib CocoaLib selector "setEnabled:" (id as Ptr, value as Boolean)
 			    
 			    setEnabled   me.id, value
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -128,6 +131,9 @@ Inherits NSObject
 			    declare sub setTag lib CocoaLib selector "setTag:" (obj_id as Ptr, value as Integer)
 			    
 			    setTag(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -150,6 +156,9 @@ Inherits NSObject
 			    declare sub setTitle lib CocoaLib selector "setTitle:" (obj_id as Ptr, value as CFStringRef)
 			    
 			    setTitle(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

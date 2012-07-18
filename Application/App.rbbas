@@ -15,6 +15,13 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
+		  #if not TargetMacOS
+		    
+		    MsgBox "This project will only run in MacOS, but the classes are safe to use in any project."
+		    quit
+		    
+		  #endif
+		  
 		  Cocoa.Initialize
 		  
 		  CustomWorkspaceEvents.Init

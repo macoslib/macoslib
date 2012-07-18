@@ -24,6 +24,25 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
+		Function AsDictionary() As Dictionary
+		  // Added by Kem Tekinay.
+		  // Converts the CFDictionary to a native Dictionary
+		  // A clone of
+		  dim d as Dictionary
+		  
+		  #if TargetMacOS
+		    
+		    d = me // Uses Operator_Convert
+		    
+		  #endif
+		  
+		  return d
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFDictionaryGetTypeID" () as UInt32
@@ -187,6 +206,23 @@ Implements CFPropertyList
 		  #endif
 		  
 		  return fallbackValue
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As Dictionary
+		  // Added by Kem Tekinay.
+		  
+		  dim d as Dictionary
+		  
+		  #if TargetMacOS
+		    
+		    d = me.VariantValue
+		    
+		  #endif
+		  
+		  return d
+		  
 		End Function
 	#tag EndMethod
 

@@ -15,6 +15,9 @@ Inherits NSObject
 			    declare sub setEnabled lib QTKit.framework selector "setEnabled:" (obj_id as Ptr, value as Boolean)
 			    
 			    setEnabled(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

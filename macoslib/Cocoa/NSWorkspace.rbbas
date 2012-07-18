@@ -403,6 +403,8 @@ Inherits NSObject
 		    declare function selectFile lib CocoaLib selector "selectFile:inFileViewerRootedAtPath:" (obj_id as Ptr, fullPath as CFStringRef, rootFullPath as CFStringRef) as Boolean
 		    
 		    return f <> nil and selectFile(sharedInstance, f.POSIXPath, "")
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
