@@ -61,6 +61,14 @@ Protected Module UnicodeFormsExtension
 		  #if TargetWin32
 		    mb = ut16 + Chr( 0 )
 		    
+		    SetLastError   Win32Error.ERROR_SUCCESS  //IsNormalized does not do it. Sad but true.
+		    dim OK as Boolean = IsNormalized( mode, mb, -1 )
+		    dim err as integer = GetLastError
+		    if err=Win32Error.ERROR_SUCCESS then
+		      return  OK
+		    else
+		      raise  new Win32Error( err )
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
@@ -356,30 +364,31 @@ Protected Module UnicodeFormsExtension
 		    return normalizedString
 		  #endif
 		  
-		  #if targetWin32 and FALSE // Remove "and False" after debug
-		    
-		    // GENERATES ERROR
-		    // NormalizedString is not an array but you are using it as one
-		    // Win32Error doesn't exist
-		    
+		  
+		  #if targetWin32
 		    dim normalizedString as String
 		    
-		    dim estimatedBufferSize as Integer = NormalizedString(form, s, -1, nil, 0)
+		    SetLastError  Win32Error.ERROR_SUCCESS //NormalizeString does not set ERROR_SUCCESS before it starts
+		    
+		    dim estimatedBufferSize as Integer = NormalizeString(form, s, -1, nil, 0)
 		    if estimatedBufferSize > 0 then
 		      do
 		        const sizeof_WCHAR = 2
 		        dim buffer as new MemoryBlock(1 + estimatedBufferSize * sizeof_WCHAR)
 		        const AssumeNullTerminatedInput = -1
-		        dim newLength as Integer = NormalizedString(form, s, AssumeNullTerminatedInput, buffer, buffer.Size)
+		        SetLastError   Win32Error.ERROR_SUCCESS
+		        dim newLength as Integer = NormalizeString(form, s, AssumeNullTerminatedInput, buffer, buffer.Size)
 		        if newLength > 0 then
 		          normalizedString = ConvertEncoding(buffer.WString(0), s.Encoding)
 		          exit
 		        else
 		          //check for buffer size.
-		          dim err as Integer = Win32Error.GetError
+		          dim err as Integer = Win32Error.GetLastError
 		          if err = Win32Error.ERROR_INSUFFICIENT_BUFFER then
-		            //try again with bigger buffer
-		            estimatedBufferSize = estimatedBufferSize * 2
+		            //try again with the proposed buffer size
+		            estimatedBufferSize = -newLength
+		          elseif err = Win32Error.ERROR_NO_UNICODE_TRANSLATION then //Invalid Unicode character
+		            raise new Win32Error(err)
 		          elseIf err = Win32Error.ERROR_SUCCESS then
 		            //does this mean that no normalizing was needed?
 		            exit

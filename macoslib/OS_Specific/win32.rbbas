@@ -5,11 +5,19 @@ Protected Module win32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function GetLastError Lib Kernel32 () As Integer
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function IsNormalizedString Lib Normaliz (NormForm as Integer, lpSrcString as WString, cwLength as Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NormalizeString Lib Normaliz (NormForm as Integer, lpSrcString as WString, cwSrcLength as Integer, lpDstString as Ptr, cwDstLength as Integer) As Integer
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Sub SetLastError Lib Kernel32 (err as integer)
 	#tag EndExternalMethod
 
 
