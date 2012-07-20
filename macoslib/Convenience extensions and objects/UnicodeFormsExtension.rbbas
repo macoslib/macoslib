@@ -58,15 +58,15 @@ Protected Module UnicodeFormsExtension
 		    end select
 		  #endif
 		  
-		  #if TargetWin32 AND FALSE // *** GENERATES ERROR
+		  #if TargetWin32
 		    mb = ut16 + Chr( 0 )
 		    
 		    // SetLastError does not exist
-		    SetLastError   Win32Error.ERROR_SUCCESS  //IsNormalized does not do it. Sad but true.
+		    Win32.SetLastError   Win32Error.ERROR_SUCCESS  //IsNormalized does not do it. Sad but true.
 		    // *** IsNormalized does not exist
-		    dim OK as Boolean = IsNormalized( mode, mb, -1 )
+		    dim OK as Boolean = Win32.IsNormalizedString( mode, mb, -1 )
 		    // *** GetLastError does not exist
-		    dim err as integer = GetLastError
+		    dim err as integer = Win32.GetLastError
 		    if err=Win32Error.ERROR_SUCCESS then
 		      return  OK
 		    else
@@ -368,31 +368,26 @@ Protected Module UnicodeFormsExtension
 		  #endif
 		  
 		  
-		  #if targetWin32 AND FALSE // *** GENERATES ERROR
+		  #if targetWin32
 		    dim normalizedString as String
 		    
-		    // *** SetLastError does not exist
-		    SetLastError  Win32Error.ERROR_SUCCESS //NormalizeString does not set ERROR_SUCCESS before it starts
+		    Win32.SetLastError  Win32Error.ERROR_SUCCESS //NormalizeString does not set ERROR_SUCCESS before it starts
 		    
-		    // *** NormalizeString does not exist
-		    dim estimatedBufferSize as Integer = NormalizeString(form, s, -1, nil, 0)
+		    dim estimatedBufferSize as Integer = Win32.NormalizeString(form, s, -1, nil, 0)
 		    if estimatedBufferSize > 0 then
 		      do
 		        const sizeof_WCHAR = 2
 		        dim buffer as new MemoryBlock(1 + estimatedBufferSize * sizeof_WCHAR)
 		        const AssumeNullTerminatedInput = -1
-		        // *** SetLastError does not exist
-		        SetLastError   Win32Error.ERROR_SUCCESS
-		        // *** NormalizeString does not exist
-		        dim newLength as Integer = NormalizeString(form, s, AssumeNullTerminatedInput, buffer, buffer.Size)
+		        Win32.SetLastError   Win32Error.ERROR_SUCCESS
+		        dim newLength as Integer = Win32.NormalizeString(form, s, AssumeNullTerminatedInput, buffer, buffer.Size)
 		        if newLength > 0 then
 		          normalizedString = ConvertEncoding(buffer.WString(0), s.Encoding)
 		          exit
 		        else
 		          //check for buffer size.
 		          
-		          // *** GetLastError does not exist
-		          dim err as Integer = Win32Error.GetLastError
+		          dim err as Integer = Win32.GetLastError
 		          if err = Win32Error.ERROR_INSUFFICIENT_BUFFER then
 		            //try again with the proposed buffer size
 		            estimatedBufferSize = -newLength
