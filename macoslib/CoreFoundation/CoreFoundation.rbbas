@@ -122,11 +122,10 @@ Module CoreFoundation
 		      return   CFArray.CreateFromObjectsArray( theValue )
 		    end if
 		    
-		    if theValue.IsNumeric then
-		      return  new CFNumber( theValue )
-		    end if
-		    
 		    select case theValue.Type
+		    case  Variant.TypeInteger, Variant.TypeLong, Variant.TypeDouble, Variant.TypeSingle
+		      Return   new CFNumber( theValue )
+		      
 		    case  Variant.TypeDate
 		      Return  new CFDate( theValue.DateValue )
 		      
