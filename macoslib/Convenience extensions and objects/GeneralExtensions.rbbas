@@ -2,7 +2,10 @@
 Protected Module GeneralExtensions
 	#tag Method, Flags = &h0
 		Function Hex(value as variant, digits as integer) As String
-		  //# Return a hex string with the passed number of digits
+		  //# Return a hex string with the passed number of digits, adding zeros at the beginning if necessary
+		  
+		  //@ 'value' must be numeric.
+		  //@ If the result is longer than the number of digits, the full result is returned
 		  
 		  const zeros = "00000000000000000000000000000000"
 		  
@@ -25,6 +28,17 @@ Protected Module GeneralExtensions
 		  else
 		    return   valueIfFalse
 		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsTrueNumber(extends v as variant) As Boolean
+		  //# Equivalent to Variant.IsNumeric but does not return true for strings representing a numeric value
+		  
+		  Select case VarType( v )
+		  case Variant.TypeInteger, Variant.TypeLong, Variant.TypeSingle, Variant.TypeDouble, Variant.TypeCurrency
+		    return   true
+		  end select
 		End Function
 	#tag EndMethod
 

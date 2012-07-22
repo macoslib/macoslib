@@ -175,13 +175,8 @@ Protected Module MacOSFolderItemExtension
 		    
 		    if nsi<>nil then
 		      dim  size as Cocoa.NSSize
-		      'if preferredSize=0 then
-		      'size.width = 1024
-		      'size.height = 1024
-		      'else
 		      size.width = preferredSize
 		      size.height = preferredSize
-		      'end if
 		      nsi.Size = size
 		      return  nsi.MakePicture  //Convert NSImage to Picture
 		    else
@@ -190,6 +185,39 @@ Protected Module MacOSFolderItemExtension
 		    
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Icon(extends f as FolderItem, assigns customIcon as Picture)
+		  //# Add or replace the custom icon for the specified FolderItem
+		  
+		  #if TargetMacOS
+		    dim nsi as NSImage
+		    
+		    if NOT f.Exists then
+		      raise  new MacOSError( -50, "Parameter error. FolderItem does not exist" )
+		    end if
+		    
+		    nsi = NSImage.CreateFromPicture( customIcon )
+		    
+		    if nsi<>nil then
+		      dim OK as Boolean
+		      OK = NSWorkspace.IconForFile( f, nsi )
+		      
+		      if NOT OK then
+		        dim e as ObjCException
+		        e.Message = "Could not set custom icon"
+		        raise  e
+		      end if
+		      
+		    else
+		      dim e as ObjCException
+		      e.Message = "Could not create icon from the passed picture"
+		      raise  e
+		    end if
+		    
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
