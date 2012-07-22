@@ -996,7 +996,7 @@ End
 		    
 		    for i as integer=0 to TXTLB.ListCount - 1
 		      if TXTLB.Cell( i, 0 )="" OR TXTLB.Cell( i, 1 )="" then //Invalid key or value
-		        DReportWarning   "Invalid value for TXT record at index", i, ". The value has been skipped."
+		        'DReportWarning   "Invalid value for TXT record at index", i, ". The value has been skipped."
 		      else
 		        dict.Value( TXTLB.Cell( i, 0 )) = TXTLB.Cell( i, 1 )
 		      end if
@@ -1011,12 +1011,14 @@ End
 	#tag Method, Flags = &h0
 		Sub PublicationFailed(service as BonjourServiceForPublishing, errCode as integer, errDomain as integer)
 		  
-		  DReportError   "Publication error", errCode, errDomain
+		  'DReportError   "Publication error", errCode, errDomain
 		  
 		  IMG1.NativeImage = NSIMage.StatusUnavailable
 		  Group1.Enabled = true
 		  
 		  #pragma unused service
+		  #pragma unused errCode
+		  #pragma unused errDomain
 		  
 		End Sub
 	#tag EndMethod

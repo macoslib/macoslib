@@ -221,7 +221,7 @@ Inherits Canvas
 		    dim service as BonjourService = BonjourService.CreateFromCocoaObject( NSService )
 		    
 		    if service=nil then
-		      DReportError  CurrentMethodName, "Could not create BonjourService from the passed NSNetService"
+		      'DReportError  CurrentMethodName, "Could not create BonjourService from the passed NSNetService"
 		      return
 		    end if
 		    
@@ -254,7 +254,7 @@ Inherits Canvas
 		    next
 		    
 		    if service=nil then
-		      DReportError   CurrentMethodName, "Couldn't retrieve existing BonjourService for NSNetService:", NSService
+		      'DReportError   CurrentMethodName, "Couldn't retrieve existing BonjourService for NSNetService:", NSService
 		      return
 		    end if
 		    

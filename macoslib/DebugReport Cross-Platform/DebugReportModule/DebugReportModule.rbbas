@@ -431,6 +431,160 @@ Protected Module DebugReportModule
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub ReportObjCDetailsForClassPtr(aClass as Ptr)
+		  //Report ObjC implementation details for a Cocoa class pointer and its parents
+		  
+		  // WARNING: passing an incorrect Ptr can crash your application !
+		  
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    #if TargetMacOS
+		      declare function class_copyMethodList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		      declare function class_copyPropertyList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		      declare function class_copyIvarList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		      declare function object_getClass lib CocoaLib (obj as Ptr) as Ptr
+		      declare function class_copyProtocolList lib CocoaLib (Cls as Ptr, byref outcnt as integer) as Ptr
+		      declare function method_getNumberOfArguments lib CocoaLib (meth as Ptr) as integer
+		      declare sub method_getArgumentType lib CocoaLib (meth as Ptr, index as integer, buffer as Ptr, bufferSize as integer)
+		      declare sub method_getReturnType lib CocoaLib (meth as Ptr, buffer as Ptr, bufferSize as integer)
+		      
+		      declare sub free lib "System" (p as Ptr)
+		      
+		      dim mb as MemoryBlock
+		      dim cnt as integer
+		      dim tree() as string = Cocoa.ClassNameTreeForClass( aClass )
+		      dim forClass as Ptr
+		      dim buffer as new MemoryBlock( 256 )
+		      dim params() as string
+		      dim paramCnt as integer
+		      dim s as string
+		      
+		      for j as integer=0 to tree.ubound
+		        forClass = Cocoa.NSClassFromString( tree( j ))
+		        QReportTitled   tree( j )
+		        
+		        mb = class_copyProtocolList( forClass, cnt )
+		        if mb<>nil then
+		          declare function protocol_getName lib CocoaLib ( proto as Ptr ) as CString
+		          
+		          for i as integer=0 to cnt - 1
+		            QReport   "Conforms to:", protocol_getName( mb.Ptr( i*4 ))
+		          next
+		          
+		          free( mb )
+		        end if
+		        
+		        mb = class_copyMethodList( object_getClass( forClass ), cnt )
+		        if mb<>nil then
+		          declare function method_getName lib CocoaLib ( meth as Ptr ) as Ptr
+		          declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		          
+		          for i as integer = 0 to cnt - 1
+		            redim params( -1 )
+		            paramCnt = method_getNumberOfArguments( mb.Ptr( i*4 ))
+		            for k as integer=0 to paramCnt - 1
+		              method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
+		              params.Append   Cocoa.Introspection_FormatType( buffer.CString( 0 ))
+		            next
+		            
+		            params.remove  0 //The 2 first are for NS messaging
+		            params.Remove 0
+		            
+		            method_getReturnType( mb.Ptr( i*4 ), buffer, buffer.size )
+		            QReport   "+", "(" + Cocoa.Introspection_FormatType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
+		          next
+		          
+		          free( mb )
+		        end if
+		        
+		        mb = class_copyMethodList( forClass, cnt )
+		        if mb<>nil then
+		          declare function method_getName lib CocoaLib ( meth as Ptr ) as Ptr
+		          declare Function sel_getName lib CocoaLib( SEL as Ptr ) as CString
+		          
+		          for i as integer = 0 to cnt - 1
+		            redim params( -1 )
+		            paramCnt = method_getNumberOfArguments( mb.Ptr( i*4 ))
+		            for k as integer=0 to paramCnt - 1
+		              method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
+		              params.Append   Cocoa.Introspection_FormatType( buffer.CString( 0 ))
+		            next
+		            
+		            params.remove  0 //The 2 first are for NS messaging
+		            params.Remove 0
+		            
+		            method_getReturnType( mb.Ptr( i*4 ), buffer, buffer.size )
+		            QReport   "–", "(" + Cocoa.Introspection_FormatType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
+		          next
+		          
+		          free( mb )
+		        end if
+		        
+		        mb = class_copyPropertyList( forClass, cnt )
+		        if mb<>nil then
+		          declare function property_getName lib CocoaLib ( prop as Ptr ) as CString
+		          declare function property_getAttributes lib CocoaLib ( prop as Ptr ) as CString
+		          
+		          for i as integer = 0 to cnt - 1
+		            redim params( -1 )
+		            
+		            params = Split( property_getAttributes( mb.Ptr( i*4 )), "," )
+		            for k as integer=0 to params.Ubound
+		              select case params( k ).LeftB( 1 )
+		              case "T"
+		                params( k ) = Cocoa.Introspection_FormatType( params( k ).MidB( 2 ))
+		              case "C"
+		                params( k ) = "copy"
+		              case "P"
+		                params( k ) = "garb.coll."
+		              case "R"
+		                params( k ) = "readonly"
+		              case "&"
+		                params( k ) = "retain"
+		              case "N"
+		                params( k ) = "nonatomic"
+		              case "G"
+		                params( k ) = "getter=" + params( k ).MidB( 2 )
+		              case "S"
+		                params( k ) = "setter=" + params( k ).MidB( 2 )
+		              case "D"
+		                params( k ) = "@dynamic"
+		              case "W"
+		                params( k ) = "__weak"
+		              case "V"
+		                params( k ) = "ivar " + params( k ).MidB( 2 )
+		              end select
+		            next
+		            
+		            s = params( 0 )
+		            params.Remove  0
+		            
+		            QReport   "@property", "(", Join( params, ", " ), ")", s, property_getName( mb.Ptr( i*4 ))
+		          next
+		          
+		          free( mb )
+		        end if
+		        
+		        mb = class_copyIvarList( forClass, cnt )
+		        if mb<>nil then
+		          declare function ivar_getName lib CocoaLib ( ivar as Ptr ) as CString
+		          declare function ivar_getTypeEncoding lib CocoaLib ( ivar as Ptr ) as CString
+		          
+		          for i as integer = 0 to cnt - 1
+		            QReport   "ivar: (" + Cocoa.Introspection_FormatType( ivar_getTypeEncoding( mb.Ptr( i*4 ))) + ")", ivar_getName( mb.Ptr( i*4 ))
+		          next
+		          
+		          free( mb )
+		        end if
+		      next
+		      
+		    #else
+		      #pragma unused aClass
+		    #endif
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub TimerAction(theTimer as Timer)
 		  #pragma DisableBackgroundTasks
@@ -458,7 +612,7 @@ Protected Module DebugReportModule
 		      LogTimer.mode = 0
 		      
 		    else //We have been called from a Thread ?
-		      DReportWarning   "Timer called from Thread. Go on." //Will queue
+		      'DReportWarning   "Timer called from Thread. Go on." //Will queue
 		      LogTimer.Reset
 		    end if
 		  #endif

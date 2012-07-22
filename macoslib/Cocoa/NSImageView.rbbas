@@ -203,7 +203,7 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      DReportWarning   "Couldn't find source object"
+		      'DReportWarning   "Couldn't find source object"
 		      return false
 		    end if
 		    
@@ -227,7 +227,7 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      DReportWarning   "Couldn't find source object"
+		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -253,7 +253,7 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      DReportWarning   "Couldn't find source object"
+		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -280,7 +280,7 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      DReportWarning   "Couldn't find source object"
+		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -310,7 +310,7 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      DReportWarning   "Couldn't find source object"
+		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    

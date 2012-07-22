@@ -3,7 +3,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServicePublished(service as BonjourServiceForPublishing)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		End Sub
@@ -12,7 +12,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServicePublishingError(service as BonjourServiceForPublishing, errorCode as integer, errorDomain as integer)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		  #pragma unused errorCode
@@ -24,7 +24,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceResolutionError(service as BonjourService, errorCode as integer, errorDomain as integer)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		  #pragma unused errorCode
@@ -36,7 +36,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceResolved(service as BonjourService)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		  
@@ -46,7 +46,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceStoppedPublishing(service as BonjourServiceForPublishing)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		  
@@ -57,7 +57,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceStoppedResolving(service as BonjourService)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		  
@@ -67,7 +67,7 @@ Protected Module CustomBonjourEvents
 	#tag Method, Flags = &h1
 		Protected Sub event_ServiceTXTRecordChanged(service as BonjourService)
 		  
-		  DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
+		  'DReportTitled   "In CustomBonjourEvents module:", CurrentMethodName, "has been invoked"
 		  
 		  #pragma unused service
 		  
