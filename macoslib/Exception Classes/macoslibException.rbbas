@@ -25,7 +25,8 @@ Inherits RuntimeException
 
 
 	#tag Note, Name = Documentation
-		macoslibException represents any exception that must have occurred because of the macoslib implementation itself. The errorCode usually has no meaning and is -1 by default.
+		macoslibException represents any exception that occurred in a macoslib method for which there is no associated Mac OS error code (otherwise, you would get a MacOSError
+		  exception instead). The errorCode usually has no meaning and is -1 by default. See the error mesage for description of the error.
 	#tag EndNote
 
 

@@ -97,10 +97,6 @@ Inherits NSAttributedString
 		Private SelStart As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
-		Private _id As Ptr
-	#tag EndProperty
-
 
 	#tag ViewBehavior
 		#tag ViewProperty

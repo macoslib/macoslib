@@ -89,11 +89,7 @@ Inherits BonjourService
 		Private Sub Handle_DidNotPublish(sender as NSNetService, errorCode as integer, errorDomain as integer)
 		  #pragma unused sender
 		  
-		  'if me.Parent = nil then //Standalone object
-		  CustomBonjourEvents.event_ServicePublishingError   me, errorcode, errorDomain
-		  'else
 		  RaiseEvent   PublishingError( errorCode, errorDomain )
-		  'end if
 		  
 		End Sub
 	#tag EndMethod
@@ -102,11 +98,7 @@ Inherits BonjourService
 		Private Sub Handle_DidPublish(sender as NSNetService)
 		  #pragma Unused sender
 		  
-		  'if me.Parent = nil then //Standalone object
-		  CustomBonjourEvents.event_ServicePublished   me
-		  'else
 		  RaiseEvent  Published()
-		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -114,11 +106,7 @@ Inherits BonjourService
 		Private Sub Handle_DidStop(sender as NSNetService)
 		  #pragma unused sender
 		  
-		  'if me.Parent = nil then //Standalone object
-		  CustomBonjourEvents.event_ServiceStoppedPublishing   me
-		  'else
 		  RaiseEvent  StoppedPublishing()
-		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -222,13 +210,8 @@ Inherits BonjourService
 
 
 	#tag Note, Name = Documentation
-		A BonjourServiceForPublishing object represents a service that you can publish on the network. You do not need to create instance of this object
-		as the BonjourModule will do it for you.
+		See BonjourModule notes.
 		
-		As all the Bonjour operations are asynchronous, the BonjourServiceForPublishing objects events will inform you about the current publishing status.
-		The events will automatically be raised:
-		  • In the CustomBonjourEvents module
-		  • In any existing BonjourControl object
 	#tag EndNote
 
 

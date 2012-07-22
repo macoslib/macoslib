@@ -10,56 +10,65 @@ Protected Module DebugReportModule
 		    'DebugLogWND.ImmediateReportCB.Refresh
 		    'end if
 		    '
-		    if DebugLogWND.AllowReportCB.Value then
-		      select case level
-		      case kLevelNotice
-		        ReportCnt = ReportCnt + 1
-		        'if NOT Dequeueing then
-		        'DebugLogWND.ReportCountLBL.Text = Str( ReportCnt )
-		        'end if
-		      case kLevelError
-		        ErrorCnt = ErrorCnt + 1
-		        ErrorPos.Append   LogText.Len
-		        'if NOT Dequeueing then
-		        'DebugLogWND.ErrorCountLBL.Text = Str( ErrorCnt )
-		        'end if
-		      case kLevelWarning
-		        WarningCnt = WarningCnt + 1
-		        WarningPos.Append   LogText.Len
-		        'if NOT Dequeueing then
-		        'DebugLogWND.WarningCountLBL.Text = Str( WarningCnt )
-		        'end if
-		      end select
-		      
-		      DebugLogWND.LogTA.StyledText.AppendStyleRun   sr1
-		      LogText = LogText + sr1.Text
-		      
-		      if sr2<>nil then
-		        DebugLogWND.LogTA.StyledText.AppendStyleRun   sr2
-		        LogText = LogText + sr2.Text
-		      end if
-		      
-		      //Should we log to the system ?
-		      if DebugLogWND.SyslogCB.Value then
+		    #if TargetHasGUI
+		      if DebugLogWND.AllowReportCB.Value then
 		        select case level
-		        case kLevelNotice, kLevelTitled //Normal
-		          System.Log   System.LogLevelNotice, sr1.Text
-		        case kLevelWarning //Warning
-		          System.Log   System.LogLevelWarning, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
-		        case kLevelError //Error
-		          System.Log   System.LogLevelError, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
-		        case kLevelDebug //Debug
-		          System.DebugLog   IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		        case kLevelNotice
+		          ReportCnt = ReportCnt + 1
+		          
+		        case kLevelError
+		          ErrorCnt = ErrorCnt + 1
+		          ErrorPos.Append   LogText.Len
+		          
+		        case kLevelWarning
+		          WarningCnt = WarningCnt + 1
+		          WarningPos.Append   LogText.Len
 		        end select
+		        
+		        DebugLogWND.LogTA.StyledText.AppendStyleRun   sr1
+		        
+		        if sr2<>nil then
+		          DebugLogWND.LogTA.StyledText.AppendStyleRun   sr2
+		          LogText = LogText + sr2.Text
+		        end if
 		      end if
-		      
-		      'if not Dequeueing then
-		      'if DebugLogWND.ImmediateReportCB.Value AND NOT (Keyboard.AsyncKeyDown( 79 )) then
-		      'DebugLogWND.LogTA.ScrollPosition = 1e+6
-		      'DebugLogWND.LogTA.Refresh
-		      'end if
-		      'end if
+		    #else
+		      Print   sr1.Text
+		      if sr2<>nil then
+		        print  sr2.Text
+		      end if
+		    #endif
+		    
+		    LogText = LogText + sr1.Text
+		    if sr2<>nil then
+		      LogText = LogText + sr2.Text
 		    end if
+		    
+		    //Should we log to the system ?
+		    #if TargetHasGUI
+		      if DebugLogWND.SyslogCB.Value then
+		    #endif
+		    select case level
+		    case kLevelNotice, kLevelTitled //Normal
+		      System.Log   System.LogLevelNotice, sr1.Text
+		    case kLevelWarning //Warning
+		      System.Log   System.LogLevelWarning, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		    case kLevelError //Error
+		      System.Log   System.LogLevelError, IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		    case kLevelDebug //Debug
+		      System.DebugLog   IFTE( sr2=nil, sr1.Text, sr1.Text + EndOfLine + sr2.Text )
+		    end select
+		    #if TargetHasGUI
+		      end if
+		    #endif
+		    
+		    'if not Dequeueing then
+		    'if DebugLogWND.ImmediateReportCB.Value AND NOT (Keyboard.AsyncKeyDown( 79 )) then
+		    'DebugLogWND.LogTA.ScrollPosition = 1e+6
+		    'DebugLogWND.LogTA.Refresh
+		    'end if
+		    'end if
+		    'end if
 		  #endif
 		End Sub
 	#tag EndMethod

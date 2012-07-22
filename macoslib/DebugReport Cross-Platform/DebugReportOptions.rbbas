@@ -15,7 +15,6 @@ Protected Module DebugReportOptions
 		2. The text formatting (italic, bold, color...) of the data. It begings with FormatSpecCharacter + FormatStyleCharacter and is followed by either:
 		     • A single character if there is only one text formatting specification (such format is applied only to the next value )
 		     • A "(...)" sequence containing one or more options.
-		
 	#tag EndNote
 
 
