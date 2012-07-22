@@ -122,15 +122,6 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Open()
-		  
-		  Workspace.RegisterNotifications
-		  
-		End Sub
-	#tag EndEvent
-
-
 	#tag Method, Flags = &h0
 		Sub AppendText(theText as String)
 		  

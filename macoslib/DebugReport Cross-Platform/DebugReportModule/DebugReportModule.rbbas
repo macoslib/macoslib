@@ -849,7 +849,7 @@ Protected Module DebugReportModule
 	#tag Constant, Name = DRSeparation, Type = String, Dynamic = False, Default = \"_.$separation$._", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"100", Scope = Private
+	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"101", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kLevelDebug, Type = Double, Dynamic = False, Default = \"0", Scope = Protected

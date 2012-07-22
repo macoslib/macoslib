@@ -24,8 +24,6 @@ Inherits Application
 		  
 		  Cocoa.Initialize
 		  
-		  CustomWorkspaceEvents.Init
-		  
 		End Sub
 	#tag EndEvent
 

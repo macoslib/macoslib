@@ -4,6 +4,7 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  
+		  me.RegisterNotifications
 		End Sub
 	#tag EndMethod
 
@@ -351,8 +352,8 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub RegisterNotifications(options as integer = 0)
+	#tag Method, Flags = &h21
+		Private Sub RegisterNotifications(options as integer = 0)
 		  //# Register NSWorkspace notifications
 		  
 		  //@ Options:
@@ -583,10 +584,18 @@ Inherits NSObject
 	#tag EndHook
 
 
-	#tag Note, Name = Notifications
+	#tag Note, Name = Documentation
+		NSWorkspace methods are shared methods, so you do not need to create an instance to use them.
+		
+		If you want to get the Workspace events, however, create a single subclass of NSWorkspace and add the code you need in the different
+		  declared events you are interested in.
+		
+		
+		** For the description of all the events, see
 		https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html
 		
 		On systems running Leopard (10.5) or below, some parameters passed to the events may be null, e.g. URLs, application.
+		
 	#tag EndNote
 
 
