@@ -94,8 +94,6 @@ Protected Module UnicodeFormsExtension
 		  //@ You should rarely see the compatibility normalizations (NFKC, NFKD) but rather canonical ones (NFC, NFD).
 		  //@ NFC is usually referred to as "Composed" or "Precomposed" and NFD as "Decomposed"
 		  
-		  'static forms() as string = Array( "NFKD", "NFKC", "NFD", "NFC" )
-		  
 		  dim Result as boolean
 		  dim enc as TextEncoding = s.Encoding
 		  dim ut16 as string
