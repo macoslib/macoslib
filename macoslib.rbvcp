@@ -454,11 +454,15 @@ Class=libcError;macoslib/Exception Classes/libcError.rbbas;&h2180B885;&h1CC2A86E
 Class=macoslibException;macoslib/Exception Classes/macoslibException.rbbas;&h2350E7BA;&h1CC2A86E;false
 <<<<<<< HEAD
 Module=M_PList;M_PList.rbbas;&h3144AB7A;&h0;false
+<<<<<<< HEAD
 =======
 Window=Window1;Window1.rbfrm;&h3F54B0DB;&h0;false
 Class=FSEventStream;macoslib/FSEventModule/FSEventStream.rbbas;&h16972279;&h51275BFE;false
 DefaultWindow=Window1
 >>>>>>> • Started to implement FSEvents
+=======
+Class=MacPListBrowser;MacPListBrowser.rbbas;&h9DC53AC;&h0;false
+>>>>>>> KT_PListBrowser
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0

@@ -13,6 +13,12 @@ Interface CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function VariantValue() As Variant
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function WriteToFile(file as FolderItem, asXML as Boolean = True) As Boolean
 		  
 		End Function
