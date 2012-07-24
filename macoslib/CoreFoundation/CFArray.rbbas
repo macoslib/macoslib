@@ -15,7 +15,7 @@ Implements CFPropertyList
 		  dim result() as Variant
 		  
 		  for i as Integer = 0 to up
-		    result.Append me.CFValue(i).VariantValue
+		    result.Append   me.CFValue(i).VariantValue
 		  next
 		  
 		  return result

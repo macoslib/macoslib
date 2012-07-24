@@ -83,8 +83,8 @@ Protected Module BonjourModule
 		  //# Publish a new service but does not return the new object (which is stored internally)
 		  
 		  #if TargetMacOS
-		    dim service as BonjourServiceForPublishing
-		    service = PublishService( Name, type, domain, port, TXTDictionary )
+		    dim dummy as BonjourServiceForPublishing
+		    dummy = PublishService( Name, type, domain, port, TXTDictionary )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -169,6 +169,54 @@ Protected Module BonjourModule
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = Documentation
+		Bonjour is the Apple's trademark for the zeroconf/dns-sd technology (available on any platform). It allows you to advertise (publish) a service over
+		  the network so other computers using Bonjour can auto-detect it and connect. There are then 2 different classes: one for publishing a service
+		  over the network (BonjourServiceForPublishing) and one to determine (resolve) the current address and port of a service (BonjourService).
+		
+		The BonjourControl control also allows you to search for all the currently active services of one type, e.g. shared printers, and let the end-user
+		  pick one.
+		
+		Note that all Bonjour operations are asynchronous, so the result of an operation is given to you through events.
+		
+		
+		== Publishing a Bonjour service ==
+		
+		The first step is to create your server and make it listen for connections. Then you can create a BonjourServiceForPublishing object which is
+		  identified by its name, its type and its domain (which is usually ""). Note that the combination or name+type+domain must be unique over
+		  the network.
+		
+		The recommended way to publish a service is the following:
+		1. Create a subclass of BonjourServiceForPublishing
+		2. Add some code in the different events to detect success or failure of the publication on the network
+		3. For each service you want to publish, create an instance and call the Publish method
+		4. If publication succeeds, the Published event is fired
+		
+		
+		== Browsing the network for a type of services ==
+		
+		The BonjourControl allows browsing the network for services of a certain type
+		
+		1. Add a BonjourControl in a Window
+		2. Call BrowseBonjourServicesOfType with the type to look for, e.g. "_printer._tcp", and the domain (usually "")
+		3. Services detected or removed from the network will trigger ServiceAdded or ServiceRemoved events
+		4. Once a service has been detected, you may call its Resolve method to determine its IP addresses and port
+		
+		Note: BonjourService events are forwarded to their parent BonjourControl, which makes easier to implement them.
+		
+		
+		== Resolving a previously stored service ==
+		
+		If you stored the name, type and domain of a service, you can resolve it without user interaction.
+		
+		1. Create a BonjourService or a subclass of it with the stored name, type and domain
+		2. Call the Resolve method
+		3. Once the Resolved event has been invoked, you can use one of the Addresses to connect to the service
+		
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h1

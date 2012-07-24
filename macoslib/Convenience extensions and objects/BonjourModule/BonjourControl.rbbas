@@ -299,16 +299,6 @@ Inherits Canvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub PublishBonjourService(Name as string, type as string, domain as string, port as integer, TXTDictionary as Dictionary = nil)
-		  //# Register a Bonjour service
-		  
-		  BonjourModule.PublishService   name, type, domain, port, TXTDictionary
-		  
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21
 		Private Sub RegisterBonjourService(service as BonjourService)
 		  

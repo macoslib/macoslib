@@ -211,7 +211,6 @@ Inherits BonjourService
 
 	#tag Note, Name = Documentation
 		See BonjourModule notes.
-		
 	#tag EndNote
 
 

@@ -86,14 +86,7 @@ Class BonjourService
 		Private Sub Handle_DidNotResolve(sender as NSNetService, errorCode as integer, errorDomain as integer)
 		  
 		  #if TargetMacOS
-		    dim parents() as BonjourControl
-		    
-		    parents = FindParents
-		    if parents.Ubound=-1 then //Standalone object
-		      CustomBonjourEvents.event_ServiceResolutionError   me, errorcode, errorDomain
-		    else
-		      RaiseEvent   ResolutionError( errorCode, errorDomain )
-		    end if
+		    RaiseEvent   ResolutionError( errorCode, errorDomain )
 		    
 		  #else
 		    #pragma unused errorCode
@@ -108,14 +101,7 @@ Class BonjourService
 		Private Sub Handle_DidResolve(sender as NSNetService)
 		  
 		  #if TargetMacOS
-		    dim parents() as BonjourControl
-		    
-		    parents = FindParents
-		    if parents.Ubound=-1 then //Standalone object
-		      CustomBonjourEvents.event_ServiceResolved   me
-		    else
-		      RaiseEvent   Resolved()
-		    end if
+		    RaiseEvent   Resolved()
 		    
 		    nsns.StartMonitoring
 		    
@@ -130,14 +116,7 @@ Class BonjourService
 		Private Sub Handle_DidStopResolving(sender as NSNetService)
 		  
 		  #if TargetMacOS
-		    dim parents() as BonjourControl
-		    
-		    parents = FindParents
-		    if parents.Ubound=-1 then //Standalone object
-		      CustomBonjourEvents.event_ServiceStoppedResolving   me
-		    else
-		      RaiseEvent   StoppedResolving()
-		    end if
+		    RaiseEvent   StoppedResolving()
 		  #endif
 		  
 		  #pragma unused sender
@@ -148,14 +127,7 @@ Class BonjourService
 		Private Sub Handle_DidUpdateTXTRecord(sender as NSNetService)
 		  
 		  #if TargetMacOS
-		    dim parents() as BonjourControl
-		    
-		    parents = FindParents
-		    if parents.Ubound=-1 then //Standalone object
-		      CustomBonjourEvents.event_ServiceTXTRecordChanged   me
-		    else
-		      RaiseEvent   TXTDataChanged
-		    end if
+		    RaiseEvent   TXTDataChanged
 		  #endif
 		  
 		  #pragma unused sender

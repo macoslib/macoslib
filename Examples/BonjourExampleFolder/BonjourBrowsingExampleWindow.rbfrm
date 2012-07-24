@@ -164,7 +164,6 @@ Begin Window BonjourBrowsingExampleWindow
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Type:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -241,7 +240,6 @@ Begin Window BonjourBrowsingExampleWindow
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Domain:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -284,6 +282,40 @@ Begin Window BonjourBrowsingExampleWindow
       Underline       =   ""
       Visible         =   True
       Width           =   111
+   End
+   Begin Label Label3
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   14
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      Text            =   "Double-click on a row to display details and addresses."
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "SmallSystem"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   461
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   655
    End
 End
 #tag EndWindow
