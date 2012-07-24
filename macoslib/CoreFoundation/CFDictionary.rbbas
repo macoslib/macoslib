@@ -120,17 +120,33 @@ Implements CFPropertyList
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListFile(file as FolderItem) As CFDictionary
-		  #if targetMacOS
-		    dim bs as BinaryStream = BinaryStream.Open( file, false )
-		    dim datamb as MemoryBlock = bs.Read( bs.Length )
-		    bs.close
+		  #if TargetMacOS
 		    
-		    dim errMsg as string
-		    dim data as CFData = new CFData( datamb )
-		    dim plist as CFPropertyList = NewCFPropertyList( data, 0, errMsg ) //Immutable
-		    dim cfd as CFDictionary = CFDictionary( plist )
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFDictionary = CFDictionary( plist )
+		    return r
 		    
-		    return  cfd
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFDictionary
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFDictionary = CFDictionary( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
 		  #endif
 		  
 		End Function

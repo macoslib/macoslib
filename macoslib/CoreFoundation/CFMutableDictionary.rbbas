@@ -65,17 +65,33 @@ Inherits CFDictionary
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableDictionary
-		  #if targetMacOS
-		    dim bs as BinaryStream = BinaryStream.Open( file, false )
-		    dim datamb as MemoryBlock = bs.Read( bs.Length )
-		    bs.close
+		  #if TargetMacOS
 		    
-		    dim errMsg as string
-		    dim data as CFData = new CFData( datamb )
-		    dim plist as CFPropertyList = NewCFPropertyList( data, 2, errMsg )
-		    dim cfd as CFMutableDictionary = CFMutableDictionary( plist )
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    dim r as CFMutableDictionary = CFMutableDictionary( plist )
+		    return r
 		    
-		    return  cfd
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFMutableDictionary
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    dim r as CFMutableDictionary = CFMutableDictionary( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
 		  #endif
 		  
 		End Function
@@ -99,6 +115,10 @@ Inherits CFDictionary
 		    for i as integer=0 to dict.Count - 1
 		      self.Value( CFTypeFromVariant( dict.Key( i ))) = CFTypeFromVariant( dict.value( dict.key( i )))
 		    next
+		    
+		  #else
+		    
+		    #pragma unused dict
 		    
 		  #endif
 		End Sub

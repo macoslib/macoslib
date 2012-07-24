@@ -23,7 +23,11 @@ Protected Module XMLDictionary
 		    // Plist-compatible output
 		    root = XmlElement(xdoc.AppendChild(xdoc.CreateElement("plist")))
 		    root.SetAttribute("version", PlistVersion)
-		    dict = XmlElement(root.AppendChild(xdoc.CreateElement("dict")))
+		    if xmldict.Count = 1 and xmldict.HasKey( "cfarray" ) then // It has array at its root
+		      dict = root // The root is an array so we don't create a sub-element
+		    else // The root is a dict
+		      dict = XmlElement(root.AppendChild(xdoc.CreateElement("dict")))
+		    end if
 		    ParseStorage xmldict, dict, True, indented
 		    IndentNode root, 0, True
 		    IndentNode dict, 0, True
@@ -83,7 +87,8 @@ Protected Module XMLDictionary
 		  Dim tos As TextInputStream
 		  Dim s As String
 		  
-		  tos = XMLFile.OpenAsTextFile()
+		  'tos = XMLFile.OpenAsTextFile()
+		  tos = TextInputStream.Open( XMLFile )
 		  If tos <> nil Then
 		    s = tos.ReadAll
 		    tos.Close
@@ -122,13 +127,13 @@ Protected Module XMLDictionary
 		    While node.Type <> XmlNodeType.ELEMENT_NODE And node <> nil
 		      node = node.NextSibling
 		    Wend
-		    If node = nil Or node.Name <> "dict" Then
+		    If node = nil Or ( node.Name <> "dict" and node.Name <> "array" ) Then // Modified by Kem Tekinay: PLists can have any valid type at their root, but array and dict are the most common
 		      // It's not valid
 		      Return False
 		    End If
 		    // Now check the version
 		    If Val(XMLDoc.DocumentElement.GetAttribute("version")) <= Val(PlistVersion) Then
-		      ParseXML node, xmldict
+		      ParseXML node, xmldict, true
 		      Return True
 		    Else
 		      Return False
@@ -136,7 +141,7 @@ Protected Module XMLDictionary
 		  Else
 		    // First, make sure the version is at most what we expect
 		    If Val(XMLDoc.DocumentElement.GetAttribute("version")) <= Val(CurrentVersion) Then
-		      ParseXML XMLDoc.DocumentElement, xmldict
+		      ParseXML XMLDoc.DocumentElement, xmldict, true
 		      Return True
 		    Else
 		      // We can't reliably parse a higher version, so lets not parse it at all
@@ -207,7 +212,12 @@ Protected Module XMLDictionary
 		  For i = 0 To n
 		    // Key
 		    key = StorageKey(storage, i)
-		    If key <> nil Then // It's a keyed storage
+		    
+		    // Modified by Kem Tekinay.
+		    // Some plists will have array at the root. If such a plist is parsed by this module,
+		    // there will only be one element in the dictionary and its key will be "cfarray".
+		    // In that case, we ignore that first key.
+		    If key <> nil and ( Dictionary( storage ).Count <> 1 or key <> "cfarray" ) Then // It's a keyed storage
 		      node = parent.AppendChild(xdoc.CreateElement("key"))
 		      node.AppendChild(xdoc.CreateTextNode(key.StringValue))
 		      IndentNode node, indentLevel
@@ -217,13 +227,13 @@ Protected Module XMLDictionary
 		    node = nil
 		    multilineTag = False
 		    value = StorageValue(storage, i)
+		    dim vType as Integer = value.Type
 		    
 		    if value.IsArray then
 		      node = xdoc.CreateElement("array")
 		      ParseStorage value, node, alreadySeen, indentLevel+1, plist
 		      multilineTag = True
 		    else
-		      dim vType as Integer = value.Type
 		      Select Case vType
 		      Case 0 // Null
 		        // If it's a plist, we can't use null, so lets use false
@@ -235,9 +245,12 @@ Protected Module XMLDictionary
 		      Case 2 // Integer
 		        node = xdoc.CreateElement("integer")
 		        node.AppendChild(xdoc.CreateTextNode(Str(value.IntegerValue)))
+		      case 3 // Long
+		        node = xdoc.CreateElement( "integer" )
+		        node.AppendChild( xdoc.CreateTextNode( str( value.Int64Value ) ) )
 		      Case 5 // Double/Single
 		        node = xdoc.CreateElement("real")
-		        node.AppendChild(xdoc.CreateTextNode(Str(value.DoubleValue)))
+		        node.AppendChild( xdoc.CreateTextNode( value.StringValue ) ) // Modified by Kem Tekinay. Replaced str with format to prevent truncation of the value
 		      Case 7 // Date
 		        node = xdoc.CreateElement("date")
 		        dim s2 as String = value.DateValue.SQLDateTime
@@ -315,7 +328,13 @@ Protected Module XMLDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub ParseXML(parent As XmlNode, storage As Variant)
+		Private Sub ParseXML(parent As XmlNode, storage As Variant, firstIteration As Boolean = False)
+		  // Modified by Kem Tekinay.
+		  // Added firstIteration parameter.
+		  // Because a plist can have at its root any valid type, the first iteration of this method
+		  // has to check to see what it is. If it's anything other than "dict", it has create an initial key
+		  // that is the right type.
+		  
 		  Dim node As XmlNode
 		  Dim key As Variant
 		  Dim v As Variant
@@ -324,7 +343,13 @@ Protected Module XMLDictionary
 		  
 		  //ClearStorage storage
 		  
-		  node = parent.FirstChild
+		  if firstIteration and parent.Name <> "dict" then
+		    key = "cf" + parent.Name // Set the initial key since we aren't really starting with a dictionary.
+		    node = parent
+		  else
+		    node = parent.FirstChild
+		  end if
+		  
 		  While node <> nil
 		    // We only want to deal with element nodes
 		    // The only other type of node that *should* show up is
@@ -392,7 +417,8 @@ Protected Module XMLDictionary
 		  dim txt as String = xmldict.ExportXMLString(plist, indented)
 		  
 		  if txt <> "" then
-		    dim bs As BinaryStream = XMLFile.CreateBinaryFile("")
+		    'dim bs As BinaryStream = XMLFile.CreateBinaryFile("")
+		    dim bs as BinaryStream = BinaryStream.Create( XMLFile, true )
 		    if bs <> nil then
 		      bs.Write txt
 		      bs.Close
@@ -464,6 +490,87 @@ Protected Module XMLDictionary
 		    End If
 		  End If
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function VariantValueAsString(v As Variant) As String
+		  // Added by Kem Tekinay.
+		  // Gets the true value of a double/single as a string.
+		  // Can't use str without truncating and can't use format without truncating or adding junk.
+		  
+		  dim isDouble as boolean
+		  select case v.Type
+		  case Variant.TypeDouble
+		    isDouble = true
+		  case Variant.TypeSingle
+		    // isDouble = false
+		  else // Not a single or double
+		    if v.Type = Variant.TypeObject then
+		      return ""
+		    else
+		      return v.StringValue
+		    end if
+		  end select
+		  
+		  return v.StringValue 
+		  
+		  // The code below is an exercise in making the value of a double "pretty", i.e., keep it
+		  // from returning scientific notation. After much experimentation, we found that 
+		  // these attempts can lose precision in some cases so it was safer to use StringValue.
+		  // In the end, this method isn't being used anywhere, but has been left here
+		  // for later examination.
+		  
+		  'const kBunchOfHash = "####################################################################################"
+		  '
+		  'dim dv as double = v.DoubleValue
+		  'dim sv as single = v.SingleValue
+		  'dim s as string = v.StringValue
+		  'dim parts() as string = s.SplitB( "e" )
+		  'if parts.Ubound = 0 then return s // Not scientific notation
+		  '
+		  'dim valAsStr as string
+		  'if isDouble then
+		  'valAsStr = str( dv )
+		  'else
+		  'valAsStr = str( sv )
+		  'end if
+		  '
+		  'dim numStr as string = parts( 0 )
+		  'dim decimalPlaces as integer = val( parts( 1 ) )
+		  'dim numParts() as string = numStr.SplitB( "." ) // Get the decimal part
+		  'if numParts.Ubound = 1 then decimalPlaces = decimalPlaces - len( numParts( 1 ) ) // Complete decimal places
+		  '
+		  'if decimalPlaces < -20 or decimalPlaces > 20 then return valAsStr // Really large or really small number
+		  '
+		  'if decimalPlaces > 0 then
+		  'dim formatStr as string = kBunchOfHash.Left( decimalPlaces ) + ".########"
+		  'if dv < 0. then formatStr = "-" + formatStr
+		  'return str( dv, formatStr )
+		  '
+		  'else
+		  '
+		  'decimalPlaces = 0 - decimalPlaces // Make it positive
+		  'if decimalPlaces > 19 then
+		  'return s
+		  'else
+		  'dim formatStr as string = "0." + kBunchOfHash.Left( decimalPlaces )
+		  'if dv < 0. then formatStr = "-" + formatStr
+		  'dim r as string = str( dv, formatStr )
+		  '
+		  '// This is a bit of a hack to compensate for rounding errors
+		  'if decimalPlaces = 17 then
+		  'if valAsStr.InStrB( "e" ) = 0 then // str does not give us scientific notation so it's possible to use it
+		  'dim lastSix as string = r.RightB( 6 )
+		  'if StrComp( lastSix, "000001", 0 ) = 0 or StrComp( lastSix, "999999", 0) = 0 then r = valAsStr
+		  'end if
+		  'end if
+		  '
+		  'return r
+		  'end if
+		  '
+		  'end if
+		  
+		End Function
 	#tag EndMethod
 
 

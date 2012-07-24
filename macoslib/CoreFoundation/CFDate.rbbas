@@ -65,6 +65,40 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFDate
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFDate = CFDate( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFDate
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFDate = CFDate( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CurrentAbsoluteTime() As Double
 		  // Current date & time - including fractional seconds (versus the Date class which only
 		  //   returns full seconds)
@@ -91,6 +125,13 @@ Implements CFPropertyList
 		  dim d as new Date
 		  d.TotalSeconds = me.AbsoluteTime + AbsoluteTimeIntervalSince1904
 		  return d
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem, asXML as Boolean = True) As Boolean
+		  return super.WritePropertyListToFile( file, asXML )
+		  
 		End Function
 	#tag EndMethod
 

@@ -451,6 +451,7 @@ Class=MacOSError;macoslib/Exception Classes/MacOSError.rbbas;&h6DFC2E3B;&h1CC2A8
 Class=Win32Error;macoslib/Exception Classes/Win32Error.rbbas;&h473F9D8C;&h1CC2A86E;false
 Class=libcError;macoslib/Exception Classes/libcError.rbbas;&h2180B885;&h1CC2A86E;false
 Class=macoslibException;macoslib/Exception Classes/macoslibException.rbbas;&h2350E7BA;&h1CC2A86E;false
+Module=M_PList;M_PList.rbbas;&h3144AB7A;&h0;false
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0

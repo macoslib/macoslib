@@ -509,6 +509,7 @@ End
 		  base.Append   new Menuitem( "Save log to Desktop", "_SAVE_" )
 		  
 		  mi = base.PopUp
+		  if mi is nil then return false // Added by Kem Tekinay. Prevents crash if the user doesn't select anything
 		  
 		  select case mi.Tag
 		  case "_COPY_"

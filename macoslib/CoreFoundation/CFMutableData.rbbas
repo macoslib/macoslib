@@ -54,6 +54,40 @@ Inherits CFData
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableData
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    dim r as CFMutableData = CFMutableData( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFMutableData
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    dim r as CFMutableData = CFMutableData( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Delete(start as Integer, length as Integer)
 		  #if targetMacOS
 		    soft declare sub CFDataDeleteBytes lib CarbonLib (theData as Ptr, range as CFRange)

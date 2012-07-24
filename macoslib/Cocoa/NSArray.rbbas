@@ -85,7 +85,8 @@ Inherits NSObject
 		  case 9
 		    dim arv() as variant = theArray
 		    for each v as variant in arv
-		      nsma.Append   NSArray.CreateFromObjectsArray( v )
+		      'nsma.Append   NSArray.CreateFromObjectsArray( v )
+		      nsma.Append   Cocoa.NSObjectFromVariant( v ) // Modified by Kem Tekinay. The line above is just wrong.
 		    next
 		  end select
 		  

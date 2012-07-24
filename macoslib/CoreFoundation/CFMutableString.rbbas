@@ -47,6 +47,40 @@ Inherits CFString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableString
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    dim r as CFMutableString = CFMutableString( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFMutableString
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    dim r as CFMutableString = CFMutableString( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub InsertString(StringToInsert as CFStringRef, AtIndex as integer)
 		  //Warning: this is very slow (3x) compared to pure RB code, at least on Cocoa
 		  

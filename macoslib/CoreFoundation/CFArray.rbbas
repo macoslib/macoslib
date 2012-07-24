@@ -124,7 +124,8 @@ Implements CFPropertyList
 		    case 9
 		      dim arv() as variant = theArray
 		      for each v as variant in arv
-		        cfma.Append   CFArray.CreateFromObjectsArray( v )
+		        'cfma.Append   CFArray.CreateFromObjectsArray( v )
+		        cfma.Append   CFTypeFromVariant( v ) // Modified by Kem Tekinay. The line above was just wrong
 		      next
 		    end select
 		    
@@ -133,6 +134,40 @@ Implements CFPropertyList
 		  #else
 		    #pragma unused theArray
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFArray
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFArray = CFArray( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFArray
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFArray = CFArray( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -161,6 +196,16 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As Variant()
+		  // Added by Kem Tekinay.
+		  
+		  dim r() as variant = me.VariantValue
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Value(index as Integer) As Ptr
 		  #if TargetMacOS
 		    declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
@@ -179,6 +224,13 @@ Implements CFPropertyList
 		  #else
 		    #pragma unused index
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem, asXML as Boolean = true) As Boolean
+		  return super.WritePropertyListToFile( file, asXML )
+		  
 		End Function
 	#tag EndMethod
 

@@ -25,6 +25,40 @@ Implements CFPropertyList
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFBoolean
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFBoolean = CFBoolean( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFBoolean
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFBoolean = CFBoolean( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function Get(value as Boolean) As CFBoolean
 		  dim symbolName as String
@@ -65,6 +99,13 @@ Implements CFPropertyList
 		    dim p as Ptr = me.Reference
 		    return p <> nil and CFBooleanGetValue(p)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem, asXML as Boolean = True) As Boolean
+		  return super.WritePropertyListToFile( file, asXML )
+		  
 		End Function
 	#tag EndMethod
 

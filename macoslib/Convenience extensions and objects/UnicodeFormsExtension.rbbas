@@ -61,11 +61,8 @@ Protected Module UnicodeFormsExtension
 		  #if TargetWin32
 		    mb = ut16 + Chr( 0 )
 		    
-		    // SetLastError does not exist
 		    Win32.SetLastError   Win32Error.ERROR_SUCCESS  //IsNormalized does not do it. Sad but true.
-		    // *** IsNormalized does not exist
 		    dim OK as Boolean = Win32.IsNormalizedString( mode, mb, -1 )
-		    // *** GetLastError does not exist
 		    dim err as integer = Win32.GetLastError
 		    if err=Win32Error.ERROR_SUCCESS then
 		      return  OK

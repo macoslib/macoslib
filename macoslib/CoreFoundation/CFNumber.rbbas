@@ -32,7 +32,8 @@ Implements CFPropertyList
 		    
 		    dim mb as new MemoryBlock(8)
 		    dim numType as Integer
-		    select case value.Type
+		    dim theType as integer = value.Type
+		    select case theType
 		    case value.TypeDouble
 		      numType = kCFNumberFloat64Type
 		      mb.DoubleValue(0) = value
@@ -52,6 +53,40 @@ Implements CFPropertyList
 		    super.Constructor CFNumberCreate(nil, numType, mb), true
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFNumber
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFNumber = CFNumber( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFNumber
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFNumber = CFNumber( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -90,6 +125,13 @@ Implements CFPropertyList
 		  
 		  dim value as new CFNumber(p.Ptr(0), false)
 		  return value
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem, asXML as Boolean = True) As Boolean
+		  return super.WritePropertyListToFile( file, asXML )
+		  
 		End Function
 	#tag EndMethod
 

@@ -71,6 +71,40 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file as FolderItem) As CFString
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFString = CFString( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused file
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String) As CFString
+		  #if TargetMacOS
+		    
+		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
+		    dim r as CFString = CFString( plist )
+		    return r
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As String
 		  return self.StringValue
 		End Function
@@ -119,6 +153,13 @@ Implements CFPropertyList
 		    end if
 		    
 		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteToFile(file as FolderItem, asXML as Boolean = True) As Boolean
+		  return super.WritePropertyListToFile( file, asXML )
 		  
 		End Function
 	#tag EndMethod

@@ -16,6 +16,11 @@ Protected Module AppearanceManager
 		      ' return RED in case of an error
 		      return &cFF0000
 		    end
+		    
+		  #else
+		    
+		    #pragma unused ID
+		    
 		  #endif
 		  
 		End Function

@@ -42,6 +42,54 @@ Class CFType
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListFile(file As FolderItem, mutability As Integer) As CFPropertyList
+		  // Added by Kem Tekinay.
+		  // Convenience method to return a property list from a PList file.
+		  // Classes that are CFPropertyList should override this to return their type.
+		  
+		  #if targetMacOS
+		    
+		    dim bs as BinaryStream = BinaryStream.Open( file, false )
+		    dim s as string = bs.Read( bs.Length )
+		    bs = nil
+		    
+		    dim plist as CFPropertyList = CreateFromPListString( s, mutability )
+		    return plist
+		    
+		  #else
+		    
+		    #pragma unused file
+		    #pragma unused mutability
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromPListString(plistString as String, mutability As Integer) As CFPropertyList
+		  // Added by Kem Tekinay.
+		  // Convenience method to return a property list from a PList string.
+		  // Classes that are CFPropertyList should override this to return their type.
+		  
+		  #if targetMacOS
+		    
+		    dim errMsg as string
+		    dim plist as CFPropertyList = NewCFPropertyList( plistString, mutability, errMsg )
+		    
+		    return  plist
+		    
+		  #else
+		    
+		    #pragma unused plistString
+		    #pragma unused mutability
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
 		  Release me.mRef
@@ -200,6 +248,13 @@ Class CFType
 		    end select
 		    
 		    // we should never arrive here
+		    
+		  #else
+		    
+		    #pragma unused ref
+		    #pragma unused hasOwnership
+		    #pragma unused mutability
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -366,6 +421,36 @@ Class CFType
 		      raise e
 		    end if
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function WritePropertyListToFile(file as FolderItem, asXML as Boolean = true) As Boolean
+		  // Added by Kem Tekinay.
+		  // Is called by the subclasses that use the CFPropertyList interface
+		  
+		  #if targetMacOS
+		    dim plist as CFPropertyList = CFPropertyList( me )
+		    dim url as new CFURL( file )
+		    dim stream as new CFWriteStream( url, false ) //Replace file
+		    dim errMsg as string
+		    dim OK as Boolean
+		    
+		    if stream.Open then
+		      OK = plist.Write( stream, IFTE( asXML, 100, 200 ), errMsg )
+		    end if
+		    
+		    stream.Close
+		    
+		    return  OK
+		    
+		  #else
+		    
+		    #pragma unused file
+		    #pragma unused asXML
+		    
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
