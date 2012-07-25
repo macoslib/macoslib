@@ -91,7 +91,7 @@ Class=SCNetworkReachability;macoslib/SystemConfiguration/SCNetworkReachability.r
 Class=MDQuery;macoslib/Spotlight/MDQuery.rbbas;&h29D7DDA0;&h5528911E;false
 Class=MDItem;macoslib/Spotlight/MDItem.rbbas;&h1B178A7C;&h5528911E;false
 Module=WindowManager;macoslib/WindowManager/WindowManager.rbbas;&h693C0A95;&h62249E78;false
-Module=FSEventModule;macoslib/FSEventModule/FSEventModule.rbbas;&h51275BFE;&h62249E78;false
+Module=FSEventModule;macoslib/FSEventModule.rbbas;&h51275BFE;&h62249E78;false
 Class=Tuple;macoslib/Tuple.rbbas;&h14AB64F4;&h62249E78;false
 Class=UTI;macoslib/UTI.rbbas;&h56172368;&h62249E78;false
 Class=WindowGroup;macoslib/WindowManager/WindowGroup.rbbas;&hBD3BC696;&h693C0A95;false
@@ -452,17 +452,8 @@ Class=MacOSError;macoslib/Exception Classes/MacOSError.rbbas;&h6DFC2E3B;&h1CC2A8
 Class=Win32Error;macoslib/Exception Classes/Win32Error.rbbas;&h473F9D8C;&h1CC2A86E;false
 Class=libcError;macoslib/Exception Classes/libcError.rbbas;&h2180B885;&h1CC2A86E;false
 Class=macoslibException;macoslib/Exception Classes/macoslibException.rbbas;&h2350E7BA;&h1CC2A86E;false
-<<<<<<< HEAD
 Module=M_PList;M_PList.rbbas;&h3144AB7A;&h0;false
-<<<<<<< HEAD
-=======
-Window=Window1;Window1.rbfrm;&h3F54B0DB;&h0;false
-Class=FSEventStream;macoslib/FSEventModule/FSEventStream.rbbas;&h16972279;&h51275BFE;false
-DefaultWindow=Window1
->>>>>>> • Started to implement FSEvents
-=======
 Class=MacPListBrowser;MacPListBrowser.rbbas;&h9DC53AC;&h0;false
->>>>>>> KT_PListBrowser
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0
