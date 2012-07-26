@@ -195,10 +195,6 @@ Class FSEventStream
 		  const kCFNumberIntType = 9
 		  const kCFNumberLongType = 10
 		  
-		  'dim id as CFArray = new CFArray( eventIDs, false )
-		  'dim paths as CFArray = new CFArray( eventPaths, false )
-		  'dim flags as CFArray = new CFArray( eventFlags, false )
-		  
 		  dim id as UInt64
 		  dim path as String
 		  dim flags as UInt32
