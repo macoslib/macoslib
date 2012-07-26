@@ -223,6 +223,10 @@ Protected Module MacOSFolderItemExtension
 	#tag Method, Flags = &h0
 		Function inode(extends f as FolderItem) As UInt32
 		  #if targetMacOS
+		    if NOT f.exists then
+		      raise new MacOSError( -36, "FolderItem does not exist. Could not get inode" )
+		    end if
+		    
 		    dim ref as FSRef = FileManager.GetFSRefFromFolderItem(f)
 		    
 		    soft declare function FSGetCatalogInfo lib CarbonLib (ref as Ptr, whichInfo as Uint32, _
