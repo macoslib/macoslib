@@ -234,7 +234,7 @@ Class FSEventStream
 		    redim flagtext( -1 )
 		    
 		    for j as integer = 0 to 24
-		      if Bitwise.BitAnd( flags, Pow( 2, j ))<>0 then
+		      if Bitwise.BitAnd( flags, RealBasic.Pow( 2, j ))<>0 then
 		        flagtext.Append   NthField( kFlagList, ",", j + 2 )
 		      end if
 		    next
