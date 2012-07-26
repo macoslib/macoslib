@@ -92,7 +92,7 @@ Protected Module FSEventModule
 		    redim flagtext( -1 )
 		    
 		    for j as integer = 0 to 24
-		      if Bitwise.BitAnd( flags, REALbasic.Pow( 2, j ))<>0 then
+		      if Bitwise.BitAnd( flags, Pow( 2, j ))<>0 then
 		        flagtext.Append   NthField( kFlagList, ",", j + 2 )
 		      end if
 		    next
@@ -137,9 +137,6 @@ Protected Module FSEventModule
 	#tag Method, Flags = &h1
 		Protected Sub Stop()
 		  
-		  soft declare sub FSEventStreamStop lib CarbonLib (streamref as integer)
-		  
-		  FSEventStreamStop   myStreamRef
 		End Sub
 	#tag EndMethod
 

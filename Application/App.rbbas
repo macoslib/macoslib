@@ -256,6 +256,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FSEventStreamMenu() As Boolean Handles FSEventStreamMenu.Action
+			FSEventStreamExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function IconServicesShowIconBrowser() As Boolean Handles IconServicesShowIconBrowser.Action
 			MacIconWindow.Show
 			return true

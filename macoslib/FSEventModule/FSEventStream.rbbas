@@ -1,10 +1,38 @@
 #tag Class
 Class FSEventStream
-	#tag Method, Flags = &h0
-		Sub Constructor(ref as integer)
-		  me._reference = ref
+	#tag Method, Flags = &h21
+		Private Sub Constructor()
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(ref as integer, opts as integer)
+		  me._reference = ref
+		  me._options = opts
+		  
+		  if gFSEventStreams=nil then
+		    gFSEventStreams = new Dictionary
+		  end if
+		  
+		  gFSEventStreams.Value( me.Reference ) = new WeakRef( me )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromListOfFolderItems(forFolders() as FolderItem, options as integer, latencyInSeconds as double, fromID as UInt64 = 0) As FSEventStream
+		  
+		  #if TargetMacOS
+		    dim paths() as string
+		    
+		    for i as integer=0 to forFolders.Ubound
+		      paths.Append  forFolders( i ).POSIXPath
+		    next
+		    
+		    return  FSEventStream.CreateFromListOfPaths( paths, options, latencyInSeconds, fromID )
+		    
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -22,9 +50,44 @@ Class FSEventStream
 		    return  nil
 		  end if
 		  
-		  return   new FSEventStream( myStreamRef )
+		  return   new FSEventStream( myStreamRef, options )
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function FindInstance(ref as integer) As FSEventStream
+		  
+		  dim wr as WeakRef
+		  
+		  if gFSEventStreams<>nil then
+		    wr = gFSEventStreams.Lookup( ref, nil )
+		    
+		    if wr<>nil then
+		      return   FSEventStream( wr.Value )
+		    end if
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FlushAsync()
+		  #if TargetMacOS
+		    soft declare sub FSEventStreamFlushAsync lib CarbonLib (streamref as integer)
+		    
+		    FSEventStreamFlushAsync   me.Reference
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FlushSync()
+		  #if TargetMacOS
+		    soft declare sub FSEventStreamFlushSync lib CarbonLib (streamref as integer)
+		    
+		    FSEventStreamFlushSync   me.Reference
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -72,7 +135,7 @@ Class FSEventStream
 		    redim flagtext( -1 )
 		    
 		    for j as integer = 0 to 24
-		      if Bitwise.BitAnd( flags, REALbasic.Pow( 2, j ))<>0 then
+		      if Bitwise.BitAnd( flags, Pow( 2, j ))<>0 then
 		        flagtext.Append   NthField( kFlagList, ",", j + 2 )
 		      end if
 		    next
@@ -119,7 +182,11 @@ Class FSEventStream
 		  #if TargetMacOS
 		    soft declare sub FSEventStreamScheduleWithRunLoop lib CarbonLib (streamRef as integer, runLoop as Ptr, runLoopMode as CFStringRef )
 		    
-		    FSEventStreamScheduleWithRunLoop   me.Reference, CFRunLoop.Current.Reference, "kCFRunLoopDefaultMode"
+		    if me.State = kStateInitialized then
+		      FSEventStreamScheduleWithRunLoop   me.Reference, CFRunLoop.Current.Reference, "kCFRunLoopDefaultMode"
+		    else
+		      raise  new macoslibException( "Could not schedule FSEventStream. Incompatible state" )
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -129,7 +196,11 @@ Class FSEventStream
 		  #if TargetMacOS
 		    soft declare function FSEventStreamStart lib CarbonLib (streamref as integer) as Boolean
 		    
-		    return   FSEventStreamStart( me.Reference )
+		    if me.State = kStateScheduled then
+		      return   FSEventStreamStart( me.Reference )
+		    else
+		      raise new macoslibException( "FSEventStream cannot be started. Incompatible state." )
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
@@ -139,11 +210,25 @@ Class FSEventStream
 		  #if TargetMacOS
 		    soft declare sub FSEventStreamStop lib CarbonLib (streamref as integer)
 		    
-		    FSEventStreamStop   myStreamRef
+		    if me.State = kStateStarted then
+		      FSEventStreamStop   me.Reference
+		      _State = kStateStopped
+		    else
+		      raise new macoslibException( "Cannot stop FSEventStream. Incompatible state." )
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
 
+
+	#tag Hook, Flags = &h0
+		Event FilesystemModified(alteredPaths() as string, eventFlags() as integer, eventIDs() as UInt64)
+	#tag EndHook
+
+
+	#tag Property, Flags = &h21
+		Private Shared gFSEventStreams As Dictionary
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -162,6 +247,10 @@ Class FSEventStream
 		#tag EndGetter
 		State As Integer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private _options As Integer
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private _Reference As Integer

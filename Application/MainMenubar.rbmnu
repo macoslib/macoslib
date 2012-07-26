@@ -1085,6 +1085,19 @@ Begin Menu MainMenubar
             AutoEnable = True
          End
       End
+      Begin MenuItem CoreServicesMenu
+         SpecialMenu = 0
+         Text = "Core Services"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem FSEventStreamMenu
+            SpecialMenu = 0
+            Text = "FSEvent stream"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
       Begin MenuItem ExamplesCoreGraphics
          SpecialMenu = 0
          Text = "Core Graphics"
