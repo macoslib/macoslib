@@ -16,6 +16,22 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CFPropertyListValue() As CoreFoundation.CFPropertyList
+		  #if TargetMacOS
+		    
+		    dim cf as CoreFoundation.CFType = CoreFoundation.CFTypeFromVariant( me.VariantValue )
+		    return CoreFoundation.CFPropertyList( cf )
+		    
+		  #else
+		    
+		    return nil
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Child(childIndex As Integer) As MacPListBrowser
 		  pRaiseErrorIfNotArray( "Child with index" )
 		  
@@ -27,6 +43,7 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		Sub Child(childIndex As Integer, Assigns value As Variant)
+		  if value = nil then raise new NilObjectException
 		  pRaiseErrorIfNotArray( "Child with index" )
 		  
 		  dim v() as variant = zValue
@@ -83,6 +100,7 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		Sub Child(childKey As String, Assigns value As Variant)
+		  if value = nil then raise new NilObjectException
 		  pRaiseErrorIfNotDictionary( "Child with key" )
 		  
 		  if childKey.LenB = 0 then pRaiseError( "Can't assign an empty key." )
@@ -102,7 +120,7 @@ Protected Class MacPListBrowser
 		      dim oldKey as string = plist.Key
 		      if oldKey <> childKey and dict.HasKey( oldKey ) then dict.Remove oldKey
 		      
-		    else // Belongs to another MacPListBrowser so disconnect it 
+		    else // Belongs to another MacPListBrowser so disconnect it
 		      plist.Isolate
 		      
 		    end if
@@ -218,6 +236,8 @@ Protected Class MacPListBrowser
 		  // Private constuctor for children of a parent.
 		  
 		  #if TargetMacOS
+		    
+		    if myvalue = nil then raise new NilObjectException
 		    
 		    if myValue IsA MacPListBrowser then
 		      zValue = MacPListBrowser( myValue ).VariantValue
@@ -428,6 +448,22 @@ Protected Class MacPListBrowser
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function PListStringValue() As String
+		  dim r as string
+		  
+		  #if TargetMacOS
+		    
+		    dim plist as CoreFoundation.CFPropertyList = me.CFPropertyListValue
+		    r = plist.XMLValue
+		    
+		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub pRaiseError(msg As String)
 		  dim err as new RuntimeException
@@ -523,8 +559,6 @@ Protected Class MacPListBrowser
 		  else
 		    
 		    select case v.Type
-		    case Variant.TypeNil
-		      return ValueType.IsNil
 		    case Variant.TypeObject
 		      if v IsA Dictionary then
 		        return ValueType.IsDictionary
@@ -616,22 +650,6 @@ Protected Class MacPListBrowser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function ValueAsCFPropertyList() As CoreFoundation.CFPropertyList
-		  #if TargetMacOS
-		    
-		    dim cf as CoreFoundation.CFType = CoreFoundation.CFTypeFromVariant( me.VariantValue )
-		    return CoreFoundation.CFPropertyList( cf )
-		    
-		  #else
-		    
-		    return nil
-		    
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
 
 	#tag Note, Name = Legal
 		This class was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
@@ -657,7 +675,7 @@ Protected Class MacPListBrowser
 		
 		This class is in ongoing development and is meant to make working with plists easier.
 		Create a new instance by assigning a valid value to it. Valid values are
-		number, string, date, boolean, MemoryBlock (data), array, dictionary, or nil.
+		number, string, date, boolean, MemoryBlock (data), array, or dictionary.
 		
 		dim a() as variant
 		dim p1 as new MacPListBrowser( a )
@@ -742,7 +760,7 @@ Protected Class MacPListBrowser
 		#tag Getter
 			Get
 			  if zParent is nil then return nil
-			  if zParent.Value is nil then
+			  if zParent.value = nil then
 			    zParent = nil
 			    zParentIndex = nil
 			    return nil
@@ -843,7 +861,9 @@ Protected Class MacPListBrowser
 		#tag EndGetter
 		#tag Setter
 			Set
-			  if not pIsValidValue( value ) then 
+			  if value = nil then raise new NilObjectException
+			  
+			  if not pIsValidValue( value ) then
 			    pRaiseError "This is not an acceptable type for a plist."
 			  end if
 			  
@@ -858,16 +878,6 @@ Protected Class MacPListBrowser
 			    zValue = value
 			    zValueType = pValueTypeOfVariant( value )
 			  end if
-			  
-			  '// Keep the parent in sync
-			  'dim p as MacPListBrowser = me.Parent
-			  'if p <> nil then
-			  'if p.Type = ValueType.IsArray then
-			  'p.Child( zParentIndex.IntegerValue ) = zValue
-			  'else
-			  'p.Child( zParentIndex.StringValue ) = zValue
-			  'end if
-			  'end if
 			  
 			End Set
 		#tag EndSetter
@@ -896,8 +906,7 @@ Protected Class MacPListBrowser
 
 
 	#tag Enum, Name = ValueType, Type = Integer, Flags = &h0
-		IsNil
-		  IsDictionary
+		IsDictionary
 		  IsArray
 		  IsString
 		  IsDate
