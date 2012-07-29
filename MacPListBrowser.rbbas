@@ -4,127 +4,120 @@ Protected Class MacPListBrowser
 		Sub AppendChild(value As Variant)
 		  // Appends a child to an array.
 		  
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotArray( "AppendChild" )
-		    
-		    dim newIndex as integer = me.Count
-		    dim v() as Variant = zValue
-		    redim v( newIndex )
-		    zValue = v
-		    me.Child( newIndex ) = value // Do it this way so we don't have to recheck the value
-		    
-		  #else
-		    
-		    #pragma unused value
-		    
-		  #endif
+		  pRaiseErrorIfNotArray( "AppendChild" )
+		  
+		  dim newIndex as integer = me.Count
+		  dim v() as Variant = zValue
+		  redim v( newIndex )
+		  zValue = v
+		  me.Child( newIndex ) = value // Do it this way so we don't have to recheck the value
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ArrayValues() As MacPListBrowser()
-		  dim r() As MacPListBrowser
+		Function Child(childIndex As Integer) As MacPListBrowser
+		  pRaiseErrorIfNotArray( "Child with index" )
 		  
-		  #if TargetMacOS
-		    
-		    if zValueType <> ValueType.IsArray then pRaiseError "ArrayValues can only be used with an array."
-		    
-		    dim v() as Variant = zValue
-		    dim lastIndex as integer = v.Ubound
-		    redim r( lastIndex )
-		    for i as integer = 0 to lastIndex
-		      r( i ) = v( i )
-		    next
-		    
-		  #endif
-		  
-		  return r
+		  dim v() as Variant = zValue
+		  return v( childIndex )
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Child(index As Integer) As MacPListBrowser
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotArray( "Child with index" )
-		    
-		    dim v() as Variant = zValue
-		    return v( index )
-		    
-		  #else
-		    
-		    #pragma unused index
-		    
-		  #endif
+		Sub Child(childIndex As Integer, Assigns value As Variant)
+		  pRaiseErrorIfNotArray( "Child with index" )
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Child(index As Integer, Assigns value As Variant)
-		  #if TargetMacOS
+		  dim v() as variant = zValue
+		  if childIndex < 0 or childIndex > v.UBound then
+		    raise new OutOfBoundsException
+		  end if
+		  
+		  if value IsA MacPListBrowser then // Assign the given MacPListBrowser as my child
 		    
-		    pRaiseErrorIfNotArray( "Child with index" )
+		    dim plist as MacPListBrowser = value
+		    if plist is me then pRaiseError( "Can't assign a MacPListBrowser as its own child." )
+		    
+		    dim itsParent as MacPListBrowser = plist.Parent
+		    if itsParent is nil then
+		      // Do nothing
+		      
+		    elseif itsParent is me then
+		      dim oldIndex as integer = plist.Index
+		      if oldIndex <> childIndex then
+		        v( oldIndex ) = new MacPListBrowser( plist.VariantValue, me, oldIndex ) // Make a copy
+		      end if
+		      
+		    else // Its parent is not me so remove it from its parent
+		      plist.Isolate
+		      
+		    end if
+		    
+		    plist.pSetParent( me, childIndex ) // Change the parent of the given MacPListBrowser
+		    v( childIndex ) = plist
+		    zValue = v
+		    
+		  else
 		    
 		    if not pIsValidValue( value ) then
 		      pRaiseError "Only a valid type (dictionary, array, string, number, boolean, date, or data) can be assigned to an array."
 		    end if
 		    
-		    dim v() as variant = zValue
-		    v( index ) = new MacPListBrowser( value, self, index )
+		    v( childIndex ) = new MacPListBrowser( value, self, childIndex )
 		    
-		  #else
-		    
-		    #pragma unused index
-		    #pragma unused value
-		    
-		  #endif
+		  end if
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Child(k As String) As MacPListBrowser
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotDictionary( "Child with key" )
-		    
-		    dim dict as Dictionary = zValue
-		    return dict.Value( k )
-		    
-		  #else
-		    
-		    #pragma unused key
-		    
-		  #endif
+		Function Child(childKey As String) As MacPListBrowser
+		  pRaiseErrorIfNotDictionary( "Child with key" )
+		  
+		  dim dict as Dictionary = zValue
+		  return dict.Value( childKey )
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Child(k As String, Assigns value As Variant)
-		  #if TargetMacOS
+		Sub Child(childKey As String, Assigns value As Variant)
+		  pRaiseErrorIfNotDictionary( "Child with key" )
+		  
+		  if childKey.LenB = 0 then pRaiseError( "Can't assign an empty key." )
+		  
+		  dim dict as Dictionary = zValue
+		  
+		  if value IsA MacPListBrowser then // Assign the given MacPListBrowser as my child
 		    
-		    pRaiseErrorIfNotDictionary( "Child with key" )
+		    dim plist as MacPListBrowser = value
+		    if plist is me then pRaiseError( "Can't assign a MacPListBrowser as its own child." )
 		    
-		    if k.LenB = 0 then pRaiseError( "Can't assign an empty key." )
+		    dim itsParent as MacPListBrowser = plist.Parent
+		    if itsParent is nil then
+		      // Do nothing
+		      
+		    elseif itsParent is me then
+		      dim oldKey as string = plist.Key
+		      if oldKey <> childKey and dict.HasKey( oldKey ) then dict.Remove oldKey
+		      
+		    else // Belongs to another MacPListBrowser so disconnect it 
+		      plist.Isolate
+		      
+		    end if
+		    
+		    plist.pSetParent( me, childKey ) // Change the parent of the given MacPListBrowser
+		    dict.Value( childKey ) = plist
+		    
+		  else
 		    
 		    if not pIsValidValue( value ) then
 		      pRaiseError "Only a valid type (dictionary, array, string, number, boolean, date, or data) can be assigned to a dictionary."
 		    end if
 		    
-		    dim dict as Dictionary = zValue
-		    dict.Value( k ) = new MacPListBrowser( value, self, k )
-		    
-		  #else
-		    
-		    #pragma unused index
-		    #pragma unused value
-		    
-		  #endif
+		    dict.Value( childKey ) = new MacPListBrowser( value, self, childKey )
+		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -136,22 +129,13 @@ Protected Class MacPListBrowser
 		  
 		  dim r() as MacPListBrowser
 		  
-		  #if TargetMacOS
-		    
-		    if recursive then
-		      pRaiseErrorIfNotArrayOrDictionary( "ChildrenContainingKey" )
-		    else
-		      pRaiseErrorIfNotDictionary( "ChildrenContainingKey, when recursive is ""false""," )
-		    end if
-		    
-		    pChildrenContainingKey( findKey, recursive, r )
-		    
-		  #else
-		    
-		    #pragma unused findKey
-		    #pragma unused recursive
-		    
-		  #endif
+		  if recursive then
+		    pRaiseErrorIfNotArrayOrDictionary( "ChildrenContainingKey" )
+		  else
+		    pRaiseErrorIfNotDictionary( "ChildrenContainingKey, when recursive is ""false""," )
+		  end if
+		  
+		  pChildrenContainingKey( findKey, recursive, r )
 		  
 		  return r
 		  
@@ -162,20 +146,26 @@ Protected Class MacPListBrowser
 		Function ChildrenKeys() As String()
 		  dim r() as string
 		  
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotDictionary( "ChildrenKeys" )
-		    
-		    dim dict as Dictionary = zValue
-		    dim keys() as variant = dict.Keys
-		    redim r( keys.Ubound )
-		    for i as integer = 0 to keys.Ubound
-		      r( i ) = keys( i ).StringValue
-		    next
-		    
-		  #endif
+		  pRaiseErrorIfNotDictionary( "ChildrenKeys" )
+		  
+		  dim dict as Dictionary = zValue
+		  dim keys() as variant = dict.Keys
+		  redim r( keys.Ubound )
+		  for i as integer = 0 to keys.Ubound
+		    r( i ) = keys( i ).StringValue
+		  next
 		  
 		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Clone() As MacPListBrowser
+		  // Convenience method to clone me to another MacPListBrowser.
+		  // Just calls new.
+		  
+		  return new MacPListBrowser( me )
 		  
 		End Function
 	#tag EndMethod
@@ -215,9 +205,17 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(myValue As Variant, myParent As MacPListBrowser = nil, myParentIndex As Variant = nil)
+		Sub Constructor(myValue As Variant)
+		  // Public interface for the constructor
+		  
+		  me.Constructor( myValue, nil, nil )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub Constructor(myValue As Variant, myParent As MacPListBrowser, myParentIndex As Variant)
 		  // Private constuctor for children of a parent.
-		  // From a public call, myValue cannot be a MacPListBrowser, so if it is, that had to come from a parent.
 		  
 		  #if TargetMacOS
 		    
@@ -242,11 +240,7 @@ Protected Class MacPListBrowser
 		    
 		    me.VariantValue = myValue // Convert it o MacPListBrowser objects as needed
 		    
-		    if myParent <> nil then
-		      dim w as new WeakRef( myParent )
-		      zParent = w
-		      zParentIndex = myParentIndex
-		    end if
+		    pSetParent( myParent, myParentIndex )
 		    
 		  #else
 		    
@@ -315,37 +309,79 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HasKey(k As String) As Boolean
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotDictionary( "HasKey" )
-		    dim dict as Dictionary = zValue
-		    return dict.HasKey( k )
-		    
-		  #else
-		    
-		    #pragma unused k
-		    
-		  #endif
+		Function HasKey(childKey As String) As Boolean
+		  pRaiseErrorIfNotDictionary( "HasKey" )
+		  
+		  dim dict as Dictionary = zValue
+		  return dict.HasKey( childKey )
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function pArrayType() As ValueType
-		  dim r as ValueType = ValueType.IsUnknown
+	#tag Method, Flags = &h0
+		Function Index() As Integer
+		  dim r as integer
 		  
-		  #if TargetMacOS
+		  dim p as MacPListBrowser = me.Parent
+		  if p <> nil and p.Type = ValueType.IsArray then
+		    r = zParentIndex.IntegerValue
 		    
-		    pRaiseErrorIfNotArray( "ArrayType" )
+		  else
+		    r = -1 // Not part of an array
 		    
-		    if me.Count <> 0 then
-		      r = pValueTypeOfVariant( me.Child( 0 ).VariantValue )
-		    end if
-		    
-		  #endif
+		  end if
 		  
 		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsArray() As Boolean
+		  return zValueType = ValueType.IsArray
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsDictionary() As Boolean
+		  return zValueType = ValueType.IsDictionary
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Isolate()
+		  // Turns this MacPListBrowser into its own root.
+		  
+		  dim myParent as MacPListBrowser = me.Parent
+		  if myParent <> nil then
+		    if myParent.Type = ValueType.IsDictionary then
+		      dim k as string = zParentIndex.StringValue
+		      myParent.RemoveChild( k )
+		    else // isArray
+		      dim i as integer = zParentIndex.IntegerValue
+		      myParent.RemoveChild( i )
+		    end if
+		    
+		    // RemoveChild will set the parent to nil
+		    
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsValidIndex(i As Integer) As Boolean
+		  // Like HasKey but for arrays
+		  
+		  pRaiseErrorIfNotArray( "IsValidIndex" )
+		  
+		  if i < 0 or i > me.UBound then
+		    return false
+		  else
+		    return true
+		  end if
 		  
 		End Function
 	#tag EndMethod
@@ -354,67 +390,38 @@ Protected Class MacPListBrowser
 		Protected Sub pChildrenContainingKey(findKey As String, recursive As Boolean, appendTo() As MacPListBrowser)
 		  // Recursive method used to fill in the appendTo array with children matching the given key
 		  
-		  #if TargetMacOS
+		  if zValueType = ValueType.IsDictionary then
 		    
-		    if zValueType = ValueType.IsDictionary then
-		      
-		      dim k() as String = me.ChildrenKeys
-		      for each thisKey as string in k
-		        if thisKey.InStr( findKey ) <> 0 then appendTo.Append( me.Child( thisKey ) )
-		        if recursive then
-		          dim thisChild as MacPListBrowser = me.Child( thisKey )
-		          thisChild.pChildrenContainingKey( findKey, recursive, appendTo )
-		        end if
-		      next
-		      
-		    elseif recursive and zValueType = ValueType.IsArray then
-		      
-		      dim lastIndex as integer = me.Count - 1
-		      for i as integer = 0 to lastIndex
-		        dim thisChild as MacPListBrowser = me.Child( i )
+		    dim k() as String = me.ChildrenKeys
+		    for each thisKey as string in k
+		      if thisKey.InStr( findKey ) <> 0 then appendTo.Append( me.Child( thisKey ) )
+		      if recursive then
+		        dim thisChild as MacPListBrowser = me.Child( thisKey )
 		        thisChild.pChildrenContainingKey( findKey, recursive, appendTo )
-		      next
-		      
-		    end if
+		      end if
+		    next
 		    
-		  #else
+		  elseif recursive and zValueType = ValueType.IsArray then
 		    
-		    #pragma unused findKey
-		    #pragma unused recursive
-		    #pragma unused appendTo
+		    dim lastIndex as integer = me.Count - 1
+		    for i as integer = 0 to lastIndex
+		      dim thisChild as MacPListBrowser = me.Child( i )
+		      thisChild.pChildrenContainingKey( findKey, recursive, appendTo )
+		    next
 		    
-		  #endif
+		  end if
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function pIsValidValue(ByRef value As Variant) As Boolean
-		  // Validates that the value given is acceptible.
-		  // Also changes value to the contents of the given object as needed.
-		  // MacPListBrowser will be changed to their value.
+		  // Validates that the value given is acceptable.
 		  
 		  dim r as boolean
 		  
-		  #if TargetMacOS
-		    
-		    if value IsA MacPListBrowser then
-		      dim plist as MacPListBrowser = value
-		      value = plist.VariantValue // Extract its value
-		      r = true // Assumed true, else it couldn't have been created in the first place
-		      
-		    else
-		      
-		      dim theType as ValueType = pValueTypeOfVariant( value )
-		      if theType <> ValueType.IsUnknown then r = true
-		      
-		    end if
-		    
-		  #else
-		    
-		    #pragma unused value
-		    
-		  #endif
+		  dim theType as ValueType = pValueTypeOfVariant( value )
+		  if theType <> ValueType.IsUnknown then r = true
 		  
 		  return r
 		  
@@ -457,6 +464,26 @@ Protected Class MacPListBrowser
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub pSetParent(myParent As MacPListBrowser, myParentIndex As Variant)
+		  // Private method that lets one MacPListBrowser set the parent of another
+		  
+		  if myParent <> nil then
+		    
+		    dim w as new WeakRef( myParent )
+		    zParent = w
+		    zParentIndex = myParentIndex
+		    
+		  else
+		    
+		    zParent = nil
+		    myParentIndex = nil
+		    
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub pSetValueFromArray(sourceArr() As Variant)
 		  dim newArr() as Variant
@@ -485,28 +512,6 @@ Protected Class MacPListBrowser
 		  zValueType = ValueType.IsDictionary
 		  
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function pValueTypeFromVariantType(t As Integer) As ValueType
-		  
-		  select case t
-		  case Variant.TypeNil
-		    return ValueType.IsNil
-		  case Variant.TypeInteger, Variant.TypeSingle, Variant.TypeDouble, Variant.TypeLong
-		    return ValueType.IsNumber
-		  case Variant.TypeString
-		    return ValueType.IsString
-		  case Variant.TypeDate
-		    return ValueType.IsDate
-		  case Variant.TypeBoolean
-		    return ValueType.IsBoolean
-		  else
-		    return ValueType.IsUnknown // Really shouldn't happen
-		  end
-		  
-		  
-		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -539,7 +544,7 @@ Protected Class MacPListBrowser
 		    case Variant.TypeBoolean
 		      return ValueType.IsBoolean
 		    else
-		      return ValueType.IsUnknown // Really shouldn't happen
+		      return ValueType.IsUnknown // Really shouldn't get here, but just in case
 		    end
 		  end if
 		  
@@ -547,43 +552,31 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveChild(index As Integer)
+		Sub RemoveChild(childIndex As Integer)
 		  // Return a child with the given index.
 		  
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotArray( "RemoveChild with index" )
-		    
-		    dim v() as variant = zValue
-		    v.Remove index
-		    
-		  #else
-		    
-		    #pragma unused index
-		    
-		  #endif
+		  pRaiseErrorIfNotArray( "RemoveChild with index" )
+		  
+		  dim v() as variant = zValue
+		  dim plist as MacPListBrowser = v( childIndex )
+		  plist.pSetParent( nil, nil ) // Remove the parent in case there is a reference to it elsewhere
+		  v.Remove childIndex
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveChild(k As String)
+		Sub RemoveChild(childKey As String)
 		  // Return a child with the given key.
 		  
-		  #if TargetMacOS
-		    
-		    pRaiseErrorIfNotDictionary( "RemoveChild with key" )
-		    
-		    if k.LenB = 0 then pRaiseError( "No key specified." )
-		    
-		    dim dict as Dictionary = zValue
-		    dict.Remove k
-		    
-		  #else
-		    
-		    #pragma unused key
-		    
-		  #endif
+		  pRaiseErrorIfNotDictionary( "RemoveChild with key" )
+		  
+		  if childKey.LenB = 0 then pRaiseError( "No key specified." )
+		  
+		  dim dict as Dictionary = zValue
+		  dim plist as MacPListBrowser = dict.Value( childKey )
+		  plist.pSetParent( nil, nil ) // Remove the parent in case there is a reference to it elsewhere
+		  dict.Remove childKey
 		  
 		End Sub
 	#tag EndMethod
@@ -607,6 +600,18 @@ Protected Class MacPListBrowser
 		  #endif
 		  
 		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Ubound() As Integer
+		  // Returns the Ubound if this is an array
+		  
+		  pRaiseErrorIfNotArray( "Ubound" )
+		  
+		  dim v() as Variant = zValue
+		  return v.Ubound
 		  
 		End Function
 	#tag EndMethod
@@ -651,80 +656,82 @@ Protected Class MacPListBrowser
 	#tag Note, Name = Usage
 		
 		This class is in ongoing development and is meant to make working with plists easier.
-		Create a new instance by assigning like a dictionary or array to it:
-		
-		dim b1 as new MacPListBrowser( new Dictionary )
+		Create a new instance by assigning a valid value to it. Valid values are
+		number, string, date, boolean, MemoryBlock (data), array, dictionary, or nil.
 		
 		dim a() as variant
-		dim b2 as new MacPListBrowser( a )
+		dim p1 as new MacPListBrowser( a )
 		
 		You can also use
-		dim b3 as new MacPListBrowser()
+		dim p2 as new MacPListBrowser()
 		
 		to start with an empty dictionary, or
 		
-		dim b4 as new MacPListBrowser( MacPListBrowser.ValueType.IsArray )
+		dim p3 as new MacPListBrowser( MacPListBrowser.ValueType.IsArray )
 		
 		to start with an empty array.
 		
-		You can also supply a string, date, number, memoryblock (for data), or boolean, although these are less useful.
-		
-		Finally, you can supply a plist as a string, a FolderItem that contains a plist, or another MacPListBrowser.
+		You can create a new instance from an existing PropertyList string using the Shared Method CreateFromPListString,
+		or from a FolderItem using CreateFromPListFile or just new MacPListBrowser( f ). If the FolderItem contains
+		a plist, it will be interpreted. Otherwise, its contents will be added as a string.
 		
 		You can extract the value of the plist by using VariantValue. If the value is an array or dictionary, you can use
-		Child( index ) or Child( key ) respectively to get or assign the value of an element. These values are returns
+		Child( childIndex ) or Child( key ) respectively to get or assign the value of an element. These values are returns
 		as MacPListBrowser instances.
+		
+		You can move children around by assigning one child to another, either within the same plist or between plists.
+		If you want to make a copy of a plist, use new MacPListBrowser( originalPList ) or the Clone method.
+		
+		DO NOT LOSE A REFERENCE TO THE ROOT PLIST. Because WeakRefs are used to keep track of parents, you can 
+		not get back the root plist if you lose a reference to it. For example:
+		
+		plist is a root MacPListBrowser
+		plist = plist.Child( 1 )
+		// Later
+		plist = plist.Parent // Will be nil at this point
+		
+		You can remove a plist from another plist using Isolate.
+		
+		plist = root.Child( 0 )
+		plist.Isolate
+		
+		At this point,root.Child( 0 ) will be deleted and plist will be a standalone plist.
 	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if TargetMacOS
+			  dim r as string
+			  
+			  dim p as MacPListBrowser = me.Parent
+			  if p <> nil and p.Type = ValueType.IsDictionary then
+			    r = zParentIndex.StringValue
 			    
-			    dim r as string
+			  else
+			    r = "" // Return an empty string
 			    
-			    dim p as MacPListBrowser = me.Parent
-			    if p <> nil and p.Type = ValueType.IsDictionary then
-			      r = zParentIndex.StringValue
-			      
-			    else
-			      pRaiseError "This value doesn't appear to be part of a dictionary."
-			      
-			    end if
-			    
-			    return r
-			    
-			  #endif
+			  end if
+			  
+			  return r
 			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if TargetMacOS
+			  if value.LenB = 0 then pRaiseError( "Can't assign an empty key." )
+			  
+			  dim myParent as MacPListBrowser = me.Parent
+			  if myParent <> nil and myParent.Type = ValueType.IsDictionary then
+			    if myParent.HasKey( value ) then pRaiseError( "The key """ + value + """ already exists." )
 			    
-			    if value.LenB = 0 then pRaiseError( "Can't assign an empty key." )
+			    dim oldKey as string = zParentIndex.StringValue
+			    myParent.RemoveChild( oldKey )
+			    myParent.Child( value ) = me // Assign it new
 			    
-			    dim p as MacPListBrowser = me.Parent
-			    if p <> nil and p.Type = ValueType.IsDictionary then
-			      if p.HasKey( value ) then pRaiseError( "The key """ + value + """ already exists." )
-			      
-			      dim oldKey as string = zParentIndex.StringValue
-			      dim v as MacPListBrowser = me // Save a reference, just in case
-			      #pragma unused v
-			      p.RemoveChild( oldKey )
-			      p.Child( value ) = zValue // Assign it new
-			      zParentIndex = value // Record the new key
-			      
-			    else // Not part of a dictionary
-			      pRaiseError "This MacPListBrowser is not a value within a dictionary."
-			    end if
-			    
-			  #else
-			    
-			    #pragma unused value
-			    
-			  #endif
+			  else // Not part of a dictionary
+			    pRaiseError "This MacPListBrowser is not a value within a dictionary."
+			  end if
 			  
 			End Set
 		#tag EndSetter
@@ -734,17 +741,56 @@ Protected Class MacPListBrowser
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  if zParent is nil or zParent.Value is nil then
+			  if zParent is nil then return nil
+			  if zParent.Value is nil then
+			    zParent = nil
+			    zParentIndex = nil
 			    return nil
-			  else
-			    dim o as Object = zParent.Value
-			    dim p as MacPListBrowser = MacPListBrowser( o )
-			    return p
 			  end if
+			  
+			  dim o as Object = zParent.Value
+			  dim myParent as MacPListBrowser = MacPListBrowser( o )
+			  
+			  // Make sure this hasn't gotten unlinked already
+			  dim c as MacPListBrowser
+			  if myParent.Type = ValueType.IsDictionary then
+			    dim k as string = zParentIndex.StringValue
+			    if myParent.HasKey( k ) then c = myParent.Child( k )
+			  elseif myParent.Type = ValueType.IsArray then
+			    dim i as integer = zParentIndex.IntegerValue
+			    if myParent.IsValidIndex( i ) then c = myParent.Child( i )
+			  end if
+			  
+			  if not( c is me ) then // No match
+			    zParent = nil // Set the parent to nil
+			    zParentIndex = nil
+			    myParent = nil
+			  end if
+			  
+			  return myParent
 			  
 			End Get
 		#tag EndGetter
 		Parent As MacPlistBrowser
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  // Returns the root MacPListBrowser
+			  
+			  dim root As MacPListBrowser = me
+			  dim oneUp as MacPListBrowser = root.Parent
+			  while oneUp <> nil
+			    root = oneUp
+			    oneUp = root.Parent
+			  wend
+			  
+			  return root
+			  
+			End Get
+		#tag EndGetter
+		Root As MacPListBrowser
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -797,7 +843,7 @@ Protected Class MacPListBrowser
 		#tag EndGetter
 		#tag Setter
 			Set
-			  if not pIsValidValue( value ) then // Drills down into the value to get the real value (contents of a MacPLIstBrowser, if needed)
+			  if not pIsValidValue( value ) then 
 			    pRaiseError "This is not an acceptable type for a plist."
 			  end if
 			  
@@ -834,6 +880,10 @@ Protected Class MacPListBrowser
 
 	#tag Property, Flags = &h21
 		Private zParentIndex As Variant
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private zRoot As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
