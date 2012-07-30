@@ -1,5 +1,6 @@
 #tag Class
 Class MacFSEvent
+Implements DebugReportFormatter
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
 		  
@@ -14,6 +15,42 @@ Class MacFSEvent
 		  _eventID = ID
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function DebugReportRepresentation(formatSpec as string = "") As variant
+		  // Part of the DebugReportFormatter interface.
+		  
+		  #if TargetMacOS
+		    dim textFlags() as string = FSEventModule.TextConstantsFromFlags( me.Flags )
+		    
+		    return   "MacFSEvent: { path: " + me.Path + EndOfLine + "eventID: " + Str( eventID, "#####################" ) + EndOfLine + "Flags: " + Hex( Flags, 8 ) + _
+		    " ( " + Join( textFlags, ", " ) + " )"
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetFolderItem(onlyIfFolderItemExists as Boolean = false) As FolderItem
+		  //# Return the FolderItem corresponding to Path
+		  
+		  //@ If you set onlyIfFolderItemExists then this method will return nil if the FolderItem does not exist
+		  
+		  #if TargetMacOS
+		    dim f as FolderItem = new FolderItem( Path, FolderItem.PathTypeShell )
+		    
+		    if f<>nil then
+		      if onlyIfFolderItemExists then
+		        if f.Exists then
+		          return  f
+		        end if
+		      else
+		        return  f
+		      end if
+		    end if
+		  #endif
+		  
+		End Function
 	#tag EndMethod
 
 
@@ -77,6 +114,11 @@ Class MacFSEvent
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Path"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

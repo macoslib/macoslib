@@ -1,11 +1,56 @@
 #tag Module
 Protected Module FSEventModule
-	#tag Property, Flags = &h21
-		Private myStreamRef As integer
-	#tag EndProperty
+	#tag Method, Flags = &h1
+		Protected Function CopyUUIDForDevice(dev as UInt32) As String
+		  
+		  #if TargetMacOS
+		    soft declare function FSEventsCopyUUIDForDevice lib CarbonLib ( dev as UInt32 ) as Ptr
+		    
+		    dim p as Ptr = FSEventsCopyUUIDForDevice( dev )
+		    if p<>nil then
+		      dim uuid as new CFUUID( p, false )
+		      
+		      return uuid.StringValue
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function FSEventsGetLastEventIdForDeviceBeforeTime(dev as Int32, beforeDate as Date) As UInt64
+		  #if TargetMacOS
+		    soft declare function FSEventsGetLastEventIdForDeviceBeforeTime lib CarbonLib (dev as Int32, time as double) as UInt64
+		    
+		    return  FSEventsGetLastEventIdForDeviceBeforeTime( dev, beforeDate.AsCFAbsoluteTime )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function TextConstantsFromFlags(flags as Int32) As string()
+		  
+		  #if TargetMacOS
+		    if flags = 0 then
+		      return  Array( "kFSEventStreamEventFlagNone" )
+		    end if
+		    
+		    dim flagtext() as string
+		    
+		    //What an awful implementation !
+		    for j as integer = 0 to 24
+		      if Bitwise.BitAnd( flags, RealBasic.Pow( 2, j ))<>0 then
+		        flagtext.Append   NthField( kFlagList, ",", j + 2 )
+		      end if
+		    next
+		    
+		    return  flagtext
+		  #endif
+		End Function
+	#tag EndMethod
 
 
-	#tag Constant, Name = kFlagList, Type = String, Dynamic = False, Default = \"kFSEventStreamEventFlagNone\x2CkFSEventStreamEventFlagMustScanSubDirs\x2CkFSEventStreamEventFlagUserDropped\x2CkFSEventStreamEventFlagKernelDropped\x2CkFSEventStreamEventFlagEventIdsWrapped\x2CkFSEventStreamEventFlagHistoryDone\x2CkFSEventStreamEventFlagRootChanged\x2CkFSEventStreamEventFlagMount\x2CkFSEventStreamEventFlagUnmount\x2CkFSEventStreamEventFlagItemCreated\x2CkFSEventStreamEventFlagItemRemoved\x2CkFSEventStreamEventFlagItemInodeMetaMod\x2CkFSEventStreamEventFlagItemRenamed\x2CkFSEventStreamEventFlagItemModified\x2CkFSEventStreamEventFlagItemFinderInfoMod\x2CkFSEventStreamEventFlagItemChangeOwner\x2CkFSEventStreamEventFlagItemXattrMod\x2CkFSEventStreamEventFlagItemIsFile\x2CkFSEventStreamEventFlagItemIsDir\x2CkFSEventStreamEventFlagItemIsSymlink\r", Scope = Public
+	#tag Constant, Name = kFlagList, Type = String, Dynamic = False, Default = \"kFSEventStreamEventFlagNone\x2CkFSEventStreamEventFlagMustScanSubDirs\x2CkFSEventStreamEventFlagUserDropped\x2CkFSEventStreamEventFlagKernelDropped\x2CkFSEventStreamEventFlagEventIdsWrapped\x2CkFSEventStreamEventFlagHistoryDone\x2CkFSEventStreamEventFlagRootChanged\x2CkFSEventStreamEventFlagMount\x2CkFSEventStreamEventFlagUnmount\x2CkFSEventStreamEventFlagItemCreated\x2CkFSEventStreamEventFlagItemRemoved\x2CkFSEventStreamEventFlagItemInodeMetaMod\x2CkFSEventStreamEventFlagItemRenamed\x2CkFSEventStreamEventFlagItemModified\x2CkFSEventStreamEventFlagItemFinderInfoMod\x2CkFSEventStreamEventFlagItemChangeOwner\x2CkFSEventStreamEventFlagItemXattrMod\x2CkFSEventStreamEventFlagItemIsFile\x2CkFSEventStreamEventFlagItemIsDir\x2CkFSEventStreamEventFlagItemIsSymlink\r", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kFSEventStreamEventFlagEventIdsWrapped, Type = Double, Dynamic = False, Default = \"&h8", Scope = Public

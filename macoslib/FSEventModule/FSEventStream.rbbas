@@ -1,5 +1,6 @@
 #tag Class
 Class FSEventStream
+Implements DebugReportFormatter
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
 		  
@@ -7,15 +8,18 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(ref as integer, opts as integer)
-		  me._reference = ref
-		  me._options = opts
-		  
-		  if gFSEventStreams=nil then
-		    gFSEventStreams = new Dictionary
-		  end if
-		  
-		  gFSEventStreams.Value( me.Reference ) = new WeakRef( me )
+		Sub Constructor(ref as Ptr, opts as integer, relativeToDevice as FolderItem = nil)
+		  #if TargetMacOS
+		    me._reference = ref
+		    me._options = opts
+		    me._RelativeTo = relativeToDevice
+		    
+		    if gFSEventStreams=nil then
+		      gFSEventStreams = new Dictionary
+		    end if
+		    
+		    gFSEventStreams.Value( me.Reference ) = new WeakRef( me )
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -37,22 +41,78 @@ Class FSEventStream
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfPaths(forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
-		  
-		  soft declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as integer
-		  
-		  dim myStreamRef as integer
-		  
-		  dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
-		  
-		  myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options )
-		  
-		  if myStreamRef=0 then
-		    return  nil
-		  end if
-		  
-		  return   new FSEventStream( myStreamRef, options )
-		  
+		  #if TargetMacOS
+		    soft declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
+		    
+		    dim myStreamRef as Ptr
+		    dim result as FSEventStream
+		    
+		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
+		    
+		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options )
+		    
+		    if myStreamRef=nil then
+		      return  nil
+		    end if
+		    
+		    return   new FSEventStream( myStreamRef, options, nil )
+		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromListOfPathsForDevice(device as FolderItem, forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
+		  #if TargetMacOS
+		    soft declare function FSEventStreamCreateRelativeToDevice lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, device as UInt32, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
+		    
+		    dim myStreamRef as Ptr
+		    
+		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
+		    
+		    myStreamRef = FSEventStreamCreateRelativeToDevice( nil, AddressOf FSEventCallback, nil, device.UNIXDeviceID, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options )
+		    
+		    if myStreamRef=nil then
+		      return  nil
+		    end if
+		    
+		    return   new FSEventStream( myStreamRef, options, device )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function DebugReportRepresentation(formatSpec as string = "") As variant
+		  // Part of the DebugReportFormatter interface.
+		  
+		  #if TargetMacOS
+		    soft declare function FSEventStreamCopyDescription lib CarbonLib (ref as Ptr) as CFStringRef
+		    
+		    return   FSEventStreamCopyDescription( me.Reference )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  
+		  #if TargetMacOS
+		    if me.State = kStateStarted then  //Stop running (incl. automatic flushing)
+		      me.Stop
+		    end if
+		    
+		    if me.State > kStateInitialized then //Was scheduled with runloop. Unschedule.
+		      UnscheduleFromRunLoop
+		      me._State = 0
+		    end if
+		    
+		    gFSEventStreams.Remove( me.Reference ) //Remove global reference
+		    
+		    soft declare sub FSEventStreamRelease lib CarbonLib (ref as Ptr)
+		    
+		    FSEventStreamRelease   me.Reference
+		    me._reference = nil
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -71,19 +131,19 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FlushAsync()
+		Function FlushAsync() As UInt64
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamFlushAsync lib CarbonLib (streamref as integer)
+		    soft declare function FSEventStreamFlushAsync lib CarbonLib (streamref as Ptr) as UInt64
 		    
-		    FSEventStreamFlushAsync   me.Reference
+		    return  FSEventStreamFlushAsync( me.Reference )
 		  #endif
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub FlushSync()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamFlushSync lib CarbonLib (streamref as integer)
+		    soft declare sub FSEventStreamFlushSync lib CarbonLib (streamref as Ptr)
 		    
 		    FSEventStreamFlushSync   me.Reference
 		  #endif
@@ -220,7 +280,7 @@ Class FSEventStream
 		    
 		    arp.Append   path
 		    
-		    f = new FolderItem( path, FolderItem.PathTypeShell )
+		    f = new FolderItem( IFTE( RelativeTo<>nil, RelativeTo.POSIXPath + "/" + path, path ), FolderItem.PathTypeShell )
 		    
 		    'p = CFArrayGetValueAtIndex( eventFlags, i )
 		    'if CFNumberGetValue( p, kCFNumberIntType, mb ) then
@@ -261,9 +321,21 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LatestEventID() As UInt64
+		  //Get the latest eventID passed to this stream
+		  
+		  #if TargetMacOS
+		    soft declare function FSEventStreamGetLatestEventId lib CarbonLib (ref as Ptr) as UInt64
+		    
+		    return  FSEventStreamGetLatestEventId( me.Reference )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ScheduleWithRunLoop()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamScheduleWithRunLoop lib CarbonLib (streamRef as integer, runLoop as Ptr, runLoopMode as CFStringRef )
+		    soft declare sub FSEventStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoop as Ptr, runLoopMode as CFStringRef )
 		    
 		    if me.State = kStateInitialized then
 		      FSEventStreamScheduleWithRunLoop   me.Reference, CFRunLoop.Current.Reference, "kCFRunLoopDefaultMode"
@@ -278,7 +350,7 @@ Class FSEventStream
 	#tag Method, Flags = &h0
 		Function Start() As Boolean
 		  #if TargetMacOS
-		    soft declare function FSEventStreamStart lib CarbonLib (streamref as integer) as Boolean
+		    soft declare function FSEventStreamStart lib CarbonLib (streamref as Ptr) as Boolean
 		    
 		    if me.State = kStateScheduled OR me.State = kStateStopped then
 		      dim OK as Boolean = FSEventStreamStart( me.Reference )
@@ -296,14 +368,38 @@ Class FSEventStream
 	#tag Method, Flags = &h0
 		Sub Stop()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamStop lib CarbonLib (streamref as integer)
+		    soft declare sub FSEventStreamStop lib CarbonLib (streamref as Ptr)
 		    
 		    if me.State = kStateStarted then
+		      FlushSync
 		      FSEventStreamStop   me.Reference
 		      _State = kStateStopped
 		    else
 		      raise new macoslibException( "Cannot stop FSEventStream. Incompatible state." )
 		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function SystemLatestEventID() As UInt64
+		  #if TargetMacOS
+		    soft declare Function FSEventsGetCurrentEventId lib CarbonLib ( ) as UInt64
+		    
+		    return  FSEventsGetCurrentEventId( )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UnscheduleFromRunLoop()
+		  #if TargetMacOS
+		    soft declare sub FSEventStreamInvalidate lib CarbonLib (ref as Ptr)
+		    
+		    if me.State>=kStateScheduled then
+		      FSEventStreamInvalidate( me.Reference )
+		    end if
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -324,7 +420,16 @@ Class FSEventStream
 			  return   _Reference
 			End Get
 		#tag EndGetter
-		Reference As Integer
+		Reference As Ptr
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return  _RelativeTo
+			End Get
+		#tag EndGetter
+		RelativeTo As FolderItem
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -341,7 +446,11 @@ Class FSEventStream
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private _Reference As Integer
+		Private _Reference As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private _RelativeTo As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -382,11 +491,6 @@ Class FSEventStream
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Reference"
-			Group="Behavior"
-			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="State"

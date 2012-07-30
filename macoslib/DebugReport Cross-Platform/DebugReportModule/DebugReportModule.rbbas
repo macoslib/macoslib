@@ -212,7 +212,7 @@ Protected Module DebugReportModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function FormatVariant(v as Variant, formatSpec as string = "") As string
+		Private Function FormatVariant(v as Variant, formatSpec as string = "", quoteString as Boolean = false) As string
 		  
 		  #pragma DisableBackgroundTasks
 		  
@@ -232,6 +232,7 @@ Protected Module DebugReportModule
 		      
 		    elseif v isa CFType then
 		      dim cft as CFType
+		      cft = v
 		      return   cft.Description
 		  #endif
 		  
@@ -319,10 +320,19 @@ Protected Module DebugReportModule
 		          
 		        elseif v isa Pair then //Pair
 		          dim p as Pair = v
-		          return  "<Pair: " + FormatVariant( p.Left ) + " : " + FormatVariant( p.Right ) + ">"
+		          return  "<Pair: " + FormatVariant( p.Left, formatSpec, true ) + " : " + FormatVariant( p.Right, formatSpec, true ) + ">"
 		          
 		        elseif v isa EndOfLine then //EndOfLine
 		          return   v.StringValue
+		          
+		        elseif v isa Dictionary then //Dictionary
+		          dim dict as Dictionary = v
+		          
+		          for each key as variant in dict.Keys
+		            results.Append  FormatVariant( key, formatSpec, true ) + " = " + FormatVariant( dict.Value( key ), formatSpec, true )
+		          next
+		          
+		          return  "<Dictionary: " + Join( results, "," + EndOfLine ) + " >"
 		          
 		        else //We have no special code to format the Object. Let's use Introspection.
 		          
@@ -341,6 +351,13 @@ Protected Module DebugReportModule
 		          'return  "<" + obj.ClassName + EndOfLine + Join( result, EndOfLine ) +  " >"
 		          
 		          return  "<" + obj.ClassName + " >"
+		        end if
+		        
+		      case Variant.TypeString //System debugging usually puts quotes around string values inside complex structures
+		        if quoteString then
+		          return  "“" + v.StringValue + "”"
+		        else
+		          return  v.StringValue
 		        end if
 		        
 		      else

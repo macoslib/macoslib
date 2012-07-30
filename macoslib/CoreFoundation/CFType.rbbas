@@ -221,6 +221,9 @@ Class CFType
 		      dim null as new CFNull(ref, hasOwnership)
 		      return null
 		      
+		    case CFUUID.ClassID
+		      return  new CFUUID(ref, hasOwnership)
+		      
 		    else
 		      // It's an unknown CF type. Let's return a generic CFType so that at least
 		      // this class' operations (Show, Equals, etc.) can be applied to it.

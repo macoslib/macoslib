@@ -25,12 +25,56 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function DADiskDescription(extends f as FolderItem) As Dictionary
+		  //# Return the disk description dictionary from Disk Arbitration
+		  
+		  //@ [OS X 10.4 and later]
+		  
+		  #if TargetMacOS
+		    soft declare function DASessionCreate lib "DiskArbitration.framework" (alloc as Ptr) as Ptr
+		    soft declare function DADiskCreateFromBSDName lib "DiskArbitration.framework" ( alloc as Ptr, session as Ptr, name as CString ) as Ptr
+		    soft declare function DADiskCopyDescription lib "DiskArbitration.framework" (disk as Ptr) as Ptr
+		    
+		    dim DASessionRef, DADiskRef, p as Ptr
+		    dim cfdict as CFDictionary
+		    dim dict as Dictionary
+		    dim uuid as CFUUID
+		    
+		    DASessionRef = DASessionCreate( nil )
+		    if DASessionRef=nil then
+		      raise new   macoslibException( "DADiskDescription failed: unable to create a DiskArbitration session" )
+		    end if
+		    
+		    if f.DeviceName<>"" then
+		      DADiskRef = DADiskCreateFromBSDName( nil, DASessionRef, f.DeviceName )
+		      if DASessionRef=nil then
+		        raise new   macoslibException( "DADiskDescription failed: unable to find the volume" )
+		      end if
+		    else //It's a network volume
+		      return  nil
+		    end if
+		    
+		    p = DADiskCopyDescription( DADiskRef )
+		    if p=nil then
+		      raise new   macoslibException( "DADiskDescription failed: unable to get description" )
+		    end if
+		    cfdict = new CFDictionary( p, false )
+		    
+		    dict = cfdict
+		    
+		    //Release CF objects
+		    cfdict = nil
+		    CoreFoundation.Release  DADiskRef
+		    CoreFoundation.Release  DASessionRef
+		    
+		    return  dict
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DeviceName(extends f as FolderItem) As String
 		  //# DeviceName returns the BSD name of the volume containing f as found in the directory /dev.  Only local volumes have such names.
-		  
-		  if f Is nil then
-		    return ""
-		  end if
 		  
 		  #if TargetMacOS
 		    soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
@@ -574,6 +618,25 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LocalVolumeUUID(extends f as FolderItem) As string
+		  //# Return the local volume UUID (Universally Unique ID)
+		  
+		  //@ Note that not all volumes have a UUID, e.g. MS-DOS formatted volumes.
+		  //@ Passing a network volume will return "" but without raising an exception.
+		  
+		  //@ [OS X 10.4 and later]
+		  
+		  #if TargetMacOS
+		    dim dict as Dictionary
+		    
+		    dict = f.DADiskDescription
+		    
+		    return   dict.Lookup( "DAVolumeUUID", "" )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MoveToTrash(extends f as FolderItem)
 		  //# Move the FolderItem to the trash. If such item already exists, the FolderItem is renamed. If there is no Trash on the given volume, the method fails.
 		  
@@ -708,6 +771,45 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function UNIXDeviceID(extends f as FolderItem) As UInt32
+		  //# Return the UNIX DeviceID containing the given FolderItem
+		  
+		  #if TargetMacOS
+		    dim buf as unix_stat
+		    
+		    buf = f.UNIXlstat
+		    
+		    if f.LastErrorCode=0 then
+		      return   buf.st_dev
+		    else
+		      return   0
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function UNIXlstat(extends f as FolderItem) As unix_stat
+		  #if TargetMacOS
+		    soft declare Function lstat lib "System.framework" ( path as CString, byref buf as unix_stat ) as integer
+		    
+		    if NOT f.Exists then
+		      raise new MacOSError( -36, "File does not exist" )
+		    end if
+		    
+		    dim buf as unix_stat
+		    dim err as integer
+		    
+		    err = lstat( f.POSIXPath, buf )
+		    
+		    f.LastErrorCode = err
+		    
+		    return   buf
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function UTIConformsTo(extends f as FolderItem, conformsTo as String) As Boolean
 		  //# Returns true if the Uniform Type Identifier of the passed FolderItem conforms to the UTI passed as string
 		  
@@ -723,6 +825,32 @@ Protected Module MacOSFolderItemExtension
 		
 		Original sources are located here:  http://code.google.com/p/macoslib
 	#tag EndNote
+
+
+	#tag Structure, Name = unix_stat, Flags = &h0
+		st_dev as UInt32
+		  st_ino as UInt32
+		  st_mode as UInt16
+		  st_nlink as UInt16
+		  st_uid as UInt32
+		  st_gid as UInt32
+		  st_rdev as UInt32
+		  st_atimespec as unix_timespec
+		  st_mtimespec as unix_timespec
+		  st_ctimespec as unix_timespec
+		  st_size as Int64
+		  st_blocks as Int64
+		  st_blksize as UInt32
+		  st_flags as UInt32
+		  st_gen as UInt32
+		  st_lspare_DONOTUSE as Int32
+		st_qspare_DONOTUSE(1) as Int64
+	#tag EndStructure
+
+	#tag Structure, Name = unix_timespec, Flags = &h0
+		tv_sec as Int32
+		tv_nsec as Int32
+	#tag EndStructure
 
 
 	#tag ViewBehavior
