@@ -141,26 +141,6 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ChildrenContainingKey(findKey As String, recursive As Boolean = True) As MacPListBrowser()
-		  // Returns an array of children whose key contains the given string.
-		  // If recursive, will examine every child dictionary too.
-		  
-		  dim r() as MacPListBrowser
-		  
-		  if recursive then
-		    pRaiseErrorIfNotArrayOrDictionary( "ChildrenContainingKey" )
-		  else
-		    pRaiseErrorIfNotDictionary( "ChildrenContainingKey, when recursive is ""false""," )
-		  end if
-		  
-		  pChildrenContainingKey( findKey, recursive, r )
-		  
-		  return r
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function ChildrenKeys() As String()
 		  dim r() as string
 		  
@@ -277,10 +257,10 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		Function Count() As Integer
-		  if zValueType = ValueType.IsArray then
+		  if zIsArray then
 		    dim v() as variant = zValue
 		    return v.UBound + 1
-		  elseif zValueType = ValueType.IsDictionary then
+		  elseif zIsDictionary then
 		    dim dict as Dictionary = zValue
 		    return dict.Count
 		  else
@@ -329,11 +309,68 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HasKey(childKey As String) As Boolean
-		  pRaiseErrorIfNotDictionary( "HasKey" )
+		Function FindByKey(findKey As String, keyMatchType As MatchType = MatchType.Exact, recursive As Boolean = True) As MacPListBrowser()
+		  // Returns an array of children whose key matches the given string.
+		  // If recursive, will examine every child dictionary too.
 		  
-		  dim dict as Dictionary = zValue
-		  return dict.HasKey( childKey )
+		  // If this isn't an array or dictionary, this will return an empty array
+		  
+		  dim r() as MacPListBrowser
+		  
+		  if findKey.LenB <> 0 then
+		    
+		    if zIsDictionary or ( recursive and zIsArray ) then // If it's not one of these, it won't match anything anyway
+		      dim rx as RegEx
+		      if keyMatchType = MatchType.RegEx then
+		        rx = new RegEx
+		        rx.SearchPattern = findKey
+		      end if
+		      pFindByKey( findKey, keyMatchType, recursive, rx, r )
+		    end if
+		    
+		  end if
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FindByValue(value As Variant, onlySameType As Boolean = True, recursive As Boolean = True) As MacPListBrowser()
+		  // Returns an array of MacPListBrowser whose value matches the given value.
+		  // If recursive, will examine every child too.
+		  // Tried to make this very tolerant of bad values so will return an empty array of the value
+		  // can't be used for a search.
+		  
+		  dim r() as MacPListBrowser
+		  
+		  if value <> nil then 
+		    dim valType as ValueType = pValueTypeOfVariant( value )
+		    if valType <> ValueType.IsArray and valType <> ValueType.IsDictionary and valType <> ValueType.IsUnknown then
+		      
+		      pFindByValue( value, onlySameType, recursive, r )
+		      
+		    end if
+		  end if
+		  
+		  return r
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function HasKey(childKey As String) As Boolean
+		  if zIsDictionary then
+		    
+		    dim dict as Dictionary = zValue
+		    return dict.HasKey( childKey )
+		    
+		  else
+		    
+		    return false
+		    
+		  end if
 		  
 		End Function
 	#tag EndMethod
@@ -343,7 +380,7 @@ Protected Class MacPListBrowser
 		  dim r as integer
 		  
 		  dim p as MacPListBrowser = me.Parent
-		  if p <> nil and p.Type = ValueType.IsArray then
+		  if p <> nil and p.IsArray then
 		    r = zParentIndex.IntegerValue
 		    
 		  else
@@ -358,14 +395,16 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		Function IsArray() As Boolean
-		  return zValueType = ValueType.IsArray
+		  return zIsArray
+		  
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function IsDictionary() As Boolean
-		  return zValueType = ValueType.IsDictionary
+		  return zIsDictionary
+		  
 		  
 		End Function
 	#tag EndMethod
@@ -376,7 +415,7 @@ Protected Class MacPListBrowser
 		  
 		  dim myParent as MacPListBrowser = me.Parent
 		  if myParent <> nil then
-		    if myParent.Type = ValueType.IsDictionary then
+		    if myParent.IsDictionary then
 		      dim k as string = zParentIndex.StringValue
 		      myParent.RemoveChild( k )
 		    else // isArray
@@ -407,27 +446,68 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub pChildrenContainingKey(findKey As String, recursive As Boolean, appendTo() As MacPListBrowser)
+		Protected Sub pFindByKey(findKey As String, keyMatchType As MatchType, recursive As Boolean, rx As RegEx, appendTo() As MacPListBrowser)
 		  // Recursive method used to fill in the appendTo array with children matching the given key
 		  
-		  if zValueType = ValueType.IsDictionary then
+		  if zIsDictionary then
 		    
-		    dim k() as String = me.ChildrenKeys
-		    for each thisKey as string in k
-		      if thisKey.InStr( findKey ) <> 0 then appendTo.Append( me.Child( thisKey ) )
+		    dim dict as Dictionary = zValue
+		    dim k() as Variant = dict.Keys
+		    for i as integer = 0 to k.Ubound
+		      dim thisKey as Variant = k( i )
+		      if pStringMatches( thisKey.StringValue, findKey, keyMatchType, rx ) then appendTo.Append( dict.Value( thisKey ) )
 		      if recursive then
-		        dim thisChild as MacPListBrowser = me.Child( thisKey )
-		        thisChild.pChildrenContainingKey( findKey, recursive, appendTo )
+		        dim thisChild as MacPListBrowser = dict.Value( thisKey )
+		        thisChild.pFindByKey( findKey, keyMatchType, recursive, rx, appendTo )
 		      end if
 		    next
 		    
-		  elseif recursive and zValueType = ValueType.IsArray then
+		  elseif recursive and zIsArray then
 		    
-		    dim lastIndex as integer = me.Count - 1
-		    for i as integer = 0 to lastIndex
-		      dim thisChild as MacPListBrowser = me.Child( i )
-		      thisChild.pChildrenContainingKey( findKey, recursive, appendTo )
+		    dim v() as Variant = zValue
+		    for i as integer = 0 to v.Ubound
+		      dim thisChild as MacPListBrowser = v( i )
+		      thisChild.pFindByKey( findKey, keyMatchType, recursive, rx, appendTo )
 		    next
+		    
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub pFindByValue(value As Variant, onlySameType As Boolean, recursive As Boolean, ByRef appendTo() As MacPListBrowser)
+		  // Private method to recursively return the items matching the value.
+		  
+		  // First check this value, but only if this isn't an array or dictionary
+		  if not zIsDictionary and not zIsArray then
+		    if not onlySameType or zValue.Type = value.Type then
+		      if zValue = value then appendTo.Append me
+		    end
+		  end if
+		  
+		  // See if we need to recurse
+		  if recursive then
+		    
+		    if zIsDictionary then
+		      
+		      dim dict as Dictionary = zValue
+		      dim k() as Variant = dict.Keys
+		      for i as integer = 0 to k.Ubound
+		        dim thisKey as Variant = k( i )
+		        dim thisChild As MacPListBrowser = dict.Value( thisKey )
+		        thisChild.pFindByValue( value, onlySameType, recursive, appendTo )
+		      next
+		      
+		    elseif zValueType = ValueType.IsArray then
+		      
+		      dim v() as Variant = zValue
+		      for i as integer = 0 to v.Ubound
+		        dim thisChild as MacPListBrowser = v( i )
+		        thisChild.pFindByValue( value, onlySameType, recursive, appendTo )
+		      next
+		      
+		    end if
 		    
 		  end if
 		  
@@ -475,7 +555,7 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h21
 		Private Sub pRaiseErrorIfNotArray(msg As String)
-		  if zValueType <> ValueType.IsArray then
+		  if not zIsArray then
 		    pRaiseError( msg + " can only be used with an array." )
 		  end if
 		  
@@ -484,7 +564,7 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h21
 		Private Sub pRaiseErrorIfNotArrayOrDictionary(msg As String)
-		  if zValueType <> ValueType.IsArray and zValueType <> ValueType.IsDictionary then
+		  if not zIsArray and not zIsDictionary then
 		    pRaiseError( msg + " can only be used with an array or dictionary." )
 		  end if
 		  
@@ -493,7 +573,7 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h21
 		Private Sub pRaiseErrorIfNotDictionary(msg As String)
-		  if zValueType <> ValueType.IsDictionary then
+		  if not zIsDictionary then
 		    pRaiseError( msg + " can only be used with a dictionary." )
 		  end if
 		  
@@ -531,6 +611,8 @@ Protected Class MacPListBrowser
 		  
 		  zValue = newArr
 		  zValueType = ValueType.IsArray
+		  zIsArray = true
+		  zIsDictionary = false
 		  
 		End Sub
 	#tag EndMethod
@@ -546,8 +628,41 @@ Protected Class MacPListBrowser
 		  
 		  zValue = newDict
 		  zValueType = ValueType.IsDictionary
+		  zIsDictionary = true
+		  zIsArray = false
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function pStringMatches(source As String, findStr As String, useMatchType As MatchType, rx As RegEx) As Boolean
+		  // Helper method to determine a match between strings.
+		  // If the match type is regex, the RegEx should already be populated.
+		  
+		  if source.LenB = 0 then return false
+		  if findStr.LenB = 0 then return false
+		  
+		  select case useMatchType
+		  case MatchType.Contains
+		    return source.InStr( findStr ) <> 0
+		  case MatchType.Exact
+		    return source = findStr
+		  case MatchType.StartsWith
+		    dim seg as string = source.Left( findStr.Len )
+		    return seg = findStr
+		  case MatchType.EndsWith
+		    dim seg as string = source.Right( findStr.Len )
+		    return seg = findStr
+		  case MatchType.RegEx
+		    if rx is nil then return false
+		    dim match as RegExMatch = rx.Search( source )
+		    return match <> nil and match.SubExpressionCount <> 0
+		  end
+		  
+		  // Shouldn't ever get here
+		  pRaiseError "Invalid match type."
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -826,34 +941,30 @@ Protected Class MacPListBrowser
 			Get
 			  dim r as Variant
 			  
-			  #if TargetMacOS
+			  if zValueType = ValueType.IsArray then
+			    dim sourceArr() as Variant = zValue
+			    dim returnArr() as Variant
+			    redim returnArr( sourceArr.Ubound )
+			    for i as integer = 0 to sourceArr.Ubound
+			      dim thisPlist as MacPListBrowser = sourceArr( i )
+			      returnArr( i ) = thisPlist.VariantValue
+			    next i
+			    r = returnArr
 			    
-			    if zValueType = ValueType.IsArray then
-			      dim sourceArr() as Variant = zValue
-			      dim returnArr() as Variant
-			      redim returnArr( sourceArr.Ubound )
-			      for i as integer = 0 to sourceArr.Ubound
-			        dim thisPlist as MacPListBrowser = sourceArr( i )
-			        returnArr( i ) = thisPlist.VariantValue
-			      next i
-			      r = returnArr
-			      
-			    elseif zValueType = ValueType.IsDictionary then
-			      dim sourceDict as Dictionary = zValue
-			      dim returnDict as new Dictionary
-			      dim k() as Variant = sourceDict.Keys
-			      for each thisKey As Variant in k
-			        dim thisPlist as MacPListBrowser = sourceDict.Value( thisKey )
-			        returnDict.Value( thisKey ) = thisPlist.VariantValue
-			      next
-			      r = returnDict
-			      
-			    else
-			      r = zValue
-			      
-			    end if
+			  elseif zValueType = ValueType.IsDictionary then
+			    dim sourceDict as Dictionary = zValue
+			    dim returnDict as new Dictionary
+			    dim k() as Variant = sourceDict.Keys
+			    for each thisKey As Variant in k
+			      dim thisPlist as MacPListBrowser = sourceDict.Value( thisKey )
+			      returnDict.Value( thisKey ) = thisPlist.VariantValue
+			    next
+			    r = returnDict
 			    
-			  #endif
+			  else
+			    r = zValue
+			    
+			  end if
 			  
 			  return r
 			  
@@ -875,14 +986,26 @@ Protected Class MacPListBrowser
 			    pSetValueFromArray( v )
 			    
 			  else
+			    
 			    zValue = value
 			    zValueType = pValueTypeOfVariant( value )
+			    zIsDictionary = false
+			    zIsArray = false
+			    
 			  end if
 			  
 			End Set
 		#tag EndSetter
 		VariantValue As Variant
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private zIsArray As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private zIsDictionary As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private zParent As WeakRef
@@ -904,6 +1027,14 @@ Protected Class MacPListBrowser
 		Private zValueType As ValueType
 	#tag EndProperty
 
+
+	#tag Enum, Name = MatchType, Type = Integer, Flags = &h0
+		Contains
+		  Exact
+		  StartsWith
+		  EndsWith
+		RegEx
+	#tag EndEnum
 
 	#tag Enum, Name = ValueType, Type = Integer, Flags = &h0
 		IsDictionary
