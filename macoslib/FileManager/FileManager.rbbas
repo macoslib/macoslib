@@ -36,6 +36,50 @@ Module FileManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function GetFolderItemFromAliasData(aliasData as MemoryBlock, relativeTo as FolderItem = nil, flags as Integer = FileManager.kFSResolveAliasNoUI) As FolderItem
+		  // Adapted from code written by Thomas Tempelmann (www.tempel.org/rb/), from his TTsFiles module.
+		  
+		  #if TargetMacOS
+		    
+		    soft declare function FSResolveAliasWithMountFlags Lib CarbonLib _
+		    ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInt32 ) as Integer
+		    soft declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
+		    soft declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
+		    
+		    dim mb1 as new MemoryBlock( 4 ) // holds just the handle for the alias data
+		    mb1.Long( 0 ) = NewHandle( LenB( aliasData ) )
+		    mb1.Ptr( 0 ).Ptr( 0 ).StringValue( 0, LenB( aliasData ) ) = aliasData
+		    
+		    dim OSError as Integer
+		    dim mb2 as MemoryBlock
+		    if relativeTo <> nil then
+		      mb2 = relativeTo.MacFSRef
+		    end
+		    dim outRef as new MemoryBlock( 80 )
+		    dim changed as Boolean
+		    if mb2 <> nil then
+		      OSError = FSResolveAliasWithMountFlags( mb2, mb1.Long(0), outRef, changed, flags )
+		    else
+		      OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
+		    end
+		    DisposeHandle ( mb1.Long( 0 ) )
+		    if OSError = 0 then
+		      return FolderItem.CreateFromMacFSRef( outRef )
+		    else
+		      return nil
+		    end
+		    
+		  #else
+		    
+		    #pragma unused aliasData
+		    #pragma unused relativeTo
+		    #pragma unused flags
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function GetFolderItemFromFSRef(theFSRef as FSRef) As FolderItem
 		  #if targetMacOS
 		    
@@ -375,6 +419,12 @@ Module FileManager
 	#tag EndConstant
 
 	#tag Constant, Name = kFSCatInfoVolume, Type = Double, Dynamic = False, Default = \"&h00000004", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kFSResolveAliasNoUI, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kFSResolveAliasTryFileIDFirst, Type = Double, Dynamic = False, Default = \"2", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = kFSVolInfoBackupDate, Type = Double, Dynamic = False, Default = \"&h0004", Scope = Protected

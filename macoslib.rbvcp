@@ -62,6 +62,7 @@ Module=CoreText;macoslib/CoreText/CoreText.rbbas;&h61A0D18E;&h62249E78;false
 Class=CTFont;macoslib/CoreText/CTFont.rbbas;&h51E355B;&h61A0D18E;false
 Class=CGBitmapContext;macoslib/CoreGraphics/CGBitmapContext.rbbas;&h4AB62E9E;&h4983118E;false
 Module=FileManager;macoslib/FileManager/FileManager.rbbas;&h56273943;&h62249E78;false
+Class=FSAliasRecord;macoslib/FileManager/FSAliasRecord.rbbas;&h41E7EE0F;&h56273943;false
 Module=FolderManager;macoslib/FolderManager.rbbas;&hBAB9B91C;&h62249E78;false
 Class=FourCharCode;macoslib/FourCharCode.rbbas;&h6F1784E2;&h62249E78;false
 Module=IOKit;macoslib/IOKit/IOKit.rbbas;&h463865F3;&h62249E78;false
