@@ -2,84 +2,14 @@
 Class FSAliasRecord
 	#tag Method, Flags = &h0
 		Sub Constructor(f As FolderItem, relativeTo As FolderItem = nil)
-		  pFromFolderItem( f, relativeTo )
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Destructor()
-		  pDisposeHandle zAliasRecordHandle
-		  zAliasRecordHandle = nil
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function FolderItem(relativeTo As FolderItem = nil, flags As Integer = FileManager.kFSResolveAliasNoUI) As FolderItem
-		  dim mb as MemoryBlock = me.MemoryBlock
-		  return FileManager.GetFolderItemFromAliasData( mb, relativeTo, flags )
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function MemoryBlock() As MemoryBlock
-		  dim r as MemoryBlock
-		  
 		  #if TargetMacOS
 		    
-		    if zAliasRecordHandle <> nil then
-		      pHLockHi( zAliasRecordHandle )
-		      dim mb as MemoryBlock = zAliasRecordHandle.Ptr( 0 )
-		      dim sz as integer = me.Size
-		      r = mb.StringValue( 0, sz )
-		      pHUnlock( zAliasRecordHandle )
-		    end if
-		    
-		  #endif
-		  
-		  return r
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Operator_Convert() As MemoryBlock
-		  return me.MemoryBlock
-		  
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub pDisposeHandle(h As Ptr)
-		  #if TargetMacOS
-		    
-		    if h <> nil then
-		      soft declare sub DisposeHandle lib CarbonLib (h as Ptr)
-		      DisposeHandle( h )
-		    end if
-		    
-		  #else
-		    
-		    #pragma unused h
-		    
-		  #endif
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub pFromFolderItem(f As FolderItem, relativeTo As FolderItem)
-		  #if TargetMacOS
-		    
-		    if f is nil then
+		    if f is nil or not f.Exists then
 		      zAliasRecordHandle = nil
 		      return
 		    end if
 		    
-		    soft declare function FSNewAlias lib CarbonLib _
+		    declare function FSNewAlias lib CarbonLib _
 		    ( fromFile as Ptr, fsRef as Ptr, ByRef inAlias as Ptr)  as Short
 		    
 		    dim fileRef as FSRef = FileManager.GetFSRefFromFolderItem( f )
@@ -103,42 +33,76 @@ Class FSAliasRecord
 		  #else
 		    
 		    #pragma unused f
+		    #pragma unused relativeTo
 		    
 		  #endif
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub pHLockHi(h As Ptr)
+	#tag Method, Flags = &h0
+		Sub Destructor()
 		  #if TargetMacOS
 		    
-		    soft declare sub HLockHi lib CarbonLib (h as Ptr)
-		    HLockHi( h  )
-		    
-		  #else
-		    
-		    #pragma unused h
+		    if zAliasRecordHandle <> nil then
+		      declare sub DisposeHandle lib CarbonLib (h as Ptr)
+		      DisposeHandle zAliasRecordHandle
+		      zAliasRecordHandle = nil
+		    end if
 		    
 		  #endif
+		  
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub pHUnlock(h As Ptr)
+	#tag Method, Flags = &h0
+		Function FolderItem(relativeTo As FolderItem = nil, flags As Integer = FileManager.kFSResolveAliasNoUI) As FolderItem
+		  dim r as FolderItem
+		  
 		  #if TargetMacOS
 		    
-		    soft declare sub HUnlock lib CarbonLib (h as Ptr)
-		    HUnlock( h )
-		    
-		  #else
-		    
-		    #pragma unused h
+		    if zAliasRecordHandle <> nil then
+		      dim mb as MemoryBlock = me.MemoryBlock
+		      r = FileManager.GetFolderItemFromAliasData( mb, relativeTo, flags )
+		    end if
 		    
 		  #endif
 		  
-		End Sub
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MemoryBlock() As MemoryBlock
+		  dim r as MemoryBlock
+		  
+		  #if TargetMacOS
+		    
+		    declare sub HLockHi lib CarbonLib ( h as Ptr )
+		    declare sub HUnlock lib CarbonLib ( h as Ptr )
+		    
+		    if zAliasRecordHandle <> nil then
+		      HLockHi( zAliasRecordHandle )
+		      dim mb as MemoryBlock = zAliasRecordHandle.Ptr( 0 )
+		      dim sz as integer = me.Size
+		      r = mb.StringValue( 0, sz )
+		      HUnlock( zAliasRecordHandle )
+		    end if
+		    
+		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As MemoryBlock
+		  return me.MemoryBlock
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -147,8 +111,9 @@ Class FSAliasRecord
 		  
 		  #if TargetMacOS
 		    
+		    declare function GetAliasSize lib CarbonLib ( inAlias as Ptr ) as Integer
+		    
 		    if zAliasRecordHandle <> nil then
-		      soft declare function GetAliasSize lib CarbonLib ( inAlias as Ptr ) as Integer
 		      r = GetAliasSize( zAliasRecordHandle )
 		    end if
 		    
@@ -168,6 +133,16 @@ Class FSAliasRecord
 		Added by Kem Tekinay with help and code from Thomas Templemann.
 	#tag EndNote
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return zAliasRecordHandle = nil
+			  
+			End Get
+		#tag EndGetter
+		IsNil As Boolean
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private zAliasRecordHandle As Ptr

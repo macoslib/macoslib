@@ -119,6 +119,7 @@ Implements DebugReportFormatter
 			Name="Path"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

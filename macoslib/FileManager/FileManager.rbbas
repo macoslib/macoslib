@@ -39,12 +39,16 @@ Module FileManager
 		Protected Function GetFolderItemFromAliasData(aliasData as MemoryBlock, relativeTo as FolderItem = nil, flags as Integer = FileManager.kFSResolveAliasNoUI) As FolderItem
 		  // Adapted from code written by Thomas Tempelmann (www.tempel.org/rb/), from his TTsFiles module.
 		  
+		  dim r as FolderItem
+		  
 		  #if TargetMacOS
 		    
-		    soft declare function FSResolveAliasWithMountFlags Lib CarbonLib _
+		    if aliasData is nil then return nil
+		    
+		    declare function FSResolveAliasWithMountFlags Lib CarbonLib _
 		    ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInt32 ) as Integer
-		    soft declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
-		    soft declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
+		    declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
+		    declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
 		    
 		    dim mb1 as new MemoryBlock( 4 ) // holds just the handle for the alias data
 		    mb1.Long( 0 ) = NewHandle( LenB( aliasData ) )
@@ -63,11 +67,7 @@ Module FileManager
 		      OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
 		    end
 		    DisposeHandle ( mb1.Long( 0 ) )
-		    if OSError = 0 then
-		      return FolderItem.CreateFromMacFSRef( outRef )
-		    else
-		      return nil
-		    end
+		    if OSError = 0 then r = FolderItem.CreateFromMacFSRef( outRef )
 		    
 		  #else
 		    
@@ -76,6 +76,9 @@ Module FileManager
 		    #pragma unused flags
 		    
 		  #endif
+		  
+		  return r
+		  
 		End Function
 	#tag EndMethod
 
