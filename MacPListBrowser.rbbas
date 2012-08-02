@@ -222,23 +222,13 @@ Protected Class MacPListBrowser
 		    if myValue IsA MacPListBrowser then
 		      zValue = MacPListBrowser( myValue ).VariantValue
 		      
-		      // See if it's a FolderItem that exists
-		    elseif myValue IsA FolderItem then
-		      dim f as FolderItem = myValue
-		      if f.Exists then
-		        dim plist as CoreFoundation.CFPropertyList = CoreFoundation.CFType.CreateFromPListFile( f, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
-		        if plist <> nil then
-		          myValue = plist.VariantValue
-		        end if
-		      end if
-		      
 		    elseif not pIsValidValue( myValue ) then
-		      pRaiseError( "You can only create a MacPListBrowser from another MacPListBrowser, a FolderItem that points to a plist or string, " + _
-		      "or from a dictionary, array, string, number, date, boolean, or MemoryBlock." )
+		      pRaiseError( "You can only create a MacPListBrowser from another MacPListBrowser, FolderItem, " + _
+		      "dictionary, array, string, number, date, boolean, or MemoryBlock." )
 		      
 		    end if
 		    
-		    me.VariantValue = myValue // Convert it o MacPListBrowser objects as needed
+		    me.VariantValue = myValue // Convert it to MacPListBrowser objects as needed
 		    
 		    pSetParent( myParent, myParentIndex )
 		    
@@ -272,10 +262,26 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListFile(f As FolderItem) As MacPListBrowser
-		  // Convenience method, here just for clarity.
-		  // Passing a folderitem to the constructor will do the same thing.
+		  // Note that passing a FolderItem to the Contructor will add that FolderItem as an alias 
 		  
-		  return new MacPListBrowser( f )
+		  dim r as MacPListBrowser
+		  
+		  #if TargetMacOS
+		    
+		    if f <> nil and f.Exists then
+		      dim plist as CoreFoundation.CFPropertyList = CoreFoundation.CFType.CreateFromPListFile( f, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		      if plist <> nil then
+		        r = new MacPListBrowser( plist.VariantValue )
+		      end if
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused f
+		    
+		  #endif
+		  
+		  return r
 		  
 		End Function
 	#tag EndMethod
@@ -344,7 +350,7 @@ Protected Class MacPListBrowser
 		  
 		  dim r() as MacPListBrowser
 		  
-		  if value <> nil then 
+		  if value <> nil then
 		    dim valType as ValueType = pValueTypeOfVariant( value )
 		    if valType <> ValueType.IsArray and valType <> ValueType.IsDictionary and valType <> ValueType.IsUnknown then
 		      
@@ -405,6 +411,13 @@ Protected Class MacPListBrowser
 		Function IsDictionary() As Boolean
 		  return zIsDictionary
 		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsFolderItem() As Boolean
+		  return zIsFolderItem
 		  
 		End Function
 	#tag EndMethod
@@ -520,8 +533,16 @@ Protected Class MacPListBrowser
 		  
 		  dim r as boolean
 		  
-		  dim theType as ValueType = pValueTypeOfVariant( value )
-		  if theType <> ValueType.IsUnknown then r = true
+		  if value IsA FolderItem then
+		    
+		    r = true
+		    
+		  else
+		    
+		    dim theType as ValueType = pValueTypeOfVariant( value )
+		    if theType <> ValueType.IsUnknown then r = true
+		    
+		  end if
 		  
 		  return r
 		  
@@ -613,6 +634,7 @@ Protected Class MacPListBrowser
 		  zValueType = ValueType.IsArray
 		  zIsArray = true
 		  zIsDictionary = false
+		  zIsFolderItem = false
 		  
 		End Sub
 	#tag EndMethod
@@ -630,6 +652,34 @@ Protected Class MacPListBrowser
 		  zValueType = ValueType.IsDictionary
 		  zIsDictionary = true
 		  zIsArray = false
+		  zIsFolderItem = false
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub pSetValueFromFolderItem(f As FolderItem)
+		  #if TargetMacOS
+		    
+		    dim ar as new FSAliasRecord( f )
+		    dim mb as MemoryBlock = ar.MemoryBlock
+		    if mb <> nil then
+		      zValue = mb
+		      zValueType = ValueType.IsData
+		      zIsFolderItem = true
+		      zIsArray = false
+		      zIsDictionary = false
+		      
+		    else
+		      
+		      pRaiseError( "Could not convert this FolderItem to an alias record." )
+		      
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused f
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
@@ -941,30 +991,51 @@ Protected Class MacPListBrowser
 			Get
 			  dim r as Variant
 			  
-			  if zValueType = ValueType.IsArray then
-			    dim sourceArr() as Variant = zValue
-			    dim returnArr() as Variant
-			    redim returnArr( sourceArr.Ubound )
-			    for i as integer = 0 to sourceArr.Ubound
-			      dim thisPlist as MacPListBrowser = sourceArr( i )
-			      returnArr( i ) = thisPlist.VariantValue
-			    next i
-			    r = returnArr
+			  #if TargetMacOS
 			    
-			  elseif zValueType = ValueType.IsDictionary then
-			    dim sourceDict as Dictionary = zValue
-			    dim returnDict as new Dictionary
-			    dim k() as Variant = sourceDict.Keys
-			    for each thisKey As Variant in k
-			      dim thisPlist as MacPListBrowser = sourceDict.Value( thisKey )
-			      returnDict.Value( thisKey ) = thisPlist.VariantValue
-			    next
-			    r = returnDict
+			    if zValueType = ValueType.IsArray then
+			      dim sourceArr() as Variant = zValue
+			      dim returnArr() as Variant
+			      redim returnArr( sourceArr.Ubound )
+			      for i as integer = 0 to sourceArr.Ubound
+			        dim thisPlist as MacPListBrowser = sourceArr( i )
+			        returnArr( i ) = thisPlist.VariantValue
+			      next i
+			      r = returnArr
+			      
+			    elseif zValueType = ValueType.IsDictionary then
+			      dim sourceDict as Dictionary = zValue
+			      dim returnDict as new Dictionary
+			      dim k() as Variant = sourceDict.Keys
+			      for each thisKey As Variant in k
+			        dim thisPlist as MacPListBrowser = sourceDict.Value( thisKey )
+			        returnDict.Value( thisKey ) = thisPlist.VariantValue
+			      next
+			      r = returnDict
+			      
+			    elseif zIsFolderItem then
+			      r = FileManager.GetFolderItemFromAliasData( zValue )
+			      
+			    elseif not zCheckedForFolderItem and zValueType = ValueType.IsData then // Check to see if it's an alias
+			      zCheckedForFolderItem = true // Remember that we checked
+			      
+			      dim mb as MemoryBlock = zValue
+			      if mb <> nil then
+			        dim f as FolderItem = FileManager.GetFolderItemFromAliasData( mb )
+			        if f IsA FolderItem then
+			          r = f
+			          zIsFolderItem = true // Remember for next time
+			        end if
+			      end if
+			      
+			    end if
 			    
-			  else
-			    r = zValue
+			    // Check to see if we have anything
+			    if r is nil then
+			      r = zValue
+			    end if
 			    
-			  end if
+			  #endif
 			  
 			  return r
 			  
@@ -978,7 +1049,10 @@ Protected Class MacPListBrowser
 			    pRaiseError "This is not an acceptable type for a plist."
 			  end if
 			  
-			  if value IsA Dictionary then
+			  if value IsA FolderItem then
+			    pSetValueFromFolderItem( value )
+			    
+			  elseif value IsA Dictionary then
 			    pSetValueFromDictionary( value )
 			    
 			  elseif value.IsArray then
@@ -991,6 +1065,8 @@ Protected Class MacPListBrowser
 			    zValueType = pValueTypeOfVariant( value )
 			    zIsDictionary = false
 			    zIsArray = false
+			    zIsFolderItem = false
+			    zCheckedForFolderItem = false // Check for an alias when restoring
 			    
 			  end if
 			  
@@ -1000,11 +1076,19 @@ Protected Class MacPListBrowser
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
+		Private zCheckedForFolderItem As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private zIsArray As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private zIsDictionary As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private zIsFolderItem As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
