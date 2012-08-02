@@ -24,6 +24,23 @@ Implements DebugReportFormatter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CopyUUIDForDevice(dev as UInt32) As String
+		  
+		  #if TargetMacOS
+		    declare function FSEventsCopyUUIDForDevice lib CarbonLib ( dev as UInt32 ) as Ptr
+		    
+		    dim p as Ptr = FSEventsCopyUUIDForDevice( dev )
+		    if p<>nil then
+		      dim uuid as new CFUUID( p, false )
+		      
+		      return uuid.StringValue
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfFolderItems(forFolders() as FolderItem, options as integer, latencyInSeconds as double, fromID as UInt64 = 0) As FSEventStream
 		  
 		  #if TargetMacOS
@@ -33,7 +50,7 @@ Implements DebugReportFormatter
 		      paths.Append  forFolders( i ).POSIXPath
 		    next
 		    
-		    return  FSEventStream.CreateFromListOfPaths( paths, options, latencyInSeconds, fromID )
+		    return  FSEventStream.CreateFromListOfPaths( paths, options OR 1, latencyInSeconds, fromID )
 		    
 		  #endif
 		End Function
@@ -42,14 +59,14 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfPaths(forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
 		  #if TargetMacOS
-		    soft declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
+		    declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
 		    dim myStreamRef as Ptr
 		    dim result as FSEventStream
 		    
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
 		    
-		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options )
+		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options OR 1 )
 		    
 		    if myStreamRef=nil then
 		      return  nil
@@ -63,13 +80,13 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfPathsForDevice(device as FolderItem, forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
 		  #if TargetMacOS
-		    soft declare function FSEventStreamCreateRelativeToDevice lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, device as UInt32, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
+		    declare function FSEventStreamCreateRelativeToDevice lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, device as UInt32, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
 		    dim myStreamRef as Ptr
 		    
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
 		    
-		    myStreamRef = FSEventStreamCreateRelativeToDevice( nil, AddressOf FSEventCallback, nil, device.UNIXDeviceID, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options )
+		    myStreamRef = FSEventStreamCreateRelativeToDevice( nil, AddressOf FSEventCallback, nil, device.UNIXDeviceID, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options OR 1 )
 		    
 		    if myStreamRef=nil then
 		      return  nil
@@ -85,7 +102,7 @@ Implements DebugReportFormatter
 		  // Part of the DebugReportFormatter interface.
 		  
 		  #if TargetMacOS
-		    soft declare function FSEventStreamCopyDescription lib CarbonLib (ref as Ptr) as CFStringRef
+		    declare function FSEventStreamCopyDescription lib CarbonLib (ref as Ptr) as CFStringRef
 		    
 		    return   FSEventStreamCopyDescription( me.Reference )
 		  #endif
@@ -133,7 +150,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Function FlushAsync() As UInt64
 		  #if TargetMacOS
-		    soft declare function FSEventStreamFlushAsync lib CarbonLib (streamref as Ptr) as UInt64
+		    declare function FSEventStreamFlushAsync lib CarbonLib (streamref as Ptr) as UInt64
 		    
 		    return  FSEventStreamFlushAsync( me.Reference )
 		  #endif
@@ -143,7 +160,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Sub FlushSync()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamFlushSync lib CarbonLib (streamref as Ptr)
+		    declare sub FSEventStreamFlushSync lib CarbonLib (streamref as Ptr)
 		    
 		    FSEventStreamFlushSync   me.Reference
 		  #endif
@@ -161,86 +178,17 @@ Implements DebugReportFormatter
 		    stream.HandleEvent   numEvents, eventPaths, eventFlags, eventIDs
 		  end if
 		  
-		  'declare function CFArrayGetStringAtIndex lib CarbonLib alias "CFArrayGetValueAtIndex" (theArray as Ptr, idx as Integer) as CFStringRef
-		  'declare function CFArrayGetValueAtIndex lib CarbonLib alias "CFArrayGetValueAtIndex" (theArray as Ptr, idx as Integer) as Ptr
-		  'declare function CFNumberGetValue lib CarbonLib (nbr as Ptr, theType as integer, outValue as Ptr) as Boolean
-		  '
-		  'const kCFNumberIntType = 9
-		  'const kCFNumberLongType = 10
-		  '
-		  ''dim id as CFArray = new CFArray( eventIDs, false )
-		  ''dim paths as CFArray = new CFArray( eventPaths, false )
-		  ''dim flags as CFArray = new CFArray( eventFlags, false )
-		  '
-		  'dim id as UInt64
-		  'dim path as String
-		  'dim flags as UInt32
-		  'dim flagtext() as string
-		  'dim mb as new MemoryBlock( 8 )
-		  'dim mb1, mb2, mb3 as MemoryBlock
-		  'dim p as Ptr
-		  '
-		  ''mb1 = eventPaths
-		  'mb2 = eventFlags
-		  'mb3 = eventIDs
-		  '
-		  ''QReport   Cocoa.NSObjectFromNSPtr( eventPaths )
-		  '
-		  'QReport  "numEvents:", numEvents
-		  '
-		  'for i as integer=0 to numEvents - 1
-		  'path = CFArrayGetStringAtIndex( eventPaths, i )
-		  '
-		  ''p = CFArrayGetValueAtIndex( eventFlags, i )
-		  ''if CFNumberGetValue( p, kCFNumberIntType, mb ) then
-		  ''flags = mb.UInt32Value( 0 )
-		  ''else
-		  'flags = mb2.UInt32Value( i * 4 )
-		  ''end if
-		  '
-		  'redim flagtext( -1 )
-		  '
-		  'for j as integer = 0 to 24
-		  'if Bitwise.BitAnd( flags, Pow( 2, j ))<>0 then
-		  'flagtext.Append   NthField( kFlagList, ",", j + 2 )
-		  'end if
-		  'next
-		  '
-		  '
-		  ''p = CFArrayGetValueAtIndex( eventIDs, i )
-		  ''if CFNumberGetValue( p, kCFNumberLongType, mb ) then
-		  ''id = mb.UInt64Value( 0 )
-		  ''else
-		  'id = mb3.UInt64Value( i * 8 )
-		  ''end if
-		  '
-		  'QReport   id, ":", path, Hex( flags, 8 )
-		  'QReport   flagtext
-		  'next
-		  '
-		  ''for i as integer=0 to numEvents - 1
-		  ''mb = mb1.Ptr( i * 4 )
-		  ''if Abs( mb1.UInt32Value( i * 4 ))>10000 then
-		  ''path = mb.CString( 0 )
-		  ''else
-		  ''path = ""
-		  ''QReportError   "Bad address", mb1.UInt32Value( i * 4 )
-		  ''end if
-		  ''
-		  ''flags = mb2.UInt32Value( i * 4 )
-		  ''id = mb3.UInt64Value( i * 8 )
-		  ''
-		  ''QReport   id, ":", path, Hex( flags, 8 )
-		  ''next
-		  '
-		  ''typedef void ( *FSEventStreamCallback )(
-		  ''ConstFSEventStreamRef streamRef,
-		  ''void *clientCallBackInfo,
-		  ''size_t numEvents,
-		  ''void *eventPaths,
-		  ''const FSEventStreamEventFlags eventFlags[],
-		  ''const FSEventStreamEventId eventIds[]);
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FSEventsGetLastEventIdForDeviceBeforeTime(dev as Int32, beforeDate as Date) As UInt64
+		  #if TargetMacOS
+		    declare function FSEventsGetLastEventIdForDeviceBeforeTime lib CarbonLib (dev as Int32, time as double) as UInt64
+		    
+		    return  FSEventsGetLastEventIdForDeviceBeforeTime( dev, CoreFoundation.ConvertDateToCFAbsoluteTime( beforeDate ))
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -258,62 +206,32 @@ Implements DebugReportFormatter
 		  dim id as UInt64
 		  dim path as String
 		  dim flags as UInt32
-		  dim flagtext() as string
 		  dim mb as new MemoryBlock( 8 )
-		  dim mb1, mb2, mb3 as MemoryBlock
+		  dim mb2, mb3 as MemoryBlock
 		  dim p as Ptr
 		  dim arp() as string
 		  dim arf() as int32
 		  dim arid() as UInt64
 		  dim f as FolderItem
 		  
-		  'mb1 = eventPaths
 		  mb2 = eventFlags
 		  mb3 = eventIDs
 		  
-		  'QReport   Cocoa.NSObjectFromNSPtr( eventPaths )
-		  
-		  QReport  "numEvents:", numEvents
-		  
 		  for i as integer=0 to numEvents - 1
 		    path = CFArrayGetStringAtIndex( eventPaths, i )
-		    
 		    arp.Append   path
 		    
-		    f = new FolderItem( IFTE( RelativeTo<>nil, RelativeTo.POSIXPath + "/" + path, path ), FolderItem.PathTypeShell )
+		    if RelativeTo<>nil then
+		      f = new FolderItem( RelativeTo.POSIXPath + "/" + path, FolderItem.PathTypeShell )
+		    else
+		      f = new FolderItem( path, FolderItem.PathTypeShell )
+		    end if
 		    
-		    'p = CFArrayGetValueAtIndex( eventFlags, i )
-		    'if CFNumberGetValue( p, kCFNumberIntType, mb ) then
-		    'flags = mb.UInt32Value( 0 )
-		    'else
 		    flags = mb2.UInt32Value( i * 4 )
-		    'end if
-		    
 		    arf.Append   flags
 		    
-		    redim flagtext( -1 )
-		    
-		    for j as integer = 0 to 24
-		      if Bitwise.BitAnd( flags, RealBasic.Pow( 2, j ))<>0 then
-		        flagtext.Append   NthField( kFlagList, ",", j + 2 )
-		      end if
-		    next
-		    
-		    
-		    'p = CFArrayGetValueAtIndex( eventIDs, i )
-		    'if CFNumberGetValue( p, kCFNumberLongType, mb ) then
-		    'id = mb.UInt64Value( 0 )
-		    'else
 		    id = mb3.UInt64Value( i * 8 )
-		    'end if
-		    
 		    arid.Append   id
-		    
-		    QReport   id, ":", path, Hex( flags, 8 )
-		    if f<>nil AND f.exists then
-		      QReport  "File inode:", f.inode
-		    end if
-		    QReport   flagtext
 		  next
 		  
 		  RaiseEvent  FilesystemModified( arp, arf, arid )
@@ -325,7 +243,7 @@ Implements DebugReportFormatter
 		  //Get the latest eventID passed to this stream
 		  
 		  #if TargetMacOS
-		    soft declare function FSEventStreamGetLatestEventId lib CarbonLib (ref as Ptr) as UInt64
+		    declare function FSEventStreamGetLatestEventId lib CarbonLib (ref as Ptr) as UInt64
 		    
 		    return  FSEventStreamGetLatestEventId( me.Reference )
 		  #endif
@@ -335,7 +253,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Sub ScheduleWithRunLoop()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoop as Ptr, runLoopMode as CFStringRef )
+		    declare sub FSEventStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoop as Ptr, runLoopMode as CFStringRef )
 		    
 		    if me.State = kStateInitialized then
 		      FSEventStreamScheduleWithRunLoop   me.Reference, CFRunLoop.Current.Reference, "kCFRunLoopDefaultMode"
@@ -350,7 +268,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Function Start() As Boolean
 		  #if TargetMacOS
-		    soft declare function FSEventStreamStart lib CarbonLib (streamref as Ptr) as Boolean
+		    declare function FSEventStreamStart lib CarbonLib (streamref as Ptr) as Boolean
 		    
 		    if me.State = kStateScheduled OR me.State = kStateStopped then
 		      dim OK as Boolean = FSEventStreamStart( me.Reference )
@@ -368,7 +286,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Sub Stop()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamStop lib CarbonLib (streamref as Ptr)
+		    declare sub FSEventStreamStop lib CarbonLib (streamref as Ptr)
 		    
 		    if me.State = kStateStarted then
 		      FlushSync
@@ -384,7 +302,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		 Shared Function SystemLatestEventID() As UInt64
 		  #if TargetMacOS
-		    soft declare Function FSEventsGetCurrentEventId lib CarbonLib ( ) as UInt64
+		    declare Function FSEventsGetCurrentEventId lib CarbonLib ( ) as UInt64
 		    
 		    return  FSEventsGetCurrentEventId( )
 		  #endif
@@ -394,7 +312,7 @@ Implements DebugReportFormatter
 	#tag Method, Flags = &h0
 		Sub UnscheduleFromRunLoop()
 		  #if TargetMacOS
-		    soft declare sub FSEventStreamInvalidate lib CarbonLib (ref as Ptr)
+		    declare sub FSEventStreamInvalidate lib CarbonLib (ref as Ptr)
 		    
 		    if me.State>=kStateScheduled then
 		      FSEventStreamInvalidate( me.Reference )

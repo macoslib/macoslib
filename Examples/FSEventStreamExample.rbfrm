@@ -7,7 +7,7 @@ Begin Window FSEventStreamExample
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   4.99e+2
+   Height          =   3.16e+2
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -20,11 +20,11 @@ Begin Window FSEventStreamExample
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   0
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "FSEvents"
    Visible         =   True
    Width           =   8.54e+2
-   Begin PushButton PushButton1
+   Begin PushButton StartBTN
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
@@ -37,25 +37,25 @@ Begin Window FSEventStreamExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   21
+      Left            =   12
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   0
+      TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   92
+      Top             =   268
       Underline       =   ""
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton2
+   Begin PushButton StopBTN
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
@@ -68,249 +68,219 @@ Begin Window FSEventStreamExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   118
+      Left            =   104
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   1
+      TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   92
+      Top             =   268
       Underline       =   ""
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton3
+   Begin Label Label2
       AutoDeactivate  =   True
       Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   ""
-      Caption         =   "UUID"
-      Default         =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   20
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   143
-      Underline       =   ""
-      Visible         =   True
-      Width           =   80
-   End
-   Begin PushButton PushButton4
-      AutoDeactivate  =   True
-      Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   ""
-      Caption         =   "Test CFUUID"
-      Default         =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   222
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   3
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   143
-      Underline       =   ""
-      Visible         =   True
-      Width           =   146
-   End
-   Begin PushButton PushButton5
-      AutoDeactivate  =   True
-      Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   ""
-      Caption         =   "DADict"
-      Default         =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   21
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   175
-      Underline       =   ""
-      Visible         =   True
-      Width           =   80
-   End
-   Begin Label Label1
-      AutoDeactivate  =   True
-      Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   55
+      Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   14
+      Left            =   12
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      Multiline       =   ""
+      Multiline       =   True
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   5
+      TabIndex        =   9
       TabPanelIndex   =   0
-      Text            =   "Currently for debugging purpose only. DO NOT USE."
-      TextAlign       =   1
-      TextColor       =   &h00FF0000
+      Text            =   "The following will check every change in your Home folder. Results are given in the Debug Log window on the right —>"
+      TextAlign       =   0
+      TextColor       =   &h000000
       TextFont        =   "System"
-      TextSize        =   18
+      TextSize        =   0
       TextUnit        =   0
-      Top             =   18
+      Top             =   212
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   820
+      Width           =   821
+   End
+   Begin Label Label3
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   19
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   10
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      Text            =   "-"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   237
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   821
+   End
+   Begin Label Label1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   183
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   12
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      Text            =   "On Mac OS X, every file modification event is kept in a database and the events are dispatched to applications which registered for such notifications through a MacFSEventStream. Not only it allows to receive FSEvents in nearly real-time, but also can your application play back all the events which occurred between the last time your application stopped and the current time.\r\rWhen you create a MacFSEventStream, you can specify an arbitrary number of paths to check.\r\rNotes:\r  • On Mac OS X 10.5 and 10.6, only the parent folder is passed when a file is created/modified which means that you must build and keep up-to-date the whole hierarchy of files and folders that you are interested in and detect where the modifications occurred.\r  • Starting with Mac OS X 10.7, you can select to get the events at the file level.\r  • FSEvents are sent in order but FSEvents in rapid succession will be coalesced into one event."
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   9
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   830
+   End
+   Begin Separator Separator1
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   5
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   10
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   195
+      Visible         =   True
+      Width           =   821
    End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Method, Flags = &h21
+		Private Sub FilesystemModified(theStream as MacFSEventStream, events() as MacFSEvent)
+		  
+		  for each evt as MacFSEvent in events
+		    QReport  evt
+		  next
+		End Sub
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
-		streams() As FSEventStream
+		stream As MacFSEventStream
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events PushButton1
+#tag Events StartBTN
 	#tag Event
 		Sub Action()
 		  
-		  dim stream as FSEventStream
 		  dim f as FolderItem
 		  
-		  'f = Volume( 0 ) //new FolderItem( "/", FolderItem.PathTypeShell )
-		  
-		  for i as integer=0 to VolumeCount - 1
-		    f = Volume( i )
-		    DReport  f.Name, f.UNIXDeviceID
-		    DReport  FSEventModule.CopyUUIDForDevice( f.UNIXDeviceID )
-		  next
-		  
-		  'return
-		  
-		  f = new FolderItem( "Taurus:", FolderItem.PathTypeAbsolute )
-		  'stream = FSEventStream.CreateFromListOfPaths( Array( "/Volumes" ), &h10 OR &h4 OR &h1, 0.5 )
-		  stream = FSEventStream.CreateFromListOfPathsForDevice( f, Array( "AsgardHD/Users/steff" ), &h10 OR &h4 OR &h1, 0.5 )
-		  streams.Append   stream
-		  stream.ScheduleWithRunLoop
-		  if NOT  stream.Start then
-		    DReportError   "Could not start stream"
+		  if stream=nil then
+		    f = SpecialFolder.UserHome
+		    dim opts as integer
+		    
+		    if SystemVersionAsInt>=1070 then
+		      opts = MacFSEventStream.kFSEventStreamCreateFlagFileEvents OR MacFSEventStream.kFSEventStreamCreateFlagWatchRoot
+		    else
+		      opts = MacFSEventStream.kFSEventStreamCreateFlagWatchRoot
+		    end if
+		    
+		    stream = MacFSEventStream.CreateFromListOfFolderItems( Array( f ), opts, 0.5 )
+		    
+		    AddHandler   stream.FilesystemModified, AddressOf FilesystemModified
+		    
+		    if NOT  stream.Start then
+		      MsgBox  "Could not start stream"
+		      return
+		    end if
+		    
+		    StopBTN.Enabled = true
+		    
+		    DReport   "FSEventStream started. First events should appear in the next 10 seconds."
+		    
 		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton2
+#tag Events StopBTN
 	#tag Event
 		Sub Action()
 		  
-		  for each stream as FSEventStream in streams
-		    stream.Stop
-		  next
+		  stream.Stop
 		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton3
+#tag Events Label3
 	#tag Event
-		Sub Action()
+		Sub Open()
 		  
-		  dim f as FolderItem
-		  
-		  f = Volume( 0 )
-		  
-		  DReport   f.LocalVolumeUUID
-		  
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton4
-	#tag Event
-		Sub Action()
-		  
-		  dim uuid as CFUUID
-		  dim mb as MemoryBlock
-		  
-		  uuid = new CFUUID( "07AE3B9B-587E-397C-A731-AD4B1BA1B00E" )
-		  
-		  Dreport  "uuid:", uuid
-		  
-		  mb = uuid.GetBytes
-		  
-		  DReport  "mb:", EncodeHex( mb.StringValue( 0, 16 ), true )
-		  
-		  uuid = new CFUUID( mb )
-		  
-		  DReport "uuid2:", uuid
-		  
-		  DReport  "stringValue:", uuid.StringValue
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton5
-	#tag Event
-		Sub Action()
-		  
-		  dim f as FolderItem
-		  
-		  f = Volume( 0 )
-		  
-		  DReport   f.DADiskDescription
-		  
-		  
+		  if SystemVersionAsInt>=&h1070 then
+		    me.Text = "As you are running Lion or Mountain Lion, you will receive events with the file name."
+		  else
+		    me.Text = "As you are running Snow Leopard or below, you will only receive events for modified folders but with no clue on which file changed."
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

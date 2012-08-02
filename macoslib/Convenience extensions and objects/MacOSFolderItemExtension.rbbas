@@ -735,6 +735,21 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ReadAll(extends f as FolderItem, encoding as TextEncoding = nil) As String
+		  //# Read the whole content of a file
+		  
+		  //@ [Cross-platform]
+		  
+		  dim bs as BinaryStream
+		  bs = BinaryStream.Open( f, false )
+		  dim result as string = DefineEncoding( bs.Read( bs.Length ), encoding )
+		  bs.Close
+		  
+		  return   result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RevealInFinder(extends f as FolderItem)
 		  //# Reveal the FolderItem in the Finder (or third party replacement)
 		  

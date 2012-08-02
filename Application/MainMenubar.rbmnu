@@ -931,6 +931,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem FSEventStreamMenu
+            SpecialMenu = 0
+            Text = "FSEvent stream"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem UntitledSeparator3
          SpecialMenu = 0
@@ -1081,19 +1087,6 @@ Begin Menu MainMenubar
          Begin MenuItem CoreFoundationStringTokenizer
             SpecialMenu = 0
             Text = "String Tokenizer"
-            Index = -2147483648
-            AutoEnable = True
-         End
-      End
-      Begin MenuItem CoreServicesMenu
-         SpecialMenu = 0
-         Text = "Core Services"
-         Index = -2147483648
-         AutoEnable = True
-         SubMenu = True
-         Begin MenuItem FSEventStreamMenu
-            SpecialMenu = 0
-            Text = "FSEvent stream"
             Index = -2147483648
             AutoEnable = True
          End

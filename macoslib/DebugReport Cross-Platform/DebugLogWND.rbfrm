@@ -236,7 +236,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -271,7 +270,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -306,7 +304,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -341,7 +338,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F18"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -376,7 +372,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F19"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -448,10 +443,74 @@ End
 
 #tag WindowCode
 	#tag Event
+		Sub Close()
+		  
+		  '#if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		  '//Position window. Check for prefs file
+		  '
+		  'dim f as FolderItem
+		  'f = GetFolderItem( "DebugReport.prefs.plist" )
+		  'if f<>nil AND f.Exists then
+		  'if DebugReportModule.Prefs=nil then
+		  'dim prefs as Dictionary
+		  'dim wbounds() as string
+		  'prefs = PlistAsDictionary_MTC( f )
+		  '
+		  'DebugReportModule.Prefs = prefs
+		  'else
+		  'prefs = DebugReportModule.Prefs
+		  'end if
+		  '
+		  'if prefs.HasKey( "WindowBounds" ) then
+		  'wbounds = Split( prefs.Value( "WindowBounds" ), " " )
+		  '
+		  'me.Left = Val( wbounds( 0 ))
+		  'me.Top = Val( wbounds( 1 ))
+		  'me.Width = Val( wbounds( 2 ))
+		  'me.Height = Val( wbounds( 3 ))
+		  '
+		  'else
+		  'me.Left = Screen( 0 ).AvailableWidth - me.Width
+		  'end if
+		  '
+		  'else //Use default
+		  'me.Left = Screen( 0 ).AvailableWidth - me.Width
+		  '
+		  'end if
+		  '#endif
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  
-		  me.Left = Screen( 0 ).AvailableWidth - me.Width
-		  
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    //Position window. Check for prefs file
+		    
+		    dim f as FolderItem
+		    f = GetFolderItem( "DebugReport.prefs.plist" )
+		    if f<>nil AND f.Exists then
+		      dim prefs as Dictionary
+		      dim wbounds() as string
+		      prefs = PlistAsDictionary_MTC( f )
+		      
+		      if prefs.HasKey( "WindowBounds" ) then
+		        wbounds = Split( prefs.Value( "WindowBounds" ), " " )
+		        
+		        me.Left = Val( wbounds( 0 ))
+		        me.Top = Val( wbounds( 1 ))
+		        me.Width = Val( wbounds( 2 ))
+		        me.Height = Val( wbounds( 3 ))
+		        
+		      else
+		        me.Left = Screen( 0 ).AvailableWidth - me.Width
+		      end if
+		      
+		    else //Use default
+		      me.Left = Screen( 0 ).AvailableWidth - me.Width
+		      
+		    end if
+		  #endif
 		End Sub
 	#tag EndEvent
 

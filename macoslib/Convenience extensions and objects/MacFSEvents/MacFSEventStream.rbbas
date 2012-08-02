@@ -1,6 +1,5 @@
 #tag Class
 Class MacFSEventStream
-Implements DebugReportFormatter
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
 		  
@@ -18,7 +17,34 @@ Implements DebugReportFormatter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CopyUUIDForDevice(dev as FolderItem) As String
+		  //# Copy the UUID (Universally Unique ID) of the FSEvents persistent store on the given volume
+		  
+		  //@ Before you use the "fromID" parameter with a previously stored value in CreateFromListOfPathsForDevice, you
+		  //@   should check that the FSEvents database has the same UUID as before.
+		  //@   The UUID may change if the volume has been erased or when the eventID has gone beyond the upper limit of a UInt64
+		  //@   in which case it rolls back to 0.
+		  
+		  //@ Note: this UUID is only related to FSEvents and must not be confused with VolumeUUID or the DeviceUUID
+		  
+		  #if TargetMacOS
+		    declare function FSEventsCopyUUIDForDevice lib CarbonLib ( dev as UInt32 ) as Ptr
+		    
+		    dim p as Ptr = FSEventsCopyUUIDForDevice( dev.UNIXDeviceID )
+		    if p<>nil then
+		      dim uuid as new CFUUID( p, false )
+		      
+		      return uuid.StringValue
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfFolderItems(forFolders() as FolderItem, options as integer, latencyInSeconds as double, fromID as UInt64 = 0) As MacFSEventStream
+		  //# Create a MacFSEventStream from an array of FolderItems, which can correspond to folders on several volumes
+		  
 		  #if TargetMacOS
 		    return  new MacFSEventStream( FSEventStream.CreateFromListOfFolderItems( forFolders, options, latencyInSeconds, fromID ))
 		  #endif
@@ -27,6 +53,8 @@ Implements DebugReportFormatter
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfPaths(forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As MacFSEventStream
+		  //# Create a MacFSEventStream from an array of POSIX paths, which can correspond to folders on several volumes
+		  
 		  #if TargetMacOS
 		    return  new MacFSEventStream( FSEventStream.CreateFromListOfPaths( forPaths, options, latencyInSeconds, fromID ))
 		  #endif
@@ -35,6 +63,8 @@ Implements DebugReportFormatter
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromListOfPathsForDevice(device as FolderItem, forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As MacFSEventStream
+		  //# Create a MacFSEventStream from an array of POSIX paths relative to a given volume (device)
+		  
 		  #if TargetMacOS
 		    return  new MacFSEventStream( FSEventStream.CreateFromListOfPathsForDevice( device, forPaths, options, latencyInSeconds, fromID ))
 		  #endif
@@ -118,13 +148,17 @@ Implements DebugReportFormatter
 		  //# Stop receiving events in the FilesystemModified event
 		  
 		  #if TargetMacOS
-		    stream.Stop
+		    if stream.State = stream.kStateStarted then
+		      stream.Stop
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function SystemLatestEventID() As UInt64
+		  //# Return the latest eventID issued by the system
+		  
 		  #if TargetMacOS
 		    return  FSEventStream.SystemLatestEventID
 		  #endif
@@ -155,6 +189,22 @@ Implements DebugReportFormatter
 	#tag Property, Flags = &h21
 		Private stream As FSEventStream
 	#tag EndProperty
+
+
+	#tag Constant, Name = kFSEventStreamCreateFlagFileEvents, Type = Double, Dynamic = False, Default = \"&h10", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kFSEventStreamCreateFlagIgnoreSelf, Type = Double, Dynamic = False, Default = \"&h8", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kFSEventStreamCreateFlagNoDefer, Type = Double, Dynamic = False, Default = \"&h2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kFSEventStreamCreateFlagUseCFTypes, Type = Double, Dynamic = False, Default = \"&h1", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = kFSEventStreamCreateFlagWatchRoot, Type = Double, Dynamic = False, Default = \"&h4", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior

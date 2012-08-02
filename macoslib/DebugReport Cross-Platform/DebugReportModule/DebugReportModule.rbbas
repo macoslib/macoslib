@@ -243,7 +243,7 @@ Protected Module DebugReportModule
 		        dim ars() as string = v
 		        results.Append   "Array of strings: ("
 		        for i as integer = 0 to ars.Ubound
-		          results.Append  Str( i ) + ": " + ars( i )
+		          results.Append  Str( i ) + ": “" + ars( i ) + "”"
 		        next
 		        results.Append ")"
 		        
@@ -336,20 +336,20 @@ Protected Module DebugReportModule
 		          
 		        else //We have no special code to format the Object. Let's use Introspection.
 		          
-		          //Does not work. It crashes the App
-		          
+		          //Object can have a DebugReportRepresentation method. Try to call it
 		          obj = v
-		          'dim ppts() as Introspection.PropertyInfo
-		          'redim result( -1 )
-		          '
-		          'ppts = Introspection.GetType( obj ).GetProperties
-		          '
-		          'for each ppt as Introspection.PropertyInfo in ppts
-		          'result.Append   ppt.Name + " = " + FormatVariant( ppt.Value( obj ))
-		          'next
-		          '
-		          'return  "<" + obj.ClassName + EndOfLine + Join( result, EndOfLine ) +  " >"
+		          dim meths() as Introspection.MethodInfo = Introspection.GetType( obj ).GetMethods
 		          
+		          for each meth as Introspection.MethodInfo in meths
+		            if meth.Name="DebugReportRepresentation" then
+		              dim vs() as variant
+		              vs.Append   formatSpec
+		              v = meth.Invoke( obj, vs )
+		              return   v.StringValue
+		            end if
+		          next
+		          
+		          //else, return the minimum
 		          return  "<" + obj.ClassName + " >"
 		        end if
 		        
@@ -363,14 +363,8 @@ Protected Module DebugReportModule
 		      else
 		        obj = v
 		        
-		        //There is something to fix here
-		        
-		        'if obj.HasMethod( "DReportVariantString" ) then //The class implements a DReport-compatible formatting method. Let's call it.
-		        'return   obj.InvokeMethod( "DReportVariantString", formatSpec )
-		        '
-		        'else
 		        return   v.StringValue
-		        'end if
+		        
 		      end select
 		    end if
 		  end if
@@ -799,15 +793,15 @@ Protected Module DebugReportModule
 		• If you change "D" by "Q" at the beginning of the method name, the report will be Queued, i.e. it is added immediately but is displayed only when the DebugLogWindow
 		     updates itself. This is much less time consuming than the "D" variant. Also, the data are available even if your software breaks before it has displayed a "Q" Report.
 		
-		THREADS note: as the UI cannot be modified from a Thread, reports will be queued and displayed ASAP.
+		THREADS note: as the UI cannot be modified from a Thread, reports will be queued and displayed ASAP from the main thread.
 		
 		WARNING: by default, the Log Window is forced to refresh each time a DReport is encountered. This is useful but also extremely time-consuming. For that reason,
 		   you can use the different CheckBoxes but also press F18 (continuously) to reverse that behavior or F19 (once) to block that behavior from now on (DOES NOT WORK YET).
 		
 		
-		EXTENDING the module: if you create a class and want it to be displayable in the Debug Log window, create a method named "DReportVariantString" with an optional 
-		   "formatSpec" parameter (as String, defaults to "") which returns the String to be displayed. The string can contain any character but will be displayed as plain text.
-		
+		EXTENDING the module: if you create a class and want it to be displayable in the Debug Log window, make it adopt the DebugReportFormatter interface which
+		  implements the “DebugReportRepresentation( formatSpec as string = "" ) as variant” method. For the moment, you should return a string representing your
+		  object from that method.
 		
 		
 		FUTURE FEATURES: in the future, some methods will use a format specification which allows developers to choose some options for representing the contents of
@@ -842,6 +836,10 @@ Protected Module DebugReportModule
 		Private LogTimer As Timer
 	#tag EndProperty
 
+	#tag Property, Flags = &h1
+		Protected Prefs As Dictionary
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private Queue() As ReportEvent
 	#tag EndProperty
@@ -866,7 +864,7 @@ Protected Module DebugReportModule
 	#tag Constant, Name = DRSeparation, Type = String, Dynamic = False, Default = \"_.$separation$._", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"101", Scope = Private
+	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"102", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kLevelDebug, Type = Double, Dynamic = False, Default = \"0", Scope = Protected

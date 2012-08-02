@@ -49,6 +49,8 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function GetBytes() As MemoryBlock
+		  //Get the UUID as a group of endianness-independent MemoryBlock
+		  
 		  #if TargetMacOS
 		    soft declare function CFUUIDGetUUIDBytes lib CarbonLib (ref as Ptr) as CFUUIDBytesStructure
 		    
@@ -63,6 +65,22 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As String
+		  #if TargetMacOS
+		    return  me.StringValue
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(uuid as String)
+		  #if TargetMacOS
+		    me.Constructor( uuid )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function StringValue() As String
 		  #if TargetMacOS
 		    soft declare function CFUUIDCreateString lib CarbonLib (alloc as ptr, uuid as Ptr) as CFStringRef
@@ -71,6 +89,26 @@ Inherits CFType
 		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = Documentation
+		CFUUID is the RB object corresponding to CFUUIDRef in CoreFoundation. It is an endianness-independent group of 16 bytes (128 bits)
+		
+		You can create it as:
+		uuid = new CFUUID( "07AE3B9B-587E-397C-A731-AD4B1BA1B00E" )
+		uuid = "07AE3B9B-587E-397C-A731-AD4B1BA1B00E"  //Involves Operator_Convert
+		
+		uuid = new CFUUID( my128bitsMemoryBlock )
+		
+		
+		You can get the string value using:
+		s = uuid.StringValue
+		s = uuid.VariantValue   //"VariantValue" is an event used shared by all the CFType objects
+		
+		s = uuid  //Involves Operator_Convert
+		
+		
+	#tag EndNote
 
 
 	#tag Structure, Name = CFUUIDBytesStructure, Flags = &h0
