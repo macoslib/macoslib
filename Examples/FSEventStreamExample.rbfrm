@@ -108,6 +108,7 @@ Begin Window FSEventStreamExample
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "The following will check every change in your Home folder. Results are given in the Debug Log window on the right —>"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -142,6 +143,7 @@ Begin Window FSEventStreamExample
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -176,6 +178,7 @@ Begin Window FSEventStreamExample
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "On Mac OS X, every file modification event is kept in a database and the events are dispatched to applications which registered for such notifications through a MacFSEventStream. Not only it allows to receive FSEvents in nearly real-time, but also can your application play back all the events which occurred between the last time your application stopped and the current time.\r\rWhen you create a MacFSEventStream, you can specify an arbitrary number of paths to check.\r\rNotes:\r  • On Mac OS X 10.5 and 10.6, only the parent folder is passed when a file is created/modified which means that you must build and keep up-to-date the whole hierarchy of files and folders that you are interested in and detect where the modifications occurred.\r  • Starting with Mac OS X 10.7, you can select to get the events at the file level.\r  • FSEvents are sent in order but FSEvents in rapid succession will be coalesced into one event."
       TextAlign       =   0
       TextColor       =   &h000000

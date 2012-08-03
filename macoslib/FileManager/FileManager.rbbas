@@ -11,6 +11,40 @@ Module FileManager
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function FSCopyAliasInfo(aliasData As MemoryBlock, ByRef targetName As HFSUniStr255, ByRef volumeName As HFSUniStr255, ByRef pathString As CFStringRef, ByRef aliasInfoBitmap As Integer, ByRef aliasInfo As FSAliasInfo) As Integer
+		  dim OSError as integer
+		  
+		  #if TargetMacOS
+		    
+		    declare function FSCopyAliasInfo Lib CarbonLib _
+		    ( aliasHandle As Integer, ByRef targetName As HFSUniStr255, ByRef volumeName As HFSUniStr255, ByRef pathString As CFStringRef, ByRef whichInfo As integer, ByRef info as FSAliasInfo ) As Integer
+		    declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
+		    declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
+		    
+		    dim aliasHandle as new MemoryBlock( 4 )
+		    aliasHandle.Long( 0 ) = NewHandle( LenB( aliasData ) )
+		    aliasHandle.Ptr( 0 ).Ptr( 0 ).StringValue( 0, LenB( aliasData ) ) = aliasData
+		    
+		    OSError = FSCopyAliasInfo( aliasHandle.Long( 0 ), targetName, volumeName, pathString, aliasInfoBitmap, aliasInfo )
+		    DisposeHandle( aliasHandle.Long( 0 ) )
+		    
+		  #else
+		    
+		    #pragma unused aliasData
+		    #pragma unused targetName
+		    #pragma unused volumeName
+		    #pragma unused pathString
+		    #pragma unused aliasInfoBitmap
+		    #pragma unused aliasInfo
+		    
+		  #endif
+		  
+		  return OSError
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function FSRef(extends f as FolderItem) As FSRef
 		  //# This is a renamed function from older MacOSLib versions. It used to be called "MacFSRef",
@@ -67,7 +101,22 @@ Module FileManager
 		      OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
 		    end
 		    DisposeHandle ( mb1.Long( 0 ) )
-		    if OSError = 0 then r = FolderItem.CreateFromMacFSRef( outRef )
+		    if OSError = 0 then
+		      r = FolderItem.CreateFromMacFSRef( outRef )
+		    else
+		      
+		      // We'll grab the info from the alias and create a folderitem that way.
+		      dim targetName as HFSUniStr255
+		      dim volumeName as HFSUniStr255
+		      dim pathString as CFStringRef
+		      dim bitmap as integer
+		      dim aliasInfo as FSAliasInfo
+		      
+		      OSError = FSCopyAliasInfo( aliasData, targetName, volumeName, pathString, bitmap, aliasInfo )
+		      if OSError = 0 and pathString <> "" then
+		        r = GetFolderItem( pathString, FolderItem.PathTypeShell )
+		      end if
+		    end if
 		    
 		  #else
 		    
@@ -503,6 +552,22 @@ Module FileManager
 		  finderFlags as UInt16
 		  location as MacPoint
 		reservedField as UInt16
+	#tag EndStructure
+
+	#tag Structure, Name = FSAliasInfo, Flags = &h0
+		volumeCreateDate As UTCDateTime
+		  targetCreateDate As UTCDateTime
+		  fileType As OSType
+		  fileCreator As OSType
+		  parentDirID As UInt32
+		  nodeID As UInt32
+		  fileSystemID As UInt16
+		  signature As UInt16
+		  volumeIsBootVolume As Boolean
+		  volumeIsAutomounted As Boolean
+		  volumeIsEjectable As Boolean
+		  volumeHasPersistentFileIDs As Boolean
+		isDirectory As Boolean
 	#tag EndStructure
 
 	#tag Structure, Name = FSCatalogInfo, Flags = &h0

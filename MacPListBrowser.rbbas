@@ -78,7 +78,7 @@ Protected Class MacPListBrowser
 		  else
 		    
 		    if not pIsValidValue( value ) then
-		      pRaiseError "Only a valid type (dictionary, array, string, number, boolean, date, or data) can be assigned to an array."
+		      pRaiseError "Only a valid type (FolderItem, dictionary, array, string, number, boolean, date, or data) can be assigned to an array."
 		    end if
 		    
 		    v( childIndex ) = new MacPListBrowser( value, self, childIndex )
@@ -229,7 +229,6 @@ Protected Class MacPListBrowser
 		    end if
 		    
 		    me.VariantValue = myValue // Convert it to MacPListBrowser objects as needed
-		    
 		    pSetParent( myParent, myParentIndex )
 		    
 		  #else
@@ -262,7 +261,7 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListFile(f As FolderItem) As MacPListBrowser
-		  // Note that passing a FolderItem to the Contructor will add that FolderItem as an alias 
+		  // Note that passing a FolderItem to the Contructor will add that FolderItem as an alias
 		  
 		  dim r as MacPListBrowser
 		  
@@ -417,6 +416,28 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		Function IsFolderItem() As Boolean
+		  #if TargetMacOS
+		    
+		    if not zCheckedForFolderItem then
+		      zCheckedForFolderItem = true // Remember that we checked
+		      
+		      if zValueType <> ValueType.IsData then
+		        zIsFolderItem = false // Just make sure this is set properly
+		        
+		      elseif not zIsFolderItem then
+		        dim mb as MemoryBlock = zValue
+		        if mb <> nil then
+		          dim f as FolderItem = FileManager.GetFolderItemFromAliasData( mb )
+		          if f IsA FolderItem then
+		            zIsFolderItem = true // Remember for next time
+		          end if
+		        end if
+		      end if
+		      
+		    end if
+		    
+		  #endif
+		  
 		  return zIsFolderItem
 		  
 		End Function
@@ -601,6 +622,18 @@ Protected Class MacPListBrowser
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub pResetFlags()
+		  // Resets the boolean properties
+		  
+		  zIsDictionary = false
+		  zIsArray = false
+		  zIsFolderItem = false
+		  zCheckedForFolderItem = false
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub pSetParent(myParent As MacPListBrowser, myParentIndex As Variant)
 		  // Private method that lets one MacPListBrowser set the parent of another
@@ -632,9 +665,8 @@ Protected Class MacPListBrowser
 		  
 		  zValue = newArr
 		  zValueType = ValueType.IsArray
+		  pResetFlags()
 		  zIsArray = true
-		  zIsDictionary = false
-		  zIsFolderItem = false
 		  
 		End Sub
 	#tag EndMethod
@@ -650,9 +682,9 @@ Protected Class MacPListBrowser
 		  
 		  zValue = newDict
 		  zValueType = ValueType.IsDictionary
+		  pResetFlags
 		  zIsDictionary = true
-		  zIsArray = false
-		  zIsFolderItem = false
+		  
 		End Sub
 	#tag EndMethod
 
@@ -665,9 +697,9 @@ Protected Class MacPListBrowser
 		    if mb <> nil then
 		      zValue = mb
 		      zValueType = ValueType.IsData
+		      pResetFlags
 		      zIsFolderItem = true
-		      zIsArray = false
-		      zIsDictionary = false
+		      zCheckedForFolderItem = true
 		      
 		    else
 		      
@@ -1013,20 +1045,8 @@ Protected Class MacPListBrowser
 			      next
 			      r = returnDict
 			      
-			    elseif zIsFolderItem then
+			    elseif IsFolderItem then // Does the checks necessary to confirm
 			      r = FileManager.GetFolderItemFromAliasData( zValue )
-			      
-			    elseif not zCheckedForFolderItem and zValueType = ValueType.IsData then // Check to see if it's an alias
-			      zCheckedForFolderItem = true // Remember that we checked
-			      
-			      dim mb as MemoryBlock = zValue
-			      if mb <> nil then
-			        dim f as FolderItem = FileManager.GetFolderItemFromAliasData( mb )
-			        if f IsA FolderItem then
-			          r = f
-			          zIsFolderItem = true // Remember for next time
-			        end if
-			      end if
 			      
 			    end if
 			    
@@ -1049,6 +1069,8 @@ Protected Class MacPListBrowser
 			    pRaiseError "This is not an acceptable type for a plist."
 			  end if
 			  
+			  // We don't reset the flags first because there might be an error when assigning the value, so zValue may not change.
+			  
 			  if value IsA FolderItem then
 			    pSetValueFromFolderItem( value )
 			    
@@ -1061,12 +1083,9 @@ Protected Class MacPListBrowser
 			    
 			  else
 			    
+			    pResetFlags()
 			    zValue = value
 			    zValueType = pValueTypeOfVariant( value )
-			    zIsDictionary = false
-			    zIsArray = false
-			    zIsFolderItem = false
-			    zCheckedForFolderItem = false // Check for an alias when restoring
 			    
 			  end if
 			  
