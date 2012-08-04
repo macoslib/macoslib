@@ -106,15 +106,19 @@ Module FileManager
 		    else
 		      
 		      // We'll grab the info from the alias and create a folderitem that way.
-		      dim targetName as HFSUniStr255
-		      dim volumeName as HFSUniStr255
+		      dim targetNameHFS as HFSUniStr255
+		      dim volumeNameHFS as HFSUniStr255
 		      dim pathString as CFStringRef
 		      dim bitmap as integer
 		      dim aliasInfo as FSAliasInfo
 		      
-		      OSError = FSCopyAliasInfo( aliasData, targetName, volumeName, pathString, bitmap, aliasInfo )
+		      OSError = FSCopyAliasInfo( aliasData, targetNameHFS, volumeNameHFS, pathString, bitmap, aliasInfo )
 		      if OSError = 0 and pathString <> "" then
-		        r = GetFolderItem( pathString, FolderItem.PathTypeShell )
+		        #if DebugBuild
+		          dim targetName as string = StringValue( targetNameHFS )
+		          dim volumeName as string = StringValue( volumeNameHFS )
+		        #endif
+		        r = Cocoa.GetFolderItemFromPOSIXPath( pathString )
 		      end if
 		    end if
 		    
