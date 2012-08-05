@@ -595,7 +595,6 @@ Inherits NSObject
 		https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html
 		
 		On systems running Leopard (10.5) or below, some parameters passed to the events may be null, e.g. URLs, application.
-		
 	#tag EndNote
 
 

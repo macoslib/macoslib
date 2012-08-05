@@ -62,7 +62,7 @@ Implements DebugReportFormatter
 		    declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
 		    dim myStreamRef as Ptr
-		    dim result as FSEventStream
+		    'dim result as FSEventStream
 		    
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
 		    
@@ -106,6 +106,9 @@ Implements DebugReportFormatter
 		    
 		    return   FSEventStreamCopyDescription( me.Reference )
 		  #endif
+		  
+		  #pragma unused formatSpec
+		  
 		End Function
 	#tag EndMethod
 
@@ -178,6 +181,8 @@ Implements DebugReportFormatter
 		    stream.HandleEvent   numEvents, eventPaths, eventFlags, eventIDs
 		  end if
 		  
+		  #pragma unused clientCallbackInfo
+		  
 		End Sub
 	#tag EndMethod
 
@@ -206,9 +211,9 @@ Implements DebugReportFormatter
 		  dim id as UInt64
 		  dim path as String
 		  dim flags as UInt32
-		  dim mb as new MemoryBlock( 8 )
+		  'dim mb as new MemoryBlock( 8 )
 		  dim mb2, mb3 as MemoryBlock
-		  dim p as Ptr
+		  'dim p as Ptr
 		  dim arp() as string
 		  dim arf() as int32
 		  dim arid() as UInt64

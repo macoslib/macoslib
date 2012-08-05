@@ -115,12 +115,14 @@ Protected Module Cocoa
 		  // Note: The passed path must be absolute, i.e. start from root with "/"
 		  
 		  #if TargetMacOS
-		    declare function CFURLCopyAbsoluteURL lib CarbonLib (relativeURL as Ptr) as Ptr
+		    
+		    'declare function CFURLCopyAbsoluteURL lib CarbonLib (relativeURL as Ptr) as Ptr
 		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
 		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
 		    declare sub CFRelease lib CarbonLib (cf as Ptr)
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		    declare sub CFShow lib CarbonLib (obj as Ptr)
+		    'declare sub CFShow lib CarbonLib (obj as Ptr)
+		    
 		    const kCFURLPOSIXPathStyle = 0
 		    
 		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
@@ -128,6 +130,11 @@ Protected Module Cocoa
 		    CFRelease (url)
 		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
 		    return f
+		    
+		  #else
+		    
+		    #pragma unused absolutePath
+		    
 		  #endif
 		End Function
 	#tag EndMethod

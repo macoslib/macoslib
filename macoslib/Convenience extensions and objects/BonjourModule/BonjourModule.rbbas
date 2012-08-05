@@ -214,8 +214,6 @@ Protected Module BonjourModule
 		1. Create a BonjourService or a subclass of it with the stored name, type and domain
 		2. Call the Resolve method
 		3. Once the Resolved event has been invoked, you can use one of the Addresses to connect to the service
-		
-		
 	#tag EndNote
 
 

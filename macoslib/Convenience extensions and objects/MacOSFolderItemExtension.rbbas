@@ -38,7 +38,7 @@ Protected Module MacOSFolderItemExtension
 		    dim DASessionRef, DADiskRef, p as Ptr
 		    dim cfdict as CFDictionary
 		    dim dict as Dictionary
-		    dim uuid as CFUUID
+		    'dim uuid as CFUUID
 		    
 		    DASessionRef = DASessionCreate( nil )
 		    if DASessionRef=nil then

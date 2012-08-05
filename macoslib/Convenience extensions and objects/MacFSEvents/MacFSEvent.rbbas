@@ -26,6 +26,9 @@ Class MacFSEvent
 		    return   "<MacFSEvent: { path: “" + me.Path + "”" + EndOfLine + "eventID: " + Str( eventID, "#####################" ) + EndOfLine + "Flags: " + Hex( Flags, 8 ) + _
 		    " ( " + Join( textFlags, ", " ) + " ) } >" + EndOfLine
 		  #endif
+		  
+		  #pragma unused formatSpec
+		  
 		End Function
 	#tag EndMethod
 

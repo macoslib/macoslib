@@ -117,6 +117,9 @@ Class MacFSEventStream
 		    
 		    RaiseEvent   FilesystemModified( events )
 		  #endif
+		  
+		  #pragma unused obj
+		  
 		End Sub
 	#tag EndMethod
 

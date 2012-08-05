@@ -117,6 +117,8 @@ Module FileManager
 		        #if DebugBuild
 		          dim targetName as string = StringValue( targetNameHFS )
 		          dim volumeName as string = StringValue( volumeNameHFS )
+		          #pragma unused targetName
+		          #pragma unused volumeName
 		        #endif
 		        r = Cocoa.GetFolderItemFromPOSIXPath( pathString )
 		      end if
@@ -365,8 +367,16 @@ Module FileManager
 
 	#tag Method, Flags = &h1
 		Protected Function StringValue(s as HFSUniStr255) As String
-		  dim data as String = s.StringValue(TargetLittleEndian)
-		  return ConvertEncoding(DefineEncoding(MidB(data, 3, 2*s.length), Encodings.UTF16), Encodings.UTF8)
+		  dim data as String = s.StringValue( TargetLittleEndian )
+		  dim utf16Str as String = data.MidB( 3, 2 * s.Length ).DefineEncoding( Encodings.UTF16 )
+		  dim utf8Str as string = utf16Str.ConvertEncoding( Encodings.UTF8 )
+		  
+		  return utf8Str
+		  
+		  // Original code
+		  // (Modified to make it more human-readable and easier to debug, if needed)
+		  'dim data as String = s.StringValue(TargetLittleEndian)
+		  'return ConvertEncoding(DefineEncoding(MidB(data, 3, 2*s.length), Encodings.UTF16), Encodings.UTF8)
 		End Function
 	#tag EndMethod
 

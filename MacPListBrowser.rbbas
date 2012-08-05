@@ -191,11 +191,9 @@ Protected Class MacPListBrowser
 		    
 		  #else
 		    
-		    pRaiseError "This class can only be used in the MacOS.
+		    pRaiseError "This class can only be used in the MacOS."
 		    
-		    #pragma unused myValue
-		    #pragma unused myParent
-		    #pragma unused myParentIndex
+		    #pragma unused rootType
 		    
 		  #endif
 		  
@@ -233,7 +231,7 @@ Protected Class MacPListBrowser
 		    
 		  #else
 		    
-		    pRaiseError "This class can only be used in the MacOS.
+		    pRaiseError "This class can only be used in the MacOS."
 		    
 		    #pragma unused myValue
 		    #pragma unused myParent

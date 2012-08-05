@@ -222,6 +222,9 @@ End
 		  for each evt as MacFSEvent in events
 		    QReport  evt
 		  next
+		  
+		  #pragma unused theStream
+		  
 		End Sub
 	#tag EndMethod
 

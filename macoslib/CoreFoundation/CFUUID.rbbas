@@ -106,8 +106,6 @@ Inherits CFType
 		s = uuid.VariantValue   //"VariantValue" is an event used shared by all the CFType objects
 		
 		s = uuid  //Involves Operator_Convert
-		
-		
 	#tag EndNote
 
 
