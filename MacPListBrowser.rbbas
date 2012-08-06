@@ -371,35 +371,17 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FindByType(recursive As Boolean = True, findTypes() As ValueType) As MacPListBrowser()
-		  // Returns an array of MacPListBrowser whose value is of a certain type or types.
+		Function FindByType(findType As ValueType, recursive As Boolean = True) As MacPListBrowser()
+		  // Returns an array of MacPListBrowser whose value is of a certain type.
 		  // If recursive, will examine every child too.
 		  // Will return an empty array if nothing is found.
 		  
 		  dim r() as MacPListBrowser
 		  
-		  if findTypes.Ubound <> -1 then
-		    
-		    pFindByType( findTypes, recursive, r )
-		    
-		  end if
+		  pFindByType( findType, recursive, r )
 		  
 		  return r
 		  
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function FindByType(recursive As Boolean, ParamArray findTypes As ValueType) As MacPListBrowser()
-		  return FindByType( recursive, findTypes )
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function FindByType(ParamArray findTypes As ValueType) As MacPListBrowser()
-		  return FindByType( true, findTypes )
 		End Function
 	#tag EndMethod
 
@@ -620,11 +602,11 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub pFindByType(findTypes() As ValueType, recursive As Boolean, appendTo() As MacPListBrowser)
+		Protected Sub pFindByType(findType As ValueType, recursive As Boolean, appendTo() As MacPListBrowser)
 		  // Private method to recursively return the items matching the type.
 		  
 		  // First check this value
-		  if findTypes.IndexOf( zValueType ) <> -1 then
+		  if zValueType = findType then
 		    appendTo.Append me
 		  end if
 		  
@@ -638,7 +620,7 @@ Protected Class MacPListBrowser
 		      for i as integer = 0 to k.Ubound
 		        dim thisKey as Variant = k( i )
 		        dim thisChild As MacPListBrowser = dict.Value( thisKey )
-		        thisChild.pFindByType( findTypes, recursive, appendTo )
+		        thisChild.pFindByType( findType, recursive, appendTo )
 		      next
 		      
 		    elseif zIsArray then
@@ -646,7 +628,7 @@ Protected Class MacPListBrowser
 		      dim v() as Variant = zValue
 		      for i as integer = 0 to v.Ubound
 		        dim thisChild as MacPListBrowser = v( i )
-		        thisChild.pFindByType( findTypes, recursive, appendTo )
+		        thisChild.pFindByType( findType, recursive, appendTo )
 		      next
 		      
 		    end if
@@ -1090,7 +1072,6 @@ Protected Class MacPListBrowser
 		You can move children around by assigning one child to another, either within the same plist or between plists.
 		Moving a plist from plist1 to plist2 will delete that plist from plist1. It's the same as calling plist.Isolate first.
 		If you want to make a copy of a plist, use new MacPListBrowser( originalPList ) or the Clone method.
-		
 	#tag EndNote
 
 
