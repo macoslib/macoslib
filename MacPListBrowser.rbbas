@@ -623,7 +623,7 @@ Protected Class MacPListBrowser
 		Protected Sub pFindByType(findTypes() As ValueType, recursive As Boolean, appendTo() As MacPListBrowser)
 		  // Private method to recursively return the items matching the type.
 		  
-		  // First check this value 
+		  // First check this value
 		  if findTypes.IndexOf( zValueType ) <> -1 then
 		    appendTo.Append me
 		  end if
@@ -1042,28 +1042,24 @@ Protected Class MacPListBrowser
 		Create a new instance by assigning a valid value to it. Valid values are
 		number, string, date, boolean, MemoryBlock (data), array, or dictionary.
 		
+		You can also assign a FolderItem. FolderItems will be stored as Mac aliases and, 
+		when retrieved, will always point to the current location of the file/folder if it exists.
+		If it doesn't exist, you will still get a FolderItem pointing to the original location.
+		
+		The are a few options for starting a MacPListBrowser:
+		
 		dim a() as variant
-		dim p1 as new MacPListBrowser( a )
+		dim p1 as new MacPListBrowser( a ) // An empty array
 		
-		You can also use
-		dim p2 as new MacPListBrowser()
+		You can also use:
 		
-		to start with an empty dictionary, or
-		
-		dim p3 as new MacPListBrowser( MacPListBrowser.ValueType.IsArray )
-		
-		to start with an empty array.
+		dim p2 as new MacPListBrowser() // Empty dictionary
+		dim p3 as new MacPListBrowser( MacPListBrowser.ValueType.IsArray ) // Empty array
+		dim p3 as new MacPListBrowser( MacPListBrowser.ValueType.IsDictionary ) // Empty dictionary
 		
 		You can create a new instance from an existing PropertyList string using the Shared Method CreateFromPListString,
-		or from a FolderItem using CreateFromPListFile or just new MacPListBrowser( f ). If the FolderItem contains
+		or from a FolderItem using CreateFromPListFile. If the FolderItem contains
 		a plist, it will be interpreted. Otherwise, its contents will be added as a string.
-		
-		You can extract the value of the plist by using VariantValue. If the value is an array or dictionary, you can use
-		Child( childIndex ) or Child( key ) respectively to get or assign the value of an element. These values are returns
-		as MacPListBrowser instances.
-		
-		You can move children around by assigning one child to another, either within the same plist or between plists.
-		If you want to make a copy of a plist, use new MacPListBrowser( originalPList ) or the Clone method.
 		
 		DO NOT LOSE A REFERENCE TO THE ROOT PLIST. Because WeakRefs are used to keep track of parents, you can 
 		not get back the root plist if you lose a reference to it. For example:
@@ -1073,12 +1069,28 @@ Protected Class MacPListBrowser
 		// Later
 		plist = plist.Parent // Will be nil at this point
 		
+		You can extract the value of the plist by using VariantValue. If the value is an array or dictionary, you can use
+		Child( childIndex ) or Child( key ) respectively to get or assign the value of an element. These values are returns
+		as MacPListBrowser instances. If the value is data and it is a legitimate FolderItem the value will be returned as
+		a FolderItem. You can use IsFolderItem to check.
+		
+		Note that the ValueType for a FolderItem is IsData.
+		
+		You can assign a value to a plist either as a value or as another MacPListBrowser. In the latter case,
+		the value will be copied from the source MacPListBrowser. This is different than assigning a MacPListBrowser
+		as a child. (See below.)
+		
 		You can remove a plist from another plist using Isolate.
 		
 		plist = root.Child( 0 )
 		plist.Isolate
 		
-		At this point,root.Child( 0 ) will be deleted and plist will be a standalone plist.
+		At this point, root.Child( 0 ) will be deleted and plist will be a standalone plist.
+		
+		You can move children around by assigning one child to another, either within the same plist or between plists.
+		Moving a plist from plist1 to plist2 will delete that plist from plist1. It's the same as calling plist.Isolate first.
+		If you want to make a copy of a plist, use new MacPListBrowser( originalPList ) or the Clone method.
+		
 	#tag EndNote
 
 
@@ -1327,6 +1339,7 @@ Protected Class MacPListBrowser
 			Name="Key"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
