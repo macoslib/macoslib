@@ -312,6 +312,38 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function Difference(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
+		  // Returns an array of items that are present in one array or the other, but not both.
+		  
+		  dim r() as MacPListBrowser
+		  
+		  dim dict1 as new Dictionary
+		  dim dict2 as new Dictionary
+		  
+		  pArraryToDictionary( arr1, dict1 )
+		  pArraryToDictionary( arr2, dict2 )
+		  
+		  dim diffDict as new Dictionary
+		  for i as integer = 0 to arr2.Ubound
+		    dim checkVal as MacPListBrowser = arr2( i )
+		    if not dict1.HasKey( checkVal ) then diffDict.Value( checkVal ) = nil
+		  next i
+		  
+		  for i as integer = 0 to arr1.Ubound
+		    dim checkVal as MacPListBrowser = arr1( i )
+		    if not dict2.HasKey( checkVal ) then diffDict.Value( checkVal ) = nil
+		  next i
+		  
+		  pDictionaryToArray( diffDict, r )
+		  
+		  // Note that we don't use for each above so we can preserve order
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function FindByKey(findKey As String, keyMatchType As MatchType = MatchType.Exact, recursive As Boolean = True) As MacPListBrowser()
 		  // Returns an array of children whose key matches the given string.
 		  // If recursive, will examine every child dictionary too.
@@ -339,10 +371,43 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FindByType(recursive As Boolean = True, findTypes() As ValueType) As MacPListBrowser()
+		  // Returns an array of MacPListBrowser whose value is of a certain type or types.
+		  // If recursive, will examine every child too.
+		  // Will return an empty array if nothing is found.
+		  
+		  dim r() as MacPListBrowser
+		  
+		  if findTypes.Ubound <> -1 then
+		    
+		    pFindByType( findTypes, recursive, r )
+		    
+		  end if
+		  
+		  return r
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FindByType(recursive As Boolean, ParamArray findTypes As ValueType) As MacPListBrowser()
+		  return FindByType( recursive, findTypes )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FindByType(ParamArray findTypes As ValueType) As MacPListBrowser()
+		  return FindByType( true, findTypes )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function FindByValue(value As Variant, onlySameType As Boolean = True, recursive As Boolean = True) As MacPListBrowser()
 		  // Returns an array of MacPListBrowser whose value matches the given value.
 		  // If recursive, will examine every child too.
-		  // Tried to make this very tolerant of bad values so will return an empty array of the value
+		  // Tried to make this very tolerant of bad values so will return an empty array if the value
 		  // can't be used for a search.
 		  
 		  dim r() as MacPListBrowser
@@ -389,6 +454,33 @@ Protected Class MacPListBrowser
 		  else
 		    r = -1 // Not part of an array
 		    
+		  end if
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Intersection(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
+		  // Returns an array of items that are present in both arrays
+		  
+		  dim r() As MacPListBrowser
+		  
+		  if arr1.Ubound <> -1 and arr2.Ubound <> -1 then // There is something in each of them
+		    
+		    dim arr1Dict as new Dictionary
+		    pArraryToDictionary( arr1, arr1Dict )
+		    
+		    dim intersectDict as new Dictionary
+		    for i as integer = 0 to arr2.Ubound
+		      dim checkVal as MacPListBrowser = arr2( i )
+		      if arr1Dict.HasKey( checkVal ) then intersectDict.Value( checkVal ) = nil
+		    next i
+		    
+		    pDictionaryToArray( intersectDict, r )
+		    
+		    // Note that we don't use for each above so we can preserve order
 		  end if
 		  
 		  return r
@@ -477,6 +569,26 @@ Protected Class MacPListBrowser
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Sub pArraryToDictionary(arr() As MacPListBrowser, dict As Dictionary)
+		  for i as integer = 0 to arr.Ubound
+		    dict.Value( arr( i ) ) = nil
+		  next
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub pDictionaryToArray(dict As Dictionary, ByRef arr() As MacPListBrowser)
+		  dim keys() as Variant = dict.Keys
+		  redim arr( keys.Ubound )
+		  for i as integer = 0 to keys.Ubound
+		    arr( i ) = keys( i )
+		  next
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub pFindByKey(findKey As String, keyMatchType As MatchType, recursive As Boolean, rx As RegEx, appendTo() As MacPListBrowser)
 		  // Recursive method used to fill in the appendTo array with children matching the given key
@@ -508,6 +620,43 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Sub pFindByType(findTypes() As ValueType, recursive As Boolean, appendTo() As MacPListBrowser)
+		  // Private method to recursively return the items matching the type.
+		  
+		  // First check this value 
+		  if findTypes.IndexOf( zValueType ) <> -1 then
+		    appendTo.Append me
+		  end if
+		  
+		  // See if we need to recurse
+		  if recursive then
+		    
+		    if zIsDictionary then
+		      
+		      dim dict as Dictionary = zValue
+		      dim k() as Variant = dict.Keys
+		      for i as integer = 0 to k.Ubound
+		        dim thisKey as Variant = k( i )
+		        dim thisChild As MacPListBrowser = dict.Value( thisKey )
+		        thisChild.pFindByType( findTypes, recursive, appendTo )
+		      next
+		      
+		    elseif zIsArray then
+		      
+		      dim v() as Variant = zValue
+		      for i as integer = 0 to v.Ubound
+		        dim thisChild as MacPListBrowser = v( i )
+		        thisChild.pFindByType( findTypes, recursive, appendTo )
+		      next
+		      
+		    end if
+		    
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub pFindByValue(value As Variant, onlySameType As Boolean, recursive As Boolean, ByRef appendTo() As MacPListBrowser)
 		  // Private method to recursively return the items matching the value.
 		  
@@ -531,7 +680,7 @@ Protected Class MacPListBrowser
 		        thisChild.pFindByValue( value, onlySameType, recursive, appendTo )
 		      next
 		      
-		    elseif zValueType = ValueType.IsArray then
+		    elseif zIsArray then
 		      
 		      dim v() as Variant = zValue
 		      for i as integer = 0 to v.Ubound
@@ -845,6 +994,27 @@ Protected Class MacPListBrowser
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function Union(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
+		  // Joins two arrays of type MacPListBrowser into one.
+		  
+		  dim r() as MacPListBrowser
+		  dim combinedSize as integer = arr1.Ubound + arr2.Ubound + 2
+		  if combinedSize <> 0 then
+		    
+		    dim dict as new Dictionary
+		    pArraryToDictionary( arr1, dict )
+		    pArraryToDictionary( arr2, dict )
+		    
+		    pDictionaryToArray( dict, r)
+		    
+		  end if
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = Legal
 		This class was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
@@ -1117,10 +1287,6 @@ Protected Class MacPListBrowser
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private zRoot As WeakRef
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
 		Private zValue As Variant
 	#tag EndProperty
 
@@ -1149,5 +1315,45 @@ Protected Class MacPListBrowser
 	#tag EndEnum
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Key"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Class
 #tag EndClass
