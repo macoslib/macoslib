@@ -8,6 +8,22 @@ Protected Module About
 		Requires REALbasic 2007r4 or later
 	#tag EndNote
 
+	#tag Note, Name = Release Notes
+		
+		These release notes were added as of version 100. Check the git history for previous release notes.
+		Add new notes above existing ones, and remember to increment the Version constant.
+		
+		100:
+		- Added About.Version constant and these release notes.
+		- Changed FileManager.StringValue to return UTF16.
+		- Modified MacIcon to use new value from FileManager.StringValue.
+		- Added FileManager.StringValue( Extends s As HFSUniStr255 ) to overload the native structure's StringValue.
+	#tag EndNote
+
+
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"100", Scope = Protected
+	#tag EndConstant
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

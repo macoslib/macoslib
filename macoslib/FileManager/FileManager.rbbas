@@ -365,13 +365,24 @@ Module FileManager
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function StringValue(Extends s As HFSUniStr255) As String
+		  // Added by Kem Tekinay.
+		  // Overloads the native structure StringValue.
+		  
+		  return FileManager.StringValue( s )
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Function StringValue(s as HFSUniStr255) As String
-		  dim data as String = s.StringValue( TargetLittleEndian )
-		  dim utf16Str as String = data.MidB( 3, 2 * s.Length ).DefineEncoding( Encodings.UTF16 )
-		  dim utf8Str as string = utf16Str.ConvertEncoding( Encodings.UTF8 )
+		  dim data as string = s.StringValue( TargetLittleEndian )
+		  dim r as string = data.MidB( 3, 2 * s.Length ).DefineEncoding( Encodings.UTF16 )
 		  
-		  return utf8Str
+		  return r
+		  
+		  // Changed on Aug. 7, 2012 by Kem Tekinay to return a UTF16 string rather than a UTF8.
 		  
 		  // Original code
 		  // (Modified to make it more human-readable and easier to debug, if needed)

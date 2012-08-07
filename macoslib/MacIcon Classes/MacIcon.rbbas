@@ -184,6 +184,7 @@ Protected Class MacIcon
 	#tag Method, Flags = &h0
 		 Shared Function NewIconFromFSRef(fileRef as FSRef) As MacIcon
 		  #if targetMacOS
+		    
 		    dim catalogInfo as FSCatalogInfo
 		    dim outFileName as HFSUniStr255
 		    
@@ -196,11 +197,17 @@ Protected Class MacIcon
 		      
 		      dim theIconRef as Ptr
 		      dim label as Int16
-		      OSError = GetIconRefFromFileInfo(fileRef, outFileName.length, ConvertEncoding(FileManager.StringValue(outFileName), Encodings.UTF16), kIconServicesCatalogInfoMask, catalogInfo, kIconServicesNormalUsageFlag, theIconRef, label)
+		      'OSError = GetIconRefFromFileInfo(fileRef, outFileName.length, ConvertEncoding(FileManager.StringValue(outFileName), Encodings.UTF16), kIconServicesCatalogInfoMask, catalogInfo, kIconServicesNormalUsageFlag, theIconRef, label)
+		      OSError = GetIconRefFromFileInfo(fileRef, outFileName.length, FileManager.StringValue( outFileName ), kIconServicesCatalogInfoMask, catalogInfo, kIconServicesNormalUsageFlag, theIconRef, label)
 		      if OSError = 0 then
 		        return new MacIcon(theIconRef)
 		      end if
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused fileRef
+		    
 		  #endif
 		  
 		  // fallback:
