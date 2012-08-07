@@ -552,6 +552,9 @@ Protected Module Cocoa
 		    case "NSRunningApplication"
 		      return  new NSRunningApplication( id, hasOwnership )
 		      
+		    case "NSSpeechSynthesizer"
+		      return  new NSSpeechSynthesizer( id, hasOwnership )
+		      
 		    case "NSString"
 		      return  new NSString( id, hasOwnership )
 		      

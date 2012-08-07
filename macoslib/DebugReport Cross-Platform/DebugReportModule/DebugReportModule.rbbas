@@ -211,8 +211,8 @@ Protected Module DebugReportModule
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function FormatVariant(v as Variant, formatSpec as string = "", quoteString as Boolean = false) As string
+	#tag Method, Flags = &h1
+		Protected Function FormatVariant(v as Variant, formatSpec as string = "", quoteString as Boolean = false) As string
 		  
 		  #pragma DisableBackgroundTasks
 		  

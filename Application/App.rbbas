@@ -334,6 +334,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function SpeechMenu() As Boolean Handles SpeechMenu.Action
+			MacSpeechSynthesizerExample.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function StringExtensionMenu() As Boolean Handles StringExtensionMenu.Action
 			StringExtensionsExampleWindow.Show
 			

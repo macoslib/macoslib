@@ -62,8 +62,11 @@ Implements DebugReportFormatter
 		    declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
 		    dim myStreamRef as Ptr
+<<<<<<< HEAD
 		    'dim result as FSEventStream
 		    
+=======
+>>>>>>> • Implemented NSSpeechSynthesizer and its convenience counterpart MacSpeechSynthesizer
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
 		    
 		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options OR 1 )
