@@ -13,6 +13,14 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		102:
+		- Modified MacOSFolderItemExtension.Extension to better identify extensions.
+		- Modified MacOSFolderItemExtension.NameNoExtension to leverage code in Extension to properly identify the name.
+		- Added pragmas for unused variables in Windows/Linux.
+		
+		101:
+		- Added NSFileHandle and NSPipe classes.
+		
 		100:
 		- Added About.Version constant and these release notes.
 		- Changed FileManager.StringValue to return UTF16.
@@ -21,7 +29,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"100", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"102", Scope = Protected
 	#tag EndConstant
 
 
