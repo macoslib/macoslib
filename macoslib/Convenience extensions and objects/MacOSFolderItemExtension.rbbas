@@ -171,17 +171,17 @@ Protected Module MacOSFolderItemExtension
 		  //# Extract the extension of the folderitem name
 		  // Modified by Kem Tekinay, 8/10/12, to check for spaces in the potential extension.
 		  
-		  // File names whose only "." is the first character does not have a true extension.
+		  // Filenames whose only "." is the first character does not have a true extension.
 		  // For example, ".DS_Store".
 		  // If the string following the last "." contains a space, it is not an extension.
-		  // For example, "my.great file".
+		  // For example, "my.great file" or "10.1.12 Letter".
 		  
 		  //@ [Cross-platform]
 		  
 		  dim ext as string
 		  dim fName as string = f.Name
 		  
-		  #if TargetMacOS and FALSE 
+		  #if TargetMacOS and FALSE
 		    
 		    // This code doesn't work as well as the custom code below, but I left it here for reference.
 		    // Apple's code will mindlessly return any text after the last dot, even if it has spaces.
@@ -198,7 +198,7 @@ Protected Module MacOSFolderItemExtension
 		    if i < 2 then
 		      // There is no dot in the name
 		      
-		    elseif i = 2 and Left( fName, 1 ) = "." then
+		    elseif i = 2 and fName.Left( 1 ) = "." then
 		      // Filename begins with a dot so this is not a true extension
 		      
 		    else

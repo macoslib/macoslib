@@ -33,7 +33,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function decomposedStringWithCanonicalMapping lib CocoaLib selector "decomposedStringWithCanonicalMapping" (id as Ptr) as Ptr
 		    
-		    return  new NSString( decomposedStringWithCanonicalMapping( self.id ), true )
+		    return  new NSString( decomposedStringWithCanonicalMapping( self.id ), false )
 		    
 		  #endif
 		End Function
@@ -45,7 +45,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function decomposedStringWithCompatibilityMapping lib CocoaLib selector "decomposedStringWithCompatibilityMapping" (id as Ptr) as Ptr
 		    
-		    return  new NSString( decomposedStringWithCompatibilityMapping( self.id ), true )
+		    return  new NSString( decomposedStringWithCompatibilityMapping( self.id ), false )
 		    
 		  #endif
 		End Function
@@ -83,7 +83,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function pathExtension lib CocoaLib selector "pathExtension" (id as Ptr) as Ptr
 		    
-		    return  new NSString( pathExtension( self.id ) )
+		    return  new NSString( pathExtension( self.id ), false )
 		    
 		  #endif
 		End Function
@@ -95,7 +95,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function precomposedStringWithCanonicalMapping lib CocoaLib selector "precomposedStringWithCanonicalMapping" (id as Ptr) as Ptr
 		    
-		    return  new NSString( precomposedStringWithCanonicalMapping( self.id ), true )
+		    return  new NSString( precomposedStringWithCanonicalMapping( self.id ), false )
 		    
 		  #endif
 		End Function
@@ -107,7 +107,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function precomposedStringWithCompatibilityMapping lib CocoaLib selector "precomposedStringWithCompatibilityMapping" (id as Ptr) as Ptr
 		    
-		    return  new NSString( precomposedStringWithCompatibilityMapping( self.id ), true )
+		    return  new NSString( precomposedStringWithCompatibilityMapping( self.id ), false )
 		    
 		  #endif
 		End Function

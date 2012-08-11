@@ -530,6 +530,9 @@ Inherits NSObject
 			    declare sub setRate lib CocoaLib selector "setRate:" (id as Ptr, newRate as single)
 			    
 			    setRate( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -552,6 +555,9 @@ Inherits NSObject
 			    declare function setVoice lib CocoaLib selector "setVoice:" (id as Ptr, newVoice as CFStringRef) as Boolean
 			    
 			    call  setVoice( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -578,6 +584,9 @@ Inherits NSObject
 			    end if
 			    
 			    setVolume( me.id, value )
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -651,6 +660,7 @@ Inherits NSObject
 			Name="Voice"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Volume"

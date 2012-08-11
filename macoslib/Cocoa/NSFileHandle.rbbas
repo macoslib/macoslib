@@ -211,6 +211,9 @@ Inherits NSObject
 			    declare sub seekToFileOffset lib CocoaLib selector "seekToFileOffset:" (obj_id as Ptr, offset as UInt64)
 			    
 			    seekToFileOffset(self, value)
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

@@ -820,6 +820,9 @@ End
 		  TA1.SelLength = wordRange.length
 		  
 		  'TA1.Invalidate
+		  
+		  #pragma unused inString
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -831,12 +834,18 @@ End
 		  StopBTN.Enabled = false
 		  SpeakBTN.Caption = "Speak"
 		  
+		  #pragma unused successfully
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub SpeechError(errorMsg as string, atPosition as integer, inString as String)
 		  
 		  DReportError  "Speech error", errorMsg
+		  
+		  #pragma unused atPosition
+		  #pragma unused inString
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

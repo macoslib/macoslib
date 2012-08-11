@@ -39,8 +39,8 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function WriteHandle() As NSFileHandle
-		  //You use the returned file handle to write to the pipe using NSFileHandle's writeData: method. 
-		  //When you are finished writing data to this object, send it a closeFile message to delete the descriptor. 
+		  //You use the returned file handle to write to the pipe using NSFileHandle's writeData: method.
+		  //When you are finished writing data to this object, send it a closeFile message to delete the descriptor.
 		  //Deleting the descriptor causes the reading process to receive an end-of-data signal (an empty NSData object).
 		  
 		  #if targetMacOS

@@ -61,7 +61,12 @@ Protected Class MacSpeechSynthesizer
 		Private Sub HandleDidFinishSpeaking(sender as NSSpeechSynthesizer, success as Boolean)
 		  #if TargetMacOS
 		    RaiseEvent  FinishedSpeaking( success )
+		    
+		  #else
+		    #pragma unused success
 		  #endif
+		  
+		  #pragma unused sender
 		  
 		End Sub
 	#tag EndMethod
@@ -70,7 +75,14 @@ Protected Class MacSpeechSynthesizer
 		Private Sub HandleSpeechError(sender as NSSpeechSynthesizer, errorMsg as string, position as integer, inText as string)
 		  #if TargetMacOS
 		    RaiseEvent  SpeechError( errorMsg, position, inText )
+		    
+		  #else
+		    #pragma unused errorMsg
+		    #pragma unused position
+		    #pragma unused inText
 		  #endif
+		  
+		  #pragma unused sender
 		  
 		End Sub
 	#tag EndMethod
@@ -79,7 +91,12 @@ Protected Class MacSpeechSynthesizer
 		Private Sub HandleSyncMessage(sender as NSSpeechSynthesizer, msg as string)
 		  #if TargetMacOS
 		    RaiseEvent   SyncMessage( msg )
+		    
+		  #else
+		    #pragma unused msg
 		  #endif
+		  
+		  #pragma unused sender
 		  
 		End Sub
 	#tag EndMethod
@@ -88,7 +105,12 @@ Protected Class MacSpeechSynthesizer
 		Private Sub HandleWillSpeakPhoneme(sender as NSSpeechSynthesizer, opcode as Int16)
 		  #if TargetMacOS
 		    RaiseEvent  WillSpeakPhoneme( opcode )
+		    
+		  #else
+		    #pragma unused opcode
 		  #endif
+		  
+		  #pragma unused sender
 		  
 		End Sub
 	#tag EndMethod
@@ -97,7 +119,13 @@ Protected Class MacSpeechSynthesizer
 		Private Sub HandleWillSpeakWord(sender as NSSpeechSynthesizer, wordRange as Cocoa.NSRange, inString as string)
 		  #if TargetMacOS
 		    RaiseEvent   WillSpeakWord( wordRange, inString )
+		    
+		  #else
+		    #pragma unused wordRange
+		    #pragma unused inString
 		  #endif
+		  
+		  #pragma unused sender
 		  
 		End Sub
 	#tag EndMethod
