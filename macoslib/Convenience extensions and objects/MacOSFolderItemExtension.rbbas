@@ -20,6 +20,11 @@ Protected Module MacOSFolderItemExtension
 		      #pragma unused err
 		      return equivalent
 		    end If
+		    
+		  #else
+		    #pragma unused name1
+		    #pragma unused name2
+		    #pragma unused casesensitive
 		  #endif
 		End Function
 	#tag EndMethod
@@ -68,6 +73,9 @@ Protected Module MacOSFolderItemExtension
 		    CoreFoundation.Release  DASessionRef
 		    
 		    return  dict
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -105,6 +113,9 @@ Protected Module MacOSFolderItemExtension
 		      // vMServerAddr <> 0 means it's a network device, which apparently won't have a BSD name.
 		      return ""
 		    end if
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -147,6 +158,10 @@ Protected Module MacOSFolderItemExtension
 		    else
 		      return false
 		    end if
+		    
+		  #else
+		    #pragma unused f
+		    #pragma unused g
 		  #endif
 		End Function
 	#tag EndMethod
@@ -154,18 +169,34 @@ Protected Module MacOSFolderItemExtension
 	#tag Method, Flags = &h0
 		Function Extension(extends f as FolderItem) As string
 		  //# Extract the extension of the folderitem name
+		  // Modified by Kem Tekinay, 8/10/12, to check for spaces in the potential extension.
+		  
+		  // File names whose only "." is the first character does not have a true extension.
+		  // For example, ".DS_Store".
+		  // If the string following the last "." contains a space, it is not an extension.
+		  // For example, "my.great file".
 		  
 		  //@ [Cross-platform]
 		  
-		  dim i as integer
-		  i = CountFields(f.name, ".")
+		  dim ext as string
+		  dim fName as string = f.Name
 		  
-		  if i=2 and Left(f.name, 1)="." then
-		    //Filename begins with a dot so this is not a true extension
-		    return ""
+		  dim i as integer = CountFields( fName, "." )
+		  
+		  if i < 2 then
+		    // There is no dot in the name
+		    
+		  elseif i = 2 and Left( fName, 1 ) = "." then
+		    // Filename begins with a dot so this is not a true extension
+		    
 		  else
-		    return NThField(f.name, ".", i)
+		    ext = NthField( fName, ".", i )
+		    if ext.InStr( " " ) <> 0 then ext = "" // Not a true extension if it contains a space
+		    
 		  end if
+		  
+		  return ext
+		  
 		End Function
 	#tag EndMethod
 
@@ -183,6 +214,9 @@ Protected Module MacOSFolderItemExtension
 		    end if
 		    
 		    return theInfo.freeBytes
+		    
+		  #else
+		    #pragma unused theVolume
 		  #endif
 		End Function
 	#tag EndMethod
@@ -201,6 +235,9 @@ Protected Module MacOSFolderItemExtension
 		    else
 		      return  url.Item
 		    end if
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -227,7 +264,11 @@ Protected Module MacOSFolderItemExtension
 		      return  nil
 		    end if
 		    
+		  #else
+		    #pragma unused f
+		    #pragma unused preferredSize
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -260,6 +301,9 @@ Protected Module MacOSFolderItemExtension
 		      raise  e
 		    end if
 		    
+		  #else
+		    #pragma unused f
+		    #pragma unused customIcon
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -281,6 +325,9 @@ Protected Module MacOSFolderItemExtension
 		    #pragma unused err
 		    
 		    return cataloginfo.nodeid
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -368,6 +415,9 @@ Protected Module MacOSFolderItemExtension
 		    // Keep the compiler from complaining
 		    #pragma unused retainErr
 		    #pragma unused releaseError
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		  
 		  
@@ -394,6 +444,9 @@ Protected Module MacOSFolderItemExtension
 		      return false
 		    end if
 		    return (infoBuffer.Long(10) <> 0)
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -415,6 +468,9 @@ Protected Module MacOSFolderItemExtension
 		      break
 		    end if
 		    return (itemInfo.Flags and kLSItemInfoIsPackage) = kLSItemInfoIsPackage
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -453,6 +509,10 @@ Protected Module MacOSFolderItemExtension
 		    if OSError <> 0 then
 		      raise   new MacOSError( OSError )
 		    end if
+		    
+		  #else
+		    #pragma unused f
+		    #pragma unused YesNo
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -484,6 +544,9 @@ Protected Module MacOSFolderItemExtension
 		    
 		    return   cft.VariantValue
 		    
+		  #else
+		    #pragma unused file
+		    #pragma unused attributeConstant
 		  #endif
 		  
 		End Function
@@ -507,6 +570,10 @@ Protected Module MacOSFolderItemExtension
 		      'DReportError  "ItemAttribute error", err
 		    end if
 		    
+		  #else
+		    #pragma unused file
+		    #pragma unused attributeConstant
+		    #pragma unused value
 		  #endif
 		  
 		End Sub
@@ -535,6 +602,9 @@ Protected Module MacOSFolderItemExtension
 		    finfo = (finfo AND LabelMask) \ 2
 		    
 		    return   finfo
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -574,6 +644,9 @@ Protected Module MacOSFolderItemExtension
 		      raise   new MacOSError( OSError )
 		    end if
 		    
+		  #else
+		    #pragma unused f
+		    #pragma unused labelIndex
 		  #endif
 		  
 		End Sub
@@ -594,7 +667,11 @@ Protected Module MacOSFolderItemExtension
 		      return   colors( idx - 1 )
 		      
 		    end if
+		    
+		  #else
+		    #pragma unused f
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -613,7 +690,11 @@ Protected Module MacOSFolderItemExtension
 		      return   labels( idx - 1 )
 		      
 		    end if
+		    
+		  #else
+		    #pragma unused f
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -632,6 +713,9 @@ Protected Module MacOSFolderItemExtension
 		    dict = f.DADiskDescription
 		    
 		    return   dict.Lookup( "DAVolumeUUID", "" )
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -649,6 +733,9 @@ Protected Module MacOSFolderItemExtension
 		    
 		    // Keep the compiler from complaining
 		    #pragma unused OSError
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		  
 		  
@@ -676,6 +763,8 @@ Protected Module MacOSFolderItemExtension
 		      return  FolderItem.CreateFromMacFSRef( dest )
 		    end if
 		    
+		  #else
+		    #pragma unused f
 		  #endif
 		  
 		End Function
@@ -687,21 +776,31 @@ Protected Module MacOSFolderItemExtension
 		  
 		  //@ [Cross-platform]
 		  
-		  dim i, j as integer
-		  dim s as string
+		  'dim i, j as integer
+		  'dim s as string
+		  '
+		  'i = CountFields(f.name, ".")
+		  '
+		  'if i=2 and Left(f.name, 1)="." then
+		  '//Filename begins with a dot so this is not a true extension
+		  'return f.name
+		  'else
+		  's = ""
+		  'for j=1 to i-1
+		  's = s + "." + NthField(f.name, ".", j)
+		  'next
+		  'return Mid(s, 2)
+		  'end if
 		  
-		  i = CountFields(f.name, ".")
-		  
-		  if i=2 and Left(f.name, 1)="." then
-		    //Filename begins with a dot so this is not a true extension
-		    return f.name
-		  else
-		    s = ""
-		    for j=1 to i-1
-		      s = s + "." + NthField(f.name, ".", j)
-		    next
-		    return Mid(s, 2)
+		  dim ext as string = f.Extension
+		  dim fName as string = f.Name
+		  if ext.LenB <> 0 then // There is an extension
+		    dim extLen as integer = ext.Len + 1 // Count the "."
+		    dim nameLen as integer = fName.Len - extLen // The length of the name without the extension
+		    fName = fName.Left( nameLen )
 		  end if
+		  
+		  return fName
 		  
 		End Function
 	#tag EndMethod
@@ -714,6 +813,9 @@ Protected Module MacOSFolderItemExtension
 		    dim cfd as CFDictionary = file.ItemAttribute( "LSItemQuarantineProperties" )
 		    
 		    return   cfd.VariantValue
+		    
+		  #else
+		    #pragma unused file
 		  #endif
 		End Function
 	#tag EndMethod
@@ -730,6 +832,10 @@ Protected Module MacOSFolderItemExtension
 		    else
 		      raise   new MacOSError( -50, "Parameter error" )
 		    end if
+		    
+		  #else
+		    #pragma unused file
+		    #pragma unused data
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -755,6 +861,9 @@ Protected Module MacOSFolderItemExtension
 		  
 		  #if TargetMacOS
 		    call   NSWorkspace.SelectFile( f )
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -781,6 +890,9 @@ Protected Module MacOSFolderItemExtension
 		  
 		  #if TargetMacOS
 		    return   UTI.CreateFromFile( f )
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -799,6 +911,9 @@ Protected Module MacOSFolderItemExtension
 		    else
 		      return   0
 		    end if
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -820,6 +935,9 @@ Protected Module MacOSFolderItemExtension
 		    f.LastErrorCode = err
 		    
 		    return   buf
+		    
+		  #else
+		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -830,6 +948,10 @@ Protected Module MacOSFolderItemExtension
 		  
 		  #if TargetMacOS
 		    return  NSWorkspace.UTIConformsTo( f.UniformTypeIdentifier, conformsTo )
+		    
+		  #else
+		    #pragma unused f
+		    #pragma unused conformsTo
 		  #endif
 		End Function
 	#tag EndMethod
