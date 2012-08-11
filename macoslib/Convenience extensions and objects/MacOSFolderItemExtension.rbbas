@@ -181,19 +181,33 @@ Protected Module MacOSFolderItemExtension
 		  dim ext as string
 		  dim fName as string = f.Name
 		  
-		  dim i as integer = CountFields( fName, "." )
-		  
-		  if i < 2 then
-		    // There is no dot in the name
+		  #if TargetMacOS and FALSE 
 		    
-		  elseif i = 2 and Left( fName, 1 ) = "." then
-		    // Filename begins with a dot so this is not a true extension
+		    // This code doesn't work as well as the custom code below, but I left it here for reference.
+		    // Apple's code will mindlessly return any text after the last dot, even if it has spaces.
+		    // This is contrary to even what the Finder considers an extension.
 		    
-		  else
-		    ext = NthField( fName, ".", i )
-		    if ext.InStr( " " ) <> 0 then ext = "" // Not a true extension if it contains a space
+		    dim nsName as new NSString( fName )
+		    dim nsExt as NSString = nsName.pathExtension
+		    ext = nsExt
 		    
-		  end if
+		  #else // Windows/Linux
+		    
+		    dim i as integer = CountFields( fName, "." )
+		    
+		    if i < 2 then
+		      // There is no dot in the name
+		      
+		    elseif i = 2 and Left( fName, 1 ) = "." then
+		      // Filename begins with a dot so this is not a true extension
+		      
+		    else
+		      ext = NthField( fName, ".", i )
+		      if ext.InStr( " " ) <> 0 then ext = "" // Not a true extension if it contains a space
+		      
+		    end if
+		    
+		  #endif
 		  
 		  return ext
 		  

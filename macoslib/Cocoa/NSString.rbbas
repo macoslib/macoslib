@@ -77,6 +77,19 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function pathExtension() As NSString
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    declare function pathExtension lib CocoaLib selector "pathExtension" (id as Ptr) as Ptr
+		    
+		    return  new NSString( pathExtension( self.id ) )
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function precomposedStringWithCanonicalMapping() As NSString
 		  
 		  #if TargetMacOS
