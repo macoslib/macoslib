@@ -512,10 +512,10 @@ Protected Module XMLDictionary
 		    end if
 		  end select
 		  
-		  return v.StringValue 
+		  return v.StringValue
 		  
 		  // The code below is an exercise in making the value of a double "pretty", i.e., keep it
-		  // from returning scientific notation. After much experimentation, we found that 
+		  // from returning scientific notation. After much experimentation, we found that
 		  // these attempts can lose precision in some cases so it was safer to use StringValue.
 		  // In the end, this method isn't being used anywhere, but has been left here
 		  // for later examination.

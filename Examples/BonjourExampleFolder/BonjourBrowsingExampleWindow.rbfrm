@@ -164,6 +164,7 @@ Begin Window BonjourBrowsingExampleWindow
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Type:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -240,6 +241,7 @@ Begin Window BonjourBrowsingExampleWindow
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Domain:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -305,6 +307,7 @@ Begin Window BonjourBrowsingExampleWindow
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Double-click on a row to display details and addresses."
       TextAlign       =   0
       TextColor       =   &h000000

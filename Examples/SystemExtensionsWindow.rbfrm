@@ -43,6 +43,7 @@ Begin Window SystemExtensionsWindow
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -72,6 +73,7 @@ Begin Window SystemExtensionsWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "SystemDoubleClickTime"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -104,6 +106,7 @@ Begin Window SystemExtensionsWindow
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -180,6 +183,7 @@ Begin Window SystemExtensionsWindow
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -258,6 +262,7 @@ Begin Window SystemExtensionsWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Note that you can use the CustomWorkspaceEvents module to get a notification anytime the user makes changes to the Finder labels (name or color).\r\rYour application can then take the changes into account immediately."
          TextAlign       =   0
          TextColor       =   &h000000
@@ -293,6 +298,7 @@ Begin Window SystemExtensionsWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "SystemExtensions are not invoked with a ""dot notation"" (because Real Studio does not allow extending a module) but they all use System as a prefix. Use the autocompletion feature to access them easily."
       TextAlign       =   0
       TextColor       =   &h000000

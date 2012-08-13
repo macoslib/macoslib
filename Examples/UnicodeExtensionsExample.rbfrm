@@ -562,6 +562,7 @@ Begin Window UnicodeExtensionsExample
       Selectable      =   False
       TabIndex        =   21
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Results:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -596,6 +597,7 @@ Begin Window UnicodeExtensionsExample
       Selectable      =   False
       TabIndex        =   22
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "String 1:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -630,6 +632,7 @@ Begin Window UnicodeExtensionsExample
       Selectable      =   False
       TabIndex        =   23
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "String 2:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -664,6 +667,7 @@ Begin Window UnicodeExtensionsExample
       Selectable      =   True
       TabIndex        =   24
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "This window gives you the possibility to test the advanced options of Mac OS X for comparing and searching strings.\rWith such options, you can search from the end, sort strings with numbers being properly interpreted as numbers (like the Finder does), ignore accents and other diacritics...\rIt may also help you handling Precomposed (NFC, NFKC) and Decomposed (NFD, NFKD) Unicode strings."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -837,6 +841,7 @@ Begin Window UnicodeExtensionsExample
       Selectable      =   False
       TabIndex        =   28
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Binary representations:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -967,6 +972,7 @@ Begin Window UnicodeExtensionsExample
       Selectable      =   False
       TabIndex        =   34
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "(*) The definition of “Finder settings” may vary from one Apple's example code to another."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -1374,7 +1380,7 @@ End
 #tag EndEvents
 #tag Events UnicodeNF1
 	#tag Event
-		Sub Action(index as Integer)
+		Sub Action()
 		  
 		  #pragma unused index
 		  
@@ -1433,7 +1439,7 @@ End
 #tag EndEvents
 #tag Events UnicodeNF2
 	#tag Event
-		Sub Action(index as Integer)
+		Sub Action()
 		  
 		  #pragma unused index
 		  

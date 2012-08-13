@@ -76,6 +76,7 @@ Begin Window StringExtensionsExampleWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "It is sometimes useful to be able to get a substring before or after some text or between two tags, e.g. when processing some Shell result. Macoslib allows you to do that. You can try it below."
          TextAlign       =   0
          TextColor       =   &h000000
@@ -110,6 +111,7 @@ Begin Window StringExtensionsExampleWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Source:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -144,6 +146,7 @@ Begin Window StringExtensionsExampleWindow
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Substring #1:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -178,6 +181,7 @@ Begin Window StringExtensionsExampleWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Substring #2:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -571,6 +575,7 @@ Begin Window StringExtensionsExampleWindow
          Selectable      =   False
          TabIndex        =   14
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Result:"
          TextAlign       =   0
          TextColor       =   &h000000
