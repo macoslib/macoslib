@@ -40,31 +40,26 @@ Protected Module MacOSFolderItemExtension
 		    soft declare function DADiskCreateFromBSDName lib "DiskArbitration.framework" ( alloc as Ptr, session as Ptr, name as CString ) as Ptr
 		    soft declare function DADiskCopyDescription lib "DiskArbitration.framework" (disk as Ptr) as Ptr
 		    
+		    assertOSVersion  100400 //Tiger and later
+		    
 		    dim DASessionRef, DADiskRef, p as Ptr
 		    dim cfdict as CFDictionary
 		    dim dict as Dictionary
-		    'dim uuid as CFUUID
 		    
 		    DASessionRef = DASessionCreate( nil )
-		    if DASessionRef=nil then
-		      raise new   macoslibException( "DADiskDescription failed: unable to create a DiskArbitration session" )
-		    end if
+		    AssertPtr  DASessionRef, "DADiskDescription failed: unable to create a DiskArbitration session"
 		    
 		    if f.DeviceName<>"" then
 		      DADiskRef = DADiskCreateFromBSDName( nil, DASessionRef, f.DeviceName )
-		      if DASessionRef=nil then
-		        raise new   macoslibException( "DADiskDescription failed: unable to find the volume" )
-		      end if
+		      AssertPtr  DASessionRef, "DADiskDescription failed: unable to find the volume"
 		    else //It's a network volume
 		      return  nil
 		    end if
 		    
 		    p = DADiskCopyDescription( DADiskRef )
-		    if p=nil then
-		      raise new   macoslibException( "DADiskDescription failed: unable to get description" )
-		    end if
-		    cfdict = new CFDictionary( p, false )
+		    AssertPtr  p, "DADiskDescription failed: unable to get description"
 		    
+		    cfdict = new CFDictionary( p, false )
 		    dict = cfdict
 		    
 		    //Release CF objects
@@ -217,20 +212,27 @@ Protected Module MacOSFolderItemExtension
 	#tag Method, Flags = &h0
 		Function FreeSpaceOnVolume(extends theVolume as FolderItem) As UInt64
 		  #if targetMacOS
-		    
-		    soft declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
-		    
-		    dim theInfo as FSVolumeInfo
-		    dim OSErr as Int16 = FSGetVolumeInfo(theVolume.MacVRefNum, 0, nil, FileManager.kFSVolInfoSizes, theInfo, nil, nil)
-		    if OSErr <> noErr then
-		      break
-		      return 0
+		    if SystemVersionAsInt < 100700 then //Before Lion
+		      soft declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
+		      
+		      dim theInfo as FSVolumeInfo
+		      dim OSErr as Int16 = FSGetVolumeInfo(theVolume.MacVRefNum, 0, nil, FileManager.kFSVolInfoSizes, theInfo, nil, nil)
+		      if OSErr <> noErr then
+		        break
+		        return 0
+		      end if
+		      
+		      return theInfo.freeBytes
+		      
+		    else //Lion and later
+		      dim url as new NSURL( theVolume )
+		      dim nso as NSObject = url.ResourceValue( "NSURLVolumeAvailableCapacityKey" )
+		      
+		      if nso<>nil then
+		        return  nso.VariantValue
+		      end if
+		      
 		    end if
-		    
-		    return theInfo.freeBytes
-		    
-		  #else
-		    #pragma unused theVolume
 		  #endif
 		End Function
 	#tag EndMethod
@@ -329,19 +331,24 @@ Protected Module MacOSFolderItemExtension
 		      raise new MacOSError( -36, "FolderItem does not exist. Could not get inode" )
 		    end if
 		    
-		    dim ref as FSRef = FileManager.GetFSRefFromFolderItem(f)
-		    
-		    soft declare function FSGetCatalogInfo lib CarbonLib (ref as Ptr, whichInfo as Uint32, _
-		    ByRef catalogInfo as FSCatalogInfo, outName as Ptr, fsSpec as Ptr,  parentRef as Ptr) as Int16
-		    
-		    dim cataloginfo as FileManager.FSCatalogInfo
-		    dim err as Int16 = FSGetCatalogInfo(ref, FileManager.kFSCatInfoNodeID, cataloginfo, nil, nil, nil)
-		    #pragma unused err
-		    
-		    return cataloginfo.nodeid
-		    
-		  #else
-		    #pragma unused f
+		    if SystemVersionAsInt < 100700 then //Before Lion
+		      dim ref as FSRef = FileManager.GetFSRefFromFolderItem(f)
+		      
+		      soft declare function FSGetCatalogInfo lib CarbonLib (ref as Ptr, whichInfo as Uint32, _
+		      ByRef catalogInfo as FSCatalogInfo, outName as Ptr, fsSpec as Ptr,  parentRef as Ptr) as Int16
+		      
+		      dim cataloginfo as FileManager.FSCatalogInfo
+		      dim err as Int16 = FSGetCatalogInfo(ref, FileManager.kFSCatInfoNodeID, cataloginfo, nil, nil, nil)
+		      #pragma unused err
+		      
+		      return cataloginfo.nodeid
+		      
+		    else //Lion+
+		      dim buf as unix_stat
+		      
+		      buf = f.UNIXlstat
+		      return   buf.st_ino
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
@@ -443,24 +450,31 @@ Protected Module MacOSFolderItemExtension
 		  //# Returns true is the FolderItem corresponds to a network volume, false otherwise
 		  
 		  #if TargetMacOS
-		    soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
-		    
-		    dim paramBlock as HIOParam
-		    paramBlock.ioVRefNum = f.MacVRefNum
-		    //the following line is a trick to work around the inability to assign a pointer to a structure
-		    //to a field of type Ptr.
-		    dim infoBuffer as new MemoryBlock(GetVolParmsInfoBuffer.Size)
-		    paramBlock.ioBuffer = infoBuffer
-		    paramBlock.ioReqCount = infoBuffer.Size
-		    
-		    dim OSError as Integer = PBHGetVolParmsSync(paramBlock)
-		    if OSError <> 0 then
-		      return false
+		    if SystemVersionAsInt < 100700 then //Before Lion
+		      soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
+		      
+		      dim paramBlock as HIOParam
+		      paramBlock.ioVRefNum = f.MacVRefNum
+		      //the following line is a trick to work around the inability to assign a pointer to a structure
+		      //to a field of type Ptr.
+		      dim infoBuffer as new MemoryBlock(GetVolParmsInfoBuffer.Size)
+		      paramBlock.ioBuffer = infoBuffer
+		      paramBlock.ioReqCount = infoBuffer.Size
+		      
+		      dim OSError as Integer = PBHGetVolParmsSync(paramBlock)
+		      if OSError <> 0 then
+		        return false
+		      end if
+		      return (infoBuffer.Long(10) <> 0)
+		      
+		    else //Lion+
+		      dim buf as unix_stat
+		      
+		      buf = f.UNIXlstat
+		      
+		      return   ( buf.st_dev = 0 )
+		      
 		    end if
-		    return (infoBuffer.Long(10) <> 0)
-		    
-		  #else
-		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
@@ -470,65 +484,79 @@ Protected Module MacOSFolderItemExtension
 		  //# Returns true if the passed folder is a Mac OS X package, false otherwise
 		  
 		  #if TargetMacOS
-		    soft declare function LSCopyItemInfoForRef lib CarbonLib (fsRef as Ptr, inWhichInfo as Integer, ByRef outItemInfo as LSItemInfoRecord) as Integer
-		    
-		    const kLSRequestBasicFlagsOnly = &h00000004
-		    const kLSItemInfoIsPackage = &h00000002
-		    
-		    dim theRef as FSRef = FileManager.GetFSRefFromFolderItem(f)
-		    dim itemInfo as LSItemInfoRecord
-		    dim OSError as Integer = LSCopyItemInfoForRef(theRef, kLSRequestBasicFlagsOnly, itemInfo)
-		    if OSError <> 0 then
-		      break
+		    if SystemVersionAsInt < 100600 then //Before Snow Leopard
+		      soft declare function LSCopyItemInfoForRef lib CarbonLib (fsRef as Ptr, inWhichInfo as Integer, ByRef outItemInfo as LSItemInfoRecord) as Integer
+		      
+		      const kLSRequestBasicFlagsOnly = &h00000004
+		      const kLSItemInfoIsPackage = &h00000002
+		      
+		      dim theRef as FSRef = FileManager.GetFSRefFromFolderItem(f)
+		      dim itemInfo as LSItemInfoRecord
+		      dim OSError as Integer = LSCopyItemInfoForRef(theRef, kLSRequestBasicFlagsOnly, itemInfo)
+		      if OSError <> 0 then
+		        break
+		      end if
+		      return (itemInfo.Flags and kLSItemInfoIsPackage) = kLSItemInfoIsPackage
+		      
+		    else  //Snow Leopard+
+		      dim url as new NSURL( f )
+		      dim nsn as NSNumber = NSNumber( URL.ResourceValue( "NSURLIsPackageKey" ))
+		      
+		      return  nsn.BooleanValue
 		    end if
-		    return (itemInfo.Flags and kLSItemInfoIsPackage) = kLSItemInfoIsPackage
-		    
-		  #else
-		    #pragma unused f
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub IsPackage(extends f as FolderItem, assigns YesNo as Boolean)
+		Function IsPackage(extends f as FolderItem, YesNo as Boolean) As Boolean
 		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
 		  
+		  //@ If the folder is a package because of its extension, it has no effect.
+		  
 		  #if TargetMacOS
-		    soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
-		    soft declare function FSSetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr ) as Int16
-		    
-		    const kFSCatInfoFinderInfo = &h00000800
-		    const PackageMask = &h2000
-		    
-		    dim theRef as FSRef = f.FSRef
-		    dim itemInfo as new MemoryBlock( 144 )
-		    dim finfo as UInt16
-		    
-		    dim OSError as Int16 = FSGetCatalogInfo(theRef, kFSCatInfoFinderInfo, itemInfo, nil, nil, nil)
-		    if OSError <> 0 then
-		      raise   new MacOSError( OSError )
+		    if SystemVersionAsInt < 100800 then
+		      soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
+		      soft declare function FSSetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr ) as Int16
+		      
+		      const kFSCatInfoFinderInfo = &h00000800
+		      const PackageMask = &h2000
+		      
+		      dim theRef as FSRef = f.FSRef
+		      dim itemInfo as new MemoryBlock( 144 )
+		      dim finfo as UInt16
+		      
+		      dim OSError as Int16 = FSGetCatalogInfo(theRef, kFSCatInfoFinderInfo, itemInfo, nil, nil, nil)
+		      if OSError <> 0 then
+		        raise   new MacOSError( OSError )
+		      end if
+		      
+		      finfo = itemInfo.UInt16Value( 80 ) //Finder info
+		      if YesNo then
+		        finfo = finfo OR PackageMask
+		      else
+		        finfo = finfo AND (NOT PackageMask)
+		      end if
+		      
+		      itemInfo.UInt16Value( 80 ) = finfo
+		      
+		      OSError = FSSetCatalogInfo( theRef, kFSCatInfoFinderInfo, iteminfo )
+		      
+		      if OSError <> 0 then
+		        raise   new MacOSError( OSError )
+		      end if
+		      
+		      return   true
+		      
+		    else //Mountain Lion+
+		      //The function is actually available from 10.6 but NSURLIsPachageKey was read-only until 10.8
+		      
+		      dim url as new NSURL( f )
+		      dim nsn as new NSNumber( YesNo )
+		      return  URL.ResourceValue( "NSURLIsPackageKey", nsn )
 		    end if
-		    
-		    finfo = itemInfo.UInt16Value( 80 ) //Finder info
-		    if YesNo then
-		      finfo = finfo OR PackageMask
-		    else
-		      finfo = finfo AND (NOT PackageMask)
-		    end if
-		    
-		    itemInfo.UInt16Value( 80 ) = finfo
-		    
-		    OSError = FSSetCatalogInfo( theRef, kFSCatInfoFinderInfo, iteminfo )
-		    
-		    if OSError <> 0 then
-		      raise   new MacOSError( OSError )
-		    end if
-		    
-		  #else
-		    #pragma unused f
-		    #pragma unused YesNo
 		  #endif
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -595,7 +623,7 @@ Protected Module MacOSFolderItemExtension
 
 	#tag Method, Flags = &h0
 		Function Label(extends f as FolderItem) As integer
-		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
+		  //# Get the label index of the passed folderItem
 		  
 		  #if TargetMacOS
 		    soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
@@ -625,7 +653,7 @@ Protected Module MacOSFolderItemExtension
 
 	#tag Method, Flags = &h0
 		Sub Label(extends f as FolderItem, labelIndex as integer)
-		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
+		  //# Set the label index of the passed folderItem
 		  
 		  #if TargetMacOS
 		    soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
@@ -722,6 +750,8 @@ Protected Module MacOSFolderItemExtension
 		  //@ [OS X 10.4 and later]
 		  
 		  #if TargetMacOS
+		    assertOSVersion  100400  //Tiger+
+		    
 		    dim dict as Dictionary
 		    
 		    dict = f.DADiskDescription

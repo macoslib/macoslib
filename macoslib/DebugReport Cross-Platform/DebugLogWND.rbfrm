@@ -449,34 +449,19 @@ End
 		  '//Position window. Check for prefs file
 		  '
 		  'dim f as FolderItem
-		  'f = GetFolderItem( "DebugReport.prefs.plist" )
-		  'if f<>nil AND f.Exists then
-		  'if DebugReportModule.Prefs=nil then
 		  'dim prefs as Dictionary
-		  'dim wbounds() as string
-		  'prefs = PlistAsDictionary_MTC( f )
+		  'dim wbounds( 3 ) as string
+		  '
+		  'f = GetFolderItem( "DebugReport.prefs.plist" )
+		  '
+		  'if DebugReportModule.Prefs=nil then
+		  'prefs = new
 		  '
 		  'DebugReportModule.Prefs = prefs
 		  'else
 		  'prefs = DebugReportModule.Prefs
 		  'end if
 		  '
-		  'if prefs.HasKey( "WindowBounds" ) then
-		  'wbounds = Split( prefs.Value( "WindowBounds" ), " " )
-		  '
-		  'me.Left = Val( wbounds( 0 ))
-		  'me.Top = Val( wbounds( 1 ))
-		  'me.Width = Val( wbounds( 2 ))
-		  'me.Height = Val( wbounds( 3 ))
-		  '
-		  'else
-		  'me.Left = Screen( 0 ).AvailableWidth - me.Width
-		  'end if
-		  '
-		  'else //Use default
-		  'me.Left = Screen( 0 ).AvailableWidth - me.Width
-		  '
-		  'end if
 		  '#endif
 		End Sub
 	#tag EndEvent

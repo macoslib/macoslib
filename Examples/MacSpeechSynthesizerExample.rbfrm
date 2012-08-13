@@ -216,7 +216,6 @@ Begin Window MacSpeechSynthesizerExample
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Voice attributes:  (a Dictionary available for each voice)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -341,7 +340,6 @@ Begin Window MacSpeechSynthesizerExample
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Volume:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -355,18 +353,14 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   67
    End
    Begin MacSpeechSynthesizer Speech
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   952
       LockedInPosition=   False
       Rate            =   ""
       Scope           =   0
-      TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   -16
-      Visible         =   True
       Volume          =   ""
       Width           =   32
    End
@@ -392,7 +386,6 @@ Begin Window MacSpeechSynthesizerExample
       Selectable      =   False
       TabIndex        =   12
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Current voice:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -427,7 +420,6 @@ Begin Window MacSpeechSynthesizerExample
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -521,7 +513,6 @@ Begin Window MacSpeechSynthesizerExample
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Rate:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -553,7 +544,6 @@ Begin Window MacSpeechSynthesizerExample
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -651,16 +641,17 @@ Begin Window MacSpeechSynthesizerExample
    End
    Begin Line Line1
       BorderWidth     =   1
-      Enabled         =   True
+      Height          =   50
       Index           =   -2147483648
       InitialParent   =   ""
+      Left            =   ""
       LineColor       =   ""
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
+      Top             =   ""
       Visible         =   True
+      Width           =   100
       X1              =   519
       X2              =   519
       Y1              =   144
@@ -668,16 +659,17 @@ Begin Window MacSpeechSynthesizerExample
    End
    Begin Line Line2
       BorderWidth     =   1
-      Enabled         =   True
+      Height          =   50
       Index           =   -2147483648
       InitialParent   =   ""
+      Left            =   ""
       LineColor       =   ""
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
+      Top             =   ""
       Visible         =   True
+      Width           =   100
       X1              =   519
       X2              =   540
       Y1              =   194
@@ -814,19 +806,17 @@ End
 	#tag Event
 		Sub WillSpeakWord(wordRange as Cocoa.NSRange, inString as string)
 		  
-		  'DReport  "WillSpeakWord", wordRange.startPos, wordRange.Length
+		  #pragma unused inString
 		  
 		  TA1.SelStart = wordRange.location
 		  TA1.SelLength = wordRange.length
-		  
-		  'TA1.Invalidate
-		  
-		  #pragma unused inString
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub FinishedSpeaking(successfully as Boolean)
+		  
+		  #pragma unused successfully
 		  
 		  TA1.SelStart = 0
 		  TA1.SelLength = 0
@@ -834,18 +824,14 @@ End
 		  StopBTN.Enabled = false
 		  SpeakBTN.Caption = "Speak"
 		  
-		  #pragma unused successfully
-		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub SpeechError(errorMsg as string, atPosition as integer, inString as String)
-		  
-		  DReportError  "Speech error", errorMsg
-		  
 		  #pragma unused atPosition
 		  #pragma unused inString
 		  
+		  DReportError  "Speech error", errorMsg
 		End Sub
 	#tag EndEvent
 	#tag Event

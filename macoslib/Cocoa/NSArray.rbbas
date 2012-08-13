@@ -97,14 +97,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As CFArray
 		  
-		  return  new CFArray( me.id, false )
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Operator_Convert(p as Ptr) As CFArray
-		  
-		  return  new CFArray( p, false )
+		  return   new CFArray( me.id, false )
 		End Function
 	#tag EndMethod
 

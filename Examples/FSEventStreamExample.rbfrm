@@ -246,9 +246,9 @@ End
 		    f = SpecialFolder.UserHome
 		    dim opts as integer
 		    
-		    if SystemVersionAsInt>=1070 then
+		    if SystemVersionAsInt >= 100700 then  //Lion+
 		      opts = MacFSEventStream.kFSEventStreamCreateFlagFileEvents OR MacFSEventStream.kFSEventStreamCreateFlagWatchRoot
-		    else
+		    else //Before Lion
 		      opts = MacFSEventStream.kFSEventStreamCreateFlagWatchRoot
 		    end if
 		    
@@ -282,7 +282,7 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  if SystemVersionAsInt>=&h1070 then
+		  if SystemVersionAsInt >= 100700 then
 		    me.Text = "As you are running Lion or Mountain Lion, you will receive events with the file name."
 		  else
 		    me.Text = "As you are running Snow Leopard or below, you will only receive events for modified folders but with no clue on which file changed."

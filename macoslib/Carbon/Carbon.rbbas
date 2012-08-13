@@ -9,10 +9,12 @@ Protected Module Carbon
 	#tag Method, Flags = &h21
 		Private Function GetSystemVersionFromGestalt() As String
 		  dim sys1, sys2, sys3 as Integer
-		  call System.Gestalt("sys1", sys1)
-		  call System.Gestalt("sys2", sys2)
-		  call System.Gestalt("sys3", sys3)
-		  if sys1 <> 0 then
+		  dim OK as Boolean = true
+		  OK = OK AND System.Gestalt("sys1", sys1)
+		  OK = OK AND System.Gestalt("sys2", sys2)
+		  OK = OK AND System.Gestalt("sys3", sys3)
+		  
+		  if OK AND sys1 <> 0 then
 		    return Format(sys1,"#")+"."+Format(sys2,"#")+"."+Format(sys3,"#")
 		  end if
 		End Function
@@ -196,6 +198,7 @@ Protected Module Carbon
 		  //   SystemVersionAsString >= "10.6"
 		  // with the actual OS X version being 10.11: Then the string "10.6" will be
 		  // greater than "10.11", which is the wrong result for your test.
+		  
 		  
 		  static version as String = GetSystemVersionFromGestalt
 		  return version

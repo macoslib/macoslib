@@ -30,6 +30,8 @@ Protected Class UTI
 		    const kLSRoleAll = &hFFFFFFFF
 		    const kCFStringEncodingUTF8 = &h08000100
 		    
+		    assertOSVersion   100400 //Tiger+
+		    
 		    dim outRef as integer
 		    dim s as string
 		    dim mb as MemoryBlock

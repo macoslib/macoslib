@@ -16,7 +16,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function URLWithString lib CocoaLib selector "URLWithString:" ( id as Ptr, URLString as CFStringRef ) as Ptr
 		    
-		    super.Constructor URLWithString( Cocoa.NSClassFromString( "NSURL" ), theURL ), true
+		    super.Constructor URLWithString( Cocoa.NSClassFromString( "NSURL" ), theURL ), false
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -31,6 +31,69 @@ Inherits NSObject
 		    return  new NSString( pathExtension( self.id ), false )
 		    
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ResourceValue(forKey as string) As NSObject
+		  //Get information about file/volume
+		  
+		  //If there is no value for the given key, nil is returned.
+		  
+		  #if TargetMacOS
+		    declare function getResourceValue lib CocoaLib selector "getResourceValue:forKey:error:" (id as Ptr, byref value as Ptr, forKey as CFStringRef, byref err as Ptr) as Boolean
+		    
+		    assertOSVersion  100600 //Snow Leopard
+		    
+		    dim p, err as Ptr
+		    dim OK as Boolean
+		    
+		    if kKeyList.Contains( forKey ) then
+		      OK = getResourceValue( me.id, p, Cocoa.StringConstant( forKey ), err )
+		    else
+		      OK = getResourceValue( me.id, p, forKey, err )
+		    end if
+		    
+		    if OK then
+		      if p=nil then
+		        return nil
+		      else
+		        return   Cocoa.NSObjectFromNSPtr( p )
+		      end if
+		    else
+		      raise  new NSException( err )
+		    end if
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ResourceValue(forKey as string, newValue as NSObject) As boolean
+		  //Set information about file/volume
+		  
+		  #if TargetMacOS
+		    declare function setResourceValue lib CocoaLib selector "setResourceValue:forKey:error:" (id as Ptr, value as Ptr, forKey as CFStringRef, byref err as Ptr) as Boolean
+		    
+		    assertOSVersion  100600 //Snow Leopard
+		    
+		    dim p, err as Ptr
+		    dim OK as Boolean
+		    
+		    if kKeyList.Contains( forKey ) then
+		      OK = setResourceValue( newValue.id, p, Cocoa.StringConstant( forKey ), err )
+		    else
+		      OK = setResourceValue( newValue.id, p, forKey, err )
+		    end if
+		    
+		    if err<>nil then
+		      raise  new NSException( err )
+		    end if
+		    
+		    return  OK
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -65,6 +128,10 @@ Inherits NSObject
 		#tag EndGetter
 		Item As FolderItem
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = kKeyList, Type = String, Dynamic = False, Default = \"NSURLNameKey\rNSURLLocalizedNameKey\rNSURLIsRegularFileKey\rNSURLIsDirectoryKey\rNSURLIsSymbolicLinkKey\rNSURLIsVolumeKey\rNSURLIsPackageKey\rNSURLIsSystemImmutableKey\rNSURLIsUserImmutableKey\rNSURLIsHiddenKey\rNSURLHasHiddenExtensionKey\rNSURLCreationDateKey\rNSURLContentAccessDateKey\rNSURLContentModificationDateKey\rNSURLAttributeModificationDateKey\rNSURLLinkCountKey\rNSURLParentDirectoryURLKey\rNSURLVolumeURLKey\rNSURLTypeIdentifierKey\rNSURLLocalizedTypeDescriptionKey\rNSURLLabelNumberKey\rNSURLLabelColorKey\rNSURLLocalizedLabelKey\rNSURLEffectiveIconKey\rNSURLCustomIconKey\rNSURLFileSizeKey\rNSURLFileAllocatedSizeKey\rNSURLIsAliasFileKey\rNSURLVolumeLocalizedFormatDescriptionKey\rNSURLVolumeTotalCapacityKey\rNSURLVolumeAvailableCapacityKey\rNSURLVolumeResourceCountKey\rNSURLVolumeSupportsPersistentIDsKey\rNSURLVolumeSupportsSymbolicLinksKey\rNSURLVolumeSupportsHardLinksKey\rNSURLVolumeSupportsJournalingKey\rNSURLVolumeIsJournalingKey\rNSURLVolumeSupportsSparseFilesKey\rNSURLVolumeSupportsZeroRunsKey\rNSURLVolumeSupportsCaseSensitiveNamesKey\rNSURLVolumeSupportsCasePreservedNamesKey", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior

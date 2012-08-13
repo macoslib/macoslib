@@ -59,6 +59,9 @@ Protected Class MacSpeechSynthesizer
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidFinishSpeaking(sender as NSSpeechSynthesizer, success as Boolean)
+		  #pragma unused success
+		  #pragma unused sender
+		  
 		  #if TargetMacOS
 		    RaiseEvent  FinishedSpeaking( success )
 		    
@@ -73,6 +76,8 @@ Protected Class MacSpeechSynthesizer
 
 	#tag Method, Flags = &h21
 		Private Sub HandleSpeechError(sender as NSSpeechSynthesizer, errorMsg as string, position as integer, inText as string)
+		  #pragma unused  sender
+		  
 		  #if TargetMacOS
 		    RaiseEvent  SpeechError( errorMsg, position, inText )
 		    
@@ -89,6 +94,8 @@ Protected Class MacSpeechSynthesizer
 
 	#tag Method, Flags = &h21
 		Private Sub HandleSyncMessage(sender as NSSpeechSynthesizer, msg as string)
+		  #pragma unused sender
+		  
 		  #if TargetMacOS
 		    RaiseEvent   SyncMessage( msg )
 		    
@@ -103,6 +110,8 @@ Protected Class MacSpeechSynthesizer
 
 	#tag Method, Flags = &h21
 		Private Sub HandleWillSpeakPhoneme(sender as NSSpeechSynthesizer, opcode as Int16)
+		  #pragma unused sender
+		  
 		  #if TargetMacOS
 		    RaiseEvent  WillSpeakPhoneme( opcode )
 		    
@@ -117,6 +126,8 @@ Protected Class MacSpeechSynthesizer
 
 	#tag Method, Flags = &h21
 		Private Sub HandleWillSpeakWord(sender as NSSpeechSynthesizer, wordRange as Cocoa.NSRange, inString as string)
+		  #pragma unused sender
+		  
 		  #if TargetMacOS
 		    RaiseEvent   WillSpeakWord( wordRange, inString )
 		    

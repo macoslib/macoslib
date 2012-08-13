@@ -1,6 +1,14 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
+		Function Contains(extends s as string, substring as String) As Boolean
+		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
+		  
+		  return  ( s.Instr( substring ) > 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function FormatSize(size as Int64) As String
 		  //# Format a file size as a 2-decimal number with appropriate unit (K, M, G, T). It is up to you to add the proper localized abbreviation for "byte".
 		  
