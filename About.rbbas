@@ -13,6 +13,9 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		105:
+		- Moved M_PList module into "Convenience extensions and objects folder" within macoslib.
+		
 		104:
 		- Added AssertionModule in the Exception Classes folder with AssertPtr and AssertOSVersion
 		- Started adjusting code to the OS version the application is running on.
@@ -38,7 +41,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"104", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"105", Scope = Protected
 	#tag EndConstant
 
 
