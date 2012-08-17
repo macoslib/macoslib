@@ -450,24 +450,22 @@ End
 	#tag Event
 		Sub Close()
 		  
-		  '#if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
-		  '//Position window. Check for prefs file
-		  '
-		  'dim f as FolderItem
-		  'dim prefs as Dictionary
-		  'dim wbounds( 3 ) as string
-		  '
-		  'f = GetFolderItem( "DebugReport.prefs.plist" )
-		  '
-		  'if DebugReportModule.Prefs=nil then
-		  'prefs = new
-		  '
-		  'DebugReportModule.Prefs = prefs
-		  'else
-		  'prefs = DebugReportModule.Prefs
-		  'end if
-		  '
-		  '#endif
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    //Position window. Check for prefs file
+		    
+		    if DebugReportModule.Prefs<>nil then
+		      dim wbounds( 3 ) as string
+		      
+		      wbounds( 0 ) = Str( self.Left )
+		      wbounds( 1 ) = Str( self.Top )
+		      wbounds( 2 ) = Str( self.Width )
+		      wbounds( 3 ) = Str( self.Height )
+		      
+		      DebugReportModule.Prefs.Value( "WindowBounds" ) = Join( wbounds, " " )
+		      
+		      DebugReportModule.Prefs.WriteOnDisk
+		    end if
+		  #endif
 		End Sub
 	#tag EndEvent
 
@@ -477,15 +475,10 @@ End
 		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
 		    //Position window. Check for prefs file
 		    
-		    dim f as FolderItem
-		    f = GetFolderItem( "DebugReport.prefs.plist" )
-		    if f<>nil AND f.Exists then
-		      dim prefs as Dictionary
-		      dim wbounds() as string
-		      prefs = PlistAsDictionary_MTC( f )
-		      
-		      if prefs.HasKey( "WindowBounds" ) then
-		        wbounds = Split( prefs.Value( "WindowBounds" ), " " )
+		    if DebugReportModule.Prefs<>nil then
+		      if DebugReportModule.prefs.HasKey( "WindowBounds" ) then
+		        dim wbounds() as string
+		        wbounds = Split( DebugReportModule.prefs.Value( "WindowBounds" ), " " )
 		        
 		        me.Left = Val( wbounds( 0 ))
 		        me.Top = Val( wbounds( 1 ))

@@ -455,6 +455,9 @@ Protected Module Cocoa
 		    case "NSEvent"
 		      return  new NSEvent( id, hasOwnership )
 		      
+		    case "NSFileHandle"
+		      return  new NSFileHandle( id, hasOwnership )
+		      
 		    case "NSFont"
 		      return  new NSFont( id, hasOwnership )
 		      
@@ -536,6 +539,9 @@ Protected Module Cocoa
 		      
 		    case "NSPathComponentCell"
 		      'return  new NSPathComponentCell( id, hasOwnership )
+		      
+		    case "NSPipe"
+		      return  new NSPipe( id, hasOwnership )
 		      
 		    case "NSPrinter"
 		      return  new NSPrinter( id, hasOwnership )

@@ -1,5 +1,5 @@
 #tag Class
-Protected Class NSPipe
+Class NSPipe
 Inherits NSObject
 	#tag Method, Flags = &h1021
 		Private Sub Constructor()

@@ -381,6 +381,15 @@ Protected Module DebugReportModule
 		    
 		    AddHandler   LogTimer.Action, AddressOf  TimerAction
 		    
+		    #pragma BreakOnExceptions false
+		    Try
+		      Prefs = new PropertyList( GetFolderItem( "DebugReport.prefs.plist" ))
+		    catch exc
+		      Prefs = new PropertyList
+		      Prefs.file = GetFolderItem( "DebugReport.prefs.plist" )
+		    end try
+		    #pragma BreakOnExceptions default
+		    
 		    inited = true
 		  #endif
 		End Sub
@@ -837,7 +846,7 @@ Protected Module DebugReportModule
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected Prefs As Dictionary
+		Protected Prefs As PropertyList
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
