@@ -1,18 +1,6 @@
 #tag Class
-Class NSText
-Inherits NSObject
-	#tag Method, Flags = &h0
-		Sub ScrollRangeToVisible(r as Cocoa.NSRange)
-		  
-		  #if TargetMacOS
-		    declare sub scrollRangeToVisible lib CocoaLib selector "scrollRangeToVisible:" (id as Ptr, range as NSRange)
-		    
-		    scrollRangeToVisible( me.id, r )
-		  #endif
-		End Sub
-	#tag EndMethod
-
-
+Class NSTextView
+Inherits NSText
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get

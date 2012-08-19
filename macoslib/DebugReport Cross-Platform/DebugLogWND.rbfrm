@@ -236,7 +236,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -271,7 +270,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -306,7 +304,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -341,7 +338,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F18"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -376,7 +372,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F19"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -518,6 +513,30 @@ End
 		  g.FillOval   0, 0, 12, 12
 		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  'static offset as integer
+		  'dim startPos as integer
+		  'dim doc as Ptr
+		  '
+		  'startPos = LogTA.Text.Instr( offset, "ERROR" )
+		  'offset = startPos + 5
+		  '
+		  'if startPos = 0 then
+		  'beep
+		  'Return  false
+		  'end if
+		  '
+		  'declare function documentView lib CocoaLib selector "documentView" (id as Ptr) as Ptr
+		  'declare sub scrollRangeToVisible lib CocoaLib selector "scrollRangeToVisible:" (id as Ptr, range as Cocoa.NSRange)
+		  'declare sub setSelectedRange lib CocoaLib selector "setSelectedRange:" (id as ptr, range as Cocoa.NSRange)
+		  '
+		  'doc = documentView( Ptr( LogTA.Handle ))
+		  'setSelectedRange( doc, Cocoa.NSMakeRange( StartPos - 1, 5 ))
+		  'scrollRangeToVisible( doc, Cocoa.NSMakeRange( StartPos - 1, 5 ))
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events Canvas2

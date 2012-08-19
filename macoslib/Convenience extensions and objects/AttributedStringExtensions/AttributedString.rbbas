@@ -17,6 +17,96 @@ Inherits NSAttributedString
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromHTML(HTMLdata as NSData, baseURL as NSURL = nil) As AttributedString
+		  
+		  #if TargetMacOS
+		    dim nsas as NSAttributedString = NSAttributedString.CreateFromHTML( HTMLData, baseURL )
+		    
+		    if nsas<>nil then
+		      return   new AttributedString( nsas )
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromRTF(RTFdata as NSData) As AttributedString
+		  #if TargetMacOS
+		    dim nsas as NSAttributedString = NSAttributedString.CreateFromRTF( RTFData )
+		    
+		    if nsas<>nil then
+		      return   new AttributedString( nsas )
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Length() As integer
+		  //# Return the length of the AttributedString
+		  
+		  #if TargetMacOS
+		    return  NSbacking.Length
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Mid(startPosition as integer, length as integer = -1) As AttributedString
+		  //# Return the attributed substring in the given range
+		  
+		  //@ The startPosition must be in the range 1 to Length()
+		  //@ If the length is omitted or negative, the full string starting at 'startPosition' is returned
+		  
+		  #if TargetMacOS
+		    dim nsas as NSAttributedString
+		    dim realrange as Cocoa.NSRange
+		    
+		    if startPosition<1 OR startPosition>me.Length then
+		      raise   new OutOfBoundsException
+		    else
+		      realrange.location = startPosition - 1
+		    end if
+		    
+		    if (startPosition + length) > me.Length OR length<0 then //Auto-adjust length
+		      realrange.length = me.length - realrange.location
+		    else
+		      realrange.length = length
+		    end if
+		    
+		    nsas = NSbacking.AttributedSubstringFromRange( realrange )
+		    
+		    return  new AttributedString( nsas )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Add(aString as AttributedString) As AttributedString
+		  //# Allows two AttributedStrings to be concatenated using the "+" operator
+		  
+		  #if TargetMacOS
+		    dim ns2 as NSAttributedString
+		    
+		    ns2 = NSbacking + aString.NSbacking
+		    
+		    return  new AttributedString( ns2 )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StringValue() As string
+		  //# Return the raw contents of the AttributedString without the attributes
+		  
+		  #if TargetMacOS
+		    return  NSbacking.StringValue
+		  #endif
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Note
@@ -32,21 +122,12 @@ Inherits NSAttributedString
 		Handle As integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  return _id
-			End Get
-		#tag EndGetter
-		id As Ptr
-	#tag EndComputedProperty
-
 	#tag Property, Flags = &h21
 		Private Mutable As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected NSbacking As NSObject
+	#tag Property, Flags = &h0
+		NSbacking As NSAttributedString
 	#tag EndProperty
 
 	#tag Property, Flags = &h21

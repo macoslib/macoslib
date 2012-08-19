@@ -483,7 +483,7 @@ Protected Module DebugReportModule
 		      dim cnt as integer
 		      dim tree() as string = Cocoa.ClassNameTreeForClass( aClass )
 		      dim forClass as Ptr
-		      dim buffer as new MemoryBlock( 256 )
+		      dim buffer as new MemoryBlock( 1024 )
 		      dim params() as string
 		      dim paramCnt as integer
 		      dim s as string
@@ -610,6 +610,30 @@ Protected Module DebugReportModule
 		    #else
 		      #pragma unused aClass
 		    #endif
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReportObjCDetailsForNSObject(obj as NSObject)
+		  //Report ObjC implementation details for a Cocoa object class and its parents
+		  
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    declare function getClass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		    
+		    ReportObjCDetailsForClassPtr  getClass( obj.id )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReportObjCDetailsForNSObjectPtr(pointer as Ptr)
+		  //Report ObjC implementation details for a Cocoa object class and its parents
+		  
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    declare function getClass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		    
+		    ReportObjCDetailsForClassPtr  getClass( pointer )
 		  #endif
 		End Sub
 	#tag EndMethod

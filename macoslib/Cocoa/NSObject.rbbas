@@ -59,6 +59,16 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Copy_() As Ptr
+		  #if TargetMacOS
+		    declare function Copy lib Cocoalib selector "copy" (id as Ptr) as Ptr
+		    
+		    return  Copy( me.id )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Destructor()
 		  self.Release
 		End Sub

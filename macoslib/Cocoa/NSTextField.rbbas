@@ -72,9 +72,9 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub isEditable lib CocoaLib selector "setIsEditable:" (id as Ptr, value as boolean)
+			    declare sub setEditable lib CocoaLib selector "setEditable:" (id as Ptr, value as boolean)
 			    
-			    isEditable( me._id, value )
+			    setEditable( me._id, value )
 			    
 			  #else
 			    #pragma unused value
@@ -82,31 +82,6 @@ Inherits NSObject
 			End Set
 		#tag EndSetter
 		Editable As Boolean
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  #if TargetMacOS
-			    declare function isSelectable lib CocoaLib selector "isSelectable" (id as Ptr) as Boolean
-			    
-			    return   isSelectable( me._id )
-			  #endif
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  #if TargetMacOS
-			    declare sub isSelectable lib CocoaLib selector "setIsSelectable:" (id as Ptr, value as boolean)
-			    
-			    isSelectable( me._id, value )
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
-		Selectable As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -131,7 +106,32 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Styled As Boolean
+		EditableAttributes As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    declare function isSelectable lib CocoaLib selector "isSelectable" (id as Ptr) as Boolean
+			    
+			    return   isSelectable( me._id )
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetMacOS
+			    declare sub setSelectable lib CocoaLib selector "setSelectable:" (id as Ptr, value as boolean)
+			    
+			    setSelectable( me._id, value )
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Selectable As Boolean
 	#tag EndComputedProperty
 
 

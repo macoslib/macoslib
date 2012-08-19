@@ -38,11 +38,42 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function AttributesAtIndex_LongestEffectiveRange(atIndex as integer, byref effectiveRange as NSRange, maxRange as NSRange) As NSDictionary
-		  #if TargetMacOS
+		   #if TargetMacOS
 		    declare function attributesAtIndex lib CocoaLib selector "attributesAtIndex:longestEffectiveRange:inRange:" (id as Ptr, idx as integer, byref range as NSRange, maxRange as NSRange) as Ptr
 		    
 		    dim p as Ptr = attributesAtIndex( me.id, atIndex, effectiveRange, maxRange )
 		    return   new NSDictionary( p )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromHTML(HTMLdata as NSData, baseURL as NSURL = nil) As NSAttributedString
+		  
+		  #if TargetMacOS
+		    declare function initWithHTML lib CocoaLib selector "initWithHTML:documentAttributes:" ( id as Ptr, data as Ptr, docAttr as Ptr) as Ptr
+		    
+		    dim p as Ptr = Allocate( "NSAttributedString" )
+		    p = initWithHTML( p, HTMLData.id, nil )
+		    if p<>nil then
+		      return  new NSAttributedString( p, false )
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromRTF(RTFdata as NSData) As NSAttributedString
+		  #if TargetMacOS
+		    declare function initWithRTF lib CocoaLib selector "initWithRTF:documentAttributes:" ( id as Ptr, data as Ptr, docAttr as Ptr) as Ptr
+		    
+		    dim p as Ptr = Allocate( "NSAttributedString" )
+		    p = initWithRTF( p, RTFData.id, nil )
+		    if p<>nil then
+		      return  new NSAttributedString( p, false )
+		    end if
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -95,6 +126,26 @@ Inherits NSObject
 		    declare function _length lib Cocoalib selector "length" (id as Ptr) as integer
 		    
 		    return   _length( me.id )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Add(aString as NSAttributedString) As NSAttributedString
+		  //Concatenate 2 NSAttributedStrings
+		  
+		  #if TargetMacOS
+		    dim base as NSMutableAttributedString
+		    
+		    if me isa NSMutableAttributedString then
+		      base = new NSMutableAttributedString( me.Copy_ )
+		    else
+		      base = new NSMutableAttributedString( me.MutableCopy, false )
+		    end if
+		    
+		    base.AppendAttributedString  aString
+		    
+		    return   base //Return a NSMutableAttributedString
 		  #endif
 		End Function
 	#tag EndMethod

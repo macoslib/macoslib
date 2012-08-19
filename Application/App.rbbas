@@ -286,6 +286,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function LabelExtensionMenu() As Boolean Handles LabelExtensionMenu.Action
+			LabelExtensionExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function MenuItemExamplesMenuLocalizedTextThemeColors() As Boolean Handles MenuItemExamplesMenuLocalizedTextThemeColors.Action
 			ThemeColorExample.Show
 			Return True
