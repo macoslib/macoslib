@@ -7,7 +7,7 @@ Inherits NSAttributedString
 		  
 		  #if TargetMacOS
 		    if Cocoa.InheritsFromClass( fromNSAttributedString, "NSMutableAttributedString" ) then
-		      Mutable = true
+		      _Mutable = true
 		    end if
 		    
 		    me._id = fromNSAttributedString.id
@@ -54,7 +54,7 @@ Inherits NSAttributedString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Mid(startPosition as integer, length as integer = -1) As AttributedString
+		Function Mid(startPosition as integer, length as integer = - 1) As AttributedString
 		  //# Return the attributed substring in the given range
 		  
 		  //@ The startPosition must be in the range 1 to Length()
@@ -122,9 +122,14 @@ Inherits NSAttributedString
 		Handle As integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
-		Private Mutable As Boolean
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return  _Mutable
+			End Get
+		#tag EndGetter
+		Mutable As Boolean
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
 		NSbacking As NSAttributedString
@@ -177,6 +182,10 @@ Inherits NSAttributedString
 		#tag EndSetter
 		Private SelStart As Integer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private _Mutable As Boolean
+	#tag EndProperty
 
 
 	#tag ViewBehavior

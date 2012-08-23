@@ -639,6 +639,8 @@ Protected Module Cocoa
 		  case Variant.TypeNil
 		    return   new NSNull
 		    
+		  case Variant.TypeColor
+		    return   new NSColor( v.ColorValue )
 		  else
 		    raise new TypeMismatchException
 		  end select

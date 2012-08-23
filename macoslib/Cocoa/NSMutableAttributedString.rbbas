@@ -2,26 +2,41 @@
 Class NSMutableAttributedString
 Inherits NSAttributedString
 	#tag Method, Flags = &h0
-		Function AddAttribute(attributeName as string, value as variant, forRange as NSRange) As boolean
+		Function AddAttribute(attributeName as string, value as variant, optional forRange as NSRange) As boolean
+		  
+		  //@ Simple values like string, numbers, colors can be set in 'value', otherwise, only NSObjects can be used.
 		  
 		  #if TargetMacOS
 		    declare sub addAttribute lib CocoaLib selector "addAttribute:value:range:" (id as Ptr, name as CFStringRef, value as Ptr, aRange as NSRange)
 		    
 		    'dim mgr as NSFontManager = NSFontManager.SharedManager
 		    dim nsf as NSFont
-		    dim range as NSRange
+		    dim range, realrange as NSRange
+		    dim realvalue as NSObject
 		    
-		    if NOT value isa NSObject then
-		      raise  new MacOSError( -50, "Invalid value. Must be a subclass of NSObject." )
+		    'if NOT value isa NSObject then
+		    'raise  new MacOSError( -50, "Invalid value. Must be a subclass of NSObject." )
+		    'end if
+		    
+		    if forRange.length=0 then
+		      realrange = Cocoa.NSMakeRange( 0, me.Length )
+		    else
+		      realrange = forRange
+		    end if
+		    
+		    if NOT value IsA NSObject then
+		      realvalue = Cocoa.NSObjectFromVariant( value )
+		    else
+		      realvalue = value
 		    end if
 		    
 		    if attributeName.Left( 2 )="NS" AND attributeName.Right( 13 )="AttributeName" then //Cocoa constant
-		      addAttribute( me.id, Cocoa.StringConstant( attributeName ), NSObject( value ).id, forRange )
+		      addAttribute( me.id, Cocoa.StringConstant( attributeName ), realvalue.id, realrange )
 		      
 		    else
 		      select case attributeName //Add some convenience methods
 		      case me.kAttributeBold //Bold
-		        nsf = me.AttributeAtIndex( "NSFontAttributeName", forRange.location, range )
+		        nsf = me.AttributeAtIndex( "NSFontAttributeName", realrange.location, range )
 		        if nsf=nil then
 		          return  false
 		        end if
@@ -29,10 +44,10 @@ Inherits NSAttributedString
 		        if nsf=nil then
 		          return  false
 		        end if
-		        addAttribute( me.id, Cocoa.StringConstant( "NSFontAttributeName" ), nsf.id, forRange )
+		        addAttribute( me.id, Cocoa.StringConstant( "NSFontAttributeName" ), nsf.id, realrange )
 		        
 		      case me.kAttributeItalic //Italic
-		        nsf = me.AttributeAtIndex( "NSFontAttributeName", forRange.location, range )
+		        nsf = me.AttributeAtIndex( "NSFontAttributeName", realrange.location, range )
 		        if nsf=nil then
 		          return  false
 		        end if
@@ -40,10 +55,10 @@ Inherits NSAttributedString
 		        if nsf=nil then
 		          return  false
 		        end if
-		        addAttribute( me.id, Cocoa.StringConstant( "NSFontAttributeName" ), nsf.id, forRange )
+		        addAttribute( me.id, Cocoa.StringConstant( "NSFontAttributeName" ), nsf.id, realrange )
 		        
 		      else  //Other attribute
-		        addAttribute( me.id, attributeName, NSObject( value ).id, forRange )
+		        addAttribute( me.id, attributeName, realvalue.id, realrange )
 		        
 		      end select
 		    end if
@@ -85,6 +100,81 @@ Inherits NSAttributedString
 		    declare sub appendAttributedString lib CocoaLib selector "appendAttributedString:" (id as Ptr, attrS as Ptr)
 		    
 		    appendAttributedString( me.id, attrString.id )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub BeginEditing()
+		  #if TargetMacOS
+		    declare sub beginEditing lib CocoaLib selector "beginEditing" (id as Ptr)
+		    
+		    if IsEditing then  RETURN
+		    
+		    beginEditing   me.id
+		    IsEditing_ = true
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From NSObject
+		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
+		  
+		  Super.Constructor( Initialize( Allocate( "NSMutableAttributedString" )), true )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From NSObject
+		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
+		  
+		  Super.Constructor( id, hasOwnership, "NSMutableAttributedString" )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EndEditing()
+		  #if TargetMacOS
+		    declare sub endEditing lib CocoaLib selector "endEditing" (id as Ptr)
+		    
+		    endEditing   me.id
+		    IsEditing_ = false
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FixAttributes(optional inRange as NSRange)
+		  
+		  #if TargetMacOS
+		    declare sub fixAttributesInRange lib CocoaLib selector "fixAttributesInRange:" (id as Ptr, aRange as NSRange)
+		    
+		    dim realRange as NSRange
+		    if inRange.length=0 then //Use full string
+		      realRange = Cocoa.NSMakeRange( 0, me.Length )
+		    else
+		      realRange = inRange
+		    end if
+		    
+		    if IsEditing then
+		      fixAttributesInRange( me.id, realRange )
+		    else
+		      BeginEditing
+		      fixAttributesInRange( me.id, realRange )
+		      EndEditing
+		    end if
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -182,6 +272,101 @@ Inherits NSAttributedString
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Subscript(optional inRange as NSRange)
+		  
+		  #if TargetMacOS
+		    declare sub subscriptRange lib CocoaLib selector "subscriptRange:" (id as Ptr, aRange as NSRange)
+		    
+		    dim realRange as NSRange
+		    if inRange.length=0 then //Use full string
+		      realRange = Cocoa.NSMakeRange( 0, me.Length )
+		    else
+		      realRange = inRange
+		    end if
+		    
+		    if IsEditing then
+		      subscriptRange( me.id, realRange )
+		      FixAttributes   realRange
+		    else
+		      BeginEditing
+		      subscriptRange( me.id, realRange )
+		      FixAttributes   realRange
+		      EndEditing
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Superscript(optional inRange as NSRange)
+		  
+		  #if TargetMacOS
+		    declare sub superscriptRange lib CocoaLib selector "superscriptRange:" (id as Ptr, aRange as NSRange)
+		    
+		    dim realRange as NSRange
+		    if inRange.length=0 then //Use full string
+		      realRange = Cocoa.NSMakeRange( 0, me.Length )
+		    else
+		      realRange = inRange
+		    end if
+		    
+		    if IsEditing then
+		      superscriptRange( me.id, realRange )
+		      FixAttributes   realRange
+		    else
+		      BeginEditing
+		      superscriptRange( me.id, realRange )
+		      FixAttributes   realRange
+		      EndEditing
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Unscript(optional inRange as NSRange)
+		  
+		  #if TargetMacOS
+		    declare sub unscriptRange lib CocoaLib selector "unscriptRange:" (id as Ptr, aRange as NSRange)
+		    
+		    dim realRange as NSRange
+		    if inRange.length=0 then //Use full string
+		      realRange = Cocoa.NSMakeRange( 0, me.Length )
+		    else
+		      realRange = inRange
+		    end if
+		    
+		    if IsEditing then
+		      unscriptRange( me.id, realRange )
+		      FixAttributes   realRange
+		    else
+		      BeginEditing
+		      unscriptRange( me.id, realRange )
+		      FixAttributes   realRange
+		      EndEditing
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return   IsEditing_
+			End Get
+		#tag EndGetter
+		IsEditing As Boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private IsEditing_ As Boolean
+	#tag EndProperty
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
@@ -197,6 +382,11 @@ Inherits NSAttributedString
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsEditing"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"

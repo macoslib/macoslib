@@ -929,6 +929,17 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function SpotlightMetadata(extends f as FolderItem) As Dictionary
+		  //# Returns a Dictionary containing all the Spotlight metadata
+		  
+		  #if TargetMacOS
+		    dim mdi as MDItem = MDItem.CreateFromFile( f )
+		    return  mdi.AllAttributes
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function UniformTypeIdentifier(extends f as FolderItem) As String
 		  //# Get the Uniform Type Identifier of the given FolderItem
 		  

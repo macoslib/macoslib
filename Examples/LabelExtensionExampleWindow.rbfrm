@@ -51,7 +51,7 @@ Begin Window LabelExtensionExampleWindow
       TextUnit        =   0
       Top             =   7
       Underline       =   ""
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   726
       Begin Label Label1
@@ -245,36 +245,8 @@ End
 		  dim RTFdata as NSData = new NSData( RTFStringIntroStyled )
 		  dim nsas as NSAttributedString = NSAttributedString.CreateFromRTF( RTFdata )
 		  
-		  'dim nsas as new NSMutableAttributedString
-		  'nsas.AppendAttributedString   NSAttributedString.CreateFromString_WithAttributes( "Hello", nsas.kNSFontAttributeName : "Lucida Grande", _
-		  'nsas.kAttributeBold : true
-		  
 		  me.SetAttributedString   new AttributedString( nsas )
 		  
-		  
-		  
-		  
-		  'declare function delegate_ lib CocoaLib selector "delegate" (id as Ptr) as Ptr
-		  'declare function view_ lib CocoaLib selector "view" (id as Ptr) as Ptr
-		  '
-		  ''dim myView as Ptr = view_( Ptr( me.Handle ))
-		  ''AssertPtr  myView, "myview is nil"
-		  ''
-		  ''ReportObjCDetailsForNSObjectPtr   myView
-		  '
-		  '
-		  'dim nstv as NSTextField = new NSTextField( Ptr( me.Handle ))
-		  '
-		  'dim del as Ptr = delegate_( nstv )
-		  '
-		  'if del=nil then
-		  'DReport   "del is nil"
-		  'return
-		  'end if
-		  '
-		  ''DebugReportModule.ReportObjCDetailsForClassPtr   Cocoa.NSClassFromString( Cocoa.ClassNameForObjectPointer( Ptr( me.Handle )))
-		  '
-		  ''ReportObjCDetailsForNSObjectPtr   Ptr( me.handle )
 		End Sub
 	#tag EndEvent
 #tag EndEvents

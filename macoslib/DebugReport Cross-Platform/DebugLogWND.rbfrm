@@ -385,7 +385,7 @@ Begin Window DebugLogWND
       Width           =   26
    End
    Begin PopupArrow PopupArrow1
-      AutoDeactivate  =   True
+      AutoDeactivate  =   False
       Enabled         =   True
       Facing          =   3
       Height          =   10
@@ -468,6 +468,7 @@ End
 		Sub Open()
 		  
 		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    
 		    //Position window. Check for prefs file
 		    
 		    if DebugReportModule.Prefs<>nil then
@@ -563,11 +564,14 @@ End
 		  
 		  dim base as new MenuItem( "MENU" )
 		  dim mi as MenuItem
+		  dim obj as Object
 		  
 		  base.Append   new Menuitem( "Copy", "_COPY_" )
 		  base.Append   new Menuitem( "Clear", "_CLEAR_" )
 		  base.Append   new Menuitem( "-" )
 		  base.Append   new Menuitem( "Save log to Desktop", "_SAVE_" )
+		  base.Append   new Menuitem( "-" )
+		  base.Append   new MenuItem( "List objects in memory", "_OBJECTS_" )
 		  
 		  mi = base.PopUp
 		  if mi is nil then return false // Added by Kem Tekinay. Prevents crash if the user doesn't select anything
@@ -586,6 +590,27 @@ End
 		    beep
 		    'dim f as FolderItem
 		    'f = SpecialFolder.Desktop.Child( "Debug Log " + Date( new date).AbbreviatedDate
+		    
+		  case "_OBJECTS_"
+		    'dim iterator as Runtime.ObjectIterator = Runtime.IterateObjects
+		    dim imax as integer = Runtime.ObjectCount - 1
+		    
+		    DReportTitled   "Objects in memory"
+		    
+		    for i as integer=0 to imax
+		      dim s as string = Runtime.ObjectClass( i )
+		      
+		      if s.Instr( "MenuItem" )=0 then
+		        QReport   s
+		      end if
+		    next
+		    'while  iterator.MoveNext
+		    'obj = iterator.Current
+		    'if NOT obj isa MenuItem then
+		    'QReport   Introspection.GetType( obj ).Name
+		    'end if
+		    'wend
+		    
 		  end select
 		End Function
 	#tag EndEvent

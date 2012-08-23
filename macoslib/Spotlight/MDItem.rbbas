@@ -9,6 +9,23 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
+		Function AllAttributes() As Dictionary
+		  #if TargetMacOS
+		    declare function MDItemCopyAttributeNames lib CarbonLib (item as Ptr) as Ptr
+		    declare function MDItemCopyAttributes lib CarbonLib (item as Ptr, names as Ptr) as Ptr
+		    
+		    dim cfa as CFArray
+		    dim cfdict as CFDictionary
+		    cfa = new CFArray( MDItemCopyAttributeNames( me.Reference ), true )
+		    cfdict = new CFDictionary( MDItemCopyAttributes ( me.Reference, cfa.Reference ), true )
+		    
+		    return   cfDict.AsDictionary
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Attribute(key as String) As CFType
 		  #if targetMacOS
 		    soft declare function MDItemCopyAttribute lib CarbonLib (item as Ptr, name as CFStringRef) as Ptr
@@ -52,6 +69,20 @@ Inherits CFType
 		  #endif
 		  
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateFromFile(file as FolderItem) As MDItem
+		  //# Creates a MDItem for a given file
+		  
+		  #if TargetMacOS
+		    declare function MDItemCreateWithURL lib CarbonLib (alloc as Ptr, url as Ptr) as Ptr
+		    
+		    dim url as CFURL = new CFURL( file )
+		    
+		    return  new MDItem( MDItemCreateWithURL( nil, url ), false )
+		  #endif
 		End Function
 	#tag EndMethod
 

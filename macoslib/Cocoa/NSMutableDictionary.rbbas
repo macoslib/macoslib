@@ -47,12 +47,20 @@ Inherits NSDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Value(key as NSObject, assigns newValue as NSObject)
+		Sub Value(key as variant, assigns newValue as NSObject)
 		  
 		  #if TargetMacOS
 		    declare sub setObject lib Cocoalib selector "setObject:forKey:" ( id as Ptr, key as Ptr, value as Ptr )
 		    
-		    setObject( me.id, newValue.id, key.id )
+		    dim truekey as NSObject
+		    
+		    if key IsA NSObject then
+		      truekey = key
+		    else
+		      truekey = Cocoa.NSObjectFromVariant( key )
+		    end if
+		    
+		    setObject( me.id, newValue.id, truekey.id )
 		  #endif
 		End Sub
 	#tag EndMethod

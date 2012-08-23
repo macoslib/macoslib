@@ -31,11 +31,11 @@ Protected Class MacSpeechSynthesizer
 		  _synth = new NSSpeechSynthesizer
 		  
 		  //Redirect events
-		  AddHandler   synth.FinishedSpeaking, AddressOf HandleDidFinishSpeaking
-		  AddHandler   synth.SpeechError, AddressOf HandleSpeechError
-		  AddHandler   synth.SyncMessage, AddressOf HandleSyncMessage
-		  AddHandler   synth.WillSpeakPhoneme, AddressOf HandleWillSpeakPhoneme
-		  AddHandler   synth.WillSpeakWord, AddressOf HandleWillSpeakWord
+		  AddHandler   synth.FinishedSpeaking, WeakAddressOf HandleDidFinishSpeaking
+		  AddHandler   synth.SpeechError, WeakAddressOf HandleSpeechError
+		  AddHandler   synth.SyncMessage, WeakAddressOf HandleSyncMessage
+		  AddHandler   synth.WillSpeakPhoneme, WeakAddressOf HandleWillSpeakPhoneme
+		  AddHandler   synth.WillSpeakWord, WeakAddressOf HandleWillSpeakWord
 		  
 		End Sub
 	#tag EndMethod
@@ -55,6 +55,22 @@ Protected Class MacSpeechSynthesizer
 		  return  NSSpeechSynthesizer.DefaultVoice
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  DReportTitled   "MacSpeechSynthesizer:", "Destructor called"
+		  
+		  if synth<>nil then
+		    RemoveHandler   synth.FinishedSpeaking, AddressOf HandleDidFinishSpeaking
+		    RemoveHandler   synth.SpeechError, AddressOf HandleSpeechError
+		    RemoveHandler   synth.SyncMessage, AddressOf HandleSyncMessage
+		    RemoveHandler   synth.WillSpeakPhoneme, AddressOf HandleWillSpeakPhoneme
+		    RemoveHandler   synth.WillSpeakWord, AddressOf HandleWillSpeakWord
+		    
+		    _synth = nil
+		  end if
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21

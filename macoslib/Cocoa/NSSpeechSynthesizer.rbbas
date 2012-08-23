@@ -45,7 +45,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function initWithVoice lib CocoaLib selector "initWithVoice:" (id as Ptr, p as Ptr) as Ptr
 		    
-		    Super.Constructor( initWithVoice( Allocate( "NSSpeechSynthesizer" ), nil ), false )
+		    Super.Constructor( initWithVoice( Allocate( "NSSpeechSynthesizer" ), nil ), true )
 		    me.SetDelegate
 		  #endif
 		End Sub
@@ -190,6 +190,18 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  
+		  DReportTitled   "NSSpeechSynthesizer:", "Destructor called"
+		  
+		  declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, del_id as Ptr)
+		  declare sub release lib CocoaLib
+		  setDelegate   me.id, nil
+		  self.Release
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function FindObjectByID(id as Ptr) As NSSearchField
 		  dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
@@ -306,7 +318,6 @@ Inherits NSObject
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
 		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      raise new ObjCException
 		      return nil
 		    end if
 		    

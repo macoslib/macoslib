@@ -13,6 +13,14 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		106: 2012-08-23
+		- Fixed memory leak with MacSpeechSynthesizer. (thank to Charles for finding the problem)
+		- Extended MDItem (CreateFromFile, AllAttributes)
+		- Added MacOSFolderItemExtension SpotlightMetadata which returns all the metadata for a file as a Dictionary
+		- Extended NSDictionary.Value and NSMutableDictionary.Value to accept a key as variant
+		- Added optional class checking in the NSObject Constructor
+		- Many improvements in NSAttributedString and its mutable counterpart, though there is still much work to be done
+		
 		105:
 		- Moved M_PList module into "Convenience extensions and objects folder" within macoslib.
 		
@@ -41,7 +49,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"105", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"106", Scope = Protected
 	#tag EndConstant
 
 

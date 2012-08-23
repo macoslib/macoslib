@@ -11,6 +11,19 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From NSObject
+		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
+		  
+		  Super.Constructor( id, hasOwnership, "NSTextField" )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(fromObject as TextField)
 		  
 		  #if TargetMacOS
@@ -149,6 +162,11 @@ Inherits NSObject
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="EditableAttributes"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -170,11 +188,6 @@ Inherits NSObject
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Selectable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Styled"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

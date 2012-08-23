@@ -49,7 +49,14 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false)
+		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "")
+		  
+		  if checkForClass<>"" then
+		    if NOT Cocoa.InheritsFromClass( obj_id, checkForClass ) then
+		      raise new macoslibException( "The passed pointer does not match the wanted class """ + checkForClass + """" )
+		    end if
+		  end if
+		  
 		  self._id = obj_id
 		  
 		  if not hasOwnership then
@@ -60,6 +67,8 @@ Implements objHasVariantValue
 
 	#tag Method, Flags = &h0
 		Function Copy_() As Ptr
+		  //# Returns an immutable copy of the object
+		  
 		  #if TargetMacOS
 		    declare function Copy lib Cocoalib selector "copy" (id as Ptr) as Ptr
 		    

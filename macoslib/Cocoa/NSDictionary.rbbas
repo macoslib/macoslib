@@ -40,6 +40,19 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From NSObject
+		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
+		  
+		  Super.Constructor( id, hasOwnership, "NSDictionary" )
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function Copy() As NSDictionary
 		  #if TargetMacOS
@@ -112,13 +125,21 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Value(key as NSObject) As Variant
+		Function Value(key as variant) As Variant
 		  //# Get a value corresponding to a key
 		  
 		  #if TargetMacOS
 		    Declare function objectForKey lib CocoaLib selector "objectForKey:" ( id as Ptr, key as Ptr ) as Ptr
 		    
-		    dim p as Ptr = objectForKey( me.id, key.id )
+		    dim trueKey as NSObject
+		    
+		    if key isa NSObject then
+		      trueKey = Key
+		    else
+		      trueKey = Cocoa.NSObjectFromVariant( key )
+		    end if
+		    
+		    dim p as Ptr = objectForKey( me.id, truekey.id )
 		    
 		    if p=nil then
 		      return   nil
