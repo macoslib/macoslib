@@ -88,6 +88,8 @@ Protected Module Cocoa
 		    declare function class_getName lib CocoaLib (id as Ptr) as Ptr
 		    declare function class_getSuperclass lib CocoaLib (id as Ptr) as Ptr
 		    
+		    if p=nil then  RETURN result
+		    
 		    dim cls as Ptr
 		    dim mb as MemoryBlock
 		    
@@ -582,6 +584,9 @@ Protected Module Cocoa
 		    case "NSURL"
 		      return  new NSURL( id, hasOwnership )
 		      
+		    case "NSUserDefaults"
+		      return  new NSUserDefaults( id, hasOwnership )
+		      
 		    case "NSValue"
 		      return  new NSValue( id, hasOwnership )
 		      
@@ -766,7 +771,7 @@ Protected Module Cocoa
 	#tag EndProperty
 
 
-	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.Cocoa", Scope = Protected
+	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.Cocoa", Scope = Protected, Attributes = \""
 	#tag EndConstant
 
 	#tag Constant, Name = CocoaLib, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Public

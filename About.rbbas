@@ -13,6 +13,13 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		107: 2012-09-02
+		- Implemented ImageKit classes to use scanners and cameras: IKDeviceBrowserView; IKScannerDeviceView, IKCameraDeviceView
+		- Implemented example windows for ImageKit
+		- Partially implemented ImageCaptureCore classes necessary to support ImageKit (ICDevice, ICScannerDevice, ICCameraDevice…). They should not be used at the moment.
+		- Implemented NSUserDefaults
+		- Added convenience functions to store/retrieve window frames from the preferences
+		
 		106: 2012-08-23
 		- Fixed memory leak with MacSpeechSynthesizer. (thank to Charles for finding the problem)
 		- Extended MDItem (CreateFromFile, AllAttributes)
@@ -49,7 +56,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"106", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"107", Scope = Protected
 	#tag EndConstant
 
 

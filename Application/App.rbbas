@@ -24,7 +24,7 @@ Inherits Application
 		  
 		  Cocoa.Initialize
 		  
-		  DebugLogWND.Show
+		  'DebugLogWND.Show
 		  
 		End Sub
 	#tag EndEvent
@@ -269,6 +269,15 @@ Inherits Application
 		Function IconServicesShowIconBrowser() As Boolean Handles IconServicesShowIconBrowser.Action
 			MacIconWindow.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ImageKitMenu() As Boolean Handles ImageKitMenu.Action
+			IKDeviceBrowserWND.Show
+			
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 

@@ -95,6 +95,29 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function NSValue(index as Integer) As variant
+		  //# Same as Value but returns the corresponding NSObject (if declared in Cocoa.NSObjectFromNSPtr)
+		  
+		  #if TargetMacOS
+		    'declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
+		    declare function objectAtIndex lib CocoaLib selector "objectAtIndex:" (theArray as Ptr, idx as Integer) as Ptr
+		    
+		    if self <> nil then
+		      if index < 0 or index >= me.Count then
+		        raise new OutOfBoundsException
+		      end if
+		      
+		      dim p as Ptr = objectAtIndex(me.id, index)
+		      
+		      return   Cocoa.NSObjectFromNSPtr( p )
+		    else
+		      return nil
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As CFArray
 		  
 		  return   new CFArray( me.id, false )

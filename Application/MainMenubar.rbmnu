@@ -1134,6 +1134,12 @@ Begin Menu MainMenubar
             AutoEnable = True
          End
       End
+      Begin MenuItem ImageKitMenu
+         SpecialMenu = 0
+         Text = "ImageKit && ImageCapture…"
+         Index = -2147483648
+         AutoEnable = True
+      End
       Begin MenuItem ExamplesFolderManager
          SpecialMenu = 0
          Text = "Folder Manager"

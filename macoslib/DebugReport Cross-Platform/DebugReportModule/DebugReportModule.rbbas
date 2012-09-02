@@ -372,9 +372,11 @@ Protected Module DebugReportModule
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Init()
+	#tag Method, Flags = &h1
+		Protected Sub Init()
 		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    if inited then return
+		    
 		    LogTimer = new Timer
 		    LogTimer.Period = 0
 		    LogTimer.Mode = 0
@@ -483,7 +485,7 @@ Protected Module DebugReportModule
 		      dim cnt as integer
 		      dim tree() as string = Cocoa.ClassNameTreeForClass( aClass )
 		      dim forClass as Ptr
-		      dim buffer as new MemoryBlock( 1024 )
+		      dim buffer as new MemoryBlock( 8 * 1024 )
 		      dim params() as string
 		      dim paramCnt as integer
 		      dim s as string
@@ -513,7 +515,12 @@ Protected Module DebugReportModule
 		            paramCnt = method_getNumberOfArguments( mb.Ptr( i*4 ))
 		            for k as integer=0 to paramCnt - 1
 		              method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
-		              params.Append   Cocoa.Introspection_FormatType( buffer.CString( 0 ))
+		              try
+		                params.Append   Cocoa.Introspection_FormatType( buffer.CString( 0 )) //Value too long
+		              catch exc
+		                params.Append   buffer.StringValue( 0, buffer.Size )
+		                continue
+		              end try
 		            next
 		            
 		            params.remove  0 //The 2 first are for NS messaging

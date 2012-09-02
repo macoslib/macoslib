@@ -469,8 +469,10 @@ End
 		  
 		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
 		    
-		    //Position window. Check for prefs file
+		    //If the window is displayed via Show, the DebugReportModule has not been inited yet
+		    DebugReportModule.init
 		    
+		    //Position window. Check for prefs file
 		    if DebugReportModule.Prefs<>nil then
 		      if DebugReportModule.prefs.HasKey( "WindowBounds" ) then
 		        dim wbounds() as string
@@ -601,7 +603,7 @@ End
 		      dim s as string = Runtime.ObjectClass( i )
 		      
 		      if s.Instr( "MenuItem" )=0 then
-		        QReport   s
+		        QReport   s + " (" + Str( Runtime.ObjectRefs( i )) + ")"
 		      end if
 		    next
 		    'while  iterator.MoveNext
