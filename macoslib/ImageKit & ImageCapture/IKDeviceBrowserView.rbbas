@@ -503,11 +503,7 @@ Inherits Canvas
 			  #if TargetMacOS
 			    dim p as Ptr = me.SelectedDevicePtr
 			    
-			    if Cocoa.InheritsFromClass( p, "ICScannerDevice" ) then
-			      return   new ICScannerDevice( p, false )
-			    elseif Cocoa.InheritsFromClass( p, "ICCameraDevice" ) then
-			      return  new ICCameraDevice( p, false )
-			    end if
+			    return  ImageKit_ImageCapture.ICDeviceFromPtr( p )
 			  #endif
 			End Get
 		#tag EndGetter

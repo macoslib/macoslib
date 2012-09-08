@@ -8,19 +8,35 @@ Protected Module About
 		Requires REALbasic 2007r4 or later
 	#tag EndNote
 
+	#tag Note, Name = License
+		The present library is distributed under the terms of the MIT License.
+		
+		See: http://opensource.org/licenses/mit-license.php
+		
+		
+	#tag EndNote
+
 	#tag Note, Name = Release Notes
 		
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
-		107: 2012-09-02
+		108: 2012-09-08 by SM
+		- Implemented all the ImageCaptureCore Cocoa classes to detect and manage cameras, iPhones and iPods. They are lower-level than
+		     their ImageKit counterparts (introduced in v.107), i.e. more powerful but more difficult to implement. ImageCapture includes the following classes: ICDeviceBrowser,
+		     ICDevice (children ICCameraDevice and ICScannerDevice), ICCameraItem (children ICCameraFolder, ICCameraFile). Some functions like deletion and uploading are
+		     not available.
+		     Scanner objects are not implemented.
+		- Added a License note in the About module (the license terms were only available on the website)
+		
+		107: 2012-09-02 by SM
 		- Implemented ImageKit classes to use scanners and cameras: IKDeviceBrowserView; IKScannerDeviceView, IKCameraDeviceView
 		- Implemented example windows for ImageKit
 		- Partially implemented ImageCaptureCore classes necessary to support ImageKit (ICDevice, ICScannerDevice, ICCameraDevice…). They should not be used at the moment.
 		- Implemented NSUserDefaults
 		- Added convenience functions to store/retrieve window frames from the preferences
 		
-		106: 2012-08-23
+		106: 2012-08-23 by SM
 		- Fixed memory leak with MacSpeechSynthesizer. (thank to Charles for finding the problem)
 		- Extended MDItem (CreateFromFile, AllAttributes)
 		- Added MacOSFolderItemExtension SpotlightMetadata which returns all the metadata for a file as a Dictionary
@@ -56,7 +72,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"107", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"108", Scope = Protected
 	#tag EndConstant
 
 

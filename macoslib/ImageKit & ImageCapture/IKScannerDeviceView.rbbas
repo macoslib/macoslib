@@ -14,7 +14,7 @@ Inherits Canvas
 	#tag Event
 		Sub Open()
 		  RequireFramework   IKLib
-		  RequireFramework   "ImageCaptureCore"
+		  RequireFramework   ICLib
 		  'RequireFramework   "QuartzCore"
 		  
 		  'self.AcceptFocus = false

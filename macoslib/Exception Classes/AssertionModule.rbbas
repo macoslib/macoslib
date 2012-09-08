@@ -1,6 +1,26 @@
 #tag Module
 Protected Module AssertionModule
 	#tag Method, Flags = &h0
+		Sub Assert(condition as Boolean, exceptionMessage as String)
+		  //Raise a macoslibException with the given exceptionMessage if the passed condition is false
+		  
+		  if NOT condition then
+		    raise new macoslibException( exceptionMessage )
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub AssertNot(condition as Boolean, exceptionMessage as String)
+		  //Raise a macoslibException with the given exceptionMessage if the passed condition is true
+		  
+		  if condition then
+		    raise new macoslibException( exceptionMessage )
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub AssertOSVersion(minVersion as integer = 0, maxVersion as integer = 0, customMessage as string = "")
 		  //Assert the OS Version. The default exception message can be overridden by specifying a 'customMessage'
 		  

@@ -8,6 +8,30 @@ Inherits ICDevice
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1021
+		Private Sub Constructor()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(id as Ptr, hasOwnership as boolean = false, checkForClass as string = "")
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From NSObject
+		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
+		  
+		  Super.Constructor   id, hasOwnership, checkForClass
+		  
+		  if GetDelegate=nil then
+		    SetDelegate
+		  end if
+		  
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function DelegateClassID() As Ptr
 		  static p as Ptr = MakeDelegateClass
@@ -261,14 +285,6 @@ Inherits ICDevice
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function FindObjectByID(id as Ptr) As NSSearchField
-		  dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
-		  return NSSearchField(w.Value)
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Shared Function FPtr(p as Ptr) As Ptr
 		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
 		  //dim v as Variant = AddressOf Foo
@@ -347,6 +363,24 @@ Inherits ICDevice
 		  '#pragma unused superClassName
 		  '#endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub SetDelegate()
+		  #if targetCocoa
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    declare function init lib CocoaLib selector "init" (obj_id as Ptr) as Ptr
+		    declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, del_id as Ptr)
+		    
+		    
+		    dim delegate_id as Ptr = init(alloc(DelegateClassID))
+		    if delegate_id = nil then
+		      return
+		    end if
+		    setDelegate self, delegate_id
+		    CocoaDelegateMap.Value(delegate_id) = new WeakRef(self)
+		  #endif
+		End Sub
 	#tag EndMethod
 
 

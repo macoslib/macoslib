@@ -344,7 +344,7 @@ Protected Module Cocoa
 		      end if
 		    next
 		    
-		    dim b as CFBundle = CFBundle.NewCFBundleFromURL(bundleURL)
+		    dim b as CFBundle = CFBundle.NewCFBundleFromURL( bundleURL )
 		    if b <> nil and b.Load then
 		      LoadedFrameworks.Append   b
 		      return b
@@ -679,6 +679,18 @@ Protected Module Cocoa
 		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub Release(id as Ptr)
+		  #if TargetMacOS
+		    declare sub release lib CocoaLib selector "release" (id as Ptr)
+		    
+		    if id <> nil then
+		      release id
+		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub RequireFramework(frameworkName as string)
 		  
@@ -703,6 +715,18 @@ Protected Module Cocoa
 		  else
 		    raise  new MacOSError( 100002, "Library not found: " + fname ) //POSIX error: kPOSIXErrorENOENT
 		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub Retain(id as Ptr)
+		  #if TargetMacOS
+		    declare function retain lib CocoaLib selector "retain" (id as Ptr) as Ptr
+		    
+		    if id <> nil then
+		      call  retain( id )
+		    end if
+		  #endif
 		End Sub
 	#tag EndMethod
 

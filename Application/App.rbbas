@@ -273,6 +273,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ImageCaptureMenu() As Boolean Handles ImageCaptureMenu.Action
+			ICCameraExampleWND.show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ImageKitMenu() As Boolean Handles ImageKitMenu.Action
 			IKDeviceBrowserWND.Show
 			

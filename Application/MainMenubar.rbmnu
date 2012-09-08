@@ -1134,11 +1134,24 @@ Begin Menu MainMenubar
             AutoEnable = True
          End
       End
-      Begin MenuItem ImageKitMenu
+      Begin MenuItem IKICExampleMenu
          SpecialMenu = 0
          Text = "ImageKit && ImageCapture…"
          Index = -2147483648
          AutoEnable = True
+         SubMenu = True
+         Begin MenuItem ImageKitMenu
+            SpecialMenu = 0
+            Text = "ImageKit example"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem ImageCaptureMenu
+            SpecialMenu = 0
+            Text = "ImaceCapture example"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesFolderManager
          SpecialMenu = 0

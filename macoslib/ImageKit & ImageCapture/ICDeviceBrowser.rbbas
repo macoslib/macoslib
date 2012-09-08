@@ -8,13 +8,28 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  #if TargetMacOS
+		    'RequireFramework  IKLib
+		    RequireFramework  ICLib
+		    
+		    'declare sub _ICInitialize lib ICLib ()
+		    '
+		    '_ICInitialize
+		    
+		    self._id = Initialize( Allocate( "ICDeviceBrowser" ))
+		    self.SetDelegate
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		 Shared Function Create() As ICDeviceBrowser
 		  #if TargetMacOS
 		    dim result as ICDeviceBrowser
 		    RequireFramework  IKLib
-		    RequireFramework  "QuartzCore"
-		    RequireFramework  "ImageCaptureCore"
+		    RequireFramework  ICLib
 		    
 		    dim p as Ptr
 		    p = Initialize( Allocate( "ICDeviceBrowser" ))
@@ -38,12 +53,16 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidChangeName(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeName:(ICDevice*)device
+		  
+		  DReport   CurrentMethodName
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidChangeSharingState(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeSharingState:(ICDevice*)device
+		  
+		  DReport   CurrentMethodName
 		End Sub
 	#tag EndMethod
 
@@ -53,19 +72,17 @@ Inherits NSObject
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  dim nsa as NSArray
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICDeviceBrowser = ICDeviceBrowser( w.Value )
 		    if obj <> nil then
-		      obj.Handle_DidAddService   device, moreComing
+		      obj.Handle_DidAddDevice   device, moreComing
 		      
 		    else
-		      //something might be wrong.
+		      break
 		    end if
 		  else
-		    //something might be wrong.
+		    break
 		  end if
 		  
 		End Sub
@@ -76,8 +93,6 @@ Inherits NSObject
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  dim nsa as NSArray
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -97,12 +112,16 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidRemoveDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr, moreGoing as boolean)
 		  'deviceBrowser:(ICDeviceBrowser*)browser didRemoveDevice:(ICDevice*)device moreGoing:(BOOL)moreGoing
+		  
+		  DReport   CurrentMethodName
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_RequestsSelectDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser requestsSelectDevice:(ICDevice*)device;
+		  
+		  DReport   CurrentMethodName
 		End Sub
 	#tag EndMethod
 
@@ -129,17 +148,21 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub Handle_DidAddService(device as Ptr, moreComing as Boolean)
+		Private Sub Handle_DidAddDevice(device as Ptr, moreComing as Boolean)
 		  
-		  DReport   "Did add ICDevice"
+		  DReport   CurrentMethodName
+		  
+		  RaiseEvent   DeviceAdded( ImageKit_ImageCapture.ICDeviceFromPtr( device ), moreComing )
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_DidEnumerateLocalDevices()
+		  RaiseEvent   FinishedEnumeratingLocalDevices
 		  
-		  DReport  "Finished enumerating local ICDevices"
-		  DReport  "Current list is:", me.Devices
+		  'DReport  "Finished enumerating local ICDevices"
+		  'DReport  "Current list is:", me.Devices
 		End Sub
 	#tag EndMethod
 
@@ -151,6 +174,8 @@ Inherits NSObject
 		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
 		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
+		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
@@ -159,6 +184,8 @@ Inherits NSObject
 		    end if
 		    
 		    objc_registerClassPair newClassId
+		    
+		    call   class_addProtocol( newClassId, objc_getProtocol( "ICDeviceBrowserDelegate" ))
 		    
 		    dim methodList() as Tuple
 		    methodList.Append  "deviceBrowser:didAddDevice:moreComing:" : FPtr( AddressOf  delegate_DidAddDevice ) : "v@:@@B"
@@ -198,7 +225,7 @@ Inherits NSObject
 		    if delegate_id = nil then
 		      return
 		    end if
-		    setDelegate self, delegate_id
+		    setDelegate   self.id, delegate_id
 		    CocoaDelegateMap.Value(delegate_id) = new WeakRef(self)
 		  #endif
 		End Sub
@@ -207,7 +234,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Start()
 		  #if TargetMacOS
-		    declare sub start lib "ImageCaptureCore" selector "start" (id as Ptr)
+		    declare sub start lib ICLib selector "start" (id as Ptr)
 		    
 		    start( me.id )
 		  #endif
@@ -218,7 +245,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Stop()
 		  #if TargetMacOS
-		    declare sub stop lib "ImageCaptureCore" selector "stop" (id as Ptr)
+		    declare sub stop lib ICLib selector "stop" (id as Ptr)
 		    
 		    stop( me.id )
 		  #endif
@@ -227,11 +254,20 @@ Inherits NSObject
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0
+		Event DeviceAdded(device as ICDevice, moreComing as Boolean)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event FinishedEnumeratingLocalDevices()
+	#tag EndHook
+
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function devices lib "ImageCaptureCore" selector "devices" (id as Ptr) as Ptr
+			    declare function devices lib ICLib selector "devices" (id as Ptr) as Ptr
 			    
 			    return  new NSArray( devices( me.id ), false )
 			  #endif
@@ -244,7 +280,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function browsedDeviceTypeMask lib "ImageCaptureCore" selector "browsedDeviceTypeMask" (id as Ptr) as integer
+			    declare function browsedDeviceTypeMask lib ICLib selector "browsedDeviceTypeMask" (id as Ptr) as integer
 			    
 			    return  browsedDeviceTypeMask( me.id )
 			  #endif
@@ -253,7 +289,7 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub setBrowsedDeviceTypeMask lib "ImageCaptureCore" selector "setBrowsedDeviceTypeMask:" (id as Ptr, value as integer)
+			    declare sub setBrowsedDeviceTypeMask lib ICLib selector "setBrowsedDeviceTypeMask:" (id as Ptr, value as integer)
 			    
 			    setBrowsedDeviceTypeMask( me.id, value )
 			  #endif
@@ -266,7 +302,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function isBrowsing lib "ImageCaptureCore" selector "isBrowsing" (id as Ptr) as Boolean
+			    declare function isBrowsing lib ICLib selector "isBrowsing" (id as Ptr) as Boolean
 			    
 			    return  isBrowsing( me.id )
 			  #endif
@@ -301,6 +337,7 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
+			Type="Integer"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
