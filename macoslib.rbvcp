@@ -493,7 +493,6 @@ Window=IKScannerWND;macoslib/ImageKit & ImageCapture/IKScannerWND.rbfrm;&h5304A6
 Window=IKCameraDownloadWND;macoslib/ImageKit & ImageCapture/IKCameraDownloadWND.rbfrm;&h5544791F;&h744A360F;false
 Window=ICCameraExampleWND;macoslib/ImageKit & ImageCapture/ICCameraExampleWND.rbfrm;&h34A71364;&h744A360F;false
 Module=WindowExtensions;macoslib/Convenience extensions and objects/WindowExtensions.rbbas;&hE98DC81;&h2AC71A61;false
-Module=PictureExtensions;macoslib/Convenience extensions and objects/PictureExtensions.rbbas;&h44EA66E3;&h2AC71A61;false
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0
