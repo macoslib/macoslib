@@ -193,12 +193,10 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  
-		  DReportTitled   "NSSpeechSynthesizer:", "Destructor called"
-		  
 		  declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, del_id as Ptr)
 		  declare sub release lib CocoaLib
 		  setDelegate   me.id, nil
-		  self.Release
+		  
 		End Sub
 	#tag EndMethod
 

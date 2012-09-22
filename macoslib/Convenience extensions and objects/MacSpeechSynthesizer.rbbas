@@ -59,8 +59,6 @@ Protected Class MacSpeechSynthesizer
 
 	#tag Method, Flags = &h0
 		Sub Destructor()
-		  DReportTitled   "MacSpeechSynthesizer:", "Destructor called"
-		  
 		  if synth<>nil then
 		    RemoveHandler   synth.FinishedSpeaking, AddressOf HandleDidFinishSpeaking
 		    RemoveHandler   synth.SpeechError, AddressOf HandleSpeechError
