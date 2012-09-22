@@ -2,6 +2,16 @@
 Class NSFileHandle
 Inherits NSObject
 	#tag Method, Flags = &h0
+		Function AvailableData() As NSData
+		  #if targetMacOS
+		    declare function availableData lib CocoaLib selector "availableData" (obj_id as Ptr) as Ptr
+		    
+		    return new NSData(availableData(self), not NSData.hasOwnership)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Close()
 		  //In general, you should not invoke this method.  The only time you need it is when you've created
 		  //an NSFileHandle object from an existing file descriptor.
