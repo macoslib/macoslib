@@ -427,10 +427,11 @@ Class CFType
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function WritePropertyListToFile(file as FolderItem, asXML as Boolean = true) As Boolean
+	#tag Method, Flags = &h21
+		Private Function WriteToFile(file as FolderItem, asXML as Boolean = true) As Boolean
 		  // Added by Kem Tekinay.
-		  // Is called by the subclasses that use the CFPropertyList interface
+		  //This method is declared by CFPropertyList; CFType subclasses that implement CFPropertyList 
+		  //invoke this method.
 		  
 		  #if targetMacOS
 		    dim plist as CFPropertyList = CFPropertyList( me )
@@ -439,21 +440,25 @@ Class CFType
 		    dim errMsg as string
 		    dim OK as Boolean
 		    
-		    if stream.Open then
-		      OK = plist.Write( stream, IFTE( asXML, 100, 200 ), errMsg )
+		    dim format as Integer
+		    if asXML then
+		      format = CoreFoundation.kCFPropertyListXMLFormat_v1_0
+		    else
+		      format = CoreFoundation.kCFPropertyListBinaryFormat_v1_0
 		    end if
 		    
-		    stream.Close
+		    if stream.Open then
+		      try
+		        OK = plist.Write( stream, format, errMsg )
+		      finally
+		        stream.Close
+		      end try
+		    end if
+		    
+		    
 		    
 		    return  OK
-		    
-		  #else
-		    
-		    #pragma unused file
-		    #pragma unused asXML
-		    
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 

@@ -259,38 +259,6 @@ Implements CFPropertyList
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function WriteToFile(file as FolderItem, asXML as Boolean = true) As boolean
-		  #if targetMacOS
-		    dim plist as CFPropertyList = CFPropertyList( me )
-		    dim url as new CFURL( file )
-		    dim stream as new CFWriteStream( url, false ) //Replace file
-		    dim errMsg as string
-		    dim OK as Boolean
-		    
-		    dim format as Integer
-		    if asXML then
-		      format = CoreFoundation.kCFPropertyListXMLFormat_v1_0
-		    else
-		      format = CoreFoundation.kCFPropertyListBinaryFormat_v1_0
-		    end if
-		    
-		    if stream.Open then
-		      try
-		        OK = plist.Write( stream, format, errMsg )
-		      finally
-		        stream.Close
-		      end try
-		    end if
-		    
-		    
-		    
-		    return  OK
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

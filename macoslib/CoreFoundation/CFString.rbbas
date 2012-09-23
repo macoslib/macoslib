@@ -157,13 +157,6 @@ Implements CFPropertyList
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function WriteToFile(file as FolderItem, asXML as Boolean = True) As Boolean
-		  return super.WritePropertyListToFile( file, asXML )
-		  
-		End Function
-	#tag EndMethod
-
 
 	#tag Note, Name = Note
 		This is an alternative to CFStringRef.
