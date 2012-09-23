@@ -157,16 +157,6 @@ Protected Module BonjourModule
 		    end if
 		  next
 		  
-		  'dim nsns as NSNetService = NSNetService.InitForPublishing( name, domain, type, port )
-		  '
-		  'if nsns<>nil then
-		  'nsns.ServiceTXTDictionary = TXTDictionary
-		  ''nsns.Private_SetParent   me
-		  ''nsns.AttachedProperty( "BonjourControlParent" ) = me
-		  'BonjourModule.RegisterService   nsns
-		  'end if
-		  
-		  
 		End Sub
 	#tag EndMethod
 

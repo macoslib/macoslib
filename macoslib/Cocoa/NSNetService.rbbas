@@ -521,15 +521,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Private_SetParent(bc as BonjourControl)
-		  
-		  #if TargetMacOS
-		    parent = new WeakRef( bc )
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Publish(allowAutoRenaming as boolean = true)
 		  
 		  #if TargetMacOS
@@ -753,10 +744,6 @@ Inherits NSObject
 
 	#tag Property, Flags = &h21
 		Private mState As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		parent As Weakref
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

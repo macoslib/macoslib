@@ -212,6 +212,132 @@ Protected Module DebugReportModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function FormatObjCType(type as String) As string
+		  //Format ObjC-Type Encodings into a C-like notation
+		  
+		  dim affix as string
+		  
+		  if LenB( type )>1 then //Composite type
+		    dim L as string = type.LeftB( 1 )
+		    
+		    if L="^" then
+		      dim s as string
+		      
+		      if MidB( type, 2, 1 )="^" then //Double pointer. Avoid another recurrence.
+		        affix = " **"
+		        s = FormatObjCType( type.MidB( 3 ))
+		      else
+		        affix = " *"
+		        s = FormatObjCType( type.MidB( 2 ))
+		      end if
+		      if s="BOOL" then //We usually consider 'char' to be a 'BOOL', but it is not usually the case with a (char *)
+		        return   "char *"
+		      else
+		        return   s + affix
+		      end if
+		      
+		    elseif L="@" then  //Class name
+		      return  type.MidB( 3, type.lenB - 3 )
+		      
+		    elseif StrComp( L, "{", 0 )=0 then //Structure
+		      return   "struct " + type.MidB( 2 ).StringBefore( "=" )
+		      
+		    elseif StrComp( L, "[", 0 )=0 then //Array
+		      return  FormatObjCType( type.MidB( 2 )) + "[ ]"
+		      
+		    elseif StrComp( L, "(", 0 )=0 then //Union
+		      return   "union " + type.MidB( 2 ).StringBefore( "=" )
+		      
+		    elseif StrComp( L, "V", 0 )=0 then //Oneway
+		      return  FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "r", 0 )=0 then //const
+		      return  "const " + FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "R", 0 )=0 then //Byref
+		      return  "byref " + FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "n", 0 )=0 then //in
+		      return  "in " + FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "N", 0 )=0 then //in/out
+		      return  "inout " + FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "o", 0 )=0 then //out
+		      return  "out " + FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "O", 0 )=0 then //By copy
+		      return  "bycopy " + FormatObjCType( type.MidB( 2 ))
+		      
+		    elseif StrComp( L, "b", 0 )=0 then //Bitfield
+		      return  "bitfield " + type.MidB( 2 )
+		      
+		    end if
+		  end if
+		  
+		  select case type
+		  case "v"  //Void
+		    return  "void"
+		    
+		  case "@"
+		    return  "id"
+		    
+		  case "c", "B" //"c" is not strictly a boolean but mostly used as such
+		    return  "BOOL"
+		    
+		  case "i", "s", "c", "l", "q"
+		    if StrComp( type, Uppercase( type ), 0 )=0 then //Uppercase value, i.e. unsigned
+		      affix = "unsigned "
+		    end if
+		    
+		    select case type
+		    case "i"
+		      return  affix + "int"
+		      
+		    case "s"
+		      return  affix + "int16"
+		      
+		    case "c"
+		      return  affix + "char"
+		      
+		    case "l"
+		      return  affix + "int32"
+		      
+		    case "q"
+		      return  affix + "int64"
+		      
+		    end select
+		    
+		  case "f"
+		    return  "float"
+		    
+		  case "d"
+		    return  "double"
+		    
+		  case "*"
+		    return  "char *"
+		    
+		  case ":"
+		    return  "SEL"
+		    
+		  case "#"
+		    return  "Class"
+		    
+		  case "?"
+		    return  "void *"
+		    
+		  case "" //Shouldn't happen... but still...
+		    return   ""
+		    
+		  else
+		    'QReportWarning   "macoslib: Couldn't convert type", type, "in", CurrentMethodName
+		    return   type
+		    
+		  end select
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function FormatVariant(v as Variant, formatSpec as string = "", quoteString as Boolean = false) As string
 		  
 		  #pragma DisableBackgroundTasks
@@ -516,7 +642,7 @@ Protected Module DebugReportModule
 		            for k as integer=0 to paramCnt - 1
 		              method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
 		              try
-		                params.Append   Cocoa.Introspection_FormatType( buffer.CString( 0 )) //Value too long
+		                params.Append   FormatObjCType( buffer.CString( 0 )) //Value too long
 		              catch exc
 		                params.Append   buffer.StringValue( 0, buffer.Size )
 		                continue
@@ -527,7 +653,7 @@ Protected Module DebugReportModule
 		            params.Remove 0
 		            
 		            method_getReturnType( mb.Ptr( i*4 ), buffer, buffer.size )
-		            QReport   "+", "(" + Cocoa.Introspection_FormatType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
+		            QReport   "+", "(" + FormatObjCType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
 		          next
 		          
 		          free( mb )
@@ -543,14 +669,14 @@ Protected Module DebugReportModule
 		            paramCnt = method_getNumberOfArguments( mb.Ptr( i*4 ))
 		            for k as integer=0 to paramCnt - 1
 		              method_getArgumentType( mb.Ptr( i*4 ), k, buffer, buffer.Size )
-		              params.Append   Cocoa.Introspection_FormatType( buffer.CString( 0 ))
+		              params.Append   FormatObjCType( buffer.CString( 0 ))
 		            next
 		            
 		            params.remove  0 //The 2 first are for NS messaging
 		            params.Remove 0
 		            
 		            method_getReturnType( mb.Ptr( i*4 ), buffer, buffer.size )
-		            QReport   "–", "(" + Cocoa.Introspection_FormatType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
+		            QReport   "–", "(" + FormatObjCType( buffer.CString( 0 )) + ")", sel_getName( method_getName( mb.Ptr( i*4 ))), "(", Join( params, ", " ), ")"
 		          next
 		          
 		          free( mb )
@@ -568,7 +694,7 @@ Protected Module DebugReportModule
 		            for k as integer=0 to params.Ubound
 		              select case params( k ).LeftB( 1 )
 		              case "T"
-		                params( k ) = Cocoa.Introspection_FormatType( params( k ).MidB( 2 ))
+		                params( k ) = FormatObjCType( params( k ).MidB( 2 ))
 		              case "C"
 		                params( k ) = "copy"
 		              case "P"
@@ -607,7 +733,7 @@ Protected Module DebugReportModule
 		          declare function ivar_getTypeEncoding lib CocoaLib ( ivar as Ptr ) as CString
 		          
 		          for i as integer = 0 to cnt - 1
-		            QReport   "ivar: (" + Cocoa.Introspection_FormatType( ivar_getTypeEncoding( mb.Ptr( i*4 ))) + ")", ivar_getName( mb.Ptr( i*4 ))
+		            QReport   "ivar: (" + FormatObjCType( ivar_getTypeEncoding( mb.Ptr( i*4 ))) + ")", ivar_getName( mb.Ptr( i*4 ))
 		          next
 		          
 		          free( mb )
