@@ -4,9 +4,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Constructor(f as FolderItem)
 		  if not (f is nil) then
-		    me.Constructor  f.URLPath
+		    self.Constructor  f.URLPath
 		  else
-		    raise  new NilObjectException
+		    raise new NilObjectException
 		  end if
 		End Sub
 	#tag EndMethod
@@ -21,6 +21,12 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function KeyList() As String()
+		  return kKeyList.Split(EndOfLine)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function pathExtension() As NSString
 		  // Added by Kem Tekinay.
@@ -28,7 +34,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function pathExtension lib CocoaLib selector "pathExtension" (id as Ptr) as Ptr
 		    
-		    return  new NSString( pathExtension( self.id ), false )
+		    return new NSString( pathExtension( self.id ), false )
 		    
 		  #endif
 		End Function
@@ -45,23 +51,26 @@ Inherits NSObject
 		    
 		    assertOSVersion  100600 //Snow Leopard
 		    
-		    dim p, err as Ptr
-		    dim OK as Boolean
-		    
-		    if kKeyList.Contains( forKey ) then
-		      OK = getResourceValue( me.id, p, Cocoa.StringConstant( forKey ), err )
+		    dim value as Ptr
+		    dim key as CFStringRef
+		    if KeyList.IndexOf(forKey) > -1 then
+		      key = Cocoa.StringConstant(forKey)
 		    else
-		      OK = getResourceValue( me.id, p, forKey, err )
+		      key = forKey
 		    end if
+		    dim err as Ptr
+		    
+		    dim OK as Boolean = getResourceValue( self.id, value, key, err )
+		    
 		    
 		    if OK then
-		      if p=nil then
+		      if value = nil then
 		        return nil
 		      else
-		        return   Cocoa.NSObjectFromNSPtr( p )
+		        return Cocoa.NSObjectFromNSPtr(value)
 		      end if
 		    else
-		      raise  new NSException( err )
+		      raise new NSException(err)
 		    end if
 		    
 		  #endif
@@ -78,17 +87,18 @@ Inherits NSObject
 		    
 		    assertOSVersion  100600 //Snow Leopard
 		    
-		    dim p, err as Ptr
-		    dim OK as Boolean
-		    
-		    if kKeyList.Contains( forKey ) then
-		      OK = setResourceValue( newValue.id, p, Cocoa.StringConstant( forKey ), err )
+		    dim key as CFStringRef
+		    if KeyList.IndexOf(forKey) > -1 then
+		      key = Cocoa.StringConstant(forKey)
 		    else
-		      OK = setResourceValue( newValue.id, p, forKey, err )
+		      key = forKey
 		    end if
+		    dim err as Ptr
 		    
-		    if err<>nil then
-		      raise  new NSException( err )
+		    dim OK as Boolean = setResourceValue(newValue.id, newValue, key, err )
+		    
+		    if err <> nil then
+		      raise new NSException( err )
 		    end if
 		    
 		    return  OK
@@ -99,7 +109,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function VariantValue() As variant
-		  return  me.absoluteString
+		  return  self.absoluteString
 		  
 		End Function
 	#tag EndMethod
@@ -111,7 +121,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function absoluteString lib CocoaLib selector "absoluteString" ( id as Ptr ) as CFStringRef
 			    
-			    return   absoluteString( me.id )
+			    return absoluteString( self.id )
 			  #endif
 			End Get
 		#tag EndGetter
@@ -122,7 +132,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  if not ( self = nil ) then
-			    return  new FolderItem( me.absoluteString, FolderItem.PathTypeURL )
+			    return new FolderItem(self.absoluteString, FolderItem.PathTypeURL )
 			  end if
 			End Get
 		#tag EndGetter
