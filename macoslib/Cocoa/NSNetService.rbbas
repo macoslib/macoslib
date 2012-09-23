@@ -522,14 +522,18 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Publish(allowAutoRenaming as boolean = true)
-		  
 		  #if TargetMacOS
-		    'declare sub _publish lib CocoaLib selector "publish" ( id as Ptr )
 		    declare sub _publishWithOptions lib CocoaLib selector "publishWithOptions:" ( id as Ptr, opt as integer )
 		    
-		    _publishWithOptions  me.id, IFTE( allowAutoRenaming, 0, 1 )
-		    '_publish me.id
-		    mState = kStateIsTryingToPublish
+		    dim options as Integer
+		    if allowAutoRenaming then
+		      options = 0
+		    else
+		      options = 1
+		    end if
+		    
+		    _publishWithOptions(self.id, options)
+		    self.mState = kStateIsTryingToPublish
 		  #endif
 		End Sub
 	#tag EndMethod
