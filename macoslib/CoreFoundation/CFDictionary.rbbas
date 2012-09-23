@@ -268,11 +268,22 @@ Implements CFPropertyList
 		    dim errMsg as string
 		    dim OK as Boolean
 		    
-		    if stream.Open then
-		      OK = plist.Write( stream, IFTE( asXML, 100, 200 ), errMsg )
+		    dim format as Integer
+		    if asXML then
+		      format = CoreFoundation.kCFPropertyListXMLFormat_v1_0
+		    else
+		      format = CoreFoundation.kCFPropertyListBinaryFormat_v1_0
 		    end if
 		    
-		    stream.Close
+		    if stream.Open then
+		      try
+		        OK = plist.Write( stream, format, errMsg )
+		      finally
+		        stream.Close
+		      end try
+		    end if
+		    
+		    
 		    
 		    return  OK
 		  #endif
