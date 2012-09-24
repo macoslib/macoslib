@@ -1,6 +1,5 @@
 #tag Class
 Class FSEventStream
-Implements DebugReportFormatter
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
 		  

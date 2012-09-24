@@ -308,8 +308,6 @@ Inherits NSObject
 		    result = nsmas
 		  end if
 		  
-		  DReport   result
-		  
 		  return  result
 		End Function
 	#tag EndMethod
@@ -326,8 +324,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function StyleDictionaryFromTuples(baseStyles as NSDictionary = nil, paramarray styles() as Tuple) As NSMutableDictionary
-		  
-		  Return   StyleDictionaryFromTuples( styles, baseStyles )
+		  return StyleDictionaryFromTuples( styles, baseStyles )
 		End Function
 	#tag EndMethod
 
@@ -466,7 +463,6 @@ Inherits NSObject
 		  
 		  nsdict.Value( Cocoa.StringConstant( "NSParagraphStyleAttributeName" )) = NSParagraphStyle.Default
 		  
-		  DReport   nsdict
 		  
 		  return  nsdict
 		End Function

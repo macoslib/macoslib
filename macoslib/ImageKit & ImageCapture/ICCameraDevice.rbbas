@@ -108,8 +108,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -130,8 +128,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -154,8 +150,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -176,8 +170,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -200,9 +192,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
-		  
 		End Sub
 	#tag EndMethod
 
@@ -211,8 +200,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -235,8 +222,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -257,8 +242,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -281,8 +264,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -304,8 +285,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -326,8 +305,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -351,8 +328,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -374,8 +349,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -396,8 +369,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -441,8 +412,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -463,8 +432,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -487,8 +454,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -509,8 +474,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -534,8 +497,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -556,8 +517,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -580,8 +539,6 @@ Inherits ICDevice
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  DReport   "Delegate invoked:", CurrentMethodName
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as ICCameraDevice = ICCameraDevice( w.Value )
@@ -602,8 +559,6 @@ Inherits ICDevice
 		  #pragma unused sender
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  
-		  DReport   "Delegate invoked:", CurrentMethodName
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -743,7 +698,7 @@ Inherits ICDevice
 		    dim file as ICCameraFile = new ICCameraFile( camFile, false )
 		    dim dict as NSDictionary
 		    if options<>nil then
-		       dict = new NSDictionary( options, false )
+		      dict = new NSDictionary( options, false )
 		    end if
 		    
 		    if err<>nil then

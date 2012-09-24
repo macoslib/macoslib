@@ -54,7 +54,6 @@ Inherits NSObject
 		Private Shared Sub delegate_DeviceDidChangeName(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeName:(ICDevice*)device
 		  
-		  DReport   CurrentMethodName
 		End Sub
 	#tag EndMethod
 
@@ -62,7 +61,6 @@ Inherits NSObject
 		Private Shared Sub delegate_DeviceDidChangeSharingState(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeSharingState:(ICDevice*)device
 		  
-		  DReport   CurrentMethodName
 		End Sub
 	#tag EndMethod
 
@@ -113,7 +111,7 @@ Inherits NSObject
 		Private Shared Sub delegate_DidRemoveDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr, moreGoing as boolean)
 		  'deviceBrowser:(ICDeviceBrowser*)browser didRemoveDevice:(ICDevice*)device moreGoing:(BOOL)moreGoing
 		  
-		  DReport   CurrentMethodName
+		  
 		End Sub
 	#tag EndMethod
 
@@ -121,7 +119,7 @@ Inherits NSObject
 		Private Shared Sub delegate_RequestsSelectDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser requestsSelectDevice:(ICDevice*)device;
 		  
-		  DReport   CurrentMethodName
+		  
 		End Sub
 	#tag EndMethod
 
@@ -149,20 +147,14 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_DidAddDevice(device as Ptr, moreComing as Boolean)
-		  
-		  DReport   CurrentMethodName
-		  
-		  RaiseEvent   DeviceAdded( ImageKit_ImageCapture.ICDeviceFromPtr( device ), moreComing )
+		  RaiseEvent DeviceAdded( ImageKit_ImageCapture.ICDeviceFromPtr( device ), moreComing )
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_DidEnumerateLocalDevices()
-		  RaiseEvent   FinishedEnumeratingLocalDevices
-		  
-		  'DReport  "Finished enumerating local ICDevices"
-		  'DReport  "Current list is:", me.Devices
+		  RaiseEvent FinishedEnumeratingLocalDevices
 		End Sub
 	#tag EndMethod
 
