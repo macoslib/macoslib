@@ -63,8 +63,14 @@ Implements DebugReportFormatter
 		    
 		    dim myStreamRef as Ptr
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
+		    dim sinceWhen as UInt64
+		    if fromID = 0 then
+		      sinceWhen = kFSEventStreamEventIdSinceNow
+		    else
+		      sinceWhen = fromID
+		    end if
 		    
-		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options OR 1 )
+		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, sinceWhen, latencyInSeconds, options OR 1 )
 		    
 		    if myStreamRef=nil then
 		      return  nil
@@ -83,8 +89,14 @@ Implements DebugReportFormatter
 		    dim myStreamRef as Ptr
 		    
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
+		    dim sinceWhen as UInt64
+		    if fromID = 0 then
+		      sinceWhen = kFSEventStreamEventIdSinceNow
+		    else
+		      sinceWhen = fromID
+		    end if
 		    
-		    myStreamRef = FSEventStreamCreateRelativeToDevice( nil, AddressOf FSEventCallback, nil, device.UNIXDeviceID, Paths.Reference, IFTE( fromID=0, kFSEventStreamEventIdSinceNow, fromID ), latencyInSeconds, options OR 1 )
+		    myStreamRef = FSEventStreamCreateRelativeToDevice( nil, AddressOf FSEventCallback, nil, device.UNIXDeviceID, Paths.Reference, sinceWhen, latencyInSeconds, options OR 1 )
 		    
 		    if myStreamRef=nil then
 		      return  nil

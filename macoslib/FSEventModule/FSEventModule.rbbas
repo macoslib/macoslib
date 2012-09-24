@@ -2,22 +2,23 @@
 Protected Module FSEventModule
 	#tag Method, Flags = &h1
 		Protected Function TextConstantsFromFlags(flags as Int32) As string()
-		  
 		  #if TargetMacOS
 		    if flags = 0 then
 		      return  Array( "kFSEventStreamEventFlagNone" )
 		    end if
 		    
-		    dim flagtext() as string
+		    dim flagText() as string
 		    
-		    //What an awful implementation !
-		    for j as integer = 0 to 24
-		      if Bitwise.BitAnd( flags, RealBasic.Pow( 2, j ))<>0 then
-		        flagtext.Append   NthField( kFlagList, ",", j + 2 )
+		    dim bitIndex as Integer = 1
+		    dim flagList() as String = Split(kFlagList, ",")
+		    for i as Integer = 0 to UBound(flagList)
+		      if (flags and bitIndex) <> 0 then
+		        flagText.Append flagList(i + 1)
+		        bitIndex = bitIndex * 2
 		      end if
 		    next
 		    
-		    return  flagtext
+		    return flagText
 		  #endif
 		End Function
 	#tag EndMethod
