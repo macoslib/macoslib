@@ -102,7 +102,7 @@ End
 		  me.HasDisplayModeSimple = true
 		  me.TransferMode = 1
 		  
-		  self.RestoreFrameFromWindowName   "IKCameraDownloadWindow"
+		  dim restored as Boolean = self.RestoreFrameFromWindowName("IKCameraDownloadWindow")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

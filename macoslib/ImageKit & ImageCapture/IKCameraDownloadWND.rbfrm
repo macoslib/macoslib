@@ -71,7 +71,7 @@ End
 
 #tag Events IKView
 	#tag Event
-		Sub Error(ErrorMessage as string)
+		Sub Error(errorMessage as string)
 		  
 		  DReportError   "Error:", ErrorMessage
 		End Sub
@@ -88,7 +88,7 @@ End
 		  
 		  'ReportObjCDetailsForNSObjectPtr   me.id
 		  
-		  self.RestoreFrameFromWindowName   "IKCameraDownloadWindow"
+		  dim restored as Boolean = self.RestoreFrameFromWindowName("IKCameraDownloadWindow")
 		End Sub
 	#tag EndEvent
 	#tag Event

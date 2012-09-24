@@ -1,46 +1,68 @@
 #tag Module
 Protected Module WindowExtensions
 	#tag Method, Flags = &h0
-		Function FrameAutosaveName(extends w as Window) As string
-		  //# Set the autosave name for the Window's frame
+		Function FrameAutosaveName(extends w as Window) As String
+		  //# Get the autosave name for the Window's frame
 		  
 		  //@ See RestoreFrameFromWindowName
 		  
 		  #if TargetMacOS
-		    dim nsw as NSWindow = NSWindow.CreateFromWindow( w )
-		    call   nsw.FrameAutosaveName
+		    declare function frameAutosaveName lib CocoaLib selector "frameAutosaveName" (id as Ptr) as Ptr
+		    
+		    return RetainedStringValue(frameAutosaveName(Ptr(w.Handle)))
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FrameAutosaveName(extends w as Window, assigns saveName as String)
-		  //# Set the autosave name for the Window's frame
-		  
-		  //@ See RestoreFrameFromWindowName
-		  
-		  #if TargetMacOS
-		    dim nsw as NSWindow = NSWindow.CreateFromWindow( w )
-		    call   nsw.SetFrameAutosaveName( saveName )
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RestoreFrameFromWindowName(extends w as Window, saveName as String)
+		Function RestoreFrameFromWindowName(extends w as Window, name as String) As Boolean
 		  //# Restores the window's frame from its saveName in the application's preferences
 		  
 		  //@ You should use this method in a Constructor method or in the Open event.
 		  
-		  //@ The saveName is also set for the window, so the frame will be stored in preferences
-		  //@ If no such saveName exists in the preferences, this method does not resize the window.
 		  
 		  #if TargetMacOS
-		    dim nsw as NSWindow = NSWindow.CreateFromWindow( w )
-		    call   nsw.RestoreFrameFromAutosaveName( saveName )
-		    call   nsw.SetFrameAutosaveName( saveName )
+		    declare function setFrameUsingName lib CocoaLib selector "setFrameUsingName:" (id as Ptr, name as CFStringRef) as Boolean
+		    
+		    return setFrameUsingName(WindowRef(w), name)
 		  #endif
-		End Sub
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SetFrameAutosaveName(extends w as Window, saveName as String) As Boolean
+		  //# Set the autosave name for the Window's frame.
+		  
+		  //@ See RestoreFrameFromWindowName
+		  
+		  #if TargetMacOS
+		    declare function setFrameAutosaveName lib CocoaLib selector "setFrameAutosaveName:" (id as Ptr, name as CFStringRef) as Boolean
+		    
+		    //returns false if the name is already in use for another NSWindow object in the application.
+		    return setFrameAutosaveName(WindowRef(w), saveName)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function WindowRef(w as Window) As Ptr
+		  if w = nil then
+		    return nil
+		  end if
+		  
+		  #if targetCocoa
+		    return Ptr(w.Handle)
+		    
+		  #elseif targetCarbon
+		    //the existing code was wrong.  I'm leaving this unimplemented for now.
+		    return nil
+		    
+		  #else
+		    #pragma unused w
+		    return nil
+		  #endif
+		  
+		End Function
 	#tag EndMethod
 
 
