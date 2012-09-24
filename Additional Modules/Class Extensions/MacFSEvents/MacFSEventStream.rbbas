@@ -30,13 +30,15 @@ Class MacFSEventStream
 		  #if TargetMacOS
 		    declare function FSEventsCopyUUIDForDevice lib CarbonLib ( dev as UInt32 ) as Ptr
 		    
-		    dim p as Ptr = FSEventsCopyUUIDForDevice( dev.UNIXDeviceID )
+		    dim devURL as new CFURL(dev)
+		    dim stat as BSD.stat = BSD.lstat(devURL.Path)
+		    dim p as Ptr = FSEventsCopyUUIDForDevice(stat.st_dev)
 		    if p<>nil then
-		      dim uuid as new CFUUID( p, false )
-		      
+		      dim uuid as new CFUUID(p, CFUUID.hasOwnership)
 		      return uuid.StringValue
+		    else
+		      return ""
 		    end if
-		    
 		  #endif
 		End Function
 	#tag EndMethod

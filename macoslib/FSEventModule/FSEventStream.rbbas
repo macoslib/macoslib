@@ -61,7 +61,7 @@ Implements DebugReportFormatter
 		  #if TargetMacOS
 		    declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
-		    dim myStreamRef as Ptr
+		    
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
 		    dim sinceWhen as UInt64
 		    if fromID = 0 then
@@ -70,7 +70,7 @@ Implements DebugReportFormatter
 		      sinceWhen = fromID
 		    end if
 		    
-		    myStreamRef = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, sinceWhen, latencyInSeconds, options OR 1 )
+		    dim myStreamRef as Ptr = FSEventStreamCreate( nil, AddressOf FSEventCallback, nil, Paths.Reference, sinceWhen, latencyInSeconds, options OR 1 )
 		    
 		    if myStreamRef=nil then
 		      return  nil
@@ -86,7 +86,8 @@ Implements DebugReportFormatter
 		  #if TargetMacOS
 		    declare function FSEventStreamCreateRelativeToDevice lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, device as UInt32, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
-		    dim myStreamRef as Ptr
+		    dim deviceURL as new CFURL(device)
+		    dim stat as BSD.stat = BSD.lstat(deviceURL.Path)
 		    
 		    dim Paths as CFArray = CFArray.CreateFromObjectsArray( forPaths )
 		    dim sinceWhen as UInt64
@@ -96,13 +97,13 @@ Implements DebugReportFormatter
 		      sinceWhen = fromID
 		    end if
 		    
-		    myStreamRef = FSEventStreamCreateRelativeToDevice( nil, AddressOf FSEventCallback, nil, device.UNIXDeviceID, Paths.Reference, sinceWhen, latencyInSeconds, options OR 1 )
+		    dim myStreamRef as Ptr = FSEventStreamCreateRelativeToDevice(nil, AddressOf FSEventCallback, nil, stat.st_dev, Paths.Reference, sinceWhen, latencyInSeconds, options OR 1)
 		    
-		    if myStreamRef=nil then
-		      return  nil
+		    if myStreamRef = nil then
+		      return nil
 		    end if
 		    
-		    return   new FSEventStream( myStreamRef, options, device )
+		    return new FSEventStream(myStreamRef, options, device)
 		  #endif
 		End Function
 	#tag EndMethod

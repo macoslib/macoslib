@@ -327,10 +327,6 @@ Protected Module MacOSFolderItemExtension
 	#tag Method, Flags = &h0
 		Function inode(extends f as FolderItem) As UInt32
 		  #if targetMacOS
-		    if NOT f.exists then
-		      raise new MacOSError( -36, "FolderItem does not exist. Could not get inode" )
-		    end if
-		    
 		    if SystemVersionAsInt < 100700 then //Before Lion
 		      dim ref as FSRef = FileManager.GetFSRefFromFolderItem(f)
 		      
@@ -339,15 +335,16 @@ Protected Module MacOSFolderItemExtension
 		      
 		      dim cataloginfo as FileManager.FSCatalogInfo
 		      dim err as Int16 = FSGetCatalogInfo(ref, FileManager.kFSCatInfoNodeID, cataloginfo, nil, nil, nil)
-		      #pragma unused err
-		      
-		      return cataloginfo.nodeid
+		      if err = noErr then
+		        return cataloginfo.nodeid
+		      else
+		        raise new MacOSError(err)
+		      end if
 		      
 		    else //Lion+
-		      dim buf as unix_stat
-		      
-		      buf = f.UNIXlstat
-		      return   buf.st_ino
+		      dim deviceURL as new CFURL(f)
+		      dim stat as BSD.stat = BSD.lstat(deviceURL.Path)
+		      return stat.st_ino
 		    end if
 		  #endif
 		End Function
@@ -468,11 +465,9 @@ Protected Module MacOSFolderItemExtension
 		      return (infoBuffer.Long(10) <> 0)
 		      
 		    else //Lion+
-		      dim buf as unix_stat
-		      
-		      buf = f.UNIXlstat
-		      
-		      return   ( buf.st_dev = 0 )
+		      dim deviceURL as new CFURL(f)
+		      dim stat as BSD.stat = BSD.lstat(deviceURL.Path)
+		      return (stat.st_dev = 0)
 		      
 		    end if
 		  #endif
@@ -953,51 +948,6 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function UNIXDeviceID(extends f as FolderItem) As UInt32
-		  //# Return the UNIX DeviceID containing the given FolderItem
-		  
-		  #if TargetMacOS
-		    dim buf as unix_stat
-		    
-		    buf = f.UNIXlstat
-		    
-		    if f.LastErrorCode=0 then
-		      return   buf.st_dev
-		    else
-		      return   0
-		    end if
-		    
-		  #else
-		    #pragma unused f
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function UNIXlstat(extends f as FolderItem) As unix_stat
-		  #if TargetMacOS
-		    soft declare Function lstat lib "System.framework" ( path as CString, byref buf as unix_stat ) as integer
-		    
-		    if NOT f.Exists then
-		      raise new MacOSError( -36, "File does not exist" )
-		    end if
-		    
-		    dim buf as unix_stat
-		    dim err as integer
-		    
-		    err = lstat( f.POSIXPath, buf )
-		    
-		    f.LastErrorCode = err
-		    
-		    return   buf
-		    
-		  #else
-		    #pragma unused f
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function UTIConformsTo(extends f as FolderItem, conformsTo as String) As Boolean
 		  //# Returns true if the Uniform Type Identifier of the passed FolderItem conforms to the UTI passed as string
 		  
@@ -1017,32 +967,6 @@ Protected Module MacOSFolderItemExtension
 		
 		Original sources are located here:  http://code.google.com/p/macoslib
 	#tag EndNote
-
-
-	#tag Structure, Name = unix_stat, Flags = &h0
-		st_dev as UInt32
-		  st_ino as UInt32
-		  st_mode as UInt16
-		  st_nlink as UInt16
-		  st_uid as UInt32
-		  st_gid as UInt32
-		  st_rdev as UInt32
-		  st_atimespec as unix_timespec
-		  st_mtimespec as unix_timespec
-		  st_ctimespec as unix_timespec
-		  st_size as Int64
-		  st_blocks as Int64
-		  st_blksize as UInt32
-		  st_flags as UInt32
-		  st_gen as UInt32
-		  st_lspare_DONOTUSE as Int32
-		st_qspare_DONOTUSE(1) as Int64
-	#tag EndStructure
-
-	#tag Structure, Name = unix_timespec, Flags = &h0
-		tv_sec as Int32
-		tv_nsec as Int32
-	#tag EndStructure
 
 
 	#tag ViewBehavior
