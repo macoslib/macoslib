@@ -3,23 +3,10 @@ Protected Class macoslibException
 Inherits RuntimeException
 	#tag Method, Flags = &h1000
 		Sub Constructor(msg as string)
-		  
 		  me.ErrorNumber = -1
 		  me.Message = msg
 		  dim stack() as string
-		  
-		  //Automatically determine the calling method
-		  #Pragma BreakOnExceptions false
-		  try
-		    raise  me
-		  catch exc as RuntimeException
-		    stack = exc.Stack
-		  end try
-		  #Pragma BreakOnExceptions Default
-		  
-		  if stack.Ubound>-1 then
-		    MethodName = stack( 0 ).StringBefore( "%" )
-		  end if
+		  //calling method code removed for now.
 		End Sub
 	#tag EndMethod
 
@@ -28,11 +15,6 @@ Inherits RuntimeException
 		macoslibException represents any exception that occurred in a macoslib method for which there is no associated Mac OS error code (otherwise, you would get a MacOSError
 		  exception instead). The errorCode usually has no meaning and is -1 by default. See the error mesage for description of the error.
 	#tag EndNote
-
-
-	#tag Property, Flags = &h0
-		MethodName As String
-	#tag EndProperty
 
 
 	#tag ViewBehavior
