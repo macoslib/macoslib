@@ -94,7 +94,6 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  
 		  me.mode = 1
 		  me.displaysDownloadsDirectoryControl = true
 		  me.displaysPostProcessApplicationControl = true
@@ -102,7 +101,7 @@ End
 		  me.HasDisplayModeSimple = true
 		  me.TransferMode = 1
 		  
-		  dim restored as Boolean = self.RestoreFrameFromWindowName("IKCameraDownloadWindow")
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

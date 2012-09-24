@@ -88,7 +88,7 @@ End
 		  
 		  'ReportObjCDetailsForNSObjectPtr   me.id
 		  
-		  dim restored as Boolean = self.RestoreFrameFromWindowName("IKCameraDownloadWindow")
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

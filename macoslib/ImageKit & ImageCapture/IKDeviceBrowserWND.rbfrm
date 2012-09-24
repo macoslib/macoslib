@@ -557,15 +557,6 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Open()
-		  
-		  dim restored as Boolean = self.RestoreFrameFromWindowName("IKDeviceBrowserWindow")
-		  
-		End Sub
-	#tag EndEvent
-
-
 	#tag Property, Flags = &h0
 		browser As ICDeviceBrowser
 	#tag EndProperty
