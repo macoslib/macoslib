@@ -52,6 +52,9 @@ Protected Module KeychainServices
 	#tag EndComputedProperty
 
 
+	#tag Constant, Name = Attribute_Account, Type = Double, Dynamic = False, Default = \"\'acct\'", Scope = Protected
+	#tag EndConstant
+
 	#tag Constant, Name = Framework, Type = String, Dynamic = False, Default = \"Security.framework", Scope = Protected
 	#tag EndConstant
 
