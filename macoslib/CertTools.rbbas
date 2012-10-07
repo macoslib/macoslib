@@ -5,7 +5,7 @@ Protected Module CertTools
 		  // The Mac's GUID is the MAC address from network interface "en0", see https://developer.apple.com/devcenter/mac/documents/validating.html
 		  
 		  #if true
-		    // This version uses the CoreFoundation and IOKit classes from http://code.google.com/p/macoslib
+		    // This version uses the CoreFoundation and IOKit classes from https://github.com/macoslib/macoslib
 		    dim mac as String
 		    mac = PrimaryMACAddress
 		    dim bytes() as String = mac.Split(":")
@@ -240,7 +240,7 @@ Protected Module CertTools
 		as it's used with applications delivered by Apple's App Store.
 		
 		Original (i.e. up-to-date) sources are located here:
-		  http://code.google.com/p/macoslib
+		  https://github.com/macoslib/macoslib
 		
 		Written by Thomas Tempelmann, 31 Oct 2010
 		Last update: 12 Jan 2011

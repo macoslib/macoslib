@@ -3,7 +3,7 @@ Module ProcessManager
 	#tag Note, Name = About
 		This is part of the open source "MacOSLib"
 		
-		Original sources are located here:  http://code.google.com/p/macoslib
+		Original sources are located here:  https://github.com/macoslib/macoslib
 	#tag EndNote
 
 
