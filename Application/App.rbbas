@@ -243,7 +243,7 @@ Inherits Application
 
 	#tag MenuHandler
 		Function FileAbout() As Boolean Handles FileAbout.Action
-			Carbon.ShowAboutBox "MacOSLib", "demo", "", "http://code.google.com/p/macoslib/"
+			Carbon.ShowAboutBox "MacOSLib", "demo", "", "https://github.com/macoslib/macoslib/"
 			return true
 			
 		End Function

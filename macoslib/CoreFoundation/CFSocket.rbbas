@@ -230,7 +230,7 @@ Inherits CFType
 
 
 	#tag Note, Name = About
-		(Original sources are located here:  http://code.google.com/p/macoslib)
+		(Original sources are located here:  https://github.com/macoslib/macoslib)
 		
 		This class is still a work-in-progress (WIP). It functions basically, but requires a lot of understanding
 		of Apple's rather scarce documentation on this. The CoreFoundation._TestSelf method contains some

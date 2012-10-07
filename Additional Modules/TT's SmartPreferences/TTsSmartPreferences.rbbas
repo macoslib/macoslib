@@ -364,7 +364,7 @@ Protected Class TTsSmartPreferences
 		
 		This is part of the open source "MacOSLib"
 		
-		Original sources are located here:  http://code.google.com/p/macoslib
+		Original sources are located here:  https://github.com/macoslib/macoslib
 	#tag EndNote
 
 	#tag Note, Name = How to use
@@ -406,7 +406,7 @@ Protected Class TTsSmartPreferences
 
 	#tag Note, Name = Requirements
 		For Mac OS, the entire "CoreFoundation" module with contained classes needs to be added, available here: 
-		http://code.google.com/p/macoslib/
+		https://github.com/macoslib/macoslib/
 		
 		Also, Keven Ballard's "XMLDictionary" is needed (should be included)
 	#tag EndNote

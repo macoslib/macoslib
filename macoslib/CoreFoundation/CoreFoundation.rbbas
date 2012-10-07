@@ -710,7 +710,7 @@ Module CoreFoundation
 		make sure you understand the reference counting rules. Read the "Memory Management"
 		note in the CFType class for a start.
 		
-		Original sources are located here:  http://code.google.com/p/macoslib
+		Original sources are located here:  https://github.com/macoslib/macoslib
 	#tag EndNote
 
 	#tag Note, Name = Comparing values

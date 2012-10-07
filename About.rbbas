@@ -3,7 +3,7 @@ Protected Module About
 	#tag Note, Name = About
 		This is the open source "MacOSLib", a collection of classes to interface Mac OS X functions
 		
-		Original sources are located here:  http://code.google.com/p/macoslib
+		Original sources are located here:  https://github.com/macoslib/macoslib
 		
 		Requires REALbasic 2007r4 or later
 	#tag EndNote
@@ -12,8 +12,6 @@ Protected Module About
 		The present library is distributed under the terms of the MIT License.
 		
 		See: http://opensource.org/licenses/mit-license.php
-		
-		
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
