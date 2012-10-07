@@ -430,7 +430,7 @@ Class CFType
 	#tag Method, Flags = &h21
 		Private Function WriteToFile(file as FolderItem, asXML as Boolean = true) As Boolean
 		  // Added by Kem Tekinay.
-		  //This method is declared by CFPropertyList; CFType subclasses that implement CFPropertyList 
+		  //This method is declared by CFPropertyList; CFType subclasses that implement CFPropertyList
 		  //invoke this method.
 		  
 		  #if targetMacOS
