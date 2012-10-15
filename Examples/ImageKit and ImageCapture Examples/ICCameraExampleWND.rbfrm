@@ -296,7 +296,7 @@ End
 		  
 		  dim pict as Picture
 		  
-		  dim maxScale as double
+		  'dim maxScale as double
 		  
 		  //Create and scale picture
 		  pict = new Picture( toWidth, toHeight, 32 )

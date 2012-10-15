@@ -94,10 +94,13 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As Boolean
 		  #if TargetMacOS
-		    soft declare function CFBooleanGetValue lib CarbonLib (cf as Ptr) as Boolean
+		    
+		    // Introduced in MacOS X 10.0
+		    declare function CFBooleanGetValue lib CarbonLib (cf as Ptr) as Boolean
 		    
 		    dim p as Ptr = me.Reference
 		    return p <> nil and CFBooleanGetValue(p)
+		    
 		  #endif
 		End Function
 	#tag EndMethod

@@ -13,6 +13,7 @@ Class CFType
 		  end if
 		  
 		  me.mRef = ref
+		  
 		End Sub
 	#tag EndMethod
 

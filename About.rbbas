@@ -5,7 +5,7 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2007r4 or later
+		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
 	#tag EndNote
 
 	#tag Note, Name = License
@@ -18,6 +18,19 @@ Protected Module About
 		
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
+		
+		109: 2012-10-15 by KT
+		- Minimum supported OS is now MacOS X 10.5.
+		- Added methods for resolving alias to CFURL.
+		- Added optional parameter to CFURL.Constructor( FolderItem ) to specify that the given alias should be resolved first.
+		- Added a bunch of properties to CFURL.
+		- Added Operator_Compare and Operator_Convert methods to CFDate.
+		- Added Operator_Compare and Operator_Convert methods to CFNumber.
+		- Added Operator_Compare methods to CFString.
+		- Started removing "soft" from function declarations where the call had been introduced in OS X 10.5 or earlier.
+		- CFError can now be raised as an Exception (will generate a MaxOSError Exception). Use like this when ErrorRef is returned from system call:
+		     if errorRef <> nil then raise new CFError( errorRef, CFType.HasOwnership )
+		- Cleaned up unused local variables.
 		
 		108: 2012-09-08 by SM
 		- Implemented all the ImageCaptureCore Cocoa classes to detect and manage cameras, iPhones and iPods. They are lower-level than
@@ -70,7 +83,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"108", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"109", Scope = Protected
 	#tag EndConstant
 
 
