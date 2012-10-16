@@ -571,7 +571,7 @@ End
 		  
 		  dim base as new MenuItem( "MENU" )
 		  dim mi as MenuItem
-		  dim obj as Object
+		  'dim obj as Object
 		  
 		  base.Append   new Menuitem( "Copy", "_COPY_" )
 		  base.Append   new Menuitem( "Clear", "_CLEAR_" )

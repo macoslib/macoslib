@@ -332,7 +332,7 @@ Inherits NSObject
 		 Shared Function StyleDictionaryFromTuples(styles() as Tuple, baseStyles as NSDictionary = nil) As NSMutableDictionary
 		  dim t as Tuple
 		  dim j as integer
-		  dim nsps as NSParagraphStyle
+		  'dim nsps as NSParagraphStyle
 		  dim nsdict as NSMutableDictionary
 		  
 		  if baseStyles<>nil then

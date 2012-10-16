@@ -18,6 +18,47 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As MacOSError
+		  // Added by Kem Tekinay.
+		  // Allows you to call:
+		  //   raise new CFError( CFErrorRef, HasOwnership )
+		  
+		  #if TargetMacOS
+		    
+		    dim domain as string = self.Domain.Trim
+		    dim desc as string = self.Description.Trim
+		    dim code as integer = self.Code
+		    
+		    dim msgList() as string
+		    if domain <> "" then msgList.Append domain
+		    if desc <> "" then msgList.Append desc
+		    dim msg as string = join( msgList, ": " )
+		    
+		    return new MacOSError( code, msg )
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Sub RaiseExceptionAndRelease(CFErrorRef As Ptr)
+		  // Added by Kem Tekinay.
+		  
+		  // This convenience method is really here as a demonstration of the right way to handle the CFErrorRef
+		  // that's returned by some system calls. Rather than using this method, you should write your code
+		  // like this:
+		  
+		  raise new CFError( CFErrorRef, CFType.HasOwnership )
+		  
+		  // The CFErrorRef will be assigned to the new CFError object which will take ownership.
+		  // Because of the Operator_Convert defined within, it will return an Exception (type MacOSError)
+		  // with the data pulled from reference. This exception will be raised.
+		  // One way or another, the new CFError object will go out of scope, so CFErrorRef will be released.
+		End Sub
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
