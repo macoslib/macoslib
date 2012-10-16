@@ -87,7 +87,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(f as FolderItem, resolveIfAlias as Boolean = False)
+		Sub Constructor(f as FolderItem, resolveIfAlias as Boolean = CFURL.AliasDoNotResolve)
 		  if f is nil then
 		    
 		    me.Constructor nil, not CFType.hasOwnership
@@ -110,7 +110,7 @@ Inherits CFType
 		            me.Constructor( url.Reference, not CFType.HasOwnership )
 		            url = nil
 		            finished = true // Nothing more to do
-		            resolveIfAlias = false // Nothing left to resolve 
+		            resolveIfAlias = false // Nothing left to resolve
 		          catch
 		          end try
 		        end if // System.IsFunctionAvailable
@@ -573,6 +573,10 @@ Inherits CFType
 		Private Function ResourcePropertyForKey(key As String) As Ptr
 		  // Added by Kem Tekinay.
 		  
+		  if self.Reference = nil then
+		    return nil
+		  end if
+		  
 		  #if TargetMacOS
 		    
 		    dim keyRef as CFStringRef = Carbon.Bundle.StringPointerRetained( key )
@@ -583,7 +587,11 @@ Inherits CFType
 		      // Note that the calling method does not need to Release this Ptr separately. If assigning it to a CFType, use "not HasOwnership".
 		      // The Apple documention seems to indicate that the object returned will be cached and (presumably) released when the CFURL is released.
 		    elseif errorRef <> nil then
-		      raise new CFError( errorRef, CFType.HasOwnership )
+		      dim err as new CFError( errorRef, CFType.HasOwnership )
+		      dim code as integer = err.Code
+		      if code <> kErrorFileNotFound then
+		        raise err
+		      end if
 		    end if
 		    
 		  #else
@@ -622,12 +630,28 @@ Inherits CFType
 	#tag EndMethod
 
 
+	#tag Note, Name = About Properties
+		Properties are recorded at the moment the CFURL is created. They are not live so things like
+		FileSize, IsReadable, etc., can get stale if the file changes after the CFURL is created. 
+		To obtain the latest data, recreate the CFURL first like this:
+		
+		myURL = new CFURL( myURL, "" )
+		
+		When the underlying file does not exist, most of the properties will return nil.
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  // Added by Kem Tekinay.
 			  
-			  return new CFDate( ResourcePropertyForKey( "kCFURLAttributeModificationDateKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLAttributeModificationDateKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFDate( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -661,7 +685,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFDate( ResourcePropertyForKey( "kCFURLContentAccessDateKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLContentAccessDateKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFDate( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -674,7 +703,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFDate( ResourcePropertyForKey( "kCFURLContentModificationDateKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLContentModificationDateKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFDate( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -687,7 +721,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFDate( ResourcePropertyForKey( "kCFURLCreationDateKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLCreationDateKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFDate( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -697,10 +736,29 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  if IsRegularFile is nil then
+			    return false
+			  else
+			    return true
+			  end if
+			  
+			End Get
+		#tag EndGetter
+		Exists As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFNumber( ResourcePropertyForKey( "kCFURLFileSizeKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLFileSizeKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFNumber( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -713,7 +771,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFNumber( ResourcePropertyForKey( "kCFURLLinkCountKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLLinkCountKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFNumber( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -726,7 +789,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLHasHiddenExtensionKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLHasHiddenExtensionKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -739,7 +807,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsAliasFileKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsAliasFileKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -752,7 +825,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsDirectoryKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsDirectoryKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -765,7 +843,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.7.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsExecutableKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsExecutableKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -778,7 +861,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsHiddenKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsHiddenKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -791,7 +879,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsMountTriggerKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsMountTriggerKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -804,7 +897,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsPackageKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsPackageKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -817,7 +915,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.7.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsReadableKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsReadableKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -830,7 +933,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsRegularFileKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsRegularFileKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -843,7 +951,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsSymbolicLinkKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsSymbolicLinkKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -856,7 +969,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsSystemImmutableKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsSystemImmutableKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -869,7 +987,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsUserImmutableKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsUserImmutableKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -882,7 +1005,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsVolumeKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsVolumeKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -895,7 +1023,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.7.
-			  return new CFBoolean( ResourcePropertyForKey( "kCFURLIsWritableKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLIsWritableKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFBoolean( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -918,7 +1051,12 @@ Inherits CFType
 			Get
 			  // Added by Kem Tekinay.
 			  
-			  return new CFNumber( ResourcePropertyForKey( "kCFURLLabelNumberKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLLabelNumberKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFNumber( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -930,7 +1068,12 @@ Inherits CFType
 			Get
 			  // Added by Kem Tekinay.
 			  
-			  return new CFString( ResourcePropertyForKey( "kCFURLLocalizedLabelKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLLocalizedLabelKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFString( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -943,7 +1086,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFString( ResourcePropertyForKey( "kCFURLLocalizedNameKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLLocalizedNameKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFString( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -956,7 +1104,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFString( ResourcePropertyForKey( "kCFURLLocalizedTypeDescriptionKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLLocalizedTypeDescriptionKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFString( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -969,7 +1122,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFString( ResourcePropertyForKey( "kCFURLNameKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLNameKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFString( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -982,7 +1140,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFURL( ResourcePropertyForKey( "kCFURLParentDirectoryURLKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLParentDirectoryURLKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFURL( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -1038,7 +1201,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.7.
-			  return new CFNumber( ResourcePropertyForKey( "kCFURLTotalFileAllocatedSizeKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLTotalFileAllocatedSizeKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFNumber( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -1051,7 +1219,12 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFString( ResourcePropertyForKey( "kCFURLTypeIdentifierKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLTypeIdentifierKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFString( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
@@ -1064,13 +1237,24 @@ Inherits CFType
 			  // Added by Kem Tekinay.
 			  
 			  // Introduced in MacOS X 10.6.
-			  return new CFURL( ResourcePropertyForKey( "kCFURLVolumeURLKey" ), not CFType.HasOwnership )
+			  dim p as Ptr = ResourcePropertyForKey( "kCFURLVolumeURLKey" )
+			  if p = nil then
+			    return nil
+			  else
+			    return new CFURL( p, not CFType.HasOwnership )
+			  end if
 			  
 			End Get
 		#tag EndGetter
 		VolumeURL As CFURL
 	#tag EndComputedProperty
 
+
+	#tag Constant, Name = AliasDoNotResolve, Type = Boolean, Dynamic = False, Default = \"False", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = AliasResolve, Type = Boolean, Dynamic = False, Default = \"True", Scope = Public
+	#tag EndConstant
 
 	#tag Constant, Name = HFSPathStyle, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
@@ -1088,6 +1272,9 @@ Inherits CFType
 	#tag EndConstant
 
 	#tag Constant, Name = kCFURLBookmarkCreationWithSecurityScope, Type = Double, Dynamic = False, Default = \"2048", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kErrorFileNotFound, Type = Double, Dynamic = False, Default = \"260", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = POSIXPathStyle, Type = Double, Dynamic = False, Default = \"0", Scope = Public

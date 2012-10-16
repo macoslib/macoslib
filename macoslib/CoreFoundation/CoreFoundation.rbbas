@@ -503,6 +503,19 @@ Module CoreFoundation
 		      _testAssert s1 < "a"
 		    end if
 		    
+		    // Test CFBoolean operations
+		    if true then
+		      dim cfbF as new CFBoolean( False )
+		      dim cfbT as CFBoolean = true
+		      _testAssert cfbT = true
+		      _testAssert cfbT <> false
+		      _testAssert cfbT
+		      _testAssert not( cfbF.BooleanValue )
+		      _testAssert cfbT <> cfbF
+		      dim cfbN as CFBoolean // nil
+		      _testAssert cfbT <> cfbN
+		    end if
+		    
 		    // Test the CFPreferences functionality
 		    if true then
 		      dim cf1 as CFNumber
@@ -532,6 +545,9 @@ Module CoreFoundation
 		      _testAssert url.StringValue = "file://localhost"+url.Path+"/"
 		      _testAssert url.Name.StringValue = SpecialFolder.System.Name
 		      _testAssert url.IsAlias.VariantValue = SpecialFolder.System.Alias
+		      _testAssert url.IsDirectory = true
+		      url = new CFURL( SpecialFolder.Temporary.Child( "SomethingThatDoesn'tExist" ) )
+		      _testAssert url.FileSize is nil
 		    end
 		    
 		    // Test CFDate

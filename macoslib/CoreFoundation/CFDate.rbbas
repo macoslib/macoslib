@@ -148,7 +148,8 @@ Implements CFPropertyList
 
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As Date
-		  // Modified by Kem Tekinay
+		  // Modified by Kem Tekinay.
+		  
 		  if me.Reference = nil then
 		    
 		    // Suppose the developer used:
@@ -173,7 +174,7 @@ Implements CFPropertyList
 		  
 		  // Special case -- If they assign a date that's nil, want it to be nil.
 		  // Otherwise, a comparson like "myCFDate > dateThatsNil" won't work right.
-		  if d is nil then 
+		  if d is nil then
 		    me.Constructor nil, CFType.HasOwnership
 		  else
 		    me.Constructor( d )
@@ -224,6 +225,16 @@ Implements CFPropertyList
 			End Get
 		#tag EndGetter
 		Private Shared AbsoluteTimeIntervalSince1904 As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return Operator_Convert
+			  
+			End Get
+		#tag EndGetter
+		DateValue As Date
 	#tag EndComputedProperty
 
 

@@ -19,6 +19,14 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		110: 2012-10-16 by KT
+		- Added BooleanValue to CFBoolean.
+		- Added Constructor( Boolean) to CFBoolean.
+		- Added Operator_Compare and Operator_Convert functions to CFBoolean.
+		- Added DateValue to CFDate.
+		- Ensured that viewing the properties of a CFURL of a file that doesn't exist won't crash the debugger.
+		- Added Exists property to CFURL.
+		
 		109: 2012-10-15 by KT
 		- Minimum supported OS is now MacOS X 10.5.
 		- Added methods for resolving alias to CFURL.
@@ -83,7 +91,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"109", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"110", Scope = Protected
 	#tag EndConstant
 
 
