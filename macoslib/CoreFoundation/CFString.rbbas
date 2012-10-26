@@ -105,6 +105,58 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Compare(stringToCompare As CFString) As Integer
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    
+		    if me.Reference = nil or stringToCompare is nil or stringToCompare.Reference = nil then
+		      return super.Operator_Compare( stringToCompare )
+		      
+		    else
+		      // Introduced in MacOS X 10.0.
+		      Declare Function CFStringCompare Lib CarbonLib ( theString1 As Ptr, theString2 As Ptr, compareOptions As Int32 ) As Int32
+		      
+		      // Use case-insensitive to emulate default behavior in RB
+		      return CFStringCompare( me.Reference, stringToCompare.Reference, kCFCompareCaseInsensitive )
+		    end if
+		    
+		  #else
+		    #pragma unused stringToCompare
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Compare(stringToCompare As String) As Integer
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    
+		    if me.Reference = nil then
+		      if stringToCompare = "" then
+		        return 0
+		      else
+		        return -1
+		      end if
+		      
+		    else
+		      // Introduced in MacOS X 10.0.
+		      Declare Function CFStringCompare Lib CarbonLib ( theString1 As Ptr, theString2 As CFStringRef, compareOptions As Int32 ) As Int32
+		      
+		      // Use case-insensitive to emulate default behavior in RB
+		      return CFStringCompare( me.Reference, stringToCompare, kCFCompareCaseInsensitive )
+		    end if
+		    
+		  #else
+		    #pragma unused stringToCompare
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As String
 		  return self.StringValue
 		End Function
@@ -119,10 +171,15 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Function StringCompareWithOptions(stringToCompare as CFStringRef, options as integer = 0) As integer
 		  #if TargetMacOS
-		    soft declare function CFStringCompareWithOptions lib CarbonLib (string1 as Ptr, string2 as CFStringRef, range as CFRange, options as integer) as integer
+		    
+		    // Introduced in MacOS X 10.0.
+		    declare function CFStringCompareWithOptions lib CarbonLib (string1 as Ptr, string2 as CFStringRef, range as CFRange, options as integer) as integer
 		    
 		    return  CFStringCompareWithOptions( me.Reference, stringToCompare, CFRangeMake( 0, me.Length ), options )
 		    
+		  #else
+		    #pragma unused stringToCompare
+		    #pragma unused options
 		  #endif
 		End Function
 	#tag EndMethod
@@ -168,7 +225,8 @@ Implements CFPropertyList
 			Get
 			  #if TargetMacOS
 			    
-			    soft declare function CFStringGetLength lib CarbonLib (theString as Ptr) as integer
+			    // Introduced in MacOS X 10.0.
+			    declare function CFStringGetLength lib CarbonLib (theString as Ptr) as integer
 			    
 			    return  CFStringGetLength( me.Reference )
 			    
@@ -182,13 +240,14 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    if self = nil then
+			    if self.Reference = nil then
 			      return ""
 			    end if
 			    
-			    soft declare function CFStringGetLength lib CarbonLib (theString as Ptr) as Integer
-			    soft declare function CFStringGetMaximumSizeForEncoding lib CarbonLib (length as Integer, enc as Integer) as Integer
-			    soft declare function CFStringGetCString lib CarbonLib (theString as Ptr, buffer as Ptr, bufferSize as Integer, enc as Integer) as Boolean
+			    // Introduced in MacOS X 10.0.
+			    declare function CFStringGetLength lib CarbonLib (theString as Ptr) as Integer
+			    declare function CFStringGetMaximumSizeForEncoding lib CarbonLib (length as Integer, enc as Integer) as Integer
+			    declare function CFStringGetCString lib CarbonLib (theString as Ptr, buffer as Ptr, bufferSize as Integer, enc as Integer) as Boolean
 			    
 			    dim stringLength as Integer = CFStringGetLength(self)
 			    if stringLength = 0 then

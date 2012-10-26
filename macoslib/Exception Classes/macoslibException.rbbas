@@ -5,7 +5,7 @@ Inherits RuntimeException
 		Sub Constructor(msg as string)
 		  me.ErrorNumber = -1
 		  me.Message = msg
-		  dim stack() as string
+		  'dim stack() as string
 		  //calling method code removed for now.
 		End Sub
 	#tag EndMethod
@@ -45,12 +45,6 @@ Inherits RuntimeException
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="RuntimeException"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MethodName"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

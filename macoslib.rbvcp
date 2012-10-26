@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2012.01
+RBProjectVersion=2012.011
 MinIDEVersion=20070100
 Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false

@@ -171,7 +171,11 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Soft Declare Function CFURLCreateWithFileSystemPath Lib CarbonLib (allocator as Ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) As Ptr
+		Protected Soft Declare Function CFURLCopyResourcePropertyForKey Lib CarbonLib (url as Ptr, key as CFStringRef, ByRef propertyValueTypeRefPtr as Ptr, ByRef errorRef as Ptr) As Boolean
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function CFURLCreateWithFileSystemPath Lib CarbonLib (allocator as Ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) As Ptr
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
@@ -474,7 +478,43 @@ Module CoreFoundation
 		      _testAssert cf1.IntegerValue > cf2.IntegerValue
 		      _testAssert cf1.DoubleValue = 1
 		      _testAssert cf1.Equals(new CFNumber(1.0))
+		      _testAssert cf1 > cf2
+		      _testAssert not( cf1 = cf2 )
+		      _testAssert not( cf1 < cf2 )
+		      cf2 = 5
+		      _testAssert cf2.IntegerValue = 5
+		      cf2 = 5.1
+		      _testAssert cf2.DoubleValue = 5.1
+		      cf1 = cf2
+		      _testAssert cf1 is cf2
 		    end
+		    
+		    // Test CFString operations
+		    if true then
+		      dim s1 as CFString = "z"
+		      dim s2 as CFString = "a"
+		      _testAssert s2 < s1
+		      _testAssert s2 < "b"
+		      _testAssert s1 > "y"
+		      _testAssert s1 = "Z"
+		      s1 = new CFString( nil, CFType.HasOwnership )
+		      _testAssert s2 < s1
+		      _testAssert s1 = nil
+		      _testAssert s1 < "a"
+		    end if
+		    
+		    // Test CFBoolean operations
+		    if true then
+		      dim cfbF as new CFBoolean( False )
+		      dim cfbT as CFBoolean = true
+		      _testAssert cfbT = true
+		      _testAssert cfbT <> false
+		      _testAssert cfbT
+		      _testAssert not( cfbF.BooleanValue )
+		      _testAssert cfbT <> cfbF
+		      dim cfbN as CFBoolean // nil
+		      _testAssert cfbT <> cfbN
+		    end if
 		    
 		    // Test the CFPreferences functionality
 		    if true then
@@ -503,7 +543,28 @@ Module CoreFoundation
 		      _testAssert url.Scheme = "file"
 		      _testAssert url.NetLocation = "localhost"
 		      _testAssert url.StringValue = "file://localhost"+url.Path+"/"
+		      _testAssert url.Name.StringValue = SpecialFolder.System.Name
+		      _testAssert url.IsAlias.VariantValue = SpecialFolder.System.Alias
+		      _testAssert url.IsDirectory = true
+		      url = new CFURL( SpecialFolder.Temporary.Child( "SomethingThatDoesn'tExist" ) )
+		      _testAssert url.FileSize is nil
 		    end
+		    
+		    // Test CFDate
+		    if true then
+		      dim d1 as new Date
+		      dim d2 as new Date
+		      dim d3 as date
+		      d2.TotalSeconds = d1.TotalSeconds - 5
+		      dim cfd1 as new CFDate( d1 )
+		      dim cfd2 as CFDate = d2
+		      _testAssert cfd1 > cfd2
+		      _testAssert( ( cfd1 - cfd2 ) = 5. )
+		      _testAssert cfd1 = d1
+		      _testAssert cfd1 > d3
+		      cfd1 = nil
+		      _testAssert cfd1 = nil
+		    end if
 		    
 		    // Test CFTimeZone
 		    if true then

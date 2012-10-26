@@ -57,6 +57,8 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Sub Constructor(absTime as Double)
 		  #if TargetMacOS
+		    
+		    // Introduced in MacOS X 10.0.
 		    declare function CFDateCreate lib CarbonLib (allocator as Ptr, at as Double) as Ptr
 		    
 		    super.Constructor CFDateCreate(nil, absTime), true
@@ -113,6 +115,8 @@ Implements CFPropertyList
 		  // To measure actual passed time accurately, use "Microseconds()" instead!
 		  
 		  #if TargetMacOS
+		    
+		    // Introduced in MacOS X 10.0.
 		    declare function CFAbsoluteTimeGetCurrent lib CarbonLib () as Double
 		    
 		    return CFAbsoluteTimeGetCurrent()
@@ -121,10 +125,81 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Compare(d As CFDate) As Integer
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    
+		    if me.Reference = nil or d is nil or d.Reference = nil then
+		      return super.Operator_Compare( d )
+		      
+		    else
+		      // Introduced in MacOS X 10.0.
+		      Declare Function CFDateCompare Lib CarbonLib ( theDate As Ptr, otherDate As Ptr, context As Ptr ) As Int32
+		      
+		      return CFDateCompare( me.Reference, d.Reference, nil )
+		      
+		    end if
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As Date
-		  dim d as new Date
-		  d.TotalSeconds = me.AbsoluteTime + AbsoluteTimeIntervalSince1904
-		  return d
+		  // Modified by Kem Tekinay.
+		  
+		  if me.Reference = nil then
+		    
+		    // Suppose the developer used:
+		    //   dim d as Date
+		    //   dim cfd as CFDate = d
+		    // This will leave cfd with nil reference, so this method will return a nil date.
+		    return nil
+		    
+		  else
+		    
+		    dim d as new Date
+		    d.TotalSeconds = me.AbsoluteTime + AbsoluteTimeIntervalSince1904
+		    return d
+		    
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(d As Date)
+		  // Added by Kem Tekinay.
+		  
+		  // Special case -- If they assign a date that's nil, want it to be nil.
+		  // Otherwise, a comparson like "myCFDate > dateThatsNil" won't work right.
+		  if d is nil then
+		    me.Constructor nil, CFType.HasOwnership
+		  else
+		    me.Constructor( d )
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Subtract(d As CFDate) As Double
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    
+		    // Introduced in MacOS X 10.0.
+		    Declare Function CFDateGetTimeIntervalSinceDate Lib CarbonLib ( theDate As Ptr, otherDate As Ptr ) As Double
+		    
+		    return CFDateGetTimeIntervalSinceDate ( me.Reference, d.Reference )
+		    
+		  #else
+		    
+		    #pragma unused d
+		    
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -150,6 +225,16 @@ Implements CFPropertyList
 			End Get
 		#tag EndGetter
 		Private Shared AbsoluteTimeIntervalSince1904 As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return Operator_Convert
+			  
+			End Get
+		#tag EndGetter
+		DateValue As Date
 	#tag EndComputedProperty
 
 

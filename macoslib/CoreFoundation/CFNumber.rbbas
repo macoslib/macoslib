@@ -28,7 +28,9 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Sub Constructor(value as Variant)
 		  #if targetMacOS
-		    soft declare function CFNumberCreate lib CarbonLib (allocator as Ptr, theType as Integer, valuePtr as Ptr) as Ptr
+		    
+		    // Introduced in MacOS X 10.0.
+		    declare function CFNumberCreate lib CarbonLib (allocator as Ptr, theType as Integer, valuePtr as Ptr) as Ptr
 		    
 		    dim mb as new MemoryBlock(8)
 		    dim numType as Integer
@@ -50,7 +52,10 @@ Implements CFPropertyList
 		      raise new TypeMismatchException
 		    end select
 		    
-		    super.Constructor CFNumberCreate(nil, numType, mb), true
+		    super.Constructor CFNumberCreate(nil, numType, mb), CFType.HasOwnership
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -103,6 +108,48 @@ Implements CFPropertyList
 		  static v as CFNumber = SpecialValue(kCFNumberNegativeInfinity)
 		  return v
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Compare(value As CFNumber) As Integer
+		  // Added by Kem Tekinay.
+		  
+		  #if TargetMacOS
+		    
+		    if me.Reference = nil or value is nil or value.Reference = nil then
+		      return super.Operator_Compare( value )
+		      
+		    else
+		      // Introduced in MacOS X 10.0.
+		      Declare Function CFNumberCompare Lib CarbonLib ( n1 As Ptr, n2 As Ptr, context As Ptr ) As Int32
+		      
+		      return CFNumberCompare( me.Reference, value.Reference, nil )
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		  return 0 // Shouldn't get here
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As Variant
+		  // Added by Kem Tekinay.
+		  
+		  return me.VariantValue
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(value As Variant)
+		  // Added by Kem Tekinay.
+		  
+		  me.Constructor( value )
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -173,7 +220,9 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    soft declare function CFNumberGetValue lib CarbonLib (number as Ptr, theType as Integer, ByRef valuePtr as Integer) as Boolean
+			    
+			    // Introduced in MacOS X 10.0.
+			    declare function CFNumberGetValue lib CarbonLib (number as Ptr, theType as Integer, ByRef valuePtr as Integer) as Boolean
 			    
 			    if not ( self = nil ) then
 			      dim theValue as Integer
@@ -193,11 +242,14 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    soft declare function CFNumberIsFloatType lib CarbonLib (number as Ptr) as Boolean
+			    
+			    // Introduced in MacOS X 10.0.
+			    declare function CFNumberIsFloatType lib CarbonLib (number as Ptr) as Boolean
 			    
 			    if not ( self = nil ) then
 			      return CFNumberIsFloatType(me.Reference)
 			    end if
+			    
 			  #endif
 			End Get
 		#tag EndGetter
@@ -208,7 +260,9 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    soft declare function CFNumberGetType lib CarbonLib (number as Ptr) as Integer
+			    
+			    // Introduced in MacOS X 10.0.
+			    declare function CFNumberGetType lib CarbonLib (number as Ptr) as Integer
 			    
 			    if not ( self = nil ) then
 			      return CFNumberGetType(me.Reference)
