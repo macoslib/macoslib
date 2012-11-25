@@ -5,6 +5,7 @@ Inherits Application
 		Sub NewDocument()
 		  Carbon._TestSelf
 		  CoreFoundation._TestSelf
+		  Cocoa._TestSelf
 		  ATSForFonts.ATSFont.SelfTest
 		  CertTools.SelfTest
 		  TestFileManager
