@@ -243,7 +243,7 @@ Protected Module CertTools
 		  https://github.com/macoslib/macoslib
 		
 		Written by Thomas Tempelmann, 31 Oct 2010
-		Last update: 12 Jan 2011
+		Last update: 25 Nov 2012 (Usage note updated to use AppStoreReceiptDirectory function on 10.7 and later)
 	#tag EndNote
 
 	#tag Note, Name = Usage
@@ -271,8 +271,12 @@ Protected Module CertTools
 		Example:
 		
 		  dim f as FolderItem
-		  f = app.ExecutableFile.Parent.Parent // "Contents" folder
-		  f = f.Child("_MASReceipt").Child("receipt") // this is where the App Store puts the receipt when "buying" an app
+		  if IsLion then
+		    f = NSBundle.MainBundle.AppStoreReceiptDirectory()
+		  else
+		    f = App.ExecutableFile.Parent.Parent // "Contents" folder
+		    f = f.Child("_MASReceipt").Child("receipt") // this is where the App Store puts the receipt when "buying" an app
+		  end
 		  if not CertTools.IsValid (CertTools.DeviceGUID, CertTools.ReadReceipt(f), "put the App's Application Identifier here") then
 		    declare sub exit_ lib "System" alias "exit" (code as Integer)
 		    exit_ (173)
