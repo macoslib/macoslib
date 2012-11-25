@@ -46,7 +46,7 @@ Inherits NSObject
 		        // path invalid - probably not existing
 		        return nil
 		      end try
-		      #pragma BreakOnExceptions reset
+		      #pragma BreakOnExceptions default
 		    else
 		      return nil
 		    end if
