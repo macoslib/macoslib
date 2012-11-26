@@ -63,7 +63,7 @@ Protected Class MacPListBrowser
 		    elseif itsParent is me then
 		      dim oldIndex as integer = plist.Index
 		      if oldIndex <> childIndex then
-		        v( oldIndex ) = new MacPListBrowser( plist.VariantValue, me, oldIndex ) // Make a copy
+		        v( oldIndex ) = new MacPListBrowser( plist.VariantValue, me, oldIndex, CaseSensitive ) // Make a copy
 		      end if
 		      
 		    else // Its parent is not me so remove it from its parent
@@ -78,10 +78,10 @@ Protected Class MacPListBrowser
 		  else
 		    
 		    if not pIsValidValue( value ) then
-		      pRaiseError "Only a valid type (FolderItem, dictionary, array, string, number, boolean, date, or data) can be assigned to an array."
+		      pRaiseError "Only a valid type (FolderItem, CFType, dictionary, array, string, number, boolean, date, or data) can be assigned to an array."
 		    end if
 		    
-		    v( childIndex ) = new MacPListBrowser( value, self, childIndex )
+		    v( childIndex ) = new MacPListBrowser( value, self, childIndex, CaseSensitive )
 		    
 		  end if
 		  
@@ -103,7 +103,8 @@ Protected Class MacPListBrowser
 		  if value = nil then raise new NilObjectException
 		  pRaiseErrorIfNotDictionary( "Child with key" )
 		  
-		  if childKey.LenB = 0 then pRaiseError( "Can't assign an empty key." )
+		  if childKey = "" then pRaiseError( "Can't assign an empty key." )
+		  childKey = childKey.ConvertEncoding( Encodings.UTF8 )
 		  
 		  dim dict as Dictionary = zValue
 		  
@@ -131,10 +132,10 @@ Protected Class MacPListBrowser
 		  else
 		    
 		    if not pIsValidValue( value ) then
-		      pRaiseError "Only a valid type (dictionary, array, string, number, boolean, date, or data) can be assigned to a dictionary."
+		      pRaiseError "Only a valid type (FolderItem, CFType, dictionary, array, string, number, boolean, date, or data) can be assigned to a dictionary."
 		    end if
 		    
-		    dict.Value( childKey ) = new MacPListBrowser( value, self, childKey )
+		    dict.Value( childKey ) = new MacPListBrowser( value, self, childKey, CaseSensitive )
 		  end if
 		  
 		End Sub
@@ -169,14 +170,16 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(rootType As ValueType = ValueType.IsDictionary)
+		Sub Constructor(rootType As ValueType = ValueType.IsDictionary, isCaseSensitive As Boolean = False)
 		  #if TargetMacOS
+		    
+		    zCaseSensitive = isCaseSensitive
 		    
 		    dim v as Variant
 		    
 		    select case rootType
 		    case ValueType.IsDictionary
-		      v = new Dictionary
+		      v = pMakeNewDictionary( isCaseSensitive )
 		      
 		    case ValueType.IsArray
 		      dim arr() as Variant
@@ -187,7 +190,7 @@ Protected Class MacPListBrowser
 		      
 		    end
 		    
-		    me.Constructor( v, nil, nil )
+		    me.Constructor( v, nil, nil, isCaseSensitive )
 		    
 		  #else
 		    
@@ -201,27 +204,29 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(myValue As Variant)
+		Sub Constructor(myValue As Variant, isCaseSensitive As Boolean = False)
 		  // Public interface for the constructor
 		  
-		  me.Constructor( myValue, nil, nil )
+		  me.Constructor( myValue, nil, nil, isCaseSensitive )
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub Constructor(myValue As Variant, myParent As MacPListBrowser, myParentIndex As Variant)
+		Protected Sub Constructor(myValue As Variant, myParent As MacPListBrowser, myParentIndex As Variant, isCaseSensitive As Boolean)
 		  // Private constuctor for children of a parent.
 		  
 		  #if TargetMacOS
 		    
-		    if myvalue = nil then raise new NilObjectException
+		    if myValue = nil then raise new NilObjectException
+		    
+		    zCaseSensitive = isCaseSensitive
 		    
 		    if myValue IsA MacPListBrowser then
-		      zValue = MacPListBrowser( myValue ).VariantValue
+		      myValue = MacPListBrowser( myValue ).VariantValue // Extract the value from it
 		      
 		    elseif not pIsValidValue( myValue ) then
-		      pRaiseError( "You can only create a MacPListBrowser from another MacPListBrowser, FolderItem, " + _
+		      pRaiseError( "You can only create a MacPListBrowser from another MacPListBrowser, CFType, FolderItem, " + _
 		      "dictionary, array, string, number, date, boolean, or MemoryBlock." )
 		      
 		    end if
@@ -258,7 +263,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(f As FolderItem) As MacPListBrowser
+		 Shared Function CreateFromPListFile(f As FolderItem, isCaseSensitive As Boolean = False) As MacPListBrowser
 		  // Note that passing a FolderItem to the Contructor will add that FolderItem as an alias
 		  
 		  dim r as MacPListBrowser
@@ -268,7 +273,7 @@ Protected Class MacPListBrowser
 		    if f <> nil and f.Exists then
 		      dim plist as CoreFoundation.CFPropertyList = CoreFoundation.CFType.CreateFromPListFile( f, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
 		      if plist <> nil then
-		        r = new MacPListBrowser( plist.VariantValue )
+		        r = new MacPListBrowser( plist, isCaseSensitive )
 		      end if
 		    end if
 		    
@@ -284,7 +289,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(s As String) As MacPListBrowser
+		 Shared Function CreateFromPListString(s As String, isCaseSensitive As Boolean = False) As MacPListBrowser
 		  // Returns a MacPListBrowser from a plist string.
 		  // Could have put this into the contructor, but don't want to make assumptions about
 		  // what the developer is trying to do.
@@ -296,8 +301,7 @@ Protected Class MacPListBrowser
 		    
 		    dim plist as CoreFoundation.CFPropertyList = CFType.CreateFromPListString( s, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
 		    if plist <> nil then
-		      dim v as variant = plist.VariantValue
-		      r = new MacPListBrowser( v )
+		      r = new MacPListBrowser( plist, isCaseSensitive )
 		    end if
 		    
 		  #else
@@ -345,6 +349,15 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h0
 		Function FindByKey(findKey As String, keyMatchType As MatchType = MatchType.Exact, recursive As Boolean = True) As MacPListBrowser()
+		  // This is only here to preserve the legacy implementation that did not include a switch for case-sensitivity
+		  
+		  return FindByKey( findKey, keyMatchType, CaseSensitivity.Default, recursive )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FindByKey(findKey As String, keyMatchType As MatchType, considerCase As CaseSensitivity, recursive As Boolean = True) As MacPListBrowser()
 		  // Returns an array of children whose key matches the given string.
 		  // If recursive, will examine every child dictionary too.
 		  
@@ -352,15 +365,34 @@ Protected Class MacPListBrowser
 		  
 		  dim r() as MacPListBrowser
 		  
-		  if findKey.LenB <> 0 then
+		  if findKey <> "" then
 		    
 		    if zIsDictionary or ( recursive and zIsArray ) then // If it's not one of these, it won't match anything anyway
+		      
+		      // Figure out if this should be case-sensitive
+		      dim cs as Boolean = false
+		      select case considerCase
+		      case CaseSensitivity.Default
+		        cs = CaseSensitive
+		      case CaseSensitivity.Sensitive
+		        cs = true
+		        // ELSE
+		        // case CaseSensitivity.Insensitive
+		        // cs = false
+		      end
+		      
+		      if cs then
+		        findKey = findKey.ConvertEncoding( Encodings.UTF8 ) // Make sure the encoding is right
+		      end if
+		      
 		      dim rx as RegEx
 		      if keyMatchType = MatchType.RegEx then
 		        rx = new RegEx
+		        rx.Options.CaseSensitive = cs
 		        rx.SearchPattern = findKey
 		      end if
-		      pFindByKey( findKey, keyMatchType, recursive, rx, r )
+		      
+		      pFindByKey( findKey, keyMatchType, cs, recursive, rx, r )
 		    end if
 		    
 		  end if
@@ -404,7 +436,6 @@ Protected Class MacPListBrowser
 		  end if
 		  
 		  return r
-		  
 		  
 		End Function
 	#tag EndMethod
@@ -572,8 +603,9 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub pFindByKey(findKey As String, keyMatchType As MatchType, recursive As Boolean, rx As RegEx, appendTo() As MacPListBrowser)
-		  // Recursive method used to fill in the appendTo array with children matching the given key
+		Protected Sub pFindByKey(findKey As String, keyMatchType As MatchType, considerCase As Boolean, recursive As Boolean, rx As RegEx, appendTo() As MacPListBrowser)
+		  // Recursive method used to fill in the appendTo array with children matching the given key.
+		  // Assumes the findKey has already been encoded properly.
 		  
 		  if zIsDictionary then
 		    
@@ -581,10 +613,10 @@ Protected Class MacPListBrowser
 		    dim k() as Variant = dict.Keys
 		    for i as integer = 0 to k.Ubound
 		      dim thisKey as Variant = k( i )
-		      if pStringMatches( thisKey.StringValue, findKey, keyMatchType, rx ) then appendTo.Append( dict.Value( thisKey ) )
+		      if pStringMatches( thisKey.StringValue, findKey, keyMatchType, considerCase, rx ) then appendTo.Append( dict.Value( thisKey ) )
 		      if recursive then
 		        dim thisChild as MacPListBrowser = dict.Value( thisKey )
-		        thisChild.pFindByKey( findKey, keyMatchType, recursive, rx, appendTo )
+		        thisChild.pFindByKey( findKey, keyMatchType, considerCase, recursive, rx, appendTo )
 		      end if
 		    next
 		    
@@ -593,7 +625,7 @@ Protected Class MacPListBrowser
 		    dim v() as Variant = zValue
 		    for i as integer = 0 to v.Ubound
 		      dim thisChild as MacPListBrowser = v( i )
-		      thisChild.pFindByKey( findKey, keyMatchType, recursive, rx, appendTo )
+		      thisChild.pFindByKey( findKey, keyMatchType, considerCase, recursive, rx, appendTo )
 		    next
 		    
 		  end if
@@ -687,6 +719,10 @@ Protected Class MacPListBrowser
 		    
 		    r = true
 		    
+		  elseif value IsA CoreFoundation.CFPropertyList then
+		    
+		    r = true
+		    
 		  else
 		    
 		    dim theType as ValueType = pValueTypeOfVariant( value )
@@ -709,6 +745,22 @@ Protected Class MacPListBrowser
 		    r = plist.XMLValue
 		    
 		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function pMakeNewDictionary(isCaseSensitive As Boolean) As Dictionary
+		  // Returns a regular or case-sensitive dictionary depending on the property value
+		  
+		  dim r as Dictionary
+		  if isCaseSensitive then
+		    r = new DICT_CaseSensitiveDictionary
+		  else
+		    r = new Dictionary
+		  end if
 		  
 		  return r
 		  
@@ -785,11 +837,12 @@ Protected Class MacPListBrowser
 
 	#tag Method, Flags = &h21
 		Private Sub pSetValueFromArray(sourceArr() As Variant)
+		  dim cs as Boolean = CaseSensitive
 		  dim newArr() as Variant
 		  redim newArr( sourceArr.Ubound )
 		  for i as integer = 0 to sourceArr.Ubound
 		    dim thisValue as Variant = sourceArr( i )
-		    newArr( i ) = new MacPListBrowser( thisValue, self, i )
+		    newArr( i ) = new MacPListBrowser( thisValue, self, i, cs )
 		  next
 		  
 		  zValue = newArr
@@ -801,12 +854,54 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub pSetValueFromCFArray(sourceArr As CoreFoundation.CFArray)
+		  dim cs as boolean = CaseSensitive
+		  dim newArr() as Variant
+		  dim lastIndex as integer = sourceArr.Count - 1
+		  redim newArr( lastIndex )
+		  for i as integer = 0 to lastIndex
+		    dim thisValue as CFType = sourceArr.CFValue( i )
+		    newArr( i ) = new MacPListBrowser( thisValue, self, i, cs )
+		  next
+		  
+		  zValue = newArr
+		  zValueType = ValueType.IsArray
+		  pResetFlags()
+		  zIsArray = true
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub pSetValueFromCFDictionary(sourceDict As CoreFoundation.CFDictionary)
+		  dim k() as CoreFoundation.CFType = sourceDict.Keys
+		  dim cs as boolean = CaseSensitive
+		  dim newDict as Dictionary = pMakeNewDictionary( cs )
+		  for i as integer = 0 to k.Ubound
+		    dim thisKeyCF as CoreFoundation.CFType = k( i )
+		    dim thisKeyString as string = thisKeyCF.VariantValue.StringValue.ConvertEncoding( Encodings.UTF8 )
+		    dim thisValue as CFType = sourceDict.Value( thisKeyCF )
+		    newDict.Value( thisKeyString ) = new MacPListBrowser( thisValue, self, thisKeyString, cs ) 
+		  next
+		  
+		  zValue = newDict
+		  zValueType = ValueType.IsDictionary
+		  pResetFlags
+		  zIsDictionary = true
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub pSetValueFromDictionary(sourceDict As Dictionary)
 		  dim k() as Variant = sourceDict.Keys
-		  dim newDict as new Dictionary
-		  for each thisKey as Variant in k
+		  dim cs as boolean = CaseSensitive
+		  dim newDict as Dictionary = pMakeNewDictionary( cs )
+		  for i as integer = 0 to k.Ubound
+		    dim thisKey as Variant = k( i )
+		    dim thisKeyString as string = thisKey.StringValue.ConvertEncoding( Encodings.UTF8 )
 		    dim thisValue as Variant = sourceDict.Value( thisKey )
-		    newDict.Value( thisKey ) = new MacPListBrowser( thisValue, self, thisKey.StringValue )
+		    newDict.Value( thisKeyString ) = new MacPListBrowser( thisValue, self, thisKeyString, cs )
 		  next
 		  
 		  zValue = newDict
@@ -846,24 +941,44 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function pStringMatches(source As String, findStr As String, useMatchType As MatchType, rx As RegEx) As Boolean
+		Private Function pStringMatches(source As String, findStr As String, useMatchType As MatchType, considerCase As Boolean, rx As RegEx) As Boolean
 		  // Helper method to determine a match between strings.
 		  // If the match type is regex, the RegEx should already be populated.
 		  
-		  if source.LenB = 0 then return false
-		  if findStr.LenB = 0 then return false
+		  if source = "" then return false
+		  if findStr = "" then return false
+		  
+		  dim seg as string
 		  
 		  select case useMatchType
 		  case MatchType.Contains
-		    return source.InStr( findStr ) <> 0
-		  case MatchType.Exact
-		    return source = findStr
+		    if considerCase then
+		      return source.InStrB( findStr ) <> 0
+		    else
+		      return source.InStr( findStr ) <> 0
+		    end if
+		  case MatchType.Exact // Will consider case if needed
+		    if considerCase then
+		      return StrComp( source, findStr, 0 ) = 0
+		    else
+		      return source = findStr
+		    end if
 		  case MatchType.StartsWith
-		    dim seg as string = source.Left( findStr.Len )
-		    return seg = findStr
+		    if considerCase then
+		      seg = source.LeftB( findStr.LenB )
+		      return StrComp( seg, findStr, 0 ) = 0
+		    else
+		      seg = source.Left( findStr.Len )
+		      return seg = findStr
+		    end if
 		  case MatchType.EndsWith
-		    dim seg as string = source.Right( findStr.Len )
-		    return seg = findStr
+		    if considerCase then
+		      seg = source.RightB( findStr.LenB )
+		      return StrComp( seg, findStr, 0 ) = 0
+		    else
+		      seg = source.Right( findStr.Len )
+		      return seg = findStr
+		    end if
 		  case MatchType.RegEx
 		    if rx is nil then return false
 		    dim match as RegExMatch = rx.Search( source )
@@ -931,7 +1046,7 @@ Protected Class MacPListBrowser
 		  
 		  pRaiseErrorIfNotDictionary( "RemoveChild with key" )
 		  
-		  if childKey.LenB = 0 then pRaiseError( "No key specified." )
+		  if childKey = "" then pRaiseError( "No key specified." )
 		  
 		  dim dict as Dictionary = zValue
 		  dim plist as MacPListBrowser = dict.Value( childKey )
@@ -1018,6 +1133,18 @@ Protected Class MacPListBrowser
 		This class is distributed as part of, and is dependent on, the MacOSLib project.
 	#tag EndNote
 
+	#tag Note, Name = Release Notes
+		1.2 (started numbering releases):
+		- Added features for case-sensitivity.
+		- The DICT_CaseSensitiveDictionary class is now required.
+		
+		1.1:
+		- Added FolderItem handling.
+		
+		1.0:
+		- Initial release.
+	#tag EndNote
+
 	#tag Note, Name = Usage
 		
 		This class is in ongoing development and is meant to make working with plists easier.
@@ -1052,7 +1179,7 @@ Protected Class MacPListBrowser
 		plist = plist.Parent // Will be nil at this point
 		
 		You can extract the value of the plist by using VariantValue. If the value is an array or dictionary, you can use
-		Child( childIndex ) or Child( key ) respectively to get or assign the value of an element. These values are returns
+		Child( childIndex ) or Child( key ) respectively to get or assign the value of an element. These values are returned
 		as MacPListBrowser instances. If the value is data and it is a legitimate FolderItem the value will be returned as
 		a FolderItem. You can use IsFolderItem to check.
 		
@@ -1072,8 +1199,49 @@ Protected Class MacPListBrowser
 		You can move children around by assigning one child to another, either within the same plist or between plists.
 		Moving a plist from plist1 to plist2 will delete that plist from plist1. It's the same as calling plist.Isolate first.
 		If you want to make a copy of a plist, use new MacPListBrowser( originalPList ) or the Clone method.
+		
+		Plists can be contain case-sensitive keys. By default, MacPListBrowser is case-INsensitive, but you 
+		can use the optional parameters to make it case-sensitive. You can also change its case-sensitivity
+		later through the CaseSensitive property. Changing a case-sensitive MacPListBrowser to case-insensitve
+		might lead to loss of data where keys differ only in case.
 	#tag EndNote
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  // First update the property as needed
+			  
+			  if me.zIsDictionary and zValue IsA Dictionary then
+			    zCaseSensitive = ( zValue IsA DICT_CaseSensitiveDictionary )
+			  end if
+			  
+			  return zCaseSensitive
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  if CaseSensitive <> value and zIsDictionary and zValue <> nil then // Have to convert
+			    
+			    if value then // Make is case-sensitve
+			      dim d as Dictionary = zValue
+			      dim cs as new DICT_CaseSensitiveDictionary
+			      cs.AssignDictionary( d )
+			      zValue = cs
+			    else // Make is case-INsensitive
+			      dim d as DICT_CaseSensitiveDictionary = zValue
+			      zValue = d.CloneAsDictionary
+			    end if
+			    
+			  end if
+			  
+			  zCaseSensitive = value
+			  
+			End Set
+		#tag EndSetter
+		CaseSensitive As Boolean
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -1198,7 +1366,7 @@ Protected Class MacPListBrowser
 			      
 			    elseif zValueType = ValueType.IsDictionary then
 			      dim sourceDict as Dictionary = zValue
-			      dim returnDict as new Dictionary
+			      dim returnDict as Dictionary = pMakeNewDictionary( CaseSensitive )
 			      dim k() as Variant = sourceDict.Keys
 			      for each thisKey As Variant in k
 			        dim thisPlist as MacPListBrowser = sourceDict.Value( thisKey )
@@ -1232,7 +1400,30 @@ Protected Class MacPListBrowser
 			  
 			  // We don't reset the flags first because there might be an error when assigning the value, so zValue may not change.
 			  
-			  if value IsA FolderItem then
+			  // Convert it if it it's a CFType
+			  if value IsA CoreFoundation.CFPropertyList then
+			    
+			    dim cf as CoreFoundation.CFType = value
+			    if cf IsA CoreFoundation.CFDictionary then
+			      dim cfd as CoreFoundation.CFDictionary = CoreFoundation.CFDictionary( cf )
+			      pSetValueFromCFDictionary( cfd )
+			      value = nil
+			      
+			    elseif cf IsA CoreFoundation.CFArray then
+			      dim cfa as CoreFoundation.CFArray = CoreFoundation.CFArray( cf )
+			      pSetValueFromCFArray( cfa )
+			      value = nil
+			      
+			    else
+			      value = cf.VariantValue // Handle it below
+			    end if
+			    
+			  end if
+			  
+			  if value is nil then
+			    // Do nothing
+			    
+			  elseif value IsA FolderItem then
 			    pSetValueFromFolderItem( value )
 			    
 			  elseif value IsA Dictionary then
@@ -1254,6 +1445,10 @@ Protected Class MacPListBrowser
 		#tag EndSetter
 		VariantValue As Variant
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private zCaseSensitive As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private zCheckedForFolderItem As Boolean
@@ -1288,6 +1483,16 @@ Protected Class MacPListBrowser
 	#tag EndProperty
 
 
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.2", Scope = Public
+	#tag EndConstant
+
+
+	#tag Enum, Name = CaseSensitivity, Type = Integer, Flags = &h0
+		Default
+		  Sensitive
+		Insensitive
+	#tag EndEnum
+
 	#tag Enum, Name = MatchType, Type = Integer, Flags = &h0
 		Contains
 		  Exact
@@ -1309,6 +1514,11 @@ Protected Class MacPListBrowser
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="CaseSensitive"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true

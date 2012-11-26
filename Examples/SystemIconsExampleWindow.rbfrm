@@ -776,7 +776,7 @@ End
 #tag EndEvents
 #tag Events CVS1
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  if LB1.ListIndex=-1 then return
 		  
 		  dim pict1 as Picture
@@ -865,7 +865,7 @@ End
 #tag EndEvents
 #tag Events Canvas1
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
 		  static pict as Picture = SystemIcons.InvalidDataFreestandingTemplate
 		  g.DrawPicture  pict, 0, 0, 16, 16, 0, 0, pict.Width, pict.Height

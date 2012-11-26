@@ -544,6 +544,10 @@ End
 		  'doc = documentView( Ptr( LogTA.Handle ))
 		  'setSelectedRange( doc, Cocoa.NSMakeRange( StartPos - 1, 5 ))
 		  'scrollRangeToVisible( doc, Cocoa.NSMakeRange( StartPos - 1, 5 ))
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Function
 	#tag EndEvent
 #tag EndEvents

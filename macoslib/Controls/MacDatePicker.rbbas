@@ -49,7 +49,7 @@ Inherits Canvas
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  me.ControlEnabled = me.Enabled
 		  
 		  #if targetMacOS

@@ -81,6 +81,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Sub DelegateError(id as Ptr, sel as Ptr, browser as Ptr, error as Ptr)
 		  #pragma unused sel
+		  #pragma unused browser
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
@@ -102,6 +104,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Sub DelegateSelectionChanged(id as Ptr, sel as Ptr, browser as Ptr, newSelection as Ptr)
 		  #pragma unused sel
+		  #pragma unused browser
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  if CocoaDelegateMap.HasKey( id ) then

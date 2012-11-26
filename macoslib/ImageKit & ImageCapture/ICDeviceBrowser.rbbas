@@ -54,6 +54,11 @@ Inherits NSObject
 		Private Shared Sub delegate_DeviceDidChangeName(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeName:(ICDevice*)device
 		  
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused device
+		  
 		End Sub
 	#tag EndMethod
 
@@ -61,13 +66,19 @@ Inherits NSObject
 		Private Shared Sub delegate_DeviceDidChangeSharingState(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeSharingState:(ICDevice*)device
 		  
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused device
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidAddDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr, moreComing as Boolean)
-		  #pragma unused sender
 		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
@@ -111,6 +122,11 @@ Inherits NSObject
 		Private Shared Sub delegate_DidRemoveDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr, moreGoing as boolean)
 		  'deviceBrowser:(ICDeviceBrowser*)browser didRemoveDevice:(ICDevice*)device moreGoing:(BOOL)moreGoing
 		  
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused device
+		  #pragma unused moreGoing
 		  
 		End Sub
 	#tag EndMethod
@@ -119,6 +135,10 @@ Inherits NSObject
 		Private Shared Sub delegate_RequestsSelectDevice(id as Ptr, sel as Ptr, sender as Ptr, device as Ptr)
 		  'deviceBrowser:(ICDeviceBrowser*)browser requestsSelectDevice:(ICDevice*)device;
 		  
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused device
 		  
 		End Sub
 	#tag EndMethod

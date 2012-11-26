@@ -71,6 +71,9 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidDownloadFile(id as Ptr, sel as Ptr, sender as Ptr, cameraFile as Ptr, url as Ptr, data as Ptr, error as Ptr)
 		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused cameraFile
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -86,6 +89,12 @@ Inherits Canvas
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused url
+		    #pragma unused data
+		    #pragma unused error
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -93,6 +102,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_Error(id as Ptr, sel as Ptr, sender as Ptr, error as Ptr)
 		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -108,13 +119,20 @@ Inherits Canvas
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused error
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_SelectionChanged(id as Ptr, sel as Ptr, sender as Ptr)
 		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -130,7 +148,11 @@ Inherits Canvas
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 

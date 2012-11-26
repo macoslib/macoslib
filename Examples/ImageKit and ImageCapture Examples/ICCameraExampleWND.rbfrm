@@ -256,6 +256,8 @@ End
 		Sub Handle_DownloadError(camDev as ICCameraDevice, file as ICCameraFile, error as String)
 		  
 		  DReportError   "Download error:", error, "for file:", file.name
+		  
+		  #pragma unused camDev
 		End Sub
 	#tag EndMethod
 
@@ -271,6 +273,8 @@ End
 		    call  item.ThumbnailIfAvailable
 		  end if
 		  
+		  #pragma unused camDev
+		  
 		End Sub
 	#tag EndMethod
 
@@ -285,6 +289,9 @@ End
 		      exit
 		    end if
 		  next
+		  
+		  #pragma unused camDev
+		  
 		End Sub
 	#tag EndMethod
 
@@ -324,6 +331,9 @@ End
 		  LB1.AddRow   device.Name
 		  LB1.RowTag( LB1.LastIndex ) = device
 		  LB1.RowPicture( LB1.LastIndex ) = ScaleTo( device.Icon.MakePicture, 32, 32 )
+		  
+		  #pragma unused moreComing
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
