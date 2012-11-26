@@ -586,36 +586,55 @@ End
 		Sub SelectionChanged(newSelection as ICDevice)
 		  
 		  DReport   "Selection changed"
+		  
+		  #pragma unused newSelection
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  //
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
 		  //
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
 		  //
+		  #pragma unused Key
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
 		Sub DoubleClick(X As Integer, Y As Integer)
 		  //
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
 		  //
+		  #pragma unused base
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
 		  //
+		  #pragma unused hitItem
 		End Function
 	#tag EndEvent
 #tag EndEvents

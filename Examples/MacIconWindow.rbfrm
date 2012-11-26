@@ -675,7 +675,7 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  if self.Icon <> nil then
 		    dim left as Integer = (self.Width - IconSize)/2
 		    dim top as Integer = 300

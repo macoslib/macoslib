@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2012.011
+RBProjectVersion=2012.012
 MinIDEVersion=20070100
 Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false
@@ -478,6 +478,7 @@ Folder=KT's PList Stuff;Additional Modules/KT's PList Stuff;&h3D338A86;&h171E297
 Folder=DebugReport Cross-Platform;Additional Modules/DebugReport Cross-Platform;&h6575F832;&h171E2973;false
 Module=M_PList;Additional Modules/KT's PList Stuff/M_PList.rbbas;&h3144AB7A;&h3D338A86;false
 Class=MacPListBrowser;Additional Modules/KT's PList Stuff/MacPListBrowser.rbbas;&h9DC53AC;&h3D338A86;false
+Class=DICT_CaseSensitiveDictionary;Additional Modules/KT's PList Stuff/DICT_CaseSensitiveDictionary.rbbas;&h1F183218;&h3D338A86;false
 Window=LabelExtensionExampleWindow;Examples/LabelExtensionExampleWindow.rbfrm;&h2CBC474;&h4BD59C08;false
 Class=IKDeviceBrowserView;macoslib/ImageKit & ImageCapture/IKDeviceBrowserView.rbbas;&h34239014;&h744A360F;false
 Class=IKScannerDeviceView;macoslib/ImageKit & ImageCapture/IKScannerDeviceView.rbbas;&h494CD446;&h744A360F;false

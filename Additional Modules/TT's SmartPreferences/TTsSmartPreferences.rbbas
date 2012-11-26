@@ -404,6 +404,11 @@ Protected Class TTsSmartPreferences
 		right away. If you don't call Sync, they get written to disk when your program quits.
 	#tag EndNote
 
+	#tag Note, Name = Known Issues
+		This class relies on the XMLDictionary module which, in turn, relies on the native Dictionary whose keys are
+		not case-sensitive. As such, existing Preference keys that differ only in case will not be handled properly.
+	#tag EndNote
+
 	#tag Note, Name = Requirements
 		For Mac OS, the entire "CoreFoundation" module with contained classes needs to be added, available here: 
 		https://github.com/macoslib/macoslib/

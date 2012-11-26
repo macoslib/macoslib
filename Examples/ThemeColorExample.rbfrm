@@ -29,7 +29,7 @@ End
 
 #tag WindowCode
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  const h = 20
 		  dim m as Integer = g.Height \ h
 		  for i as integer = -5 to 60

@@ -167,8 +167,9 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidReceiveButtonPress(id as Ptr, sel as Ptr, sender as Ptr, button as CFStringRef)
-		  #pragma unused sender
 		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
@@ -188,8 +189,12 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidReceiveCustomNotification(id as Ptr, sel as Ptr, sender as Ptr, notification as Ptr, data as Ptr)
-		  #pragma unused sender
+		  #pragma unused id
 		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused notification
+		  #pragma unused data
+		  
 		  #pragma stackOverflowChecking false
 		  
 		End Sub
@@ -345,8 +350,9 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidDownloadFile(id as Ptr, sel as Ptr, camFile as Ptr, err as Ptr, options as Ptr, context as Ptr)
-		  '#pragma unused sender
 		  #pragma unused sel
+		  #pragma unused context
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
@@ -655,7 +661,7 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_DidAddItems(newItems as Ptr)
-		  
+		  #pragma unused newItems
 		End Sub
 	#tag EndMethod
 
@@ -777,6 +783,7 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_DidRemoveItems(Items as Ptr)
+		  #pragma unused Items
 		  
 		End Sub
 	#tag EndMethod
