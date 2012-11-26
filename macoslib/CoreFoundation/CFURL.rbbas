@@ -365,7 +365,6 @@ Inherits CFType
 		    
 		  #else
 		    
-		    #pragma unused data
 		    #pragma unused isStale
 		    #pragma unused options
 		    #pragma unused resourcePropertiesToInclude
@@ -1290,6 +1289,11 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			InheritedFrom="CFType"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Exists"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

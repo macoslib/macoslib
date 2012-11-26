@@ -104,6 +104,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Sub DelegateDidScanDocument(id as Ptr, sel as Ptr, sender as Ptr, url as Ptr, data as Ptr, error as Ptr)
 		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -119,6 +121,12 @@ Inherits Canvas
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused url
+		    #pragma unused data
+		    #pragma unused error
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -126,6 +134,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Sub DelegateError(id as Ptr, sel as Ptr, sender as Ptr, error as Ptr)
 		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -141,6 +151,10 @@ Inherits Canvas
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused error
 		  #endif
 		End Sub
 	#tag EndMethod

@@ -75,7 +75,7 @@ Inherits Canvas
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  #pragma unused g
 		  
 		  #if targetCarbon

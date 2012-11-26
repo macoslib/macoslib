@@ -60,7 +60,7 @@ End
 
 #tag WindowCode
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  if PopupMenu1.ListIndex = -1 then
 		    return
 		  end if

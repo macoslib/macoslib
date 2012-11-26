@@ -241,6 +241,10 @@ Protected Module M_PList
 		This module provides convenience methods for working with plists. It
 		requires both MacOSLib and the XMLDictionary module, also part of the 
 		MacOSLib project.
+		
+		In general, you should use the MacPListBrowser class instead as it is more 
+		robust and will handle plists with case-sensitive keys.
+		
 	#tag EndNote
 
 

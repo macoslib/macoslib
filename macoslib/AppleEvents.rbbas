@@ -51,7 +51,7 @@ Protected Module AppleEvents
 		    return  nil
 		  end if
 		  
-		  data = newMemoryBlock( paramSize )
+		  data = new MemoryBlock( paramSize )
 		  
 		  //Get the data
 		  if inReply then

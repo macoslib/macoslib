@@ -105,6 +105,9 @@ End
 		Sub DownloadError(fileName as string, errorMessage as string)
 		  
 		  DReportError  "Download error", errorMessage
+		  
+		  #pragma unused fileName
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

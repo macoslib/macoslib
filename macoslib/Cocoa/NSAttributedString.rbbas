@@ -77,6 +77,9 @@ Inherits NSObject
 		      return  new NSAttributedString( p, false )
 		    end if
 		    
+		  #else
+		    #pragma unused HTMLData
+		    #pragma unused baseURL
 		  #endif
 		End Function
 	#tag EndMethod
@@ -92,6 +95,8 @@ Inherits NSObject
 		      return  new NSAttributedString( p, false )
 		    end if
 		    
+		  #else
+		    #pragma unused RTFdata
 		  #endif
 		End Function
 	#tag EndMethod
@@ -106,6 +111,9 @@ Inherits NSObject
 		    p = initWithString( p, value )
 		    
 		    return   new NSAttributedString( p )
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -120,6 +128,10 @@ Inherits NSObject
 		    p = initWithString( p, value, attr )
 		    
 		    return   new NSAttributedString( p )
+		    
+		  #else
+		    #pragma unused value
+		    #pragma unused attr
 		  #endif
 		End Function
 	#tag EndMethod
@@ -134,6 +146,10 @@ Inherits NSObject
 		  '
 		  'return  NSAttributedString.CreateFromString_WithAttributes( value, attr )
 		  '#endif
+		  
+		  #pragma unused value
+		  #pragma unused attrs
+		  
 		End Function
 	#tag EndMethod
 

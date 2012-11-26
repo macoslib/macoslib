@@ -125,7 +125,7 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  // Drawing it here, with the Button having its Default=true,
 		  // it'll not work right due to repeated calls to this event in a wrong drawing state
 		  // Drawing it from a control's Paint even works, however
@@ -350,7 +350,7 @@ End
 #tag EndEvents
 #tag Events Canvas1
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  // See note in Window's Paint event
 		  
 		  if image <> nil then

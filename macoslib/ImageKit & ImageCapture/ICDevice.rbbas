@@ -156,8 +156,12 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidReceiveCustomNotification(id as Ptr, sel as Ptr, sender as Ptr, notification as Ptr, data as Ptr)
-		  #pragma unused sender
+		  #pragma unused id
 		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused notification
+		  #pragma unused data
+		  
 		  #pragma stackOverflowChecking false
 		  
 		End Sub
@@ -326,6 +330,9 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Sub Handle_ButtonPressed(button as String)
 		  'RaiseEvent  ButtonPressed( button )
+		  
+		  #pragma unused button
+		  
 		End Sub
 	#tag EndMethod
 
@@ -357,6 +364,8 @@ Inherits NSObject
 		  'end if
 		  '
 		  'RaiseEvent  SessionClosed( error )
+		  
+		  #pragma unused err
 		End Sub
 	#tag EndMethod
 
@@ -369,6 +378,9 @@ Inherits NSObject
 		  'end if
 		  '
 		  'RaiseEvent  SessionOpened( error )
+		  
+		  #pragma unused err
+		  
 		End Sub
 	#tag EndMethod
 
@@ -383,12 +395,18 @@ Inherits NSObject
 		Private Sub Handle_Error(err as Ptr)
 		  '
 		  'RaiseEvent   Error( new NSException( err ))
+		  
+		  #pragma unused err
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_StatusNotification(status as Ptr)
 		  'RaiseEvent   StatusNotification ( new NSDictionary( status, false ))
+		  
+		  #pragma unused status
+		  
 		End Sub
 	#tag EndMethod
 
@@ -454,6 +472,9 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
+		  #pragma unused className
+		  #pragma unused superClassName
+		  
 		  '//this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
 		  '
 		  '#if targetCocoa

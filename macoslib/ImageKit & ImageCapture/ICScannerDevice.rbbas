@@ -41,8 +41,10 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidChangeName(id as Ptr, sel as Ptr, sender as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -62,8 +64,10 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidChangeSharingState(id as Ptr, sel as Ptr, sender as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -83,8 +87,11 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidEncounterError(id as Ptr, sel as Ptr, sender as Ptr, error as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused error
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -104,8 +111,11 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidReceiveButtonPress(id as Ptr, sel as Ptr, sender as Ptr, button as CFStringRef)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused button
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -125,8 +135,12 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidReceiveCustomNotification(id as Ptr, sel as Ptr, sender as Ptr, notification as Ptr, data as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused notification
+		  #pragma unused data
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  
@@ -135,8 +149,11 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DeviceDidReceiveStatusInformation(id as Ptr, sel as Ptr, sender as Ptr, status as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused status
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -156,8 +173,10 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidBecomeReady(id as Ptr, sel as Ptr, sender as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -177,8 +196,11 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidCloseSessionWithError(id as Ptr, sel as Ptr, sender as Ptr, error as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused error
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -199,8 +221,11 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidOpenSessionWithError(id as Ptr, sel as Ptr, sender as Ptr, error as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused error
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -221,8 +246,10 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Sub delegate_DidRemoveDevice(id as Ptr, sel as Ptr, sender as Ptr)
-		  '#pragma unused sender
-		  '#pragma unused sel
+		  #pragma unused id
+		  #pragma unused sel
+		  #pragma unused sender
+		  
 		  '#pragma stackOverflowChecking false
 		  '
 		  'if CocoaDelegateMap.HasKey( id ) then
@@ -300,6 +327,8 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_didSelectFunctionalUnit(unit as Ptr, err as Ptr)
+		  #pragma unused unit
+		  #pragma unused err
 		  
 		End Sub
 	#tag EndMethod
@@ -313,6 +342,9 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
+		  #pragma unused className
+		  #pragma unused superclassName
+		  
 		  '//this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
 		  '
 		  '#if targetCocoa

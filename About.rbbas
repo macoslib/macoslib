@@ -19,6 +19,14 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		111: 2012-11-24 by KT
+		- Added DICT_CaseSensitiveDictionary to Additional Modules.
+		- Added case-sensitive options to MacPListBrowser. (Now requires DICT_CaseSensitiveDictionary.)
+		- Fixed minor bugs in MacPListBrowser.
+		- Added ability to convert CFType to MacPlistBrowser.
+		- Fixed minor Windows compilation bug.
+		- Added pragmas for unused method parameters.
+		
 		110: 2012-10-16 by KT
 		- Added BooleanValue to CFBoolean.
 		- Added Constructor( Boolean) to CFBoolean.
@@ -91,7 +99,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"110", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"111", Scope = Protected
 	#tag EndConstant
 
 
