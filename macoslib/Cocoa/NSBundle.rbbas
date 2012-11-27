@@ -4,12 +4,12 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AppStoreReceiptDirectory() As FolderItem
 		  #if targetMacOS
-		    //this method should be invoked on the application bundle; that is, the object returned by NSBundle.MainBundle.
+		    // This method is to be invoked on the application bundle; that is, the object returned by NSBundle.MainBundle.
 		    
 		    if IsLion then
 		      declare function appStoreReceiptURL lib CocoaLib selector "appStoreReceiptURL" (obj_id as Ptr) as Ptr
 		      
-		      return bundleDirectory(self)
+		      return bundleDirectory(appStoreReceiptURL(self))
 		    else
 		      return nil
 		    end if
@@ -19,13 +19,34 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function BundleDirectory() As FolderItem
+		  #if targetMacOS
+		    declare function bundleURL lib CocoaLib selector "bundleURL" (obj_id as Ptr) as Ptr
+		    
+		    return bundleDirectory(bundleURL(self))
+		  #endif
+		  
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function bundleDirectory(urlRef as Ptr) As FolderItem
+		  // May return nil if the url points to a nonexisting path.
+		  // But even if it's not nil, the item at the URL may still not exist!
+		  
 		  #if targetMacOS
 		    if urlRef <> nil then
 		      dim url as new CFURL(urlRef, not CFType.hasOwnership)
-		      return new FolderItem(url.StringValue, FolderItem.PathTypeURL)
-		      
+		      #pragma BreakOnExceptions off
+		      try
+		        return new FolderItem(url.StringValue, FolderItem.PathTypeURL)
+		      catch UnsupportedFormatException
+		        // path invalid - probably not existing
+		        return nil
+		      end try
+		      #pragma BreakOnExceptions default
 		    else
 		      return nil
 		    end if
