@@ -291,7 +291,7 @@ Protected Class MacPListBrowser
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListString(s As String, isCaseSensitive As Boolean = False) As MacPListBrowser
 		  // Returns a MacPListBrowser from a plist string.
-		  // Could have put this into the contructor, but don't want to make assumptions about
+		  // Could have put this into the constructor, but don't want to make assumptions about
 		  // what the developer is trying to do.
 		  // Will return nil if the string can't be converted, or just the original string if it's not a plist.
 		  
@@ -340,7 +340,7 @@ Protected Class MacPListBrowser
 		  
 		  pDictionaryToArray( diffDict, r )
 		  
-		  // Note that we don't use for each above so we can preserve order
+		  // Note that we don't use "for each" above so we can preserve order
 		  
 		  return r
 		  
@@ -493,7 +493,7 @@ Protected Class MacPListBrowser
 		    
 		    pDictionaryToArray( intersectDict, r )
 		    
-		    // Note that we don't use for each above so we can preserve order
+		    // Note that we don't use "for each" above so we can preserve order
 		  end if
 		  
 		  return r
@@ -881,7 +881,7 @@ Protected Class MacPListBrowser
 		    dim thisKeyCF as CoreFoundation.CFType = k( i )
 		    dim thisKeyString as string = thisKeyCF.VariantValue.StringValue.ConvertEncoding( Encodings.UTF8 )
 		    dim thisValue as CFType = sourceDict.Value( thisKeyCF )
-		    newDict.Value( thisKeyString ) = new MacPListBrowser( thisValue, self, thisKeyString, cs ) 
+		    newDict.Value( thisKeyString ) = new MacPListBrowser( thisValue, self, thisKeyString, cs )
 		  next
 		  
 		  zValue = newDict

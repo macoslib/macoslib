@@ -19,6 +19,10 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		112: 2012-11-28 by KT
+		- Updated DICT_CaseSensitiveDictionary in Additional Modules.
+		- Minor spelling fixes in comments.
+		
 		111: 2012-11-24 by KT
 		- Added DICT_CaseSensitiveDictionary to Additional Modules.
 		- Added case-sensitive options to MacPListBrowser. (Now requires DICT_CaseSensitiveDictionary.)
