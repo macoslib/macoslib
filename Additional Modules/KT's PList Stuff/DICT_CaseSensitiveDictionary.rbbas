@@ -3,18 +3,18 @@ Protected Class DICT_CaseSensitiveDictionary
 Inherits Dictionary
 	#tag Method, Flags = &h0
 		Sub AssignArrays(keyArr() As String, valueArr() As Variant)
-		  // Takes two arrays, one for keys, the other of values, and creates a dictionary.
+		  // Takes two arrays, one for keys, the other of values, and feeds them into this dictionary.
 		  // Ubound of both must match or it's an error.
 		  
-		  if keyArr.Ubound <> valueArr.Ubound then
+		  dim lastIndex as integer = keyArr.Ubound
+		  if valueArr.Ubound <> lastIndex then
 		    dim err as new RuntimeException
 		    err.Message = "The key and value arrays must be of the same size."
 		    raise err
 		  end if
 		  
-		  dim lastIndex as integer = keyArr.Ubound
 		  for i as integer = 0 to lastIndex
-		    me.Value( keyArr( i ) ) = valueArr( i )
+		    super.Value( pEncodeStringKey( keyArr( i ) ) ) = valueArr( i )
 		  next i
 		  
 		End Sub
@@ -25,15 +25,15 @@ Inherits Dictionary
 		  // Takes two arrays, one for keys, the other of values, and creates a dictionary.
 		  // Ubound of both must match or it's an error.
 		  
-		  if keyArr.Ubound <> valueArr.Ubound then
+		  dim lastIndex as integer = keyArr.Ubound
+		  if valueArr.Ubound <> lastIndex then
 		    dim err as new RuntimeException
 		    err.Message = "The key and value arrays must be of the same size."
 		    raise err
 		  end if
 		  
-		  dim lastIndex as integer = keyArr.Ubound
 		  for i as integer = 0 to lastIndex
-		    me.Value( keyArr( i ) ) = valueArr( i )
+		    super.Value( pEncodeKey( keyArr( i ) ) ) = valueArr( i )
 		  next i
 		  
 		End Sub
@@ -41,13 +41,18 @@ Inherits Dictionary
 
 	#tag Method, Flags = &h0
 		Sub AssignDictionary(dict As Dictionary)
-		  // Converts a plain dictionary to a case-sensitive version
+		  // Merges another dictionary into this one, merging or overwriting keys in the process.
+		  // Will convert a plain dictionary to a case-sensitive version.
 		  
-		  dim k() as variant = dict.Keys
-		  for i as integer = 0 to k.Ubound
-		    dim thisKey as variant = k( i )
-		    me.Value( thisKey ) = dict.Value( thisKey )
-		  next
+		  if dict IsA DICT_CaseSensitiveDictionary then
+		    
+		    pAssignCSDictionary( DICT_CaseSensitiveDictionary( dict ) )
+		    
+		  else
+		    
+		    AssignArrays( dict.Keys, dict.Values )
+		    
+		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -101,14 +106,20 @@ Inherits Dictionary
 		  dim valArr() as variant = me.Values
 		  
 		  for i as Integer = 0 to lastIndex
-		    dim thisKey as variant = keyArr( i )
-		    dim thisVal as variant = valArr( i )
-		    newDict.Value( thisKey ) = thisVal
+		    newDict.Value( keyArr( i ) ) = valArr( i )
 		  next i
 		  
 		  return newDict
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(dict As Dictionary, enc As TextEncoding = nil)
+		  me.Constructor( enc )
+		  me.AssignDictionary( dict )
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -126,11 +137,11 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FromDictionary(dict As Dictionary, enc As TextEncoding = nil) As DICT_CaseSensitiveDictionary
+		Attributes( deprecated = "Constructor( dict, enc ) or AssignDictionary" )  Shared Function FromDictionary(dict As Dictionary, enc As TextEncoding = nil) As DICT_CaseSensitiveDictionary
 		  // Converts a plain dictionary to a case-sensitive version
+		  // Convenience method (use the constructor or AssignDictionary instead).
 		  
-		  dim r as new DICT_CaseSensitiveDictionary( enc )
-		  r.AssignDictionary( dict )
+		  dim r as new DICT_CaseSensitiveDictionary( dict, enc )
 		  return r
 		  
 		End Function
@@ -151,19 +162,24 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ItemsNotIn(T As DICT_CaseSensitiveDictionary) As DICT_CaseSensitiveDictionary
+		Function ItemsNotIn(T As Dictionary) As DICT_CaseSensitiveDictionary
 		  // Returns keys that are in me, but not in T.
+		  // T can be either a regualr dictionary or case-sensitive dictionary.
 		  
-		  dim r as new DICT_CaseSensitiveDictionary
+		  // We could use the raw keys here, but don't so we don't have to worry about encoding.
+		  
+		  dim diff as new DICT_CaseSensitiveDictionary( zEncoding )
 		  
 		  dim vKeys() as Variant = me.Keys
-		  for each vKey as Variant in vKeys
-		    if not T.HasKey( vKey ) then
-		      r.Value( vKey ) = me.Value( vKey )
+		  dim thisKey As Variant
+		  for i as integer = 0 to vKeys.Ubound
+		    thisKey = vKeys( i )
+		    if not T.HasKey( thisKey ) then
+		      diff.Value( thisKey ) = me.Value( thisKey )
 		    end if
 		  next
 		  
-		  return r
+		  return diff
 		  
 		End Function
 	#tag EndMethod
@@ -181,32 +197,24 @@ Inherits Dictionary
 		  dim k() as variant = super.Keys()
 		  dim lastIndex as Integer = k.Ubound
 		  
+		  dim encodedKey as string
 		  for i as Integer = 0 to lastIndex
-		    k( i ) = pDecodeKey( k( i ) )
+		    encodedKey = k( i )
+		    k( i ) = pDecodeKey( encodedKey )
 		  next i
 		  
 		  return k
-		  
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function KeysAsStringArray() As String()
-		  dim vKeys() as Variant = me.Keys
-		  dim lastIndex as integer = vKeys.Ubound
+		  // This originally contained all the code for the conversion.
+		  // Later, I added the Shared Method VariantArrayToStringArray so this
+		  // has become simply a convenience method.
 		  
-		  dim sKeys() as string
-		  if lastIndex = -1 then return sKeys
-		  redim sKeys( lastIndex )
-		  
-		  for i as integer = 0 to lastIndex
-		    if vKeys( i ).Type = Variant.TypeString then
-		      sKeys( i ) = vKeys( i ).StringValue
-		    end if
-		  next i
-		  
-		  return sKeys
+		  return VariantArrayToStringArray( me.Keys )
 		  
 		End Function
 	#tag EndMethod
@@ -218,27 +226,26 @@ Inherits Dictionary
 		  if S = "" or lastIndex = -1 then return vKeys
 		  
 		  S = S.ConvertEncoding( zEncoding )
-		  dim sLen as Integer = S.Len
 		  
-		  dim matchKeys() as variant
-		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as Variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey as string
+		  dim pos as integer
+		  for i as integer = 0 to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue
-		      if sKey.Len >= sLen then
-		        dim pos as integer = sKey.InStr( S )
-		        if pos > 0 then
-		          matchIndex = matchIndex + 1
-		          matchKeys( matchIndex ) = thisKey
-		        end if
+		      sKey = thisKey.StringValue
+		      pos = sKey.InStr( S )
+		      if pos <> 0 then
+		        matchIndex = matchIndex + 1
+		        vKeys( matchIndex ) = thisKey
 		      end if
 		    end if
 		  next
 		  
-		  redim matchKeys( matchIndex )
-		  return matchKeys
+		  redim vKeys( matchIndex )
+		  return vKeys
 		  
 		End Function
 	#tag EndMethod
@@ -250,27 +257,26 @@ Inherits Dictionary
 		  if S = "" or lastIndex = -1 then return vKeys
 		  
 		  S = S.ConvertEncoding( zEncoding )
-		  dim sLenB as integer = S.LenB
 		  
-		  dim matchKeys() as variant
-		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as Variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey as string
+		  dim pos as integer
+		  for i as integer = 0 to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue
-		      if sKey.LenB >= sLenB then
-		        dim pos as integer = sKey.InStrB( S )
-		        if pos > 0 then
-		          matchIndex = matchIndex + 1
-		          matchKeys( matchIndex ) = thisKey
-		        end if
+		      sKey = thisKey.StringValue
+		      pos = sKey.InStrB( S )
+		      if pos <> 0 then
+		        matchIndex = matchIndex + 1
+		        vKeys( matchIndex ) = thisKey
 		      end if
 		    end if
 		  next
 		  
-		  redim matchKeys( matchIndex )
-		  return matchKeys
+		  redim vKeys( matchIndex )
+		  return vKeys
 		  
 		End Function
 	#tag EndMethod
@@ -282,27 +288,26 @@ Inherits Dictionary
 		  if S = "" or lastIndex = -1 then return vKeys
 		  
 		  S = S.ConvertEncoding( zEncoding )
-		  dim sLen as integer = S.Len
+		  dim sLenB as integer = S.LenB
 		  
-		  dim matchKeys() as variant
-		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey, part as string
+		  for i as integer = 0  to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue
-		      if sKey.Len >= sLen then
-		        dim part as string = sKey.Right( sLen )
-		        if part = S then
-		          matchIndex = matchIndex + 1
-		          matchKeys( matchIndex ) = thisKey
-		        end if
+		      sKey = thisKey.StringValue
+		      part = sKey.RightB( sLenB )
+		      if part = S then
+		        matchIndex = matchIndex + 1
+		        vKeys( matchIndex ) = thisKey
 		      end if 
 		    end
 		  next
 		  
-		  redim matchKeys( matchIndex )
-		  return matchKeys
+		  redim vKeys( matchIndex )
+		  return vKeys
 		  
 		End Function
 	#tag EndMethod
@@ -316,25 +321,24 @@ Inherits Dictionary
 		  S = S.ConvertEncoding( zEncoding )
 		  dim sLenB as integer = S.LenB
 		  
-		  dim matchKeys() as variant
-		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey, part as string
+		  for i as integer = 0  to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue
-		      if sKey.LenB >= sLenB then
-		        dim part as string = sKey.RightB( sLenB )
-		        if part = S then
-		          matchIndex = matchIndex + 1
-		          matchKeys( matchIndex ) = thisKey
-		        end if
+		      sKey = thisKey.StringValue
+		      part = sKey.RightB( sLenB )
+		      if StrComp( part, S, 0 ) = 0 then
+		        matchIndex = matchIndex + 1
+		        vKeys( matchIndex ) = thisKey
 		      end if 
 		    end if
 		  next
 		  
-		  redim matchKeys( matchIndex )
-		  return matchKeys
+		  redim vKeys( matchIndex )
+		  return vKeys
 		  
 		End Function
 	#tag EndMethod
@@ -358,11 +362,15 @@ Inherits Dictionary
 		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey as string
+		  dim match as RegExMatch
+		  for i as integer = 0  to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue.ConvertEncoding( Encodings.UTF8 )
-		      dim match as RegExMatch = rx.Search( sKey )
-		      if not( match is nil ) and match.SubExpressionCount > 0 then
+		      sKey = thisKey.StringValue.ConvertEncoding( Encodings.UTF8 )
+		      match = rx.Search( sKey )
+		      if match <> nil and match.SubExpressionCount <> 0 then
 		        matchIndex = matchIndex + 1
 		        matchKeys( matchIndex ) = thisKey
 		      end if
@@ -382,27 +390,26 @@ Inherits Dictionary
 		  if S = "" or lastIndex = -1 then return vKeys
 		  
 		  S = S.ConvertEncoding( zEncoding )
-		  dim sLen as integer = S.Len
+		  dim sLenB as integer = S.LenB
 		  
-		  dim matchKeys() as variant
-		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey, part as string
+		  for i as integer = 0  to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue
-		      if sKey.Len >= sLen then
-		        dim part as string = sKey.Left( sLen )
-		        if part = S then
-		          matchIndex = matchIndex + 1
-		          matchKeys( matchIndex ) = thisKey 
-		        end if
+		      sKey = thisKey.StringValue
+		      part = sKey.LeftB( sLenB )
+		      if part = S then
+		        matchIndex = matchIndex + 1
+		        vKeys( matchIndex ) = thisKey 
 		      end if 
 		    end if
 		  next
 		  
-		  redim matchKeys( matchIndex )
-		  return matchKeys
+		  redim vKeys( matchIndex )
+		  return vKeys
 		  
 		End Function
 	#tag EndMethod
@@ -416,25 +423,24 @@ Inherits Dictionary
 		  S = S.ConvertEncoding( zEncoding )
 		  dim sLenB as integer = S.LenB
 		  
-		  dim matchKeys() as variant
-		  redim matchKeys( lastIndex )
 		  dim matchIndex as integer = -1
 		  
-		  for each thisKey as variant in vKeys
+		  dim thisKey as Variant
+		  dim sKey, part as string
+		  for i as integer = 0  to lastIndex
+		    thisKey = vKeys( i )
 		    if thisKey.Type = Variant.TypeString then
-		      dim sKey as string = thisKey.StringValue
-		      if sKey.LenB >= sLenB then
-		        dim part as string = sKey.LeftB( sLenB )
-		        if part = S then
-		          matchIndex = matchIndex + 1
-		          matchKeys( matchIndex ) = thisKey
-		        end if
-		      end if 
+		      sKey = thisKey.StringValue
+		      part = sKey.LeftB( sLenB )
+		      if StrComp( part, S, 0 ) = 0 then
+		        matchIndex = matchIndex + 1
+		        vKeys( matchIndex ) = thisKey
+		      end if
 		    end if
 		  next
 		  
-		  redim matchKeys( matchIndex )
-		  return matchKeys
+		  redim vKeys( matchIndex )
+		  return vKeys
 		  
 		End Function
 	#tag EndMethod
@@ -453,11 +459,25 @@ Inherits Dictionary
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub pAssignCSDictionary(dict As DICT_CaseSensitiveDictionary)
+		  // Clones another case-sensitive dictionary into this one
+		  
+		  dim k() as variant = dict.RawKeys
+		  dim v() as variant = dict.Values
+		  
+		  for i as integer = 0 to k.Ubound
+		    super.Value( k( i ) ) = v( i )
+		  next
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Function pDecodeKey(theKey as Variant) As Variant
 		  dim r as variant
 		  
-		  if theKey.Type = theKey.TypeString then
+		  if theKey.Type = Variant.TypeString then
 		    
 		    r = DecodeHex( theKey.StringValue ).DefineEncoding( zEncoding )
 		    
@@ -572,6 +592,35 @@ Inherits Dictionary
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function VariantArrayToStringArray(vArr() As Variant, valueForNonString As String = "") As String()
+		  // Convenience method.
+		  // Pulls the string values out of a Variant array.
+		  // Where the variant <> TypeString, will use the valueForNonString value instead.
+		  
+		  dim r() as string
+		  dim lastIndex as integer = vArr.Ubound
+		  if lastIndex = -1 then return r
+		  
+		  redim r( lastIndex )
+		  
+		  dim useNonStringValue as boolean = valueForNonString <> ""
+		  
+		  dim thisKey as Variant
+		  for i as integer = 0 to lastIndex
+		    thisKey = vArr( i )
+		    if thisKey.Type = Variant.TypeString then
+		      r( i ) = thisKey.StringValue
+		    elseif useNonStringValue then
+		      r( i ) = valueForNonString
+		    end if
+		  next
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = Legal
 		This class was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
@@ -641,7 +690,7 @@ Inherits Dictionary
 	#tag EndProperty
 
 
-	#tag Constant, Name = kVersion, Type = Double, Dynamic = False, Default = \"1.3", Scope = Public
+	#tag Constant, Name = kVersion, Type = Double, Dynamic = False, Default = \"1.4", Scope = Public
 	#tag EndConstant
 
 
