@@ -242,9 +242,9 @@ Protected Module M_PList
 		requires both MacOSLib and the XMLDictionary module, also part of the 
 		MacOSLib project.
 		
-		In general, you should use the MacPListBrowser class instead as it is more 
-		robust and will handle plists with case-sensitive keys.
-		
+		In general, you should use the MacPListBrowser class instead of this module 
+		as that class is more robust and will handle cases where the case-sensitivity
+		of plist keys is an issue.
 	#tag EndNote
 
 
