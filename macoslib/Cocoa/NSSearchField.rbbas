@@ -2,6 +2,12 @@
 Class NSSearchField
 Inherits NSControl
 	#tag Event
+		Sub GotFocus()
+		  self.SetFocus
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Function NSClassName() As String
 		  return "NSSearchField"
 		End Function
@@ -17,6 +23,11 @@ Inherits NSControl
 		    
 		    setScrollable(self.Cell, true)
 		  #endif
+		  
+		  
+		  
+		  
+		  
 		  raiseEvent Open
 		End Sub
 	#tag EndEvent
@@ -89,6 +100,8 @@ Inherits NSControl
 		      dim selectorName as String = Cocoa.NSStringFromSelector(command)
 		      if selectorName = "insertTab:" then
 		        return obj.InsertTab
+		      elseif selectorName = "insertBacktab:" then
+		        return obj.InsertBackTab
 		      else
 		        return false
 		      end if
@@ -285,8 +298,48 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function InsertBackTab() As Boolean
+		  dim L() as RectControl = TabList(RectControls)
+		  dim nextControl as RectControl
+		  for i as Integer = 0 to UBound(L)
+		    dim c as RectControl = L(i)
+		    if c.TabIndex = self.TabIndex then
+		      if i > 0 then
+		        nextControl = L(i - 1)
+		      else
+		        nextControl = L(UBound(L))
+		      end if
+		      exit
+		    end if
+		  next
+		  
+		  if nextControl <> nil then
+		    nextControl.SetFocus
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Function InsertTab() As Boolean
-		  return raiseEvent InsertTab
+		  dim L() as RectControl = TabList(RectControls)
+		  dim nextControl as RectControl
+		  for i as Integer = 0 to UBound(L)
+		    dim c as RectControl = L(i)
+		    if c.TabIndex = self.TabIndex then
+		      if i < UBound(L) then
+		        nextControl = L(i + 1)
+		      else
+		        nextControl = L(0)
+		      end if
+		      exit
+		    end if
+		  next
+		  
+		  if nextControl <> nil then
+		    nextControl.SetFocus
+		  end if
+		  
 		End Function
 	#tag EndMethod
 
@@ -434,6 +487,27 @@ Inherits NSControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function RectControls() As RectControl()
+		  dim theList() as RectControl
+		  
+		  dim w as Window = self.Window
+		  if w = nil then
+		    return theList
+		  end if
+		  
+		  dim lastIndex as Integer = w.ControlCount - 1
+		  for i as Integer = 0 to lastIndex
+		    dim c as Control = w.Control(i)
+		    if c isA RectControl then
+		      theList.Append RectControl(c)
+		    end if
+		  next
+		  
+		  return theList
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Search()
 		  #if targetCocoa
@@ -476,6 +550,18 @@ Inherits NSControl
 		    end if
 		    setDelegate self, delegate_id
 		    CocoaDelegateMap.Value(delegate_id) = new WeakRef(self)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetFocus()
+		  #if targetCocoa
+		    declare function makeFirstResponder lib CocoaLib selector "makeFirstResponder:" (obj_id as Integer, responder as Ptr) as Boolean
+		    
+		    if makeFirstResponder(self.TrueWindow.Handle, self) then
+		      raiseEvent GotFocus
+		    end if
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -547,6 +633,23 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function TabList(controlList() as RectControl) As RectControl()
+		  dim L() as RectControl
+		  dim tabIndexes() as Integer
+		  
+		  for each item as RectControl in controlList
+		    if item.TabStop then
+		      L.Append item
+		      tabIndexes.Append item.TabIndex
+		    end if
+		  next
+		  
+		  tabIndexes.SortWith(L)
+		  return L
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub TextChanged(notification as NSNotification)
 		  raiseEvent TextChanged(notification)
 		End Sub
@@ -570,7 +673,7 @@ Inherits NSControl
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event InsertTab() As Boolean
+		Event GotFocus()
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -780,6 +883,7 @@ Inherits NSControl
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AcceptFocus"
+			Visible=true
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
