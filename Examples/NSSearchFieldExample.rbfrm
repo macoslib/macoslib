@@ -53,7 +53,7 @@ Begin Window NSSearchFieldExample
       ShowMenu        =   ""
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   ""
+      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       Top             =   79
