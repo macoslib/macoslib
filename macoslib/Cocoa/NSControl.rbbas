@@ -47,8 +47,6 @@ Inherits Canvas
 
 	#tag Event
 		Sub Open()
-		  self.AcceptFocus = false
-		  
 		  #if targetMacOS
 		    dim frame as NSRect
 		    frame.x = 0.0
@@ -79,13 +77,7 @@ Inherits Canvas
 		      
 		    end if
 		    
-		    'dim frame as NSRect
-		    'frame.x = 0.0
-		    'frame.y = 0.0
-		    'frame.w = self.Width
-		    'frame.h = self.Height
-		    'setFrame subview, frame
-		    'setFrame self.id, frame
+		    
 		    addSubview Ptr(self.Handle), subview
 		    
 		    //here we lock the control to the canvas superview so that resizing is handled by the canvas.
@@ -558,6 +550,7 @@ Inherits Canvas
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AcceptFocus"
+			Visible=true
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
@@ -719,6 +712,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
+			Visible=true
 			Group="Position"
 			Type="Boolean"
 			InheritedFrom="Canvas"

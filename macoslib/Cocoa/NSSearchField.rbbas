@@ -695,7 +695,7 @@ Inherits NSControl
 			  #if targetCocoa
 			    declare function maximumRecents lib CocoaLib selector "maximumRecents" (obj_id as Ptr) as Integer
 			    
-			    return maximumRecents(self)
+			    return maximumRecents(self.Cell)
 			  #endif
 			End Get
 		#tag EndGetter
@@ -704,7 +704,7 @@ Inherits NSControl
 			  #if targetCocoa
 			    declare sub setMaximumRecents lib CocoaLib selector "setMaximumRecents:" (obj_id as Ptr, value as Integer)
 			    
-			    setMaximumRecents(self, value)
+			    setMaximumRecents(self.Cell, value)
 			  #else
 			    #pragma unused value
 			  #endif
@@ -1075,6 +1075,7 @@ Inherits NSControl
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
+			Visible=true
 			Group="Position"
 			Type="Boolean"
 			InheritedFrom="Canvas"
