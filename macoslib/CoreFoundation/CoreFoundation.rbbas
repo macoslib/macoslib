@@ -408,8 +408,7 @@ Module CoreFoundation
 		  #if TargetMacOS
 		    
 		    // Introduced in MacOS X 10.2 (deprecated, use CFPropertyListWrite instead)
-		    // Using soft declare to guard against this going away
-		    soft declare function CFPropertyListWriteToStream lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, ByRef errMsg as CFStringRef) as Integer
+		    declare function CFPropertyListWriteToStream lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, ByRef errMsg as CFStringRef) as Integer
 		    
 		    // Introduced in MacOS X 10.6.
 		    soft declare function CFPropertyListWrite lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, options as UInt32, ByRef errMsg as CFStringRef) as Integer
@@ -428,8 +427,13 @@ Module CoreFoundation
 		      // success
 		      return written > 0
 		    end if
+		    
 		  #else
 		    errorMessageOut = "not supported on this platform"
+		    
+		    #pragma unused propertyList
+		    #pragma unused openedWriteStream
+		    #pragma unused format
 		  #endif
 		  
 		End Function
@@ -438,34 +442,33 @@ Module CoreFoundation
 	#tag Method, Flags = &h0
 		Function XMLValue(extends propertyList as CFPropertyList) As String
 		  #if TargetMacOS
+		    
 		    // Introduced in MacOS X 10.2 (deprecated, use CFPropertyListCreateData instead).
-		    // Using soft declare to guard against this going away.
-		    soft declare function CFPropertyListCreateXMLData lib CarbonLib (allocator as Ptr, propertyList as Ptr) as Ptr
+		    declare function CFPropertyListCreateXMLData lib CarbonLib (allocator as Ptr, propertyList as Ptr) as Ptr
 		    
 		    // Introduced in MacOS X 10.6.
 		    soft declare function CFPropertyListCreateData lib CarbonLib _
 		    ( allocator as Ptr, propertyList as Ptr, format as Integer, options as UInt32, ByRef err as Ptr ) as Ptr
 		    
-		    dim xmlData as CFData
-		    dim p as Ptr
+		    dim xmlDataRef as Ptr
 		    if System.IsFunctionAvailable( "CFPropertyListCreateData", CarbonLib ) then
 		      
 		      dim err as Ptr
-		      p = CFPropertyListCreateData( nil, propertyList.Reference, kCFPropertyListXMLFormat_v1_0, 0, err )
+		      xmlDataRef = CFPropertyListCreateData( nil, propertyList.Reference, kCFPropertyListXMLFormat_v1_0, 0, err )
 		      if err <> nil then
 		        raise new CFError( err, CFType.HasOwnership )
 		      end if
 		      
 		    else
 		      
-		      p = CFPropertyListCreateXMLData(nil, propertyList.Reference)
+		      xmlDataRef = CFPropertyListCreateXMLData(nil, propertyList.Reference)
 		      
 		    end if
 		    
-		    if p = nil then
+		    if xmlDataRef = nil then
 		      return ""
 		    else
-		      xmlData = new CFData( p, CFType.HasOwnership )
+		      dim xmlData as new CFData( xmlDataRef, CFType.HasOwnership )
 		      return DefineEncoding(xmlData.Data, Encodings.UTF8)
 		    end if
 		    
