@@ -223,9 +223,14 @@ Module CoreFoundation
 		  // listFormat: kCFPropertyListOpenStepFormat, kCFPropertyListXMLFormat_v1_0, kCFPropertyListBinaryFormat_v1_0
 		  
 		  #if TargetMacOS
+		    // Introduced in MacOS X 10.2.
 		    Declare Function CFPropertyListIsValid Lib CarbonLib (cf as Ptr, fmt as Integer) as Boolean
 		    
 		    return CFPropertyListIsValid(propertyList.Reference, listFormat)
+		    
+		  #else
+		    #pragma unused propertyList
+		    #pragma unused listFormat
 		  #endif
 		End Function
 	#tag EndMethod
@@ -401,10 +406,23 @@ Module CoreFoundation
 	#tag Method, Flags = &h0
 		Function Write(extends propertyList as CFPropertyList, openedWriteStream as CFWriteStream, format as Integer, ByRef errorMessageOut as String) As Boolean
 		  #if TargetMacOS
+		    
+		    // Introduced in MacOS X 10.2 (deprecated, use CFPropertyListWrite instead)
+		    // Using soft declare to guard against this going away
 		    soft declare function CFPropertyListWriteToStream lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, ByRef errMsg as CFStringRef) as Integer
 		    
+		    // Introduced in MacOS X 10.6.
+		    soft declare function CFPropertyListWrite lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, options as UInt32, ByRef errMsg as CFStringRef) as Integer
+		    
 		    dim strRef as CFStringRef
-		    dim written as Integer = CFPropertyListWriteToStream (propertyList.Reference, openedWriteStream.Reference, format, strRef)
+		    dim written as Integer
+		    if System.IsFunctionAvailable( "CFPropertyListWrite", CarbonLib ) then
+		      written = _
+		      CFPropertyListWrite (propertyList.Reference, openedWriteStream.Reference, format, 0, strRef)
+		    else
+		      written = _
+		      CFPropertyListWriteToStream (propertyList.Reference, openedWriteStream.Reference, format, strRef)
+		    end if
 		    errorMessageOut = strRef
 		    if errorMessageOut = "" then
 		      // success
@@ -413,17 +431,48 @@ Module CoreFoundation
 		  #else
 		    errorMessageOut = "not supported on this platform"
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function XMLValue(extends propertyList as CFPropertyList) As String
 		  #if TargetMacOS
+		    // Introduced in MacOS X 10.2 (deprecated, use CFPropertyListCreateData instead).
+		    // Using soft declare to guard against this going away.
 		    soft declare function CFPropertyListCreateXMLData lib CarbonLib (allocator as Ptr, propertyList as Ptr) as Ptr
 		    
-		    dim xmlData as new CFData(CFPropertyListCreateXMLData(nil, propertyList.Reference), true)
-		    return DefineEncoding(xmlData.Data, Encodings.UTF8)
+		    // Introduced in MacOS X 10.6.
+		    soft declare function CFPropertyListCreateData lib CarbonLib _
+		    ( allocator as Ptr, propertyList as Ptr, format as Integer, options as UInt32, ByRef err as Ptr ) as Ptr
+		    
+		    dim xmlData as CFData
+		    dim p as Ptr
+		    if System.IsFunctionAvailable( "CFPropertyListCreateData", CarbonLib ) then
+		      
+		      dim err as Ptr
+		      p = CFPropertyListCreateData( nil, propertyList.Reference, kCFPropertyListXMLFormat_v1_0, 0, err )
+		      if err <> nil then
+		        raise new CFError( err, CFType.HasOwnership )
+		      end if
+		      
+		    else
+		      
+		      p = CFPropertyListCreateXMLData(nil, propertyList.Reference)
+		      
+		    end if
+		    
+		    if p = nil then
+		      return ""
+		    else
+		      xmlData = new CFData( p, CFType.HasOwnership )
+		      return DefineEncoding(xmlData.Data, Encodings.UTF8)
+		    end if
+		    
+		  #else
+		    #pragma unused propertyList
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
