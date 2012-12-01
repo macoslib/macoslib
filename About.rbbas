@@ -19,6 +19,17 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		114: 2012-11-30 by KT
+		- CoreFoundation.Write: Added CFPropertyListWrite to replace the deprecated CFPropertyListWriteToStream.
+		- CoreFoundation.XMLValue: Added code for CFPropertyListCreateData to replace deprecated CFPropertyListCreateXMLData.
+		- Added some comments.
+		- Added option to MacPListBrowser.SaveToFile to allow saving as binary.
+		- Added more unused method parameter pragmas.
+		- Added XMLValue as alias for PListStringValue in MacPListBrowser.
+		
+		113: 2012-11-29 by CY
+		- Attempt to get NSSearchField to participate in key-view loop.
+		
 		112: 2012-11-28 by KT
 		- Updated DICT_CaseSensitiveDictionary in Additional Modules.
 		- Minor spelling fixes in comments.
@@ -103,7 +114,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"111", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"114", Scope = Protected
 	#tag EndConstant
 
 
