@@ -525,5 +525,5 @@ AppIcon=macoslib.rbres;&h0
 OSXBundleID=com.declaresub.macoslib
 DebuggerCommandLine=
 UseGDIPlus=False
-UseBuildsFolder=False
+UseBuildsFolder=True
 IsWebProject=False
