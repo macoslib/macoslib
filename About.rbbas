@@ -19,6 +19,19 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		116: 2012-12-01 by KT
+		- Added caching for System.IsFunctionAvailable calls.
+		- CoreFoundation._TestSelf: Created switches as constants for each test category.
+		- CFBundle.Load: Removed older system function check and call, raise any returned CFError as an exception.
+		- ATSFont.File: Added check for older function because the documentation for both functions seems to have 
+		  dropped off of Apple's site except for a PDF that says it's all deprecated as of OS X 10.6 in favor of 
+		  Core Text.
+		- Win32Error.FormatErrorMessage: Added caching and checks for both system functions, just to be safe.
+		
+		115: 2012-12-01 by CY
+		- Remove assignment to NSControl.AcceptFocus; update NSSearchField1 pro…
+		- Fix a bug in NSSearchField.MaxRecentSearches.
+		
 		114: 2012-11-30 by KT
 		- CoreFoundation.Write: Added CFPropertyListWrite to replace the deprecated CFPropertyListWriteToStream.
 		- CoreFoundation.XMLValue: Added code for CFPropertyListCreateData to replace deprecated CFPropertyListCreateXMLData.
@@ -114,7 +127,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"114", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"115", Scope = Protected
 	#tag EndConstant
 
 
