@@ -11,12 +11,21 @@ Inherits OSError
 	#tag Method, Flags = &h0
 		 Shared Function FormatErrorMessage(errorcode as Integer) As String
 		  #if targetWin32
-		    soft declare function FormatMessageA lib win32.Kernel32 (dwFlags As integer, lpSource As integer, dwMessageId As integer, dwLanguageId As integer, lpBuffer As ptr, nSize As integer, Arguments As integer) As integer
-		    soft declare function FormatMessageW lib win32.Kernel32 (dwFlags As integer, lpSource As integer, dwMessageId As integer, dwLanguageId As integer, lpBuffer As ptr, nSize As integer, Arguments As integer) As integer
 		    
 		    const FORMAT_MESSAGE_FROM_SYSTEM = &h1000
 		    
-		    if System.IsFunctionAvailable("FormatMessageW", Win32.Kernel32) then
+		    static functionsNeedCheck as boolean = true
+		    static newFunctionIsAvailable as boolean
+		    static oldFunctionIsAvailable as boolean
+		    if functionsNeedCheck then
+		      newFunctionIsAvailable = System.IsFunctionAvailable( "FormatMessageW", Win32.Kernel32 )
+		      oldFunctionIsAvailable = System.IsFunctionAvailable( "FormatMessageA", Win32.Kernel32 )
+		      functionsNeedCheck = false
+		    end if
+		    
+		    if newFunctionIsAvailable then
+		      soft declare function FormatMessageW lib win32.Kernel32 (dwFlags As integer, lpSource As integer, dwMessageId As integer, dwLanguageId As integer, lpBuffer As ptr, nSize As integer, Arguments As integer) As integer
+		      
 		      dim buffer as new MemoryBlock(2048)
 		      dim result as Integer = FormatMessageW( FORMAT_MESSAGE_FROM_SYSTEM, 0, errorcode, 0 , buffer, buffer.Size, 0 )
 		      if result <> 0 then
@@ -24,7 +33,9 @@ Inherits OSError
 		      else
 		        return ""
 		      end if
-		    else
+		    elseif oldFunctionIsAvailable then
+		      soft declare function FormatMessageA lib win32.Kernel32 (dwFlags As integer, lpSource As integer, dwMessageId As integer, dwLanguageId As integer, lpBuffer As ptr, nSize As integer, Arguments As integer) As integer
+		      
 		      dim buffer as new MemoryBlock(1024)
 		      dim result as Integer = FormatMessageA( FORMAT_MESSAGE_FROM_SYSTEM, 0, errorcode, 0 , buffer, buffer.Size, 0 )
 		      if result <> 0 then
