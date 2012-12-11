@@ -223,9 +223,14 @@ Module CoreFoundation
 		  // listFormat: kCFPropertyListOpenStepFormat, kCFPropertyListXMLFormat_v1_0, kCFPropertyListBinaryFormat_v1_0
 		  
 		  #if TargetMacOS
+		    // Introduced in MacOS X 10.2.
 		    Declare Function CFPropertyListIsValid Lib CarbonLib (cf as Ptr, fmt as Integer) as Boolean
 		    
 		    return CFPropertyListIsValid(propertyList.Reference, listFormat)
+		    
+		  #else
+		    #pragma unused propertyList
+		    #pragma unused listFormat
 		  #endif
 		End Function
 	#tag EndMethod
@@ -401,29 +406,88 @@ Module CoreFoundation
 	#tag Method, Flags = &h0
 		Function Write(extends propertyList as CFPropertyList, openedWriteStream as CFWriteStream, format as Integer, ByRef errorMessageOut as String) As Boolean
 		  #if TargetMacOS
-		    soft declare function CFPropertyListWriteToStream lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, ByRef errMsg as CFStringRef) as Integer
+		    
+		    static newFunctionNeedsCheck as boolean = true
+		    static newFunctionIsAvailable as boolean
+		    if newFunctionNeedsCheck then
+		      newFunctionIsAvailable = System.IsFunctionAvailable( "CFPropertyListWrite", CarbonLib )
+		      newFunctionNeedsCheck = false
+		    end if
 		    
 		    dim strRef as CFStringRef
-		    dim written as Integer = CFPropertyListWriteToStream (propertyList.Reference, openedWriteStream.Reference, format, strRef)
+		    dim written as Integer
+		    if newFunctionIsAvailable then
+		      // Introduced in MacOS X 10.6.
+		      soft declare function CFPropertyListWrite lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, options as UInt32, ByRef errMsg as CFStringRef) as Integer
+		      written = _
+		      CFPropertyListWrite (propertyList.Reference, openedWriteStream.Reference, format, 0, strRef)
+		    else
+		      // Introduced in MacOS X 10.2 (deprecated, use CFPropertyListWrite instead)
+		      declare function CFPropertyListWriteToStream lib CarbonLib (propertyList as Ptr, stream as Ptr, format as Integer, ByRef errMsg as CFStringRef) as Integer
+		      written = _
+		      CFPropertyListWriteToStream (propertyList.Reference, openedWriteStream.Reference, format, strRef)
+		    end if
 		    errorMessageOut = strRef
 		    if errorMessageOut = "" then
 		      // success
 		      return written > 0
 		    end if
+		    
 		  #else
 		    errorMessageOut = "not supported on this platform"
+		    
+		    #pragma unused propertyList
+		    #pragma unused openedWriteStream
+		    #pragma unused format
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function XMLValue(extends propertyList as CFPropertyList) As String
 		  #if TargetMacOS
-		    soft declare function CFPropertyListCreateXMLData lib CarbonLib (allocator as Ptr, propertyList as Ptr) as Ptr
 		    
-		    dim xmlData as new CFData(CFPropertyListCreateXMLData(nil, propertyList.Reference), true)
-		    return DefineEncoding(xmlData.Data, Encodings.UTF8)
+		    static newFunctionNeedsCheck as boolean = true
+		    static newFunctionIsAvailable as boolean
+		    if newFunctionNeedsCheck then
+		      newFunctionIsAvailable = System.IsFunctionAvailable( "CFPropertyListCreateData", CarbonLib )
+		      newFunctionNeedsCheck = false
+		    end if
+		    
+		    dim xmlDataRef as Ptr
+		    if newFunctionIsAvailable then
+		      
+		      // Introduced in MacOS X 10.6.
+		      soft declare function CFPropertyListCreateData lib CarbonLib _
+		      ( allocator as Ptr, propertyList as Ptr, format as Integer, options as UInt32, ByRef err as Ptr ) as Ptr
+		      
+		      dim err as Ptr
+		      xmlDataRef = CFPropertyListCreateData( nil, propertyList.Reference, kCFPropertyListXMLFormat_v1_0, 0, err )
+		      if err <> nil then
+		        raise new CFError( err, CFType.HasOwnership )
+		      end if
+		      
+		    else
+		      
+		      // Introduced in MacOS X 10.2 (deprecated, use CFPropertyListCreateData instead).
+		      declare function CFPropertyListCreateXMLData lib CarbonLib (allocator as Ptr, propertyList as Ptr) as Ptr
+		      
+		      xmlDataRef = CFPropertyListCreateXMLData(nil, propertyList.Reference)
+		      
+		    end if
+		    
+		    if xmlDataRef = nil then
+		      return ""
+		    else
+		      dim xmlData as new CFData( xmlDataRef, CFType.HasOwnership )
+		      return DefineEncoding(xmlData.Data, Encodings.UTF8)
+		    end if
+		    
+		  #else
+		    #pragma unused propertyList
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -448,6 +512,20 @@ Module CoreFoundation
 		  
 		  #if DebugBuild
 		    
+		    // Flip the switches for the tests below here.
+		    // Use true and FALSE as values to help distinguish easily.
+		    const kTestCFArray = true
+		    const kTestCFNumber = true
+		    const kTestCFString = true
+		    const kTestCFBoolean = true
+		    const kTestCFPreferences = true
+		    const kTestCFURL = true
+		    const kTestCFDate = true
+		    const kTestCFTimeZone = true
+		    const kTestCFStream = true
+		    const kTestCFBundleAndCFPropertyList = FALSE
+		    'const kTestCFSocket = FALSE
+		    
 		    // Check our app's Bundle Identifier
 		    dim myBundleID as String = CFBundle.Application.Identifier
 		    _testAssert myBundleID = "com.declaresub.macoslib"
@@ -455,11 +533,11 @@ Module CoreFoundation
 		    // Test creating new bundles
 		    dim s as String
 		    s = CFBundle.NewCFBundleFromID(BundleID).Identifier
-		    _testAssert s = BundleID
+		    testAssert s = BundleID
 		    
 		    dim cft as CFType
 		    
-		    if true then
+		    if kTestCFArray then
 		      dim vals() as CFString
 		      vals.Append "a"
 		      vals.Append "b"
@@ -472,7 +550,7 @@ Module CoreFoundation
 		    end // at this point the CFString objects should all get deallocated
 		    
 		    // Test CFNumber operations
-		    if true then
+		    if kTestCFNumber then
 		      dim cf1, cf2 as CFNumber
 		      cf1 = new CFNumber(1)
 		      _testAssert cf2 is nil
@@ -496,7 +574,7 @@ Module CoreFoundation
 		    end
 		    
 		    // Test CFString operations
-		    if true then
+		    if kTestCFString then
 		      dim s1 as CFString = "z"
 		      dim s2 as CFString = "a"
 		      _testAssert s2 < s1
@@ -510,7 +588,7 @@ Module CoreFoundation
 		    end if
 		    
 		    // Test CFBoolean operations
-		    if true then
+		    if kTestCFBoolean then
 		      dim cfbF as new CFBoolean( False )
 		      dim cfbT as CFBoolean = true
 		      _testAssert cfbT = true
@@ -523,7 +601,7 @@ Module CoreFoundation
 		    end if
 		    
 		    // Test the CFPreferences functionality
-		    if true then
+		    if kTestCFPreferences then
 		      dim cf1 as CFNumber
 		      dim prefs as CFPreferences
 		      dim prefKeys() as String = prefs.Keys
@@ -544,7 +622,7 @@ Module CoreFoundation
 		    end
 		    
 		    // Test CFURL
-		    if true then
+		    if kTestCFURL then
 		      dim url as new CFURL(SpecialFolder.System)
 		      _testAssert url.Scheme = "file"
 		      _testAssert url.NetLocation = "localhost"
@@ -557,7 +635,7 @@ Module CoreFoundation
 		    end
 		    
 		    // Test CFDate
-		    if true then
+		    if kTestCFDate then
 		      dim d1 as new Date
 		      dim d2 as new Date
 		      dim d3 as date
@@ -573,14 +651,14 @@ Module CoreFoundation
 		    end if
 		    
 		    // Test CFTimeZone
-		    if true then
+		    if kTestCFTimeZone then
 		      dim zonenames() as String = CFTimeZone.NameList()
 		      dim tzone as new CFTimeZone(zonenames(1))
 		      _testAssert tzone.Name = zonenames(1)
 		    end
 		    
 		    // Test CFStreams
-		    if true then
+		    if kTestCFStream then
 		      dim reader as CFReadStream
 		      'dim writer as CFWriteStream
 		      reader = new CFReadStream("12345")
@@ -612,7 +690,7 @@ Module CoreFoundation
 		    end if
 		    
 		    // Test CFBundle and CFPropertyList
-		    if false then
+		    if kTestCFBundleAndCFPropertyList then
 		      // get this app's Info.plist contents via CFBundle.InfoDictionary
 		      dim bndl as CFBundle = CFBundle.Application
 		      dim infodict as CFDictionary = bndl.InfoDictionary
@@ -655,7 +733,7 @@ Module CoreFoundation
 		    end
 		    
 		    '// Test CFSocket (TCP/IP)
-		    '#if false then
+		    '#if kTestCFSocket then
 		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
 		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
 		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
@@ -709,7 +787,7 @@ Module CoreFoundation
 		    '#endif
 		    '
 		    '// Test CFSockets (Unix Domain Sockets)
-		    '#if false then
+		    '#if kTestCFSocket then
 		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
 		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
 		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)

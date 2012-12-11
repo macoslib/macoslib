@@ -291,7 +291,7 @@ Protected Class MacPListBrowser
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListString(s As String, isCaseSensitive As Boolean = False) As MacPListBrowser
 		  // Returns a MacPListBrowser from a plist string.
-		  // Could have put this into the contructor, but don't want to make assumptions about
+		  // Could have put this into the constructor, but don't want to make assumptions about
 		  // what the developer is trying to do.
 		  // Will return nil if the string can't be converted, or just the original string if it's not a plist.
 		  
@@ -340,7 +340,7 @@ Protected Class MacPListBrowser
 		  
 		  pDictionaryToArray( diffDict, r )
 		  
-		  // Note that we don't use for each above so we can preserve order
+		  // Note that we don't use "for each" above so we can preserve order
 		  
 		  return r
 		  
@@ -493,7 +493,7 @@ Protected Class MacPListBrowser
 		    
 		    pDictionaryToArray( intersectDict, r )
 		    
-		    // Note that we don't use for each above so we can preserve order
+		    // Note that we don't use "for each" above so we can preserve order
 		  end if
 		  
 		  return r
@@ -881,7 +881,7 @@ Protected Class MacPListBrowser
 		    dim thisKeyCF as CoreFoundation.CFType = k( i )
 		    dim thisKeyString as string = thisKeyCF.VariantValue.StringValue.ConvertEncoding( Encodings.UTF8 )
 		    dim thisValue as CFType = sourceDict.Value( thisKeyCF )
-		    newDict.Value( thisKeyString ) = new MacPListBrowser( thisValue, self, thisKeyString, cs ) 
+		    newDict.Value( thisKeyString ) = new MacPListBrowser( thisValue, self, thisKeyString, cs )
 		  next
 		  
 		  zValue = newDict
@@ -1057,20 +1057,20 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SaveToFile(f As FolderItem) As Boolean
+		Function SaveToFile(f As FolderItem, asBinary As Boolean = False) As Boolean
 		  dim r as boolean
 		  
 		  #if TargetMacOS
 		    
 		    if f <> nil then
-		      dim cf as CoreFoundation.CFType = CoreFoundation.CFTypeFromVariant( VariantValue )
-		      dim plist as CoreFoundation.CFPropertyList = CoreFoundation.CFPropertyList( cf )
-		      r = plist.WriteToFile( f, true )
+		      dim plist as CoreFoundation.CFPropertyList = me.CFPropertyListValue()
+		      r = plist.WriteToFile( f, not asBinary )
 		    end if
 		    
 		  #else
 		    
 		    #pragma unused f
+		    #pragma unused asBinary
 		    
 		  #endif
 		  
@@ -1112,6 +1112,13 @@ Protected Class MacPListBrowser
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function XMLValue() As String
+		  // Alias for...
+		  return me.PListStringValue
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = Legal
 		This class was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
@@ -1134,6 +1141,10 @@ Protected Class MacPListBrowser
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.3
+		- Added XMLValue as alias for PListStringValue.
+		- Added optional parameter asBinary to SaveToFile.
+		
 		1.2 (started numbering releases):
 		- Added features for case-sensitivity.
 		- The DICT_CaseSensitiveDictionary class is now required.
@@ -1483,7 +1494,7 @@ Protected Class MacPListBrowser
 	#tag EndProperty
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.2", Scope = Public
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.3", Scope = Public
 	#tag EndConstant
 
 

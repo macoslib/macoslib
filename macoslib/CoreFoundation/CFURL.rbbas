@@ -103,7 +103,14 @@ Inherits CFType
 		    if resolveIfAlias then
 		      
 		      #if TargetMacOS
-		        if System.IsFunctionAvailable( "CFURLCreateBookmarkDataFromFile", CarbonLib ) then // This function was introduced in OS X 10.6.
+		        static functionNeedsCheck as boolean = true
+		        static functionIsAvailable as boolean
+		        if functionNeedsCheck then
+		          functionIsAvailable = System.IsFunctionAvailable( "CFURLCreateBookmarkDataFromFile", CarbonLib ) // This function was introduced in OS X 10.6.
+		          functionNeedsCheck = false
+		        end if
+		        
+		        if functionIsAvailable then 
 		          try
 		            dim data as CFData = CFURL.CreateBookmarkDataFromFile( f )
 		            dim url as CFURL = CFURL.CreateByResolvingBookmarkData( data )
@@ -113,7 +120,7 @@ Inherits CFType
 		            resolveIfAlias = false // Nothing left to resolve
 		          catch
 		          end try
-		        end if // System.IsFunctionAvailable
+		        end if // functionIsAvailable
 		      #endif
 		      
 		      // See if the alias still needs to be resolved

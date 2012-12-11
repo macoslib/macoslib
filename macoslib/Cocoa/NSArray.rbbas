@@ -100,6 +100,8 @@ Inherits NSObject
 		  
 		  #if TargetMacOS
 		    'declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
+		    
+		    // Introduced in MacOS X 10.0.
 		    declare function objectAtIndex lib CocoaLib selector "objectAtIndex:" (theArray as Ptr, idx as Integer) as Ptr
 		    
 		    if self <> nil then
@@ -128,6 +130,8 @@ Inherits NSObject
 		Function Value(index as Integer) As Ptr
 		  #if TargetMacOS
 		    'declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
+		    
+		    // Introduced in MacOS X 10.0.
 		    declare function objectAtIndex lib CocoaLib selector "objectAtIndex:" (theArray as Ptr, idx as Integer) as Ptr
 		    
 		    if self <> nil then

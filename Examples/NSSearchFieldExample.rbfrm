@@ -25,11 +25,12 @@ Begin Window NSSearchFieldExample
    Visible         =   True
    Width           =   600
    Begin Cocoa.NSSearchField NSSearchField1
-      AcceptFocus     =   ""
+      AcceptFocus     =   True
       AcceptTabs      =   ""
       AutoDeactivate  =   True
       autoresizesSubviews=   ""
       Backdrop        =   ""
+      Bold            =   false
       DoubleBuffer    =   ""
       Enabled         =   True
       EraseBackground =   ""
@@ -38,6 +39,7 @@ Begin Window NSSearchFieldExample
       Index           =   -2147483648
       InitialParent   =   ""
       IsFlipped       =   ""
+      Italic          =   false
       Left            =   30
       LockBottom      =   ""
       LockedInPosition=   False
@@ -49,10 +51,13 @@ Begin Window NSSearchFieldExample
       SendSearchStringImmediately=   ""
       SendWholeSearchString=   ""
       ShowMenu        =   ""
-      TabIndex        =   ""
+      TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   ""
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
       Top             =   79
+      Underlined      =   false
       UseFocusRing    =   ""
       Visible         =   True
       Width           =   201
@@ -119,7 +124,7 @@ Begin Window NSSearchFieldExample
       LockTop         =   False
       Scope           =   0
       State           =   0
-      TabIndex        =   2
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -151,7 +156,7 @@ Begin Window NSSearchFieldExample
       LockTop         =   False
       Scope           =   0
       State           =   0
-      TabIndex        =   3
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -183,7 +188,7 @@ Begin Window NSSearchFieldExample
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      TabIndex        =   4
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -207,7 +212,7 @@ Begin Window NSSearchFieldExample
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   22
+      Height          =   26
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   ""
@@ -222,7 +227,7 @@ Begin Window NSSearchFieldExample
       Password        =   ""
       ReadOnly        =   ""
       Scope           =   0
-      TabIndex        =   5
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -250,6 +255,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
+		  me.TabStop = true
 		  NSSearchField1.ShowMenu = true
 		  NSSearchField1.AddMenuItem "Foo"
 		  
@@ -270,12 +276,6 @@ End
 		  TextField1.Text = me.StringValue
 		  beep
 		End Sub
-	#tag EndEvent
-	#tag Event
-		Function InsertTab() As Boolean
-		  TextField2.SetFocus
-		  return true
-		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events SendWholeSearchCheckbox

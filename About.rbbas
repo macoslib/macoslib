@@ -33,9 +33,37 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
-		112: 2012-12-11 by TT
+		117: 2012-12-11 by TT
 		- Adds "MacResourceFork" as a replacement for the ResourceFork class that's removed in RB 2012r2
 		- Adds some notes and tests around getting the app's Bundle Identifier
+
+		116: 2012-12-01 by KT
+		- Added caching for System.IsFunctionAvailable calls.
+		- CoreFoundation._TestSelf: Created switches as constants for each test category.
+		- CFBundle.Load: Removed older system function check and call, raise any returned CFError as an exception.
+		- ATSFont.File: Added check for older function because the documentation for both functions seems to have 
+		  dropped off of Apple's site except for a PDF that says it's all deprecated as of OS X 10.6 in favor of 
+		  Core Text.
+		- Win32Error.FormatErrorMessage: Added caching and checks for both system functions, just to be safe.
+		
+		115: 2012-12-01 by CY
+		- Remove assignment to NSControl.AcceptFocus; update NSSearchField1 pro…
+		- Fix a bug in NSSearchField.MaxRecentSearches.
+		
+		114: 2012-11-30 by KT
+		- CoreFoundation.Write: Added CFPropertyListWrite to replace the deprecated CFPropertyListWriteToStream.
+		- CoreFoundation.XMLValue: Added code for CFPropertyListCreateData to replace deprecated CFPropertyListCreateXMLData.
+		- Added some comments.
+		- Added option to MacPListBrowser.SaveToFile to allow saving as binary.
+		- Added more unused method parameter pragmas.
+		- Added XMLValue as alias for PListStringValue in MacPListBrowser.
+		
+		113: 2012-11-29 by CY
+		- Attempt to get NSSearchField to participate in key-view loop.
+		
+		112: 2012-11-28 by KT
+		- Updated DICT_CaseSensitiveDictionary in Additional Modules.
+		- Minor spelling fixes in comments.
 		
 		111: 2012-11-24 by KT
 		- Added DICT_CaseSensitiveDictionary to Additional Modules.
@@ -117,7 +145,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"112", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"117", Scope = Protected
 	#tag EndConstant
 
 

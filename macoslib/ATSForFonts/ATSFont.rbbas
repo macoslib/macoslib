@@ -3,12 +3,22 @@ Class ATSFont
 	#tag Method, Flags = &h0
 		Function File() As FolderItem
 		  #if targetMacOS
-		    soft declare function ATSFontGetFileReference lib CarbonLib (iFont as UInt32, fsRef as Ptr) as Integer
-		    //ATSFontGetFileSpecification is deprecated in Mac OS 10.5.
-		    soft declare function ATSFontGetFileSpecification lib CarbonLib (iFont as UInt32, ByRef oFile as FSSpec) as Integer
 		    
+		    // Added a check the availability of ATSFontGetFileSpecification because 
+		    // Apple's docs say this is all deprecated in 10.6 in favor of Core Text.
 		    
-		    if System.IsFunctionAvailable("ATSFontGetFileReference", CarbonLib) then
+		    static functionsNeedCheck as boolean = true
+		    static newFunctionIsAvailable as boolean
+		    static oldFunctionIsAvailable as boolean
+		    if functionsNeedCheck then
+		      newFunctionIsAvailable = System.IsFunctionAvailable( "ATSFontGetFileReference", CarbonLib )
+		      oldFunctionIsAvailable = System.IsFunctionAvailable( "ATSFontGetFileSpecification", CarbonLib )
+		      functionsNeedCheck = false
+		    end if
+		    
+		    if newFunctionIsAvailable then
+		      soft declare function ATSFontGetFileReference lib CarbonLib (iFont as UInt32, fsRef as Ptr) as Integer
+		      
 		      dim ref as new FSRef
 		      'dim theSpec as FSSpec
 		      dim OSError as Integer = ATSFontGetFileReference(me, ref)
@@ -17,7 +27,10 @@ Class ATSFont
 		      end if
 		      return FileManager.GetFolderItemFromFSRef(ref)
 		      
-		    else
+		    elseif oldFunctionIsAvailable then
+		      //ATSFontGetFileSpecification is deprecated in Mac OS 10.5.
+		      soft declare function ATSFontGetFileSpecification lib CarbonLib (iFont as UInt32, ByRef oFile as FSSpec) as Integer
+		      
 		      dim theSpec as FSSpec
 		      dim OSError as Integer = ATSFontGetFileSpecification(me, theSpec)
 		      if OSError <> noErr then
@@ -25,6 +38,8 @@ Class ATSFont
 		      end if
 		      return FileManager.GetFolderItemFromFSSpec(theSpec)
 		    end if
+		    
+		    return nil
 		  #endif
 		End Function
 	#tag EndMethod

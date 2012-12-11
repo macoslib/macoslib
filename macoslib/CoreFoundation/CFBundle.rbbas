@@ -145,24 +145,29 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function Load() As Boolean
+		  // MacOSLib min version is now 10.5 so calling the older method is no longer necessary.
+		  // Will now raise an error to keep consistent with other function calls that return a CFError.
+		  
 		  #if TargetMacOS
 		    if (self <> nil) then
 		      dim ok as Boolean
+		      
+		      'if System.IsFunctionAvailable( "CFBundleLoadExecutableAndReturnError", CarbonLib ) then
+		      
 		      // only available in Mac OS X 10.5 and later:
-		      if System.IsFunctionAvailable("CFBundleLoadExecutableAndReturnError", CarbonLib) then
-		        soft declare function CFBundleLoadExecutableAndReturnError lib CarbonLib (theBundle as Ptr, ByRef errorOut as Ptr) as Boolean
-		        dim errorRef as Ptr
-		        ok = CFBundleLoadExecutableAndReturnError (me.Reference, errorRef)
-		        if errorRef <> nil then
-		          dim error as new CFError(errorRef, CFType.hasOwnership)
-		          #pragma unused error
-		          //I'd prefer to raise an exception, but for now we just create the CFError object for possible debugging.
-		        end if
-		      else
-		        // this works in all OS X versions:
-		        soft declare function CFBundleLoadExecutable lib CarbonLib (theBundle as Ptr) as Boolean
-		        ok = CFBundleLoadExecutable (me.Reference)
+		      declare function CFBundleLoadExecutableAndReturnError lib CarbonLib (theBundle as Ptr, ByRef errorOut as Ptr) as Boolean
+		      
+		      dim errorRef as Ptr
+		      ok = CFBundleLoadExecutableAndReturnError (me.Reference, errorRef)
+		      if errorRef <> nil then
+		        raise new CFError( errorRef, CFType.HasOwnership )
 		      end if
+		      'else
+		      '// this works in all OS X versions:
+		      'declare function CFBundleLoadExecutable lib CarbonLib (theBundle as Ptr) as Boolean
+		      '
+		      'ok = CFBundleLoadExecutable (me.Reference)
+		      'end if
 		      return ok
 		    else
 		      return false
