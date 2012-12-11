@@ -533,7 +533,7 @@ Module CoreFoundation
 		    // Test creating new bundles
 		    dim s as String
 		    s = CFBundle.NewCFBundleFromID(BundleID).Identifier
-		    testAssert s = BundleID
+		    _testAssert s = BundleID
 		    
 		    dim cft as CFType
 		    

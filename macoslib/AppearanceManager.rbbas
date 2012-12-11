@@ -5,7 +5,7 @@ Protected Module AppearanceManager
 		  #if targetMacOS then
 		    Const depth = 32
 		    
-		    soft declare Function GetThemeBrushAsColor Lib "Carbon" (inColor as Integer, inDepth as Short, inColorDev as Boolean, outColor as Ptr) as Integer
+		    soft declare Function GetThemeBrushAsColor lib CarbonLib (inColor as Integer, inDepth as Short, inColorDev as Boolean, outColor as Ptr) as Integer
 		    
 		    dim colorPtr as New MemoryBlock(6)
 		    dim OSErr    as Integer = GetThemeBrushAsColor(ID, depth, true, colorPtr)

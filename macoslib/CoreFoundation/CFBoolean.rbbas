@@ -168,6 +168,11 @@ Implements CFPropertyList
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BooleanValue"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
