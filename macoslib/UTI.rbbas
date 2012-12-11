@@ -23,8 +23,8 @@ Protected Class UTI
 		  
 		  #if TargetMacOS
 		    soft declare function LSCopyItemAttribute lib "Carbon.framework" ( inItem as ptr, inRoles as UInt32, inAttributeName as CFStringRef, byref outValue as integer) as integer
-		    soft declare function CFStringGetCString lib "Carbon" (ref as integer, char as ptr, size as integer, encoding as UInt32) as boolean
-		    soft declare sub CFRelease lib "Carbon" (obj as integer)
+		    soft declare function CFStringGetCString lib CarbonLib (ref as integer, char as ptr, size as integer, encoding as UInt32) as boolean
+		    soft declare sub CFRelease lib CarbonLib (obj as integer)
 		    
 		    const kLSItemContentType = "LSItemContentType"
 		    const kLSRoleAll = &hFFFFFFFF

@@ -263,7 +263,7 @@ Protected Module UnicodeFormsExtension
 		  #if TargetMacOS
 		    static forms() as string = Array( "NFD", "NFKD", "NFC", "NFKC" )
 		    
-		    declare sub CFStringNormalize Lib "Carbon" (strg as Ptr, form as integer)
+		    declare sub CFStringNormalize lib CarbonLib (strg as Ptr, form as integer)
 		    
 		    dim normidx as integer = forms.IndexOf( form )
 		    dim myString as new CoreFoundation.CFMutableString( s )

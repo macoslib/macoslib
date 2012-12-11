@@ -2,8 +2,8 @@
 Protected Module AppleEvents
 	#tag Method, Flags = &h0
 		Function PrintDesc(extends ae as AppleEvent, getReply as boolean = false) As string
-		  Soft declare function AEPrintDescToHandle lib "Carbon" (theEvent as integer, hdl as Ptr) as integer
-		  Soft declare sub DisposeHandle lib "Carbon" (hdl as ptr)
+		  Soft declare function AEPrintDescToHandle lib CarbonLib (theEvent as integer, hdl as Ptr) as integer
+		  Soft declare sub DisposeHandle lib CarbonLib (hdl as ptr)
 		  
 		  dim myHandle as MemoryBlock
 		  dim err as integer
@@ -36,7 +36,7 @@ Protected Module AppleEvents
 		Function RawData(extends ae as AppleEvent, param as string, byref type as string, inReply as boolean = false) As MemoryBlock
 		  //Get a binary data param in the reply AppleEvent
 		  
-		  declare function AEGetParamPtr Lib "Carbon" (AEPtr as integer, AEKeyword as OSType, inType as OSType, byref outType as OSType, data as Ptr, maxSize as integer, byref actSize as integer) as short
+		  declare function AEGetParamPtr lib CarbonLib (AEPtr as integer, AEKeyword as OSType, inType as OSType, byref outType as OSType, data as Ptr, maxSize as integer, byref actSize as integer) as short
 		  
 		  dim data as MemoryBlock
 		  dim err as integer
@@ -75,7 +75,7 @@ Protected Module AppleEvents
 		Sub RawData(extends ae as AppleEvent, param as string, type as string, inReply as boolean = false, assigns data as MemoryBlock)
 		  //Add some binary data as a reply AppleEvent parameter
 		  
-		  declare function AEPutParamPtr Lib "Carbon" (AEPtr as integer, AEKey as OSType, dType as OSType, data as Ptr, dsize as integer) as short
+		  declare function AEPutParamPtr lib CarbonLib (AEPtr as integer, AEKey as OSType, dType as OSType, data as Ptr, dsize as integer) as short
 		  
 		  dim err as integer
 		  dim p as integer
@@ -93,7 +93,7 @@ Protected Module AppleEvents
 		Sub SizeAndTypeOfParam(extends ae as AppleEvent, param as string, inReply as boolean, byref size as integer, byref type as string)
 		  //Get the size and type of one parameter. Set inReply to true if you want to access the reply AppleEvent
 		  
-		  declare function AESizeOfParam lib "Carbon" (evnt as integer, AEKeyword as OSType, byref oDesc as OSType, byref oSize as integer) as short
+		  declare function AESizeOfParam lib CarbonLib (evnt as integer, AEKeyword as OSType, byref oDesc as OSType, byref oSize as integer) as short
 		  
 		  dim err as integer
 		  dim oDesc as OSType
