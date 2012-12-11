@@ -77,6 +77,9 @@ Inherits Canvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  #pragma unused g
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		  #if targetCarbon
 		    
@@ -98,6 +101,7 @@ Inherits Canvas
 		    
 		    OSError = HIViewSetEnabled(me.HISearchFieldRef, me.Enabled)
 		  #endif
+		  
 		End Sub
 	#tag EndEvent
 

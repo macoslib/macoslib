@@ -793,6 +793,10 @@ End
 		  g.DrawPicture   pict1.IconTemplateSetColor( &cCCFF66 ), 26, 21
 		  g.DrawPicture   pict1.IconTemplateSetColor( &cFFCC66 ), 50, 21
 		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -869,6 +873,10 @@ End
 		  
 		  static pict as Picture = SystemIcons.InvalidDataFreestandingTemplate
 		  g.DrawPicture  pict, 0, 0, 16, 16, 0, 0, pict.Width, pict.Height
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent

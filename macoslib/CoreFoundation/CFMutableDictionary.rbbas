@@ -112,8 +112,13 @@ Inherits CFDictionary
 		    
 		    if dict=nil then return
 		    
-		    for i as integer=0 to dict.Count - 1
-		      self.Value( CFTypeFromVariant( dict.Key( i ))) = CFTypeFromVariant( dict.value( dict.key( i )))
+		    dim k() as variant = dict.Keys
+		    dim v() as Variant = dict.Values
+		    dim key, value as Variant
+		    for i as integer = 0 to k.Ubound
+		      key = k( i )
+		      value = v( i )
+		      self.Value( CFTypeFromVariant( key ) ) = CFTypeFromVariant( value )
 		    next
 		    
 		  #else
@@ -121,6 +126,7 @@ Inherits CFDictionary
 		    #pragma unused dict
 		    
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
