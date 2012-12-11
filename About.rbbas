@@ -8,6 +8,20 @@ Protected Module About
 		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
 	#tag EndNote
 
+	#tag Note, Name = How To Use
+		To add MacOSLib to your project, select the entire "macoslib" folder in this project, copy it and paste
+		it into your project. Do not attempt to import (or drag+drop) the folder from disk into your project,
+		as the IDE will mess the class hierarchy up, causing lots of compile errors.
+		
+		If you find that the macoslib is too large for your needs, don't worry - the compiler will only include
+		the code for classes you actually use in your project, so your project won't grow just because you include
+		macoslib without using any of its features (well, that's the theory, at least).
+		
+		You may try to remove unused classes and modules gradually after you figure out you won't need them,
+		but please start with the entire macoslib folder to save you trouble initially.
+		
+	#tag EndNote
+
 	#tag Note, Name = License
 		The present library is distributed under the terms of the MIT License.
 		
