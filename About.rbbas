@@ -33,6 +33,10 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		112: 2012-12-11 by TT
+		- Adds "MacResourceFork" as a replacement for the ResourceFork class that's removed in RB 2012r2
+		- Adds some notes and tests around getting the app's Bundle Identifier
+		
 		111: 2012-11-24 by KT
 		- Added DICT_CaseSensitiveDictionary to Additional Modules.
 		- Added case-sensitive options to MacPListBrowser. (Now requires DICT_CaseSensitiveDictionary.)
@@ -113,7 +117,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"111", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"112", Scope = Protected
 	#tag EndConstant
 
 
