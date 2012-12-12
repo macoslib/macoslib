@@ -40,6 +40,11 @@ End
 		    g.ForeColor = AppearanceManager.ThemeColor(i)
 		    g.FillRect (x+32, y, 60, h)
 		  next
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 

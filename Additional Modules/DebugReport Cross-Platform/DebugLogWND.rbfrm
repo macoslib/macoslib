@@ -501,8 +501,11 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  #pragma unused g
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		  WarningCountLBL.Text = Str( DebugReportModule.WarningCnt )
 		  ErrorCountLBL.Text = Str( DebugReportModule.ErrorCnt )
@@ -516,9 +519,13 @@ End
 
 #tag Events Canvas1
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.ForeColor = &c9C3120
 		  g.FillOval   0, 0, 12, 12
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -553,17 +560,27 @@ End
 #tag EndEvents
 #tag Events Canvas2
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.ForeColor = &c0000FF
 		  g.FillOval   0, 0, 12, 12
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events Canvas3
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.ForeColor = &c000000
 		  g.FillOval   0, 0, 12, 12
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

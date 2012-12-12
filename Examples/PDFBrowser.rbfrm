@@ -141,6 +141,11 @@ End
 		  dim c as new CGContextGraphicsPort(g)
 		  c.TranslateCTM 0, self.Height - box.rectSize.height
 		  c.DrawPDFPage page
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 

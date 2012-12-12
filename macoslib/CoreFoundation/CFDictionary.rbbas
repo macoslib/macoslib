@@ -10,25 +10,32 @@ Implements CFPropertyList
 
 	#tag Event
 		Function VariantValue() As Variant
-		  // convert to a REALbasic Dictionary
+		  // Convert to a NativeSubclass.DictionaryCaseSensitive.
+		  // This is a Dictionary subclass that can be assigned to a variable defined 
+		  // as a Dictionary.
 		  
-		  dim outDict as new Dictionary
+		  dim outDict as new NativeSubclass.DictionaryCaseSensitive
 		  
-		  for each key as CFType in me.Keys
+		  dim k() as CFType = me.Keys
+		  dim key as CFType
+		  for i as integer = 0 to k.Ubound // Switched from For Each to ensure that order is preserved
+		    key = k( i )
 		    outDict.Value(key.VariantValue) = me.Value(key).VariantValue
 		  next
 		  
 		  return outDict
+		  
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Function AsDictionary() As Dictionary
+		Function AsDictionary() As NativeSubclass.DictionaryCaseSensitive
 		  // Added by Kem Tekinay.
-		  // Converts the CFDictionary to a native Dictionary
+		  // Converts the CFDictionary to a native Dictionary.
+		  // Returns the NativeSubclass.DictionaryCaseSensitive subclass.
 		  
-		  dim d as Dictionary
+		  dim d as NativeSubclass.DictionaryCaseSensitive
 		  
 		  #if TargetMacOS
 		    
@@ -37,7 +44,6 @@ Implements CFPropertyList
 		  #endif
 		  
 		  return d
-		  
 		  
 		End Function
 	#tag EndMethod
@@ -108,8 +114,15 @@ Implements CFPropertyList
 		      return   nil
 		    end if
 		    
-		    for each key as Variant in dict.Keys
-		      md.Value( CFTypeFromVariant( key )) = CFTypeFromVariant( dict.value( key ))
+		    // Switched from For Each to ensure that order is preserved.
+		    // Should be faster this way too.
+		    dim k() as Variant = dict.Keys
+		    dim v() as Variant = dict.Values
+		    dim key, value as Variant
+		    for i as integer = 0 to k.Ubound 
+		      key = k( i )
+		      value = v( i )
+		      md.Value( CFTypeFromVariant( key ) ) = CFTYpeFromVariant( value )
 		    next
 		    
 		    return   md
@@ -226,10 +239,10 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Operator_Convert() As Dictionary
+		Function Operator_Convert() As NativeSubclass.DictionaryCaseSensitive
 		  // Added by Kem Tekinay.
 		  
-		  dim d as Dictionary
+		  dim d as NativeSubclass.DictionaryCaseSensitive
 		  
 		  #if TargetMacOS
 		    

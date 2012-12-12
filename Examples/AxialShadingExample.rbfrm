@@ -51,6 +51,11 @@ End
 		  context.Clip
 		  context.DrawShading self.Shading
 		  context.RestoreGState
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 
