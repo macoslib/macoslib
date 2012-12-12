@@ -19,7 +19,6 @@ Protected Module About
 		
 		You may try to remove unused classes and modules gradually after you figure out you won't need them,
 		but please start with the entire macoslib folder to save you trouble initially.
-		
 	#tag EndNote
 
 	#tag Note, Name = License
@@ -33,10 +32,18 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		118: 2012-12-11 by KT
+		- Added NativeSubclass module to house subclasses of native types.
+		- Added NativeSubclass.DictionaryCaseSensitive.
+		- Changed output from CFDictionary.VariantValue and related methods to return a NativeSubclass.DictionaryCaseSensitive.
+		  (Note: This is a Dictionary subclass so existing code will not need to change.)
+		- Optimized code that converts CFDictionary to and from Dictionary.
+		- Added #pragmas for unused "areas" parameter in Paint events in 2012r2 and later.
+		
 		117: 2012-12-11 by TT
 		- Adds "MacResourceFork" as a replacement for the ResourceFork class that's removed in RB 2012r2
 		- Adds some notes and tests around getting the app's Bundle Identifier
-
+		
 		116: 2012-12-01 by KT
 		- Added caching for System.IsFunctionAvailable calls.
 		- CoreFoundation._TestSelf: Created switches as constants for each test category.
@@ -145,7 +152,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"117", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"118", Scope = Protected
 	#tag EndConstant
 
 

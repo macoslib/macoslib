@@ -686,6 +686,11 @@ End
 		    self.Icon.Size = IconSize
 		    self.Icon.Draw g, left, top
 		  end if
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 

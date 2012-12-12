@@ -1,5 +1,5 @@
 #tag Class
-Protected Class DICT_CaseSensitiveDictionary
+Protected Class DictionaryCaseSensitive
 Inherits Dictionary
 	#tag Method, Flags = &h0
 		Sub AssignArrays(keyArr() As String, valueArr() As Variant)
@@ -44,9 +44,9 @@ Inherits Dictionary
 		  // Merges another dictionary into this one, merging or overwriting keys in the process.
 		  // Will convert a plain dictionary to a case-sensitive version.
 		  
-		  if dict IsA DICT_CaseSensitiveDictionary then
+		  if dict IsA DictionaryCaseSensitive then
 		    
-		    pAssignCSDictionary( DICT_CaseSensitiveDictionary( dict ) )
+		    pAssignCSDictionary( DictionaryCaseSensitive( dict ) )
 		    
 		  else
 		    
@@ -74,8 +74,8 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Clone() As DICT_CaseSensitiveDictionary
-		  dim newDict as new DICT_CaseSensitiveDictionary( zEncoding )
+		Function Clone() As DictionaryCaseSensitive
+		  dim newDict as new DictionaryCaseSensitive( zEncoding )
 		  
 		  dim keyArr() as variant = super.Keys // Raw, hex-encoded keys
 		  dim lastIndex as Integer = keyArr.Ubound
@@ -137,11 +137,11 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Attributes( deprecated = "Constructor( dict, enc ) or AssignDictionary" )  Shared Function FromDictionary(dict As Dictionary, enc As TextEncoding = nil) As DICT_CaseSensitiveDictionary
+		Attributes( deprecated = "Constructor( dict, enc ) or AssignDictionary" )  Shared Function FromDictionary(dict As Dictionary, enc As TextEncoding = nil) As DictionaryCaseSensitive
 		  // Converts a plain dictionary to a case-sensitive version
 		  // Convenience method (use the constructor or AssignDictionary instead).
 		  
-		  dim r as new DICT_CaseSensitiveDictionary( dict, enc )
+		  dim r as new DictionaryCaseSensitive( dict, enc )
 		  return r
 		  
 		End Function
@@ -162,13 +162,13 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ItemsNotIn(T As Dictionary) As DICT_CaseSensitiveDictionary
+		Function ItemsNotIn(T As Dictionary) As DictionaryCaseSensitive
 		  // Returns keys that are in me, but not in T.
 		  // T can be either a regualr dictionary or case-sensitive dictionary.
 		  
 		  // We could use the raw keys here, but don't so we don't have to worry about encoding.
 		  
-		  dim diff as new DICT_CaseSensitiveDictionary( zEncoding )
+		  dim diff as new DictionaryCaseSensitive( zEncoding )
 		  
 		  dim vKeys() as Variant = me.Keys
 		  dim thisKey As Variant
@@ -302,7 +302,7 @@ Inherits Dictionary
 		      if part = S then
 		        matchIndex = matchIndex + 1
 		        vKeys( matchIndex ) = thisKey
-		      end if 
+		      end if
 		    end
 		  next
 		  
@@ -333,7 +333,7 @@ Inherits Dictionary
 		      if StrComp( part, S, 0 ) = 0 then
 		        matchIndex = matchIndex + 1
 		        vKeys( matchIndex ) = thisKey
-		      end if 
+		      end if
 		    end if
 		  next
 		  
@@ -403,8 +403,8 @@ Inherits Dictionary
 		      part = sKey.LeftB( sLenB )
 		      if part = S then
 		        matchIndex = matchIndex + 1
-		        vKeys( matchIndex ) = thisKey 
-		      end if 
+		        vKeys( matchIndex ) = thisKey
+		      end if
 		    end if
 		  next
 		  
@@ -460,7 +460,7 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub pAssignCSDictionary(dict As DICT_CaseSensitiveDictionary)
+		Private Sub pAssignCSDictionary(dict As DictionaryCaseSensitive)
 		  // Clones another case-sensitive dictionary into this one
 		  
 		  dim k() as variant = dict.RawKeys
@@ -663,13 +663,13 @@ Inherits Dictionary
 		really need the keys to be case-sensitive and/or performance is an issue,
 		use the native dictionary instead.
 		
-		3. You can specify the text encoding for the keys upon construction of the DICT_CaseSensitiveDictionary.
+		3. You can specify the text encoding for the keys upon construction.
 		
 		If you create a dictionary as usual, keys will be converted to, and encoded as, UTF8.
 		If you prefer a different type of encoding, you can specify it upon construction.
 		For example:
 		
-		  dim d as new DICT_CaseSensitiveDictionary( Encodings.UTF16 )
+		  dim d as new DictionaryCaseSensitive( Encodings.UTF16 )
 		
 		4. You can use the "Raw" methods to access the keys directly.
 		
@@ -681,7 +681,6 @@ Inherits Dictionary
 		5. There is an included Clone method that will make a copy of the dictionary quickly.
 		
 		You can do the same thing using the "Raw" methods described above, but I've saved you the trouble.
-		
 	#tag EndNote
 
 
