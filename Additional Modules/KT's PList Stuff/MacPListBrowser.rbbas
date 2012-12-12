@@ -1143,7 +1143,7 @@ Protected Class MacPListBrowser
 
 	#tag Note, Name = Release Notes
 		1.4
-		- As of MacOSLib v.117 (or thereabouts), CFDictionary is converted to a NativeSubclass.DictionaryCaseSensitive. Modified this code accordingly.
+		- As of MacOSLib v.118, CFDictionary is converted to a NativeSubclass.DictionaryCaseSensitive. Modified this code accordingly.
 		- Changed calls to DICT_CaseSensitiveDictionary to the identical NativeSubclass.DictionaryCaseSensitive.
 		
 		1.3
