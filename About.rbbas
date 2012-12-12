@@ -8,6 +8,19 @@ Protected Module About
 		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
 	#tag EndNote
 
+	#tag Note, Name = How To Use
+		To add MacOSLib to your project, select the entire "macoslib" folder in this project, copy it and paste
+		it into your project. Do not attempt to import (or drag+drop) the folder from disk into your project,
+		as the IDE will mess the class hierarchy up, causing lots of compile errors.
+		
+		If you find that the macoslib is too large for your needs, don't worry - the compiler will only include
+		the code for classes you actually use in your project, so your project won't grow just because you include
+		macoslib without using any of its features (well, that's the theory, at least).
+		
+		You may try to remove unused classes and modules gradually after you figure out you won't need them,
+		but please start with the entire macoslib folder to save you trouble initially.
+	#tag EndNote
+
 	#tag Note, Name = License
 		The present library is distributed under the terms of the MIT License.
 		
@@ -19,13 +32,9 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
-		117: 2012-12-11 by KT
-		- Added NativeSubclass module to house subclasses of native types.
-		- Added NativeSubclass.DictionaryCaseSensitive.
-		- Changed output from CFDictionary.VariantValue and related methods to return a NativeSubclass.DictionaryCaseSensitive.
-		  (Note: This is a Dictionary subclass so existing code will not need to change.)
-		- Optimized code that converts CFDictionary to and from Dictionary.
-		- Added #pragmas for unused "areas" parameter in Paint events in 2012r2 and later.
+		117: 2012-12-11 by TT
+		- Adds "MacResourceFork" as a replacement for the ResourceFork class that's removed in RB 2012r2
+		- Adds some notes and tests around getting the app's Bundle Identifier
 		
 		116: 2012-12-01 by KT
 		- Added caching for System.IsFunctionAvailable calls.

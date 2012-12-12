@@ -110,7 +110,7 @@ Inherits CFType
 		          functionNeedsCheck = false
 		        end if
 		        
-		        if functionIsAvailable then 
+		        if functionIsAvailable then
 		          try
 		            dim data as CFData = CFURL.CreateBookmarkDataFromFile( f )
 		            dim url as CFURL = CFURL.CreateByResolvingBookmarkData( data )

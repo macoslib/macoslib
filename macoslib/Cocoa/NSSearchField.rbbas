@@ -23,11 +23,6 @@ Inherits NSControl
 		    
 		    setScrollable(self.Cell, true)
 		  #endif
-		  
-		  
-		  
-		  
-		  
 		  raiseEvent Open
 		End Sub
 	#tag EndEvent

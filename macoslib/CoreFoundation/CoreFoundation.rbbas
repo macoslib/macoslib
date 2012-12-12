@@ -526,8 +526,14 @@ Module CoreFoundation
 		    const kTestCFBundleAndCFPropertyList = FALSE
 		    'const kTestCFSocket = FALSE
 		    
+		    // Check our app's Bundle Identifier
+		    dim myBundleID as String = CFBundle.Application.Identifier
+		    _testAssert myBundleID = "com.declaresub.macoslib"
+		    
+		    // Test creating new bundles
 		    dim s as String
 		    s = CFBundle.NewCFBundleFromID(BundleID).Identifier
+		    _testAssert s = BundleID
 		    
 		    dim cft as CFType
 		    

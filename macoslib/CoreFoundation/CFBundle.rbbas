@@ -359,14 +359,14 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  // Returns the Bundle Identifier.
+			  //
+			  // If you use CFBundle.Application.Identifier, then you'll get your app's Bundle ID (such as: "com.domain.appname")
+			  
 			  #if targetMacOS
-			    soft declare function CFBundleGetIdentifier lib CarbonLib (bundle as Ptr) as Ptr
+			    declare function CFBundleGetIdentifier lib CarbonLib (bundle as Ptr) as CFStringRef
 			    
-			    if (self <> nil) then
-			      return RetainedStringValue(CFBundleGetIdentifier(self))
-			    else
-			      return ""
-			    end if
+			    return CFBundleGetIdentifier(self)
 			  #endif
 			End Get
 		#tag EndGetter
