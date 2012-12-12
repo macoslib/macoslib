@@ -61,6 +61,10 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		  if PopupMenu1.ListIndex = -1 then
 		    return
 		  end if

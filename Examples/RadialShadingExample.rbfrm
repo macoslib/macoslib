@@ -45,6 +45,11 @@ End
 		  context.FillRect CGRectMake(0.0, 0.0, 1.0, 1.0)
 		  context.DrawShading self.Shading
 		  context.RestoreGState
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 

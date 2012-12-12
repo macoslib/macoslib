@@ -135,6 +135,9 @@ End
 		  'end if
 		  
 		  #pragma unused g
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -356,6 +359,11 @@ End
 		  if image <> nil then
 		    DrawImages g
 		  end if
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -60,6 +60,9 @@ Inherits Canvas
 		  me.ControlEnabled = me.Enabled
 		  
 		  #pragma unused g
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent

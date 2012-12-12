@@ -757,7 +757,8 @@ Protected Class MacPListBrowser
 		  
 		  dim r as Dictionary
 		  if isCaseSensitive then
-		    r = new DICT_CaseSensitiveDictionary
+		    'r = new DICT_CaseSensitiveDictionary
+		    r = new NativeSubclass.DictionaryCaseSensitive
 		  else
 		    r = new Dictionary
 		  end if
@@ -1141,6 +1142,10 @@ Protected Class MacPListBrowser
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.4
+		- As of MacOSLib v.118, CFDictionary is converted to a NativeSubclass.DictionaryCaseSensitive. Modified this code accordingly.
+		- Changed calls to DICT_CaseSensitiveDictionary to the identical NativeSubclass.DictionaryCaseSensitive.
+		
 		1.3
 		- Added XMLValue as alias for PListStringValue.
 		- Added optional parameter asBinary to SaveToFile.
@@ -1217,6 +1222,12 @@ Protected Class MacPListBrowser
 		might lead to loss of data where keys differ only in case.
 	#tag EndNote
 
+	#tag Note, Name = What happened to DICT_CaseSensitiveDictionary?
+		
+		DICT_CaseSensitiveDictionary has been incorporated into MacOSLib as
+		NativeSubclass.DictionaryCaseSensitive. You should update your code accordingly.
+	#tag EndNote
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -1224,7 +1235,8 @@ Protected Class MacPListBrowser
 			  // First update the property as needed
 			  
 			  if me.zIsDictionary and zValue IsA Dictionary then
-			    zCaseSensitive = ( zValue IsA DICT_CaseSensitiveDictionary )
+			    'zCaseSensitive = ( zValue IsA DICT_CaseSensitiveDictionary )
+			    zCaseSensitive = ( zValue IsA NativeSubclass.DictionaryCaseSensitive )
 			  end if
 			  
 			  return zCaseSensitive
@@ -1237,11 +1249,13 @@ Protected Class MacPListBrowser
 			    
 			    if value then // Make is case-sensitve
 			      dim d as Dictionary = zValue
-			      dim cs as new DICT_CaseSensitiveDictionary
+			      'dim cs as new DICT_CaseSensitiveDictionary
+			      dim cs as new NativeSubclass.DictionaryCaseSensitive
 			      cs.AssignDictionary( d )
 			      zValue = cs
 			    else // Make is case-INsensitive
-			      dim d as DICT_CaseSensitiveDictionary = zValue
+			      'dim d as DICT_CaseSensitiveDictionary = zValue
+			      dim d as NativeSubclass.DictionaryCaseSensitive = zValue
 			      zValue = d.CloneAsDictionary
 			    end if
 			    
