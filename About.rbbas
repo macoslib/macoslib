@@ -32,6 +32,13 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		120: 2012-12-13 by TT
+		- Added FolderItem.OpenMacResourceFork as a replacement for f.OpenResourceFork
+		
+		119: 2012-12-12 by KT
+		- Removed legal notice from NativeSubclass.DictionaryCaseSensitive.
+		- Added lines to prevent compiler from complaining about unused variables.
+		
 		118: 2012-12-11 by KT
 		- Added NativeSubclass module to house subclasses of native types.
 		- Added NativeSubclass.DictionaryCaseSensitive.
@@ -152,7 +159,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"118", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"120", Scope = Protected
 	#tag EndConstant
 
 

@@ -622,27 +622,6 @@ Inherits Dictionary
 	#tag EndMethod
 
 
-	#tag Note, Name = Legal
-		This class was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
-		It is copyright ©2012, all rights reserved.
-		
-		You may use this class AS IS at your own risk for any purpose. The author does not warrant its use
-		for any particular purpose and disavows any responsibility for bad design, poor execution,
-		or any other faults.
-		
-		The author does not actively support this class, although comments and recommendations
-		are welcome.
-		
-		You may modify code in this class as long as those modifications are clearly indicated
-		via comments in the source code.
-		
-		You may distribute this class, modified or unmodified, as long as any modifications
-		are clearly indicated, as noted above, and this copyright notice is not disturbed or removed.
-		
-		If you do make useful modifications, please let me know so I can include them in
-		future versions.
-	#tag EndNote
-
 	#tag Note, Name = Usage
 		
 		This is a drop-in replacement for the dictionary with some modifications and additional functions:

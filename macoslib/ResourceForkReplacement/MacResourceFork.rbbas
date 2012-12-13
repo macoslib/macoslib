@@ -48,6 +48,9 @@ Class MacResourceFork
 		    mFileHandle = hdl
 		    mResHandle = ResourceChainSaver.CurResFile
 		  end
+		  
+		  saver = nil // Keeps the compiler from complaining
+		  
 		End Sub
 	#tag EndMethod
 
@@ -86,6 +89,9 @@ Class MacResourceFork
 		  declare function GetResAttrs lib CarbonLib (hdl as Ptr) as Integer
 		  dim res as new ResourceAccessor (mResHandle)
 		  return GetResAttrs (ResourceItem.ByID(mResHandle, type, id).Handle)
+		  
+		  res = nil // Keeps the compiler from complaining
+		  
 		End Function
 	#tag EndMethod
 
@@ -96,6 +102,8 @@ Class MacResourceFork
 		  dim res as new ResourceAccessor (mResHandle)
 		  
 		  return Count1Resources (type)
+		  
+		  res = nil // Keeps the compiler from complaining
 		End Function
 	#tag EndMethod
 
@@ -163,6 +171,8 @@ Class MacResourceFork
 		  dim t as OSType
 		  Get1IndType t, index_0+1
 		  return t
+		  
+		  res = nil // Keeps the compiler from complaining
 		End Function
 	#tag EndMethod
 
@@ -171,6 +181,9 @@ Class MacResourceFork
 		  declare function Count1Types lib CarbonLib () as Integer
 		  dim res as new ResourceAccessor (mResHandle)
 		  return Count1Types
+		  
+		  res = nil // Keeps the compiler from complaining
+		  
 		End Function
 	#tag EndMethod
 
