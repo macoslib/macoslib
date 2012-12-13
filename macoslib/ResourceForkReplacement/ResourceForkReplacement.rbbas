@@ -1,5 +1,14 @@
 #tag Module
 Protected Module ResourceForkReplacement
+	#tag Method, Flags = &h0
+		Function OpenMacResourceFork(extends f as FolderItem) As MacResourceFork
+		  if f <> nil and f.Exists then
+		    return new MacResourceFork (f)
+		  end if
+		End Function
+	#tag EndMethod
+
+
 	#tag Note, Name = About
 		This is part of the open source "MacOSLib"
 		Original sources are located here:  https://github.com/macoslib/macoslib
@@ -16,7 +25,6 @@ Protected Module ResourceForkReplacement
 		If you need any of the missing functions, let us know, e.g. via the issues tracker
 		(https://github.com/macoslib/macoslib/issues), or see if the MBS plugins have added this
 		functionality already (http://www.monkeybreadsoftware.net).
-		
 	#tag EndNote
 
 
