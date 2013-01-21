@@ -35,7 +35,7 @@ Protected Module About
 		121: 2013-01-20 by KT
 		- Added MacSystemProfiler class to Additional Modules.
 		- Added Carbon.VersionAsInteger to standardize version-to-integer conversions. (Moved code from SystemVersionAsInt.)
-		- Mofied Carbon.SystemVersionAsInt to use Carbon.VersionAsInteger. No change in functionality.
+		- Modified Carbon.SystemVersionAsInt to use Carbon.VersionAsInteger. No change in functionality.
 		- Added Carbon.IsMountainLion.
 		- Modified MacPListBrowser.
 		
