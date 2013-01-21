@@ -41,6 +41,16 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsMountainLion() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 100800
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsPanther() As Boolean
 		  // Tells you if this OS has features of this version
 		  // This means that it returns true for later OS versions as well.
@@ -171,17 +181,10 @@ Protected Module Carbon
 		  //
 		  // This function avoids using floating point, so that a version such as 10.4 doesn't become 10.39999 or something alike, making a test for >=10.4 fail
 		  
-		  static version as Integer
-		  
-		  if version = 0 then
-		    dim parts() as String = SystemVersionAsString.Split(".")
-		    version = 10000 * parts(0).Val + 100 * parts(1).Val
-		    if parts.Ubound >= 2 then
-		      version = version + parts(2).Val
-		    end
-		  end
+		  static version as Integer = Carbon.VersionAsInteger( SystemVersionAsString )
 		  
 		  return version
+		  
 		End Function
 	#tag EndMethod
 
@@ -202,6 +205,32 @@ Protected Module Carbon
 		  
 		  static version as String = GetSystemVersionFromGestalt
 		  return version
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function VersionAsInteger(versionString As String) As Integer
+		  // The value returned is scaled up, so that a version like 10.1.2 becomes 100102, i.e. two digits per part.
+		  //
+		  // This function avoids using floating point, so that a version such as 10.4 doesn't become 10.39999 or something alike, making a test for >=10.4 fail
+		  //
+		  // CAUTION: This method will ignore anything past the third part of the version. So "1.2.3.4.5" will be treated the same as "1.2.3".
+		  
+		  dim version as Integer
+		  
+		  dim parts() as String = versionString.Split(".")
+		  if parts.Ubound <> -1 then
+		    version = 10000 * parts( 0 ).Val 
+		    if parts.Ubound > 0 then
+		      version = version + 100 * parts( 1 ).Val
+		      if parts.Ubound > 1 then
+		        version = version + parts( 2 ).Val
+		      end if
+		    end if
+		  end if
+		  
+		  return version
+		  
 		End Function
 	#tag EndMethod
 
