@@ -34,6 +34,7 @@ Protected Module About
 		
 		122: 2013-01-25 by KT
 		- Changes to MacPListBrowser.
+		- Fixed problem that was preventing compile in Real Studio 2012r2.1.
 		
 		121: 2013-01-20 by KT
 		- Added MacSystemProfiler class to Additional Modules.
