@@ -492,34 +492,35 @@ Protected Module Cocoa
 		  
 		  select case v.Type
 		  case Variant.TypeBoolean
-		    return  new NSNumber( v.BooleanValue )
+		    return new NSNumber( v.BooleanValue )
 		    
 		  case Variant.TypeInteger
-		    return   new NSNumber( v.IntegerValue )
+		    return new NSNumber( v.IntegerValue )
 		    
 		  case Variant.TypeString
-		    return   new NSString( v.StringValue )
+		    dim s as NSString = v.StringValue
+		    return s
 		    
 		  case Variant.TypeDouble, Variant.TypeSingle
-		    return   new NSNumber( v.DoubleValue )
+		    return new NSNumber( v.DoubleValue )
 		    
 		  case Variant.TypeObject  //->Dictionary, MemoryBlock
 		    if v IsA Dictionary then
 		      return   NSDictionary.CreateFromDictionary( Dictionary( v ))
 		    elseif v IsA MemoryBlock then
-		      return   new NSData( MemoryBlock( v ))
+		      return new NSData( MemoryBlock( v ))
 		    elseif v isa NSObject then //Already a NSObject
 		      return  v
 		    end if
 		    
 		  case Variant.TypeDate
-		    return   new NSDate( v.DateValue )
+		    return new NSDate( v.DateValue )
 		    
 		  case Variant.TypeNil
-		    return   new NSNull
+		    return new NSNull
 		    
 		  case Variant.TypeColor
-		    return   new NSColor( v.ColorValue )
+		    return new NSColor( v.ColorValue )
 		  else
 		    raise new TypeMismatchException
 		  end select
@@ -533,13 +534,6 @@ Protected Module Cocoa
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSSelectorFromString Lib CocoaLib (aSelectorName as CFStringRef) As Ptr
 	#tag EndExternalMethod
-
-	#tag Method, Flags = &h0
-		Function NSString(ImmutableString as String) As NSString
-		  
-		  return   NSString.InitFromString( ImmutableString )
-		End Function
-	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h0
 		Declare Function NSStringFromClass Lib CocoaLib (aClass as Ptr) As CFStringRef
