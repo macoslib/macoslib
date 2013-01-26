@@ -1346,6 +1346,9 @@ Protected Class MacPListBrowser
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.6
+		- Added StringValue property. Use this to extract the raw data that can be converted to string.
+		
 		1.5
 		- Changed XMLValue to a computed property to make debugging easier.
 		- Added Try/Catch block to PLIstStringValue to prevent errors when looking at XMLValue in debugger. (Error really shouldn't happen anyway.)
@@ -1585,6 +1588,31 @@ Protected Class MacPListBrowser
 			End Get
 		#tag EndGetter
 		Root As MacPListBrowser
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as string
+			  
+			  select case zValueType
+			  case ValueType.IsArray, ValueType.IsDictionary, ValueType.IsUnknown
+			    // Do nothing
+			    
+			  else
+			    try
+			      r = zValue.StringValue
+			    catch
+			      r = ""
+			    end try
+			    
+			  end select
+			  
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		StringValue As String
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1830,6 +1858,11 @@ Protected Class MacPListBrowser
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PrettyText"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -1846,6 +1879,7 @@ Protected Class MacPListBrowser
 			Name="XMLValue"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
