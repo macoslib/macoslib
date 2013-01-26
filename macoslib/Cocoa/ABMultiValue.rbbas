@@ -15,7 +15,7 @@ Inherits NSObject
 		  dim nsma as NSMutableArray
 		  
 		  for i as integer=0 to me.Count - 1
-		    NSlabel = me.LabelAtIndex_asNSString( i )
+		    NSlabel = me.LabelAtIndex( i )
 		    label = me.LabelAtIndex( i )
 		    value = me.ValueAtIndex( i )
 		    
@@ -49,21 +49,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function LabelAtIndex(index as integer) As String
+		Function LabelAtIndex(index as integer) As NSString
 		  #if TargetMacOS
-		    declare function labelAtIndex lib "AddressBook.framework" selector "labelAtIndex:" (id as Ptr, idx as integer) as CFStringRef
+		    declare function labelAtIndex lib "AddressBook.framework" selector "labelAtIndex:" (id as Ptr, idx as integer) as Ptr
 		    
-		    return   labelAtIndex( me.id, index )
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function LabelAtIndex_asNSString(index as integer) As NSString
-		  #if TargetMacOS
-		    declare function labelAtIndex lib "AddressBook.framework" selector "labelAtIndex:" (id as Ptr, idx as integer) as CFStringRef
-		    
-		    return   new NSString( labelAtIndex( me.id, index ))
+		    return new NSString(labelAtIndex( self, index))
 		  #endif
 		End Function
 	#tag EndMethod

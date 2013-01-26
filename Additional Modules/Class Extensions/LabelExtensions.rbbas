@@ -32,7 +32,7 @@ Protected Module LabelExtensions
 		      newNSP.LineBreakMode = mode
 		      
 		      dim dict as new NSMutableDictionary
-		      dict.Value( NSString( Cocoa.StringConstant( nsas.kNSParagraphStyleAttributeName ))) = newNSP
+		      dict.Value(new NSString(Cocoa.StringConstant( nsas.kNSParagraphStyleAttributeName ))) = newNSP
 		      
 		      setAttributes( nsas.id, dict.id, range )
 		      ctrl.AttributedStringValue = nsas
