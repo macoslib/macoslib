@@ -55,10 +55,14 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function ConvertFontToHaveTrait(font as NSFont, traitMask as integer) As NSFont
+		  if font is nil then
+		    return nil
+		  end if
+		  
 		  #if TargetMacOS
 		    declare function convertFont lib CocoaLib selector "convertFont:toHaveTrait:" (id as Ptr, fontid as Ptr, mask as Integer) as Ptr
 		    
-		    return new NSFont(convertFont(self, font.id, traitMask))
+		    return new NSFont(convertFont(self, font, traitMask))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -102,7 +106,8 @@ Inherits NSObject
 		      if italic then
 		        traits = traits OR kNSItalicFontMask
 		      end if
-		      nsf = new NSFont( fontWithFamily( me.id, familyName, traits, 5, size ), false )
+		      
+		      nsf = new NSFont( fontWithFamily( me.id, familyName, traits, NormalWeight, size ), false )
 		      
 		    end if
 		    
@@ -118,10 +123,10 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr
 		    
-		    dim p as Ptr = fontWithFamily( me.id, familyName, traits, 5, size )
+		    dim p as Ptr = fontWithFamily(self, familyName, traits, NormalWeight, size)
 		    
 		    if p<>nil then
-		      return new NSFont( p, false )
+		      return new NSFont(p)
 		    else
 		      return nil
 		    end if
@@ -183,6 +188,9 @@ Inherits NSObject
 	#tag EndConstant
 
 	#tag Constant, Name = kNSUnitalicFontMask, Type = Double, Dynamic = False, Default = \"&h1000000", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NormalWeight, Type = Double, Dynamic = False, Default = \"5", Scope = Private
 	#tag EndConstant
 
 
