@@ -46,7 +46,7 @@ Protected Module TextFieldExtension
 		      
 		      'call   nsas.AddAttribute( nsas.kNSParagraphStyleAttributeName, newNSP, Cocoa.NSMakeRange( 0, nsas.Length ))
 		      dim dict as new NSMutableDictionary
-		      dict.Value( NSString( Cocoa.StringConstant( nsas.kNSParagraphStyleAttributeName ))) = newNSP
+		      dict.Value(new NSString( Cocoa.StringConstant( nsas.kNSParagraphStyleAttributeName ))) = newNSP
 		      'call   nsas.AddAttribute( nsas.kNSParagraphStyleAttributeName, newNSP, range )
 		      
 		      setAttributes( nsas.id, dict.id, range )

@@ -278,13 +278,13 @@ Inherits NSControl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  dim nss as NSString
+		  
 		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as NSTokenField = NSTokenField( w.Value )
 		    if obj <> nil then
-		      nss = new NSString( obj.HandleDisplayStringForObject( representedObject ))
+		      dim nss as NSString = obj.HandleDisplayStringForObject(representedObject)
 		      return   nss.id
 		      
 		    else
@@ -303,14 +303,12 @@ Inherits NSControl
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
-		  dim nss as NSString
-		  
 		  if CocoaDelegateMap.HasKey( id ) then
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as NSTokenField = NSTokenField( w.Value )
 		    if obj <> nil then
-		      nss = new NSString( obj.HandleDisplayStringForObject( representedObject ))
-		      return   nss.id
+		      dim nss as NSString = obj.HandleDisplayStringForObject( representedObject)
+		      return nss.id
 		      
 		    else
 		      //something might be wrong.
@@ -926,7 +924,7 @@ Inherits NSControl
 		      
 		      //Build a Dictionary for the Event
 		      dict = new Dictionary
-		      types = pitem.Types.ValuesAsArrayOfStrings
+		      types = pitem.Types.StringValues
 		      
 		      for j as integer = 0 to UBound( types )
 		        obj = pitem.PropertyListForType( types( j ))
