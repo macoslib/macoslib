@@ -2,43 +2,50 @@
 Class NSMutableString
 Inherits NSString
 	#tag Method, Flags = &h0
-		Sub AppendString(s as NSString)
-		  //Append the string
+		Sub Append(s as NSString)
+		  if s = nil then
+		    return
+		  end if
 		  
-		  declare sub appendString lib CocoaLib selector "appendString:" (id as Ptr, nsstring as Ptr )
-		  
-		  appendString  (self.id, s.id )
+		  #if targetMacOS
+		    //aString must not be nil.
+		    declare sub appendString lib CocoaLib selector "appendString:" (id as Ptr, aString as Ptr )
+		    
+		    appendString(self, s)
+		    
+		  #else
+		    #pragma unused s
+		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub AppendString(s as String)
-		  //Append the string
-		  
-		  declare sub appendString lib CocoaLib selector "appendString:" (id as Ptr, nsstring as Ptr )
-		  
-		  dim nss as NSString = NSString.InitFromString( s )
-		  appendString  (self.id, nss.id )
+		Sub Append(s as String)
+		  #if targetMacOS
+		    declare sub appendString lib CocoaLib selector "appendString:" (obj_id as Ptr, aString as CFStringRef)
+		    
+		    appendString(self, s)
+		  #else
+		    #pragma unused s
+		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  declare function stringWithCapacity lib CocoaLib selector "stringWithCapacity:" (id as Ptr, capacity as UInt32) as Ptr
-		  
-		  dim p as Ptr = NSObject.Allocate( "NSMutableString" )
-		  
-		  Super.Constructor( stringWithCapacity( p, 0 ), true )
+		  #if targetMacOS
+		    declare function initWithCapacity lib CocoaLib selector "initWithCapacity:" (id as Ptr, capacity as UInt32) as Ptr
+		    
+		    super.Constructor(initWithCapacity(NSObject.Allocate("NSMutableString" ), 0), hasOwnership)
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(initialString as string)
-		  declare function stringWithCapacity lib CocoaLib selector "stringWithCapacity:" (id as Ptr, capacity as UInt32) as Ptr
-		  
-		  Super.Constructor( stringWithCapacity( Cocoa.NSClassFromString( "NSMutableString" ), 0 ), false )
-		  AppendString   initialString
+		Sub Constructor(s as String)
+		  self.Constructor()
+		  self.Append(s)
 		  
 		End Sub
 	#tag EndMethod
