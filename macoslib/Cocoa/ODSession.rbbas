@@ -38,8 +38,8 @@ Inherits NSObject
 		      raise  nsErr
 		    end if
 		    if p<>nil then
-		      nsa = new NSArray( p, false )
-		      results = nsa.ValuesAsArrayOfStrings
+		      nsa = new NSArray(p)
+		      results = nsa.StringValues
 		    end if
 		    
 		    return  results

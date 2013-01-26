@@ -62,21 +62,17 @@ Inherits NSObject
 		    declare function subnodeNamesAndReturnError lib "OpenDirectory" selector "subnodeNamesAndReturnError:" (id as Ptr, byref err as Ptr) as Ptr
 		    
 		    dim perr as Ptr
-		    dim nserr as NSException
-		    dim nsa as NSArray
-		    dim results() as string
-		    
-		    dim p as Ptr = subnodeNamesAndReturnError( me.id, perr )
+		    dim p as Ptr = subnodeNamesAndReturnError(self, perr)
 		    
 		    if perr<>nil then
-		      nsErr = new NSException( perr )
-		      raise  nsErr
-		    end if
-		    if p<>nil then
-		      nsa = new NSArray( p, false )
-		      results = nsa.ValuesAsArrayOfStrings
+		      raise new NSException(perr)
 		    end if
 		    
+		    dim results() as string
+		    if p<>nil then
+		      dim nsa as new NSArray(p)
+		      results = nsa.StringValues
+		    end if
 		    return  results
 		  #endif
 		End Function
