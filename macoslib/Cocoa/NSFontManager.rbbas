@@ -6,9 +6,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function availableFontFamilies lib CocoaLib selector "availableFontFamilies" (id as Ptr) as Ptr
 		    
-		    dim nsa as NSArray = new NSArray( availableFontFamilies( me.id ), false )
-		    
-		    return   nsa.VariantValue
+		    return GetStringValues(new NSArray(availableFontFamilies(self)))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -18,9 +16,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function availableFonts lib CocoaLib selector "availableFonts" (id as Ptr) as Ptr
 		    
-		    dim nsa as NSArray = new NSArray( AvailableFonts( me.id ), false )
-		    
-		    return   nsa.VariantValue
+		    return GetStringValues(new NSArray( AvailableFonts(self)))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -30,9 +26,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function availableMembersOfFontFamily lib CocoaLib selector "availableMembersOfFontFamily:" (id as Ptr, name as CFStringRef) as Ptr
 		    
-		    dim nsa as NSArray = new NSArray( availableMembersOfFontFamily( me.id, theFamily ), false )
-		    
-		    return   nsa.ValuesAsArrayOfStrings
+		    return GetStringValues(new NSArray(availableMembersOfFontFamily(self, theFamily)))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -42,9 +36,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function collectionNames lib CocoaLib selector "collectionNames" (id as Ptr) as Ptr
 		    
-		    dim nsa as NSArray = new NSArray( collectionNames( me.id ), false )
-		    
-		    return   nsa.VariantValue
+		    return GetStringValues(new NSArray(collectionNames(self)))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -56,17 +48,21 @@ Inherits NSObject
 		  // Possible constructor calls:
 		  // Constructor() -- From NSObject
 		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
-		  Super.Constructor( SharedManager )
+		  Super.Constructor(SharedManager)
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ConvertFontToHaveTrait(font as NSFont, traitMask as integer) As NSFont
+		  if font is nil then
+		    return nil
+		  end if
+		  
 		  #if TargetMacOS
 		    declare function convertFont lib CocoaLib selector "convertFont:toHaveTrait:" (id as Ptr, fontid as Ptr, mask as Integer) as Ptr
 		    
-		    return  new NSFont( convertFont( me.id, font.id, traitMask ), false )
+		    return new NSFont(convertFont(self, font, traitMask))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -110,7 +106,8 @@ Inherits NSObject
 		      if italic then
 		        traits = traits OR kNSItalicFontMask
 		      end if
-		      nsf = new NSFont( fontWithFamily( me.id, familyName, traits, 5, size ), false )
+		      
+		      nsf = new NSFont( fontWithFamily( me.id, familyName, traits, NormalWeight, size ), false )
 		      
 		    end if
 		    
@@ -122,19 +119,25 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function GetFontFromFamily(familyName as string, traits as integer, size as double = 0.0) As NSFont
 		  //Find a font
-		  dim p as Ptr
 		  
-		  declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr
+		  #if targetMacOS
+		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr
+		    
+		    dim p as Ptr = fontWithFamily(self, familyName, traits, NormalWeight, size)
+		    
+		    if p<>nil then
+		      return new NSFont(p)
+		    else
+		      return nil
+		    end if
+		  #endif
 		  
-		  p = fontWithFamily( me.id, familyName, traits, 5, size )
-		  
-		  if p<>nil then
-		    return  new NSFont( p, false )
-		  else
-		    return  nil
-		  end if
-		  
-		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function GetStringValues(theArray as NSArray) As String()
+		  return theArray.StringValues
 		End Function
 	#tag EndMethod
 
@@ -185,6 +188,9 @@ Inherits NSObject
 	#tag EndConstant
 
 	#tag Constant, Name = kNSUnitalicFontMask, Type = Double, Dynamic = False, Default = \"&h1000000", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NormalWeight, Type = Double, Dynamic = False, Default = \"5", Scope = Private
 	#tag EndConstant
 
 
