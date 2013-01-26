@@ -19,7 +19,7 @@ Protected Class MacSpeechSynthesizer
 		  
 		  #if TargetMacOS
 		    dim nsa as NSArray = NSSpeechSynthesizer.AvailableVoices
-		    Return   nsa.ValuesAsArrayOfStrings
+		    return nsa.StringValues
 		  #endif
 		End Function
 	#tag EndMethod

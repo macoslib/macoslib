@@ -66,8 +66,9 @@ Inherits NSObject
 		    
 		  case Variant.TypeString
 		    dim ars() as string = theArray
-		    for each s as String in ars
-		      nsma.Append   new NSString( s )
+		    for each item as String in ars
+		      dim s as NSString = item
+		      nsma.Append s
 		    next
 		    
 		  case Variant.TypeDouble, Variant.TypeSingle
@@ -125,6 +126,25 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function StringValues() As string()
+		  #if TargetMacOS
+		    dim result() as string
+		    for i as integer = 0 to me.Count - 1
+		      dim p as Ptr = me.Value( i )
+		      if Cocoa.InheritsFromClass(p, "NSString") then
+		        dim nss as new NSString(p)
+		        result.Append nss.StringValue
+		      else
+		        raise new TypeMismatchException
+		      end if
+		    next
+		    
+		    return result
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Value(index as Integer) As Ptr
 		  #if TargetMacOS
 		    'declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
@@ -141,26 +161,6 @@ Inherits NSObject
 		    else
 		      return nil
 		    end if
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function ValuesAsArrayOfStrings() As string()
-		  #if TargetMacOS
-		    dim result() as string
-		    dim p as Ptr
-		    dim nss as NSString
-		    
-		    for i as integer=0 to me.Count - 1
-		      p = me.Value( i )
-		      if Cocoa.InheritsFromClass( p, "NSString" ) then
-		        nss = new NSString( p, false )
-		        result.Append   nss.StringValue
-		      end if
-		    next
-		    
-		    return result
 		  #endif
 		End Function
 	#tag EndMethod

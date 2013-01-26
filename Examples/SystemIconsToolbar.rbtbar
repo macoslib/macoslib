@@ -15,7 +15,7 @@ Begin Toolbar SystemIconsToolbar
 		HelpTag = ""
 		Style = 0
 	End
-	Begin ToolItem ToolItem1
+	Begin ToolButton ToolItem1
 		Caption = "Untitled"
 		HelpTag = ""
 		Style = 6
