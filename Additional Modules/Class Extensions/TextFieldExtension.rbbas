@@ -19,6 +19,28 @@ Protected Module TextFieldExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PlaceholderString(extends t as TextField) As String
+		  #if targetMacOS
+		    declare function cell lib CocoaLib selector "cell" (obj_id as Ptr) as Ptr
+		    declare function placeholderString lib CocoaLib selector "placeholderString" (obj_id as Ptr) as Ptr
+		    
+		    return RetainedStringValue(placeholderString(cell(Ptr(t.Handle))))
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub PlaceholderString(extends t as TextField, assigns value as String)
+		  #if targetMacOS
+		    declare function cell lib CocoaLib selector "cell" (obj_id as Ptr) as Ptr
+		    declare sub setPlaceholderString lib CocoaLib selector "setPlaceholderString:" (obj_id as Ptr, s as CFStringRef)
+		    
+		    setPlaceholderString(cell(Ptr(t.Handle)), value)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SetLineBreak(extends TF as TextField, assigns mode as integer)
 		  
 		  #if TargetMacOS
