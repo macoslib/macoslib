@@ -3,7 +3,6 @@ Class NSMutableAttributedString
 Inherits NSAttributedString
 	#tag Method, Flags = &h0
 		Function AddAttribute(attributeName as string, value as variant, optional forRange as NSRange) As boolean
-		  
 		  //@ Simple values like string, numbers, colors can be set in 'value', otherwise, only NSObjects can be used.
 		  
 		  #if TargetMacOS
@@ -95,7 +94,6 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h0
 		Sub AppendAttributedString(attrString as NSAttributedString)
-		  
 		  #if TargetMacOS
 		    declare sub appendAttributedString lib CocoaLib selector "appendAttributedString:" (id as Ptr, attrS as Ptr)
 		    
@@ -119,25 +117,13 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
-		  
-		  Super.Constructor( Initialize( Allocate( "NSMutableAttributedString" )), true )
+		  Super.Constructor( Initialize( Allocate( "NSMutableAttributedString" )), hasOwnership )
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
-		  
 		  Super.Constructor( id, hasOwnership, "NSMutableAttributedString" )
 		  
 		End Sub
@@ -156,7 +142,6 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h0
 		Sub FixAttributes(optional inRange as NSRange)
-		  
 		  #if TargetMacOS
 		    declare sub fixAttributesInRange lib CocoaLib selector "fixAttributesInRange:" (id as Ptr, aRange as NSRange)
 		    
@@ -181,7 +166,6 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h0
 		Function MutableString() As NSMutableString
-		  
 		  #if TargetMacOS
 		    declare Function mutableString lib CocoaLib selector "mutableString" (id as Ptr) as Ptr
 		    
@@ -194,87 +178,27 @@ Inherits NSAttributedString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SetAttributes(forRange as NSRange, attrs as NSDictionary) As boolean
-		  #pragma unused forRange
-		  #pragma unused attrs
-		  '
-		  '#if TargetMacOS
-		  'declare sub addAttribute lib CocoaLib selector "addAttribute:value:range:" (id as Ptr, name as CFStringRef, value as Ptr, aRange as NSRange)
-		  '
-		  ''dim mgr as NSFontManager = NSFontManager.SharedManager
-		  'dim nsf as NSFont
-		  'dim range as NSRange
-		  '
-		  'if NOT value isa NSObject then
-		  'raise  new MacOSError( -50, "Invalid value. Must be a subclass of NSObject." )
-		  'end if
-		  '
-		  'if attributeName.Left( 2 )="NS" AND attributeName.Right( 13 )="AttributeName" then //Cocoa constant
-		  'addAttribute( me.id, Cocoa.StringConstant( attributeName ), NSObject( value ).id, forRange )
-		  '
-		  'else
-		  'select case attributeName //Add some convenience methods
-		  'case me.kAttributeBold //Bold
-		  'nsf = me.AttributeAtIndex( "NSFontAttributeName", forRange.location, range )
-		  'if nsf=nil then
-		  'return  false
-		  'end if
-		  'nsf = NSFontManager.SharedManager.ConvertFontToHaveTrait( nsf, NSFontManager.kNSBoldFontMask )
-		  'if nsf=nil then
-		  'return  false
-		  'end if
-		  'addAttribute( me.id, Cocoa.StringConstant( "NSFontAttributeName" ), nsf.id, forRange )
-		  '
-		  'case me.kAttributeItalic //Italic
-		  'nsf = me.AttributeAtIndex( "NSFontAttributeName", forRange.location, range )
-		  'if nsf=nil then
-		  'return  false
-		  'end if
-		  'nsf = NSFontManager.SharedManager.ConvertFontToHaveTrait( nsf, NSFontManager.kNSItalicFontMask )
-		  'if nsf=nil then
-		  'return  false
-		  'end if
-		  'addAttribute( me.id, Cocoa.StringConstant( "NSFontAttributeName" ), nsf.id, forRange )
-		  '
-		  'else  //Other attribute
-		  'addAttribute( me.id, attributeName, NSObject( value ).id, forRange )
-		  '
-		  'end select
-		  'end if
-		  '
-		  'return  true
-		  '#endif
-		  '
-		  ''NSString *NSFontAttributeName;
-		  ''NSString *NSParagraphStyleAttributeName;
-		  ''NSString *NSForegroundColorAttributeName;
-		  ''NSString *NSUnderlineStyleAttributeName;
-		  ''NSString *NSSuperscriptAttributeName;
-		  ''NSString *NSBackgroundColorAttributeName;
-		  ''NSString *NSAttachmentAttributeName;
-		  ''NSString *NSLigatureAttributeName;
-		  ''NSString *NSBaselineOffsetAttributeName;
-		  ''NSString *NSKernAttributeName;
-		  ''NSString *NSLinkAttributeName;
-		  ''NSString *NSStrokeWidthAttributeName;
-		  ''NSString *NSStrokeColorAttributeName;
-		  ''NSString *NSUnderlineColorAttributeName;
-		  ''NSString *NSStrikethroughStyleAttributeName;
-		  ''NSString *NSStrikethroughColorAttributeName;
-		  ''NSString *NSShadowAttributeName;
-		  ''NSString *NSObliquenessAttributeName;
-		  ''NSString *NSExpansionAttributeName;
-		  ''NSString *NSCursorAttributeName;
-		  ''NSString *NSToolTipAttributeName;
-		  ''NSString *NSMarkedClauseSegmentAttributeName;
-		  ''NSString *NSWritingDirectionAttributeName;
-		  ''NSString *NSVerticalGlyphFormAttributeName;
-		End Function
+		Sub SetAttributedString(attrString as NSAttributedString)
+		  #if TargetMacOS
+		    declare sub setAttributedString lib CocoaLib selector "setAttributedString:" (id as Ptr, attrS as Ptr)
+		    
+		    setAttributedString( me, attrString )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetAttributes(attribs as NSDictionary, range as NSRange)
+		  #if TargetMacOS
+		    declare sub setAttributes lib CocoaLib selector "setAttributes:range:" (id as Ptr, attr as Ptr, aRange as NSRange)
+		    
+		    setAttributes me, attribs, range
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Subscript(optional inRange as NSRange)
-		  
 		  #if TargetMacOS
 		    declare sub subscriptRange lib CocoaLib selector "subscriptRange:" (id as Ptr, aRange as NSRange)
 		    
@@ -301,7 +225,6 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h0
 		Sub Superscript(optional inRange as NSRange)
-		  
 		  #if TargetMacOS
 		    declare sub superscriptRange lib CocoaLib selector "superscriptRange:" (id as Ptr, aRange as NSRange)
 		    
@@ -328,7 +251,6 @@ Inherits NSAttributedString
 
 	#tag Method, Flags = &h0
 		Sub Unscript(optional inRange as NSRange)
-		  
 		  #if TargetMacOS
 		    declare sub unscriptRange lib CocoaLib selector "unscriptRange:" (id as Ptr, aRange as NSRange)
 		    

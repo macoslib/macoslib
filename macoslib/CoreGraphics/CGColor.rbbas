@@ -26,7 +26,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare function CGColorGetColorSpace lib CarbonLib (color as Ptr) as Ptr
+		    declare function CGColorGetColorSpace lib CarbonLib (color as Ptr) as Ptr
 		    
 		    return new CGColorSpace(CGColorGetColorSpace(me), false)
 		  #endif
@@ -36,7 +36,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function Components() As Double()
 		  #if targetMacOS
-		    soft declare function CGColorGetComponents lib CarbonLib (color as Ptr) as Ptr
+		    declare function CGColorGetComponents lib CarbonLib (color as Ptr) as Ptr
 		    
 		    dim p as Ptr = CGColorGetComponents(me)
 		    if p = nil then
@@ -62,7 +62,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare function CGColorCreateCopy lib CarbonLib (color as Ptr) as Ptr
+		    declare function CGColorCreateCopy lib CarbonLib (color as Ptr) as Ptr
 		    
 		    super.Constructor CGColorCreateCopy(c), true
 		  #endif
@@ -76,7 +76,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare function CGColorCreateCopyWithAlpha lib CarbonLib (color as Ptr, alpha as Single) as Ptr
+		    declare function CGColorCreateCopyWithAlpha lib CarbonLib (color as Ptr, alpha as Single) as Ptr
 		    
 		    dim alphaSingle as Single = alpha
 		    super.Constructor CGColorCreateCopyWithAlpha(me, alphaSingle), true
@@ -88,7 +88,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub Constructor(colorSpace as CGColorSpace, components() as Double)
 		  #if targetMacOS
-		    soft declare function CGColorCreate lib CarbonLib (colorspace as Ptr, component as Ptr) as Ptr
+		    declare function CGColorCreate lib CarbonLib (colorspace as Ptr, component as Ptr) as Ptr
 		    
 		    //convert components to C array
 		    
@@ -114,7 +114,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare function CGColorEqualToColor lib CarbonLib (color1 as Ptr, color2 as Ptr) as Boolean
+		    declare function CGColorEqualToColor lib CarbonLib (color1 as Ptr, color2 as Ptr) as Boolean
 		    
 		    return CGColorEqualToColor(me, c)
 		  #endif
@@ -124,7 +124,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function Pattern() As CGPattern
 		  #if targetMacOS
-		    soft declare function CGColorGetPattern lib CarbonLib (color as Ptr) as Ptr
+		    declare function CGColorGetPattern lib CarbonLib (color as Ptr) as Ptr
 		    
 		    return new CGPattern(CGColorGetPattern(me), false)
 		  #endif
@@ -140,7 +140,7 @@ Inherits CFType
 			  end if
 			  
 			  #if targetMacOS
-			    soft declare function CGColorGetAlpha lib CarbonLib (color as Ptr) as Single
+			    declare function CGColorGetAlpha lib CarbonLib (color as Ptr) as Single
 			    
 			    return CGColorGetAlpha(me)
 			  #endif
@@ -157,7 +157,7 @@ Inherits CFType
 			  end if
 			  
 			  #if targetMacOS
-			    soft declare function CGColorGetNumberOfComponents lib CarbonLib (cs as Ptr) as Integer
+			    declare function CGColorGetNumberOfComponents lib CarbonLib (cs as Ptr) as Integer
 			    
 			    return CGColorGetNumberOfComponents(me)
 			  #endif

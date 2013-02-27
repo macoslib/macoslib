@@ -11,7 +11,7 @@ Implements CFPropertyList
 	#tag Event
 		Function VariantValue() As Variant
 		  // Convert to a NativeSubclass.DictionaryCaseSensitive.
-		  // This is a Dictionary subclass that can be assigned to a variable defined 
+		  // This is a Dictionary subclass that can be assigned to a variable defined
 		  // as a Dictionary.
 		  
 		  dim outDict as new NativeSubclass.DictionaryCaseSensitive
@@ -119,7 +119,7 @@ Implements CFPropertyList
 		    dim k() as Variant = dict.Keys
 		    dim v() as Variant = dict.Values
 		    dim key, value as Variant
-		    for i as integer = 0 to k.Ubound 
+		    for i as integer = 0 to k.Ubound
 		      key = k( i )
 		      value = v( i )
 		      md.Value( CFTypeFromVariant( key ) ) = CFTYpeFromVariant( value )
