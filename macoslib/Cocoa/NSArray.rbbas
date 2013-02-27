@@ -3,10 +3,17 @@ Class NSArray
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(cfa as CFArray)
-		  //Make a copy of the original CFArray
+		  // Adopts a CFArray
+		  // Note: This shall _not_ create a copy of the passed CFArray. For that, there's the Copy function.
+		  Super.Constructor( cfa, false )
 		  
-		  Super.Constructor( cfa.Clone.Reference, false )
-		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(strings() as String)
+		  // Convenience method to create an NSArray from strings
+		  me.Constructor (new CFArray(Strings))
 		End Sub
 	#tag EndMethod
 

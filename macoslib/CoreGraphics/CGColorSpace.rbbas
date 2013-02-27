@@ -35,6 +35,14 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function DeviceRGB() As CGColorSpace
+		  declare function CGColorSpaceCreateDeviceRGB lib CarbonLib () as Ptr
+		  
+		  return new CGColorSpace (CGColorSpaceCreateDeviceRGB(), hasOwnership)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function GenericGray() As CGColorSpace
 		  return CreateWithName(ColorspaceGenericGray)
 		End Function
