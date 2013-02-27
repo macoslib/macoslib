@@ -417,11 +417,12 @@ Class CFType
 	#tag Method, Flags = &h21
 		Private Function VerifyType(ref as Ptr) As Ptr
 		  #if targetMacOS
-		    if ref = nil or (raiseEvent ClassID()) = CFGetTypeID(ref) then
+		    if ref = nil or (RaiseEvent ClassID()) = CFGetTypeID(ref) then
 		      return ref
 		    else
+		      declare function CFCopyTypeIDDescription lib CarbonLib (id as Integer) as CFStringRef
 		      dim e as new TypeMismatchException
-		      e.Message = "CFTypeRef &h" + Hex(ref) + " has CFTypeID " + Str(CFGetTypeID(ref)) + "; CFTypeID " + Str(raiseEvent ClassID()) + " was expected."
+		      e.Message = "CFTypeRef &h" + Hex(ref) + " has ID " + CFCopyTypeIDDescription(CFGetTypeID(ref)) + " but " + CFCopyTypeIDDescription(RaiseEvent ClassID()) + " was expected."
 		      raise e
 		    end if
 		  #endif
