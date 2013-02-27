@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2012.021
+RBProjectVersion=2012.02
 MinIDEVersion=20070100
 Module=About;About.rbbas;&h3F268F53;&h0;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.rbbas;&hBD036B3D;&h72896D36;false
@@ -509,6 +509,7 @@ Class=MacResourceFork;macoslib/ResourceForkReplacement/MacResourceFork.rbbas;&h1
 Class=ResourceChainSaver;macoslib/ResourceForkReplacement/ResourceChainSaver.rbbas;&h48AC61B5;&h18F167E3;false
 Class=ResourceAccessor;macoslib/ResourceForkReplacement/ResourceAccessor.rbbas;&h2D4318FF;&h18F167E3;false
 Class=ResourceItem;macoslib/ResourceForkReplacement/ResourceItem.rbbas;&h101E6636;&h18F167E3;false
+Class=MacSystemProfiler;Additional Modules/KT's PList Stuff/MacSystemProfiler.rbbas;&hE1F0972;&h3D338A86;false
 Window=CoreTextExample;Examples/CoreTextExample.rbfrm;&h4F86FED2;&h4BD59C08;false
 AppMenuBar=MainMenubar
 MajorVersion=1

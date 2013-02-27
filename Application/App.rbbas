@@ -26,8 +26,6 @@ Inherits Application
 		  
 		  Cocoa.Initialize
 		  
-		  'DebugLogWND.Show
-		  
 		End Sub
 	#tag EndEvent
 

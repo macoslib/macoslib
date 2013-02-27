@@ -9,6 +9,9 @@ Protected Class MacPListBrowser
 		  dim newIndex as integer = me.Count
 		  dim v() as Variant = zValue
 		  redim v( newIndex )
+		  #if DebugBuild
+		    redim zDebugArrayChildren( newIndex )
+		  #endif
 		  zValue = v
 		  me.Child( newIndex ) = value // Do it this way so we don't have to recheck the value
 		  
@@ -63,7 +66,11 @@ Protected Class MacPListBrowser
 		    elseif itsParent is me then
 		      dim oldIndex as integer = plist.Index
 		      if oldIndex <> childIndex then
-		        v( oldIndex ) = new MacPListBrowser( plist.VariantValue, me, oldIndex, CaseSensitive ) // Make a copy
+		        dim copy as new MacPListBrowser( plist.VariantValue, me, oldIndex, CaseSensitive ) // Make a copy
+		        v( oldIndex ) = copy
+		        #if DebugBuild
+		          zDebugArrayChildren( oldIndex ) = copy
+		        #endif
 		      end if
 		      
 		    else // Its parent is not me so remove it from its parent
@@ -73,6 +80,9 @@ Protected Class MacPListBrowser
 		    
 		    plist.pSetParent( me, childIndex ) // Change the parent of the given MacPListBrowser
 		    v( childIndex ) = plist
+		    #if DebugBuild
+		      zDebugArrayChildren( childIndex ) = plist
+		    #endif
 		    zValue = v
 		    
 		  else
@@ -81,7 +91,11 @@ Protected Class MacPListBrowser
 		      pRaiseError "Only a valid type (FolderItem, CFType, dictionary, array, string, number, boolean, date, or data) can be assigned to an array."
 		    end if
 		    
-		    v( childIndex ) = new MacPListBrowser( value, self, childIndex, CaseSensitive )
+		    dim plist as new MacPListBrowser( value, self, childIndex, CaseSensitive )
+		    v( childIndex ) = plist
+		    #if DebugBuild
+		      zDebugArrayChildren( childIndex ) = plist
+		    #endif
 		    
 		  end if
 		  
@@ -299,6 +313,16 @@ Protected Class MacPListBrowser
 		  
 		  #if TargetMacOS
 		    
+		    // Try to pick out the data
+		    dim pos as integer = s.InStr( "<?xml version=" )
+		    if pos > 1 then
+		      s = s.Mid( pos )
+		    end if
+		    pos = s.InStr( "</plist>" )
+		    if pos <> 0 then
+		      s = s.Left( pos + 8 )
+		    end if
+		    
 		    dim plist as CoreFoundation.CFPropertyList = CFType.CreateFromPListString( s, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
 		    if plist <> nil then
 		      r = new MacPListBrowser( plist, isCaseSensitive )
@@ -393,6 +417,57 @@ Protected Class MacPListBrowser
 		      end if
 		      
 		      pFindByKey( findKey, keyMatchType, cs, recursive, rx, r )
+		    end if
+		    
+		  end if
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FindByKeyAndValue(findKey As String, findValue As Variant, keyMatchType As MatchType = MatchType.Exact, considerKeyCase As CaseSensitivity = CaseSensitivity.Insensitive, onlySameValueType As Boolean = True, recursive As Boolean = True) As MacPListBrowser()
+		  // Returns an array of children whose key matches the given string.
+		  // If recursive, will examine every child dictionary too.
+		  
+		  // If this isn't an array or dictionary, this will return an empty array
+		  
+		  dim r() as MacPListBrowser
+		  
+		  if findKey <> "" and findValue <> nil then
+		    
+		    if zIsDictionary or ( recursive and zIsArray ) then // If it's not one of these, it won't match anything anyway
+		      
+		      dim valType as ValueType = pValueTypeOfVariant( findValue )
+		      if valType <> ValueType.IsArray and valType <> ValueType.IsDictionary and valType <> ValueType.IsUnknown then
+		        
+		        // Figure out if this should be case-sensitive
+		        dim cs as Boolean = false
+		        select case considerKeyCase
+		        case CaseSensitivity.Default
+		          cs = CaseSensitive
+		        case CaseSensitivity.Sensitive
+		          cs = true
+		          // ELSE
+		          // case CaseSensitivity.Insensitive
+		          // cs = false
+		        end
+		        
+		        if cs then
+		          findKey = findKey.ConvertEncoding( Encodings.UTF8 ) // Make sure the encoding is right
+		        end if
+		        
+		        dim rx as RegEx
+		        if keyMatchType = MatchType.RegEx then
+		          rx = new RegEx
+		          rx.Options.CaseSensitive = cs
+		          rx.SearchPattern = findKey
+		        end if
+		        
+		        pFindByKeyAndValue( findKey, findValue, keyMatchType, cs, onlySameValueType, recursive, rx, r )
+		      end if
+		      
 		    end if
 		    
 		  end if
@@ -634,6 +709,44 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Sub pFindByKeyAndValue(findKey As String, findValue As Variant, keyMatchType As MatchType, considerKeyCase As Boolean, onlySameValueType As Boolean, recursive As Boolean, rx As RegEx, appendTo() As MacPListBrowser)
+		  // Recursive method used to fill in the appendTo array with children matching the given key.
+		  // Assumes the findKey has already been encoded properly.
+		  
+		  if zIsDictionary then
+		    
+		    dim dict as Dictionary = zValue
+		    dim k() as Variant = dict.Keys
+		    dim thisChild as MacPListBrowser
+		    for i as integer = 0 to k.Ubound
+		      dim thisKey as Variant = k( i )
+		      thisChild = nil
+		      if pStringMatches( thisKey.StringValue, findKey, keyMatchType, considerKeyCase, rx ) then
+		        thisChild = dict.Value( thisKey )
+		        if not thisChild.zIsDictionary and not thisChild.zIsArray and ( not onlySameValueType or thisChild.zValue.Type = findValue.Type ) then
+		          if thisChild.zValue = findValue then appendTo.Append thisChild
+		        end if
+		      end if
+		      if recursive then
+		        if thisChild is nil then thisChild = dict.Value( thisKey )
+		        thisChild.pFindByKeyAndValue( findKey, findValue, keyMatchType, considerKeyCase, onlySameValueType, recursive, rx, appendTo )
+		      end if
+		    next
+		    
+		  elseif recursive and zIsArray then
+		    
+		    dim v() as Variant = zValue
+		    for i as integer = 0 to v.Ubound
+		      dim thisChild as MacPListBrowser = v( i )
+		      thisChild.pFindByKeyAndValue( findKey, findValue, keyMatchType, considerKeyCase, onlySameValueType, recursive, rx, appendTo )
+		    next
+		    
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub pFindByType(findType As ValueType, recursive As Boolean, appendTo() As MacPListBrowser)
 		  // Private method to recursively return the items matching the type.
 		  
@@ -741,8 +854,12 @@ Protected Class MacPListBrowser
 		  
 		  #if TargetMacOS
 		    
-		    dim plist as CoreFoundation.CFPropertyList = me.CFPropertyListValue
-		    r = plist.XMLValue
+		    try
+		      dim plist as CoreFoundation.CFPropertyList = me.CFPropertyListValue
+		      r = plist.XMLValue
+		    catch // Really shouldn't happen
+		      r = ""
+		    end
 		    
 		  #endif
 		  
@@ -766,6 +883,83 @@ Protected Class MacPListBrowser
 		  return r
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub pPrettyText(appendTo() As String, level As Integer, parent As MacPListBrowser)
+		  dim thisLine() as string
+		  if level <> 0 then
+		    for i as integer = 1 to level
+		      thisLine.Append "| "
+		    next i
+		    'thisLine.Append " "
+		  end if
+		  
+		  if parent <> nil and parent.IsDictionary and zParentIndex <> nil and zParentIndex <> "" then
+		    thisLine.Append zParentIndex
+		    thisLine.Append ": "
+		  end if
+		  
+		  if zIsDictionary or zIsArray then
+		    dim v() as Variant
+		    if zIsDictionary then
+		      thisLine.Append "<Dictionary>"
+		      
+		      dim dict as Dictionary = zValue
+		      v = dict.Values
+		      
+		    elseif zIsArray then
+		      thisLine.Append "<Array>"
+		      v = zValue
+		      
+		    end if
+		    appendTo.Append join( thisLine, "" )
+		    
+		    for i as integer = 0 to v.Ubound
+		      dim plist as MacPListBrowser = v( i )
+		      plist.pPrettyText( appendTo, level + 1, me )
+		    next
+		    
+		    redim thisLine( -1 )
+		    for i as integer = 1 to level
+		      thisLine.Append "| "
+		    next
+		    thisLine.Append "-"
+		    appendTo.Append join( thisLine, "" )
+		    
+		  elseif zIsFolderItem then
+		    thisLine.Append "<folderitem>"
+		    dim f as FolderItem = zValue
+		    thisLine.Append f.AbsolutePath
+		    appendTo.Append join( thisLine, "" )
+		    
+		  else
+		    
+		    select case zValueType
+		    case ValueType.IsBoolean
+		      thisLine.Append "<bool>"
+		      thisLine.Append zValue.StringValue
+		    case ValueType.IsData
+		      thisLine.Append "<data>"
+		      thisLine.Append zValue.StringValue
+		    case ValueType.IsDate
+		      dim d as date = zValue
+		      thisLine.Append "<date>"
+		      thisLine.Append d.SQLDateTime
+		    case ValueType.IsNumber
+		      thisLine.Append "<num>"
+		      thisLine.Append zValue.StringValue
+		    case ValueType.IsString
+		      thisLine.Append "<str>"
+		      thisLine.Append zValue.StringValue
+		    case ValueType.IsUnknown
+		      thisLine.Append "<unkown>"
+		    end
+		    appendTo.Append join( thisLine, "" )
+		    
+		  end if
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -841,9 +1035,16 @@ Protected Class MacPListBrowser
 		  dim cs as Boolean = CaseSensitive
 		  dim newArr() as Variant
 		  redim newArr( sourceArr.Ubound )
+		  #if DebugBuild
+		    redim zDebugArrayChildren( sourceArr.Ubound )
+		  #endif
 		  for i as integer = 0 to sourceArr.Ubound
 		    dim thisValue as Variant = sourceArr( i )
-		    newArr( i ) = new MacPListBrowser( thisValue, self, i, cs )
+		    dim plist as new MacPListBrowser( thisValue, self, i, cs )
+		    newArr( i ) = plist
+		    #if DebugBuild
+		      zDebugArrayChildren( i ) = plist
+		    #endif
 		  next
 		  
 		  zValue = newArr
@@ -860,9 +1061,16 @@ Protected Class MacPListBrowser
 		  dim newArr() as Variant
 		  dim lastIndex as integer = sourceArr.Count - 1
 		  redim newArr( lastIndex )
+		  #if DebugBuild
+		    redim zDebugArrayChildren( lastIndex )
+		  #endif
 		  for i as integer = 0 to lastIndex
 		    dim thisValue as CFType = sourceArr.CFValue( i )
-		    newArr( i ) = new MacPListBrowser( thisValue, self, i, cs )
+		    dim plist as new MacPListBrowser( thisValue, self, i, cs )
+		    newArr( i ) = plist
+		    #if DebugBuild
+		      zDebugArrayChildren( i ) = plist
+		    #endif
 		  next
 		  
 		  zValue = newArr
@@ -1037,6 +1245,9 @@ Protected Class MacPListBrowser
 		  dim plist as MacPListBrowser = v( childIndex )
 		  plist.pSetParent( nil, nil ) // Remove the parent in case there is a reference to it elsewhere
 		  v.Remove childIndex
+		  #if DebugBuild
+		    zDebugArrayChildren.Remove childIndex
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
@@ -1113,17 +1324,10 @@ Protected Class MacPListBrowser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function XMLValue() As String
-		  // Alias for...
-		  return me.PListStringValue
-		End Function
-	#tag EndMethod
-
 
 	#tag Note, Name = Legal
 		This class was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
-		It is copyright ©2012, all rights reserved.
+		It is copyright ©2013, all rights reserved.
 		
 		You may use this class AS IS at your own risk for any purpose. The author does not warrant its use
 		for any particular purpose and disavows any responsibility for bad design, poor execution,
@@ -1142,6 +1346,18 @@ Protected Class MacPListBrowser
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.6
+		- Added StringValue property. Use this to extract the raw data that can be converted to string.
+		
+		1.5
+		- Changed XMLValue to a computed property to make debugging easier.
+		- Added Try/Catch block to PLIstStringValue to prevent errors when looking at XMLValue in debugger. (Error really shouldn't happen anyway.)
+		- Added FindByKeyAndValue method.
+		- Added zDebugArrayChildren property to assist with debugging when MacPListBrowser holds an array.
+		- Added zDebugXMLValue property to assist with debugging by making the XML readable.
+		- Added PrettyText property.
+		- Made CreateFromPListString more tolerant of junk data (like errors) preceding the plist.
+		
 		1.4
 		- As of MacOSLib v.118, CFDictionary is converted to a NativeSubclass.DictionaryCaseSensitive. Modified this code accordingly.
 		- Changed calls to DICT_CaseSensitiveDictionary to the identical NativeSubclass.DictionaryCaseSensitive.
@@ -1346,6 +1562,18 @@ Protected Class MacPListBrowser
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  dim r() as string
+			  pPrettyText( r, 0, nil )
+			  return join( r, EndOfLine )
+			  
+			End Get
+		#tag EndGetter
+		PrettyText As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  // Returns the root MacPListBrowser
 			  
 			  dim root As MacPListBrowser = me
@@ -1360,6 +1588,31 @@ Protected Class MacPListBrowser
 			End Get
 		#tag EndGetter
 		Root As MacPListBrowser
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as string
+			  
+			  select case zValueType
+			  case ValueType.IsArray, ValueType.IsDictionary, ValueType.IsUnknown
+			    // Do nothing
+			    
+			  else
+			    try
+			      r = zValue.StringValue
+			    catch
+			      r = ""
+			    end try
+			    
+			  end select
+			  
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		StringValue As String
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1471,6 +1724,16 @@ Protected Class MacPListBrowser
 		VariantValue As Variant
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  // Alias for...
+			  return me.PListStringValue
+			End Get
+		#tag EndGetter
+		XMLValue As String
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		Private zCaseSensitive As Boolean
 	#tag EndProperty
@@ -1478,6 +1741,30 @@ Protected Class MacPListBrowser
 	#tag Property, Flags = &h21
 		Private zCheckedForFolderItem As Boolean
 	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		#tag Note
+			No other way to get to the array children while debugging.
+			Only maintained when running in the IDE.
+		#tag EndNote
+		Private zDebugArrayChildren() As MacPListBrowser
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  #if DebugBuild
+			    
+			    dim r as string = XMLValue
+			    r = r.ReplaceAllB( ChrB( 9 ), " " )
+			    return r
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Private zDebugXMLValue As String
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private zIsArray As Boolean
@@ -1508,7 +1795,7 @@ Protected Class MacPListBrowser
 	#tag EndProperty
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.3", Scope = Public
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.5", Scope = Public
 	#tag EndConstant
 
 
@@ -1571,6 +1858,11 @@ Protected Class MacPListBrowser
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PrettyText"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -1582,6 +1874,12 @@ Protected Class MacPListBrowser
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="XMLValue"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

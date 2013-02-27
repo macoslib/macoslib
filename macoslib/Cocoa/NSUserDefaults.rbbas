@@ -6,7 +6,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function arrayForKey lib CocoaLib selector "arrayForKey:" (id as Ptr, key as CFStringRef) as Ptr
 		    
-		    return  new NSArray( arrayForKey( self.id, key ), false )
+		    return new NSArray( arrayForKey(self, key))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -24,7 +24,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function boolForKey lib CocoaLib selector "boolForKey:" (id as Ptr, key as CFStringRef) as boolean
 		    
-		    return  boolForKey( self.id, key )
+		    return boolForKey(self, key )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -34,7 +34,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub setBool lib CocoaLib selector "setBool:forKey:" (id as Ptr, value as Boolean, key as CFStringRef)
 		    
-		    setBool   self.id, value, key
+		    setBool(self, value, key)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -44,7 +44,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function dataForKey lib CocoaLib selector "dataForKey:" (id as Ptr, key as CFStringRef) as Ptr
 		    
-		    return  new NSData( dataForKey( self.id, key ), false )
+		    return new NSData(dataForKey(self, key ))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -62,7 +62,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function dictionaryRepresentation lib CocoaLib selector "dictionaryRepresentation" (id as Ptr) as Ptr
 		    
-		    return   new NSDictionary( dictionaryRepresentation( me.id ), true )
+		    return new NSDictionary(dictionaryRepresentation(self), hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -72,7 +72,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function dictionaryForKey lib CocoaLib selector "dictionaryForKey:" (id as Ptr, key as CFStringRef) as Ptr
 		    
-		    return  new NSDictionary( dictionaryForKey( self.id, key ), false )
+		    return new NSDictionary(dictionaryForKey(self, key ))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -90,7 +90,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function doubleForKey lib CocoaLib selector "doubleForKey:" (id as Ptr, key as CFStringRef) as double
 		    
-		    return  doubleForKey( self.id, key )
+		    return doubleForKey( self, key )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -100,7 +100,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub setDouble lib CocoaLib selector "setDouble:forKey:" (id as Ptr, value as double, key as CFStringRef)
 		    
-		    setDouble( self.id, value, key )
+		    setDouble( self, value, key )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -110,7 +110,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function floatForKey lib CocoaLib selector "floatForKey:" (id as Ptr, key as CFStringRef) as single
 		    
-		    return  floatForKey( self.id, key )
+		    return floatForKey( self, key )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -120,7 +120,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub setFloat lib CocoaLib selector "setFloat:forKey:" (id as Ptr, value as single, key as CFStringRef)
 		    
-		    setFloat( self.id, value, key )
+		    setFloat( self, value, key )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -130,7 +130,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function integerForKey lib CocoaLib selector "integerForKey:" (id as Ptr, key as CFStringRef) as integer
 		    
-		    return  integerForKey( self.id, key )
+		    return integerForKey( self, key )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -140,7 +140,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub setInteger lib CocoaLib selector "setInteger:forKey:" (id as Ptr, value as integer, key as CFStringRef)
 		    
-		    setInteger( self.id, value, key )
+		    setInteger( self, value, key )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -150,7 +150,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function objectIsForcedForKey lib CocoaLib selector "objectIsForcedForKey:" (id as Ptr, key as CFStringRef) as Boolean
 		    
-		    return  objectIsForcedForKey( me.id, key )
+		    return objectIsForcedForKey(self, key)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -160,27 +160,35 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function objectForKey lib CocoaLib selector "objectForKey:" (id as Ptr, key as CFStringRef) as Ptr
 		    
-		    return  Cocoa.NSObjectFromNSPtr( objectForKey( me.id, key ), false )
+		    return Cocoa.NSObjectFromNSPtr( objectForKey( self, key ))
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub ObjectValue(key as String, assigns obj as NSObject)
+		  if obj = nil then
+		    return
+		  end if
+		  
 		  #if TargetMacOS
 		    declare sub setObject lib CocoaLib selector "setObject:forKey:" (id as Ptr, obj as Ptr, key as CFStringRef)
 		    
-		    setObject  me.id, obj.id, key
+		    setObject(self, obj, key)
 		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub RegisterDefaults(dict as NSDictionary)
+		  if dict = nil then
+		    return
+		  end if
+		  
 		  #if TargetMacOS
 		    declare sub registerDefaults lib CocoaLib selector "registerDefaults:" (id as Ptr, dict as Ptr)
 		    
-		    registerDefaults( me.id, dict.id )
+		    registerDefaults(self, dict)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -190,7 +198,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub removeObjectForKey lib CocoaLib selector "removeObjectForKey:" (id as Ptr, key as CFStringRef)
 		    
-		    removeObjectForKey   me.id, key
+		    removeObjectForKey(self, key)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -200,7 +208,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function standardUserDefaults lib CocoaLib selector "standardUserDefaults" (Cls as Ptr) as Ptr
 		    
-		    return  new NSUserDefaults( Cocoa.NSClassFromString( "NSUserDefaults" ), true )
+		    return new NSUserDefaults(Cocoa.NSClassFromString( "NSUserDefaults" ), hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -210,7 +218,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function stringForKey lib CocoaLib selector "stringForKey:" (id as Ptr, key as CFStringRef) as CFStringRef
 		    
-		    return  stringForKey( self.id, key )
+		    return stringForKey( self, key )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -218,7 +226,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub StringValue(key as String, assigns value as String)
 		  #if TargetMacOS
-		    ObjectValue( key ) = NSString( value )
+		    ObjectValue( key ) = new NSString(value)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -228,7 +236,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub synchronize lib CocoaLib selector "synchronize" (id as Ptr)
 		    
-		    synchronize   self.id
+		    synchronize(self)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -238,17 +246,21 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function URLForKey lib CocoaLib selector "URLForKey:" (id as Ptr, key as CFStringRef) as Ptr
 		    
-		    return  Cocoa.NSObjectFromNSPtr( URLForKey( me.id, key ), false )
+		    return Cocoa.NSObjectFromNSPtr(URLForKey(self, key ))
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub URLValue(key as String, assigns obj as NSURL)
+		  if obj = nil then
+		    return
+		  end if
+		  
 		  #if TargetMacOS
 		    declare sub setURL lib CocoaLib selector "setURL:forKey:" (id as Ptr, obj as Ptr, key as CFStringRef)
 		    
-		    setURL  me.id, obj.id, key
+		    setURL(self, obj, key)
 		  #endif
 		End Sub
 	#tag EndMethod

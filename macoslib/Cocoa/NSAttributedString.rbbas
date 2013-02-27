@@ -13,10 +13,10 @@ Inherits NSObject
 		      p = _attribute( me.id, attributeName, atIndex, range )
 		    end if
 		    
-		    if p=nil then
-		      return  nil
+		    if p = nil then
+		      return nil
 		    else
-		      return   Cocoa.NSObjectFromNSPtr( p )
+		      return Cocoa.NSObjectFromNSPtr( p )
 		    end if
 		    
 		  #endif
@@ -28,9 +28,9 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function attributedSubstringFromRange lib CocoaLib selector "attributedSubstringFromRange:" ( id as Ptr, range as NSRange ) as Ptr
 		    
-		    dim p as Ptr = attributedSubstringFromRange( me.id, range )
+		    dim p as Ptr = attributedSubstringFromRange( self, range )
 		    
-		    return   new NSAttributedString( p )
+		    return new NSAttributedString( p )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -40,8 +40,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function attributesAtIndex lib CocoaLib selector "attributesAtIndex:longestEffectiveRange:inRange:" (id as Ptr, idx as integer, byref range as NSRange, maxRange as NSRange) as Ptr
 		    
-		    dim p as Ptr = attributesAtIndex( me.id, atIndex, effectiveRange, maxRange )
-		    return   new NSDictionary( p )
+		    dim p as Ptr = attributesAtIndex( self, atIndex, effectiveRange, maxRange )
+		    return new NSDictionary( p )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -88,13 +88,13 @@ Inherits NSObject
 		    declare function initWithHTMLandBase lib CocoaLib selector "initWithHTML:baseURL:documentAttributes:" ( id as Ptr, data as Ptr, baseURL as Ptr, docAttr as Ptr) as Ptr
 		    
 		    dim p as Ptr = Allocate( "NSAttributedString" )
-		    if baseURL=nil then
-		      p = initWithHTML( p, HTMLData.id, nil )
+		    if baseURL = nil then
+		      p = initWithHTML( p, HTMLData, nil )
 		    else
-		      p = initWithHTMLandBase( p, HTMLData.id, baseURL.id, nil )
+		      p = initWithHTMLandBase( p, HTMLData, baseURL, nil )
 		    end if
-		    if p<>nil then
-		      return  new NSAttributedString( p, false )
+		    if p <> nil then
+		      return new NSAttributedString( p )
 		    end if
 		    
 		  #else
@@ -110,9 +110,9 @@ Inherits NSObject
 		    declare function initWithRTF lib CocoaLib selector "initWithRTF:documentAttributes:" ( id as Ptr, data as Ptr, docAttr as Ptr) as Ptr
 		    
 		    dim p as Ptr = Allocate( "NSAttributedString" )
-		    p = initWithRTF( p, RTFData.id, nil )
-		    if p<>nil then
-		      return  new NSAttributedString( p, false )
+		    p = initWithRTF( p, RTFData, nil )
+		    if p <> nil then
+		      return  new NSAttributedString( p )
 		    end if
 		    
 		  #else
@@ -138,7 +138,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function _length lib Cocoalib selector "length" (id as Ptr) as integer
 		    
-		    return   _length( me.id )
+		    return  _length( self )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -150,7 +150,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    dim base as NSMutableAttributedString
 		    
-		    base = new NSMutableAttributedString( me.MutableCopy, true )
+		    base = new NSMutableAttributedString( self.MutableCopy, hasOwnership )
 		    
 		    base.BeginEditing
 		    base.AppendAttributedString  aString
@@ -293,9 +293,9 @@ Inherits NSObject
 		  'nsdict.Value( Cocoa.StringConstant( "NSParagraphStyleAttributeName" )) = NSParagraphStyle.Default
 		  '
 		  result = NSAttributedString.CreateFromString_WithAttributes( text, nsdict )
-		  if nsdict.HasKey( NSString( "macoslibSuperScript" )) OR nsdict.HasKey( NSString( "macoslibSubScript" )) then
+		  if nsdict.HasKey(new NSString( "macoslibSuperScript" )) OR nsdict.HasKey(new NSString( "macoslibSubScript" )) then
 		    dim nsmas as NSMutableAttributedString = new NSMutableAttributedString( result.MutableCopy, true )
-		    if nsdict.HasKey( NSString( "macoslibSuperScript" )) then
+		    if nsdict.HasKey(new NSString( "macoslibSuperScript" )) then
 		      nsmas.Superscript()
 		    else //Cannot be both true
 		      nsmas.Subscript()
@@ -313,7 +313,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function _string lib Cocoalib selector "string" (id as Ptr) as CFStringRef
 		    
-		    return   _string( me.id )
+		    return  _string( self )
 		  #endif
 		End Function
 	#tag EndMethod
