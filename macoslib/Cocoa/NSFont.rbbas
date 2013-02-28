@@ -2,7 +2,7 @@
 Class NSFont
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function boldSystemFontOfSize(size as double = 0.0) As NSFont
+		 Shared Function BoldSystemFontOfSize(size as double = 0.0) As NSFont
 		  #if TargetMacOS
 		    declare function boldSystemFontOfSize lib CocoaLib selector "boldSystemFontOfSize:" (Cls as Ptr, size as single) as Ptr
 		    
@@ -97,7 +97,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function smallSystemFontSize() As double
+		 Shared Function SmallSystemFontSize() As double
 		  #if TargetMacOS
 		    declare function smallSystemFontSize lib CocoaLib selector "smallSystemFontSize" (Cls as Ptr) as single
 		    
@@ -132,6 +132,12 @@ Inherits NSObject
 		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = How to load a font by name
+		Use NSFontManager.SharedManager.GetFont(...)
+		
+	#tag EndNote
 
 
 	#tag Constant, Name = kNSBoldFontMask, Type = Double, Dynamic = False, Default = \"&h2", Scope = Public
