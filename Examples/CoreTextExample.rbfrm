@@ -172,17 +172,29 @@ End
 		  
 		  dim text as String = "We hold this truth to be self-evident, that everyone is created equal."+EndOfLine+EndOfLine+"(Using block drawing)"
 		  
-		  ' make the text red
-		  dim rgbColorSpace as CGColorSpace = CGColorSpace.DeviceRGB
-		  dim red as new CGColor (rgbColorSpace, Array (1., 0, 0, 0.8))
-		  dim attr as new CFDictionary (Array(CFString (kCTForegroundColorAttributeName)), Array (red))
-		  
+		  ' preset the attributed string with the text
 		  dim attrString as new CFMutableAttributedString(text)
-		  attrString.SetAttributes CFRangeMake (3, 15), attr, true
 		  
+		  ' now add some text attributes...
+		  dim attr as new CFMutableDictionary
+		  
+		  ' make the text red
+		  dim red as new CGColor (CGColorSpace.DeviceRGB, Array (1., 0, 0, 0.8))
+		  attr.Value(CFString(kCTForegroundColorAttributeName)) = red
+		  attrString.SetAttributes CFRangeMake (3, 15), attr, false
+		  
+		  ' add a different font
+		  dim font as NSFont = NSFontManager.SharedManager.GetFont("Marker Felt", 16)
+		  dim cf_font as CFType = CFType.NewObject(font, not CFType.hasOwnership) ' turns a NS type into a CF type
+		  attr.Clear
+		  attr.Value(CFString(kCTFontAttributeName)) = cf_font
+		  attrString.SetAttributes CFRangeMake (30, 7), attr, false
+		  
+		  ' frame a drawing frame
 		  dim framesetter as new CTFramesetter (attrString)
 		  dim frame as CTFrame = framesetter.CreateFrame (CFRangeMake (0, 0), path, nil)
 		  
+		  ' and draw the text into the context
 		  frame.Draw (context)
 		  
 		End Sub
@@ -218,7 +230,7 @@ End
 		  ' loop over every single line to draw
 		  do
 		    dim count as Integer = typesetter.SuggestLineBreak (start, g.Width)
-		    if count = 0 then
+		    if count <= 0 then
 		      exit ' end of loop
 		    end
 		    
@@ -232,7 +244,7 @@ End
 		    
 		    dim lineRect as CGRect = line.ImageBounds(context)
 		    
-		    dim textHeight as Integer = Ceil (ascent + descent) ' lineRect.rectSize.height is 0 for empty lines, but ascent+descent aren't
+		    dim textHeight as Integer = Ceil (ascent + descent + leading) ' lineRect.rectSize.height is 0 for empty lines, but ascent+descent aren't
 		    
 		    context.SetTextPosition (textPosX + penOffset, textPosY-textHeight)
 		    
