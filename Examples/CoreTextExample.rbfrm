@@ -171,14 +171,14 @@ End
 		  path.AddRect rect
 		  
 		  dim text as String = "We hold this truth to be self-evident, that everyone is created equal."+EndOfLine+EndOfLine+"(Using block drawing)"
-		  dim attrString as new NSMutableAttributedString()
-		  attrString.SetAttributedString new NSAttributedString (text)
 		  
-		  ' make part of the text red
+		  ' make the text red
 		  dim rgbColorSpace as CGColorSpace = CGColorSpace.DeviceRGB
 		  dim red as new CGColor (rgbColorSpace, Array (1., 0, 0, 0.8))
-		  dim attr as new NSDictionary (new NSArray(Array(kCTForegroundColorAttributeName)), new NSArray(new CFArray (Array (red))))
-		  attrString.SetAttributes attr, Cocoa.NSMakeRange (3, 15)
+		  dim attr as new CFDictionary (Array(CFString (kCTForegroundColorAttributeName)), Array (red))
+		  
+		  dim attrString as new CFMutableAttributedString(text)
+		  attrString.SetAttributes CFRangeMake (3, 15), attr, true
 		  
 		  dim framesetter as new CTFramesetter (attrString)
 		  dim frame as CTFrame = framesetter.CreateFrame (CFRangeMake (0, 0), path, nil)
