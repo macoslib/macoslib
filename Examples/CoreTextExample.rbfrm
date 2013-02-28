@@ -198,7 +198,7 @@ End
 		  
 		  dim textPosX, textPosY as Integer
 		  textPosX = 0
-		  textPosY = g.Height - lineSpacing
+		  textPosY = g.Height
 		  
 		  dim rect as CGRect = CGRectMake (0, 0, g.Width, g.Height)
 		  
@@ -232,12 +232,14 @@ End
 		    
 		    dim lineRect as CGRect = line.ImageBounds(context)
 		    
-		    context.SetTextPosition (textPosX + penOffset, textPosY-lineRect.rectSize.height)
+		    dim textHeight as Integer = Ceil (ascent + descent) ' lineRect.rectSize.height is 0 for empty lines, but ascent+descent aren't
+		    
+		    context.SetTextPosition (textPosX + penOffset, textPosY-textHeight)
 		    
 		    line.Draw (context)
 		    
 		    start = start + count
-		    textPosY = textPosY - lineRect.rectSize.height - lineSpacing
+		    textPosY = textPosY - textHeight - lineSpacing
 		  loop
 		End Sub
 	#tag EndEvent
