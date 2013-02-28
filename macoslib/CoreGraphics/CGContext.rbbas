@@ -990,6 +990,26 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SetTextMatrix(transform as CGAffineTransform)
+		  #if TargetMacOS
+		    declare sub CGContextSetTextMatrix lib CarbonLib (context as Ptr, transform as CGAffineTransform)
+		    
+		    CGContextSetTextMatrix (self, transform)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetTextPosition(x as Single, y as Single)
+		  #if targetMacOS
+		    declare sub CGContextSetTextPosition lib CarbonLib (context as Ptr, x as Single, y as Single)
+		    
+		    CGContextSetTextPosition me, x, y
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ShowText(text as String)
 		  #if targetMacOS
 		    soft declare sub CGContextShowText lib CarbonLib (context as Ptr, bytes as CString, length as Integer)

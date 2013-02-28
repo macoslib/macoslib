@@ -47,15 +47,44 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
+		Sub Constructor(cfa as CFAttributedString)
+		  // Adopts a CFAttributedString
 		  
+		  super.Constructor (cfa, not hasOwnership)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
 		  Super.Constructor( id, hasOwnership, "NSAttributedString" )
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(text as String)
+		  #if TargetMacOS
+		    declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, theString as CFStringRef) as Ptr
+		    
+		    dim p as Ptr = initWithString (Allocate ("NSAttributedString"), text)
+		    super.Constructor (p, hasOwnership)
+		  #else
+		    #pragma unused text
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(text as String, attr as NSDictionary)
+		  #if TargetMacOS
+		    declare function initWithString lib CocoaLib selector "initWithString:attributes:" (id as Ptr, theString as CFStringRef, attr as Ptr) as Ptr
+		    
+		    dim p as Ptr = initWithString (Allocate ("NSAttributedString"), text, attr)
+		    super.Constructor (p, hasOwnership)
+		  #else
+		    #pragma unused text
+		    #pragma unused attr
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -101,46 +130,14 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromString_NoAttributes(value as String) As NSAttributedString
-		  #if TargetMacOS
-		    declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, theString as CFStringRef) as Ptr
-		    
-		    return new NSAttributedString(initWithString(NSAttributedString.Allocate( "NSAttributedString" ), value))
-		    
-		  #else
-		    #pragma unused value
-		  #endif
+		 Shared Function CreateFromString_NoAttributes(text as String) As NSAttributedString
+		  return new NSAttributedString (text)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromString_WithAttributes(value as String, attr as NSDictionary) As NSAttributedString
-		  #if TargetMacOS
-		    declare function initWithString lib CocoaLib selector "initWithString:attributes:" (id as Ptr, theString as CFStringRef, attr as Ptr) as Ptr
-		    
-		    return new NSAttributedString( initWithString( NSAttributedString.Allocate( "NSAttributedString" ), value, attr ) )
-		    
-		  #else
-		    #pragma unused value
-		    #pragma unused attr
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function CreateFromString_WithAttributes__(value as String, paramarray attrs() as pair) As NSAttributedString
-		  '//Same as CreateFromString_WithAttributes but Dictionary values are given a Pair()
-		  '
-		  '#if TargetMacOS
-		  'dim attr as new Dictionary
-		  'attr.AppendPairs  attrs
-		  '
-		  'return  NSAttributedString.CreateFromString_WithAttributes( value, attr )
-		  '#endif
-		  
-		  #pragma unused value
-		  #pragma unused attrs
-		  
+		 Shared Function CreateFromString_WithAttributes(text as String, attr as NSDictionary) As NSAttributedString
+		  return new NSAttributedString (text, attr)
 		End Function
 	#tag EndMethod
 

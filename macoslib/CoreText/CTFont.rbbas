@@ -28,7 +28,6 @@ Inherits CFType
 		  
 		  //According to the CTFont documentation, the default font size is currently 12.0.
 		  
-		  
 		  #if targetMacOS
 		    soft declare function CTFontCreateWithName lib CarbonLib (name as CFStringRef, size as Single, matrix as Ptr) as Ptr
 		    
@@ -43,16 +42,11 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SupportedLanguages() As String()
+		Function SupportedLanguages() As CFArray
 		  #if targetMacOS
 		    soft declare function CTFontCopySupportedLanguages lib CarbonLib (font as Ptr) as Ptr
 		    
-		    dim theList() as String
-		    dim languageArray as new CFArray(CTFontCopySupportedLanguages(self), CFType.hasOwnership)
-		    return languageArray.StringValues
-		    
-		    // Keep the compiler from complaining
-		    #pragma unused theList
+		    return new CFArray(CTFontCopySupportedLanguages(self), CFType.hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
