@@ -5,6 +5,9 @@ Protected Module CoreText
 	#tag EndNote
 
 
+	#tag Constant, Name = kCTFontAttributeName, Type = String, Dynamic = False, Default = \"NSFont", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = kCTForegroundColorAttributeName, Type = String, Dynamic = False, Default = \"CTForegroundColor", Scope = Public
 	#tag EndConstant
 
