@@ -47,6 +47,14 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(cfa as CFAttributedString)
+		  // Adopts a CFAttributedString
+		  
+		  super.Constructor (cfa, not hasOwnership)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
 		  Super.Constructor( id, hasOwnership, "NSAttributedString" )
 		  

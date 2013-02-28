@@ -1,17 +1,17 @@
 #tag Class
-Class CTTypesetter
+Class CFAttributedString
 Inherits CFType
 	#tag Event
 		Function ClassID() As UInt32
-		  return CTTypesetter.ClassID
+		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
 		 Shared Function ClassID() As UInt32
-		  #if TargetMacOS
-		    declare function TypeID lib CarbonLib alias "CTTypesetterGetTypeID" () as UInt32
+		  #if targetMacOS
+		    declare function TypeID lib CarbonLib alias "CFAttributedStringGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
 		    return id
 		  #endif
@@ -19,42 +19,36 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(attributedText as CFAttributedString)
-		  #if TargetMacOS
-		    declare function CTTypesetterCreateWithAttributedString lib CarbonLib (attrStr as Ptr) as Ptr
+		Sub Constructor(text as String, withAttributes as CFDictionary = nil)
+		  #if targetMacOS
+		    declare function CFAttributedStringCreate lib CarbonLib (alloc as Ptr, str as CFStringRef, attr as Ptr) as Ptr
 		    
-		    super.Constructor (CTTypesetterCreateWithAttributedString (attributedText), CFType.hasOwnership)
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
-		Sub Constructor(txt as String)
-		  #if TargetMacOS
-		    dim cfa as new CFAttributedString (txt)
-		    self.Constructor (cfa)
+		    dim attr as Ptr
+		    if withAttributes <> nil then
+		      attr = withAttributes.Reference
+		    end if
+		    
+		    self.Constructor (CFAttributedStringCreate (nil, text, attr), hasOwnership)
 		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CreateLine(range as CFRange) As CTLine
+		Function GetString() As String
 		  #if TargetMacOS
-		    declare function CTTypesetterCreateLine lib CarbonLib (ts as Ptr, range as CFRange) as Ptr
+		    declare function CFAttributedStringGetString lib CarbonLib (hdl as Ptr) as CFStringRef
 		    
-		    return new CTLine (CTTypesetterCreateLine (self, range), hasOwnership)
+		    return CFAttributedStringGetString (self)
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SuggestLineBreak(startIdx as Integer, width as Double) As Integer
-		  ' startIdx: The starting point for the line-break calculations. The break calculations include the character starting at startIndex.
-		  
+		Function Length() As Integer
 		  #if TargetMacOS
-		    declare function CTTypesetterSuggestLineBreak lib CarbonLib (ts as Ptr, start as Integer, width as Double) as Integer
+		    declare function CFAttributedStringGetLength lib CarbonLib (hdl as Ptr) as Integer
 		    
-		    return CTTypesetterSuggestLineBreak (self, startIdx, width)
+		    return CFAttributedStringGetLength (self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,7 +59,6 @@ Inherits CFType
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			EditorType="MultiLineEditor"
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -83,10 +76,21 @@ Inherits CFType
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Length"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
