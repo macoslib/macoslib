@@ -19,7 +19,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(attributedText as NSAttributedString)
+		Sub Constructor(attributedText as CFAttributedString)
 		  #if TargetMacOS
 		    declare function CTLineCreateWithAttributedString lib CarbonLib (attrStr as Ptr) as Ptr
 		    
@@ -31,8 +31,8 @@ Inherits CFType
 	#tag Method, Flags = &h1000
 		Sub Constructor(txt as String)
 		  #if TargetMacOS
-		    dim nsa as new NSAttributedString (txt)
-		    self.Constructor (nsa)
+		    dim cfa as new CFAttributedString (txt)
+		    self.Constructor (cfa)
 		  #endif
 		End Sub
 	#tag EndMethod
