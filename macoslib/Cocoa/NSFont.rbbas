@@ -36,6 +36,20 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ConvertFontToHaveTrait(font as NSFont, traitMask as integer) As NSFont
+		  //# Return a NSFont where traitMask is activated (if available).
+		  
+		  //@ Use the NSFont.kNS... constants to specify one or more traits (combine values with OR)
+		  
+		  #if TargetMacOS
+		    declare function convertFont lib CocoaLib selector "convertFont:toHaveTrait:" (id as Ptr, fontid as Ptr, mask as Integer) as Ptr
+		    
+		    return  new NSFont( convertFont( me.id, font.id, traitMask ), false )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CoveredCharacterSet() As NSCharacterSet
 		  #if TargetMacOS
 		    declare function coveredCharacterSet lib CocoaLib selector "coveredCharacterSet" (Cls as Ptr) as Ptr
@@ -122,6 +136,7 @@ Inherits NSObject
 
 	#tag Note, Name = How to load a font by name
 		Use NSFontManager.SharedManager.GetFont(...)
+		
 	#tag EndNote
 
 
