@@ -258,6 +258,9 @@ End
 		  me.TabStop = true
 		  NSSearchField1.ShowMenu = true
 		  NSSearchField1.AddMenuItem "Foo"
+		  NSSearchField1.AddMenuSeparator
+		  NSSearchField1.AddMenuItem "Bar"
+		  
 		  
 		  NSSearchField1.PlaceholderText = "Placeholder Text"
 		  

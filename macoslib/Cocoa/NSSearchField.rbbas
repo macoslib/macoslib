@@ -72,6 +72,36 @@ Inherits NSControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub AddMenuSeparator()
+		  #if targetCocoa
+		    declare function searchMenuTemplate lib CocoaLib selector "searchMenuTemplate" (obj_id as Ptr) as Ptr
+		    declare function itemArray lib CocoaLib selector "itemArray" (obj_id as Ptr) as Ptr
+		    declare function objectEnumerator lib CocoaLib selector "objectEnumerator" (obj_id as Ptr) as Ptr
+		    declare function nextObject lib CocoaLib selector "nextObject" (obj_id as Ptr) as Ptr
+		    declare function copy lib CocoaLib selector "copy" (obj_id as Ptr) as Ptr
+		    declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
+		    
+		    dim items() as Ptr
+		    dim enumerator as Ptr = objectEnumerator(itemArray(searchMenuTemplate(self)))
+		    do
+		      dim ref as Ptr = nextObject(enumerator)
+		      if ref <> nil then
+		        items.Append copy(ref)
+		      else
+		        exit
+		      end if
+		    loop
+		    
+		    items.Append separatorItem(Cocoa.NSClassFromString("NSMenuItem"))
+		    SetMenu items
+		    
+		  #else
+		    #pragma unused title
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function CocoaDelegateMap() As Dictionary
 		  static d as new Dictionary
