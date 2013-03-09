@@ -54,10 +54,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
 		    
-		    dim nsm as NSMenuItem
-		    
-		    nsm = new NSMenuItem( separatorItem( Cocoa.NSClassFromString( "NSMenuItem" )), false )
-		    return  nsm
+		    return new NSMenuItem(separatorItem(Cocoa.NSClassFromString("NSMenuItem" )))
 		  #endif
 		End Function
 	#tag EndMethod
