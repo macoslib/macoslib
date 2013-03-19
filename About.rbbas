@@ -32,6 +32,13 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		124: 2013-03-19 by KT
+		- Fixed compiler error when not TargetCocoa
+		- Removed unused variables and method params.
+		
+		123: 2013-03-18 (give or take) by CY
+		- Various changes and additions.
+		
 		122: 2013-01-25 by KT
 		- Changes to MacPListBrowser.
 		- Fixed problem that was preventing compile in Real Studio 2012r2.1.
@@ -170,7 +177,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"122", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"124", Scope = Protected
 	#tag EndConstant
 
 
