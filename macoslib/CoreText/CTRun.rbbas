@@ -1,18 +1,32 @@
-#tag Module
-Protected Module CoreText
-	#tag Note, Name = Notes
-		Core Text was added in Mac OS 10.5.
-	#tag EndNote
+#tag Class
+Class CTRun
+Inherits CFType
+	#tag Event
+		Function ClassID() As UInt32
+		  return CTRun.ClassID
+		End Function
+	#tag EndEvent
 
 
-	#tag Constant, Name = kCTFontAttributeName, Type = String, Dynamic = False, Default = \"NSFont", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kCTForegroundColorAttributeName, Type = String, Dynamic = False, Default = \"CTForegroundColor", Scope = Public
-	#tag EndConstant
+	#tag Method, Flags = &h0
+		 Shared Function ClassID() As UInt32
+		  #if targetMacOS
+		    declare function TypeID lib CarbonLib alias "CTRunGetTypeID" () as UInt32
+		    static id as UInt32 = TypeID
+		    return id
+		  #endif
+		End Function
+	#tag EndMethod
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="CFType"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
@@ -47,5 +61,5 @@ Protected Module CoreText
 			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Module
-#tag EndModule
+End Class
+#tag EndClass

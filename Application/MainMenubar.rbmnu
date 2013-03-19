@@ -1134,6 +1134,19 @@ Begin Menu MainMenubar
             AutoEnable = True
          End
       End
+      Begin MenuItem MenuItemExamplesMenuLocalizedTextCoreText
+         SpecialMenu = 0
+         Text = "Core Text"
+         Index = -2147483648
+         AutoEnable = True
+         SubMenu = True
+         Begin MenuItem CoreTextOpenExampleWindow
+            SpecialMenu = 0
+            Text = "Open Example Window"
+            Index = -2147483648
+            AutoEnable = True
+         End
+      End
       Begin MenuItem IKICExampleMenu
          SpecialMenu = 0
          Text = "ImageKit && ImageCapture…"

@@ -30,8 +30,16 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(keys as NSArray, values as NSArray)
+		Sub Constructor(cfd as CFDictionary)
+		  // Adopts a CFDictionary
+		  // Note: This shall _not_ create a copy of the passed CFDictionary. For that, there's the Copy function
+		  Super.Constructor( cfd, false )
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(keys as NSArray, values as NSArray)
 		  #if TargetMacOS
 		    declare function dictionaryWithObjectsforKeys lib CocoaLib selector "dictionaryWithObjects:forKeys:" ( cls as Ptr, nsa1 as Ptr, nsa2 as Ptr ) as Ptr
 		    
@@ -42,12 +50,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false) -- From NSObject
-		  
 		  Super.Constructor( id, hasOwnership, "NSDictionary" )
 		  
 		End Sub
