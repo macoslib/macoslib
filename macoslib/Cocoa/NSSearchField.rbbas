@@ -96,8 +96,6 @@ Inherits NSControl
 		    items.Append separatorItem(Cocoa.NSClassFromString("NSMenuItem"))
 		    SetMenu items
 		    
-		  #else
-		    #pragma unused title
 		  #endif
 		End Sub
 	#tag EndMethod
