@@ -49,6 +49,9 @@ Inherits CFType
 		    
 		    return lines
 		  #endif
+		  
+		  #pragma unused range
+		  #pragma unused origins
 		End Function
 	#tag EndMethod
 

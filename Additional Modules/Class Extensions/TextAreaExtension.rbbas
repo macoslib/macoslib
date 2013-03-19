@@ -11,6 +11,7 @@ Protected Module TextAreaExtension
 		    selectionRange.location = offset
 		    selectionRange.length = Max(Min(length, length(attributedText) - offset), 0)
 		    dim aRange as Cocoa.NSRange
+		    #pragma unused aRange
 		    if selectionRange.length > 0 then
 		      return selectionHasTrait(attributedText, NSBoldFontMask, selectionRange)
 		    else
@@ -74,6 +75,7 @@ Protected Module TextAreaExtension
 		    selectionRange.location = offset
 		    selectionRange.length = Max(Min(length, length(attributedText) - offset), 0)
 		    dim aRange as Cocoa.NSRange
+		    #pragma unused aRange
 		    if selectionRange.length > 0 then
 		      return selectionHasTrait(attributedText, NSItalicFontMask, selectionRange)
 		    else
@@ -113,7 +115,7 @@ Protected Module TextAreaExtension
 
 	#tag Method, Flags = &h21
 		Private Function NSFontAttributeName() As Ptr
-		  //NSFontAttributeName returns an NSString id. 
+		  //NSFontAttributeName returns an NSString id.
 		  
 		  dim mainBundle as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
 		  dim p as Ptr = mainBundle.DataPointerNotRetained("NSFontAttributeName")
@@ -198,7 +200,7 @@ Protected Module TextAreaExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function selectionHasTrait(attributedText as Ptr,  traitMask as Integer, selectionRange as Cocoa.NSRange) As Boolean
+		Private Function selectionHasTrait(attributedText as Ptr, traitMask as Integer, selectionRange as Cocoa.NSRange) As Boolean
 		  //note that selectionRange.length is assumed to be > 0.
 		  
 		  #if targetMacOS
