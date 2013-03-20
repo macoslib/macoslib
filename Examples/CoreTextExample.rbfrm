@@ -197,6 +197,10 @@ End
 		  ' and draw the text into the context
 		  frame.Draw (context)
 		  
+		  #if RBVersion > 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -243,6 +247,7 @@ End
 		    call line.GetTypographicBounds ascent, descent, leading
 		    
 		    dim lineRect as CGRect = line.ImageBounds(context)
+		    #pragma unused lineRect
 		    
 		    dim textHeight as Integer = Ceil (ascent + descent + leading) ' lineRect.rectSize.height is 0 for empty lines, but ascent+descent aren't
 		    
@@ -253,6 +258,11 @@ End
 		    start = start + count
 		    textPosY = textPosY - textHeight - lineSpacing
 		  loop
+		  
+		  #if RBVersion > 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
