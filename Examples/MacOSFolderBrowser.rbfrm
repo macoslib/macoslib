@@ -105,7 +105,7 @@ Begin Window MacOSFolderBrowser
       Visible         =   True
       Width           =   161
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       BehaviorIndex   =   2
       Bold            =   False

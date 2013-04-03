@@ -24,7 +24,7 @@ Begin Window IOKitExternalPowerWindow
    Title           =   "External Power Adapter"
    Visible         =   True
    Width           =   600
-   Begin StaticText AdapterAttachedText
+   Begin Label AdapterAttachedText
       AutoDeactivate  =   True
       Bold            =   ""
       DataField       =   ""

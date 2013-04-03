@@ -54,7 +54,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   100
    End
-   Begin EditField edit2
+   Begin TextField edit2
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -99,7 +99,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   100
    End
-   Begin EditField edit1
+   Begin TextField edit1
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -144,7 +144,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   100
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       BehaviorIndex   =   3
       Bold            =   ""
@@ -177,7 +177,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   116
    End
-   Begin StaticText focusWinTxt
+   Begin Label focusWinTxt
       AutoDeactivate  =   True
       BehaviorIndex   =   4
       Bold            =   ""
@@ -210,7 +210,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   100
    End
-   Begin StaticText focusEventTxt
+   Begin Label focusEventTxt
       AutoDeactivate  =   True
       BehaviorIndex   =   5
       Bold            =   ""
@@ -243,7 +243,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   100
    End
-   Begin StaticText StaticText4
+   Begin Label StaticText4
       AutoDeactivate  =   True
       BehaviorIndex   =   6
       Bold            =   ""
@@ -276,7 +276,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   116
    End
-   Begin StaticText StaticText5
+   Begin Label StaticText5
       AutoDeactivate  =   True
       BehaviorIndex   =   7
       Bold            =   ""
@@ -309,7 +309,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   116
    End
-   Begin StaticText StaticText6
+   Begin Label StaticText6
       AutoDeactivate  =   True
       BehaviorIndex   =   8
       Bold            =   ""
@@ -342,7 +342,7 @@ Begin Window MacDatePickerExampleWindow
       Visible         =   True
       Width           =   116
    End
-   Begin StaticText StaticText7
+   Begin Label StaticText7
       AutoDeactivate  =   True
       BehaviorIndex   =   9
       Bold            =   ""

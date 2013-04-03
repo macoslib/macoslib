@@ -32,6 +32,9 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		125: 2013-04-03 by KT
+		- Converted StaticText, EditField to modern equivalents.
+		
 		124: 2013-03-19 by KT
 		- Fixed compiler error when not TargetCocoa
 		- Removed unused variables and method params.
@@ -177,7 +180,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"124", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"125", Scope = Protected
 	#tag EndConstant
 
 
