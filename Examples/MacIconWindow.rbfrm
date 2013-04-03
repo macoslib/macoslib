@@ -24,7 +24,7 @@ Begin Window MacIconWindow
    Title           =   "Icon Services"
    Visible         =   True
    Width           =   540
-   Begin EditField ExtensionField
+   Begin TextField ExtensionField
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -69,7 +69,7 @@ Begin Window MacIconWindow
       Visible         =   True
       Width           =   85
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       Active          =   ""
       AutoDeactivate  =   True
       Bold            =   ""
@@ -315,7 +315,7 @@ Begin Window MacIconWindow
       Visible         =   True
       Width           =   91
    End
-   Begin StaticText StaticText2
+   Begin Label StaticText2
       Active          =   ""
       AutoDeactivate  =   True
       Bold            =   ""
@@ -352,7 +352,7 @@ Begin Window MacIconWindow
       Window          =   0
       _mWindow        =   0
    End
-   Begin EditField CreatorField
+   Begin TextField CreatorField
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -397,7 +397,7 @@ Begin Window MacIconWindow
       Visible         =   True
       Width           =   58
    End
-   Begin StaticText StaticText3
+   Begin Label StaticText3
       Active          =   ""
       AutoDeactivate  =   True
       Bold            =   ""
@@ -434,7 +434,7 @@ Begin Window MacIconWindow
       Window          =   0
       _mWindow        =   0
    End
-   Begin EditField TypeField
+   Begin TextField TypeField
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True

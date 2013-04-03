@@ -54,7 +54,7 @@ Begin Window ImageTransformExample
       Visible         =   True
       Width           =   80
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   ""
