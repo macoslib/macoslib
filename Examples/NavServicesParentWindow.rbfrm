@@ -87,7 +87,7 @@ Begin Window NavServicesParentWindow
       Visible         =   True
       Width           =   173
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       BehaviorIndex   =   2
       Bold            =   ""

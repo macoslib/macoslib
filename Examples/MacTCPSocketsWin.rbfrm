@@ -115,7 +115,7 @@ Begin Window MacTCPSocketsWin
       Visible         =   True
       Width           =   80
    End
-   Begin StaticText Label1
+   Begin Label Label1
       Active          =   ""
       AutoDeactivate  =   True
       Bold            =   ""

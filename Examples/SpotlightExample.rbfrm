@@ -103,7 +103,7 @@ Begin Window SpotlightExample
       Visible         =   True
       Width           =   80
    End
-   Begin EditField EditField1
+   Begin TextField EditField1
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -148,7 +148,7 @@ Begin Window SpotlightExample
       Visible         =   True
       Width           =   160
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       BehaviorIndex   =   3
       Bold            =   ""
@@ -220,7 +220,7 @@ Begin Window SpotlightExample
       Visible         =   True
       Width           =   32
    End
-   Begin StaticText StatusText
+   Begin Label StatusText
       AutoDeactivate  =   True
       BehaviorIndex   =   6
       Bold            =   ""
