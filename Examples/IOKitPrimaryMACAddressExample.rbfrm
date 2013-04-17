@@ -66,7 +66,7 @@ Begin Window IOKitPrimaryMACAddressExample
       Visible         =   True
       Width           =   174
    End
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       Bold            =   ""
       DataField       =   ""

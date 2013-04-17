@@ -68,7 +68,7 @@ Begin Window PDFBrowser
       Visible         =   True
       Width           =   10
    End
-   Begin StaticText PageNumberText
+   Begin Label PageNumberText
       Active          =   ""
       AutoDeactivate  =   True
       Bold            =   ""
