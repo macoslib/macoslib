@@ -32,6 +32,10 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		126: 2013-05-14 by TT
+		- Fixed a few places where Names of RB's MenuItems were used to look up items in Cocoa, and that did
+		  fail if the name contained a "&"
+		
 		125: 2013-04-03 by KT
 		- Converted StaticText, EditField to modern equivalents.
 		
@@ -180,7 +184,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"125", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"126", Scope = Protected
 	#tag EndConstant
 
 
