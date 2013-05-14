@@ -12,11 +12,11 @@ Inherits MenuItem
 		    declare sub setTarget lib CocoaLib selector "setTarget:" (obj_id as Ptr, value as Ptr)
 		    declare function title lib CocoaLib selector "title" (obj_id as Ptr) as Ptr
 		    declare sub release lib CocoaLib selector "release" (id as Ptr)
-		    soft declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
+		    declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
 		    declare sub setState lib CocoaLib selector "setState:" (obj_id as Ptr, value as Integer)
 		    declare function isMainWindow lib CocoaLib selector "isMainWindow" (obj_id as Ptr) as Boolean
 		    
-		    dim windowsMenu as Ptr = submenu(itemWithTitle(mainMenu, self.Text))
+		    dim windowsMenu as Ptr = submenu(itemWithTitle(mainMenu, self.Text.Replace("&","")))
 		    if windowsMenu = nil then
 		      return
 		    end if
@@ -223,11 +223,11 @@ Inherits MenuItem
 		    declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
 		    declare function itemArray lib CocoaLib selector "itemArray" (obj_id as Ptr) as Ptr
 		    declare function target lib CocoaLib selector "target" (obj_id as Ptr) as Ptr
-		    soft declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
+		    declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
 		    declare sub removeItem lib CocoaLib selector "removeItem:" (obj_id as Ptr, item as Ptr)
-		    soft declare function mainMenu lib CocoaLib selector "mainMenu" (id as Ptr) as Ptr
+		    declare function mainMenu lib CocoaLib selector "mainMenu" (id as Ptr) as Ptr
 		    
-		    dim windowsMenu as Ptr = submenu(itemWithTitle(mainMenu(NSApplication.App), self.Text))
+		    dim windowsMenu as Ptr = submenu(itemWithTitle(mainMenu(NSApplication.App), self.Text.Replace("&","")))
 		    if windowsMenu = nil then
 		      return
 		    end if
@@ -283,11 +283,11 @@ Inherits MenuItem
 	#tag Method, Flags = &h21
 		Private Function windowsMenu() As Ptr
 		  #if targetCocoa
-		    soft declare function mainMenu lib CocoaLib selector "mainMenu" (id as Ptr) as Ptr
+		    declare function mainMenu lib CocoaLib selector "mainMenu" (id as Ptr) as Ptr
 		    declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
-		    soft declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
+		    declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
 		    
-		    return submenu(itemWithTitle(mainMenu(NSApplication.App), self.Text))
+		    return submenu(itemWithTitle(mainMenu(NSApplication.App), self.Text.Replace("&","")))
 		  #endif
 		End Function
 	#tag EndMethod
