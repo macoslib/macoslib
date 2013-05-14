@@ -72,8 +72,8 @@ Inherits MenuItem
 	#tag Method, Flags = &h21
 		Private Shared Function GetNSMenu(m as MenuItem) As Ptr
 		  #if targetCocoa
-		    soft declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
-		    soft declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
+		    declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
+		    declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
 		    
 		    if m is nil then
 		      return nil
@@ -81,7 +81,7 @@ Inherits MenuItem
 		      return MainMenu
 		    else
 		      dim parent_nsmenu as Ptr = GetNSMenu(GetParentOf(m))
-		      return submenu(itemWithTitle(parent_nsmenu, m.Text))
+		      return submenu(itemWithTitle(parent_nsmenu, m.Text.Replace("&","")))
 		    end if
 		    
 		  #else
@@ -98,14 +98,14 @@ Inherits MenuItem
 	#tag Method, Flags = &h21
 		Private Shared Function GetNSMenuItem(m as MenuItem) As Ptr
 		  #if targetCocoa
-		    soft declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
+		    declare function itemWithTitle lib CocoaLib selector "itemWithTitle:" (id as Ptr, aString as CFStringRef) as Ptr
 		    
 		    dim parent as MenuItem = GetParentOf(m)
 		    dim parent_menu as Ptr = GetNSMenu(parent)
 		    if parent_menu <> nil then
 		      'dim foo as new NSObject(parent_menu)
 		      'System.debugLog foo.Description
-		      return itemWithTitle(parent_menu, m.Text)
+		      return itemWithTitle(parent_menu, m.Text.Replace("&",""))
 		    end if
 		    
 		  #else
@@ -154,7 +154,7 @@ Inherits MenuItem
 	#tag Method, Flags = &h21
 		Private Shared Function MainMenu() As Ptr
 		  #if targetCocoa
-		    soft declare function mainMenu lib CocoaLib selector "mainMenu" (id as Ptr) as Ptr
+		    declare function mainMenu lib CocoaLib selector "mainMenu" (id as Ptr) as Ptr
 		    
 		    return mainMenu(NSApp)
 		  #endif
@@ -164,8 +164,8 @@ Inherits MenuItem
 	#tag Method, Flags = &h21
 		Private Shared Function NSApp() As Ptr
 		  #if targetCocoa
-		    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
-		    soft declare function sharedApplication lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
+		    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+		    declare function sharedApplication lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
 		    
 		    return sharedApplication(NSClassFromString("NSApplication"))
 		  #endif
