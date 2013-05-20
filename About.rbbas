@@ -32,6 +32,12 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		127: 2013-05-20 by CCY
+		- Added an example that loads the application icon into an NSImage, and demonstrates how to draw it into an Rb Graphics object,
+		  including flipping.
+		- Added NSAffineTransform
+		- Modified NSGraphicsContext and NSImage.
+		
 		126: 2013-05-14 by TT
 		- Fixed a few places where Names of RB's MenuItems were used to look up items in Cocoa, and that did
 		  fail if the name contained a "&"
@@ -181,10 +187,11 @@ Protected Module About
 		- Changed FileManager.StringValue to return UTF16.
 		- Modified MacIcon to use new value from FileManager.StringValue.
 		- Added FileManager.StringValue( Extends s As HFSUniStr255 ) to overload the native structure's StringValue.
+		
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"126", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"127", Scope = Protected
 	#tag EndConstant
 
 
