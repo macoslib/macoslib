@@ -32,11 +32,14 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		128: 2013-05-20 by KT 
+		- Fixed unused variables/parameters.
+		
 		127: 2013-05-20 by CCY
-		-Added an example that loads the application icon into an NSImage, and demonstrates how to draw it into an Rb Graphics
-		-object, including flipping.
-		-Added NSAffineTransform
-		-Modified NSGraphicsContext and NSImage.
+		- Added an example that loads the application icon into an NSImage, and demonstrates how to draw it into an Rb Graphics object,
+		  including flipping.
+		- Added NSAffineTransform
+		- Modified NSGraphicsContext and NSImage.
 		
 		126: 2013-05-14 by TT
 		- Fixed a few places where Names of RB's MenuItems were used to look up items in Cocoa, and that did
@@ -190,7 +193,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"127", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"128", Scope = Protected
 	#tag EndConstant
 
 
