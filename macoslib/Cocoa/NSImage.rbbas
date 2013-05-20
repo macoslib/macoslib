@@ -123,6 +123,23 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Single=1.0, respectFlipped as Boolean=true, hints as NSDictionary=nil)
+		  #if targetMacOS
+		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" (obj_id as Ptr, dstSpacePortionRect as Cocoa.NSRect, srcSpacePortionRect as Cocoa.NSRect, op as NSComposite, requestedAlpha as Single, respectContextIsFlipped as Boolean, hints as Ptr)
+		    
+		    dim hintsPtr as Ptr
+		    if hints <> nil then
+		      hintsPtr = self
+		    else
+		      hintsPtr = nil
+		    end if
+		    
+		    drawInRect(self, dstRect, srcRect, operation, opacity, respectFlipped, hintsPtr)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Everyone() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNameEveryone"))
 		End Function
@@ -185,6 +202,13 @@ Inherits NSObject
 		  dim cfName as CFStringRef = name
 		  return LoadByName(cfName)
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub LockFocusFlipped(value as Boolean)
+		  declare sub lockFocusFlipped lib CocoaLib selector "lockFocusFlipped:" (obj_id as Ptr, value as Boolean)
+		  lockFocusFlipped(self, value)
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
