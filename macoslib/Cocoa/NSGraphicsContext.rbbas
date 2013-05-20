@@ -17,6 +17,9 @@ Inherits NSObject
 		    declare function graphicsContextWithGraphicsPort lib CocoaLib selector "graphicsContextWithGraphicsPort:flipped:" (class_id as Ptr, port as Ptr, flipped as Boolean) as Ptr
 		    
 		    self.Constructor(graphicsContextWithGraphicsPort(Cocoa.NSClassFromString("NSGraphicsContext"), Ptr(g.Handle(Graphics.HandleTypeCGContextRef)), flipped))
+		    
+		  #else
+		    #pragma unused flipped
 		  #endif
 		End Sub
 	#tag EndMethod
