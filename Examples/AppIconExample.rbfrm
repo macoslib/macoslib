@@ -44,7 +44,7 @@ End
 		  
 		  
 		  //NSImage.Draw methods use the Cocoa coordinate system in which (0,0) sits at the lower left corner of the world.
-		  //The code below creates a new, flipped graphics context. We then need to apply an NSAffineTransform to get the 
+		  //The code below creates a new, flipped graphics context. We then need to apply an NSAffineTransform to get the
 		  //image to be drawn where we intend.
 		  //You can change flipped to false or comment out the four lines of NSAffineTransform code or both to see the effects added.
 		  
@@ -73,6 +73,13 @@ End
 		    finally
 		      NSGraphicsContext.RestoreState
 		    end try
+		    
+		  #else
+		    #pragma unused g
+		  #endif
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
 		  #endif
 		  
 		  
