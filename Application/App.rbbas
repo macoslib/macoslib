@@ -48,6 +48,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaApplicationIcon() As Boolean Handles CocoaApplicationIcon.Action
+			AppIconExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSColorBrowser() As Boolean Handles CocoaNSColorBrowser.Action
 			NSColorWindow.Show
 			return true
