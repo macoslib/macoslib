@@ -1004,6 +1004,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaApplicationIcon
+            SpecialMenu = 0
+            Text = "Application Icon"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSColorBrowser
             SpecialMenu = 0
             Text = "NSColor Browser"

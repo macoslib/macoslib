@@ -3,6 +3,12 @@ Class NSGraphicsContext
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(g as Graphics)
+		  self.Constructor(g, false)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(g as Graphics, flipped as Boolean)
 		  if g is nil then
 		    return
 		  end if
@@ -10,7 +16,7 @@ Inherits NSObject
 		  #if targetCocoa
 		    declare function graphicsContextWithGraphicsPort lib CocoaLib selector "graphicsContextWithGraphicsPort:flipped:" (class_id as Ptr, port as Ptr, flipped as Boolean) as Ptr
 		    
-		    self.Constructor(graphicsContextWithGraphicsPort(Cocoa.NSClassFromString("NSGraphicsContext"), Ptr(g.Handle(Graphics.HandleTypeCGContextRef)), false))
+		    self.Constructor(graphicsContextWithGraphicsPort(Cocoa.NSClassFromString("NSGraphicsContext"), Ptr(g.Handle(Graphics.HandleTypeCGContextRef)), flipped))
 		  #endif
 		End Sub
 	#tag EndMethod
