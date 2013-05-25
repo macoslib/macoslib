@@ -517,6 +517,7 @@ Class=MacSystemProfiler;Additional Modules/KT's PList Stuff/MacSystemProfiler.rb
 Window=CoreTextExample;Examples/CoreTextExample.rbfrm;&h4F86FED2;&h4BD59C08;false
 Window=AppIconExample;Examples/AppIconExample.rbfrm;&h2ECF3BEB;&h4BD59C08;false
 Window=NSTaskExample;Examples/NSTaskExample.rbfrm;&h5AC7C182;&h4BD59C08;false
+DefaultWindow=NSTaskExample
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0

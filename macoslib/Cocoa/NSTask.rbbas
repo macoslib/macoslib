@@ -9,7 +9,7 @@ Inherits NSObject
 		    dim cfargs as new CFArray(arguments(self), not CFArray.hasOwnership)
 		    dim args() as String
 		    for i as Integer = 0 to cfargs.Count - 1
-		      'args.Append RetainedStringValue(cfargs.Value(i))
+		      args.Append RetainedStringValue(cfargs.Value(i))
 		    next
 		    return args
 		  #endif
@@ -41,6 +41,10 @@ Inherits NSObject
 		      cfArgs.Append arguments(i)
 		    next
 		    setArguments(self, new CFArray(cfArgs))
+		    
+		    self.SetStdin(NSPIpe.NewPipe())
+		    self.SetStdout(NSPIpe.NewPipe())
+		    self.SetStdErr(NSPipe.NewPipe())
 		  #else
 		    #pragma unused path
 		    #pragma unused arguments
@@ -50,11 +54,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Environment() As CFDictionary
+		Function Environment() As NSDictionary
 		  #if targetMacOS
 		    declare function environment lib CocoaLib selector "environment" (obj_id as Ptr) as Ptr
 		    
-		    return new CFDIctionary(environment(self), not CFDIctionary.hasOwnership)
+		    return new NSDIctionary(environment(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -81,64 +85,223 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub RedirectStdout()
+	#tag Method, Flags = &h21
+		Private Shared Function MakeNSFileHandle(p as Ptr) As NSFileHandle
 		  #if targetMacOS
-		    'if value = nil then
-		    'return
-		    'end if
+		    declare function isKindOfClass lib CocoaLib selector "isKindOfClass:" (obj_id as Ptr, class_id as Ptr) as Boolean
 		    
-		    declare sub setStandardOutput lib CocoaLib selector "setStandardOutput:" (obj_id as Ptr, value as Ptr)
-		    
-		    'setStandardOutput(self, value)
-		  #else
-		    #pragma unused value
+		    if isKindOfClass(p, Cocoa.NSClassFromString("NSFileHandle")) then
+		      return new NSFileHandle(p)
+		    else
+		      return nil
+		    end if
 		  #endif
-		End Sub
+		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub StdErr()
+	#tag Method, Flags = &h21
+		Private Shared Function MakeNSPipe(p as Ptr) As NSPipe
 		  #if targetMacOS
-		    declare function standardError lib CocoaLib selector "standardError" (obj_id as Ptr) as Ptr
+		    declare function isKindOfClass lib CocoaLib selector "isKindOfClass:" (obj_id as Ptr, class_id as Ptr) as Boolean
 		    
-		    declare function read lib "libc.dylib" (fd as INteger, buf as Ptr, count as Integer) as Integer
-		    
-		    dim foo as new NSFileHandle(standardError(self))
-		    dim fd as Integer = foo.fileDescriptor
-		    dim m as new MemoryBlock(1024)
-		    dim count as Integer = read(fd, m, m.Size)
-		    
-		    
-		    'dim s as NSData = foo.ReadAll
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Stdout() As NSPipe
-		  #if targetMacOS
-		    declare function standardOutput lib CocoaLib selector "standardOutput" (obj_id as Ptr) as Ptr
-		    
-		    return new NSPipe(standardOutput(self))
+		    if isKindOfClass(p, Cocoa.NSClassFromString("NSPipe")) then
+		      return new NSPipe(p)
+		    else
+		      return nil
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Stdout(assigns value as NSPipe)
+		Sub RedirectStdout(handle as NSFileHandle)
 		  #if targetMacOS
-		    if value = nil then
+		    if handle = nil then
 		      return
 		    end if
 		    
 		    declare sub setStandardOutput lib CocoaLib selector "setStandardOutput:" (obj_id as Ptr, value as Ptr)
 		    
-		    setStandardOutput(self, value)
+		    setStandardOutput(self, handle)
 		  #else
-		    #pragma unused value
+		    #pragma unused handle
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Resume() As Boolean
+		  #if targetMacOS
+		    declare function resume lib CocoaLib selector "resume" (obj_id as Ptr) as Boolean
+		    
+		    return resume(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub SetStandardError(p as Ptr)
+		  #if targetMacOS
+		    declare sub setStandardError lib CocoaLib selector "setStandardError:" (obj_id as Ptr, file as Ptr)
+		    
+		    setStandardError(self, p)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub SetStandardInput(p as Ptr)
+		  #if targetMacOS
+		    declare sub setStandardInput lib CocoaLib selector "setStandardInput:" (obj_id as Ptr, file as Ptr)
+		    
+		    setStandardInput(self, p)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub SetStandardOutput(p as Ptr)
+		  #if targetMacOS
+		    declare sub setStandardOutput lib CocoaLib selector "setStandardOutput:" (obj_id as Ptr, file as Ptr)
+		    
+		    setStandardOutput(self, p)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetStderr(handle as NSFileHandle)
+		  if handle is nil then
+		    return
+		  end if
+		  SetStandardError(handle)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetStderr(pipe as NSPipe)
+		  if pipe is nil then
+		    return
+		  end if
+		  SetStandardOutput(pipe)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetStdin(handle as NSFileHandle)
+		  if handle is nil then
+		    return
+		  end if
+		  SetStandardInput(handle)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetStdin(pipe as NSPipe)
+		  if pipe is nil then
+		    return
+		  end if
+		  SetStandardInput(pipe)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetStdout(handle as NSFileHandle)
+		  if handle is nil then
+		    return
+		  end if
+		  SetStandardOutput(handle)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetStdout(pipe as NSPipe)
+		  if pipe is nil then
+		    return
+		  end if
+		  SetStandardOutput(pipe)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function StandardError() As Ptr
+		  #if targetMacOS
+		    declare function standardError lib CocoaLib selector "standardError" (obj_id as Ptr) as Ptr
+		    
+		    return standardError(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function StandardInput() As Ptr
+		  #if targetMacOS
+		    declare function standardInput lib CocoaLib selector "standardInput" (obj_id as Ptr) as Ptr
+		    
+		    return standardInput(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function StandardOutput() As Ptr
+		  #if targetMacOS
+		    declare function standardOutput lib CocoaLib selector "standardOutput" (obj_id as Ptr) as Ptr
+		    
+		    return standardOutput(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StdErrHandle() As NSFileHandle
+		  #if targetMacOS
+		    return MakeNSFileHandle(self.standardError)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StdErrPipe() As NSPipe
+		  #if targetMacOS
+		    return MakeNSPipe(self.StandardError)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StdinHandle() As NSFileHandle
+		  #if targetMacOS
+		    return MakeNSFileHandle(self.standardInput)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StdinPipe() As NSPipe
+		  #if targetMacOS
+		    return MakeNSPipe(self.standardInput)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StdoutHandle() As NSFileHandle
+		  #if targetMacOS
+		    return MakeNSFileHandle(self.standardOutput)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StdoutPipe() As NSPipe
+		  #if targetMacOS
+		    return MakeNSPipe(self.standardOutput)
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -167,6 +330,20 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function TerminationReason() As Integer
+		  //returns one of
+		  //  TerminationReasonExit
+		  //  TerminationReasonUncaughtSignal
+		  
+		  #if targetMacOS
+		    declare function terminationReason lib CocoaLib selector "terminationReason" (obj_id as Ptr) as Integer
+		    
+		    return terminationReason(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Wait()
 		  #if targetMacOS
 		    declare sub waitUntilExit lib CocoaLib selector "waitUntilExit" (obj_id as Ptr)
@@ -191,7 +368,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function currentDirectoryPath lib CocoaLib selector "currentDirectoryPath" (obj_id as Ptr) as Ptr
 			    
-			    'return RetainedStringValue(currentDirectoryPath(self))
+			    return RetainedStringValue(currentDirectoryPath(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -255,7 +432,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function launchPath lib CocoaLib selector "launchPath" (obj_id as Ptr) as Ptr
 			    
-			    'return RetainedStringValue(launchPath(self))
+			    return RetainedStringValue(launchPath(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -288,6 +465,13 @@ Inherits NSObject
 		#tag EndGetter
 		ProcessIdentifier As Integer
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = TerminationReasonExit, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TerminationReasonUncaughtSignal, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior

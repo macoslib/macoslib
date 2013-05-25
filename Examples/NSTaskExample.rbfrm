@@ -29,7 +29,7 @@ Begin Window NSTaskExample
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "Untitled"
+      Caption         =   "Run"
       Default         =   ""
       Enabled         =   True
       Height          =   20
@@ -55,19 +55,63 @@ Begin Window NSTaskExample
       Visible         =   True
       Width           =   80
    End
+   Begin PushButton PushButton2
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   "Run"
+      Default         =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   492
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   304
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
 #tag EndWindowCode
 
-#tag Events PushButton1
+#tag Events PushButton2
 	#tag Event
 		Sub Action()
+		  dim dlg as new SaveAsDialog
+		  dim f as FolderItem = dlg.ShowModalWithin(self)
+		  if f = nil then
+		    return
+		  end if
+		  
+		  
+		  
+		  
+		  
 		  dim task as new NSTask("/bin/ls", "-l", "/Users/charles")
+		  
+		  
 		  task.Launch
 		  task.Wait
-		  dim data as NSData = task.Stdout.ReadHandle.Read
+		  dim data as NSData = task.StdoutPipe.ReadHandle.ReadAll
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
