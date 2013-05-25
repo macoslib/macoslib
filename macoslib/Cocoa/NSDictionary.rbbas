@@ -6,11 +6,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function _allKeys lib CocoaLib selector "allKeys" (id as Ptr) as Ptr
 		    
-		    dim p as Ptr = _allKeys( me.id )
-		    
-		    if p<>nil then
-		      return   new NSArray( p, false )
-		    end if
+		    return new NSArray(_allKeys(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -20,11 +16,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function _allValues lib CocoaLib selector "allValues" (id as Ptr) as Ptr
 		    
-		    dim p as Ptr = _allValues( me.id )
-		    
-		    if p<>nil then
-		      return   new NSArray( p, false )
-		    end if
+		    return new NSArray(_allValues(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -33,7 +25,7 @@ Inherits NSObject
 		Sub Constructor(cfd as CFDictionary)
 		  // Adopts a CFDictionary
 		  // Note: This shall _not_ create a copy of the passed CFDictionary. For that, there's the Copy function
-		  Super.Constructor( cfd, false )
+		  Super.Constructor(cfd)
 		  
 		End Sub
 	#tag EndMethod
