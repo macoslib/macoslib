@@ -78,34 +78,16 @@ Protected Module ExtendedAttributesExtensions
 
 	#tag Method, Flags = &h21
 		Private Function libcErrorCode() As Integer
-		  #if TargetCarbon
-		    soft declare function libcErrorCode lib SystemLib alias "__error" () as Ptr
-		  #endif
-		  '#if TargetLinux
-		  'soft declare function libcErrorCode lib LibraryPath alias "__errno_location" () as Ptr
-		  '#endif
-		  '#if TargetWin32
-		  'soft declare function winErrorCodelib LibraryPath alias "_get_errno" (ByRef pValue as Integer) as Integer
-		  '#endif
-		  
-		  #if TargetCarbon or TargetLinux
-		    dim m as MemoryBlock = libcErrorCode()
+		  #if TargetMacOS
+		    soft declare function errorCode lib SystemLib alias "__error" () as Ptr
+		    
+		    dim m as MemoryBlock = errorCode()
 		    If m is nil then
 		      //something bad has happened
 		      Return 0
 		    End if
 		    Return m.Long(0)
 		  #endif
-		  
-		  '#if TargetWin32
-		  'dim theErrorCode as Integer = 0
-		  'dim winErrorCodeResult as Integer = winErrorCode(theErrorCode)
-		  'if winErrorCodeResult = 0 then
-		  'Return theErrorCode
-		  'Else
-		  'Return winErrorCodeResult
-		  'End if
-		  '#endif
 		End Function
 	#tag EndMethod
 
