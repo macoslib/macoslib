@@ -32,6 +32,9 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		129: 2013-05-25 by CCY 
+		- Add NSTask class; fix a bug in ExtendedAttributesExtensions.libcErrorCode that prevented Linux/Windows builds.
+		
 		128: 2013-05-20 by KT 
 		- Fixed unused variables/parameters.
 		
@@ -193,7 +196,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"128", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"129", Scope = Protected
 	#tag EndConstant
 
 
