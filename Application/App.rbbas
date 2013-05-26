@@ -129,6 +129,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSTask() As Boolean Handles CocoaNSTask.Action
+			NSTaskExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSTimeZone() As Boolean Handles CocoaNSTimeZone.Action
 			NSTimeZoneWindow.Show
 			return true
