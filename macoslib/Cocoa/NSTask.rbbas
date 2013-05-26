@@ -114,22 +114,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RedirectStdout(handle as NSFileHandle)
-		  #if targetMacOS
-		    if handle = nil then
-		      return
-		    end if
-		    
-		    declare sub setStandardOutput lib CocoaLib selector "setStandardOutput:" (obj_id as Ptr, value as Ptr)
-		    
-		    setStandardOutput(self, handle)
-		  #else
-		    #pragma unused handle
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function Resume() As Boolean
 		  #if targetMacOS
 		    declare function resume lib CocoaLib selector "resume" (obj_id as Ptr) as Boolean
@@ -355,7 +339,7 @@ Inherits NSObject
 
 
 	#tag Note, Name = Notes
-		
+		An NSTask object can be run only once.  
 		
 		
 		DebugArgs as String is provided to be able to view the arguments in the debugger.
@@ -479,6 +463,7 @@ Inherits NSObject
 			Name="CurrentWorkingDirectory"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
@@ -508,6 +493,7 @@ Inherits NSObject
 			Name="LaunchPath"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
