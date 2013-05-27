@@ -2,7 +2,7 @@
 Protected Module ResourceForkReplacement
 	#tag Method, Flags = &h0
 		Function OpenMacResourceFork(extends f as FolderItem) As MacResourceFork
-		  if f <> nil and f.Exists then
+		  if f <> nil and f.ResourceForkLength > 0 then
 		    return new MacResourceFork (f)
 		  end if
 		End Function
