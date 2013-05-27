@@ -1,6 +1,28 @@
 #tag Class
 Class MacResourceFork
 	#tag Method, Flags = &h0
+		Sub AddResource(data as String, type as String, id as Integer, name as String)
+		  declare sub AddResource lib CarbonLib (dataHdl as Ptr, type as OSType, id as Integer, name as PString)
+		  declare function NewHandle Lib CarbonLib (size as Integer) as Ptr
+		  declare sub WriteResource Lib CarbonLib (hdl as Ptr)
+		  declare sub ReleaseResource Lib CarbonLib (hdl as Ptr)
+		  
+		  dim res as new ResourceAccessor (mResHandle)
+		  
+		  dim dhdl as Ptr = NewHandle (data.LenB)
+		  dim mb as MemoryBlock = dhdl.Ptr(0)
+		  mb.StringValue(0, data.LenB) = data
+		  
+		  AddResource (dhdl, type, id, name)
+		  WriteResource (dhdl)
+		  ReleaseResource (dhdl)
+		  
+		  res = nil // Keeps the compiler from complaining
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Close()
 		  declare sub CloseResFile lib CarbonLib (refnum as Integer)
 		  
@@ -67,8 +89,10 @@ Class MacResourceFork
 		  declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
 		  dim size as Integer = GetHandleSize (item.Handle)
 		  
-		  dim mb as MemoryBlock = item.Handle.Ptr(0)
-		  return mb.StringValue(0, size)
+		  if size > 0 then
+		    dim mb as MemoryBlock = item.Handle.Ptr(0)
+		    return mb.StringValue(0, size)
+		  end if
 		End Function
 	#tag EndMethod
 
@@ -79,9 +103,21 @@ Class MacResourceFork
 		  declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
 		  dim size as Integer = GetHandleSize (item.Handle)
 		  
-		  dim mb as MemoryBlock = item.Handle.Ptr(0)
-		  return mb.StringValue(0, size)
+		  if size > 0 then
+		    dim mb as MemoryBlock = item.Handle.Ptr(0)
+		    return mb.StringValue(0, size)
+		  end if
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveResource(type as String, id as Integer)
+		  declare sub RemoveResource lib CarbonLib (hdl as Ptr)
+		  dim res as new ResourceAccessor (mResHandle)
+		  RemoveResource (ResourceItem.ByID(mResHandle, type, id).Handle)
+		  res = nil // Keeps the compiler from complaining
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
