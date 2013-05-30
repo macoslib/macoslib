@@ -1292,6 +1292,12 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
       End
+      Begin MenuItem MenuItemExamplesMenuLocalizedTextDragManager
+         SpecialMenu = 0
+         Text = "Carbon Drag Manager"
+         Index = -2147483648
+         AutoEnable = True
+      End
       Begin MenuItem MenuItemExamplesMenuLocalizedTextThemeColors
          SpecialMenu = 0
          Text = "Theme Colors"

@@ -220,7 +220,7 @@ Protected Module Carbon
 		  
 		  dim parts() as String = versionString.Split(".")
 		  if parts.Ubound <> -1 then
-		    version = 10000 * parts( 0 ).Val 
+		    version = 10000 * parts( 0 ).Val
 		    if parts.Ubound > 0 then
 		      version = version + 100 * parts( 1 ).Val
 		      if parts.Ubound > 1 then
