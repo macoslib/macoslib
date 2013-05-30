@@ -106,8 +106,7 @@ Protected Class DragRef
 		  dim outDropLocation as Integer
 		  call GetStandardDropLocation(mRef, outDropLocation)
 		  
-		  const kDragStandardDropLocationTrash = "trsh"
-		  return outDropLocation = OSTypeFromStringMBS(kDragStandardDropLocationTrash)
+		  return outDropLocation = kDragStandardDropLocationTrash
 		  
 		End Function
 	#tag EndMethod
@@ -123,6 +122,10 @@ Protected Class DragRef
 	#tag Property, Flags = &h21
 		Private mRef As Integer
 	#tag EndProperty
+
+
+	#tag Constant, Name = kDragStandardDropLocationTrash, Type = Double, Dynamic = False, Default = \"\'trsh\'", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior
