@@ -135,23 +135,10 @@ Inherits CFAttributedString
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Length"
-			Group="Behavior"
-			Type="Integer"
-			InheritedFrom="CFAttributedString"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="StringValue"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="CFAttributedString"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

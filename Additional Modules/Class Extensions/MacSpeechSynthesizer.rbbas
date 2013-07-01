@@ -28,7 +28,7 @@ Protected Class MacSpeechSynthesizer
 		Sub Constructor()
 		  //# Initialize with the default voice
 		  
-		  _synth = new NSSpeechSynthesizer
+		  m_synth = new NSSpeechSynthesizer
 		  
 		  //Redirect events
 		  AddHandler   synth.FinishedSpeaking, WeakAddressOf HandleDidFinishSpeaking
@@ -66,7 +66,7 @@ Protected Class MacSpeechSynthesizer
 		    RemoveHandler   synth.WillSpeakPhoneme, AddressOf HandleWillSpeakPhoneme
 		    RemoveHandler   synth.WillSpeakWord, AddressOf HandleWillSpeakWord
 		    
-		    _synth = nil
+		    m_synth = nil
 		  end if
 		End Sub
 	#tag EndMethod
@@ -302,6 +302,10 @@ Protected Class MacSpeechSynthesizer
 	#tag EndHook
 
 
+	#tag Property, Flags = &h21
+		Private m_synth As NSSpeechSynthesizer
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Note
 			Speech rate in words per minute. Usually between 180 and 220.
@@ -326,7 +330,7 @@ Protected Class MacSpeechSynthesizer
 			Get
 			  //# Get the underlying Cocoa object
 			  
-			  return  _synth
+			  return  m_synth
 			End Get
 		#tag EndGetter
 		synth As NSSpeechSynthesizer
@@ -365,10 +369,6 @@ Protected Class MacSpeechSynthesizer
 		#tag EndSetter
 		Volume As single
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private _synth As NSSpeechSynthesizer
-	#tag EndProperty
 
 
 	#tag Constant, Name = kNSSpeechImmediateBoundary, Type = Double, Dynamic = False, Default = \"0", Scope = Public

@@ -64,9 +64,9 @@ Inherits CFType
 		    
 		    prepareCallback()
 		    if connect then
-		      super.Constructor CFSocketCreateConnectedToSocketSignature (nil, socketSignature.Reference, callbackTypes, AddressOf _socketCallBack, myContext, timeoutSeconds), true
+		      super.Constructor CFSocketCreateConnectedToSocketSignature (nil, socketSignature.Reference, callbackTypes, AddressOf m_socketCallBack, myContext, timeoutSeconds), true
 		    else
-		      super.Constructor CFSocketCreateWithSocketSignature (nil, socketSignature.Reference, callbackTypes, AddressOf _socketCallBack, myContext), true
+		      super.Constructor CFSocketCreateWithSocketSignature (nil, socketSignature.Reference, callbackTypes, AddressOf m_socketCallBack, myContext), true
 		    end if
 		    installRunLoopHandler()
 		  #endif
@@ -81,7 +81,7 @@ Inherits CFType
 		    myContext = new MemoryBlock(20) // = size of CFSocketContext
 		    
 		    prepareCallback()
-		    dim p as Ptr = CFSocketCreateWithNative (nil, sock, cbTypes, AddressOf _socketCallBack, myContext)
+		    dim p as Ptr = CFSocketCreateWithNative (nil, sock, cbTypes, AddressOf m_socketCallBack, myContext)
 		    super.Constructor p, true
 		    installRunLoopHandler()
 		  #endif
@@ -94,7 +94,7 @@ Inherits CFType
 		    declare function CFSocketCreate lib CarbonLib (allocator as Ptr, protocolFamily as Integer, socketType as Integer, protocol as Integer, cbTypes as Integer, callBack as Ptr, contextRef as Ptr) as Ptr
 		    
 		    prepareCallback()
-		    dim p as Ptr = CFSocketCreate (nil, protocolFamily, socketType, protocol, callbackTypes, AddressOf _socketCallBack, myContext)
+		    dim p as Ptr = CFSocketCreate (nil, protocolFamily, socketType, protocol, callbackTypes, AddressOf m_socketCallBack, myContext)
 		    super.Constructor p, true
 		    installRunLoopHandler()
 		  #endif
@@ -104,7 +104,7 @@ Inherits CFType
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
 		  me.Close
-		  _sockets.Remove(myContext.Long(4)) '_sockets.Remove(myContext.info)
+		  m_sockets.Remove(myContext.Long(4)) '_sockets.Remove(myContext.info)
 		End Sub
 	#tag EndMethod
 
@@ -153,13 +153,20 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Shared Sub m_socketCallBack(socketRef as Ptr, type as Integer, addressRef as Ptr, dataPtr as Ptr, context_info as Integer)
+		  dim s as CFSocket = CFSocket(WeakRef(m_sockets.Value(context_info)).Value)
+		  s.socketCallBack (socketRef, type, addressRef, dataPtr)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub prepareCallback()
 		  dim v as Variant = me
 		  dim info as Integer = v.Hash
 		  myContext.Long(4) = info 'myContext.info = info
-		  if _sockets = nil then _sockets = new Dictionary
-		  if _sockets.HasKey(info) then raise new RuntimeException // oops! that should never be able to happen
-		  _sockets.Value(info) = new WeakRef(me)
+		  if m_sockets = nil then m_sockets = new Dictionary
+		  if m_sockets.HasKey(info) then raise new RuntimeException // oops! that should never be able to happen
+		  m_sockets.Value(info) = new WeakRef(me)
 		End Sub
 	#tag EndMethod
 
@@ -204,13 +211,6 @@ Inherits CFType
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Shared Sub _socketCallBack(socketRef as Ptr, type as Integer, addressRef as Ptr, dataPtr as Ptr, context_info as Integer)
-		  dim s as CFSocket = CFSocket(WeakRef(_sockets.Value(context_info)).Value)
-		  s.socketCallBack (socketRef, type, addressRef, dataPtr)
-		End Sub
-	#tag EndMethod
-
 
 	#tag Hook, Flags = &h0
 		Event Accepted(addressData as CFData)
@@ -233,7 +233,7 @@ Inherits CFType
 		(Original sources are located here:  https://github.com/macoslib/macoslib)
 		
 		This class is still a work-in-progress (WIP). It functions basically, but requires a lot of understanding
-		of Apple's rather scarce documentation on this. The CoreFoundation._TestSelf method contains some
+		of Apple's rather scarce documentation on this. The CoreFoundation.TestSelf method contains some
 		half-baked code showing what needs to be done to use this. E.g, it appears that one needs to attach
 		the socket to a runloop, use the correct callbackType values and implement some of the events
 		in CFSocket (which the test code doesn't to currently), otherwise Read or Write calls will just freeze
@@ -278,6 +278,14 @@ Inherits CFType
 		Private myContext As MemoryBlock
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		#tag Note
+			key: CFSocket's hash value
+			value: WeakRef of CFSocket object
+		#tag EndNote
+		Private Shared m_sockets As Dictionary
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -299,14 +307,6 @@ Inherits CFType
 
 	#tag Property, Flags = &h21
 		Private theRunLoop As Ptr
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		#tag Note
-			key: CFSocket's hash value
-			value: WeakRef of CFSocket object
-		#tag EndNote
-		Private Shared _sockets As Dictionary
 	#tag EndProperty
 
 

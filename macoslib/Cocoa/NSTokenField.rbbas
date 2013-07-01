@@ -638,9 +638,9 @@ Inherits NSControl
 		Function GetAttributedStringValue() As NSAttributedString
 		  
 		  #if TargetMacOS
-		    declare function _attributedStringValue lib CocoaLib selector "attributedStringValue" (id as Ptr) as Ptr
+		    declare function m_attributedStringValue lib CocoaLib selector "attributedStringValue" (id as Ptr) as Ptr
 		    
-		    dim p as Ptr = _attributedStringValue( me.id )
+		    dim p as Ptr = m_attributedStringValue( me.id )
 		    
 		    if p<>nil then
 		      'DReport   CurrentMethodName, "pointer corresponds to object", Cocoa.ClassNameTreeForObjectPointer( p )
@@ -1082,9 +1082,9 @@ Inherits NSControl
 	#tag Method, Flags = &h0
 		Function ParentWindow() As NSWindow
 		  #if TargetMacOS
-		    declare function _window lib CocoaLib selector "window" ( id as Ptr ) as Ptr
+		    declare function m_window lib CocoaLib selector "window" ( id as Ptr ) as Ptr
 		    
-		    return  new NSWindow( _window( me.id ), false )
+		    return  new NSWindow( m_window( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod
