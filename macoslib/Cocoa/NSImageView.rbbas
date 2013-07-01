@@ -497,18 +497,18 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function _isEditable lib CocoaLib selector "isEditable" (id as Ptr) as Boolean
+			    declare function m_isEditable lib CocoaLib selector "isEditable" (id as Ptr) as Boolean
 			    
-			    return  _isEditable( me.id )
+			    return  m_isEditable( me.id )
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub _isEditable lib CocoaLib selector "setEditable:" (id as Ptr, value as boolean)
+			    declare sub m_isEditable lib CocoaLib selector "setEditable:" (id as Ptr, value as boolean)
 			    
-			    _isEditable( me.id, value )
+			    m_isEditable( me.id, value )
 			    
 			  #else
 			    #pragma unused value
@@ -702,9 +702,9 @@ Inherits NSControl
 			Get
 			  
 			  #if TargetMacOS
-			    declare function _image lib CocoaLib selector "image" (id as Ptr) as Ptr
+			    declare function m_image lib CocoaLib selector "image" (id as Ptr) as Ptr
 			    
-			    dim p as Ptr = _image( me.id )
+			    dim p as Ptr = m_image( me.id )
 			    if p<>nil then
 			      return  new NSImage( p )
 			    else
@@ -719,12 +719,12 @@ Inherits NSControl
 			Set
 			  
 			  #if TargetMacOS
-			    declare sub _setimage lib CocoaLib selector "setImage:" (id as Ptr, img as Ptr)
+			    declare sub m_setimage lib CocoaLib selector "setImage:" (id as Ptr, img as Ptr)
 			    
 			    if value=nil then
-			      _setimage( me.id, nil )
+			      m_setimage( me.id, nil )
 			    else
-			      _setimage( me.id, value.id )
+			      m_setimage( me.id, value.id )
 			    end if
 			    
 			  #else

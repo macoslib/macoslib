@@ -53,7 +53,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function attributedStringValue lib CocoaLib selector "attributedStringValue" (id as Ptr) as Ptr
 			    
-			    return   Cocoa.NSObjectFromNSPtr( attributedStringValue( me._id ))
+			    return   Cocoa.NSObjectFromNSPtr( attributedStringValue( me.m_id ))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -62,7 +62,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub attributedStringValue lib CocoaLib selector "setAttributedStringValue:" (id as Ptr, value as Ptr)
 			    
-			    attributedStringValue( me._id, value.id )
+			    attributedStringValue( me.m_id, value.id )
 			    
 			  #else
 			    #pragma unused value
@@ -78,7 +78,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function isEditable lib CocoaLib selector "isEditable" (id as Ptr) as Boolean
 			    
-			    return   isEditable( me._id )
+			    return   isEditable( me.m_id )
 			  #endif
 			End Get
 		#tag EndGetter
@@ -87,7 +87,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub setEditable lib CocoaLib selector "setEditable:" (id as Ptr, value as boolean)
 			    
-			    setEditable( me._id, value )
+			    setEditable( me.m_id, value )
 			    
 			  #else
 			    #pragma unused value
@@ -103,7 +103,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function allowsEditingTextAttributes lib CocoaLib selector "allowsEditingTextAttributes" (id as Ptr) as Boolean
 			    
-			    return   allowsEditingTextAttributes( me._id )
+			    return   allowsEditingTextAttributes( me.m_id )
 			  #endif
 			End Get
 		#tag EndGetter
@@ -112,7 +112,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub allowsEditingTextAttributes lib CocoaLib selector "setAllowsEditingTextAttributes:" (id as Ptr, value as boolean)
 			    
-			    allowsEditingTextAttributes( me._id, value )
+			    allowsEditingTextAttributes( me.m_id, value )
 			    
 			  #else
 			    #pragma unused value
@@ -128,7 +128,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function isSelectable lib CocoaLib selector "isSelectable" (id as Ptr) as Boolean
 			    
-			    return   isSelectable( me._id )
+			    return   isSelectable( me.m_id )
 			  #endif
 			End Get
 		#tag EndGetter
@@ -137,7 +137,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub setSelectable lib CocoaLib selector "setSelectable:" (id as Ptr, value as boolean)
 			    
-			    setSelectable( me._id, value )
+			    setSelectable( me.m_id, value )
 			    
 			  #else
 			    #pragma unused value

@@ -62,9 +62,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub SetAction(selectorName as string)
 		  #if TargetMacOS
-		    declare sub _setAction lib CocoaLib selector "setAction:" (id as Ptr, SEL as ptr)
+		    declare sub m_setAction lib CocoaLib selector "setAction:" (id as Ptr, SEL as ptr)
 		    
-		    _setAction   me.id, Cocoa.NSSelectorFromString( selectorName )
+		    m_setAction   me.id, Cocoa.NSSelectorFromString( selectorName )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -72,9 +72,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub SetTarget(targetObject as Ptr)
 		  #if TargetMacOS
-		    declare sub _setTarget lib CocoaLib selector "setTarget:" (id as Ptr, target as Ptr)
+		    declare sub m_setTarget lib CocoaLib selector "setTarget:" (id as Ptr, target as Ptr)
 		    
-		    _setTarget  me.id, targetObject
+		    m_setTarget  me.id, targetObject
 		  #endif
 		End Sub
 	#tag EndMethod

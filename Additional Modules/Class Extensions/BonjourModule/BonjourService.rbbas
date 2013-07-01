@@ -230,16 +230,23 @@ Class BonjourService
 	#tag EndNote
 
 
+	#tag Property, Flags = &h1
+		#tag Note
+			// The underlying Cocoa object
+		#tag EndNote
+		Protected m_nsns As NSNetService
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h1
 		#tag Getter
 			Get
-			  return _nsns
+			  return m_nsns
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
 			  
-			  'if _nsns<>nil then
+			  'if m_nsns<>nil then
 			  'DReportTitled   self.ClassName
 			  'if value.id=_nsns.id then
 			  'DReportWarning    "NSNetService has changed for BonjourService", Hex(value.id), "but with same value"
@@ -251,7 +258,7 @@ Class BonjourService
 			  if value.GetDelegate=nil then
 			    value.SetDelegate
 			  end if
-			  _nsns = value
+			  m_nsns = value
 			  RegisterHandlers
 			End Set
 		#tag EndSetter
@@ -274,13 +281,6 @@ Class BonjourService
 		#tag EndGetter
 		TXTRecord As Dictionary
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h1
-		#tag Note
-			// The underlying Cocoa object
-		#tag EndNote
-		Protected _nsns As NSNetService
-	#tag EndProperty
 
 
 	#tag ViewBehavior

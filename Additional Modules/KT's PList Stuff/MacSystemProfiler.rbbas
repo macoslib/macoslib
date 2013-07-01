@@ -400,6 +400,56 @@ Protected Class MacSystemProfiler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Attributes( hidden )  Shared Function SelfTestShared() As Boolean
+		  try
+		    
+		    dim v as Variant
+		    v = MacSystemProfiler.HW_BootROMVersion
+		    v = MacSystemProfiler.HW_BusSpeed
+		    v = MacSystemProfiler.HW_CPUType
+		    v = MacSystemProfiler.HW_UUID
+		    v = MacSystemProfiler.HW_L2CachePerProcessor
+		    v = MacSystemProfiler.HW_MachineName
+		    v = MacSystemProfiler.HW_Memory
+		    v = MacSystemProfiler.HW_ModelIdentifier
+		    v = MacSystemProfiler.HW_NumberOfCores
+		    v = MacSystemProfiler.HW_NumberOfProcessors
+		    v = MacSystemProfiler.HW_ProcessorSpeed
+		    v = MacSystemProfiler.HW_SerialNumber
+		    v = MacSystemProfiler.HW_SMCVersion
+		    
+		    v = SystemSoftwareVersion
+		    if v = "" then
+		      return false
+		    end if
+		    v = SystemSoftwareBuild
+		    if v = "" then
+		      return false
+		    end if
+		    v = SystemSoftwareVersionAsInt
+		    
+		    dim d as date = SW_BootDate
+		    #pragma unused d
+		    v = SW_BootMode
+		    v = SW_BootVolume
+		    v = SW_ComputerName
+		    v = SW_KernelVersion
+		    v = SW_SecureVMEnabled
+		    v = SW_SystemVersion
+		    v = SW_UptimeInSecs
+		    v = SW_UserNameLong
+		    v = SW_UserNameShort
+		    
+		    return true
+		    
+		  catch
+		    return false
+		    
+		  end try
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function SW_BootDate() As Date
 		  dim d as new Date
 		  d.TotalSeconds = d.TotalSeconds - SW_UpTimeInSecs
@@ -587,7 +637,7 @@ Protected Class MacSystemProfiler
 		      dim item as MacPListBrowser = p( i ).Child( "_items" )
 		      dim found() as MacPListBrowser
 		      if identifierKey = "" or identifierValue = "" then
-		         found = item.FindByKey( key )
+		        found = item.FindByKey( key )
 		      else
 		        found = item.FindByKeyAndValue( identifierKey, identifierValue )
 		        if found.Ubound <> -1 then
@@ -606,56 +656,6 @@ Protected Class MacSystemProfiler
 		  
 		  return r
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function __SelfTestShared() As Boolean
-		  try
-		    
-		    dim v as Variant
-		    v = MacSystemProfiler.HW_BootROMVersion
-		    v = MacSystemProfiler.HW_BusSpeed
-		    v = MacSystemProfiler.HW_CPUType
-		    v = MacSystemProfiler.HW_UUID
-		    v = MacSystemProfiler.HW_L2CachePerProcessor
-		    v = MacSystemProfiler.HW_MachineName
-		    v = MacSystemProfiler.HW_Memory
-		    v = MacSystemProfiler.HW_ModelIdentifier
-		    v = MacSystemProfiler.HW_NumberOfCores
-		    v = MacSystemProfiler.HW_NumberOfProcessors
-		    v = MacSystemProfiler.HW_ProcessorSpeed
-		    v = MacSystemProfiler.HW_SerialNumber
-		    v = MacSystemProfiler.HW_SMCVersion
-		    
-		    v = SystemSoftwareVersion
-		    if v = "" then
-		      return false
-		    end if
-		    v = SystemSoftwareBuild
-		    if v = "" then
-		      return false
-		    end if
-		    v = SystemSoftwareVersionAsInt
-		    
-		    dim d as date = SW_BootDate
-		    #pragma unused d
-		    v = SW_BootMode
-		    v = SW_BootVolume
-		    v = SW_ComputerName
-		    v = SW_KernelVersion
-		    v = SW_SecureVMEnabled
-		    v = SW_SystemVersion
-		    v = SW_UptimeInSecs
-		    v = SW_UserNameLong
-		    v = SW_UserNameShort
-		    
-		    return true
-		    
-		  catch
-		    return false
-		    
-		  end try
 		End Function
 	#tag EndMethod
 
@@ -712,7 +712,6 @@ Protected Class MacSystemProfiler
 		SPNetworkVolumeDataType
 		SPWWANDataType
 		SPAirPortDataType
-		
 	#tag EndNote
 
 	#tag Note, Name = Legal
@@ -803,8 +802,6 @@ Protected Class MacSystemProfiler
 		Data types always take the form "SP...DataType", e.g., "SPHardwareDataType" and "SPSoftwareDataType". As a
 		convenience, you only need to specify the part between "SP" and "DataType" and MacSystemProfiler will
 		fill in the rest for you, e.g., "Hardware" will automagically become "SPHardwareDataType".
-		
-		
 	#tag EndNote
 
 
@@ -1083,7 +1080,7 @@ Protected Class MacSystemProfiler
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="DataTypesString"
+			Name="DataTypesAsString"
 			Group="Behavior"
 			Type="String"
 		#tag EndViewProperty

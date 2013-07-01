@@ -4,7 +4,7 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(cfa as CFArray)
 		  // Adopts a CFArray
-		  // Note: This shall _not_ create a copy of the passed CFArray. For that, there's the Copy function.
+		  // Note: This shall m_not_ create a copy of the passed CFArray. For that, there's the Copy function.
 		  Super.Constructor( cfa, false )
 		  
 		End Sub
@@ -20,9 +20,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Copy() As NSArray
 		  #if TargetMacOS
-		    declare function _copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
+		    declare function m_copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
 		    
-		    return   new NSArray( _copy( me.id ), false )
+		    return   new NSArray( m_copy( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -198,12 +198,12 @@ Inherits NSObject
 			Get
 			  
 			  #if Target32Bit
-			    declare function _count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
+			    declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
 			  #else
-			    declare function _count lib CocoaLib selector "count" ( obj as Ptr ) as UInt64
+			    declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt64
 			  #endif
 			  
-			  dim cnt as integer = _count( me.id )
+			  dim cnt as integer = m_count( me.id )
 			  
 			  return  cnt
 			End Get

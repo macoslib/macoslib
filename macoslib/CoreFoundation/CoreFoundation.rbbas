@@ -346,6 +346,21 @@ Module CoreFoundation
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub pTestAssert(b as Boolean, msg as String = "")
+		  #if DebugBuild
+		    if not b then
+		      break
+		      #if TargetHasGUI
+		        MsgBox "Test in in CoreFoundation module failed: "+EndOfLine+EndOfLine+msg
+		      #else
+		        Print "Test in CoreFoundation module failed: "+msg
+		      #endif
+		    end
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Sub Release Lib framework Alias "CFRelease" (cf as Ptr)
 	#tag EndExternalMethod
@@ -383,6 +398,341 @@ Module CoreFoundation
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Sub StringNormalize Lib framework Alias "CFStringNormalize" (theString as Ptr, theForm as Integer)
 	#tag EndExternalMethod
+
+	#tag Method, Flags = &h1
+		Attributes( hidden ) Protected Sub TestSelf()
+		  // This is an incomplete set of tests to make sure nothing got screwed up too much
+		  
+		  #if DebugBuild
+		    
+		    // Flip the switches for the tests below here.
+		    // Use true and FALSE as values to help distinguish easily.
+		    const kTestCFArray = true
+		    const kTestCFNumber = true
+		    const kTestCFString = true
+		    const kTestCFBoolean = true
+		    const kTestCFPreferences = true
+		    const kTestCFURL = true
+		    const kTestCFDate = true
+		    const kTestCFTimeZone = true
+		    const kTestCFStream = true
+		    const kTestCFBundleAndCFPropertyList = FALSE
+		    'const kTestCFSocket = FALSE
+		    
+		    // Check our app's Bundle Identifier
+		    dim myBundleID as String = CFBundle.Application.Identifier
+		    pTestAssert myBundleID = "com.declaresub.macoslib"
+		    
+		    // Test creating new bundles
+		    dim s as String
+		    s = CFBundle.NewCFBundleFromID(BundleID).Identifier
+		    pTestAssert s = BundleID
+		    
+		    dim cft as CFType
+		    
+		    if kTestCFArray then
+		      dim vals() as CFString
+		      vals.Append "a"
+		      vals.Append "b"
+		      dim arr as new CFArray(vals)
+		      dim p as Ptr = arr.Reference
+		      arr = CFArray(CFType.NewObject(p, false, kCFPropertyListImmutable)) // here the ref needs to be retained
+		      p = arr.Reference
+		      arr = new CFArray(p, false) // here the ref needs to be retained
+		      pTestAssert arr.CFValue(1).Equals(new CFString("b"))
+		    end // at this point the CFString objects should all get deallocated
+		    
+		    // Test CFNumber operations
+		    if kTestCFNumber then
+		      dim cf1, cf2 as CFNumber
+		      cf1 = new CFNumber(1)
+		      pTestAssert cf2 is nil
+		      cf2 = new CFNumber(nil,false)
+		      pTestAssert not (cf2 is nil)
+		      pTestAssert cf2=nil
+		      cf2 = new CFNumber(0)
+		      pTestAssert (cf2 <> nil)
+		      pTestAssert cf1.IntegerValue > cf2.IntegerValue
+		      pTestAssert cf1.DoubleValue = 1
+		      pTestAssert cf1.Equals(new CFNumber(1.0))
+		      pTestAssert cf1 > cf2
+		      pTestAssert not( cf1 = cf2 )
+		      pTestAssert not( cf1 < cf2 )
+		      cf2 = 5
+		      pTestAssert cf2.IntegerValue = 5
+		      cf2 = 5.1
+		      pTestAssert cf2.DoubleValue = 5.1
+		      cf1 = cf2
+		      pTestAssert cf1 is cf2
+		    end
+		    
+		    // Test CFString operations
+		    if kTestCFString then
+		      dim s1 as CFString = "z"
+		      dim s2 as CFString = "a"
+		      pTestAssert s2 < s1
+		      pTestAssert s2 < "b"
+		      pTestAssert s1 > "y"
+		      pTestAssert s1 = "Z"
+		      s1 = new CFString( nil, CFType.HasOwnership )
+		      pTestAssert s2 < s1
+		      pTestAssert s1 = nil
+		      pTestAssert s1 < "a"
+		    end if
+		    
+		    // Test CFBoolean operations
+		    if kTestCFBoolean then
+		      dim cfbF as new CFBoolean( False )
+		      dim cfbT as CFBoolean = true
+		      pTestAssert cfbT = true
+		      pTestAssert cfbT <> false
+		      pTestAssert cfbT
+		      pTestAssert not( cfbF.BooleanValue )
+		      pTestAssert cfbT <> cfbF
+		      dim cfbN as CFBoolean // nil
+		      pTestAssert cfbT <> cfbN
+		    end if
+		    
+		    // Test the CFPreferences functionality
+		    if kTestCFPreferences then
+		      dim cf1 as CFNumber
+		      dim prefs as CFPreferences
+		      dim prefKeys() as String = prefs.Keys
+		      for each key as String in prefKeys
+		        dim desc as String = CFType(prefs.Value(key)).Description
+		        #pragma unused desc
+		      next
+		      cf1 = CFNumber(prefs.Value("RunCount"))
+		      dim runCount as Integer
+		      if cf1 <> nil then
+		        runCount = cf1.IntegerValue
+		      end if
+		      cf1 = new CFNumber (runCount + 1)
+		      prefs.Value("RunCount") = cf1
+		      call prefs.Sync // this writes back the changes to the prefs we made here
+		      cft = CFType(prefs.Value("RunCount"))
+		      pTestAssert cf1.Equals(CFType(prefs.Value("RunCount")))
+		    end
+		    
+		    // Test CFURL
+		    if kTestCFURL then
+		      dim url as new CFURL(SpecialFolder.System)
+		      pTestAssert url.Scheme = "file"
+		      pTestAssert url.NetLocation = "localhost"
+		      pTestAssert url.StringValue = "file://localhost"+url.Path+"/"
+		      pTestAssert url.Name.StringValue = SpecialFolder.System.Name
+		      pTestAssert url.IsAlias.VariantValue = SpecialFolder.System.Alias
+		      pTestAssert url.IsDirectory = true
+		      url = new CFURL( SpecialFolder.Temporary.Child( "SomethingThatDoesn'tExist" ) )
+		      pTestAssert url.FileSize is nil
+		    end
+		    
+		    // Test CFDate
+		    if kTestCFDate then
+		      dim d1 as new Date
+		      dim d2 as new Date
+		      dim d3 as date
+		      d2.TotalSeconds = d1.TotalSeconds - 5
+		      dim cfd1 as new CFDate( d1 )
+		      dim cfd2 as CFDate = d2
+		      pTestAssert cfd1 > cfd2
+		      pTestAssert( ( cfd1 - cfd2 ) = 5. )
+		      pTestAssert cfd1 = d1
+		      pTestAssert cfd1 > d3
+		      cfd1 = nil
+		      pTestAssert cfd1 = nil
+		    end if
+		    
+		    // Test CFTimeZone
+		    if kTestCFTimeZone then
+		      dim zonenames() as String = CFTimeZone.NameList()
+		      dim tzone as new CFTimeZone(zonenames(1))
+		      pTestAssert tzone.Name = zonenames(1)
+		    end
+		    
+		    // Test CFStreams
+		    if kTestCFStream then
+		      dim reader as CFReadStream
+		      'dim writer as CFWriteStream
+		      reader = new CFReadStream("12345")
+		      pTestAssert reader.Status = 0
+		      pTestAssert reader.Open()
+		      pTestAssert reader.Read(3,s)
+		      pTestAssert s = "123"
+		      pTestAssert not reader.IsAtEnd
+		      pTestAssert reader.Read(3,s)
+		      pTestAssert s = "45"
+		      pTestAssert reader.IsAtEnd
+		      pTestAssert reader.Read(3,s)
+		      pTestAssert reader.IsOpen
+		      reader.Close()
+		      pTestAssert not reader.IsOpen
+		      pTestAssert not reader.Open()
+		      pTestAssert not reader.IsOpen
+		      ' not usable due to bug(?) in OS 10.5:
+		      'if CFStream.NewBoundPair (reader, writer) then
+		      'pTestAssert reader.Open
+		      'pTestAssert writer.Open
+		      'pTestAssert writer.IsReady
+		      'pTestAssert not reader.HasDataAvailable
+		      'pTestAssert writer.Write("abcd") = 4
+		      'pTestAssert reader.HasDataAvailable
+		      'pTestAssert reader.Read(4,s)
+		      'pTestAssert s = "abcd"
+		      'end if
+		    end if
+		    
+		    // Test CFBundle and CFPropertyList
+		    if kTestCFBundleAndCFPropertyList then
+		      // get this app's Info.plist contents via CFBundle.InfoDictionary
+		      dim bndl as CFBundle = CFBundle.Application
+		      dim infodict as CFDictionary = bndl.InfoDictionary
+		      pTestAssert not CFPropertyList(infodict).IsValid(kCFPropertyListXMLFormat_v1_0) // it's a CFDictionary but not a true CFPropertyList
+		      pTestAssert infodict.Value(CFString("CFBundleIdentifier")) = bndl.InfoDictionaryValue("CFBundleIdentifier")
+		      // get this app's Info.plist contents again, this time by locating the file directly and opening it
+		      dim url as new CFURL (bndl.URL, "Contents/Info.plist") // create the path to the plist file by hand
+		      dim cfStr as CFString = CFString("CFBundleInfoPlistURL")
+		      dim url2 as CFURL = CFURL(infodict.Value(cfStr)) // get the same path by asking our App Bundle's info dictionary
+		      pTestAssert url.StringValue = url2.StringValue, url.StringValue+" <> "+url2.StringValue
+		      dim rs as new CFReadStream (url) // read the plist file directly
+		      pTestAssert rs.Open
+		      // read the plist file into a mutable CFPropertyList instance
+		      dim format as Integer, errorMessage as String
+		      dim plist as CFPropertyList = NewCFPropertyList (rs, kCFPropertyListMutableContainersAndLeaves, format, errorMessage)
+		      pTestAssert errorMessage="", errorMessage
+		      pTestAssert plist.IsValid (format)
+		      // get the xml representation of the plist dictionary, then recreate another mutable CFPropertyList instance from it
+		      dim xml as String
+		      xml = plist.XMLValue
+		      plist = NewCFPropertyList (xml, kCFPropertyListMutableContainersAndLeaves, errorMessage)
+		      pTestAssert errorMessage="", errorMessage
+		      pTestAssert plist.XMLValue = xml // make sure the two are identical in their xml representation
+		      // add a new element to the plist
+		      CFMutableDictionary(plist).Value(CFString("_AddedKVP_")) = CFString("test value")
+		      pTestAssert plist.XMLValue <> xml
+		      // write the plist back to a new temp file
+		      dim tmpFile as FolderItem = GetTemporaryFolderItem()
+		      dim url3 as new CFURL (tmpFile)
+		      dim ws as new CFWriteStream(url3)
+		      pTestAssert ws.Open
+		      pTestAssert plist.Write (ws, kCFPropertyListBinaryFormat_v1_0, errorMessage) // this should write a binary plist but it actually writes an xml one. Odd
+		      ws.Close
+		      // read the temp file back and see if it contains our added value
+		      rs = new CFReadStream (url3)
+		      pTestAssert rs.Open
+		      pTestAssert rs.Read(99999, s)
+		      pTestAssert s.InStr("test value") > 0
+		      tmpFile.Delete
+		    end
+		    
+		    '// Test CFSocket (TCP/IP)
+		    '#if kTestCFSocket then
+		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
+		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
+		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    'declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    '
+		    'dim serverSocket, clientSocket as CFSocket
+		    'dim serverReader, clientReader as CFReadStream
+		    'dim serverWriter, clientWriter as CFWriteStream
+		    '
+		    'dim myAddr as CFData = CFSocket.IP4Address("localhost", 26214)
+		    '
+		    '// set up the server streams
+		    'serverSocket = new CFSocket (CFSocket.PF_INET, CFSocket.SOCK_STREAM, CFSocket.IPPROTO_TCP, CFSocket.kAcceptCallBack)
+		    'pTestAssert serverSocket.Bind(myAddr), "bind" // -> listen on socket
+		    '
+		    '// set up the client streams
+		    'CFStream.NewBoundPairFromHostAddress ("localhost", 26214, clientReader, clientWriter)
+		    '
+		    'pTestAssert clientReader.Open
+		    'pTestAssert clientWriter.Open
+		    '
+		    'CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    '
+		    'App.DoEvents
+		    '
+		    'dim n as Integer = clientWriter.Write("start")
+		    'pTestAssert n = 5
+		    '
+		    'do
+		    'App.DoEvents
+		    'if serverSocket.HasConnected and serverReader = nil then
+		    'CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
+		    '
+		    'CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    '
+		    'pTestAssert serverReader.Open
+		    'pTestAssert serverWriter.Open
+		    '
+		    'App.DoEvents
+		    '
+		    'pTestAssert clientWriter.Write("hello") = 5
+		    'end
+		    'if serverReader <> nil and serverReader.HasDataAvailable then
+		    'if serverReader.Read(4,s) then
+		    'break
+		    'end if
+		    'end if
+		    'loop
+		    '
+		    'break
+		    '#endif
+		    '
+		    '// Test CFSockets (Unix Domain Sockets)
+		    '#if kTestCFSocket then
+		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
+		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
+		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    'declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
+		    '
+		    'dim serverSocket, clientSocket as CFSocket
+		    'dim serverReader, clientReader as CFReadStream
+		    'dim serverWriter, clientWriter as CFWriteStream
+		    '
+		    'dim path as String = "/var/tmp/cftest_socket_file"
+		    'dim f as FolderItem = GetFolderItem(path, FolderItem.PathTypeShell)
+		    'f.Delete
+		    'pTestAssert not f.Exists
+		    '
+		    'dim ssig as new CFSocketSignature (path)
+		    'serverSocket = new CFSocket (ssig, CFSocket.kNoCallBack, false)
+		    'pTestAssert not serverSocket.IsNULL
+		    'pTestAssert serverSocket.IsValid
+		    'pTestAssert f.Exists
+		    '
+		    ''pTestAssert serverSocket.Bind(ssig.address), "bind" // -> listen on socket
+		    '
+		    'clientSocket = new CFSocket (ssig, CFSocket.kNoCallBack, true)
+		    'pTestAssert not clientSocket.IsNULL
+		    'pTestAssert clientSocket.IsValid
+		    '
+		    ''not working: CFStream.NewBoundPairFromSocket ssig, reader, writer
+		    'CFStream.NewBoundPairFromNativeSocket (clientSocket.NativeHandle, clientReader, clientWriter)
+		    'CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
+		    '
+		    'CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    'CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
+		    '
+		    'pTestAssert serverReader.Open
+		    'pTestAssert clientWriter.Open
+		    '
+		    'App.DoEvents
+		    'pTestAssert not serverReader.HasDataAvailable
+		    ''pTestAssert clientWriter.IsReady
+		    'pTestAssert clientWriter.Write("abcd") = 4
+		    'App.DoEvents
+		    'pTestAssert serverReader.HasDataAvailable
+		    'pTestAssert serverReader.Read(4,s)
+		    'pTestAssert s = "abcd"
+		    '
+		    'f.Delete
+		    'pTestAssert not f.Exists
+		    '#endif
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
 
 	#tag DelegateDeclaration, Flags = &h1
 		Protected Delegate Sub TimerActionDelegate()
@@ -489,356 +839,6 @@ Module CoreFoundation
 		  #endif
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub _testAssert(b as Boolean, msg as String = "")
-		  #if DebugBuild
-		    if not b then
-		      break
-		      #if TargetHasGUI
-		        MsgBox "Test in in CoreFoundation module failed: "+EndOfLine+EndOfLine+msg
-		      #else
-		        Print "Test in CoreFoundation module failed: "+msg
-		      #endif
-		    end
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub _TestSelf()
-		  // This is an incomplete set of tests to make sure nothing got screwed up too much
-		  
-		  #if DebugBuild
-		    
-		    // Flip the switches for the tests below here.
-		    // Use true and FALSE as values to help distinguish easily.
-		    const kTestCFArray = true
-		    const kTestCFNumber = true
-		    const kTestCFString = true
-		    const kTestCFBoolean = true
-		    const kTestCFPreferences = true
-		    const kTestCFURL = true
-		    const kTestCFDate = true
-		    const kTestCFTimeZone = true
-		    const kTestCFStream = true
-		    const kTestCFBundleAndCFPropertyList = FALSE
-		    'const kTestCFSocket = FALSE
-		    
-		    // Check our app's Bundle Identifier
-		    dim myBundleID as String = CFBundle.Application.Identifier
-		    _testAssert myBundleID = "com.declaresub.macoslib"
-		    
-		    // Test creating new bundles
-		    dim s as String
-		    s = CFBundle.NewCFBundleFromID(BundleID).Identifier
-		    _testAssert s = BundleID
-		    
-		    dim cft as CFType
-		    
-		    if kTestCFArray then
-		      dim vals() as CFString
-		      vals.Append "a"
-		      vals.Append "b"
-		      dim arr as new CFArray(vals)
-		      dim p as Ptr = arr.Reference
-		      arr = CFArray(CFType.NewObject(p, false, kCFPropertyListImmutable)) // here the ref needs to be retained
-		      p = arr.Reference
-		      arr = new CFArray(p, false) // here the ref needs to be retained
-		      _testAssert arr.CFValue(1).Equals(new CFString("b"))
-		    end // at this point the CFString objects should all get deallocated
-		    
-		    // Test CFNumber operations
-		    if kTestCFNumber then
-		      dim cf1, cf2 as CFNumber
-		      cf1 = new CFNumber(1)
-		      _testAssert cf2 is nil
-		      cf2 = new CFNumber(nil,false)
-		      _testAssert not (cf2 is nil)
-		      _testAssert cf2=nil
-		      cf2 = new CFNumber(0)
-		      _testAssert (cf2 <> nil)
-		      _testAssert cf1.IntegerValue > cf2.IntegerValue
-		      _testAssert cf1.DoubleValue = 1
-		      _testAssert cf1.Equals(new CFNumber(1.0))
-		      _testAssert cf1 > cf2
-		      _testAssert not( cf1 = cf2 )
-		      _testAssert not( cf1 < cf2 )
-		      cf2 = 5
-		      _testAssert cf2.IntegerValue = 5
-		      cf2 = 5.1
-		      _testAssert cf2.DoubleValue = 5.1
-		      cf1 = cf2
-		      _testAssert cf1 is cf2
-		    end
-		    
-		    // Test CFString operations
-		    if kTestCFString then
-		      dim s1 as CFString = "z"
-		      dim s2 as CFString = "a"
-		      _testAssert s2 < s1
-		      _testAssert s2 < "b"
-		      _testAssert s1 > "y"
-		      _testAssert s1 = "Z"
-		      s1 = new CFString( nil, CFType.HasOwnership )
-		      _testAssert s2 < s1
-		      _testAssert s1 = nil
-		      _testAssert s1 < "a"
-		    end if
-		    
-		    // Test CFBoolean operations
-		    if kTestCFBoolean then
-		      dim cfbF as new CFBoolean( False )
-		      dim cfbT as CFBoolean = true
-		      _testAssert cfbT = true
-		      _testAssert cfbT <> false
-		      _testAssert cfbT
-		      _testAssert not( cfbF.BooleanValue )
-		      _testAssert cfbT <> cfbF
-		      dim cfbN as CFBoolean // nil
-		      _testAssert cfbT <> cfbN
-		    end if
-		    
-		    // Test the CFPreferences functionality
-		    if kTestCFPreferences then
-		      dim cf1 as CFNumber
-		      dim prefs as CFPreferences
-		      dim prefKeys() as String = prefs.Keys
-		      for each key as String in prefKeys
-		        dim desc as String = CFType(prefs.Value(key)).Description
-		        #pragma unused desc
-		      next
-		      cf1 = CFNumber(prefs.Value("RunCount"))
-		      dim runCount as Integer
-		      if cf1 <> nil then
-		        runCount = cf1.IntegerValue
-		      end if
-		      cf1 = new CFNumber (runCount + 1)
-		      prefs.Value("RunCount") = cf1
-		      call prefs.Sync // this writes back the changes to the prefs we made here
-		      cft = CFType(prefs.Value("RunCount"))
-		      _testAssert cf1.Equals(CFType(prefs.Value("RunCount")))
-		    end
-		    
-		    // Test CFURL
-		    if kTestCFURL then
-		      dim url as new CFURL(SpecialFolder.System)
-		      _testAssert url.Scheme = "file"
-		      _testAssert url.NetLocation = "localhost"
-		      _testAssert url.StringValue = "file://localhost"+url.Path+"/"
-		      _testAssert url.Name.StringValue = SpecialFolder.System.Name
-		      _testAssert url.IsAlias.VariantValue = SpecialFolder.System.Alias
-		      _testAssert url.IsDirectory = true
-		      url = new CFURL( SpecialFolder.Temporary.Child( "SomethingThatDoesn'tExist" ) )
-		      _testAssert url.FileSize is nil
-		    end
-		    
-		    // Test CFDate
-		    if kTestCFDate then
-		      dim d1 as new Date
-		      dim d2 as new Date
-		      dim d3 as date
-		      d2.TotalSeconds = d1.TotalSeconds - 5
-		      dim cfd1 as new CFDate( d1 )
-		      dim cfd2 as CFDate = d2
-		      _testAssert cfd1 > cfd2
-		      _testAssert( ( cfd1 - cfd2 ) = 5. )
-		      _testAssert cfd1 = d1
-		      _testAssert cfd1 > d3
-		      cfd1 = nil
-		      _testAssert cfd1 = nil
-		    end if
-		    
-		    // Test CFTimeZone
-		    if kTestCFTimeZone then
-		      dim zonenames() as String = CFTimeZone.NameList()
-		      dim tzone as new CFTimeZone(zonenames(1))
-		      _testAssert tzone.Name = zonenames(1)
-		    end
-		    
-		    // Test CFStreams
-		    if kTestCFStream then
-		      dim reader as CFReadStream
-		      'dim writer as CFWriteStream
-		      reader = new CFReadStream("12345")
-		      _testAssert reader.Status = 0
-		      _testAssert reader.Open()
-		      _testAssert reader.Read(3,s)
-		      _testAssert s = "123"
-		      _testAssert not reader.IsAtEnd
-		      _testAssert reader.Read(3,s)
-		      _testAssert s = "45"
-		      _testAssert reader.IsAtEnd
-		      _testAssert reader.Read(3,s)
-		      _testAssert reader.IsOpen
-		      reader.Close()
-		      _testAssert not reader.IsOpen
-		      _testAssert not reader.Open()
-		      _testAssert not reader.IsOpen
-		      ' not usable due to bug(?) in OS 10.5:
-		      'if CFStream.NewBoundPair (reader, writer) then
-		      '_testAssert reader.Open
-		      '_testAssert writer.Open
-		      '_testAssert writer.IsReady
-		      '_testAssert not reader.HasDataAvailable
-		      '_testAssert writer.Write("abcd") = 4
-		      '_testAssert reader.HasDataAvailable
-		      '_testAssert reader.Read(4,s)
-		      '_testAssert s = "abcd"
-		      'end if
-		    end if
-		    
-		    // Test CFBundle and CFPropertyList
-		    if kTestCFBundleAndCFPropertyList then
-		      // get this app's Info.plist contents via CFBundle.InfoDictionary
-		      dim bndl as CFBundle = CFBundle.Application
-		      dim infodict as CFDictionary = bndl.InfoDictionary
-		      _testAssert not CFPropertyList(infodict).IsValid(kCFPropertyListXMLFormat_v1_0) // it's a CFDictionary but not a true CFPropertyList
-		      _testAssert infodict.Value(CFString("CFBundleIdentifier")) = bndl.InfoDictionaryValue("CFBundleIdentifier")
-		      // get this app's Info.plist contents again, this time by locating the file directly and opening it
-		      dim url as new CFURL (bndl.URL, "Contents/Info.plist") // create the path to the plist file by hand
-		      dim cfStr as CFString = CFString("CFBundleInfoPlistURL")
-		      dim url2 as CFURL = CFURL(infodict.Value(cfStr)) // get the same path by asking our App Bundle's info dictionary
-		      _testAssert url.StringValue = url2.StringValue, url.StringValue+" <> "+url2.StringValue
-		      dim rs as new CFReadStream (url) // read the plist file directly
-		      _testAssert rs.Open
-		      // read the plist file into a mutable CFPropertyList instance
-		      dim format as Integer, errorMessage as String
-		      dim plist as CFPropertyList = NewCFPropertyList (rs, kCFPropertyListMutableContainersAndLeaves, format, errorMessage)
-		      _testAssert errorMessage="", errorMessage
-		      _testAssert plist.IsValid (format)
-		      // get the xml representation of the plist dictionary, then recreate another mutable CFPropertyList instance from it
-		      dim xml as String
-		      xml = plist.XMLValue
-		      plist = NewCFPropertyList (xml, kCFPropertyListMutableContainersAndLeaves, errorMessage)
-		      _testAssert errorMessage="", errorMessage
-		      _testAssert plist.XMLValue = xml // make sure the two are identical in their xml representation
-		      // add a new element to the plist
-		      CFMutableDictionary(plist).Value(CFString("_AddedKVP_")) = CFString("test value")
-		      _testAssert plist.XMLValue <> xml
-		      // write the plist back to a new temp file
-		      dim tmpFile as FolderItem = GetTemporaryFolderItem()
-		      dim url3 as new CFURL (tmpFile)
-		      dim ws as new CFWriteStream(url3)
-		      _testAssert ws.Open
-		      _testAssert plist.Write (ws, kCFPropertyListBinaryFormat_v1_0, errorMessage) // this should write a binary plist but it actually writes an xml one. Odd
-		      ws.Close
-		      // read the temp file back and see if it contains our added value
-		      rs = new CFReadStream (url3)
-		      _testAssert rs.Open
-		      _testAssert rs.Read(99999, s)
-		      _testAssert s.InStr("test value") > 0
-		      tmpFile.Delete
-		    end
-		    
-		    '// Test CFSocket (TCP/IP)
-		    '#if kTestCFSocket then
-		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
-		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
-		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		    'declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		    '
-		    'dim serverSocket, clientSocket as CFSocket
-		    'dim serverReader, clientReader as CFReadStream
-		    'dim serverWriter, clientWriter as CFWriteStream
-		    '
-		    'dim myAddr as CFData = CFSocket.IP4Address("localhost", 26214)
-		    '
-		    '// set up the server streams
-		    'serverSocket = new CFSocket (CFSocket.PF_INET, CFSocket.SOCK_STREAM, CFSocket.IPPROTO_TCP, CFSocket.kAcceptCallBack)
-		    '_testAssert serverSocket.Bind(myAddr), "bind" // -> listen on socket
-		    '
-		    '// set up the client streams
-		    'CFStream.NewBoundPairFromHostAddress ("localhost", 26214, clientReader, clientWriter)
-		    '
-		    '_testAssert clientReader.Open
-		    '_testAssert clientWriter.Open
-		    '
-		    'CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		    '
-		    'App.DoEvents
-		    '
-		    'dim n as Integer = clientWriter.Write("start")
-		    '_testAssert n = 5
-		    '
-		    'do
-		    'App.DoEvents
-		    'if serverSocket.HasConnected and serverReader = nil then
-		    'CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
-		    '
-		    'CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		    '
-		    '_testAssert serverReader.Open
-		    '_testAssert serverWriter.Open
-		    '
-		    'App.DoEvents
-		    '
-		    '_testAssert clientWriter.Write("hello") = 5
-		    'end
-		    'if serverReader <> nil and serverReader.HasDataAvailable then
-		    'if serverReader.Read(4,s) then
-		    'break
-		    'end if
-		    'end if
-		    'loop
-		    '
-		    'break
-		    '#endif
-		    '
-		    '// Test CFSockets (Unix Domain Sockets)
-		    '#if kTestCFSocket then
-		    '// (TT 6 Dec 09) this is not working - at least not when reading and writing within same process
-		    'declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
-		    'declare sub CFReadStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		    'declare sub CFWriteStreamScheduleWithRunLoop lib CarbonLib (streamRef as Ptr, runLoopRef as Ptr, mode as CFStringRef)
-		    '
-		    'dim serverSocket, clientSocket as CFSocket
-		    'dim serverReader, clientReader as CFReadStream
-		    'dim serverWriter, clientWriter as CFWriteStream
-		    '
-		    'dim path as String = "/var/tmp/cftest_socket_file"
-		    'dim f as FolderItem = GetFolderItem(path, FolderItem.PathTypeShell)
-		    'f.Delete
-		    '_testAssert not f.Exists
-		    '
-		    'dim ssig as new CFSocketSignature (path)
-		    'serverSocket = new CFSocket (ssig, CFSocket.kNoCallBack, false)
-		    '_testAssert not serverSocket.IsNULL
-		    '_testAssert serverSocket.IsValid
-		    '_testAssert f.Exists
-		    '
-		    ''_testAssert serverSocket.Bind(ssig.address), "bind" // -> listen on socket
-		    '
-		    'clientSocket = new CFSocket (ssig, CFSocket.kNoCallBack, true)
-		    '_testAssert not clientSocket.IsNULL
-		    '_testAssert clientSocket.IsValid
-		    '
-		    ''not working: CFStream.NewBoundPairFromSocket ssig, reader, writer
-		    'CFStream.NewBoundPairFromNativeSocket (clientSocket.NativeHandle, clientReader, clientWriter)
-		    'CFStream.NewBoundPairFromNativeSocket (serverSocket.NativeHandle, serverReader, serverWriter)
-		    '
-		    'CFReadStreamScheduleWithRunLoop (serverReader, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		    'CFWriteStreamScheduleWithRunLoop (clientWriter, CFRunLoopGetCurrent(), CFConstant("kCFRunLoopCommonModes"))
-		    '
-		    '_testAssert serverReader.Open
-		    '_testAssert clientWriter.Open
-		    '
-		    'App.DoEvents
-		    '_testAssert not serverReader.HasDataAvailable
-		    ''_testAssert clientWriter.IsReady
-		    '_testAssert clientWriter.Write("abcd") = 4
-		    'App.DoEvents
-		    '_testAssert serverReader.HasDataAvailable
-		    '_testAssert serverReader.Read(4,s)
-		    '_testAssert s = "abcd"
-		    '
-		    'f.Delete
-		    '_testAssert not f.Exists
-		    '#endif
-		    
-		  #endif
-		End Sub
 	#tag EndMethod
 
 

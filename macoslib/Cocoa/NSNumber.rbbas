@@ -123,11 +123,11 @@ Inherits NSValue
 	#tag Method, Flags = &h21
 		Private Function GetObjcType() As String
 		  
-		  declare function _objCType lib CocoaLib selector "objCType" (id as Ptr) as Ptr
+		  declare function m_objCType lib CocoaLib selector "objCType" (id as Ptr) as Ptr
 		  
 		  dim mb as MemoryBlock
 		  
-		  mb = _objCType( me.id )
+		  mb = m_objCType( me.id )
 		  
 		  return   mb.CString( 0 )
 		End Function

@@ -7,7 +7,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    RequireFramework   "AddressBook"
 		    
-		    me._id = NSObject.Initialize( NSObject.Allocate( "ABIdentityPicker" ))
+		    me.m_id = NSObject.Initialize( NSObject.Allocate( "ABIdentityPicker" ))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -26,7 +26,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub __RunModalWithin(parentWindow as Window)
+		Attributes( hidden )  Sub RunModalWithin(parentWindow as Window)
 		  
 		  #if TargetMacOS
 		    declare sub beginSheetModalForWindow lib "AddressBook" selector "beginSheetModalForWindow:modalDelegate:didEndSelector:contextInfo:" (id as Ptr, wnd as Ptr, deleg as Ptr, didEnd as Ptr, context as Ptr)

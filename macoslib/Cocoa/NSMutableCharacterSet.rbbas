@@ -14,7 +14,7 @@ Inherits NSCharacterSet
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if TargetMacOS
-		    me._id = NSObject.Initialize( NSObject.Allocate( "NSMutableCharacterSet" ))
+		    me.m_id = NSObject.Initialize( NSObject.Allocate( "NSMutableCharacterSet" ))
 		  #endif
 		End Sub
 	#tag EndMethod
