@@ -339,6 +339,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function MenuItemExamplesMenuLocalizedTextDragManager() As Boolean Handles MenuItemExamplesMenuLocalizedTextDragManager.Action
+			DragManagerExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function MenuItemExamplesMenuLocalizedTextThemeColors() As Boolean Handles MenuItemExamplesMenuLocalizedTextThemeColors.Action
 			ThemeColorExample.Show
 			Return True
