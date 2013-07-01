@@ -34,9 +34,9 @@ Protected Module About
 		
 		131: 2013-07-01 by KT
 		- Changed methods/properties that started with "_" so they won't.
-		New convention is that public methods/properties will simply be marked as "hidden",
-		and private/protected ones will start with "m_".
-
+		  New convention is that public methods/properties will simply be marked as "hidden",
+		  and private/protected ones will start with "m_".
+		
 		130: 2013-05-30 by TT
 		- Add CarbonDragManager along with Example. This makes the Drop Location available to Cocoa apps
 		
