@@ -34,6 +34,7 @@ Protected Module WindowExtensions
 		  //# The ScalingFactor is 2 for a retina MacBook Pro (or other HiDPI modes) and 1 for anything else
 		  
 		  //@ This method only works if the window exists.
+		  //@ You'll also need to add a boolean "NSHighResolutionCapable" = Yes to the app's info.plist.
 		  
 		  if TargetCocoa and IsLion then
 		    declare function BackingScaleFactor lib "AppKit" selector "backingScaleFactor" (target As WindowPtr) as double
