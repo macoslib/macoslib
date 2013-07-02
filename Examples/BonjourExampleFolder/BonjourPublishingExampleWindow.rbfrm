@@ -334,7 +334,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "incl. ._udp or ._tcp"
+         Text            =   "incl. .m_udp or ._tcp"
          TextAlign       =   0
          TextColor       =   &h000000
          TextFont        =   "System"
@@ -378,7 +378,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   8
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "_macoslib._tcp"
+         Text            =   "m_macoslib._tcp"
          TextColor       =   &h000000
          TextFont        =   "System"
          TextSize        =   0

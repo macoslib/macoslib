@@ -279,6 +279,22 @@ Protected Module UnicodeFormsExtension
 		End Function
 	#tag EndMethod
 
+	#tag DelegateDeclaration, Flags = &h21
+		Private Delegate Function m_unorm_isNormalized(source as Ptr, sourceLength as Integer, mode as Integer, ByRef status as Integer) As boolean
+	#tag EndDelegateDeclaration
+
+	#tag DelegateDeclaration, Flags = &h21
+		Private Delegate Function m_unorm_normalize(source as Ptr, sourceLength as Integer, mode as Integer, options as Integer, result as Ptr, resultLength as Integer, ByRef status as Integer) As Integer
+	#tag EndDelegateDeclaration
+
+	#tag DelegateDeclaration, Flags = &h21
+		Private Delegate Function m_unorm_quickCheck(source as Ptr, sourceLength as Integer, mode as Integer, ByRef status as Integer) As Integer
+	#tag EndDelegateDeclaration
+
+	#tag DelegateDeclaration, Flags = &h21
+		Private Delegate Function m_u_errorName(code as Integer) As CString
+	#tag EndDelegateDeclaration
+
 	#tag Method, Flags = &h21
 		Private Function Normalize(s as string, mode as integer) As string
 		  
@@ -573,47 +589,31 @@ Protected Module UnicodeFormsExtension
 
 	#tag Method, Flags = &h21
 		Private Function unorm_isNormalized(source as Ptr, sourceLength as Integer, mode as Integer, ByRef status as Integer) As Boolean
-		  static f as new _unorm_isNormalized( load( "unorm_isNormalized", libicuuc ))
+		  static f as new m_unorm_isNormalized( load( "unorm_isNormalized", libicuuc ))
 		  return f.Invoke( source, sourceLength, mode, status)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function unorm_normalize(source as Ptr, sourceLength as Integer, mode as Integer, options as Integer, result as Ptr, resultLength as Integer, ByRef status as Integer) As Integer
-		  static f as new _unorm_normalize(load("unorm_normalize", libicuuc))
+		  static f as new m_unorm_normalize(load("unorm_normalize", libicuuc))
 		  return f.Invoke(source, sourceLength, mode, options, result, resultLength, status)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function unorm_quickCheck(source as Ptr, sourceLength as Integer, mode as Integer, ByRef status as Integer) As integer
-		  static f as new _unorm_quickCheck( load( "unorm_quickCheck", libicuuc ))
+		  static f as new m_unorm_quickCheck( load( "unorm_quickCheck", libicuuc ))
 		  return f.Invoke( source, sourceLength, mode, status)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Function u_errorName(code as Integer) As CString
-		  static f as new _u_errorName(load("u_errorName", libicuuc))
+		  static f as new m_u_errorName(load("u_errorName", libicuuc))
 		  return f.Invoke(code)
 		End Function
 	#tag EndMethod
-
-	#tag DelegateDeclaration, Flags = &h21
-		Private Delegate Function _unorm_isNormalized(source as Ptr, sourceLength as Integer, mode as Integer, ByRef status as Integer) As boolean
-	#tag EndDelegateDeclaration
-
-	#tag DelegateDeclaration, Flags = &h21
-		Private Delegate Function _unorm_normalize(source as Ptr, sourceLength as Integer, mode as Integer, options as Integer, result as Ptr, resultLength as Integer, ByRef status as Integer) As Integer
-	#tag EndDelegateDeclaration
-
-	#tag DelegateDeclaration, Flags = &h21
-		Private Delegate Function _unorm_quickCheck(source as Ptr, sourceLength as Integer, mode as Integer, ByRef status as Integer) As Integer
-	#tag EndDelegateDeclaration
-
-	#tag DelegateDeclaration, Flags = &h21
-		Private Delegate Function _u_errorName(code as Integer) As CString
-	#tag EndDelegateDeclaration
 
 
 	#tag Note, Name = Unicode Normalization Forms

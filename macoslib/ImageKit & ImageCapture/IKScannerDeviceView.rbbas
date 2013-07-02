@@ -30,7 +30,7 @@ Inherits Canvas
 		    
 		    declare function initWithFrame lib CocoaLib selector "initWithFrame:" (obj_id as Ptr, frameRect as Cocoa.NSRect) as Ptr
 		    
-		    self._id = initWithFrame( NSObject.Allocate( self.NSClassName ), frame )
+		    self.m_id = initWithFrame( NSObject.Allocate( self.NSClassName ), frame )
 		    if self.id = nil then
 		      raise new macoslibException( "Unable to instantiate class " + NSClassName )
 		    end if
@@ -440,7 +440,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _id
+			  return  m_id
 			End Get
 		#tag EndGetter
 		id As Ptr
@@ -467,6 +467,10 @@ Inherits Canvas
 		#tag EndSetter
 		mode As integer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private m_id As Ptr
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -517,10 +521,6 @@ Inherits Canvas
 		#tag EndSetter
 		TransferMode As integer
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private _id As Ptr
-	#tag EndProperty
 
 
 	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibIKScannerDeviceViewDelegate", Scope = Private

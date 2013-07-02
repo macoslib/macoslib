@@ -20,9 +20,9 @@ Inherits NSResponder
 	#tag Method, Flags = &h0
 		Function KeyWindow() As NSWindow
 		  #if TargetMacOS
-		    declare function _keyWindow lib CocoaLib selector "keyWindow" ( id as Ptr ) as Ptr
+		    declare function m_keyWindow lib CocoaLib selector "keyWindow" ( id as Ptr ) as Ptr
 		    
-		    return   new NSWindow( _keyWindow( me.id ), false )
+		    return   new NSWindow( m_keyWindow( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -30,9 +30,9 @@ Inherits NSResponder
 	#tag Method, Flags = &h0
 		Function MainWindow() As NSWindow
 		  #if TargetMacOS
-		    declare function _mainWindow lib CocoaLib selector "mainWindow" ( id as Ptr ) as Ptr
+		    declare function m_mainWindow lib CocoaLib selector "mainWindow" ( id as Ptr ) as Ptr
 		    
-		    return   new NSWindow( _mainWindow( me.id ), false )
+		    return   new NSWindow( m_mainWindow( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod

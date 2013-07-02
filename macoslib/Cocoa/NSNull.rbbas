@@ -4,9 +4,9 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  
-		  declare function _null lib CocoaLib selector "null" (Cls as Ptr) as Ptr
+		  declare function m_null lib CocoaLib selector "null" (Cls as Ptr) as Ptr
 		  
-		  Super.Constructor   _null( Cocoa.NSClassFromString( "NSNull" )), true
+		  Super.Constructor   m_null( Cocoa.NSClassFromString( "NSNull" )), true
 		  
 		End Sub
 	#tag EndMethod

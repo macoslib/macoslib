@@ -4,7 +4,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function AlternateSelectedControlColor() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _alternateSelectedControlColor)
+		    return MakeObjectFromClassMethod(AddressOf m_alternateSelectedControlColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -12,7 +12,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function AlternateSelectedControlTextColor() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _alternateSelectedControlTextColor)
+		    return MakeObjectFromClassMethod(AddressOf m_alternateSelectedControlTextColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -20,7 +20,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Black() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _blackColor)
+		    return MakeObjectFromClassMethod(AddressOf m_blackColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -28,7 +28,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Blue() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _blueColor)
+		    return MakeObjectFromClassMethod(AddressOf m_blueColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -36,7 +36,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Brown() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _brownColor)
+		    return MakeObjectFromClassMethod(AddressOf m_brownColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -48,7 +48,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Clear() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _clearColor)
+		    return MakeObjectFromClassMethod(AddressOf m_clearColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -87,7 +87,7 @@ Inherits NSObject
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    soft declare function colorFromRGBA lib Cocoa selector "colorWithCalibratedRed:green:blue:alpha:" (class_id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
 		    
-		    me._id = colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha)
+		    me.m_id = colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha)
 		    
 		  #else
 		    #pragma unused c
@@ -98,7 +98,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Constructor(obj_id as Ptr)
-		  me._id = obj_id
+		  me.m_id = obj_id
 		End Sub
 	#tag EndMethod
 
@@ -110,7 +110,7 @@ Inherits NSObject
 		    
 		    
 		    dim c as new NSColor
-		    c._id = colorForControlTint(NSClassFromString(NSClassName), controlTint)
+		    c.m_id = colorForControlTint(NSClassFromString(NSClassName), controlTint)
 		    return c
 		    
 		  #else
@@ -158,7 +158,7 @@ Inherits NSObject
 		        return me
 		      else
 		        dim c as new NSColor
-		        c._id = p
+		        c.m_id = p
 		        return c
 		      end if
 		    else
@@ -175,7 +175,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Cyan() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _cyanColor)
+		    return MakeObjectFromClassMethod(AddressOf m_cyanColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -183,7 +183,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function DarkGray() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _darkGrayColor)
+		    return MakeObjectFromClassMethod(AddressOf m_darkGrayColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -191,7 +191,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Gray() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _grayColor)
+		    return MakeObjectFromClassMethod(AddressOf m_grayColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -199,7 +199,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Green() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _greenColor)
+		    return MakeObjectFromClassMethod(AddressOf m_greenColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -207,7 +207,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function LightGray() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _lightGrayColor)
+		    return MakeObjectFromClassMethod(AddressOf m_lightGrayColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -215,7 +215,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Magenta() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _magentaColor)
+		    return MakeObjectFromClassMethod(AddressOf m_magentaColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -226,11 +226,232 @@ Inherits NSObject
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
 		    dim c as new NSColor
-		    c._id = d.Invoke(NSClassFromString(NSClassName))
+		    c.m_id = d.Invoke(NSClassFromString(NSClassName))
 		    return c
 		    
 		  #else
 		    #pragma unused d
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_alternateSelectedControlColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function alternateSelectedControlColor lib Cocoa selector "alternateSelectedControlColor" (id as Ptr) as Ptr
+		    
+		    return alternateSelectedControlColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_alternateSelectedControlTextColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function alternateSelectedControlTextColor lib Cocoa selector "alternateSelectedControlTextColor" (id as Ptr) as Ptr
+		    
+		    return alternateSelectedControlTextColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_blackColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function blackColor lib Cocoa selector "blackColor" (id as Ptr) as Ptr
+		    
+		    return blackColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_blueColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function blueColor lib Cocoa selector "blueColor" (id as Ptr) as Ptr
+		    
+		    return blueColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_brownColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function brownColor lib Cocoa selector "brownColor" (id as Ptr) as Ptr
+		    
+		    return brownColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_clearColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function clearColor lib Cocoa selector "clearColor" (id as Ptr) as Ptr
+		    
+		    return clearColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_cyanColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function cyanColor lib Cocoa selector "cyanColor" (id as Ptr) as Ptr
+		    
+		    return cyanColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_darkGrayColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function darkGrayColor lib Cocoa selector "darkGrayColor" (id as Ptr) as Ptr
+		    
+		    return darkGrayColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_grayColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function grayColor lib Cocoa selector "grayColor" (id as Ptr) as Ptr
+		    
+		    return grayColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_greenColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function greenColor lib Cocoa selector "greenColor" (id as Ptr) as Ptr
+		    
+		    return greenColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_lightGrayColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function lightGrayColor lib Cocoa selector "lightGrayColor" (id as Ptr) as Ptr
+		    
+		    return lightGrayColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_magentaColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function magentaColor lib Cocoa selector "magentaColor" (id as Ptr) as Ptr
+		    
+		    return magentaColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_orangeColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function orangeColor lib Cocoa selector "orangeColor" (id as Ptr) as Ptr
+		    
+		    return orangeColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_purpleColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function purpleColor lib Cocoa selector "purpleColor" (id as Ptr) as Ptr
+		    
+		    return purpleColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_redColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function redColor lib Cocoa selector "redColor" (id as Ptr) as Ptr
+		    
+		    return redColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_whiteColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function whiteColor lib Cocoa selector "whiteColor" (id as Ptr) as Ptr
+		    
+		    return whiteColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function m_yellowColor(class_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    soft declare function yellowColor lib Cocoa selector "yellowColor" (id as Ptr) as Ptr
+		    
+		    return yellowColor(class_id)
+		    
+		  #else
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -260,7 +481,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Orange() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _orangeColor)
+		    return MakeObjectFromClassMethod(AddressOf m_orangeColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -268,7 +489,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Purple() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _purpleColor)
+		    return MakeObjectFromClassMethod(AddressOf m_purpleColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -276,7 +497,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Red() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _redColor)
+		    return MakeObjectFromClassMethod(AddressOf m_redColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -291,7 +512,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function White() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _whiteColor)
+		    return MakeObjectFromClassMethod(AddressOf m_whiteColor)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -299,228 +520,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Yellow() As NSColor
 		  #if TargetMacOS
-		    return MakeObjectFromClassMethod(AddressOf _yellowColor)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _alternateSelectedControlColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function alternateSelectedControlColor lib Cocoa selector "alternateSelectedControlColor" (id as Ptr) as Ptr
-		    
-		    return alternateSelectedControlColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _alternateSelectedControlTextColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function alternateSelectedControlTextColor lib Cocoa selector "alternateSelectedControlTextColor" (id as Ptr) as Ptr
-		    
-		    return alternateSelectedControlTextColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _blackColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function blackColor lib Cocoa selector "blackColor" (id as Ptr) as Ptr
-		    
-		    return blackColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _blueColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function blueColor lib Cocoa selector "blueColor" (id as Ptr) as Ptr
-		    
-		    return blueColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _brownColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function brownColor lib Cocoa selector "brownColor" (id as Ptr) as Ptr
-		    
-		    return brownColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _clearColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function clearColor lib Cocoa selector "clearColor" (id as Ptr) as Ptr
-		    
-		    return clearColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _cyanColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function cyanColor lib Cocoa selector "cyanColor" (id as Ptr) as Ptr
-		    
-		    return cyanColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _darkGrayColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function darkGrayColor lib Cocoa selector "darkGrayColor" (id as Ptr) as Ptr
-		    
-		    return darkGrayColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _grayColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function grayColor lib Cocoa selector "grayColor" (id as Ptr) as Ptr
-		    
-		    return grayColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _greenColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function greenColor lib Cocoa selector "greenColor" (id as Ptr) as Ptr
-		    
-		    return greenColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _lightGrayColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function lightGrayColor lib Cocoa selector "lightGrayColor" (id as Ptr) as Ptr
-		    
-		    return lightGrayColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _magentaColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function magentaColor lib Cocoa selector "magentaColor" (id as Ptr) as Ptr
-		    
-		    return magentaColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _orangeColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function orangeColor lib Cocoa selector "orangeColor" (id as Ptr) as Ptr
-		    
-		    return orangeColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _purpleColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function purpleColor lib Cocoa selector "purpleColor" (id as Ptr) as Ptr
-		    
-		    return purpleColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _redColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function redColor lib Cocoa selector "redColor" (id as Ptr) as Ptr
-		    
-		    return redColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _whiteColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function whiteColor lib Cocoa selector "whiteColor" (id as Ptr) as Ptr
-		    
-		    return whiteColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function _yellowColor(class_id as Ptr) As Ptr
-		  #if TargetMacOS
-		    soft declare function yellowColor lib Cocoa selector "yellowColor" (id as Ptr) as Ptr
-		    
-		    return yellowColor(class_id)
-		    
-		  #else
-		    #pragma unused class_id
+		    return MakeObjectFromClassMethod(AddressOf m_yellowColor)
 		  #endif
 		End Function
 	#tag EndMethod

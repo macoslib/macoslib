@@ -15,7 +15,7 @@ Inherits NSIndexSet
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if TargetMacOS
-		    me._id = NSObject.Initialize( NSObject.Allocate( "NSMutableIndexSet" ))
+		    me.m_id = NSObject.Initialize( NSObject.Allocate( "NSMutableIndexSet" ))
 		  #endif
 		End Sub
 	#tag EndMethod

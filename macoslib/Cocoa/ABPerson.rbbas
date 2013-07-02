@@ -7,10 +7,10 @@ Inherits ABRecord
 		  #if TargetMacOS
 		    RequireFramework   "AddressBook"
 		    
-		    declare function _properties lib "AddressBook.framework" selector "properties" (Cls as Ptr) as Ptr
+		    declare function m_properties lib "AddressBook.framework" selector "properties" (Cls as Ptr) as Ptr
 		    
 		    dim p as Ptr = Cocoa.NSClassFromString( "ABPerson" )
-		    dim nsa as NSArray = new NSArray( _properties( p ), false )
+		    dim nsa as NSArray = new NSArray( m_properties( p ), false )
 		    
 		    return  nsa
 		  #endif
@@ -30,7 +30,7 @@ Inherits ABRecord
 		  
 		  //TYPES
 		  
-		  'typedef enum _ABPropertyType {
+		  'typedef enum m_ABPropertyType {
 		  'kABErrorInProperty = 0x0,
 		  'kABStringProperty = 0x1,
 		  'kABIntegerProperty = 0x2,

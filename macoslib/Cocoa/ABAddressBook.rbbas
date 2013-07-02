@@ -4,13 +4,13 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if TargetMacOS
-		    declare function _addressBook lib "AddressBook.framework" selector "addressBook" ( Cls as Ptr ) as Ptr
+		    declare function m_addressBook lib "AddressBook.framework" selector "addressBook" ( Cls as Ptr ) as Ptr
 		    
 		    RequireFramework   "AddressBook"
 		    
 		    dim Cls as Ptr = Cocoa.NSClassFromString( "ABAddressBook" )
 		    
-		    me._id = _addressBook( Cls )
+		    me.m_id = m_addressBook( Cls )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -19,9 +19,9 @@ Inherits NSObject
 		Function Groups() As NSArray
 		  
 		  #if TargetMacOS
-		    declare function _groups lib "AddressBook.framework" selector "groups" (id as Ptr ) as Ptr
+		    declare function m_groups lib "AddressBook.framework" selector "groups" (id as Ptr ) as Ptr
 		    
-		    dim p as Ptr = _groups( me.id )
+		    dim p as Ptr = m_groups( me.id )
 		    if p<>nil then
 		      return   new NSArray( p, false )
 		    end if
@@ -33,9 +33,9 @@ Inherits NSObject
 		Function People() As NSArray
 		  
 		  #if TargetMacOS
-		    declare function _people lib "AddressBook.framework" selector "people" (id as Ptr ) as Ptr
+		    declare function m_people lib "AddressBook.framework" selector "people" (id as Ptr ) as Ptr
 		    
-		    dim p as Ptr = _people( me.id )
+		    dim p as Ptr = m_people( me.id )
 		    if p<>nil then
 		      return   new NSArray( p, false )
 		    end if

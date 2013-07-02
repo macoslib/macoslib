@@ -14,7 +14,7 @@ Inherits NSObject
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
 		    dim s as new NSColorspace
-		    s._id = deviceRGBColorSpace(NSClassFromString("NSColorSpace"))
+		    s.m_id = deviceRGBColorSpace(NSClassFromString("NSColorSpace"))
 		    return s
 		  #endif
 		End Function
@@ -33,7 +33,7 @@ Inherits NSObject
 		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
 		    
 		    dim s as new NSColorspace
-		    s._id = sRGBColorSpace(NSClassFromString("NSColorSpace"))
+		    s.m_id = sRGBColorSpace(NSClassFromString("NSColorSpace"))
 		    return s
 		  #endif
 		End Function

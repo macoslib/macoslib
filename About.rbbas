@@ -32,6 +32,11 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		
+		131: 2013-07-01 by KT
+		- Changed methods/properties that started with "_" so they won't.
+		  New convention is that public methods/properties will simply be marked as "hidden",
+		  and private/protected ones will start with "m_".
+		
 		130: 2013-05-30 by TT
 		- Add CarbonDragManager along with Example. This makes the Drop Location available to Cocoa apps
 		
@@ -93,7 +98,7 @@ Protected Module About
 		
 		116: 2012-12-01 by KT
 		- Added caching for System.IsFunctionAvailable calls.
-		- CoreFoundation._TestSelf: Created switches as constants for each test category.
+		- CoreFoundation.TestSelf: Created switches as constants for each test category.
 		- CFBundle.Load: Removed older system function check and call, raise any returned CFError as an exception.
 		- ATSFont.File: Added check for older function because the documentation for both functions seems to have 
 		  dropped off of Apple's site except for a PDF that says it's all deprecated as of OS X 10.6 in favor of 
@@ -199,7 +204,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"130", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"131", Scope = Protected
 	#tag EndConstant
 
 

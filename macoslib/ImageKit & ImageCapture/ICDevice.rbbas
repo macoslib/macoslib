@@ -320,9 +320,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function GetDelegate() As Ptr
 		  #if targetMacOS
-		    declare function _delegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
+		    declare function m_delegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
 		    
-		    return  _delegate( me.id )
+		    return  m_delegate( me.id )
 		  #endif
 		End Function
 	#tag EndMethod
