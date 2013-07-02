@@ -33,8 +33,8 @@ Implements objHasVariantValue
 		  #if TargetMacOS
 		    soft declare function klass lib CocoaLib selector "class" (id as Ptr) as Ptr
 		    
-		    if self._id <> nil then
-		      return klass(me._id)
+		    if self.m_id <> nil then
+		      return klass(me.m_id)
 		    else
 		      return nil
 		    end if
@@ -57,7 +57,7 @@ Implements objHasVariantValue
 		    end if
 		  end if
 		  
-		  self._id = obj_id
+		  self.m_id = obj_id
 		  
 		  if not hasOwnership then
 		    call self.Retain
@@ -177,14 +177,14 @@ Implements objHasVariantValue
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return self._id
+			  return self.m_id
 			End Get
 		#tag EndGetter
 		id As Ptr
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h1
-		Protected _id As Ptr
+		Protected m_id As Ptr
 	#tag EndProperty
 
 

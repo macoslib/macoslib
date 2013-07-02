@@ -4,13 +4,13 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AttributeAtIndex(attributeName as string, atIndex as integer, Byref range as NSRange) As variant
 		  #if TargetMacOS
-		    declare function _attribute lib CocoaLib selector "attribute:atIndex:effectiveRange:" (id as Ptr, attr as CFStringRef, idx as integer, byref range as NSRange) as Ptr
+		    declare function m_attribute lib CocoaLib selector "attribute:atIndex:effectiveRange:" (id as Ptr, attr as CFStringRef, idx as integer, byref range as NSRange) as Ptr
 		    
 		    dim p as Ptr
 		    if attributeName.Left( 2 )="NS" AND attributeName.Right( 13 )="AttributeName" then //Cocoa constant
-		      p = _attribute( me.id, Cocoa.StringConstant( attributeName ), atIndex, range )
+		      p = m_attribute( me.id, Cocoa.StringConstant( attributeName ), atIndex, range )
 		    else
-		      p = _attribute( me.id, attributeName, atIndex, range )
+		      p = m_attribute( me.id, attributeName, atIndex, range )
 		    end if
 		    
 		    if p = nil then
@@ -144,9 +144,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Length() As integer
 		  #if TargetMacOS
-		    declare function _length lib Cocoalib selector "length" (id as Ptr) as integer
+		    declare function m_length lib Cocoalib selector "length" (id as Ptr) as integer
 		    
-		    return  _length( self )
+		    return  m_length( self )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -319,9 +319,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function StringValue() As string
 		  #if TargetMacOS
-		    declare function _string lib Cocoalib selector "string" (id as Ptr) as CFStringRef
+		    declare function m_string lib Cocoalib selector "string" (id as Ptr) as CFStringRef
 		    
-		    return  _string( self )
+		    return  m_string( self )
 		  #endif
 		End Function
 	#tag EndMethod

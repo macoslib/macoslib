@@ -19,13 +19,13 @@ Inherits NSObject
 		Function ValueForProperty(propertyName as string) As variant
 		  
 		  #if TargetMacOS
-		    declare function _valueForProperty lib "AddressBook.framework" selector "valueForProperty:" (id as Ptr, propName as CFStringRef) as Ptr
+		    declare function m_valueForProperty lib "AddressBook.framework" selector "valueForProperty:" (id as Ptr, propName as CFStringRef) as Ptr
 		    
 		    dim p as Ptr
 		    if propertyName.Instr( "kAB" )=1 then //PropertyName given as a Carbon or Cocoa constant type.
-		      p = _valueForProperty( me.id, Cocoa.StringConstant( propertyName ))
+		      p = m_valueForProperty( me.id, Cocoa.StringConstant( propertyName ))
 		    else
-		      p = _valueForProperty( me.id, propertyName )
+		      p = m_valueForProperty( me.id, propertyName )
 		    end if
 		    
 		    return   Cocoa.NSObjectFromNSPtr( p, false, false )

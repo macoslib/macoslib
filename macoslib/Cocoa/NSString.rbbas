@@ -163,6 +163,7 @@ Inherits NSObject
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

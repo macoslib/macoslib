@@ -14,11 +14,11 @@ Inherits NSObject
 		    'RequireFramework  IKLib
 		    RequireFramework  ICLib
 		    
-		    'declare sub _ICInitialize lib ICLib ()
+		    'declare sub m_ICInitialize lib ICLib ()
 		    '
 		    '_ICInitialize
 		    
-		    self._id = Initialize( Allocate( "ICDeviceBrowser" ))
+		    self.m_id = Initialize( Allocate( "ICDeviceBrowser" ))
 		    self.SetDelegate
 		  #endif
 		End Sub

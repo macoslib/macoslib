@@ -123,7 +123,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Single=1.0, respectFlipped as Boolean=true, hints as NSDictionary=nil)
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Single = 1.0, respectFlipped as Boolean = true, hints as NSDictionary = nil)
 		  #if targetMacOS
 		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" (obj_id as Ptr, dstSpacePortionRect as Cocoa.NSRect, srcSpacePortionRect as Cocoa.NSRect, op as NSComposite, requestedAlpha as Single, respectContextIsFlipped as Boolean, hints as Ptr)
 		    

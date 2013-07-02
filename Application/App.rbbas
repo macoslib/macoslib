@@ -3,9 +3,9 @@ Protected Class App
 Inherits Application
 	#tag Event
 		Sub NewDocument()
-		  Carbon._TestSelf
-		  CoreFoundation._TestSelf
-		  Cocoa._TestSelf
+		  Carbon.TestSelf
+		  CoreFoundation.TestSelf
+		  Cocoa.TestSelf
 		  ATSForFonts.ATSFont.SelfTest
 		  CertTools.SelfTest
 		  TestFileManager

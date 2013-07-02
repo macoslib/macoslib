@@ -40,7 +40,7 @@ Inherits NSObject
 		 Shared Function DataFromTXTRecordDictionary(dict as NSDictionary) As NSData
 		  
 		  #if TargetMacOS
-		    declare function _dataFromTXTRecordDictionary lib CocoaLib selector "dataFromTXTRecordDictionary:" ( Cls as Ptr, data as ptr ) as Ptr
+		    declare function m_dataFromTXTRecordDictionary lib CocoaLib selector "dataFromTXTRecordDictionary:" ( Cls as Ptr, data as ptr ) as Ptr
 		    
 		    dim p as Ptr
 		    
@@ -48,7 +48,7 @@ Inherits NSObject
 		      return  nil
 		    end if
 		    
-		    p = _dataFromTXTRecordDictionary( Cocoa.NSClassFromString( "NSNetService" ), dict.id )
+		    p = m_dataFromTXTRecordDictionary( Cocoa.NSClassFromString( "NSNetService" ), dict.id )
 		    
 		    if p<>nil then
 		      return  new NSData( p, false )
@@ -262,11 +262,11 @@ Inherits NSObject
 		 Shared Function DictionaryFromTXTRecordData(data as NSData) As NSDictionary
 		  
 		  #if TargetMacOS
-		    declare function _dictionaryFromTXTRecordData lib CocoaLib selector "dictionaryFromTXTRecordData:" ( Cls as Ptr, data as ptr ) as Ptr
+		    declare function m_dictionaryFromTXTRecordData lib CocoaLib selector "dictionaryFromTXTRecordData:" ( Cls as Ptr, data as ptr ) as Ptr
 		    
 		    dim p as Ptr
 		    
-		    p = _dictionaryFromTXTRecordData( Cocoa.NSClassFromString( "NSNetService" ), data.id )
+		    p = m_dictionaryFromTXTRecordData( Cocoa.NSClassFromString( "NSNetService" ), data.id )
 		    
 		    if p<>nil then
 		      return  new NSDictionary( p, false )
@@ -283,9 +283,9 @@ Inherits NSObject
 		Function Domain() As String
 		  
 		  #if TargetMacOS
-		    declare function _domain lib CocoaLib selector "domain" (id as Ptr) as CFStringRef
+		    declare function m_domain lib CocoaLib selector "domain" (id as Ptr) as CFStringRef
 		    
-		    return  _domain( me.id )
+		    return  m_domain( me.id )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -397,9 +397,9 @@ Inherits NSObject
 		Function HostName() As String
 		  
 		  #if TargetMacOS
-		    declare function _hostname lib CocoaLib selector "hostName" (id as Ptr) as CFStringRef
+		    declare function m_hostname lib CocoaLib selector "hostName" (id as Ptr) as CFStringRef
 		    
-		    return  _hostname( me.id )
+		    return  m_hostname( me.id )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -502,9 +502,9 @@ Inherits NSObject
 		Function Name() As String
 		  
 		  #if TargetMacOS
-		    declare function _name lib CocoaLib selector "name" (id as Ptr) as CFStringRef
+		    declare function m_name lib CocoaLib selector "name" (id as Ptr) as CFStringRef
 		    
-		    return  _name( me.id )
+		    return  m_name( me.id )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -513,9 +513,9 @@ Inherits NSObject
 		Function Port() As integer
 		  
 		  #if TargetMacOS
-		    declare function _port lib CocoaLib selector "port" (id as Ptr) as integer
+		    declare function m_port lib CocoaLib selector "port" (id as Ptr) as integer
 		    
-		    return  _port( me.id )
+		    return  m_port( me.id )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -523,7 +523,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Publish(allowAutoRenaming as boolean = true)
 		  #if TargetMacOS
-		    declare sub _publishWithOptions lib CocoaLib selector "publishWithOptions:" ( id as Ptr, opt as integer )
+		    declare sub m_publishWithOptions lib CocoaLib selector "publishWithOptions:" ( id as Ptr, opt as integer )
 		    
 		    dim options as Integer
 		    if allowAutoRenaming then
@@ -532,7 +532,7 @@ Inherits NSObject
 		      options = 1
 		    end if
 		    
-		    _publishWithOptions(self.id, options)
+		    m_publishWithOptions(self.id, options)
 		    self.mState = kStateIsTryingToPublish
 		  #endif
 		End Sub
@@ -639,10 +639,10 @@ Inherits NSObject
 		Sub StartMonitoring()
 		  
 		  #if TargetMacOS
-		    declare sub _StartMonitoring lib CocoaLib selector "startMonitoring" (id as Ptr)
+		    declare sub m_StartMonitoring lib CocoaLib selector "startMonitoring" (id as Ptr)
 		    
 		    if State=kStateResolved then
-		      _StartMonitoring   me.id
+		      m_StartMonitoring   me.id
 		    end if
 		    
 		  #endif
@@ -653,14 +653,14 @@ Inherits NSObject
 		Sub Stop()
 		  
 		  #if TargetMacOS
-		    declare sub _stop lib CocoaLib selector "stop" (id as Ptr)
+		    declare sub m_stop lib CocoaLib selector "stop" (id as Ptr)
 		    
 		    if State>=kStateIsServer then
 		      mState = kStateIsTryingToUnpublish
 		    else
 		      mState = kStateIsResolving
 		    end if
-		    _stop  me.id
+		    m_stop  me.id
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -669,10 +669,10 @@ Inherits NSObject
 		Sub StopMonitoring()
 		  
 		  #if TargetMacOS
-		    declare sub _StopMonitoring lib CocoaLib selector "stopMonitoring" (id as Ptr)
+		    declare sub m_StopMonitoring lib CocoaLib selector "stopMonitoring" (id as Ptr)
 		    
 		    if State=kStateResolved then
-		      _StopMonitoring   me.id
+		      m_StopMonitoring   me.id
 		    end if
 		    
 		  #endif
@@ -683,9 +683,9 @@ Inherits NSObject
 		Function Type() As String
 		  
 		  #if TargetMacOS
-		    declare function _type lib CocoaLib selector "type" (id as Ptr) as CFStringRef
+		    declare function m_type lib CocoaLib selector "type" (id as Ptr) as CFStringRef
 		    
-		    return  _type( me.id )
+		    return  m_type( me.id )
 		  #endif
 		End Function
 	#tag EndMethod

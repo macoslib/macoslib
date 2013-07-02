@@ -66,9 +66,9 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function _length lib CocoaLib selector "length" (id as Ptr) as Integer
+			    declare function m_length lib CocoaLib selector "length" (id as Ptr) as Integer
 			    
-			    return  _length( me.id )
+			    return  m_length( me.id )
 			  #endif
 			End Get
 		#tag EndGetter
