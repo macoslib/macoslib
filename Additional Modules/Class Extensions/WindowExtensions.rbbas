@@ -31,15 +31,17 @@ Protected Module WindowExtensions
 
 	#tag Method, Flags = &h0
 		Function ScalingFactor(Extends w as Window) As Single
-		  //# Get the scaling factor for the Window's frame, returns 2 for retina display
+		  //# The ScalingFactor is 2 for a retina MacBook Pro (or other HiDPI modes) and 1 for anything else
 		  
-		  #If TargetCocoa Then
-		    Declare Function BackingScaleFactor Lib "AppKit" Selector "backingScaleFactor" (target As WindowPtr) As Double
-		    Return BackingScaleFactor(w)
-		  #Else
+		  //@ This method only works if the window exists.
+		  
+		  if TargetCocoa and IsLion then
+		    declare function BackingScaleFactor lib "AppKit" selector "backingScaleFactor" (target As WindowPtr) as double
+		    return BackingScaleFactor(w)
+		  else
 		    #pragma Unused w
-		    Return 1
-		  #EndIf
+		    return 1
+		  end if
 		End Function
 	#tag EndMethod
 
