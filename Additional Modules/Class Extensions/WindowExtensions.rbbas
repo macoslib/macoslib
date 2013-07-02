@@ -30,6 +30,20 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ScalingFactor(Extends w as Window) As Single
+		  //# Get the scaling factor for the Window's frame, returns 2 for retina display
+		  
+		  #If TargetCocoa Then
+		    Declare Function BackingScaleFactor Lib "AppKit" Selector "backingScaleFactor" (target As WindowPtr) As Double
+		    Return BackingScaleFactor(w)
+		  #Else
+		    #pragma Unused w
+		    Return 1
+		  #EndIf
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function SetFrameAutosaveName(extends w as Window, saveName as String) As Boolean
 		  //# Set the autosave name for the Window's frame.
 		  
