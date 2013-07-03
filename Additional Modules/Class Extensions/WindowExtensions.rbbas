@@ -31,10 +31,13 @@ Protected Module WindowExtensions
 
 	#tag Method, Flags = &h0
 		Function ScalingFactor(Extends w as Window) As Single
-		  //# The ScalingFactor is 2 for a retina MacBook Pro (or other HiDPI modes) and 1 for anything else
+		  //# Determines if the window is displayed on a Retina screen or other HiDPI mode.
 		  
-		  //@ This method only works if the window exists.
-		  //@ You'll also need to add a boolean "NSHighResolutionCapable" with its value set to 'true' to the app's Info.plist.
+		  //@result The ScalingFactor is 2 for a Retina MacBook Pro (or other HiDPI modes) and 1 for anything else
+		  
+		  //@ The following property needs to be added to the app's __Info.plist__ in order to make your Cocoa app Retina capable:
+		  // __<key>NSHighResolutionCapable</key>__
+		  // __<true/>__
 		  
 		  if TargetCocoa and IsLion then
 		    declare function BackingScaleFactor lib "AppKit" selector "backingScaleFactor" (target As WindowPtr) as double
