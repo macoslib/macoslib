@@ -41,6 +41,16 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsMavericks() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 100900
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsMountainLion() As Boolean
 		  // Tells you if this OS has features of this version
 		  // This means that it returns true for later OS versions as well.
