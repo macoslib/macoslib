@@ -152,7 +152,9 @@ Module WindowManager
 		    
 		    dim p as Ptr = representedFilename(Ptr(w.Handle))
 		    dim s as CFStringRef = new CFString(p, not CFType.hasOwnership)
-		    return new FolderItem(s, FolderItem.PathTypeShell)
+		    if s <> "" then
+		      return new FolderItem(s, FolderItem.PathTypeShell)
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod
