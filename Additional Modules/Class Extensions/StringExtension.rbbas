@@ -46,7 +46,7 @@ Protected Module StringExtension
 
 	#tag Method, Flags = &h0
 		Function EndsWithB(extends s as string, substring as string) As Boolean
-		  //# Return true if the string ends with the substring. (case-sensitive)
+		  //# Return true if the string ends with the substring, doing a binary comparison.
 		  
 		  return StrComp(RightB(s, substring.LenB), substring, 0) = 0
 		End Function
@@ -274,7 +274,7 @@ Protected Module StringExtension
 
 	#tag Method, Flags = &h0
 		Function StartsWithB(extends s as string, substring as string) As Boolean
-		  //# Return true if the string starts with the substring. (case-sensitive)
+		  //# Return true if the string starts with the substring, doing a binary comparison.
 		  
 		  return StrComp(LeftB(s, substring.LenB), substring, 0) = 0
 		End Function
