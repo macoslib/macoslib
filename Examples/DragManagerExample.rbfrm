@@ -46,6 +46,7 @@ Begin Window DragManagerExample
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &h000000
@@ -80,6 +81,7 @@ Begin Window DragManagerExample
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "This demonstrates dragging of files to the Finder.\rDrag either of the images below to a Finder folder to see where they got dragged."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -111,6 +113,7 @@ Begin Window DragManagerExample
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -167,6 +170,7 @@ Begin Window DragManagerExample
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Doesn't work in Cocoa builds (as of June 2013)"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -199,6 +203,7 @@ Begin Window DragManagerExample
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -255,6 +260,7 @@ Begin Window DragManagerExample
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Should work even in Cocoa builds"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -290,6 +296,7 @@ Begin Window DragManagerExample
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Drag Result:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -339,6 +346,11 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.ForeColor = &c00FF0000
 		  g.FillRoundRect 2, 2, g.Width - 4, g.Height - 4, 8, 8
+		  
+		  #if RBVersion >= 2012.02 then
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -366,6 +378,11 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.ForeColor = &c0000FF00
 		  g.FillRoundRect 2, 2, g.Width - 4, g.Height - 4, 8, 8
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
