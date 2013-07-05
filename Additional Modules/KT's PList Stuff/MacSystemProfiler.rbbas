@@ -155,7 +155,7 @@ Protected Class MacSystemProfiler
 	#tag Method, Flags = &h0
 		 Shared Function IsAvailable() As Boolean
 		  #if TargetMacOS
-		    dim f as FolderItem = GetFolderItem( kSystemProfiler, FolderItem.PathTypeShell )
+		    dim f as FolderItem = GetFolderItem( kSystemProfilerShellPath, FolderItem.PathTypeShell )
 		    return f <> nil and f.Exists
 		  #else
 		    return false
@@ -227,7 +227,7 @@ Protected Class MacSystemProfiler
 		Protected Shared Function pExecute(ParamArray switches As String) As String
 		  #if TargetMacOS
 		    
-		    dim cmd as string = kSystemProfiler
+		    dim cmd as string = kSystemProfilerShellPath
 		    dim s as string = join( switches, " " )
 		    if s <> "" then
 		      cmd = cmd + " " + s
@@ -1064,7 +1064,7 @@ Protected Class MacSystemProfiler
 	#tag Constant, Name = DataTypeSoftware, Type = String, Dynamic = False, Default = \"SPSoftwareDataType", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kSystemProfiler, Type = String, Dynamic = False, Default = \"/usr/sbin/system_profiler", Scope = Protected
+	#tag Constant, Name = kSystemProfilerShellPath, Type = String, Dynamic = False, Default = \"/usr/sbin/system_profiler", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.0", Scope = Public
@@ -1083,6 +1083,7 @@ Protected Class MacSystemProfiler
 			Name="DataTypesAsString"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
