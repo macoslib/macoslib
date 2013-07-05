@@ -19,7 +19,7 @@ Protected Module About
 	#tag EndNote
 
 	#tag Note, Name = Documentation
-		The macoslib documentation is provided inside macoslib itself as described at http://http://ufos-software.com/docgen/
+		The macoslib documentation is provided inside macoslib itself as described at http://ufos-software.com/docgen/
 		
 		Eventually, Docgen (1) will be able to export the full documentation of macoslib
 		
