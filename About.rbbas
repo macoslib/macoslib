@@ -6,6 +6,7 @@ Protected Module About
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
 		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
+		
 	#tag EndNote
 
 	#tag Note, Name = Contributors
@@ -15,6 +16,19 @@ Protected Module About
 		Stéphane Mons (SM)
 		Kem Tekinay (KT)
 		Vidal van Bergen (VVB)
+	#tag EndNote
+
+	#tag Note, Name = Documentation
+		The macoslib documentation is provided inside macoslib itself as described at http://ufos-software.com/docgen/
+		
+		Eventually, Docgen (1) will be able to export the full documentation of macoslib
+		
+		
+		
+		
+		
+		(1) "Docgen" is a codename. The final software name has not been chosen yet.
+		
 	#tag EndNote
 
 	#tag Note, Name = How To Use
