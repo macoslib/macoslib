@@ -1,6 +1,15 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
+		Function BooleanValue(extends s as String) As Boolean
+		  //# Returns true if string is not empty, and string is not a possible false value
+		  
+		  s = Trim( s.Lowercase )
+		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Contains(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
