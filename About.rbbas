@@ -8,6 +8,15 @@ Protected Module About
 		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
 	#tag EndNote
 
+	#tag Note, Name = Contributors
+		
+		Charles Yeomans (CY)
+		Thomas Tempelmann (TT)
+		Stéphane Mons (SM)
+		Kem Tekinay (KT)
+		Vidal van Bergen (VVB)
+	#tag EndNote
+
 	#tag Note, Name = How To Use
 		To add MacOSLib to your project, select the entire "macoslib" folder in this project, copy it and paste
 		it into your project. Do not attempt to import (or drag+drop) the folder from disk into your project,
@@ -31,6 +40,14 @@ Protected Module About
 		
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
+		Contributors are identified by initials. See the "Contributors" note for full names.
+		
+		133: 2013-07-03 by KT
+		- Added pragmas for unused method parameters.
+		- Added Contributors note.
+		
+		132: 2013-07-02 by VVB
+		- Added ScalingFactor method.
 		
 		131: 2013-07-01 by KT
 		- Changed methods/properties that started with "_" so they won't.
@@ -204,7 +221,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"131", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"133", Scope = Protected
 	#tag EndConstant
 
 
