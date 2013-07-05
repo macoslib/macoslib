@@ -12,7 +12,7 @@ Protected Module StringExtension
 		Function FormatSize(size as Int64, use1024 as boolean = true) As String
 		  //# Format a file size as a 2-decimal number with appropriate unit (K, M, G, T). It is up to you to add the proper localized abbreviation for "byte".
 		  
-		  //@param use1024=true If true, use 1024 bytes as the basic unit. Otherwise, uses 1000 bytes. Default is 1024 bytes.
+		  //@param use1024=true If true, use 1024 bytes as the basic unit. Otherwise, uses 1000 bytes (like Apple). Default is 1024 bytes.
 		  //@ [Cross-platform]
 		  
 		  dim smallestSize as Int64
@@ -23,11 +23,13 @@ Protected Module StringExtension
 		    smallestSize = 1000
 		  end if
 		  
+		  static KB as Int64
+		  
 		  if use1024 then
-		    static KB as Int64 = 1024
+		    KB = 1024
 		    
 		  else //Apple format: 1K=1000 bytes
-		    static KB as Int64 = 1000
+		    KB = 1000
 		    
 		  end if
 		  
