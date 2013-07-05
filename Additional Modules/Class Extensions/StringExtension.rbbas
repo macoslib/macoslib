@@ -59,11 +59,11 @@ Protected Module StringExtension
 		  //@ [Cross-platform]
 		  
 		  
-		  dim KB as Int64 = 1024
-		  dim MB as Int64 = KB * KB
-		  dim GB as Int64 = MB * KB
-		  dim TB as Int64 = GB * KB
-		  dim EB as Int64 = TB * KB
+		  static KB as Int64 = 1024
+		  static MB as Int64 = KB * KB
+		  static GB as Int64 = MB * KB
+		  static TB as Int64 = GB * KB
+		  static EB as Int64 = TB * KB
 		  
 		  if size<1024 then
 		    return  Str( size )
