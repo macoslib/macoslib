@@ -1,6 +1,16 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
+		Sub Append(extends s() as String, t() as String)
+		  //# Appends an array of strings to another array of strings
+		  
+		  for i as integer = 0 to UBound(t)
+		    s.Append t(i)
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function BooleanValue(extends s as String) As Boolean
 		  //# Returns true if string is not empty, and string is not a possible false value
 		  
