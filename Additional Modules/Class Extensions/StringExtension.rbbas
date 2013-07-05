@@ -1,7 +1,7 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
-		Sub Append(extends s() as String, t() as String)
+		Sub Append(extends s() as string, t() as string)
 		  //# Appends an array of strings to another array of strings
 		  
 		  for i as integer = 0 to UBound(t)
@@ -11,7 +11,7 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function BooleanValue(extends s as String) As Boolean
+		Function BooleanValue(extends s as string) As Boolean
 		  //# Returns true if string is not empty, and string is not a possible false value
 		  
 		  s = Trim( s.Lowercase )
@@ -32,6 +32,22 @@ Protected Module StringExtension
 		  //# Return true if 'substring' is contained in 's' (comparison is case-sensitive)
 		  
 		  return  ( s.InStrB( substring ) > 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring. (case-insensitive)
+		  
+		  return Right(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring. (case-sensitive)
+		  
+		  return StrComp(RightB(s, substring.LenB), substring, 0) = 0
 		End Function
 	#tag EndMethod
 
@@ -233,6 +249,22 @@ Protected Module StringExtension
 		  //@ [Cross-platform]
 		  
 		  return L.IndexOf(s) = -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring. (case-insensitive)
+		  
+		  return Left(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring. (case-sensitive)
+		  
+		  return StrComp(LeftB(s, substring.LenB), substring, 0) = 0
 		End Function
 	#tag EndMethod
 
