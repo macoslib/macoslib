@@ -14,8 +14,7 @@ Protected Module StringExtension
 		Function BooleanValue(extends s as string) As Boolean
 		  //# Returns true if string is not empty, and string is not a possible false value
 		  
-		  s = Trim( s.Lowercase )
-		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" )
+		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" or s = "no" )
 		End Function
 	#tag EndMethod
 
