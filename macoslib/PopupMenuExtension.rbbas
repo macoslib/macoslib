@@ -156,6 +156,36 @@ Protected Module PopupMenuExtension
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function ShowsBorderOnlyWhileMouseInside(extends p as PopupMenu) As Boolean
+		  //# Sets whether the receiver’s border is displayed only when the cursor is over the button.
+		  
+		  #if TargetCocoa then
+		    declare function showsBorderOnlyWhileMouseInside lib CocoaLib selector "showsBorderOnlyWhileMouseInside" (obj_id as Integer) as Boolean
+		    
+		    return showsBorderOnlyWhileMouseInside(p.Handle)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ShowsBorderOnlyWhileMouseInside(extends p as PopupMenu, assigns Value as Boolean)
+		  //# Sets whether the receiver’s border is displayed only when the cursor is over the button.
+		  
+		  #if TargetCocoa then
+		    declare sub setShowsBorderOnlyWhileMouseInside lib CocoaLib selector "setShowsBorderOnlyWhileMouseInside:" (obj_id as Integer, inFlag as Boolean)
+		    
+		    setShowsBorderOnlyWhileMouseInside(p.Handle, Value)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
 
 	#tag Enum, Name = NSBezelStyle, Flags = &h0
 		NSRoundedBezelStyle = 1
