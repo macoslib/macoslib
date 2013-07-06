@@ -1,7 +1,7 @@
 #tag Module
 Protected Module PopupMenuExtension
 	#tag Method, Flags = &h0
-		Sub AddNewRow(extends p as PopupMenu, Name as String, Tag as Variant = Nil, Ico as Picture = Nil))
+		Sub AddNewRow(extends p as PopupMenu, Name as String, Tag as Variant = Nil, Ico as Picture = Nil)
 		  //# Convenience extension to quickly add a new popupmenu row with a row tag and row picture.
 		  
 		  p.AddRow Name
@@ -29,6 +29,35 @@ Protected Module PopupMenuExtension
 		    setSize(icon, size)
 		    
 		    setImage(item, icon)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PullsDown(extends p as PopupMenu) As Boolean
+		  //# Returns a Boolean value indicating the behavior of the control's menu.
+		  
+		  #if TargetCocoa then
+		    declare function pullsDown lib CocoaLib selector "pullsDown" (obj_id as Integer) as Boolean
+		    
+		    return pullsDown(p.Handle)
+		  #else
+		    #pragma Unused p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub PullsDown(extends p as PopupMenu, assigns Value as Boolean)
+		  //# Sets whether the PopupMenu behaves as a pull-down or pop-up menu.
+		  
+		  #if TargetCocoa then
+		    declare sub setPullsDown lib CocoaLib selector "setPullsDown:" (obj_id as Integer, inFlag as Boolean)
+		    
+		    setPullsDown(p.Handle, Value)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
 		  #endif
 		End Sub
 	#tag EndMethod
