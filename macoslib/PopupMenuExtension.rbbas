@@ -98,7 +98,7 @@ Protected Module PopupMenuExtension
 		Sub SetTitle(extends p as PopupMenu, Title as String)
 		  //# Sets the string displayed in the PopupMenu when the user isn’t pressing the mouse button.
 		  
-		  //@ Doesn't activate the 'Action' event.
+		  //@ Doesn't activate the 'Action' event, use with 'PullDown' popupmenu.
 		  
 		  #if TargetCocoa then
 		    declare sub setTitle lib CocoaLib selector "setTitle:" (obj_id as Integer, inTitle as CFStringRef)
