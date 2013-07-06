@@ -120,7 +120,7 @@ Module FileManager
 		          #pragma unused targetName
 		          #pragma unused volumeName
 		        #endif
-		        r = Cocoa.GetFolderItemFromPOSIXPath( pathString )
+		        r = GetFolderItemFromPOSIXPath( pathString )
 		      end if
 		    end if
 		    
@@ -223,6 +223,33 @@ Module FileManager
 		        return nil
 		      end if
 		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
+		  // Note: The passed path must be absolute, i.e. start from root with "/"
+		  
+		  #if TargetMacOS
+		    
+		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
+		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
+		    declare sub CFRelease lib CarbonLib (cf as Ptr)
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    
+		    const kCFURLPOSIXPathStyle = 0
+		    
+		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
+		    dim str as CFStringRef = CFRetain (CFURLGetString (url))
+		    CFRelease (url)
+		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
+		    return f
+		    
+		  #else
+		    
+		    #pragma unused absolutePath
 		    
 		  #endif
 		End Function

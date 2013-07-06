@@ -382,13 +382,22 @@ Protected Class MacSystemProfiler
 
 	#tag Method, Flags = &h0
 		Function Section(dataType As String) As MacPListBrowser
-		  dataType = pFixDataType( dataType )
-		  if dataType = "" and zDataTypes.Ubound = 0 then
-		    dataType = zDataTypes( 0 )
-		  end if
-		  dim r as MacPListBrowser = zSections.Value( dataType )
-		  return r.Clone
-		  
+		  #if TargetMacOS
+		    
+		    dataType = pFixDataType( dataType )
+		    if dataType = "" and zDataTypes.Ubound = 0 then
+		      dataType = zDataTypes( 0 )
+		    end if
+		    dim r as MacPListBrowser = zSections.Value( dataType )
+		    return r.Clone
+		    
+		  #else
+		    
+		    #pragma unused dataType
+		    
+		    return nil
+		    
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -735,6 +744,10 @@ Protected Class MacSystemProfiler
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.01:
+		- Changed constant name to kSystemProfilerShellPath from kSystemProfiler to be more descriptive.
+		- Wrapped the Section code in an #if.
+		
 		1.0:
 		- Initial release.
 	#tag EndNote
@@ -1067,7 +1080,7 @@ Protected Class MacSystemProfiler
 	#tag Constant, Name = kSystemProfilerShellPath, Type = String, Dynamic = False, Default = \"/usr/sbin/system_profiler", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.0", Scope = Public
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.01", Scope = Public
 	#tag EndConstant
 
 

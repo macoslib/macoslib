@@ -113,31 +113,12 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
-		  // Note: The passed path must be absolute, i.e. start from root with "/"
+		Attributes( deprecated = "FileManager.GetFolderItemFromPOSIXPath" ) Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
+		  // THIS FUNCTION IS DEPRECATED.
+		  // Use FileManager.GetFolderItemFromPOSIXPath or just GetFolderItemFromPOSIXPath instead.
 		  
-		  #if TargetMacOS
-		    
-		    'declare function CFURLCopyAbsoluteURL lib CarbonLib (relativeURL as Ptr) as Ptr
-		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
-		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
-		    declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		    'declare sub CFShow lib CarbonLib (obj as Ptr)
-		    
-		    const kCFURLPOSIXPathStyle = 0
-		    
-		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
-		    dim str as CFStringRef = CFRetain (CFURLGetString (url))
-		    CFRelease (url)
-		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
-		    return f
-		    
-		  #else
-		    
-		    #pragma unused absolutePath
-		    
-		  #endif
+		  return FileManager.GetFolderItemFromPOSIXPath( absolutePath )
+		  
 		End Function
 	#tag EndMethod
 
