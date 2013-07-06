@@ -109,6 +109,40 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function isTransparent(extends p as PopupMenu) As Boolean
+		  //# Sets whether the receiver is transparent.
+		  
+		  //@ A transparent button never draws itself, but it receives mouse-down events and tracks the mouse properly.
+		  
+		  #if TargetCocoa then
+		    declare function isTransparent lib CocoaLib selector "isTransparent" (obj_id as Integer) as Boolean
+		    
+		    return isTransparent(p.Handle)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub isTransparent(extends p as PopupMenu, assigns Value as Boolean)
+		  //# Sets whether the receiver is transparent.
+		  
+		  //@ A transparent button never draws itself, but it receives mouse-down events and tracks the mouse properly.
+		  
+		  #if TargetCocoa then
+		    declare sub setTransparent lib CocoaLib selector "setTransparent:" (obj_id as Integer, inFlag as Boolean)
+		    
+		    setTransparent(p.Handle, Value)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PullsDown(extends p as PopupMenu) As Boolean
 		  //# Returns a Boolean value indicating the behavior of the control's menu.
 		  
