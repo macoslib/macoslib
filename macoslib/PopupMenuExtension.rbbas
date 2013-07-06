@@ -11,6 +11,36 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function BezelStyle(extends p as PopupMenu) As NSBezelStyle
+		  //# Returns the appearance of the receiver’s border.
+		  
+		  #if TargetCocoa then
+		    declare function bezelStyle lib CocoaLib selector "bezelStyle" (obj_id as Integer) as NSBezelStyle
+		    
+		    return bezelStyle(p.Handle)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub BezelStyle(extends p as PopupMenu, assigns Value as NSBezelStyle)
+		  //# Sets the appearance of the border, if the receiver has one.
+		  
+		  #if TargetCocoa then
+		    declare sub setBezelStyle lib CocoaLib selector "setBezelStyle:" (obj_id as Integer, inFlag as NSBezelStyle)
+		    
+		    setBezelStyle(p.Handle, Value)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Icon(extends p as PopupMenu, index as Integer, assigns value as NSImage)
 		  #if targetMacOS
 		    declare function menu lib CocoaLib selector "menu" (obj_id as Integer) as Ptr
@@ -125,6 +155,26 @@ Protected Module PopupMenuExtension
 		  #endif
 		End Sub
 	#tag EndMethod
+
+
+	#tag Enum, Name = NSBezelStyle, Flags = &h0
+		NSRoundedBezelStyle = 1
+		  NSRegularSquareBezelStyle
+		  NSThickSquareBezelStyle
+		  NSThickerSquareBezelStyle
+		  NSDisclosureBezelStyle
+		  NSShadowlessSquareBezelStyle
+		  NSCircularBezelStyle
+		  NSTexturedSquareBezelStyle
+		  NSHelpButtonBezelStyle
+		  NSSmallSquareBezelStyle
+		  NSTexturedRoundedBezelStyle
+		  NSRoundRectBezelStyle
+		  NSRecessedBezelStyle
+		  NSRoundedDisclosureBezelStyle
+		  NSInlineBezelStyle
+		NSSmallIconButtonBezelStyle = 2
+	#tag EndEnum
 
 
 	#tag ViewBehavior
