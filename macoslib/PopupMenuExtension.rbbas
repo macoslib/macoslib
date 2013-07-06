@@ -34,6 +34,21 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IndexOfItemWithTitle(extends p as PopupMenu, Title as String) As Integer
+		  //# Returns the index of the item with the specified title.
+		  
+		  #if TargetCocoa then
+		    declare function indexOfItemWithTitle lib CocoaLib selector "indexOfItemWithTitle:" (obj_id as Integer, inTitle as CFStringRef) as Integer
+		    
+		    return indexOfItemWithTitle(p.Handle, Title)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Title
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PullsDown(extends p as PopupMenu) As Boolean
 		  //# Returns a Boolean value indicating the behavior of the control's menu.
 		  
