@@ -79,6 +79,36 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function isBordered(extends p as PopupMenu) As Boolean
+		  //# Returns a Boolean value indicating whether the receiver has a border.
+		  
+		  #if TargetCocoa then
+		    declare function isBordered lib CocoaLib selector "isBordered" (obj_id as Integer) as Boolean
+		    
+		    return isBordered(p.Handle)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub isBordered(extends p as PopupMenu, assigns Value as Boolean)
+		  //# Places or removes a border on the receiver and redraws the receiver.
+		  
+		  #if TargetCocoa then
+		    declare sub setBordered lib CocoaLib selector "setBordered:" (obj_id as Integer, inFlag as Boolean)
+		    
+		    setBordered(p.Handle, Value)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PullsDown(extends p as PopupMenu) As Boolean
 		  //# Returns a Boolean value indicating the behavior of the control's menu.
 		  
