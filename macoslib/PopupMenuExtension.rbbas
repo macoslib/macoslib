@@ -78,10 +78,27 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SelectItemWithTitle(extends p as PopupMenu, Title as String)
+		  //# Selects the item with the specified title.
+		  
+		  //@ Doesn't activate the 'Action' event.
+		  
+		  #if TargetCocoa then
+		    declare sub selectItemWithTitle lib CocoaLib selector "selectItemWithTitle:" (obj_id as Integer, inTitle as CFStringRef)
+		    
+		    selectItemWithTitle(p.Handle, Title)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Title
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SetTitle(extends p as PopupMenu, Title as String)
 		  //# Sets the string displayed in the PopupMenu when the user isn’t pressing the mouse button.
 		  
-		  //@ Sets the listindex of the popupmenu using the title without activating the 'Action' event.
+		  //@ Doesn't activate the 'Action' event.
 		  
 		  #if TargetCocoa then
 		    declare sub setTitle lib CocoaLib selector "setTitle:" (obj_id as Integer, inTitle as CFStringRef)
