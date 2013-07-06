@@ -62,6 +62,21 @@ Protected Module PopupMenuExtension
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub RemoveRow(extends p as PopupMenu, Title as String)
+		  //# Removes the item with the specified title from the menu.
+		  
+		  #if TargetCocoa then
+		    declare sub removeItemWithTitle lib CocoaLib selector "removeItemWithTitle:" (obj_id as Integer, inTitle as CFStringRef)
+		    
+		    removeItemWithTitle(p.Handle, Title)
+		  #else
+		    #pragma Unused p
+		    #pragma Unused Title
+		  #endif
+		End Sub
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
