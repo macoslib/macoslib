@@ -1,6 +1,16 @@
 #tag Module
 Protected Module PopupMenuExtension
 	#tag Method, Flags = &h0
+		Sub AddNewRow(extends p as PopupMenu, Name as String, Tag as Variant = Nil, Ico as Picture = Nil))
+		  //# Convenience extension to quickly add a new popupmenu row with a row tag and row picture.
+		  
+		  p.AddRow Name
+		  if Tag <> nil then p.RowTag( p.ListCount - 1 ) = Tag
+		  if Ico <> nil then p.Icon(   p.ListCount - 1 ) = NSImage.CreateFromPicture( Ico )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Icon(extends p as PopupMenu, index as Integer, assigns value as NSImage)
 		  #if targetMacOS
 		    declare function menu lib CocoaLib selector "menu" (obj_id as Integer) as Ptr
