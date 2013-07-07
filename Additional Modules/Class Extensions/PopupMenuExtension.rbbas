@@ -82,7 +82,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub Icon(extends p as PopupMenu, index as Integer, assigns value as NSImage)
-		  #if targetMacOS
+		  #if TargetCocoa
 		    declare function menu lib CocoaLib selector "menu" (obj_id as Integer) as Ptr
 		    declare function itemAtIndex lib CocoaLib selector "itemAtIndex:" (obj_id as Ptr, index as Integer) as Ptr
 		    declare sub setImage lib CocoaLib selector "setImage:" (obj_id as Ptr, menuImage as Ptr)
