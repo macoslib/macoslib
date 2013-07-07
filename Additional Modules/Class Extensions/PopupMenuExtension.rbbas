@@ -1,8 +1,11 @@
 #tag Module
 Protected Module PopupMenuExtension
 	#tag Method, Flags = &h0
-		Sub AddRow(extends p as PopupMenu, Name as String, Tag as Variant = Nil, Ico as Picture = Nil)
+		Sub AddRowWithTagAndPicture(extends p as PopupMenu, Name as String, Tag as Variant, Ico as Picture)
 		  //# Convenience extension to quickly add a new popupmenu row with a row tag and row picture.
+		  
+		  //@ Tag can be nil
+		  //@ Ico can be nil
 		  
 		  p.AddRow Name
 		  p.RowTag( p.ListCount - 1 ) = Tag
@@ -14,7 +17,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function ArrowPosition(Extends p as PopupMenu) As NSPopupArrowPosition
-		  //# Returns the position of the arrow displayed on the receiver.
+		  //# Returns the position of the arrow displayed on the PopupMenu.
 		  
 		  #if TargetCocoa
 		    declare function arrowPosition lib CocoaLib selector "arrowPosition" (obj_id as Ptr) as NSPopUpArrowPosition
@@ -29,7 +32,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub ArrowPosition(extends p as PopupMenu, assigns Value as NSPopupArrowPosition)
-		  //# Sets the position of the arrow displayed on the receiver.
+		  //# Sets the position of the arrow displayed on the PopupMenu.
 		  
 		  //@ NSPopUpNoArrow means no arrow is displayed. _
 		  //  NSPopUpArrowAtCenter means the arrow is vertically centered, pointing to the right, vertically centered. _
@@ -49,7 +52,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function BezelStyle(extends p as PopupMenu) As NSBezelStyle
-		  //# Returns the appearance of the receiver’s border.
+		  //# Returns the appearance of the PopupMenu's border.
 		  
 		  #if TargetCocoa then
 		    declare function bezelStyle lib CocoaLib selector "bezelStyle" (obj_id as Integer) as NSBezelStyle
@@ -64,7 +67,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub BezelStyle(extends p as PopupMenu, assigns Value as NSBezelStyle)
-		  //# Sets the appearance of the border, if the receiver has one.
+		  //# Sets the appearance of the border, if the PopupMenu has one.
 		  
 		  #if TargetCocoa then
 		    declare sub setBezelStyle lib CocoaLib selector "setBezelStyle:" (obj_id as Integer, inFlag as NSBezelStyle)
@@ -117,7 +120,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function isBordered(extends p as PopupMenu) As Boolean
-		  //# Returns a Boolean value indicating whether the receiver has a border.
+		  //# Returns a Boolean value indicating whether the PopupMenu has a border.
 		  
 		  #if TargetCocoa then
 		    declare function isBordered lib CocoaLib selector "isBordered" (obj_id as Integer) as Boolean
@@ -132,7 +135,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub isBordered(extends p as PopupMenu, assigns Value as Boolean)
-		  //# Places or removes a border on the receiver and redraws the receiver.
+		  //# Places or removes a border on the PopupMenu and redraws the receiver.
 		  
 		  #if TargetCocoa then
 		    declare sub setBordered lib CocoaLib selector "setBordered:" (obj_id as Integer, inFlag as Boolean)
@@ -147,7 +150,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function isTransparent(extends p as PopupMenu) As Boolean
-		  //# Sets whether the receiver is transparent.
+		  //# Sets whether the PopupMenu is transparent.
 		  
 		  //@ A transparent button never draws itself, but it receives mouse-down events and tracks the mouse properly.
 		  
@@ -164,7 +167,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub isTransparent(extends p as PopupMenu, assigns Value as Boolean)
-		  //# Sets whether the receiver is transparent.
+		  //# Sets whether the PopupMenu is transparent.
 		  
 		  //@ A transparent button never draws itself, but it receives mouse-down events and tracks the mouse properly.
 		  
@@ -195,7 +198,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function PreferredEdge(extends p as PopupMenu) As NSRectEdge
-		  //# Returns the edge of the receiver next to which the pop-up menu is displayed under restrictive screen conditions.
+		  //# Returns the edge of the PopupMenu next to which the menu is displayed under restrictive screen conditions.
 		  
 		  #if TargetCocoa
 		    declare function preferredEdge lib CocoaLib selector "preferredEdge" (obj_id as Integer) as NSRectEdge
@@ -210,7 +213,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub PreferredEdge(extends p as PopupMenu, assigns Value as NSRectEdge)
-		  //# Sets the edge of the receiver next to which the pop-up menu should appear under restrictive screen conditions.
+		  //# Sets the edge of the PopupMenu next to which the menu should appear under restrictive screen conditions.
 		  
 		  #if TargetCocoa
 		    declare sub setPreferredEdge lib CocoaLib selector "setPreferredEdge:" (obj_id as Integer, inFlag as NSRectEdge)
@@ -226,7 +229,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function PullsDown(extends p as PopupMenu) As Boolean
-		  //# Returns a Boolean value indicating the behavior of the control's menu.
+		  //# Returns a Boolean value indicating the behavior of the PopupMenu's menu.
 		  
 		  #if TargetCocoa then
 		    declare function pullsDown lib CocoaLib selector "pullsDown" (obj_id as Integer) as Boolean
@@ -304,7 +307,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Function ShowsBorderOnlyWhileMouseInside(extends p as PopupMenu) As Boolean
-		  //# Sets whether the receiver’s border is displayed only when the cursor is over the button.
+		  //# Returns a Boolean value indicating whether the PopupMenu displays its border only when the cursor is over it.
 		  
 		  #if TargetCocoa then
 		    declare function showsBorderOnlyWhileMouseInside lib CocoaLib selector "showsBorderOnlyWhileMouseInside" (obj_id as Integer) as Boolean
@@ -319,7 +322,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub ShowsBorderOnlyWhileMouseInside(extends p as PopupMenu, assigns Value as Boolean)
-		  //# Sets whether the receiver’s border is displayed only when the cursor is over the button.
+		  //# Sets whether the PopupMenu's border is displayed only when the cursor is over the button.
 		  
 		  #if TargetCocoa then
 		    declare sub setShowsBorderOnlyWhileMouseInside lib CocoaLib selector "setShowsBorderOnlyWhileMouseInside:" (obj_id as Integer, inFlag as Boolean)
