@@ -11,6 +11,41 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ArrowPosition(Extends p as PopupMenu) As NSPopupArrowPosition
+		  //# Returns the position of the arrow displayed on the receiver.
+		  
+		  #if TargetCocoa
+		    declare function arrowPosition lib CocoaLib selector "arrowPosition" (obj_id as Ptr) as NSPopUpArrowPosition
+		    
+		    return arrowPosition(p.PopUpButtonCell)
+		  #else
+		    #pragma unused p
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ArrowPosition(extends p as PopupMenu, assigns Value as NSPopupArrowPosition)
+		  //# Sets the position of the arrow displayed on the receiver.
+		  
+		  //@ NSPopUpNoArrow means no arrow is displayed. _
+		  //  NSPopUpArrowAtCenter means the arrow is vertically centered, pointing to the right, vertically centered. _
+		  //  NSPopUpArrowAtBottom means the arrow is at the bottom, pointing downward.
+		  
+		  #if TargetCocoa
+		    declare sub setArrowPosition lib CocoaLib selector "setArrowPosition:" (obj_id as Ptr, inFlag as NSPopupArrowPosition)
+		    
+		    setArrowPosition(p.PopUpButtonCell, Value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function BezelStyle(extends p as PopupMenu) As NSBezelStyle
 		  //# Returns the appearance of the receiver’s border.
 		  
@@ -140,6 +175,20 @@ Protected Module PopupMenuExtension
 		    #pragma Unused Value
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function PopUpButtonCell(Extends p as PopupMenu) As Ptr
+		  
+		  #if TargetCocoa
+		    declare function cell lib CocoaLib selector "cell" (obj_id as Integer) as Ptr
+		    
+		    return cell(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -299,6 +348,12 @@ Protected Module PopupMenuExtension
 		  NSRoundedDisclosureBezelStyle
 		  NSInlineBezelStyle
 		NSSmallIconButtonBezelStyle = 2
+	#tag EndEnum
+
+	#tag Enum, Name = NSPopUpArrowPosition, Flags = &h0
+		NSPopUpNoArrow
+		  NSPopUpArrowAtCenter
+		NSPopUpArrowAtBottom
 	#tag EndEnum
 
 	#tag Enum, Name = NSRectEdge, Flags = &h0
