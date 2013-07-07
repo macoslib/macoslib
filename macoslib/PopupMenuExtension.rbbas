@@ -143,6 +143,37 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PreferredEdge(extends p as PopupMenu) As NSRectEdge
+		  //# Returns the edge of the receiver next to which the pop-up menu is displayed under restrictive screen conditions.
+		  
+		  #if TargetCocoa
+		    declare function preferredEdge lib CocoaLib selector "preferredEdge" (obj_id as Integer) as NSRectEdge
+		    
+		    return preferredEdge(p.Handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub PreferredEdge(extends p as PopupMenu, assigns Value as NSRectEdge)
+		  //# Sets the edge of the receiver next to which the pop-up menu should appear under restrictive screen conditions.
+		  
+		  #if TargetCocoa
+		    declare sub setPreferredEdge lib CocoaLib selector "setPreferredEdge:" (obj_id as Integer, inFlag as NSRectEdge)
+		    
+		    setPreferredEdge(p.Handle, Value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PullsDown(extends p as PopupMenu) As Boolean
 		  //# Returns a Boolean value indicating the behavior of the control's menu.
 		  
@@ -268,6 +299,13 @@ Protected Module PopupMenuExtension
 		  NSRoundedDisclosureBezelStyle
 		  NSInlineBezelStyle
 		NSSmallIconButtonBezelStyle = 2
+	#tag EndEnum
+
+	#tag Enum, Name = NSRectEdge, Flags = &h0
+		NSMinXEdge
+		  NSMinYEdge
+		  NSMaxXEdge
+		NSMaxYEdge
 	#tag EndEnum
 
 
