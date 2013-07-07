@@ -1,12 +1,14 @@
 #tag Module
 Protected Module PopupMenuExtension
 	#tag Method, Flags = &h0
-		Sub AddNewRow(extends p as PopupMenu, Name as String, Tag as Variant = Nil, Ico as Picture = Nil)
+		Sub AddRow(extends p as PopupMenu, Name as String, Tag as Variant = Nil, Ico as Picture = Nil)
 		  //# Convenience extension to quickly add a new popupmenu row with a row tag and row picture.
 		  
 		  p.AddRow Name
-		  if Tag <> nil then p.RowTag( p.ListCount - 1 ) = Tag
-		  if Ico <> nil then p.Icon(   p.ListCount - 1 ) = NSImage.CreateFromPicture( Ico )
+		  p.RowTag( p.ListCount - 1 ) = Tag
+		  if Ico <> nil then
+		    p.Icon(   p.ListCount - 1 ) = NSImage.CreateFromPicture( Ico )
+		  end if
 		End Sub
 	#tag EndMethod
 
