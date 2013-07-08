@@ -54,6 +54,11 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		136: 2013-07-07 by KT
+		- Changed FileManager code to utilitize FolderItem.NativePath functions in Xojo.
+		- Changed FileManager.NativePath from Global "extends" function to Public with parameter.
+		- Changed local variable declarations in two methods from "str" to "s" to avoid confusion with the native function Str.
+		
 		135: 2013-07-06 by KT
 		- Changed constant name in MacSystemProfiler to kSystemProfilerShellPath for clarity.
 		- Copied GetFolderItemFromPOSIXPath from Cocoa to FileManager and made it Global.
@@ -243,7 +248,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"135", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"136", Scope = Protected
 	#tag EndConstant
 
 

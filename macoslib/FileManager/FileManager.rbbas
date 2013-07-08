@@ -232,7 +232,13 @@ Module FileManager
 		Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
 		  // Note: The passed path must be absolute, i.e. start from root with "/"
 		  
-		  #if TargetMacOS
+		  dim f as FolderItem
+		  
+		  #if TargetMacOS and RBVersion >= 2013.0
+		    
+		    f = GetFolderItem( absolutePath, FolderItem.PathTypeNative )
+		    
+		  #elseif TargetMacOS
 		    
 		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
 		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
@@ -242,16 +248,18 @@ Module FileManager
 		    const kCFURLPOSIXPathStyle = 0
 		    
 		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
-		    dim str as CFStringRef = CFRetain (CFURLGetString (url))
+		    dim s as CFStringRef = CFRetain (CFURLGetString (url))
 		    CFRelease (url)
-		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
-		    return f
+		    f = GetFolderItem (s, FolderItem.PathTypeURL)
 		    
 		  #else
 		    
 		    #pragma unused absolutePath
 		    
 		  #endif
+		  
+		  return f
+		  
 		End Function
 	#tag EndMethod
 
@@ -357,16 +365,30 @@ Module FileManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function NativePath(extends f as FolderItem) As String
+	#tag Method, Flags = &h1
+		Protected Function NativePath(f as FolderItem) As String
 		  //# This gives a path that fits what the OS likes - i.e. a POSIX Path on Mac and Linux
 		  
-		  #if TargetMacOS
+		  #if RBVersion >= 2013.0
+		    return f.NativePath
+		    
+		  #elseif TargetMacOS 
 		    return f.POSIXPath
+		    
 		  #else
 		    return f.AbsolutePath
+		    
 		  #endif
 		  
+		  // Note that FolderItem.NativePath was incorporated into Xojo 2013r1, so this method was changed
+		  // from an "extends" to something that requires the module prefix.
+		  // You will not have to modify your code in Xojo. For Real Studio, change your code from
+		  //
+		  //    f.NativePath
+		  //
+		  // to
+		  //
+		  //    FileManager.NativePath(f)
 		End Function
 	#tag EndMethod
 
@@ -376,7 +398,10 @@ Module FileManager
 		  //@ NOT working on Windows because Windows does not use POSIX paths!
 		  //@ Consider calling NativePath instead if you need a low level path that works on all platforms
 		  
-		  #if TargetMacOS
+		  #if RBVersion >= 2013.0 and TargetMacOS
+		    return f.NativePath
+		    
+		  #elseif TargetMacOS
 		    dim url as CFURL = CFURL.CreateFromHFSPath(f.AbsolutePath, f.Directory)
 		    return url.Path
 		    
