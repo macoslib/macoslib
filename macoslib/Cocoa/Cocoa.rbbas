@@ -113,31 +113,12 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
-		  // Note: The passed path must be absolute, i.e. start from root with "/"
+		Attributes( deprecated = "FileManager.GetFolderItemFromPOSIXPath" ) Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
+		  // THIS FUNCTION IS DEPRECATED.
+		  // Use FileManager.GetFolderItemFromPOSIXPath or just GetFolderItemFromPOSIXPath instead.
 		  
-		  #if TargetMacOS
-		    
-		    'declare function CFURLCopyAbsoluteURL lib CarbonLib (relativeURL as Ptr) as Ptr
-		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
-		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
-		    declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		    'declare sub CFShow lib CarbonLib (obj as Ptr)
-		    
-		    const kCFURLPOSIXPathStyle = 0
-		    
-		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
-		    dim str as CFStringRef = CFRetain (CFURLGetString (url))
-		    CFRelease (url)
-		    dim f as FolderItem = GetFolderItem (str, FolderItem.PathTypeURL)
-		    return f
-		    
-		  #else
-		    
-		    #pragma unused absolutePath
-		    
-		  #endif
+		  return FileManager.GetFolderItemFromPOSIXPath( absolutePath )
+		  
 		End Function
 	#tag EndMethod
 
@@ -151,6 +132,12 @@ Protected Module Cocoa
 		    tree = ClassNameTreeForObjectPointer( p )
 		    
 		    return  ( tree.IndexOf( classname ) <> -1 )
+		    
+		  #else
+		    
+		    #pragma unused p
+		    #pragma unused classname
+		    
 		  #endif
 		  
 		End Function
@@ -565,11 +552,17 @@ Protected Module Cocoa
 	#tag Method, Flags = &h1
 		Protected Sub Release(id as Ptr)
 		  #if TargetMacOS
+		    
 		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
 		    if id <> nil then
 		      release id
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused id
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -609,6 +602,11 @@ Protected Module Cocoa
 		    if id <> nil then
 		      call  retain( id )
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused id
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -617,6 +615,7 @@ Protected Module Cocoa
 		Protected Function StringConstant(symbolName as String) As String
 		  //NSBundle doesn't support loading of data pointers; for this we must use a CFBundle.
 		  #if targetMacOS
+		    
 		    dim s as string
 		    dim b as CFBundle = CFBundle.NewCFBundleFromID(BundleID)
 		    s = b.StringPointerRetained(symbolName)
@@ -631,6 +630,11 @@ Protected Module Cocoa
 		        return  s
 		      end if
 		    next
+		    
+		  #else
+		    
+		    #pragma unused symbolName
+		    
 		  #endif
 		End Function
 	#tag EndMethod
