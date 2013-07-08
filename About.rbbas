@@ -6,7 +6,6 @@ Protected Module About
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
 		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
-		
 	#tag EndNote
 
 	#tag Note, Name = Contributors
@@ -28,7 +27,6 @@ Protected Module About
 		
 		
 		(1) "Docgen" is a codename. The final software name has not been chosen yet.
-		
 	#tag EndNote
 
 	#tag Note, Name = How To Use
@@ -55,6 +53,16 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
+		
+		135: 2013-07-06 by KT
+		- Changed constant name in MacSystemProfiler to kSystemProfilerShellPath for clarity.
+		- Copied GetFolderItemFromPOSIXPath from Cocoa to FileManager and made it Global.
+		- Deprecated Cocoa.GetFolderItemFromPOSIXPath.
+		
+		134: 2013-07-05 by SM
+		- Added link to Docgen wiki to About.
+		- Removed ShellPath from FSEvent.
+		- Set computed variables to static in StringExtension.FormatSize.
 		
 		133: 2013-07-03 by KT
 		- Added pragmas for unused method parameters.
@@ -235,7 +243,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"133", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"135", Scope = Protected
 	#tag EndConstant
 
 
