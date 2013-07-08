@@ -21,6 +21,13 @@ Protected Module FolderManager
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused location
+		    #pragma unused folderType
+		    #pragma unused create
+		    
 		  #endif
 		  
 		End Function

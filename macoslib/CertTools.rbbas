@@ -173,14 +173,14 @@ Protected Module CertTools
 		            call ASN1_get_object (str_p, str_length, str_type, xclass, seq_end - str_p)
 		            if str_type = 12 then ' V_ASN1_UTF8STRING
 		              dim mb as MemoryBlock = str_p
-		              dim str as String = mb.StringValue(0,str_length).DefineEncoding(Encodings.UTF8)
+		              dim s as String = mb.StringValue(0,str_length).DefineEncoding(Encodings.UTF8)
 		              select case ATTRS(attr_type)
 		              case ATTRS.BUNDLE_ID
 		                key = Keys.kReceiptBundleIdentifer
 		              case ATTRS.VERSION
 		                key = Keys.kReceiptVersion
 		              end select
-		              result.Value(key) = str
+		              result.Value(key) = s
 		            end
 		          end
 		        end
