@@ -51,6 +51,37 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function AutoenablesItems(Extends p as PopupMenu) As Boolean
+		  //# Returns whether the PopupMenu automatically enables and disables its items every time a user event occurs.
+		  
+		  #if TargetCocoa
+		    declare function autoenablesItems lib CocoaLib selector "autoenablesItems" (obj_id as Integer) as Boolean
+		    
+		    return autoenablesItems(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub AutoenablesItems(Extends p as PopupMenu, assigns value as Boolean)
+		  //# Sets whether the PopupMenu automatically enables and disables its items every time a user event occurs.
+		  
+		  #if TargetCocoa then
+		    declare sub setAutoenablesItems lib CocoaLib selector "setAutoenablesItems:" (obj_id as Integer, value as Boolean)
+		    
+		    setAutoenablesItems(p.handle, value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function BezelStyle(extends p as PopupMenu) As NSBezelStyle
 		  //# Returns the appearance of the PopupMenu's border.
 		  
