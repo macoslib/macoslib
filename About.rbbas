@@ -54,10 +54,16 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
-		136: 2013-07-07 by KT
+		138: 2013-07-08 by KT
+		- Added pragmas for unused variables in various methods.
+		
+		137: 2013-07-07 by KT
 		- Changed FileManager code to utilitize FolderItem.NativePath functions in Xojo.
 		- Changed FileManager.NativePath from Global "extends" function to Public with parameter.
 		- Changed local variable declarations in two methods from "str" to "s" to avoid confusion with the native function Str.
+		
+		136: 2013-07-07 by CY
+		- Moved AddressBook out of Cocoa into AB module.
 		
 		135: 2013-07-06 by KT
 		- Changed constant name in MacSystemProfiler to kSystemProfilerShellPath for clarity.
@@ -248,7 +254,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"136", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"138", Scope = Protected
 	#tag EndConstant
 
 

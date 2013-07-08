@@ -7,6 +7,12 @@ Module FileManager
 		    
 		    dim OSError as Int16 = FSCompareFSRefs(fsRef1, fsRef2)
 		    return (OSError = noErr)
+		    
+		  #else
+		    
+		    #pragma unused fsRef1
+		    #pragma unused fsRef2
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,6 +71,11 @@ Module FileManager
 		    if err = 0 then
 		      return mb.CString(0).DefineEncoding(Encodings.UTF8)
 		    end
+		    
+		  #else
+		    
+		    #pragma unused ref
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -192,6 +203,10 @@ Module FileManager
 		      
 		    #endif
 		    
+		  #else
+		    
+		    #pragma unused theFSRef
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -223,6 +238,10 @@ Module FileManager
 		        return nil
 		      end if
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused theFSSpec
 		    
 		  #endif
 		End Function
@@ -330,6 +349,11 @@ Module FileManager
 		    
 		    // Keep the compiler from complaining
 		    #pragma unused OSError
+		    
+		  #else
+		    
+		    #pragma unused theFSSpec
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -341,6 +365,11 @@ Module FileManager
 		    
 		    dim OSError as Int16 = FSGetCatalogInfo(theFSRef, kFSCatInfoNone, Nil, Nil, Nil, Nil)
 		    return (OSError = 0)
+		    
+		  #else
+		    
+		    #pragma unused theFSRef
+		    
 		  #endif
 		  
 		End Function
@@ -361,6 +390,11 @@ Module FileManager
 		      //since we're not generally raising exceptions, alas
 		      return false
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused f
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -372,7 +406,7 @@ Module FileManager
 		  #if RBVersion >= 2013.0
 		    return f.NativePath
 		    
-		  #elseif TargetMacOS 
+		  #elseif TargetMacOS
 		    return f.POSIXPath
 		    
 		  #else

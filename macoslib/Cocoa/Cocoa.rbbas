@@ -132,6 +132,12 @@ Protected Module Cocoa
 		    tree = ClassNameTreeForObjectPointer( p )
 		    
 		    return  ( tree.IndexOf( classname ) <> -1 )
+		    
+		  #else
+		    
+		    #pragma unused p
+		    #pragma unused classname
+		    
 		  #endif
 		  
 		End Function
@@ -546,11 +552,17 @@ Protected Module Cocoa
 	#tag Method, Flags = &h1
 		Protected Sub Release(id as Ptr)
 		  #if TargetMacOS
+		    
 		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
 		    if id <> nil then
 		      release id
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused id
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -590,6 +602,11 @@ Protected Module Cocoa
 		    if id <> nil then
 		      call  retain( id )
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused id
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -598,6 +615,7 @@ Protected Module Cocoa
 		Protected Function StringConstant(symbolName as String) As String
 		  //NSBundle doesn't support loading of data pointers; for this we must use a CFBundle.
 		  #if targetMacOS
+		    
 		    dim s as string
 		    dim b as CFBundle = CFBundle.NewCFBundleFromID(BundleID)
 		    s = b.StringPointerRetained(symbolName)
@@ -612,6 +630,11 @@ Protected Module Cocoa
 		        return  s
 		      end if
 		    next
+		    
+		  #else
+		    
+		    #pragma unused symbolName
+		    
 		  #endif
 		End Function
 	#tag EndMethod
