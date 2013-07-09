@@ -306,6 +306,34 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsTemplate() As Boolean
+		  //# Returns a Boolean value indicating whether the image is a template image.
+		  
+		  #if TargetCocoa then
+		    declare function isTemplate lib CocoaLib selector "isTemplate" (image as Ptr) as Boolean
+		    
+		    return isTemplate( me )
+		  #else
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub IsTemplate(assigns Value as Boolean)
+		  //# Sets whether the image represents a template image.
+		  
+		  #if TargetCocoa then
+		    declare sub setTemplate lib CocoaLib selector "setTemplate:" (image as Ptr, inFlag as Boolean)
+		    
+		    setTemplate( me, Value )
+		  #else
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function LoadByName(name as CFStringRef) As NSImage
 		  #if targetMacOS
 		    declare function imageNamed lib CocoaLib selector "imageNamed:" (class_id as Ptr, name as CFStringRef) as Ptr
