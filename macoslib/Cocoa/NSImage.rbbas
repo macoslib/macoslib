@@ -46,6 +46,136 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(image as CGImage, size as Cocoa.NSSize)
+		  
+		  #if TargetCocoa then
+		    declare function initWithCGImage lib CocoaLib selector "initWithCGImage:size:" (obj_id as Ptr, CGImageRef as Ptr, size as Cocoa.NSSize) as Ptr
+		    
+		    if image <> nil then
+		      super.Constructor( initWithCGImage(Allocate("NSImage"), image.Reference, size), NSImage.hasOwnership)
+		    end if
+		    
+		  #else
+		    #pragma Unused image
+		    #pragma Unused size
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(Size as Cocoa.NSSize)
+		  
+		  #if targetMacOS
+		    declare function initWithSize lib CocoaLib selector "initWithSize:" (obj_id as Ptr, aSize as Cocoa.NSSize) as Ptr
+		    
+		    super.Constructor(initWithSize(Allocate("NSImage"), Size), NSImage.hasOwnership)
+		  #else
+		    #pragma unused Size
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(TheFile as FolderItem)
+		  
+		  #if targetMacOS
+		    declare function initWithContentsOfFile lib CocoaLib selector "initWithContentsOfFile:" (obj_id as Ptr, fileName as CFStringRef) as Ptr
+		    
+		    if TheFile <> nil then
+		      super.Constructor(initWithContentsOfFile(Allocate("NSImage"), TheFile.POSIXPath), NSImage.hasOwnership)
+		    end if
+		    
+		  #else
+		    #pragma unused file
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(data as NSData)
+		  
+		  #if targetMacOS
+		    declare function initWithData lib CocoaLib selector "initWithData:" (obj_id as Ptr, data as Ptr) as Ptr
+		    
+		    if data <> nil then
+		      super.Constructor(initWithData(Allocate("NSImage"), data), NSImage.hasOwnership)
+		    end if
+		    
+		  #else
+		    #pragma unused data
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(pasteboard as NSPasteboard)
+		  
+		  #if targetMacOS
+		    declare function initWithPasteboard lib CocoaLib selector "initWithPasteboard:" (obj_id as Ptr, pasteboard as Ptr) as Ptr
+		    
+		    if pasteboard <> nil then
+		      super.Constructor(initWithPasteboard(Allocate("NSImage"), pasteboard), NSImage.hasOwnership)
+		    end if
+		    
+		  #else
+		    #pragma unused pasteboard
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(URL as NSURL)
+		  
+		  #if targetMacOS
+		    declare function initWithContentsOfURL lib CocoaLib selector "initWithContentsOfURL:" (obj_id as Ptr, inURL as Ptr) as Ptr
+		    
+		    if aURL <> nil then
+		      super.Constructor(initWithContentsOfURL(Allocate("NSImage"), URL), NSImage.hasOwnership)
+		    end if
+		    
+		  #else
+		    #pragma unused aURL
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(pict as Picture)
+		  
+		  #if TargetMacOS
+		    dim cg_image as CGImage = CGImage.NewCGImage( pict )
+		    
+		    if cg_image <> nil then
+		      Dim zeroSize as Cocoa.NSSize
+		      self.Constructor(cg_image, zeroSize)
+		    end if
+		    
+		  #else
+		    #pragma Unused pict
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(iconRef as UInt32)
+		  
+		  #if targetMacOS
+		    declare function initWithIconRef lib CocoaLib selector "initWithIconRef:" (obj_id as Ptr, iconRef as UInt32) as Ptr
+		    
+		    super.Constructor(initWithIconRef(Allocate("NSImage"), iconRef), NSImage.hasOwnership)
+		  #else
+		    #pragma unused iconRef
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function Copy() As NSImage
 		  #if targetMacOS
