@@ -1360,5 +1360,11 @@ Begin Menu MainMenubar
          AutoEnable = True
       End
    End
+   Begin MenuItem HelpMenu
+      SpecialMenu = 0
+      Text = "#MenuItemHelpMenu.LocalizedText"
+      Index = -2147483648
+      AutoEnable = True
+   End
 End
 #tag EndMenu
