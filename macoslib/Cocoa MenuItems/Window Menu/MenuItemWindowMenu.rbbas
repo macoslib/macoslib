@@ -319,6 +319,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Finestra"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Fenster"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Fen\xC3\xAAtre"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Venster"
 	#tag EndConstant
 
 	#tag Constant, Name = NSMixedState, Type = Double, Dynamic = False, Default = \"-1", Scope = Private

@@ -26,6 +26,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x86\xE3\x82\xAD\xE3\x82\xB9\xE3\x83\x88\xE3\x81\xAE\xE7\xBD\xAE\xE6\x8F\x9B"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Remplacement de texte"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Sostituzione testo"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Tekstvervanging"
 	#tag EndConstant
 
 

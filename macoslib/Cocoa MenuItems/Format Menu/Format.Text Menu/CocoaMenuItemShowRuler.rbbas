@@ -42,6 +42,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\xAB\xE3\x83\xBC\xE3\x83\xA9\xE3\x82\x92\xE9\x9A\xA0\xE3\x81\x99"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Masquer les r\xC3\xA9gles"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Nascondi righello"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Verberg liniaal"
 	#tag EndConstant
 
 	#tag Constant, Name = LocalizedTextShow, Type = String, Dynamic = True, Default = \"Show Ruler", Scope = Public
@@ -50,6 +51,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\xAB\xE3\x83\xBC\xE3\x83\xA9\xE3\x82\x92\xE8\xA1\xA8\xE7\xA4\xBA"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Afficher les r\xC3\xA9gles"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Mostra righello"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Toon liniaal"
 	#tag EndConstant
 
 

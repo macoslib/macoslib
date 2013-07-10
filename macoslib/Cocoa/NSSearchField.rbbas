@@ -871,6 +871,7 @@ Inherits NSControl
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Cancella"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAE\xE0\xA7\x81\xE0\xA6\x9B\xE0\xA7\x87 \xE0\xA6\xAB\xE0\xA7\x87\xE0\xA6\xB2\xE0\xA6\xBE"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"L\xC3\xB6schen"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Wis"
 	#tag EndConstant
 
 	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibNSSearchFieldDelegate", Scope = Private
@@ -881,6 +882,7 @@ Inherits NSControl
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Pas de recherche r\xC3\xA9cente"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Nessuna ricerca recente"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Keine vorherigen Suchen"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Geen recente zoekopdrachten"
 	#tag EndConstant
 
 	#tag Constant, Name = NSSearchFieldClearRecentsMenuItemTag, Type = Double, Dynamic = False, Default = \"1002", Scope = Private
@@ -900,6 +902,7 @@ Inherits NSControl
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Recherches r\xC3\xA9centes"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Ricerche recenti"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Vorherige Suchen"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Recente zoekopdrachten"
 	#tag EndConstant
 
 

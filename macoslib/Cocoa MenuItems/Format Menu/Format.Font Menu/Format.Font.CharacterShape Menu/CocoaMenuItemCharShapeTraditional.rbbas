@@ -46,6 +46,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\x97\xA7\xE5\xAD\x97\xE4\xBD\x93"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Forme traditionnelle"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Forma tradizionale"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Traditionele vorm"
 	#tag EndConstant
 
 

@@ -8,6 +8,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Fichier"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Archivio"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAB\xE0\xA6\xBE\xE0\xA6\x87\xE0\xA6\xB2"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Archief"
 	#tag EndConstant
 
 
