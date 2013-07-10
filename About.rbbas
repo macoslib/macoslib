@@ -54,6 +54,11 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		139: 2013-07-09 by VVB
+		- Added dutch translation.
+		- Added window lion fullscreen methods and menu item.
+		- Added help menu to get the auto search menu item.
+		
 		138: 2013-07-08 by KT
 		- Added pragmas for unused variables in various methods.
 		
