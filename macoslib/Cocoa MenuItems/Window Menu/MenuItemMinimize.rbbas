@@ -13,6 +13,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Im Dock ablegen"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"R\xC3\xA9duire"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Contrai"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Minimaliseer"
 	#tag EndConstant
 
 

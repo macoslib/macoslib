@@ -15,6 +15,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Annuler"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Annulla"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAA\xE0\xA7\x82\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\xAC\xE0\xA6\xB8\xE0\xA7\x8D\xE0\xA6\xA5\xE0\xA6\xBE\xE0\xA7\x9F \xE0\xA6\xAB\xE0\xA7\x87\xE0\xA6\xB0\xE0\xA6\xBE\xE0\xA6\xA8\xE0\xA7\x8B"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Herstel"
 	#tag EndConstant
 
 

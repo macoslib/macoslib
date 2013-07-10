@@ -20,6 +20,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xB9\xE3\x83\x9E\xE3\x83\xBC\xE3\x83\x88\xE3\x83\x80\xE3\x83\x83\xE3\x82\xB7\xE3\x83\xA5\xE8\xA8\x98\xE5\x8F\xB7"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Tirets intelligents"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Trattini smart"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Slimme streepjes"
 	#tag EndConstant
 
 

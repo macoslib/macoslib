@@ -7,6 +7,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\xAE\xB5\xE8\x90\xBD"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Paragraphe"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Paragrafo"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Alinea"
 	#tag EndConstant
 
 
