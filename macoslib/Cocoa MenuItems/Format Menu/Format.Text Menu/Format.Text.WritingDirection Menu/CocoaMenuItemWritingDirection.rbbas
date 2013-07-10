@@ -7,6 +7,7 @@ Inherits CocoaMenuItemSupermenu
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\x96\x87\xE7\xAB\xA0\xE3\x81\xAE\xE6\x96\xB9\xE5\x90\x91"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Sens d\'\xC3\xA9criture"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Direzione scrittura"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Schriftrichting"
 	#tag EndConstant
 
 

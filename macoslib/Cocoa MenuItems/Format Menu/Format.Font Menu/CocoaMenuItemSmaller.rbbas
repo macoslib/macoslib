@@ -16,6 +16,7 @@ Inherits CocoaMenuItemModifyFont
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Plus petit"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Pi\xC3\xB9 piccolo"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x9B\xE0\xA7\x8B\xE0\xA6\x9F \xE0\xA6\x86\xE0\xA6\x95\xE0\xA6\xBE\xE0\xA6\xB0\xE0\xA7\x87 \xE0\xA6\xAA\xE0\xA7\x8D\xE0\xA6\xB0\xE0\xA6\xA6\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xB6\xE0\xA6\xA8"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Kleiner"
 	#tag EndConstant
 
 
