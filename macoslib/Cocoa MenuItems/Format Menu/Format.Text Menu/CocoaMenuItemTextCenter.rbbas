@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE4\xB8\xAD\xE5\xA4\xAE\xE6\x8F\x83\xE3\x81\x88"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Centrer"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Centra"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Centreer"
 	#tag EndConstant
 
 

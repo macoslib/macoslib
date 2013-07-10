@@ -15,6 +15,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Supprimer"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Elimina"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAE\xE0\xA7\x81\xE0\xA6\x9B\xE0\xA7\x87 \xE0\xA6\xAB\xE0\xA7\x87\xE0\xA6\xB2\xE0\xA6\xBE"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Verwijder"
 	#tag EndConstant
 
 

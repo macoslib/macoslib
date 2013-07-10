@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x84\xE3\x83\xBC\xE3\x83\xAB\xE3\x83\x90\xE3\x83\xBC\xE3\x82\x92\xE3\x82\xAB\xE3\x82\xB9\xE3\x82\xBF\xE3\x83\x9E\xE3\x82\xA4\xE3\x82\xBA..."
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Personnaliser la barre d\'outils"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Personalizza la barra strumenti\xE2\x80\xA6"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Pas knoppenbalk aan..."
 	#tag EndConstant
 
 

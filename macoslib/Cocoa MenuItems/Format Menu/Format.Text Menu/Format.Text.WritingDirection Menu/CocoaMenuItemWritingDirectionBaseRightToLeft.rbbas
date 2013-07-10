@@ -15,6 +15,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"\tDe droite \xC3\xA0 hauche"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"\tDa destra a sinistra"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xA1\xE0\xA6\xBE\xE0\xA6\x87\xE0\xA6\xA8 \xE0\xA6\xA5\xE0\xA7\x87\xE0\xA6\x95\xE0\xA7\x87 \xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\x81\xE0\xA6\xAE\xE0\xA7\x87"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"\tRechts naar links"
 	#tag EndConstant
 
 

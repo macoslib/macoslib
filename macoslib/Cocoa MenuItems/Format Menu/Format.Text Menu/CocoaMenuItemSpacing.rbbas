@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE9\x96\x93\xE9\x9A\x94..."
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Espacement\xE2\x80\xA6"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Spaziatura\xE2\x80\xA6"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Afstand..."
 	#tag EndConstant
 
 
