@@ -15,6 +15,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Copier le style"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Copia stile"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xB6\xE0\xA7\x88\xE0\xA6\xB2\xE0\xA7\x80 \xE0\xA6\x85\xE0\xA6\xA8\xE0\xA7\x81\xE0\xA6\xB2\xE0\xA6\xBF\xE0\xA6\xAA\xE0\xA6\xBF"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Kopieer stijl"
 	#tag EndConstant
 
 

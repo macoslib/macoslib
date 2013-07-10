@@ -15,6 +15,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Coller"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Incolla"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAA\xE0\xA7\x8D\xE0\xA6\xB0\xE0\xA6\xA4\xE0\xA6\xBF\xE0\xA6\xB2\xE0\xA7\x87\xE0\xA6\xAA\xE0\xA6\xA8"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Plak"
 	#tag EndConstant
 
 

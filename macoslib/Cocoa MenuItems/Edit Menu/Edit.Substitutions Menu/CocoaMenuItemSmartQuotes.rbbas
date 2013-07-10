@@ -20,6 +20,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xB9\xE3\x83\x9E\xE3\x83\xBC\xE3\x83\x88\xE5\xBC\x95\xE7\x94\xA8\xE7\xAC\xA6"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Guillemets courbes"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Virgolette curve"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Slimme aanhalingstekens"
 	#tag EndConstant
 
 

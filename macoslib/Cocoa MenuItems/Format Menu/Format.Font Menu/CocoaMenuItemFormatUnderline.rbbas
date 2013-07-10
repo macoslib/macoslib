@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xA2\xE3\x83\xB3\xE3\x83\x80\xE3\x83\xBC\xE3\x83\xA9\xE3\x82\xA4\xE3\x83\xB3"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Soulign\xC3\xA9"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Sottolineato"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Onderstreept"
 	#tag EndConstant
 
 

@@ -20,6 +20,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x87\xE3\x83\xBC\xE3\x82\xBF\xE6\xA4\x9C\xE5\x87\xBA"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"D\xC3\xA9tecteurs de donn\xC3\xA9es"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Rilevatori di dati"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"datadetectie"
 	#tag EndConstant
 
 

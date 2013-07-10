@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE8\x87\xAA\xE5\x8B\x95\xE7\xBD\xAE\xE6\x8F\x9B\xE3\x82\x92\xE8\xA1\xA8\xE7\xA4\xBA"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Afficher les substitutions"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Mostra sostituzioni"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Toon vervangingen"
 	#tag EndConstant
 
 

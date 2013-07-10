@@ -33,6 +33,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Masquer la barre d\'outils"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Nascondi la barra strumenti"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x9F\xE0\xA7\x81\xE0\xA6\xB2\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\xB0 \xE0\xA6\x86\xE0\xA7\x9C\xE0\xA6\xBE\xE0\xA6\xB2 \xE0\xA6\x95\xE0\xA6\xB0\xE0\xA6\xBE"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Verberg knoppenbalk"
 	#tag EndConstant
 
 	#tag Constant, Name = LocalizedTextShow, Type = String, Dynamic = True, Default = \"Show Toolbar", Scope = Public
@@ -42,6 +43,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Afficher la barre d\'outils"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Mostra la barra strumenti"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x9F\xE0\xA7\x81\xE0\xA6\xB2\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\xB0 \xE0\xA6\xAA\xE0\xA7\x8D\xE0\xA6\xB0\xE0\xA6\xA6\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xB6\xE0\xA6\xA8 \xE0\xA6\x95\xE0\xA6\xB0\xE0\xA6\xBE"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Toon knoppenbalk"
 	#tag EndConstant
 
 
