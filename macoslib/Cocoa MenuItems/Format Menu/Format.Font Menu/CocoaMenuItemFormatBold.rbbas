@@ -20,6 +20,7 @@ Inherits CocoaMenuItemFormatFontTrait
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x9C\xE3\x83\xBC\xE3\x83\xAB\xE3\x83\x89"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Gras"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Grassetto"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Vet"
 	#tag EndConstant
 
 	#tag Constant, Name = NSBoldFontMask, Type = Double, Dynamic = False, Default = \"&h00000002", Scope = Private

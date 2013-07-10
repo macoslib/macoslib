@@ -8,6 +8,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Edition"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Composizione"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xB8\xE0\xA6\xAE\xE0\xA7\x8D\xE0\xA6\xAA\xE0\xA6\xBE\xE0\xA6\xA6\xE0\xA6\xA8\xE0\xA6\xBE"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Wijzig"
 	#tag EndConstant
 
 

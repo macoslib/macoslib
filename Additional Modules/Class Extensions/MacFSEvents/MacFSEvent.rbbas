@@ -39,7 +39,7 @@ Class MacFSEvent
 		  //@ If you set onlyIfFolderItemExists then this method will return nil if the FolderItem does not exist
 		  
 		  #if TargetMacOS
-		    dim f as FolderItem = Cocoa.GetFolderItemFromPOSIXPath( Path )
+		    dim f as FolderItem = GetFolderItemFromPOSIXPath( Path )
 		    
 		    if f<>nil then
 		      if onlyIfFolderItemExists then

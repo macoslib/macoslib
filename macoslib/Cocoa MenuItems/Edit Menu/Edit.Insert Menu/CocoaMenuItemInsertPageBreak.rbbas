@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\x94\xB9\xE3\x83\x9A\xE3\x83\xBC\xE3\x82\xB8"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Saut de page"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Interruzione di pagina"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Pagina-einde"
 	#tag EndConstant
 
 

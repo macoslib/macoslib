@@ -20,6 +20,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xB9\xE3\x83\x9E\xE3\x83\xBC\xE3\x83\x88\xE3\x82\xB3\xE3\x83\x94\xE3\x83\xBC\xEF\xBC\x8F\xE3\x83\x9A\xE3\x83\xBC\xE3\x82\xB9\xE3\x83\x88"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Copier-coller intelligent"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Copia/incolla smart"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Slim kopi\xC3\xABren/plakken"
 	#tag EndConstant
 
 

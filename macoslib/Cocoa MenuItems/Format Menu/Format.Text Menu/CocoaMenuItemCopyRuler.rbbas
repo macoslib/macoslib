@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\xAB\xE3\x83\xBC\xE3\x83\xA9\xE3\x82\x92\xE3\x82\xB3\xE3\x83\x94\xE3\x83\xBC"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Coller"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Copia righello"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Kopieer liniaal"
 	#tag EndConstant
 
 

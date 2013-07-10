@@ -15,6 +15,7 @@ Inherits CocoaMenuItemFindAbstract
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE9\x81\xB8\xE6\x8A\x9E\xE9\x83\xA8\xE5\x88\x86\xE3\x82\x92\xE6\xA4\x9C\xE7\xB4\xA2\xE3\x81\xAB\xE4\xBD\xBF\xE7\x94\xA8"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Rechercher la s\xC3\xA9lection"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Usa selezione per cercare"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Gebruik selectie voor zoekactie"
 	#tag EndConstant
 
 

@@ -237,9 +237,9 @@ Class FSEventStream
 		    arp.Append   path
 		    
 		    if RelativeTo<>nil then
-		      f = Cocoa.GetFolderItemFromPOSIXPath( RelativeTo.POSIXPath + "/" + path )
+		      f = GetFolderItemFromPOSIXPath( RelativeTo.POSIXPath + "/" + path )
 		    else
-		      f = Cocoa.GetFolderItemFromPOSIXPath( path )
+		      f = GetFolderItemFromPOSIXPath( path )
 		    end if
 		    
 		    flags = mb2.UInt32Value( i * 4 )
