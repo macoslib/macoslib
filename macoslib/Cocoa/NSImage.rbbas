@@ -134,7 +134,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function initWithContentsOfURL lib CocoaLib selector "initWithContentsOfURL:" (obj_id as Ptr, inURL as Ptr) as Ptr
 		    
-		    if aURL <> nil then
+		    if URL <> nil then
 		      super.Constructor(initWithContentsOfURL(Allocate("NSImage"), URL), NSImage.hasOwnership)
 		    end if
 		    
