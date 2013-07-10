@@ -521,6 +521,7 @@ Class=ResourceAccessor;macoslib/ResourceForkReplacement/ResourceAccessor.rbbas;&
 Class=ResourceItem;macoslib/ResourceForkReplacement/ResourceItem.rbbas;&h148A31C;&h14895D40;false
 Class=DragRef;macoslib/CarbonDragManager/DragRef.rbbas;&h61016D87;&h187BB275;false
 Window=DragManagerExample;Examples/DragManagerExample.rbfrm;&h24BE2D78;&h4BD59C08;false
+Class=CocoaMenuItemToggleFullscreen;macoslib/Cocoa MenuItems/View Menu/CocoaMenuItemToggleFullscreen.rbbas;&h2900F7D2;&h1E667240;false
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0
