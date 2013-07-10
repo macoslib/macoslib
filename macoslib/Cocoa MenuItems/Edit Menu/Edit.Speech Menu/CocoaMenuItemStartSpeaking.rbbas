@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE8\xAA\xAD\xE3\x81\xBF\xE4\xB8\x8A\xE3\x81\x92\xE3\x82\x92\xE9\x96\x8B\xE5\xA7\x8B"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Commencer la lecture"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Avvia riproduzione"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Start spraakfunctie"
 	#tag EndConstant
 
 

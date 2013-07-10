@@ -21,6 +21,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xB9\xE3\x83\x9E\xE3\x83\xBC\xE3\x83\x88\xE3\x83\xAA\xE3\x83\xB3\xE3\x82\xAF"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Liens intelligents"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Link smart"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Slimme koppelingen"
 	#tag EndConstant
 
 

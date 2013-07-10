@@ -8,6 +8,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Format"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Formato"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\x97\xE0\xA6\xA0\xE0\xA6\xA8"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Opmaak"
 	#tag EndConstant
 
 

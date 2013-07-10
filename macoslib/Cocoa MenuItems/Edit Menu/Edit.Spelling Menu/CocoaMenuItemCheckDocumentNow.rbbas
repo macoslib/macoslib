@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\x9B\xB8\xE9\xA1\x9E\xE3\x82\x92\xE4\xBB\x8A\xE3\x81\x99\xE3\x81\x90\xE3\x83\x81\xE3\x82\xA7\xE3\x83\x83\xE3\x82\xAF"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"V\xC3\xA9rifier le document"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Controlla il documento adesso"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Controleer document nu"
 	#tag EndConstant
 
 

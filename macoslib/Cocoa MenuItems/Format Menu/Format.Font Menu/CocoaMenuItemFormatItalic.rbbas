@@ -20,6 +20,7 @@ Inherits CocoaMenuItemFormatFontTrait
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xA4\xE3\x82\xBF\xE3\x83\xAA\xE3\x83\x83\xE3\x82\xAF"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Italique"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Corsivo"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Cursief"
 	#tag EndConstant
 
 	#tag Constant, Name = NSItalicFontMask, Type = Double, Dynamic = False, Default = \"&h00000001", Scope = Private

@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x83\x9A\xE3\x83\xBC\xE3\x82\xB9\xE3\x83\x88\xE3\x81\x97\xE3\x81\xA6\xE3\x82\xB9\xE3\x82\xBF\xE3\x82\xA4\xE3\x83\xAB\xE3\x82\x92\xE5\x90\x88\xE3\x82\x8F\xE3\x81\x9B\xE3\x82\x8B"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Coller et appliquer le style"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Incolla e mantieni lo stile"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Plak en pas stijl aan"
 	#tag EndConstant
 
 

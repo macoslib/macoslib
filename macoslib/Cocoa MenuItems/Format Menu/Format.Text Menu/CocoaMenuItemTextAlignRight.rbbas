@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE5\x8F\xB3\xE6\x8F\x83\xE3\x81\x88"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Aligner \xC3\xA0 droite"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Allinea a destra"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Lijn rechts uit"
 	#tag EndConstant
 
 
