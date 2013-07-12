@@ -55,6 +55,9 @@ Protected Module About
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		139: 2013-07-09 by VVB
+		- Added dutch translation.
+		- Added window lion fullscreen methods and menu item.
+		- Added help menu to get the auto search menu item.
 		- Added some new constructors to NSImage.
 		- Added Operator_Convert from Picture to NSImage.
 		- Added isTemplate option to NSImage.
