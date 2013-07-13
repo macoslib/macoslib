@@ -99,6 +99,27 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function IsBundleRunning(id as string) As boolean
+		  
+		  dim running as boolean
+		  dim p as new Process
+		  p.psn.LowLongOfPSN = kNoProcess
+		  
+		  do
+		    p = p.NextProcess
+		    if p <> nil then
+		      if p.BundleID = id then
+		        running = true
+		      end if
+		    end if
+		  loop until p is nil or running
+		  
+		  return running
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Kill()
 		  #if targetMacOS
 		    soft declare function KillProcess lib CarbonLib (ByRef inProcess as ProcessSerialNumber) as Int16
@@ -137,6 +158,33 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ParentProcess() As Process
+		  
+		  // retrieve the associated parent process (if any)
+		  #if TargetMacOS
+		    dim p as Process
+		    
+		    if procInformation <> nil then
+		      dim procNumberBuffer as new MemoryBlock(ProcessSerialNumber.Size)
+		      procNumberBuffer.littleEndian = false
+		      procNumberBuffer.UInt64Value(0) = CFNumber(procInformation.Lookup(CFString("ParentPSN"), CFNumber(0))).Int64Value
+		      
+		      dim thePSN as ProcessSerialNumber
+		      thePSN.highLongOfPSN = procNumberBuffer.UInt32Value(0)
+		      thePSN.lowLongOfPSN = procNumberBuffer.UInt32Value(4)
+		      
+		      if thePSN.lowLongOfPSN <> kNoProcess then
+		        p = new Process
+		        p.psn = thePSN
+		      end if
+		    end if
+		    
+		    return p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function ProcessList() As Process()
 		  dim theList() as Process
 		  
@@ -156,6 +204,100 @@ Protected Class Process
 		End Function
 	#tag EndMethod
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve the associated bundle ID (if any)
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFString(procInformation.Lookup(CFString(kCFBundleIdentifierKey), CFString(""))).stringValue
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		BundleID As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve the associated File Type (if any)
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFString(procInformation.Lookup(CFString("FileCreator"), CFString(""))).stringValue
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		FileCreator As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve the associated File Type (if any)
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFString(procInformation.Lookup(CFString("FileType"), CFString(""))).stringValue
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		FileType As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve if the application is a background-only application
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFBoolean(procInformation.Lookup(CFString("LSBackgroundOnly"), CFBoolean.GetFalse))
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		IsBackgroundProcess As boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve if if the application is currently hidden
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFBoolean(procInformation.Lookup(CFString("IsHiddenAttr"), CFBoolean.GetFalse))
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		IsHidden As boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve if the application is an accessibility UIElement
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFBoolean(procInformation.Lookup(CFString("LSUIElement"), CFBoolean.GetFalse))
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		IsUIElement As boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private mprocInformation As CFDictionary
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -195,9 +337,50 @@ Protected Class Process
 		PID As Integer
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  
+			  // get a dictionary with process information and store it for later use
+			  
+			  #if targetMacOS
+			    soft declare function ProcessInformationCopyDictionary lib CarbonLib (ByRef PSN as ProcessSerialNumber, infoToReturn as UInt32) as Ptr
+			    
+			    if mProcInformation is nil then
+			      
+			      dim p as Ptr = ProcessInformationCopyDictionary(psn, kProcessDictionaryIncludeAllInformationMask)
+			      
+			      if p <> nil then
+			        mProcInformation = new CFDictionary(p, CFType.hasOwnership)
+			      end if
+			      
+			    end if
+			    
+			    return mProcInformation
+			  #endif
+			End Get
+		#tag EndGetter
+		Private procInformation As CFDictionary
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		Private psn As ProcessSerialNumber
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  // retrieve if the application’s Info.plist file indicates that it is a Carbon application
+			  #if TargetMacOS
+			    if procInformation <> nil then
+			      return CFBoolean(procInformation.Lookup(CFString("RequiresCarbon"), CFBoolean.GetFalse))
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		RequiresCarbon As boolean
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
