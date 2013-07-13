@@ -475,8 +475,8 @@ Inherits Application
 		Protected Sub TestCocoa()
 		  #if targetMacOS
 		    // Test ProcessInfo.Arguments. First item should be our app's path
-		    dim args as NSArray = NSProcessInfo.ProcessInfo.Arguments
-		    dim pathFromPI as String = CFString(args.CFValue(0))
+		    dim args() as String = NSProcessInfo.ProcessInfo.Arguments
+		    dim pathFromPI as String = args(0)
 		    dim pathFromRB as String = App.ExecutableFile.POSIXPath
 		    if pathFromPI <> pathFromRB then break // they should be equal, usually
 		    
