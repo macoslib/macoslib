@@ -267,17 +267,15 @@ Protected Module Carbon
 		  //
 		  // CAUTION: This method will ignore anything past the third part of the version. So "1.2.3.4.5" will be treated the same as "1.2.3".
 		  
-		  static version as Integer
+		  dim version as Integer
 		  
-		  if version = 0 then
-		    dim parts() as String = versionString.Split(".")
-		    if parts.Ubound <> -1 then
-		      version = 10000 * parts( 0 ).Val
-		      if parts.Ubound > 0 then
-		        version = version + 100 * parts( 1 ).Val
-		        if parts.Ubound > 1 then
-		          version = version + parts( 2 ).Val
-		        end if
+		  dim parts() as String = versionString.Split(".")
+		  if parts.Ubound <> -1 then
+		    version = 10000 * parts( 0 ).Val
+		    if parts.Ubound > 0 then
+		      version = version + 100 * parts( 1 ).Val
+		      if parts.Ubound > 1 then
+		        version = version + parts( 2 ).Val
 		      end if
 		    end if
 		  end if
