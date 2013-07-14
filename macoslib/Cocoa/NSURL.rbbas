@@ -28,6 +28,22 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As String
+		  
+		  return self.AbsoluteString
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(URLString as String)
+		  
+		  self.Constructor(URLString)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function pathExtension() As NSString
 		  // Added by Kem Tekinay.
 		  
@@ -126,6 +142,24 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		absoluteString As string
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function absoluteURL lib CocoaLib selector "absoluteURL" (obj_id as Ptr) as Ptr
+			    
+			    dim urlRef as Ptr = absoluteURL(self)
+			    if urlRef <> nil then
+			      return new NSURL(urlRef)
+			    end if
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		absoluteURL As NSURL
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

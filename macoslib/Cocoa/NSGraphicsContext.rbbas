@@ -82,6 +82,23 @@ Inherits NSObject
 	#tag EndComputedProperty
 
 
+	#tag Enum, Name = NSColorRenderingIntent, Flags = &h0
+		NSColorRenderingIntentDefault
+		  NSColorRenderingIntentAbsoluteColorimetric
+		  NSColorRenderingIntentRelativeColorimetric
+		  NSColorRenderingIntentPerceptual
+		NSColorRenderingIntentSaturation
+	#tag EndEnum
+
+	#tag Enum, Name = NSImageInterpolation, Flags = &h0
+		NSImageInterpolationDefault
+		  NSImageInterpolationNone
+		  NSImageInterpolationLow
+		  NSImageInterpolationHigh
+		NSImageInterpolationMedium
+	#tag EndEnum
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
