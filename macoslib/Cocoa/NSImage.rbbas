@@ -631,42 +631,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Size(wantedWidth as double = 0.0, wantedHeight as Double = 0.0)
-		  //starting in MacOS 10.6, this rescales the image.
-		  
-		  #if targetMacOS
-		    declare sub setSize lib CocoaLib selector "setSize:" (obj_id as Ptr, value as Cocoa.NSSize)
-		    
-		    Dim Value as Cocoa.NSSize = Me.Size
-		    
-		    if wantedWidth = 0.0 and wantedHeight = 0.0 then
-		      Value = me.Size
-		    else
-		      
-		      Dim Scale as Double = Value.width / Value.height
-		      Dim w, h as Double
-		      w = wantedWidth
-		      h = wantedHeight
-		      
-		      if wantedWidth=0.0 then
-		        w = scale * h
-		      elseif wantedHeight=0.0 then
-		        h = w / scale
-		      else
-		        w = wantedWidth
-		        h = wantedHeight
-		      end if
-		      
-		      Value.width = w
-		      Value.height = h
-		    end if
-		    
-		    setSize(self, value)
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function StatusAvailable() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNameStatusAvailable"))
 		End Function
