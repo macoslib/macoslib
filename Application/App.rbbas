@@ -500,7 +500,7 @@ Inherits Application
 		  // Test the FSRef related functions:
 		  dim f as FolderItem, s as String, ref as FSRef
 		  f = GetFolderItem("")
-		  s = f.NativePath
+		  s = FileManager.NativePath( f )
 		  ref = f.FSRef
 		  if ref.FolderItem.AbsolutePath <> f.AbsolutePath then
 		    break // test failed!

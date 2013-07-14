@@ -5,6 +5,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Examples"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Esempi"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Exemples"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Voorbeelden"
 	#tag EndConstant
 
 

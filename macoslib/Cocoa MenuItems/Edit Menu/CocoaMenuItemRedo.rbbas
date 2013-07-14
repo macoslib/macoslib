@@ -36,6 +36,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"R\xC3\xA9tablir"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Ripristina"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xAA\xE0\xA7\x81\xE0\xA6\xA8\xE0\xA6\xB0\xE0\xA6\xBE\xE0\xA7\x9F \xE0\xA6\x95\xE0\xA6\xB0\xE0\xA6\xBE"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Opnieuw"
 	#tag EndConstant
 
 

@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE4\xBD\xBF\xE7\x94\xA8\xE3\x81\x97\xE3\x81\xAA\xE3\x81\x84"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Aucun"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Non utilizzare nessuna"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Geen"
 	#tag EndConstant
 
 

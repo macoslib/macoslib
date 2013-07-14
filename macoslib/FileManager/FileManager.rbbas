@@ -7,6 +7,12 @@ Module FileManager
 		    
 		    dim OSError as Int16 = FSCompareFSRefs(fsRef1, fsRef2)
 		    return (OSError = noErr)
+		    
+		  #else
+		    
+		    #pragma unused fsRef1
+		    #pragma unused fsRef2
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,6 +71,11 @@ Module FileManager
 		    if err = 0 then
 		      return mb.CString(0).DefineEncoding(Encodings.UTF8)
 		    end
+		    
+		  #else
+		    
+		    #pragma unused ref
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -120,7 +131,7 @@ Module FileManager
 		          #pragma unused targetName
 		          #pragma unused volumeName
 		        #endif
-		        r = Cocoa.GetFolderItemFromPOSIXPath( pathString )
+		        r = GetFolderItemFromPOSIXPath( pathString )
 		      end if
 		    end if
 		    
@@ -192,6 +203,10 @@ Module FileManager
 		      
 		    #endif
 		    
+		  #else
+		    
+		    #pragma unused theFSRef
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -224,7 +239,46 @@ Module FileManager
 		      end if
 		    end if
 		    
+		  #else
+		    
+		    #pragma unused theFSSpec
+		    
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
+		  // Note: The passed path must be absolute, i.e. start from root with "/"
+		  
+		  dim f as FolderItem
+		  
+		  #if TargetMacOS and RBVersion >= 2013.0
+		    
+		    f = GetFolderItem( absolutePath, FolderItem.PathTypeNative )
+		    
+		  #elseif TargetMacOS
+		    
+		    declare function CFURLCreateWithFileSystemPath lib CarbonLib (allocator as ptr, filePath as CFStringRef, pathStyle as Integer, isDirectory as Boolean) as Ptr
+		    declare function CFURLGetString lib CarbonLib (anURL as Ptr) as Ptr
+		    declare sub CFRelease lib CarbonLib (cf as Ptr)
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    
+		    const kCFURLPOSIXPathStyle = 0
+		    
+		    dim url as Ptr = CFURLCreateWithFileSystemPath(nil, absolutePath, kCFURLPOSIXPathStyle, true)
+		    dim s as CFStringRef = CFRetain (CFURLGetString (url))
+		    CFRelease (url)
+		    f = GetFolderItem (s, FolderItem.PathTypeURL)
+		    
+		  #else
+		    
+		    #pragma unused absolutePath
+		    
+		  #endif
+		  
+		  return f
+		  
 		End Function
 	#tag EndMethod
 
@@ -295,6 +349,11 @@ Module FileManager
 		    
 		    // Keep the compiler from complaining
 		    #pragma unused OSError
+		    
+		  #else
+		    
+		    #pragma unused theFSSpec
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -306,6 +365,11 @@ Module FileManager
 		    
 		    dim OSError as Int16 = FSGetCatalogInfo(theFSRef, kFSCatInfoNone, Nil, Nil, Nil, Nil)
 		    return (OSError = 0)
+		    
+		  #else
+		    
+		    #pragma unused theFSRef
+		    
 		  #endif
 		  
 		End Function
@@ -326,20 +390,39 @@ Module FileManager
 		      //since we're not generally raising exceptions, alas
 		      return false
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused f
+		    
 		  #endif
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function NativePath(extends f as FolderItem) As String
+	#tag Method, Flags = &h1
+		Protected Function NativePath(f as FolderItem) As String
 		  //# This gives a path that fits what the OS likes - i.e. a POSIX Path on Mac and Linux
 		  
-		  #if TargetMacOS
+		  #if RBVersion >= 2013.0
+		    return f.NativePath
+		    
+		  #elseif TargetMacOS
 		    return f.POSIXPath
+		    
 		  #else
 		    return f.AbsolutePath
+		    
 		  #endif
 		  
+		  // Note that FolderItem.NativePath was incorporated into Xojo 2013r1, so this method was changed
+		  // from an "extends" to something that requires the module prefix.
+		  // You will not have to modify your code in Xojo. For Real Studio, change your code from
+		  //
+		  //    f.NativePath
+		  //
+		  // to
+		  //
+		  //    FileManager.NativePath(f)
 		End Function
 	#tag EndMethod
 
@@ -349,7 +432,10 @@ Module FileManager
 		  //@ NOT working on Windows because Windows does not use POSIX paths!
 		  //@ Consider calling NativePath instead if you need a low level path that works on all platforms
 		  
-		  #if TargetMacOS
+		  #if RBVersion >= 2013.0 and TargetMacOS
+		    return f.NativePath
+		    
+		  #elseif TargetMacOS
 		    dim url as CFURL = CFURL.CreateFromHFSPath(f.AbsolutePath, f.Directory)
 		    return url.Path
 		    

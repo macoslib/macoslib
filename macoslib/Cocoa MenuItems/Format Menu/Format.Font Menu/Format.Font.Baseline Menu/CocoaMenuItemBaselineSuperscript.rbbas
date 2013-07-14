@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE4\xB8\x8A\xE4\xBB\x98\xE3\x81\x8D"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Exposant"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Apice"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Superscript"
 	#tag EndConstant
 
 

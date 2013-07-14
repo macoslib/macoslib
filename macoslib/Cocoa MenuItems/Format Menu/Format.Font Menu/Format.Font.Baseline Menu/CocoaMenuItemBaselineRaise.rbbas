@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE4\xB8\x8A\xE3\x81\x92\xE3\x82\x8B"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Relever"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Incrementa"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Omhoog"
 	#tag EndConstant
 
 
