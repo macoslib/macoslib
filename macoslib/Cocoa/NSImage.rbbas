@@ -413,8 +413,16 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub LockFocusFlipped(value as Boolean)
-		  declare sub lockFocusFlipped lib CocoaLib selector "lockFocusFlipped:" (obj_id as Ptr, value as Boolean)
-		  lockFocusFlipped(self, value)
+		  //# Prepares the image to receive drawing commands using the specified flipped state.
+		  
+		  #if TargetMacOS then
+		    if IsSnowLeopard then
+		      declare sub lockFocusFlipped lib CocoaLib selector "lockFocusFlipped:" (obj_id as Ptr, value as Boolean)
+		      lockFocusFlipped(self, value)
+		    end if
+		  #else
+		    #pragma Unused value
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -620,12 +628,14 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Size(assigns value as Cocoa.NSSize)
-		  //starting in MacOS 10.6, this rescales the image.
+		  //# starting in MacOS 10.6, this rescales the image.
 		  
 		  #if targetMacOS
 		    declare sub setSize lib CocoaLib selector "setSize:" (obj_id as Ptr, value as Cocoa.NSSize)
 		    
 		    setSize(self, value)
+		  #else
+		    #pragma Unused value
 		  #endif
 		End Sub
 	#tag EndMethod
