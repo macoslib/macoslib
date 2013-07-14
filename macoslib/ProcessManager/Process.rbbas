@@ -411,6 +411,9 @@ Protected Class Process
 	#tag EndComputedProperty
 
 
+	#tag Constant, Name = kCFBundleIdentifierKey, Type = String, Dynamic = False, Default = \"CFBundleIdentifier", Scope = Private
+	#tag EndConstant
+
 	#tag Constant, Name = kNoProcess, Type = Double, Dynamic = False, Default = \"0", Scope = Private
 	#tag EndConstant
 
