@@ -54,6 +54,11 @@ Inherits NSObject
 		    
 		    if image <> nil then
 		      super.Constructor( initWithCGImage(Allocate("NSImage"), image.Reference, size), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: CGImage argument cannot be nil."
+		      raise n
+		      return Nil
 		    end if
 		    
 		  #else
@@ -69,7 +74,15 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function initWithSize lib CocoaLib selector "initWithSize:" (obj_id as Ptr, aSize as Cocoa.NSSize) as Ptr
 		    
-		    super.Constructor(initWithSize(Allocate("NSImage"), Size), NSImage.hasOwnership)
+		    if size <> nil then
+		      super.Constructor(initWithSize(Allocate("NSImage"), Size), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSSize argument cannot be nil."
+		      raise n
+		      return Nil
+		    end if
+		    
 		  #else
 		    #pragma unused Size
 		  #endif
@@ -85,6 +98,11 @@ Inherits NSObject
 		    
 		    if TheFile <> nil then
 		      super.Constructor(initWithContentsOfFile(Allocate("NSImage"), TheFile.POSIXPath), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: Folderitem argument cannot be nil."
+		      raise n
+		      return Nil
 		    end if
 		    
 		  #else
@@ -102,6 +120,11 @@ Inherits NSObject
 		    
 		    if data <> nil then
 		      super.Constructor(initWithData(Allocate("NSImage"), data), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSData argument cannot be nil."
+		      raise n
+		      return Nil
 		    end if
 		    
 		  #else
@@ -119,6 +142,11 @@ Inherits NSObject
 		    
 		    if pasteboard <> nil then
 		      super.Constructor(initWithPasteboard(Allocate("NSImage"), pasteboard), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSPasteboard argument cannot be nil."
+		      raise n
+		      return Nil
 		    end if
 		    
 		  #else
@@ -136,6 +164,11 @@ Inherits NSObject
 		    
 		    if URL <> nil then
 		      super.Constructor(initWithContentsOfURL(Allocate("NSImage"), URL), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSURL argument cannot be nil."
+		      raise n 
+		      return Nil
 		    end if
 		    
 		  #else
@@ -154,6 +187,11 @@ Inherits NSObject
 		    if cg_image <> nil then
 		      Dim zeroSize as Cocoa.NSSize
 		      self.Constructor(cg_image, zeroSize)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: Picture argument cannot be nil."
+		      raise n
+		      return Nil
 		    end if
 		    
 		  #else
@@ -229,7 +267,6 @@ Inherits NSObject
 		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Single)
 		    
 		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Single))
-		    
 		  #else
 		    #pragma unused point
 		    #pragma unused fromRect
@@ -248,6 +285,11 @@ Inherits NSObject
 		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Single)
 		    
 		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Single))
+		  #else
+		    #pragma Unused srcRect
+		    #pragma Unused dstRect
+		    #pragma Unused operation
+		    #pragma Unused opacity
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -265,6 +307,13 @@ Inherits NSObject
 		    end if
 		    
 		    drawInRect(self, dstRect, srcRect, operation, opacity, respectFlipped, hintsPtr)
+		  #else
+		    #pragma Unused srcRect
+		    #pragma Unused dstRect
+		    #pragma Unused operation
+		    #pragma Unused opacity
+		    #pragma Unused respectFlipped
+		    #pragma Unused hints
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -396,6 +445,9 @@ Inherits NSObject
 		    else
 		      return nil
 		    end if
+		  #else
+		    #pragma Unused proposedWidth
+		    #pragma Unused proposedHeight
 		  #endif
 		  
 		  
@@ -540,13 +592,12 @@ Inherits NSObject
 		    theSize = me.Size
 		  else
 		    scale = size.width / size.height
+		    w = wantedWidth
+		    h = wantedHeight
 		    if wantedWidth=0.0 then
 		      w = scale * h
 		    elseif wantedHeight=0.0 then
 		      h = w / scale
-		    else
-		      w = wantedWidth
-		      h = wantedHeight
 		    end if
 		    
 		    theSize.width = w
