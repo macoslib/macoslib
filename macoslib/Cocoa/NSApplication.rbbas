@@ -725,7 +725,7 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# 
+			  //#
 			  
 			  #if TargetMacOS
 			    declare function dealegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
@@ -736,7 +736,7 @@ Inherits NSResponder
 		#tag EndGetter
 		#tag Setter
 			Set
-			  //# 
+			  //#
 			  
 			  #if TargetMacOS
 			    declare sub setDealegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, dealegate as Ptr)
