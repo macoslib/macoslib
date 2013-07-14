@@ -60,6 +60,21 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //@New
+			  #if targetMacOS
+			    declare function activationPolicy lib CocoaLib selector "activationPolicy" (obj_id as Ptr) as NSApplicationActivationPolicy
+			    
+			    return activationPolicy(self)
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		ActivationPolicy As NSApplicationActivationPolicy
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetMacOS
 			    declare function CFBundleIdentifier lib CocoaLib selector "CFBundleIdentifier" (obj_id as Ptr) as Ptr
 			    
@@ -82,6 +97,20 @@ Inherits NSObject
 		#tag EndGetter
 		LocalizedName As String
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = NSApplicationActivateAllWindows, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSApplicationActivateIgnoringOtherApps, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+
+	#tag Enum, Name = NSApplicationActivationPolicy, Flags = &h0
+		NSApplicationActivationPolicyRegular
+		  NSApplicationActivationPolicyAccessory
+		NSApplicationActivationPolicyProhibited
+	#tag EndEnum
 
 
 	#tag ViewBehavior
