@@ -274,6 +274,8 @@ Protected Module SystemIcons
 		    else
 		      size = nsi.Size
 		      scale = size.width / size.height
+		      w = wantedWidth
+		      h = wantedHeight
 		      if wantedWidth=0.0 then
 		        w = scale * h
 		      elseif wantedHeight=0.0 then

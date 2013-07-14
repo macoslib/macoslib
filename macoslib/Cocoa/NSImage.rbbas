@@ -46,6 +46,160 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(image as CGImage, size as Cocoa.NSSize)
+		  
+		  #if TargetCocoa then
+		    declare function initWithCGImage lib CocoaLib selector "initWithCGImage:size:" (obj_id as Ptr, CGImageRef as Ptr, size as Cocoa.NSSize) as Ptr
+		    
+		    if image <> nil then
+		      super.Constructor( initWithCGImage(Allocate("NSImage"), image.Reference, size), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: CGImage argument cannot be nil."
+		      raise n
+		    end if
+		    
+		  #else
+		    #pragma Unused image
+		    #pragma Unused size
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(Size as Cocoa.NSSize)
+		  
+		  #if targetMacOS
+		    declare function initWithSize lib CocoaLib selector "initWithSize:" (obj_id as Ptr, aSize as Cocoa.NSSize) as Ptr
+		    
+		    super.Constructor(initWithSize(Allocate("NSImage"), Size), NSImage.hasOwnership)
+		  #else
+		    #pragma unused Size
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(TheFile as FolderItem)
+		  
+		  #if targetMacOS
+		    declare function initWithContentsOfFile lib CocoaLib selector "initWithContentsOfFile:" (obj_id as Ptr, fileName as CFStringRef) as Ptr
+		    
+		    if TheFile <> nil then
+		      super.Constructor(initWithContentsOfFile(Allocate("NSImage"), TheFile.POSIXPath), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: Folderitem argument cannot be nil."
+		      raise n
+		    end if
+		    
+		  #else
+		    #pragma unused file
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(data as NSData)
+		  
+		  #if targetMacOS
+		    declare function initWithData lib CocoaLib selector "initWithData:" (obj_id as Ptr, data as Ptr) as Ptr
+		    
+		    if data <> nil then
+		      super.Constructor(initWithData(Allocate("NSImage"), data), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSData argument cannot be nil."
+		      raise n
+		    end if
+		    
+		  #else
+		    #pragma unused data
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(pasteboard as NSPasteboard)
+		  
+		  #if targetMacOS
+		    declare function initWithPasteboard lib CocoaLib selector "initWithPasteboard:" (obj_id as Ptr, pasteboard as Ptr) as Ptr
+		    
+		    if pasteboard <> nil then
+		      super.Constructor(initWithPasteboard(Allocate("NSImage"), pasteboard), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSPasteboard argument cannot be nil."
+		      raise n
+		    end if
+		    
+		  #else
+		    #pragma unused pasteboard
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(URL as NSURL)
+		  
+		  #if targetMacOS
+		    declare function initWithContentsOfURL lib CocoaLib selector "initWithContentsOfURL:" (obj_id as Ptr, inURL as Ptr) as Ptr
+		    
+		    if URL <> nil then
+		      super.Constructor(initWithContentsOfURL(Allocate("NSImage"), URL), NSImage.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: NSURL argument cannot be nil."
+		      raise n
+		    end if
+		    
+		  #else
+		    #pragma unused aURL
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(pict as Picture)
+		  
+		  #if TargetMacOS
+		    dim cg_image as CGImage = CGImage.NewCGImage( pict )
+		    
+		    if cg_image <> nil then
+		      Dim zeroSize as Cocoa.NSSize
+		      self.Constructor(cg_image, zeroSize)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSImage.Constructor: Picture argument cannot be nil."
+		      raise n
+		    end if
+		    
+		  #else
+		    #pragma Unused pict
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(iconRef as UInt32)
+		  
+		  #if targetMacOS
+		    declare function initWithIconRef lib CocoaLib selector "initWithIconRef:" (obj_id as Ptr, iconRef as UInt32) as Ptr
+		    
+		    super.Constructor(initWithIconRef(Allocate("NSImage"), iconRef), NSImage.hasOwnership)
+		  #else
+		    #pragma unused iconRef
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function Copy() As NSImage
 		  #if targetMacOS
@@ -99,7 +253,6 @@ Inherits NSObject
 		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Single)
 		    
 		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Single))
-		    
 		  #else
 		    #pragma unused point
 		    #pragma unused fromRect
@@ -118,6 +271,11 @@ Inherits NSObject
 		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Single)
 		    
 		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Single))
+		  #else
+		    #pragma Unused srcRect
+		    #pragma Unused dstRect
+		    #pragma Unused operation
+		    #pragma Unused opacity
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -135,6 +293,13 @@ Inherits NSObject
 		    end if
 		    
 		    drawInRect(self, dstRect, srcRect, operation, opacity, respectFlipped, hintsPtr)
+		  #else
+		    #pragma Unused srcRect
+		    #pragma Unused dstRect
+		    #pragma Unused operation
+		    #pragma Unused opacity
+		    #pragma Unused respectFlipped
+		    #pragma Unused hints
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -176,6 +341,34 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsTemplate() As Boolean
+		  //# Returns a Boolean value indicating whether the image is a template image.
+		  
+		  #if TargetCocoa then
+		    declare function isTemplate lib CocoaLib selector "isTemplate" (image as Ptr) as Boolean
+		    
+		    return isTemplate( me )
+		  #else
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub IsTemplate(assigns Value as Boolean)
+		  //# Sets whether the image represents a template image.
+		  
+		  #if TargetCocoa then
+		    declare sub setTemplate lib CocoaLib selector "setTemplate:" (image as Ptr, inFlag as Boolean)
+		    
+		    setTemplate( me, Value )
+		  #else
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function LoadByName(name as CFStringRef) As NSImage
 		  #if targetMacOS
 		    declare function imageNamed lib CocoaLib selector "imageNamed:" (class_id as Ptr, name as CFStringRef) as Ptr
@@ -206,8 +399,16 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub LockFocusFlipped(value as Boolean)
-		  declare sub lockFocusFlipped lib CocoaLib selector "lockFocusFlipped:" (obj_id as Ptr, value as Boolean)
-		  lockFocusFlipped(self, value)
+		  //# Prepares the image to receive drawing commands using the specified flipped state.
+		  
+		  #if TargetMacOS then
+		    if IsSnowLeopard then
+		      declare sub lockFocusFlipped lib CocoaLib selector "lockFocusFlipped:" (obj_id as Ptr, value as Boolean)
+		      lockFocusFlipped(self, value)
+		    end if
+		  #else
+		    #pragma Unused value
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -238,6 +439,9 @@ Inherits NSObject
 		    else
 		      return nil
 		    end if
+		  #else
+		    #pragma Unused proposedWidth
+		    #pragma Unused proposedHeight
 		  #endif
 		  
 		  
@@ -312,6 +516,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Operator_Convert(pict as Picture)
+		  
+		  self.Constructor(pict)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function PreferencesGeneral() As NSImage
 		  return LoadByName(ResolveSymbol("NSImageNamePreferencesGeneral"))
 		End Function
@@ -375,13 +586,12 @@ Inherits NSObject
 		    theSize = me.Size
 		  else
 		    scale = size.width / size.height
+		    w = wantedWidth
+		    h = wantedHeight
 		    if wantedWidth=0.0 then
 		      w = scale * h
 		    elseif wantedHeight=0.0 then
 		      h = w / scale
-		    else
-		      w = wantedWidth
-		      h = wantedHeight
 		    end if
 		    
 		    theSize.width = w
@@ -404,12 +614,14 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Size(assigns value as Cocoa.NSSize)
-		  //starting in MacOS 10.6, this rescales the image.
+		  //# starting in MacOS 10.6, this rescales the image.
 		  
 		  #if targetMacOS
 		    declare sub setSize lib CocoaLib selector "setSize:" (obj_id as Ptr, value as Cocoa.NSSize)
 		    
 		    setSize(self, value)
+		  #else
+		    #pragma Unused value
 		  #endif
 		End Sub
 	#tag EndMethod

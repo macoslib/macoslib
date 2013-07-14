@@ -54,6 +54,13 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		139: 2013-07-09 by VVB
+		- Added some new constructors to NSImage.
+		- Added Operator_Convert from Picture to NSImage.
+		- Added isTemplate option to NSImage.
+		- Set NSIMage size using with/height double values.
+		- Made the NSObject.allocate method a little more flexible.
+		
 		138: 2013-07-08 by KT
 		- Added pragmas for unused variables in various methods.
 		
@@ -254,7 +261,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"138", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"139", Scope = Protected
 	#tag EndConstant
 
 
