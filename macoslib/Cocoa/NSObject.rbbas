@@ -183,8 +183,8 @@ Implements objHasVariantValue
 		id As Ptr
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h1
-		Protected m_id As Ptr
+	#tag Property, Flags = &h21
+		Private m_id As Ptr
 	#tag EndProperty
 
 

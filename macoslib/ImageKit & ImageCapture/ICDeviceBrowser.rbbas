@@ -18,7 +18,7 @@ Inherits NSObject
 		    '
 		    '_ICInitialize
 		    
-		    self.m_id = Initialize( Allocate( "ICDeviceBrowser" ))
+		    self.Constructor(Initialize(Allocate( "ICDeviceBrowser")), hasOwnership)
 		    self.SetDelegate
 		  #endif
 		End Sub
