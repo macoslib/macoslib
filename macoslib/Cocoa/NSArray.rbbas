@@ -77,6 +77,10 @@ Inherits NSObject
 		    
 		    if file <> nil then
 		      super.Constructor(initWithContentsOfFile(Allocate("NSArray"), file.POSIXPath), NSArray.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.Constructor: FolderItem argument cannot be nil."
+		      raise n
 		    end if
 		    
 		  #else
@@ -95,9 +99,14 @@ Inherits NSObject
 		    dim anArrayRef as Ptr
 		    if anArray <> nil then
 		      anArrayRef = anArray
+		      super.Constructor(initWithArray(Allocate("NSArray"), anArrayRef), NSArray.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.Constructor: NSArray argument cannot be nil."
+		      raise n
 		    end if
 		    
-		    super.Constructor(initWithArray(Allocate("NSArray"), anArrayRef), NSArray.hasOwnership)
+		    
 		  #else
 		    #pragma unused anArray
 		  #endif
@@ -114,9 +123,13 @@ Inherits NSObject
 		    dim anArrayRef as Ptr
 		    if anArray <> nil then
 		      anArrayRef = anArray
+		      super.Constructor(initWithArray(Allocate("NSArray"), anArrayRef, copyItems), NSArray.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.Constructor: NSArray argument cannot be nil."
+		      raise n
 		    end if
 		    
-		    super.Constructor(initWithArray(Allocate("NSArray"), anArrayRef, copyItems), NSArray.hasOwnership)
 		    
 		  #else
 		    #pragma unused anArray
@@ -144,6 +157,10 @@ Inherits NSObject
 		      next
 		      
 		      super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
+		      raise n
 		    end if
 		    
 		  #else
@@ -162,9 +179,13 @@ Inherits NSObject
 		    dim urlRef as Ptr
 		    if aURL <> nil then
 		      urlRef = aURL
+		      super.Constructor(initWithContentsOfURL(Allocate("NSArray"), urlRef), NSArray.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.Constructor: NSURL argument cannot be nil."
+		      raise n
 		    end if
 		    
-		    super.Constructor(initWithContentsOfURL(Allocate("NSArray"), urlRef), NSArray.hasOwnership)
 		  #else
 		    #pragma unused aURL
 		  #endif
@@ -189,9 +210,13 @@ Inherits NSObject
 		    dim anObjectRef as Ptr
 		    if anObject <> nil then
 		      anObjectRef = anObject
+		      return containsObject(self, anObjectRef)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.ContainsObject: NSObject argument cannot be nil."
+		      raise n
 		    end if
 		    
-		    return containsObject(self, anObjectRef)
 		  #else
 		    #pragma unused anObject
 		  #endif
@@ -233,6 +258,8 @@ Inherits NSObject
 		    dim nsa as new NSArray( cfa )
 		    
 		    return  nsa
+		  #else
+		    #pragma Unused Strings
 		  #endif
 		End Function
 	#tag EndMethod
@@ -251,6 +278,9 @@ Inherits NSObject
 		    else
 		      return  new NSArray( p, false )
 		    end if
+		  #else
+		    #pragma Unused TheArray
+		    #pragma Unused indexSet
 		  #endif
 		End Function
 	#tag EndMethod
@@ -433,6 +463,10 @@ Inherits NSObject
 		      
 		      if enumRef <> nil then
 		        return new NSEnumerator(enumRef)
+		      else
+		        dim n as NilObjectException
+		        n.Message = "NSArray.Enumerator: enumRef cannot be nil."
+		        raise n
 		      end if
 		      
 		    end if
@@ -804,7 +838,7 @@ Inherits NSObject
 		    declare function writeToURL lib CocoaLib selector "writeToURL:atomically:" (obj_id as Ptr, aURL as Ptr, flag as Boolean) as Boolean
 		    
 		    dim urlRef as Ptr
-		    if urlRef <> nil then
+		    if aURL <> nil then
 		      urlRef = aURL
 		    end if
 		    
