@@ -58,7 +58,6 @@ Inherits NSObject
 		      dim n as NilObjectException
 		      n.Message = "NSImage.Constructor: CGImage argument cannot be nil."
 		      raise n
-		      return Nil
 		    end if
 		    
 		  #else
@@ -74,15 +73,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function initWithSize lib CocoaLib selector "initWithSize:" (obj_id as Ptr, aSize as Cocoa.NSSize) as Ptr
 		    
-		    if size <> nil then
-		      super.Constructor(initWithSize(Allocate("NSImage"), Size), NSImage.hasOwnership)
-		    else
-		      dim n as NilObjectException
-		      n.Message = "NSImage.Constructor: NSSize argument cannot be nil."
-		      raise n
-		      return Nil
-		    end if
-		    
+		    super.Constructor(initWithSize(Allocate("NSImage"), Size), NSImage.hasOwnership)
 		  #else
 		    #pragma unused Size
 		  #endif
@@ -102,7 +93,6 @@ Inherits NSObject
 		      dim n as NilObjectException
 		      n.Message = "NSImage.Constructor: Folderitem argument cannot be nil."
 		      raise n
-		      return Nil
 		    end if
 		    
 		  #else
@@ -124,7 +114,6 @@ Inherits NSObject
 		      dim n as NilObjectException
 		      n.Message = "NSImage.Constructor: NSData argument cannot be nil."
 		      raise n
-		      return Nil
 		    end if
 		    
 		  #else
@@ -146,7 +135,6 @@ Inherits NSObject
 		      dim n as NilObjectException
 		      n.Message = "NSImage.Constructor: NSPasteboard argument cannot be nil."
 		      raise n
-		      return Nil
 		    end if
 		    
 		  #else
@@ -167,8 +155,7 @@ Inherits NSObject
 		    else
 		      dim n as NilObjectException
 		      n.Message = "NSImage.Constructor: NSURL argument cannot be nil."
-		      raise n 
-		      return Nil
+		      raise n
 		    end if
 		    
 		  #else
@@ -191,7 +178,6 @@ Inherits NSObject
 		      dim n as NilObjectException
 		      n.Message = "NSImage.Constructor: Picture argument cannot be nil."
 		      raise n
-		      return Nil
 		    end if
 		    
 		  #else
