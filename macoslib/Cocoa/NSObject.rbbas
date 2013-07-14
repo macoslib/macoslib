@@ -19,7 +19,7 @@ Implements objHasVariantValue
 		  #if TargetMacOS
 		    declare sub autorelease lib CocoaLib selector "autorelease" (id as Ptr)
 		    
-		    autorelease self.id
+		    autorelease(self)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -31,13 +31,9 @@ Implements objHasVariantValue
 		  
 		  
 		  #if TargetMacOS
-		    soft declare function klass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		    declare function klass lib CocoaLib selector "class" (id as Ptr) as Ptr
 		    
-		    if self.m_id <> nil then
-		      return klass(me.m_id)
-		    else
-		      return nil
-		    end if
+		    return klass(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -49,13 +45,13 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "")
+		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false)
 		  
-		  if checkForClass<>"" then
-		    if NOT Cocoa.InheritsFromClass( obj_id, checkForClass ) then
-		      raise new macoslibException( "The passed pointer does not match the wanted class """ + checkForClass + """" )
-		    end if
-		  end if
+		  'if checkForClass<>"" then
+		  'if NOT Cocoa.InheritsFromClass( obj_id, checkForClass ) then
+		  'raise new macoslibException( "The passed pointer does not match the wanted class """ + checkForClass + """" )
+		  'end if
+		  'end if
 		  
 		  self.m_id = obj_id
 		  
@@ -127,9 +123,7 @@ Implements objHasVariantValue
 		  #if TargetMacOS
 		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
-		    if self.id <> nil then
-		      release self.id
-		    end if
+		    release self
 		  #endif
 		End Sub
 	#tag EndMethod

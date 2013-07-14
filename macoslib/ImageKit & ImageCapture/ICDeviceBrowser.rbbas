@@ -31,10 +31,9 @@ Inherits NSObject
 		    RequireFramework  IKLib
 		    RequireFramework  ICLib
 		    
-		    dim p as Ptr
-		    p = Initialize( Allocate( "ICDeviceBrowser" ))
-		    if p<>nil then
-		      result = new ICDeviceBrowser( p, True, "ICDeviceBrowser" )
+		    dim p as Ptr = Initialize( Allocate( "ICDeviceBrowser" ))
+		    if p <> nil then
+		      result = new ICDeviceBrowser( p, hasOwnership)
 		      result.SetDelegate
 		    end if
 		    
@@ -248,7 +247,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub start lib ICLib selector "start" (id as Ptr)
 		    
-		    start( me.id )
+		    start(self)
 		  #endif
 		  
 		End Sub
@@ -259,7 +258,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare sub stop lib ICLib selector "stop" (id as Ptr)
 		    
-		    stop( me.id )
+		    stop(self)
 		  #endif
 		  
 		End Sub
