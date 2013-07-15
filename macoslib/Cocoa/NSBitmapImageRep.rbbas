@@ -1506,6 +1506,12 @@ Inherits NSImageRep
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="BitsPerSample"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSImageRep"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BytesPerPlane"
 			Group="Behavior"
 			Type="Integer"
@@ -1516,11 +1522,37 @@ Inherits NSImageRep
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ColorSpaceName"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSImageRep"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasAlpha"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSImageRep"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsOpaque"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPlanar"
@@ -1544,6 +1576,18 @@ Inherits NSImageRep
 			Name="NumberOfPlanes"
 			Group="Behavior"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PixelsHigh"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSImageRep"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PixelsWide"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SamplesPerPixel"

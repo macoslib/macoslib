@@ -1424,7 +1424,6 @@ Inherits NSObject
 		objects cannot be cast (“toll-free bridged”) to CFBundle references. If you need functionality provided in CFBundle,
 		you can still create a CFBundle and use the CFBundle Reference API. See “Interchangeable Data Types” for more information
 		on toll-free bridging.
-		
 	#tag EndNote
 
 	#tag Note, Name = Read Me
