@@ -54,6 +54,9 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		139: 2013-07-17 by KT
+		- Minor changes to WindowExtensions.ScalingFactor.
+		
 		138: 2013-07-08 by KT
 		- Added pragmas for unused variables in various methods.
 		
@@ -254,7 +257,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"138", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"139", Scope = Protected
 	#tag EndConstant
 
 

@@ -39,13 +39,26 @@ Protected Module WindowExtensions
 		  // __<key>NSHighResolutionCapable</key>__
 		  // __<true/>__
 		  
-		  if TargetCocoa and IsLion then
-		    declare function BackingScaleFactor lib "AppKit" selector "backingScaleFactor" (target As WindowPtr) as double
-		    return BackingScaleFactor(w)
-		  else
+		  dim r as Single = 1. // Default response
+		  
+		  #if TargetCocoa 
+		    
+		    static functionAvailable as boolean = IsLion() // System.IsFunctionAvailable does not work here
+		    if functionAvailable then 
+		      soft declare function BackingScaleFactor lib "AppKit" selector "backingScaleFactor" (target As WindowPtr) as double
+		      // Introduced in MacOS X 10.7.
+		      
+		      r = BackingScaleFactor(w)
+		    end if
+		    
+		  #else
+		    
 		    #pragma Unused w
-		    return 1
-		  end if
+		    
+		  #endif
+		  
+		  return r
+		  
 		End Function
 	#tag EndMethod
 
