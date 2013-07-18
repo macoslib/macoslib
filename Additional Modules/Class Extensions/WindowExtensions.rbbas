@@ -41,15 +41,10 @@ Protected Module WindowExtensions
 		  
 		  dim r as Single = 1. // Default response
 		  
-		  #if TargetCocoa 
+		  #if TargetCocoa
 		    
-		    static functionAvailable as boolean = IsLion() // System.IsFunctionAvailable does not work here
-		    if functionAvailable then 
-		      soft declare function BackingScaleFactor lib "AppKit" selector "backingScaleFactor" (target As WindowPtr) as double
-		      // Introduced in MacOS X 10.7.
-		      
-		      r = BackingScaleFactor(w)
-		    end if
+		    dim nsw as NSWindow = w
+		    r = nsw.BackingScaleFactor
 		    
 		  #else
 		    

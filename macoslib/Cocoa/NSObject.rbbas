@@ -135,6 +135,16 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function RespondsToSelector(selectorName As CFStringRef) As Boolean
+		  declare function instanceRespondsToSelector lib CocoaLib selector "respondsToSelector:" ( obj_id as Ptr, aSelector as Ptr ) as Boolean
+		  
+		  dim selectorPtr as Ptr = Cocoa.NSSelectorFromString( selectorName )
+		  return instanceRespondsToSelector( m_id, selectorPtr )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Retain() As NSObject
 		  #if TargetMacOS
 		    declare function retain lib CocoaLib selector "retain" (id as Ptr) as Ptr
