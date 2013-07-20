@@ -764,6 +764,8 @@ Protected Module MacOSFolderItemExtension
 		  //# Move the FolderItem to the trash. If such item already exists, the FolderItem is renamed. If there is no Trash on the given volume, the method fails.
 		  
 		  #if targetMacOS
+		    if f = nil or NOT f.Exists then return
+		    
 		    dim source as FSRef = FileManager.GetFSRefFromFolderItem(f)
 		    
 		    soft declare function FSMoveObjectToTrashSync lib CarbonLib (fsRef as Ptr, target as Ptr, options as UInt32) as Integer
@@ -789,6 +791,8 @@ Protected Module MacOSFolderItemExtension
 		  //@ Returns a FolderItem which corresponds to the item in the Trash after possible renaming
 		  
 		  #if targetMacOS
+		    if f = nil or NOT f.Exists then return Nil
+		    
 		    dim source as FSRef = FileManager.GetFSRefFromFolderItem(f)
 		    dim dest as new MemoryBlock( 80 )
 		    

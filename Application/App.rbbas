@@ -169,7 +169,8 @@ Inherits Application
 
 	#tag MenuHandler
 		Function CocoaTextArea() As Boolean Handles CocoaTextArea.Action
-			TextAreaExample.Show
+			'TextAreaExample.Show
+			TextAreaWindow.Show
 			return true
 		End Function
 	#tag EndMenuHandler

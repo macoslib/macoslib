@@ -22,15 +22,12 @@ Inherits NSControl
 		Sub AddItem(title as String)
 		  
 		  #if TargetCocoa
-		    
 		    declare sub addItemWithTitle lib CocoaLib selector "addItemWithTitle:" (id as Ptr, title as CFStringRef)
 		    
 		    addItemWithTitle self.id, title
-		    
 		  #else
 		    #pragma unused title
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
