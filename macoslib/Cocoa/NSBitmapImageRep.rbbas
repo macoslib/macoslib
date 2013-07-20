@@ -15,7 +15,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function BitmapDataPlanes() As MemoryBlock
-		  //# Returns by indirection bitmap data of the receiver separated into planes.
+		  //# Returns by indirection bitmap data of the NSBitmapImageRep separated into planes.
 		  
 		  #if TargetMacOS
 		    declare sub getBitmapDataPlanes lib CocoaLib selector "getBitmapDataPlanes:" (obj_id as Ptr, byRef data as Ptr)
@@ -84,7 +84,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function CGImageValue() As CGImage
-		  //# Returns a Core Graphics image object from the receiver’s current bitmap data.
+		  //# Returns a Core Graphics image object from the NSBitmapImageRep’s current bitmap data.
 		  
 		  #if TargetMacOS
 		    if IsLeopard then
@@ -208,7 +208,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  //# Initializes and returns the receiver, a newly allocated NSBitmapImageRep object, for incremental loading.
+		  //# Initializes and returns the NSBitmapImageRep, a newly allocated NSBitmapImageRep object, for incremental loading.
 		  
 		  //@ The NSBitmapImageRep returns itself after setting its size and data buffer to zero. You can then call incrementalLoadFromData:complete: to incrementally add image data.
 		  
@@ -655,7 +655,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Sub GetCompression(byRef compression as NSTIFFCompression, byRef factor as Single)
-		  //# Returns by indirection the receiver’s compression type and compression factor.
+		  //# Returns by indirection the NSBitmapImageRep’s compression type and compression factor.
 		  
 		  #if TargetMacOS
 		    declare sub getCompression lib CocoaLib selector "getCompression:factor:" (obj_id as Ptr, byRef compression as NSTIFFCompression, byRef factor as Single)
@@ -670,7 +670,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function GetPixel(x as Integer, y as Integer) As MemoryBlock
-		  //# Returns by indirection the pixel data for the specified location in the receiver.
+		  //# Returns by indirection the pixel data for the specified location in the NSBitmapImageRep.
 		  
 		  #if TargetMacOS
 		    declare sub getPixel lib CocoaLib selector "getPixel:atX:y:" (obj_id as Ptr, pixelData as Ptr, x as Integer, y as Integer)
@@ -1049,7 +1049,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function Representation(storageType as NSBitmapImageFileType, properties as NSDictionary) As NSData
-		  //# Formats the receiver’s image data using the specified storage type and properties and returns it in a data object.
+		  //# Formats the NSBitmapImageRep’s image data using the specified storage type and properties and returns it in a data object.
 		  
 		  #if TargetMacOS
 		    declare function representationUsingType lib CocoaLib selector "representationUsingType:properties:" (obj_id as Ptr, storageType as NSBitmapImageFileType, properties as Ptr) as Ptr
@@ -1074,7 +1074,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function RetagToColorSpace(targetSpace as NSColorspace) As NSBitmapImageRep
-		  //# Changes the colorSpace tag of the receiver.
+		  //# Changes the colorSpace tag of the NSBitmapImageRep.
 		  
 		  #if TargetMacOS
 		    if IsSnowLeopard then
@@ -1142,7 +1142,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Sub SetPixel(pixelData as MemoryBlock, x as Integer, y as Integer)
-		  //# Sets the receiver's pixel at the specified coordinates to the specified raw pixel values.
+		  //# Sets the NSBitmapImageRep's pixel at the specified coordinates to the specified raw pixel values.
 		  
 		  #if TargetMacOS
 		    declare sub setPixel lib CocoaLib selector "setPixel:atX:y:" (obj_id as Ptr, pixelData as Ptr, x as Integer, y as Integer)
@@ -1229,7 +1229,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function TIFFRepresentation() As NSData
-		  //# Returns a TIFF representation of the receiver.
+		  //# Returns a TIFF representation of the NSBitmapImageRep.
 		  
 		  #if TargetMacOS
 		    declare function TIFFRepresentation lib CocoaLib selector "TIFFRepresentation" (obj_id as Ptr) as Ptr
@@ -1298,7 +1298,7 @@ Inherits NSImageRep
 
 	#tag Method, Flags = &h1000
 		Function TIFFRepresentation(compression as NSTIFFCompression, factor as Single) As NSData
-		  //# Returns a data object containing TIFF data with the specified compression settings for all of the image representations in the receiver.
+		  //# Returns a data object containing TIFF data with the specified compression settings for all of the image representations in the NSBitmapImageRep.
 		  
 		  #if TargetMacOS
 		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" (class_id as Ptr, compression as NSTIFFCompression, factor as Single) as Ptr
@@ -1335,7 +1335,7 @@ Inherits NSImageRep
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the bitmap format of the receiver.
+			  //# Returns the bitmap format of the NSBitmapImageRep.
 			  
 			  #if targetMacOS
 			    declare function bitmapFormat lib CocoaLib selector "bitmapFormat" (obj_id as Ptr) as UInt32

@@ -15,7 +15,7 @@ Inherits Canvas
 		  end if
 		  
 		  #if targetCocoa
-		    soft declare sub release lib CocoaFramework selector "release" (id as Ptr)
+		    declare sub release lib CocoaFramework selector "release" (id as Ptr)
 		    
 		    if me.targetID <> nil then
 		      release me.targetID
@@ -62,9 +62,9 @@ Inherits Canvas
 		    end if
 		    
 		    
-		    soft declare sub addSubview lib CocoaFramework selector "addSubview:" (id as Ptr, aView as Ptr)
-		    soft declare sub setAutoresizingMask lib CocoaFramework selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
-		    soft declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
+		    declare sub addSubview lib CocoaFramework selector "addSubview:" (id as Ptr, aView as Ptr)
+		    declare sub setAutoresizingMask lib CocoaFramework selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
+		    declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
 		    
 		    const NSViewWidthSizable = 2
 		    const NSViewHeightSizable = 16
@@ -86,13 +86,13 @@ Inherits Canvas
 		    
 		    
 		    //here we set up an Objective-C delegate to be the target of the NSControl action.
-		    soft declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
+		    declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
 		    
 		    self.TargetID = init(Allocate(TargetClass))
 		    
-		    soft declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
-		    soft declare sub setAction lib CocoaFramework selector "setAction:" (id as Ptr, aSelector as Ptr)
-		    soft declare sub setTarget lib CocoaFramework selector "setTarget:" (id as Ptr, anObject as Ptr)
+		    declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
+		    declare sub setAction lib CocoaFramework selector "setAction:" (id as Ptr, aSelector as Ptr)
+		    declare sub setTarget lib CocoaFramework selector "setTarget:" (id as Ptr, anObject as Ptr)
 		    
 		    setAction self.id, NSSelectorFromString("action:")
 		    setTarget self.id, self.TargetID
@@ -108,6 +108,28 @@ Inherits Canvas
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  
+		  // handle enabling and disabling control
+		  
+		  #if targetCocoa
+		    declare function isEnabled Lib CocoaFramework selector "isEnabled" (id as Ptr) as Boolean
+		    declare sub setEnabled Lib CocoaFramework selector "setEnabled:" (id as Ptr, flag as Boolean)
+		    
+		    if self.enabled <> isEnabled(self.id) then
+		      setEnabled(self.id, self.enabled)
+		    end if
+		  #endif
+		  
+		  #if RBVersion >= 2012.02
+		    raiseEvent Paint(g, areas)
+		  #else
+		    RaiseEvent Paint(g)
+		  #endif
+		End Sub
+	#tag EndEvent
+
 
 	#tag DelegateDeclaration, Flags = &h21
 		Private Delegate Sub ActionDelegate()
@@ -116,8 +138,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Function AddInstanceMethod(class_id as Ptr, name as String, impl as Ptr, types as String) As Boolean
 		  #if targetMacOS
-		    soft declare function class_addMethod lib CocoaFramework (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    soft declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
+		    declare function class_addMethod lib CocoaFramework (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
 		    
 		    return class_addMethod(class_id, NSSelectorFromString(name), impl, types)
 		  #endif
@@ -131,7 +153,7 @@ Inherits Canvas
 		      return nil
 		    end if
 		    
-		    soft declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
+		    declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
 		    
 		    return alloc(class_id)
 		    
@@ -144,8 +166,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Function Allocate(NSClassName as String) As Ptr
 		  #if targetCocoa
-		    soft declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
-		    soft declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
+		    declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
+		    declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
 		    
 		    dim class_id as Ptr = NSClassFromString(NSClassName)
 		    if class_id <> nil then
@@ -167,7 +189,7 @@ Inherits Canvas
 		      return nil
 		    end if
 		    
-		    soft declare function cell lib CocoaFramework selector "cell" (id as Ptr) as Ptr
+		    declare function cell lib CocoaFramework selector "cell" (id as Ptr) as Ptr
 		    
 		    return cell(me.id)
 		  #endif
@@ -204,7 +226,7 @@ Inherits Canvas
 		      return 0.0
 		    end if
 		    
-		    soft declare function doubleValue lib CocoaFramework selector "doubleValue" (id as Ptr) as Double
+		    declare function doubleValue lib CocoaFramework selector "doubleValue" (id as Ptr) as Double
 		    
 		    return doubleValue(me.id)
 		  #endif
@@ -219,14 +241,12 @@ Inherits Canvas
 		      return
 		    end if
 		    
-		    soft declare sub setDoubleValue lib CocoaFramework selector "setDoubleValue:"  (id as Ptr, aDouble as Double)
+		    declare sub setDoubleValue lib CocoaFramework selector "setDoubleValue:"  (id as Ptr, aDouble as Double)
 		    
 		    setDoubleValue me.id, value
-		    
 		  #else
 		    #pragma unused value
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -255,7 +275,7 @@ Inherits Canvas
 		    end if
 		    
 		    
-		    soft declare function frame lib CocoaFramework selector "frame" (id as Ptr) as NSRect
+		    declare function frame lib CocoaFramework selector "frame" (id as Ptr) as NSRect
 		    
 		    return frame(me.id)
 		  #endif
@@ -269,7 +289,7 @@ Inherits Canvas
 		      return
 		    end if
 		    
-		    soft declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
+		    declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
 		    
 		    setFrame me.id, value
 		    
@@ -295,7 +315,7 @@ Inherits Canvas
 		    //if the Initialize event handler is unimplemented, as may often be the case, it will return nil (actually, it's not invoked).
 		    dim obj_id as Ptr = raiseEvent Initialize(newobj_id)
 		    if obj_id = nil then
-		      soft declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
+		      declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
 		      
 		      obj_id = init(newobj_id)
 		    end if
@@ -342,8 +362,8 @@ Inherits Canvas
 		  
 		  
 		  #if targetCocoa
-		    soft declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
-		    soft declare function objc_allocateClassPair lib CocoaFramework (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
+		    declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
+		    declare function objc_allocateClassPair lib CocoaFramework (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
@@ -351,7 +371,7 @@ Inherits Canvas
 		      return nil
 		    end if
 		    
-		    soft declare sub objc_registerClassPair lib CocoaFramework (cls as Ptr)
+		    declare sub objc_registerClassPair lib CocoaFramework (cls as Ptr)
 		    
 		    objc_registerClassPair newClassId
 		    const MethodTypeEncoding = "v@:@"
@@ -400,7 +420,7 @@ Inherits Canvas
 		Function StringValue() As String
 		  #if targetCocoa
 		    if me.id <> nil then
-		      soft declare function stringValue lib CocoaFramework selector "stringValue" (id as Ptr) as Ptr
+		      declare function stringValue lib CocoaFramework selector "stringValue" (id as Ptr) as Ptr
 		      
 		      
 		      return new CFString(stringValue(me.id), not CFString.hasOwnership)
@@ -464,6 +484,10 @@ Inherits Canvas
 		Event Open()
 	#tag EndHook
 
+	#tag Hook, Flags = &h0
+		Event Paint(g as Graphics, areas() as REALbasic.Rect = Nil)
+	#tag EndHook
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -506,7 +530,7 @@ Inherits Canvas
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    soft declare function isFlipped lib CocoaFramework selector "isFlipped" (id as Ptr) as Boolean
+			    declare function isFlipped lib CocoaFramework selector "isFlipped" (id as Ptr) as Boolean
 			    
 			    return isFlipped(self)
 			  #endif

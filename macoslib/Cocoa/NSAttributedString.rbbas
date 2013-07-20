@@ -79,7 +79,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function BoundingRect(size as Cocoa.NSSize, options as Integer) As Cocoa.NSRect
-		  //# Calculates and returns bounding rectangle for the receiver drawn using the options specified, within the given rectangle in the current graphics context.
+		  //# Calculates and returns bounding rectangle for the NSAttributedString drawn using the options specified, within the given rectangle in the current graphics context.
 		  
 		  #if targetMacOS
 		    declare function boundingRectWithSize lib CocoaLib selector "boundingRectWithSize:options:" (obj_id as Ptr, size as Cocoa.NSSize, options as Integer) as Cocoa.NSRect
@@ -776,7 +776,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Draw(rect as Cocoa.NSRect, options as Integer)
-		  //# Draws the receiver with the specified options, within the given rectangle in the current graphics context.
+		  //# Draws the NSAttributedString with the specified options, within the given rectangle in the current graphics context.
 		  
 		  #if targetMacOS
 		    declare sub drawWithRect lib CocoaLib selector "drawWithRect:options:" (obj_id as Ptr, rect as Cocoa.NSRect, options as Integer)
@@ -860,7 +860,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function IsEqual(otherString as NSAttributedString) As Boolean
-		  //# Returns a Boolean value that indicates whether the receiver is equal to another given attributed string.
+		  //# Returns a Boolean value that indicates whether the NSAttributedString is equal to another given attributed string.
 		  
 		  #if targetMacOS
 		    declare function isEqualToAttributedString lib CocoaLib selector "isEqualToAttributedString:" (obj_id as Ptr, otherString as Ptr) as Boolean
@@ -1930,7 +1930,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function Size() As Cocoa.NSSize
-		  //# Returns the bounding box of the marks that the receiver draws.
+		  //# Returns the bounding box of the marks that the NSAttributedString draws.
 		  
 		  #if targetMacOS
 		    declare function size lib CocoaLib selector "size" (obj_id as Ptr) as Cocoa.NSSize
@@ -2219,7 +2219,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		 Shared Function TextUnfilteredTypes() As String()
-		  //# Returns an array of UTI strings identifying the file types supported directly by the receiver.
+		  //# Returns an array of UTI strings identifying the file types supported directly by the NSAttributedString.
 		  
 		  #if TargetMacOS
 		    declare function textUnfilteredTypes lib CocoaLib selector "textUnfilteredTypes" (class_id as Ptr) as Ptr
@@ -2240,7 +2240,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the length of the receiver’s string object.
+			  //# Returns the length of the NSAttributedString’s string object.
 			  
 			  #if TargetMacOS
 			    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as UInt32
@@ -2255,7 +2255,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the character contents of the receiver as an NSString object.
+			  //# Returns the character contents of the NSAttributedString as an NSString object.
 			  
 			  #if TargetMacOS
 			    declare function m_string lib CocoaLib selector "string" (obj_id as Ptr) as CFStringRef
@@ -2379,6 +2379,7 @@ Inherits NSObject
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

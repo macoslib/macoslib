@@ -166,7 +166,7 @@ Protected Module PopupMenuExtension
 
 	#tag Method, Flags = &h0
 		Sub isBordered(extends p as PopupMenu, assigns Value as Boolean)
-		  //# Places or removes a border on the PopupMenu and redraws the receiver.
+		  //# Places or removes a border on the PopupMenu and redraws the PopupMenu.
 		  
 		  #if TargetCocoa then
 		    declare sub setBordered lib CocoaLib selector "setBordered:" (obj_id as Integer, inFlag as Boolean)

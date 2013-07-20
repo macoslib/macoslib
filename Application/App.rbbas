@@ -144,6 +144,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSToolbar() As Boolean Handles CocoaNSToolbar.Action
+			NSToolbarWindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSWorkspaceNotifications() As Boolean Handles CocoaNSWorkspaceNotifications.Action
 			NSWorkspaceEventsExample.Show
 			Return True

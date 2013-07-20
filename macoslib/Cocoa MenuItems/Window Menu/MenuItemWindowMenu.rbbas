@@ -198,7 +198,7 @@ Inherits MenuItem
 		        if state(wItem) = NSMixedState then
 		          setState(wItem, NSOffState)
 		        end if
-		        setMixedStateImage(wItem, NSImage.MixedState)
+		        setMixedStateImage(wItem, NSImage.MenuMixedStateTemplate)
 		      end if
 		      
 		    else

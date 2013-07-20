@@ -1,38 +1,6 @@
 #tag Class
-Class NSEnumerator
-Inherits NSObject
-	#tag Method, Flags = &h1000
-		Function AllObjects() As NSArray
-		  //# Returns an array of objects the receiver has yet to enumerate.
-		  
-		  #if targetMacOS
-		    declare function allObjects lib CocoaLib selector "allObjects" (obj_id as Ptr) as Ptr
-		    
-		    dim arrayRef as Ptr = allObjects(self)
-		    
-		    if arrayRef <> nil then
-		      return new NSArray(arrayRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
-		Function NextObject() As Ptr
-		  //# Returns the next object from the collection being enumerated.
-		  
-		  #if targetMacOS
-		    declare function nextObject lib CocoaLib selector "nextObject" (obj_id as Ptr) as Ptr
-		    
-		    return nextObject(self)
-		  #endif
-		End Function
-	#tag EndMethod
-
-
+Class NSDrawer
+Inherits NSResponder
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"

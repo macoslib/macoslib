@@ -17,7 +17,7 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub ActivateContextHelpMode()
-		  //# Places the receiver in context-sensitive help mode.
+		  //# Places the NSApplication in context-sensitive help mode.
 		  
 		  #if TargetMacOS
 		    declare sub activateContextHelpMode lib CocoaLib selector "activateContextHelpMode:" (obj_id as Ptr, sender as Ptr)
@@ -301,7 +301,7 @@ Inherits NSResponder
 		  //# Returns the main window.
 		  
 		  //@ This method might return nil if the application’s nib file hasn’t finished loading, _
-		  //  if the receiver is not active, or if the application is hidden.
+		  //  if the NSApplication is not active, or if the application is hidden.
 		  
 		  #if TargetMacOS
 		    declare function m_mainWindow lib CocoaLib selector "mainWindow" ( id as Ptr ) as Ptr
@@ -523,7 +523,7 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub SetWindowsNeedUpdate(flag as Boolean)
-		  //# Sets whether the receiver’s windows need updating when the application has finished processing the current event.
+		  //# Sets whether the NSApplication’s windows need updating when the application has finished processing the current event.
 		  
 		  //@ This method is especially useful for making sure menus are updated to reflect changes not initiated by user actions, _
 		  //  such as messages received from remote objects.
@@ -585,7 +585,7 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub UnhideWithoutActivation()
-		  //# Restores hidden windows without activating their owner (the receiver).
+		  //# Restores hidden windows without activating their owner (the NSApplication).
 		  
 		  //@ When this method begins, it posts an NSApplicationWillUnhideNotification _
 		  // to the default notification center. If it completes successfully, it posts _
@@ -792,7 +792,7 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the image used for the receiver’s icon.
+			  //# Returns the image used for the NSApplication’s icon.
 			  
 			  #if targetMacOS
 			    declare function applicationIconImage lib CocoaLib selector "applicationIconImage" (obj_id as Ptr) as Ptr

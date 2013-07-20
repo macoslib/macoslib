@@ -127,7 +127,7 @@ Inherits NSControl
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		Sub Paint(g as Graphics, areas() as REALbasic.Rect = Nil)
 		  #pragma unused g
 		  
 		  #if RBVersion >= 2012.02

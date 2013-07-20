@@ -2,27 +2,198 @@
 Class NSImage
 Inherits NSObject
 	#tag Method, Flags = &h0
+		 Shared Function ActionTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameActionTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub AddRepresentation(imageRep as NSImageRep)
+		  
+		  #if targetMacOS
+		    declare sub addRepresentation lib CocoaLib selector "addRepresentation:" (obj_id as Ptr, imageRep as Ptr)
+		    
+		    dim imageRepRef as Ptr
+		    if imageRep <> nil then
+		      imageRepRef = imageRep
+		    end if
+		    
+		    addRepresentation self, imageRepRef
+		    
+		  #else
+		    #pragma unused imageRep
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub AddRepresentations(imageReps() as NSImageRep)
+		  
+		  #if targetMacOS
+		    declare sub addRepresentations lib CocoaLib selector "addRepresentations:" (obj_id as Ptr, imageReps as Ptr)
+		    
+		    dim imageRepsArray as NSArray = NSArray.CreateWithObjects(imageReps)
+		    
+		    addRepresentations self, imageRepsArray
+		    
+		  #else
+		    #pragma unused imageReps
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function AddTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameAddTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Advanced() As NSImage
-		  dim sym as string = ResolveSymbol("NSImageNameAdvanced")
-		  return LoadByName( sym )
+		  
+		  return LoadByName(NSImageNameAdvanced)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function ApplicationIcon() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameApplicationIcon"))
+		  
+		  return LoadByName(NSImageNameApplicationIcon)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function BestRepresentation(rect as Cocoa.NSRect, context as NSGraphicsContext, hints as NSDictionary) As NSImageRep
+		  
+		  #if targetMacOS
+		    declare function bestRepresentationForRect lib CocoaLib selector "bestRepresentationForRect:context:hints:" _
+		    (obj_id as Ptr, rect as Cocoa.NSRect, context as Ptr, hints as Ptr) as Ptr
+		    
+		    dim contextRef as Ptr
+		    if context <> nil then
+		      contextRef = context
+		    end if
+		    
+		    dim hintsRef as Ptr
+		    if hints <> nil then
+		      hintsRef = hints
+		    end if
+		    
+		    dim imageRepRef as Ptr = bestRepresentationForRect(self, rect, contextRef, hintsRef)
+		    if imageRepRef <> nil then
+		      return new NSImageRep(imageRepRef)
+		    end if
+		    
+		  #else
+		    #pragma unused rect
+		    #pragma unused context
+		    #pragma unused hints
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function BluetoothTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameBluetoothTemplate)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function Bonjour() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameBonjour"))
+		  
+		  return LoadByName(NSImageNameBonjour)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function BookmarksTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameBookmarksTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CancelIncrementalLoad()
+		  
+		  #if targetMacOS
+		    declare sub cancelIncrementalLoad lib CocoaLib selector "cancelIncrementalLoad" (obj_id as Ptr)
+		    
+		    cancelIncrementalLoad self
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CanInitWithPasteboard(pasteboard as NSPasteboard) As Boolean
+		  
+		  #if targetMacOS
+		    declare function canInitWithPasteboard lib CocoaLib selector "canInitWithPasteboard:" (class_id as Ptr, pasteboard as Ptr) as Boolean
+		    
+		    dim pasteboardRef as Ptr
+		    if pasteboard <> nil then
+		      pasteboardRef = pasteboard
+		    end if
+		    
+		    return canInitWithPasteboard(ClassRef, pasteboardRef)
+		    
+		  #else
+		    #pragma unused pasteboard
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function Caution() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameCaution"))
+		  
+		  return LoadByName(NSImageNameCaution)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CGImageForProposedRect(byRef destRect as Cocoa.NSRect, context as NSGraphicsContext, hints as NSDictionary) As CGImage
+		  
+		  #if targetMacOS
+		    declare function CGImageForProposedRect lib CocoaLib selector "CGImageForProposedRect:context:hints:" _
+		    (obj_id as Ptr, byRef destRect as Cocoa.NSRect, context as Ptr, hints as Ptr) as Ptr
+		    
+		    dim contextRef as Ptr
+		    if context <> nil then
+		      contextRef = context
+		    end if
+		    
+		    dim hintsRef as Ptr
+		    if hints <> nil then
+		      hintsRef = hints
+		    end if
+		    
+		    dim cgimageRef as Ptr = CGImageForProposedRect(self, destRect, contextRef, hintsRef)
+		    if cgimageRef <> nil then
+		      return new CGImage(cgimageRef, not CGImage.hasOwnership)
+		    end if
+		    
+		  #else
+		    #pragma unused destRect
+		    #pragma unused context
+		    #pragma unused hints
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -36,13 +207,25 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function ColorPanel() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameColorPanel"))
+		  
+		  return LoadByName(NSImageNameColorPanel)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColumnViewTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameColumnViewTemplate)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function Computer() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameComputer"))
+		  
+		  return LoadByName(NSImageNameComputer)
+		  
 		End Function
 	#tag EndMethod
 
@@ -230,8 +413,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateWithPicture(pict as Picture) As NSImage
+		  
+		  return new NSImage(pict)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function DotMac() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameDotMac"))
+		  
+		  return LoadByName(NSImageNameDotMac)
+		  
 		End Function
 	#tag EndMethod
 
@@ -305,43 +498,297 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function EnterFullScreenTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameEnterFullScreenTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Everyone() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameEveryone"))
+		  
+		  return LoadByName(NSImageNameEveryone)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ExitFullScreenTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameExitFullScreenTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FlowViewTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameFlowViewTemplate)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function Folder() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameFolder"))
+		  
+		  return LoadByName(NSImageNameFolder)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function FolderBurnable() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameFolderBurnable"))
+		  
+		  return LoadByName(NSImageNameFolderBurnable)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function FolderSmart() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameFolderSmart"))
+		  
+		  return LoadByName(NSImageNameFolderSmart)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function FollowLinkFreestandingTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameFollowLinkFreestandingTemplate)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function FontPanel() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameFontPanel"))
+		  
+		  return LoadByName(NSImageNameFontPanel)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function GoLeftTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameGoLeftTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function GoRightTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameGoRightTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function HintCTM() As NSImage
+		  
+		  return LoadByName(NSImageHintCTM)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function HintInterpolation() As NSImage
+		  
+		  return LoadByName(NSImageHintInterpolation)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function HitTest(testRectDestSpace as Cocoa.NSRect, imageRectDestSpace as Cocoa.NSRect, referenceContext as NSGraphicsContext, hints as NSDictionary, flipped as Boolean) As Boolean
+		  
+		  #if targetMacOS
+		    declare function hitTestRect lib CocoaLib selector "hitTestRect:withImageDestinationRect:context:hints:flipped:" _
+		    (obj_id as Ptr, testRectDestSpace as Cocoa.NSRect, imageRectDestSpace as Cocoa.NSRect, referenceContext as Ptr, hints as Ptr, flipped as Boolean) as Boolean
+		    
+		    dim contextRef as Ptr
+		    if referenceContext <> nil then
+		      contextRef = referenceContext
+		    end if
+		    
+		    dim hintsRef as Ptr
+		    if hints <> nil then
+		      hintsRef = hints
+		    end if
+		    
+		    return hitTestRect(self, testRectDestSpace, imageRectDestSpace, contextRef, hintsRef, flipped)
+		    
+		  #else
+		    #pragma unused testRectDestSpace
+		    #pragma unused imageRectDestSpace
+		    #pragma unused referenceContext
+		    #pragma unused hints
+		    #pragma unused flipped
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function HomeTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameHomeTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function IChatTheaterTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameIChatTheaterTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function IconViewTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameIconViewTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ImageFileTypes() As String()
+		  
+		  #if targetMacOS
+		    declare function imageFileTypes lib CocoaLib selector "imageFileTypes" (class_id as Ptr) as Ptr
+		    
+		    dim rb_array() as String
+		    
+		    dim arrayRef as Ptr = imageFileTypes(ClassRef)
+		    if arrayRef <> nil then
+		      rb_array = new NSArray(arrayRef)
+		    end if
+		    
+		    return rb_array
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ImageTypes() As String()
+		  
+		  #if targetMacOS
+		    declare function imageTypes lib CocoaLib selector "imageTypes" (class_id as Ptr) as Ptr
+		    
+		    dim rb_array() as String
+		    
+		    dim arrayRef as Ptr = imageTypes(ClassRef)
+		    if arrayRef <> nil then
+		      rb_array = new NSArray(arrayRef)
+		    end if
+		    
+		    return rb_array
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ImageUnfilteredFileTypes() As String()
+		  
+		  #if targetMacOS
+		    declare function imageUnfilteredFileTypes lib CocoaLib selector "imageUnfilteredFileTypes" (class_id as Ptr) as Ptr
+		    
+		    dim rb_array() as String
+		    
+		    dim arrayRef as Ptr = imageUnfilteredFileTypes(ClassRef)
+		    if arrayRef <> nil then
+		      rb_array = new NSArray(arrayRef)
+		    end if
+		    
+		    return rb_array
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ImageUnfilteredPasteboardTypes() As String()
+		  
+		  #if targetMacOS
+		    declare function imageUnfilteredPasteboardTypes lib CocoaLib selector "imageUnfilteredPasteboardTypes" (class_id as Ptr) as Ptr
+		    
+		    dim rb_array() as String
+		    
+		    dim arrayRef as Ptr = imageUnfilteredPasteboardTypes(ClassRef)
+		    if arrayRef <> nil then
+		      rb_array = new NSArray(arrayRef)
+		    end if
+		    
+		    return rb_array
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ImageUnfilteredTypes() As String()
+		  
+		  #if targetMacOS
+		    declare function imageUnfilteredTypes lib CocoaLib selector "imageUnfilteredTypes" (class_id as Ptr) as Ptr
+		    
+		    dim rb_array() as String
+		    
+		    dim arrayRef as Ptr = imageUnfilteredTypes(ClassRef)
+		    if arrayRef <> nil then
+		      rb_array = new NSArray(arrayRef)
+		    end if
+		    
+		    return rb_array
+		    
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function Info() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameInfo"))
+		  
+		  return LoadByName(NSImageNameInfo)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadByName(name as CFStringRef) As NSImage
+		 Shared Function InvalidDataFreestandingTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameInvalidDataFreestandingTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function LeftFacingTriangleTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameLeftFacingTriangleTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ListViewTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameListViewTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function LoadByName(name as String) As NSImage
 		  #if targetMacOS
 		    declare function imageNamed lib CocoaLib selector "imageNamed:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    
@@ -357,16 +804,30 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function LoadByNameWithSymbolResolution(name as String) As NSImage
-		  dim sym as string = ResolveSymbol( name )
-		  return LoadByName( sym )
+		  
+		  return LoadByName(Cocoa.StringConstant(name))
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function LoadByName__(name as String) As NSImage
+		  dim cfName as CFStringRef = name
+		  return LoadByName(cfName)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadByName__(name as String) As NSImage
-		  dim cfName as CFStringRef = name
-		  return LoadByName(cfName)
-		End Function
+		Sub LockFocus()
+		  
+		  #if targetMacOS
+		    declare sub lockFocus lib CocoaLib selector "lockFocus" (obj_id as Ptr)
+		    
+		    lockFocus self
+		    
+		  #endif
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -382,6 +843,22 @@ Inherits NSObject
 		    #pragma Unused value
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function LockLockedTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameLockLockedTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function LockUnlockedTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameLockUnlockedTemplate)
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -443,27 +920,530 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MixedState() As NSImage
+		 Shared Function MenuMixedStateTemplate() As NSIMage
 		  
-		  return LoadByName(ResolveSymbol("NSImageNameMenuMixedStateTemplate"))
+		  return LoadByName(NSImageNameMenuMixedStateTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function MenuOnStateTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameMenuOnStateTemplate)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function MobileMe() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameMobileMe"))
+		  
+		  return LoadByName(NSImageNameMobileMe)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function MultipleDocuments() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameMultipleDocuments"))
+		  
+		  return LoadByName(NSImageNameMultipleDocuments)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function Network() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameNetwork"))
+		  
+		  return LoadByName(NSImageNameNetwork)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageHintCTM() As String
+		  
+		  return Cocoa.StringConstant("NSImageHintCTM")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageHintInterpolation() As String
+		  
+		  return Cocoa.StringConstant("NSImageHintInterpolation")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameActionTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameActionTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameAddTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameAddTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameAdvanced() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameAdvanced")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameApplicationIcon() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameApplicationIcon")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameBluetoothTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameBluetoothTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameBonjour() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameBonjour")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameBookmarksTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameBookmarksTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameCaution() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameCaution")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameColorPanel() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameColorPanel")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameColumnViewTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameColumnViewTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameComputer() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameComputer")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameDotMac() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameDotMac")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameEnterFullScreenTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameEnterFullScreenTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameEveryone() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameEveryone")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameExitFullScreenTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameExitFullScreenTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameFlowViewTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameFlowViewTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameFolder() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameFolder")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameFolderBurnable() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameFolderBurnable")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameFolderSmart() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameFolderSmart")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameFollowLinkFreestandingTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameFollowLinkFreestandingTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameFontPanel() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameFontPanel")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameGoLeftTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameGoLeftTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameGoRightTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameGoRightTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameHomeTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameHomeTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameIChatTheaterTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameIChatTheaterTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameIconViewTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameIconViewTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameInfo() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameInfo")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameInvalidDataFreestandingTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameInvalidDataFreestandingTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameLeftFacingTriangleTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameLeftFacingTriangleTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameListViewTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameListViewTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameLockLockedTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameLockLockedTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameLockUnlockedTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameLockUnlockedTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameMenuMixedStateTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameMenuMixedStateTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameMenuOnStateTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameMenuOnStateTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameMobileMe() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameMobileMe")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameMultipleDocuments() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameMultipleDocuments")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameNetwork() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameNetwork")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNamePathTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNamePathTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNamePreferencesGeneral() As String
+		  
+		  return Cocoa.StringConstant("NSImageNamePreferencesGeneral")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameQuickLookTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameQuickLookTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameRefreshFreestandingTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameRefreshFreestandingTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameRefreshTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameRefreshTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameRemoveTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameRemoveTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameRevealFreestandingTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameRevealFreestandingTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameRightFacingTriangleTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameRightFacingTriangleTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameSlideshowTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameSlideshowTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameSmartBadgeTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameSmartBadgeTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameStatusAvailable() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameStatusAvailable")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameStatusNone() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameStatusNone")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameStatusPartiallyAvailable() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameStatusPartiallyAvailable")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameStatusUnavailable() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameStatusUnavailable")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameStopProgressFreestandingTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameStopProgressFreestandingTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameStopProgressTemplate() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameStopProgressTemplate")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameTrashEmpty() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameTrashEmpty")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameTrashFull() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameTrashFull")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameUser() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameUser")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameUserAccounts() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameUserAccounts")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameUserGroup() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameUserGroup")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSImageNameUserGuest() As String
+		  
+		  return Cocoa.StringConstant("NSImageNameUserGuest")
+		  
 		End Function
 	#tag EndMethod
 
@@ -495,8 +1475,130 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function PasteboardTypes() As String()
+		  
+		  #if targetMacOS
+		    declare function imagePasteboardTypes lib CocoaLib selector "imagePasteboardTypes" (class_id as Ptr) as Ptr
+		    
+		    dim rb_array() as String
+		    
+		    dim arrayRef as Ptr = imagePasteboardTypes(ClassRef)
+		    if arrayRef <> nil then
+		      rb_array = new NSArray(arrayRef)
+		    end if
+		    
+		    return rb_array
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function PathTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNamePathTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function PreferencesGeneral() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNamePreferencesGeneral"))
+		  
+		  return LoadByName(NSImageNamePreferencesGeneral)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function QuickLookTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameQuickLookTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Recache()
+		  
+		  #if targetMacOS
+		    declare sub recache lib CocoaLib selector "recache" (obj_id as Ptr)
+		    
+		    recache self
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RefreshFreestandingTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameRefreshFreestandingTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RefreshTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameRefreshTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveRepresentation(imageRep as NSImageRep)
+		  
+		  #if targetMacOS
+		    declare sub removeRepresentation lib CocoaLib selector "removeRepresentation:" (obj_id as Ptr, imageRep as Ptr)
+		    
+		    dim imageRepRef as Ptr
+		    if imageRep <> nil then
+		      imageRepRef = imageRep
+		    end if
+		    
+		    removeRepresentation self, imageRepRef
+		    
+		  #else
+		    #pragma unused imageRep
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RemoveTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameRemoveTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Representations() As NSImageRep()
+		  
+		  #if targetMacOS
+		    declare function representations lib CocoaLib selector "representations" (obj_id as Ptr) as Ptr
+		    
+		    dim retArray() as NSImageRep
+		    
+		    dim arrayRef as Ptr = representations(self)
+		    if arrayRef <> nil then
+		      dim ns_array as new NSArray(arrayRef)
+		      const sizeOfPtr = 4
+		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
+		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
+		      dim n as UInt32 = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		      next
+		    end if
+		    
+		    return retArray
+		    
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -509,6 +1611,22 @@ Inherits NSObject
 		  else
 		    return nil
 		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RevealFreestandingTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameRevealFreestandingTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RightFacingTriangleTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameRightFacingTriangleTemplate)
+		  
 		End Function
 	#tag EndMethod
 
@@ -575,86 +1693,171 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Size() As Cocoa.NSSize
-		  #if targetMacOS
-		    declare function size lib CocoaLib selector "size" (obj_id as Ptr) as Cocoa.NSSize
-		    
-		    return size(self)
-		  #endif
+		 Shared Function SlideshowTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameSlideshowTemplate)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Size(assigns value as Cocoa.NSSize)
-		  //# starting in MacOS 10.6, this rescales the image.
+		 Shared Function SmartBadgeTemplate() As NSImage
 		  
-		  #if targetMacOS
-		    declare sub setSize lib CocoaLib selector "setSize:" (obj_id as Ptr, value as Cocoa.NSSize)
-		    
-		    setSize(self, value)
-		  #else
-		    #pragma Unused value
-		  #endif
-		End Sub
+		  return LoadByName(NSImageNameSmartBadgeTemplate)
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function StatusAvailable() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameStatusAvailable"))
+		  
+		  return LoadByName(NSImageNameStatusAvailable)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function StatusNone() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameStatusNone"))
+		  
+		  return LoadByName(NSImageNameStatusNone)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function StatusPartiallyAvailable() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameStatusPartiallyAvailable"))
+		  
+		  return LoadByName(NSImageNameStatusPartiallyAvailable)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function StatusUnavailable() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameStatusUnavailable"))
+		  
+		  return LoadByName(NSImageNameStatusUnavailable)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function StopProgressFreestandingTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameStopProgressFreestandingTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function StopProgressTemplate() As NSImage
+		  
+		  return LoadByName(NSImageNameStopProgressTemplate)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TIFFRepresentation() As NSData
+		  
+		  #if targetMacOS
+		    declare function TIFFRepresentation lib CocoaLib selector "TIFFRepresentation" (obj_id as Ptr) as Ptr
+		    
+		    dim dataRef as Ptr = TIFFRepresentation(self)
+		    if dataRef <> nil then
+		      return new NSData(dataRef)
+		    end if
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TIFFRepresentation(comp as NSBitmapImageRep.NSTIFFCompression, factor as Single) As NSData
+		  
+		  #if targetMacOS
+		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" _
+		    (obj_id as Ptr, comp as NSBitmapImageRep.NSTIFFCompression, factor as Single) as Ptr
+		    
+		    dim dataRef as Ptr = TIFFRepresentationUsingCompression(self, comp, factor)
+		    if dataRef <> nil then
+		      return new NSData(dataRef)
+		    end if
+		    
+		  #else
+		    #pragma unused comp
+		    #pragma unused factor
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function TrashEmpty() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameTrashEmpty"))
+		  
+		  return LoadByName(NSImageNameTrashEmpty)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function TrashFull() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameTrashFull"))
+		  
+		  return LoadByName(NSImageNameTrashFull)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub UnlockFocus()
+		  
+		  #if targetMacOS
+		    declare sub unlockFocus lib CocoaLib selector "unlockFocus" (obj_id as Ptr)
+		    
+		    unlockFocus self
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function User() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameUser"))
+		  
+		  return LoadByName(NSImageNameUser)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function UserAccounts() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameUserAccounts"))
+		  
+		  return LoadByName(NSImageNameUserAccounts)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function UserGroup() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameUserGroup"))
+		  
+		  return LoadByName(NSImageNameUserGroup)
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function UserGuest() As NSImage
-		  return LoadByName(ResolveSymbol("NSImageNameUserGuest"))
+		  
+		  return LoadByName(NSImageNameUserGuest)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As Variant
+		  
+		  return self.Operator_Convert
+		  
 		End Function
 	#tag EndMethod
 
@@ -681,6 +1884,285 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
+			  #if targetMacOS
+			    declare function accessibilityDescription lib CocoaLib selector "accessibilityDescription" (obj_id as Ptr) as CFStringRef
+			    
+			    return accessibilityDescription(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setAccessibilityDescription lib CocoaLib selector "setAccessibilityDescription:" (obj_id as Ptr, description as CFStringRef)
+			    
+			    setAccessibilityDescription(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		AccessibilityDescription As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function alignmentRect lib CocoaLib selector "alignmentRect" (obj_id as Ptr) as Cocoa.NSRect
+			    
+			    return alignmentRect(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setAlignmentRect lib CocoaLib selector "setAlignmentRect:" (obj_id as Ptr, rect as Cocoa.NSRect)
+			    
+			    setAlignmentRect(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		AlignmentRect As Cocoa.NSRect
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function backgroundColor lib CocoaLib selector "backgroundColor" (obj_id as Ptr) as Ptr
+			    
+			    dim colorRef as Ptr = backgroundColor(self)
+			    if colorRef <> nil then
+			      return new NSColor(colorRef)
+			    end if
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (obj_id as Ptr, aColor as Ptr)
+			    
+			    dim colorRef as Ptr
+			    if value <> nil then
+			      colorRef = value
+			    end if
+			    
+			    setBackgroundColor(self, colorRef)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		BackgroundColor As NSColor
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function cacheMode lib CocoaLib selector "cacheMode" (obj_id as Ptr) as NSCacheMode
+			    
+			    return cacheMode(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setCacheMode lib CocoaLib selector "setCacheMode:" (obj_id as Ptr, mode as NSCacheMode)
+			    
+			    setCacheMode(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		CacheMode As NSCacheMode
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetMacOS
+			    declare function deleagate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
+			    
+			    return deleagate(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetMacOS
+			    declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, newDelegate as Ptr)
+			    
+			    setDelegate self, value
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		Deleagate As Ptr
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function matchesOnMultipleResolution lib CocoaLib selector "matchesOnMultipleResolution" (obj_id as Ptr) as Boolean
+			    
+			    return matchesOnMultipleResolution(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setMatchesOnMultipleResolution lib CocoaLib selector "setMatchesOnMultipleResolution:" (obj_id as Ptr, flag as Boolean)
+			    
+			    setMatchesOnMultipleResolution(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		MatchesOnMultipleResolution As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function name lib CocoaLib selector "name" (obj_id as Ptr) as CFStringRef
+			    
+			    return name(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare function setName lib CocoaLib selector "setName:" (obj_id as Ptr, aName as CFStringRef) as Boolean
+			    
+			    call setName(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		Name As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function prefersColorMatch lib CocoaLib selector "prefersColorMatch" (obj_id as Ptr) as Boolean
+			    
+			    return prefersColorMatch(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setPrefersColorMatch lib CocoaLib selector "setPrefersColorMatch:" (obj_id as Ptr, flag as Boolean)
+			    
+			    setPrefersColorMatch(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		PrefersColorMatch As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function size lib CocoaLib selector "size" (obj_id as Ptr) as Cocoa.NSSize
+			    
+			    return size(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  //starting in MacOS 10.6, this rescales the image.
+			  
+			  #if targetMacOS
+			    declare sub setSize lib CocoaLib selector "setSize:" (obj_id as Ptr, value as Cocoa.NSSize)
+			    
+			    setSize(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		Size As Cocoa.NSSize
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  //# Returns a Boolean value indicating whether the image is a template image.
 			  
 			  #if TargetCocoa then
@@ -703,9 +2185,62 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		IsTemplate As Boolean
+		Template As Boolean
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function usesEPSOnResolutionMismatch lib CocoaLib selector "usesEPSOnResolutionMismatch" (obj_id as Ptr) as Boolean
+			    
+			    return usesEPSOnResolutionMismatch(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetMacOS
+			    declare sub setUsesEPSOnResolutionMismatch lib CocoaLib selector "setUsesEPSOnResolutionMismatch:" (obj_id as Ptr, flag as Boolean)
+			    
+			    setUsesEPSOnResolutionMismatch(self, value)
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		UsesEPSOnResolutionMismatch As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function isValid lib CocoaLib selector "isValid" (obj_id as Ptr) as Boolean
+			    
+			    return isValid(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Valid As Boolean
+	#tag EndComputedProperty
+
+
+	#tag Enum, Name = NSCacheMode, Type = Integer, Flags = &h0
+		NSImageCacheDefault
+		  NSImageCacheAlways
+		  NSImageCacheBySize
+		NSImageCacheNever
+	#tag EndEnum
 
 	#tag Enum, Name = NSComposite, Type = Integer, Flags = &h0
 		Clear = 0
@@ -727,6 +2262,11 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="AccessibilityDescription"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
@@ -741,16 +2281,16 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="IsTemplate"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MatchesOnMultipleResolution"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
@@ -759,10 +2299,20 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PrefersColorMatch"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Template"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -770,6 +2320,16 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UsesEPSOnResolutionMismatch"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Valid"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

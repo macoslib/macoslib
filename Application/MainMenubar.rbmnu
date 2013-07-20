@@ -1092,6 +1092,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSToolbar
+            SpecialMenu = 0
+            Text = "NSToolbar"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesControls
          SpecialMenu = 0

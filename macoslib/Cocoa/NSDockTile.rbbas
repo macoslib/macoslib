@@ -3,14 +3,13 @@ Class NSDockTile
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Display()
+		  //# Redraws the dock tile’s content.
 		  
 		  #if TargetMacOS
 		    declare sub display lib CocoaLib selector "display" (obj_id as Ptr)
 		    
 		    display self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -18,28 +17,26 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the tile’s current badge label.
 			  
 			  #if TargetMacOS
 			    declare function badgeLabel lib CocoaLib selector "badgeLabel" (obj_id as Ptr) as CFStringRef
 			    
 			    return badgeLabel(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //# Sets the string to be displayed in the tile’s badging area.
 			  
 			  #if TargetMacOS
 			    declare sub setBadgeLabel lib CocoaLib selector "setBadgeLabel:" (obj_id as Ptr, aString as CFStringRef)
 			    
 			    setBadgeLabel self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		BadgeLabel As String
@@ -48,28 +45,26 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the view used to draw the dock tile contents.
 			  
 			  #if TargetMacOS
 			    declare function contentView lib CocoaLib selector "contentView" (obj_id as Ptr) as Ptr
 			    
 			    return contentView(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //# Sets the view to use for drawing the dock tile contents.
 			  
 			  #if TargetMacOS
 			    declare sub setContentView lib CocoaLib selector "setContentView:" (obj_id as Ptr, aView as Ptr)
 			    
 			    setContentView self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		ContentView As Ptr
@@ -78,14 +73,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the object represented by the dock tile.
 			  
 			  #if TargetMacOS
 			    declare function owner lib CocoaLib selector "owner" (obj_id as Ptr) as Ptr
 			    
 			    return owner(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		Owner As Ptr
@@ -94,28 +88,26 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns a Boolean value indicating whether the tile is badged with the application’s icon.
 			  
 			  #if TargetMacOS
 			    declare function showsApplicationBadge lib CocoaLib selector "showsApplicationBadge" (obj_id as Ptr) as Boolean
 			    
 			    return showsApplicationBadge(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //# Sets whether the tile should be badged with the application’s icon.
 			  
 			  #if TargetMacOS
 			    declare sub setShowsApplicationBadge lib CocoaLib selector "setShowsApplicationBadge:" (obj_id as Ptr, flag as Boolean)
 			    
 			    setShowsApplicationBadge self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		ShowsApplicationBadge As Boolean
@@ -124,14 +116,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the size of the tile.
 			  
 			  #if TargetMacOS
 			    declare function size lib CocoaLib selector "size" (obj_id as Ptr) as Cocoa.NSSize
 			    
 			    return size(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		Size As Cocoa.NSSize

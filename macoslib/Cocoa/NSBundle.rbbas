@@ -95,7 +95,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function BuiltInPlugInsPath() As String
-		  //# Returns the full pathname of the receiver's subdirectory containing plug-ins.
+		  //# Returns the full pathname of the NSBundle's subdirectory containing plug-ins.
 		  
 		  #if targetMacOS
 		    declare function builtInPlugInsPath lib CocoaLib selector "builtInPlugInsPath" (obj_id as Ptr) as CFStringRef
@@ -107,7 +107,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function BuiltInPlugInsURL() As NSURL
-		  //# Returns the file URL of the receiver's subdirectory containing plug-ins.
+		  //# Returns the file URL of the NSBundle's subdirectory containing plug-ins.
 		  
 		  #if targetMacOS
 		    declare function builtInPlugInsURL lib CocoaLib selector "builtInPlugInsURL" (obj_id as Ptr) as Ptr
@@ -158,7 +158,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function BundleIdentifier() As String
-		  //# Returns the receiver’s bundle identifier.
+		  //# Returns the NSBundle’s bundle identifier.
 		  
 		  #if targetMacOS
 		    declare function bundleIdentifier lib CocoaLib selector "bundleIdentifier" (obj_id as Ptr) as CFStringRef
@@ -170,7 +170,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function BundlePath() As String
-		  //# Returns the full pathname of the receiver’s bundle directory.
+		  //# Returns the full pathname of the NSBundle’s bundle directory.
 		  
 		  #if targetMacOS
 		    declare function bundlePath lib CocoaLib selector "bundlePath" (obj_id as Ptr) as CFStringRef
@@ -182,7 +182,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function BundleURL() As NSURL
-		  //# Returns the full URL of the receiver’s bundle directory.
+		  //# Returns the full URL of the NSBundle’s bundle directory.
 		  
 		  #if targetMacOS
 		    if IsSnowLeopard then
@@ -327,7 +327,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function ExecutablePath() As String
-		  //# Returns the full pathname of the receiver's executable file.
+		  //# Returns the full pathname of the NSBundle's executable file.
 		  
 		  #if targetMacOS
 		    declare function executablePath lib CocoaLib selector "executablePath" (obj_id as Ptr) as CFStringRef
@@ -339,7 +339,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function ExecutableURL() As NSURL
-		  //# Returns the file URL of the receiver's executable file.
+		  //# Returns the file URL of the NSBundle's executable file.
 		  
 		  #if targetMacOS
 		    declare function executableURL lib CocoaLib selector "executableURL" (obj_id as Ptr) as Ptr
@@ -601,7 +601,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Localizations() As String()
-		  //# Returns a list of all the localizations contained within the receiver’s bundle.
+		  //# Returns a list of all the localizations contained within the NSBundle’s bundle.
 		  
 		  #if targetMacOS
 		    declare function localizations lib CocoaLib selector "localizations" (obj_id as Ptr) as Ptr
@@ -693,7 +693,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function ObjectForInfoDictionaryKey(key as String) As Ptr
-		  //# Returns the value associated with the specified key in the receiver's information property list.
+		  //# Returns the value associated with the specified key in the NSBundle's information property list.
 		  
 		  #if targetMacOS
 		    declare function objectForInfoDictionaryKey lib CocoaLib selector "objectForInfoDictionaryKey:" (obj_id as Ptr, key as CFStringRef) as Ptr
@@ -707,7 +707,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function PathForAuxiliaryExecutable(executableName as String) As String
-		  //# Returns the full pathname of the executable with the specified name in the receiver’s bundle.
+		  //# Returns the full pathname of the executable with the specified name in the NSBundle’s bundle.
 		  
 		  //@ This method returns the appropriate path for modern application and framework bundles. _
 		  //  This method may not return a path for non-standard bundle formats or for some older bundle formats.
@@ -1010,7 +1010,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function PrivateFrameworksPath() As String
-		  //# Returns the full pathname of the receiver's subdirectory containing private frameworks.
+		  //# Returns the full pathname of the NSBundle's subdirectory containing private frameworks.
 		  
 		  #if targetMacOS
 		    declare function privateFrameworksPath lib CocoaLib selector "privateFrameworksPath" (obj_id as Ptr) as CFStringRef
@@ -1022,7 +1022,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function PrivateFrameworksURL() As NSURL
-		  //# Returns the file URL of the receiver's subdirectory containing private frameworks.
+		  //# Returns the file URL of the NSBundle's subdirectory containing private frameworks.
 		  
 		  #if targetMacOS
 		    if IsSnowLeopard then
@@ -1062,7 +1062,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function ResourceURL() As NSURL
-		  //# Returns the file URL of the receiver's subdirectory containing resource files.
+		  //# Returns the file URL of the NSBundle's subdirectory containing resource files.
 		  
 		  #if targetMacOS
 		    if IsSnowLeopard then
@@ -1130,7 +1130,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function SharedSupportPath() As String
-		  //# Returns the full pathname of the receiver's subdirectory containing shared support files.
+		  //# Returns the full pathname of the NSBundle's subdirectory containing shared support files.
 		  
 		  #if targetMacOS
 		    declare function sharedSupportPath lib CocoaLib selector "sharedSupportPath" (obj_id as Ptr) as CFStringRef
@@ -1142,7 +1142,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function SharedSupportURL() As NSURL
-		  //# Returns the file URL of the receiver's subdirectory containing shared support files.
+		  //# Returns the file URL of the NSBundle's subdirectory containing shared support files.
 		  
 		  #if targetMacOS
 		    if IsSnowLeopard then
@@ -1162,7 +1162,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Unload() As Boolean
-		  //# Unloads the code associated with the receiver.
+		  //# Unloads the code associated with the NSBundle.
 		  
 		  //@return Boolean = YES if the bundle was successfully unloaded or was not already loaded; otherwise, NO if the bundle could not be unloaded.
 		  

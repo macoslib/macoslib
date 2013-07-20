@@ -1,54 +1,52 @@
 #tag Class
-Class NSLevelIndicator
+Class NSSlider
 Inherits NSControl
 	#tag Event
+		Sub Action()
+		  
+		  raiseEvent ValueChanged
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Function NSClassName() As String
-		  return "NSLevelIndicator"
+		  return "NSSlider"
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub Open()
-		  self.CriticalValue = self.initialcriticalvalue
+		  self.AllowsTickMarkValuesOnly = self.initialallowstickmarkvaluesonly
+		  self.NumberOfTickMarks = self.initialnumberoftickmarks
+		  self.SliderType = self.initialslidertype
+		  self.TickMarkPosition = self.initialtickmarkposition
+		  self.ControlSize = self.initialcontrolsize
 		  self.MaxValue = self.initialmaxvalue
 		  self.MinValue = self.initialminvalue
 		  self.Value = self.initialvalue
-		  self.WarningValue = self.initialwarningvalue
-		  self.Style = self.initialstyle
 		  
 		  raiseEvent Open
+		  
 		End Sub
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21
-		Private Function GetCriticalValue() As Double
-		  #if targetCocoa
-		    declare function criticalValue lib CocoaLib selector "criticalValue" (id as Ptr) as Double
+	#tag Method, Flags = &h0
+		Function ClosestTickMarkValueToValue(aValue as Double) As Double
+		  
+		  #if TargetCocoa
 		    
-		    return criticalValue(self.id)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function GetMaxValue() As Double
-		  #if targetCocoa
-		    declare function maxValue lib CocoaLib selector "maxValue" (id as Ptr) as Double
+		    declare function closestTickMarkValueToValue lib CocoaLib selector "closestTickMarkValueToValue:" (id as Ptr, aValue as Double) as Double
 		    
-		    return maxValue(self.id)
+		    return closestTickMarkValueToValue(self.id, aValue)
+		    
+		  #else
+		    
+		    #pragma unused aValue
+		    
 		  #endif
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function GetMinValue() As Double
-		  #if targetCocoa
-		    declare function minValue lib CocoaLib selector "minValue" (id as Ptr) as Double
-		    
-		    return minValue(self.id)
-		  #endif
 		End Function
 	#tag EndMethod
 
@@ -68,31 +66,35 @@ Inherits NSControl
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function GetWarningValue() As Double
-		  #if targetCocoa
-		    declare function warningValue lib CocoaLib selector "warningValue" (id as Ptr) as Double
+	#tag Method, Flags = &h0
+		Function IsVertical() As Boolean
+		  
+		  #if TargetCocoa
 		    
-		    return warningValue(self.id)
+		    declare function isVertical lib CocoaLib selector "isVertical" (id as Ptr) as Boolean
+		    
+		    return isVertical(self.id)
+		    
 		  #endif
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TickMarkValue(index as Integer) As Double
-		  #if targetCocoa
+		Function TickMarkValueAtIndex(index as Integer) As Double
+		  
+		  #if TargetCocoa
+		    
 		    declare function tickMarkValueAtIndex lib CocoaLib selector "tickMarkValueAtIndex:" (id as Ptr, index as Integer) as Double
 		    
-		    if self.id <> nil then
-		      return tickMarkValueAtIndex(self.id, index)
-		    else
-		      return 0.0
-		    end if
+		    return tickMarkValueAtIndex(self.id, index)
 		    
 		  #else
+		    
 		    #pragma unused index
+		    
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -105,38 +107,127 @@ Inherits NSControl
 		Event Open()
 	#tag EndHook
 
+	#tag Hook, Flags = &h0
+		Event ValueChanged()
+	#tag EndHook
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return self.GetValue(AddressOf GetCriticalValue, self.initialcriticalvalue)
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare function allowsTickMarkValuesOnly lib CocoaLib selector "allowsTickMarkValuesOnly" (id as Ptr) as Boolean
+			      
+			      return allowsTickMarkValuesOnly(self.id)
+			    else
+			      return self.initialallowstickmarkvaluesonly
+			    end if
+			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  
 			  #if targetCocoa
 			    if self.id <> nil then
-			      declare sub setCriticalValue lib CocoaLib selector "setCriticalValue:"  (id as Ptr, criticalValue as Double)
+			      declare sub setAllowsTickMarkValuesOnly lib CocoaLib selector "setAllowsTickMarkValuesOnly:"  (id as Ptr, value as Boolean)
 			      
-			      setCriticalValue self.id, value
+			      setAllowsTickMarkValuesOnly self.id, value
 			    else
-			      self.initialcriticalvalue = value
+			      self.initialallowstickmarkvaluesonly = value
 			    end if
 			    
 			  #else
 			    #pragma unused value
 			  #endif
+			  
 			End Set
 		#tag EndSetter
-		CriticalValue As Double
+		AllowsTickMarkValuesOnly As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare function altIncrementValue lib CocoaLib selector "altIncrementValue" (id as Ptr) as Double
+			      
+			      return altIncrementValue(self.id)
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare sub setAltIncrementValue lib CocoaLib selector "setAltIncrementValue:"  (id as Ptr, value as Double)
+			      
+			      setAltIncrementValue self.id, value
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		AltIncrementValue As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare function cell lib CocoaLib selector "cell" (id as Ptr) as Ptr
+			      declare function controlSize lib CocoaLib selector "controlSize" (id as Ptr) as NSControlSize
+			      
+			      return controlSize(cell(self.id))
+			    else
+			      return self.initialcontrolsize
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare function cell lib CocoaLib selector "cell" (id as Ptr) as Ptr
+			      declare sub setControlSize lib CocoaLib selector "setControlSize:"  (id as Ptr, value as NSControlSize)
+			      
+			      setControlSize cell(self.id), value
+			    else
+			      self.initialcontrolsize = value
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		ControlSize As NSControlSize
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
-		Attributes( HIdden = true ) Private initialcriticalvalue As Double
+		Private initialallowstickmarkvaluesonly As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Attributes( Hidden = true ) Private initialmaxvalue As Double
+		Private initialcontrolsize As NSControlSize
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private initialmaxvalue As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -144,62 +235,42 @@ Inherits NSControl
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private initialstyle As Integer
+		Private initialnumberoftickmarks As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private initialslidertype As NSSliderType
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private initialtickmarkposition As NSTickMarkPosition
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private initialvalue As Double
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private initialwarningvalue As Double
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
-			    if me.id <> nil then
-			      declare function numberOfMajorTickMarks lib CocoaLib selector "numberOfMajorTickMarks" (id as Ptr) as Integer
-			      
-			      return numberOfMajorTickMarks(me.id)
-			    else
-			      return 0
-			    end if
-			  #endif
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  #if targetCocoa
-			    if me.id <> nil then
-			      declare sub setNumberOfMajorTickMarks lib CocoaLib selector "setNumberOfMajorTickMarks:" (id as Ptr, count as Integer)
-			      
-			      setNumberOfMajorTickMarks me.id, value
-			      
-			    else
-			      return
-			    end if
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
-		MajorTickMarks As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  return self.GetValue(AddressOf GetMaxValue, self.initialmaxvalue)
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
+			  
 			  #if targetCocoa
 			    if self.id <> nil then
-			      declare sub setMaxValue lib CocoaLib selector "setMaxValue:"  (id as Ptr, maxValue as Double)
+			      declare function maxValue lib CocoaLib selector "maxValue" (id as Ptr) as Double
+			      
+			      return maxValue(self.id)
+			    else
+			      return self.initialmaxvalue
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare sub setMaxValue lib CocoaLib selector "setMaxValue:"  (id as Ptr, value as Double)
 			      
 			      setMaxValue self.id, value
 			    else
@@ -209,6 +280,7 @@ Inherits NSControl
 			  #else
 			    #pragma unused value
 			  #endif
+			  
 			End Set
 		#tag EndSetter
 		MaxValue As Double
@@ -217,14 +289,24 @@ Inherits NSControl
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return self.GetValue(AddressOf GetMinValue, self.initialminvalue)
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare function minValue lib CocoaLib selector "minValue" (id as Ptr) as Double
+			      
+			      return minValue(self.id)
+			    else
+			      return self.initialminvalue
+			    end if
+			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  
 			  #if targetCocoa
 			    if self.id <> nil then
-			      declare sub setMinValue lib CocoaLib selector "setMinValue:"  (id as Ptr, minValue as Double)
+			      declare sub setMinValue lib CocoaLib selector "setMinValue:"  (id as Ptr, value as Double)
 			      
 			      setMinValue self.id, value
 			    else
@@ -234,6 +316,7 @@ Inherits NSControl
 			  #else
 			    #pragma unused value
 			  #endif
+			  
 			End Set
 		#tag EndSetter
 		MinValue As Double
@@ -242,75 +325,126 @@ Inherits NSControl
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
 			  #if targetCocoa
 			    if self.id <> nil then
-			      dim cell_id as Ptr = self.Cell
-			      if cell_id = nil then
-			        return 0
-			      end if
+			      declare function numberOfTickMarks lib CocoaLib selector "numberOfTickMarks" (id as Ptr) as Integer
 			      
-			      declare function levelIndicatorStyle lib CocoaLib selector "levelIndicatorStyle" (id as Ptr) as Integer
-			      
-			      return levelIndicatorStyle(cell_id)
-			      
+			      return numberOfTickMarks(self.id)
 			    else
-			      return self.initialstyle
+			      return self.initialnumberoftickmarks
 			    end if
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  
 			  #if targetCocoa
 			    if self.id <> nil then
-			      dim cell_id as Ptr = self.Cell
-			      if cell_id = nil then
-			        //I think this shouldn't happen; if it does, I just return.
-			        return
-			      end if
+			      declare sub setNumberOfTickMarks lib CocoaLib selector "setNumberOfTickMarks:"  (id as Ptr, value as Integer)
 			      
-			      declare sub setLevelIndicatorStyle lib CocoaLib selector "setLevelIndicatorStyle:"  (id as Ptr, levelIndicatorStyle as Integer)
-			      
-			      setLevelIndicatorStyle cell_id, value
-			      
+			      setNumberOfTickMarks self.id, value
 			    else
-			      self.initialstyle = value
+			      self.initialnumberoftickmarks = value
 			    end if
 			    
 			  #else
 			    #pragma unused value
 			  #endif
+			  
 			End Set
 		#tag EndSetter
-		Style As Integer
+		NumberOfTickMarks As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
+			  return Integer(ControlSize)
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  ControlSize = NSControlSize(value)
+			  
+			End Set
+		#tag EndSetter
+		Size As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
 			  #if targetCocoa
-			    declare function tickMarkPosition lib CocoaLib selector "tickMarkPosition" (id as Ptr) as NSTickMarkPosition
-			    
 			    if self.id <> nil then
-			      return tickMarkPosition(self.id)
+			      declare function cell lib CocoaLib selector "cell" (id as Ptr) as Ptr
+			      declare function sliderType lib CocoaLib selector "sliderType" (id as Ptr) as NSSliderType
+			      
+			      return sliderType(cell(self.id))
 			    else
-			      return NSTIckMarkPosition.Below
+			      return self.initialslidertype
 			    end if
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  
 			  #if targetCocoa
-			    declare sub setTickMarkPosition lib CocoaLib selector "setTickMarkPosition:" (id as Ptr, position as NSTickMarkPosition)
-			    
 			    if self.id <> nil then
-			      setTickMarkPosition self.id, value
+			      declare function cell lib CocoaLib selector "cell" (id as Ptr) as Ptr
+			      declare sub setSliderType lib CocoaLib selector "setSliderType:"  (id as Ptr, value as NSSliderType)
+			      
+			      setSliderType cell(self.id), value
+			    else
+			      self.initialslidertype = value
 			    end if
 			    
 			  #else
 			    #pragma unused value
 			  #endif
+			  
+			End Set
+		#tag EndSetter
+		SliderType As NSSliderType
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare function tickMarkPosition lib CocoaLib selector "tickMarkPosition" (id as Ptr) as NSTickMarkPosition
+			      
+			      return tickMarkPosition(self.id)
+			    else
+			      return self.initialtickmarkposition
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if self.id <> nil then
+			      declare sub setTickMarkPosition lib CocoaLib selector "setTickMarkPosition:"  (id as Ptr, value as NSTickMarkPosition)
+			      
+			      setTickMarkPosition self.id, value
+			    else
+			      self.initialtickmarkposition = value
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
 			End Set
 		#tag EndSetter
 		TickMarkPosition As NSTickMarkPosition
@@ -319,35 +453,36 @@ Inherits NSControl
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
-			    if me.id <> nil then
-			      declare function numberOfTickMarks lib CocoaLib selector "numberOfTickMarks" (id as Ptr) as Integer
-			      
-			      return numberOfTickMarks(me.id)
-			    else
-			      return 0
-			    end if
-			  #endif
+			  
+			  return Integer(TickMarkPosition)
+			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if targetCocoa
-			    if me.id <> nil then
-			      declare sub setNumberOfTickMarks lib CocoaLib selector "setNumberOfTickMarks:" (id as Ptr, count as Integer)
-			      
-			      setNumberOfTickMarks me.id, value
-			      
-			    else
-			      return
-			    end if
-			    
-			  #else
-			    #pragma unused value
-			  #endif
+			  
+			  TickMarkPosition = NSTickMarkPosition(value)
+			  
 			End Set
 		#tag EndSetter
-		TickMarks As Integer
+		TickPosition As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  return Integer(SliderType)
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  SliderType = NSSliderType(value)
+			End Set
+		#tag EndSetter
+		Type As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -360,6 +495,7 @@ Inherits NSControl
 			Set
 			  if self.id <> nil then
 			    self.DoubleValue = value
+			    raiseEvent ValueChanged
 			  else
 			    self.initialvalue = value
 			  end if
@@ -368,48 +504,23 @@ Inherits NSControl
 		Value As Double
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  return self.GetValue(AddressOf GetWarningValue, self.initialwarningvalue)
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  #if targetCocoa
-			    if self.id <> nil then
-			      declare sub setWarningValue lib CocoaLib selector "setWarningValue:"  (id as Ptr, warningValue as Double)
-			      
-			      setWarningValue self.id, value
-			    else
-			      self.initialwarningvalue = value
-			    end if
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
-		WarningValue As Double
-	#tag EndComputedProperty
 
+	#tag Enum, Name = NSControlSize, Type = Integer, Flags = &h0
+		NSRegularControlSize
+		  NSSmallControlSize
+		NSMiniControlSize
+	#tag EndEnum
 
-	#tag Constant, Name = ContinuousCapacityLevelIndicator, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = DiscreteCapacityLevelIndicator, Type = Double, Dynamic = False, Default = \"2", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = RatingLevelIndicator, Type = Double, Dynamic = False, Default = \"3", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = RelevancyLevelIndicator, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
-
+	#tag Enum, Name = NSSliderType, Type = Integer, Flags = &h0
+		NSLinearSlider
+		NSCircularSlider
+	#tag EndEnum
 
 	#tag Enum, Name = NSTickMarkPosition, Type = Integer, Flags = &h0
-		Below = 0
-		Above = 1
+		NSTickMarkBelow
+		  NSTickMarkAbove
+		  NSTickMarkLeft = 1
+		NSTickMarkRight = 0
 	#tag EndEnum
 
 
@@ -425,6 +536,17 @@ Inherits NSControl
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsTickMarkValuesOnly"
+			Visible=true
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AltIncrementValue"
+			Group="Behavior"
+			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoDeactivate"
@@ -457,12 +579,6 @@ Inherits NSControl
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="CriticalValue"
-			Visible=true
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="DoubleBuffer"
 			Group="Behavior"
 			Type="Boolean"
@@ -486,7 +602,7 @@ Inherits NSControl
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="20"
+			InitialValue="100"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -561,20 +677,17 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MajorTickMarks"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="MaxValue"
 			Visible=true
-			Group="Behavior"
+			Group="Initial State"
+			InitialValue="100"
 			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinValue"
 			Visible=true
-			Group="Behavior"
+			Group="Initial State"
+			InitialValue="0"
 			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -584,16 +697,23 @@ Inherits NSControl
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Style"
+			Name="NumberOfTickMarks"
 			Visible=true
 			Group="Behavior"
+			InitialValue="5"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Size"
+			Visible=true
+			Group="Behavior"
+			InitialValue="0"
 			Type="Integer"
 			EditorType="Enum"
 			#tag EnumValues
-				"0 - RelevancyLevelIndicator"
-				"1 - ContinuousCapacityLevelIndicator"
-				"2 - DiscreteCapacityLevelIndicator"
-				"3 - RatingLevelIndicator"
+				"0 - Regular"
+				"1 - Small"
+				"2 - Mini"
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -634,14 +754,21 @@ Inherits NSControl
 			Name="TextSize"
 			Visible=true
 			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
+			InitialValue="0.0"
+			Type="double"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TickMarks"
+			Name="TickPosition"
+			Visible=true
 			Group="Behavior"
+			InitialValue="0"
 			Type="Integer"
+			EditorType="Enum"
+			#tag EnumValues
+				"1 - Top Left"
+				"0 - Bottom Right"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -649,6 +776,18 @@ Inherits NSControl
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Type"
+			Visible=true
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Linear"
+				"1 - Circular"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Underlined"
@@ -667,7 +806,8 @@ Inherits NSControl
 		#tag ViewProperty
 			Name="Value"
 			Visible=true
-			Group="Behavior"
+			Group="Initial State"
+			InitialValue="0"
 			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -677,12 +817,6 @@ Inherits NSControl
 			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="WarningValue"
-			Visible=true
-			Group="Behavior"
-			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"

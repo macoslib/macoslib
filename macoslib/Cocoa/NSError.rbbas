@@ -3,6 +3,7 @@ Class NSError
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(domain as String, code as Integer, userInfo as NSDictionary)
+		  //# Returns an NSError object initialized for a given domain and code with a given userInfo dictionary.
 		  
 		  #if targetMacOS
 		    declare function initWithDomain lib CocoaLib selector "initWithDomain:code:userInfo:" (obj_id as Ptr, domain as CFStringRef, code as Integer, userInfo as Ptr) as Ptr
@@ -13,18 +14,23 @@ Inherits NSObject
 		    end if
 		    
 		    super.Constructor(initWithDomain(Allocate("NSError"), domain, code, dictRef), NSError.hasOwnership)
-		    
 		  #else
 		    #pragma unused domain
 		    #pragma unused code
 		    #pragma unused userInfo
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
 		 Shared Function Create(domain as String, code as Integer, userInfo as NSDictionary) As NSError
+		  //# Creates and initializes an NSError object for a given domain and code with a given userInfo dictionary.
+		  
+		  //@param domain: The error domain—this can be one of the predefined NSError domains, or an arbitrary string describing a custom domain. domain must not be nil. _
+		  // The following error domains are predefined. _
+		  // - NSPOSIXErrorDomain: POSIX/BSD errors _
+		  // - NSOSStatusErrorDomain: Mac OS 9/Carbon errors _
+		  // - NSMachErrorDomain: Mach errors _
 		  
 		  #if TargetMacOS
 		    declare function errorWithDomain lib CocoaLib selector "errorWithDomain:code:userInfo:" (class_id as Ptr, domain as CFStringRef, code as Integer, userInfo as Ptr) as Ptr
@@ -44,12 +50,13 @@ Inherits NSObject
 		    #pragma unused code
 		    #pragma unused userInfo
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function NSErrorFailingURLStringKey() As String
+		  // The corresponding value is the URL that caused the error. This key is only present in the NSURLErrorDomain.
+		  //@Deprecated: This constant is deprecated in OS X v10.6, and is superseded by NSURLErrorFailingURLStringErrorKey.
 		  
 		  return Cocoa.StringConstant("NSErrorFailingURLStringKey")
 		  
@@ -58,7 +65,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NSFilePathErrorKey() As String
-		  
+		  // Contains the file path of the error.
 		  return Cocoa.StringConstant("NSFilePathErrorKey")
 		  
 		End Function
@@ -66,7 +73,8 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NSHelpAnchorErrorKey() As String
-		  
+		  //# The corresponding value is an NSString containing the localized help corresponding to the help button.
+		  //@sys: Available in OS X v10.6 and later.
 		  return Cocoa.StringConstant("NSHelpAnchorErrorKey")
 		  
 		End Function
@@ -74,7 +82,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NSLocalizedDescriptionKey() As String
-		  
+		  //# The corresponding value is a localized string representation of the error that, if present, will be returned by localizedDescription.
 		  return Cocoa.StringConstant("NSLocalizedDescriptionKey")
 		  
 		End Function
@@ -170,7 +178,9 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NSURLErrorFailingURLStringErrorKey() As String
-		  
+		  //# The corresponding value is an NSString object for the URL which caused a load to fail. This key is only present in the NSURLErrorDomain.
+		  //@ This constant supersedes NSErrorFailingURLStringKey, which was deprecated in OS X v10.6. Both constants refer to the same value for backward-compatibility, but this symbol name has a better prefix.
+		  //@sys: Available in OS X v10.6 and later.
 		  return Cocoa.StringConstant("NSURLErrorFailingURLStringErrorKey")
 		  
 		End Function
@@ -178,7 +188,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NSURLErrorKey() As String
-		  
+		  //# The corresponding value is an NSURL object.
 		  return Cocoa.StringConstant("NSURLErrorKey")
 		  
 		End Function
@@ -188,14 +198,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the receiver’s error code.
 			  
 			  #if TargetMacOS
 			    declare function code lib CocoaLib selector "code" (obj_id as Ptr) as Integer
 			    
 			    return code(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		Code As Integer
@@ -204,14 +213,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the receiver’s error domain.
 			  
 			  #if TargetMacOS
 			    declare function domain lib CocoaLib selector "domain" (obj_id as Ptr) as CFStringRef
 			    
 			    return domain(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		Domain As String
@@ -220,14 +228,15 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# A string to display in response to an alert panel help anchor button being pressed.
 			  
 			  #if TargetMacOS
-			    declare function helpAnchor lib CocoaLib selector "helpAnchor" (obj_id as Ptr) as CFStringRef
-			    
-			    return helpAnchor(self)
-			    
+			    if IsSnowLeopard then
+			      declare function helpAnchor lib CocoaLib selector "helpAnchor" (obj_id as Ptr) as CFStringRef
+			      
+			      return helpAnchor(self)
+			    end if
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		HelpAnchor As String
@@ -236,14 +245,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns a string containing the localized description of the error.
 			  
 			  #if TargetMacOS
 			    declare function localizedDescription lib CocoaLib selector "localizedDescription" (obj_id as Ptr) as CFStringRef
 			    
 			    return localizedDescription(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		LocalizedDescription As String
@@ -252,14 +260,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns a string containing the localized explanation of the reason for the error.
 			  
 			  #if TargetMacOS
 			    declare function localizedFailureReason lib CocoaLib selector "localizedFailureReason" (obj_id as Ptr) as CFStringRef
 			    
 			    return localizedFailureReason(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		LocalizedFailureReason As String
@@ -268,6 +275,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns an array containing the localized titles of buttons appropriate for displaying in an alert panel.
 			  
 			  #if TargetMacOS
 			    declare function localizedRecoveryOptions lib CocoaLib selector "localizedRecoveryOptions" (obj_id as Ptr) as Ptr
@@ -287,14 +295,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns a string containing the localized recovery suggestion for the error.
 			  
 			  #if TargetMacOS
 			    declare function localizedRecoverySuggestion lib CocoaLib selector "localizedRecoverySuggestion" (obj_id as Ptr) as CFStringRef
 			    
 			    return localizedRecoverySuggestion(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		LocalizedRecoverySuggestion As String
@@ -303,14 +310,13 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns an object that conforms to the NSErrorRecoveryAttempting informal protocol.
 			  
 			  #if TargetMacOS
 			    declare function recoveryAttempter lib CocoaLib selector "recoveryAttempter" (obj_id as Ptr) as Ptr
 			    
 			    return recoveryAttempter(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		RecoveryAttempter As Ptr
@@ -319,6 +325,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the receiver's user info dictionary.
 			  
 			  #if TargetMacOS
 			    declare function userInfo lib CocoaLib selector "userInfo" (obj_id as Ptr) as Ptr
@@ -329,7 +336,6 @@ Inherits NSObject
 			    end if
 			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		UserInfo As NSDictionary

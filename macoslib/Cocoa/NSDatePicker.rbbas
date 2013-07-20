@@ -11,7 +11,7 @@ Inherits NSControl
 	#tag Method, Flags = &h0
 		Function BackgroundColor() As Color
 		  #if targetCocoa
-		    soft declare function backgroundColor lib Cocoa selector "backgroundColor" (id as Ptr) as Ptr
+		    declare function backgroundColor lib Cocoa selector "backgroundColor" (id as Ptr) as Ptr
 		    
 		    return new NSColor(backgroundColor(self))
 		  #endif
@@ -21,10 +21,9 @@ Inherits NSControl
 	#tag Method, Flags = &h0
 		Sub BackgroundColor(assigns value as Color)
 		  #if targetCocoa
-		    soft declare sub setBackgroundColor lib Cocoa selector "setBackgroundColor:" (id as Ptr, c as Ptr)
+		    declare sub setBackgroundColor lib Cocoa selector "setBackgroundColor:" (id as Ptr, c as Ptr)
 		    
 		    setBackgroundColor self,  new NSColor(value)
-		    
 		  #else
 		    #pragma unused value
 		  #endif
@@ -52,7 +51,6 @@ Inherits NSControl
 		    declare sub setDateValue lib CocoaLib selector "setDateValue:" (id as Ptr, newStartDate as Ptr)
 		    
 		    setDateValue self.id, value
-		    
 		  #else
 		    #pragma unused value
 		  #endif
@@ -126,7 +124,7 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    soft declare function drawsBackground lib Cocoa selector "drawsBackground" (id as Ptr) as Boolean
+			    declare function drawsBackground lib Cocoa selector "drawsBackground" (id as Ptr) as Boolean
 			    
 			    if self.id <> nil then
 			      return drawsBackground(self)
@@ -139,10 +137,9 @@ Inherits NSControl
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    soft declare sub setDrawsBackground lib Cocoa selector "setDrawsBackground:" (id as Ptr, flag as Boolean)
+			    declare sub setDrawsBackground lib Cocoa selector "setDrawsBackground:" (id as Ptr, flag as Boolean)
 			    
 			    setDrawsBackground self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
@@ -266,7 +263,7 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    soft declare function datePickerStyle lib Cocoa selector "datePickerStyle" (id as Ptr) as Integer
+			    declare function datePickerStyle lib Cocoa selector "datePickerStyle" (id as Ptr) as Integer
 			    
 			    if self.id <> nil then
 			      return datePickerStyle(self)
@@ -279,7 +276,7 @@ Inherits NSControl
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    soft declare sub setDatePickerStyle lib Cocoa selector "setDatePickerStyle:" (id as Ptr, value as Integer)
+			    declare sub setDatePickerStyle lib Cocoa selector "setDatePickerStyle:" (id as Ptr, value as Integer)
 			    if self.id <> nil then
 			      setDatePickerStyle self, value
 			    else

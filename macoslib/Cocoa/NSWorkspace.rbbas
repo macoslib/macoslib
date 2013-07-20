@@ -59,7 +59,7 @@ Inherits NSObject
 		  #pragma unused observer
 		  
 		  #if TargetMacOS
-		    dim userinfo as CoreFoundation.CFDictionary
+		    dim userinfo as NSDictionary
 		    dim appl as Cocoa.NSRunningApplication
 		    dim locName as string
 		    dim url as CoreFoundation.CFURL
@@ -144,9 +144,9 @@ Inherits NSObject
 		      dim oldurl as CoreFoundation.CFURL
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
 		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
-		        oldLocName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldLocalizedNameKey" ))).VariantValue
+		        oldLocName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldLocalizedNameKey" )))'.VariantValue
 		        oldurl = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldURLKey" ))))
 		      end if
 		      
@@ -157,7 +157,7 @@ Inherits NSObject
 		      userinfo = notification.UserInfo
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
 		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
 		      end if
 		      
@@ -168,7 +168,7 @@ Inherits NSObject
 		      userinfo = notification.UserInfo
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
 		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
 		      end if
 		      
@@ -179,7 +179,7 @@ Inherits NSObject
 		      userinfo = notification.UserInfo
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" ))).VariantValue
+		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
 		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
 		      end if
 		      

@@ -1,70 +1,118 @@
 #tag Class
-Class NSPathControl
+Class NSColorWell
 Inherits NSControl
 	#tag Event
 		Sub Action()
-		  #if targetCocoa
-		    declare function clickedPathComponentCell lib CocoaLib selector "clickedPathComponentCell" (id as Ptr) as Ptr
-		    
-		    dim p as Ptr = clickedPathComponentCell(me.id)
-		    if p <> nil then
-		      raiseEvent Action(new NSPathComponentCell(p))
-		    else
-		      raiseEvent Action(nil)
-		    end if
-		  #endif
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub DoubleClick(X As Integer, Y As Integer)
-		  #pragma unused X
-		  #pragma unused Y
-		  //
+		  // unused event
+		  
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function NSClassName() As String
-		  return "NSPathControl"
+		  return "NSColorWell"
+		  
 		End Function
 	#tag EndEvent
 
+	#tag Event
+		Sub Open()
+		  
+		  self.Bordered = self.initialbordered
+		  
+		  raiseEvent Open
+		  
+		End Sub
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h0
+		Sub Activate(exclusive as boolean = false)
+		  //# Activates the NSColorWell, displays the color panel, and makes the current color the same as its own.
+		  
+		  #if targetCocoa
+		    declare sub activate lib CocoaLib selector "activate:" (id as Ptr, exclusive as Boolean)
+		    
+		    activate(self.id, exclusive)
+		  #else
+		    #pragma unused exclusive
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Deactivate()
+		  //# Deactivates the NSColorWell and redraws it.
+		  
+		  #if targetCocoa
+		    declare sub deactivate lib CocoaLib selector "deactivate" (id as Ptr)
+		    
+		    deactivate(self.id)
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub drawWellInside(insideRect as Cocoa.NSRect)
+		  //# Draws the colored area inside the NSColorWell at the specified location without drawing borders.
+		  
+		  #if targetCocoa
+		    declare sub drawWellInside lib CocoaLib selector "drawWellInside:" (id as Ptr, insideRect as Cocoa.NSRect)
+		    
+		    drawWellInside(self.id, insideRect)
+		  #else
+		    #pragma unused insideRect
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsActive() As Boolean
+		  //# Returns a Boolean value indicating whether the NSColorWell is active.
+		  
+		  #if targetCocoa
+		    declare function isActive lib CocoaLib selector "isActive" (id as Ptr) as Boolean
+		    
+		    return isActive(self.id)
+		  #endif
+		End Function
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
-		Event Action(clickedComponentCell as NSPathComponentCell)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event DoubleClick()
+		Event Open()
 	#tag EndHook
 
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns a Boolean value indicating whether the NSColorWell has a border.
+			  
 			  #if targetCocoa
-			    if me.id <> nil then
-			      declare function backgroundColor lib CocoaLib selector "backgroundColor" (id as Ptr) as Ptr
+			    if self.id <> nil then
+			      declare function isBordered lib CocoaLib selector "isBordered" (id as Ptr) as Boolean
 			      
-			      dim c as new NSColor(backgroundColor(me.id))
-			      return c.ColorValue
+			      return isBordered(self.id)
+			      
 			    else
-			      return &c000000
+			      return self.initialbordered
 			    end if
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //# Places or removes a border on the NSColorWell and redraws the NSColorWell.
+			  
 			  #if targetCocoa
-			    if me.id <> nil then
-			      declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (id as Ptr, c as Ptr)
+			    if self.id <> nil then
+			      declare sub setBordered lib CocoaLib selector "setBordered:"  (id as Ptr, bordered as Boolean)
 			      
-			      dim c as new NSColor(value)
-			      setBackgroundColor me.id, c
+			      setBordered self.id, value
 			    else
-			      //
+			      self.initialbordered = value
 			    end if
 			    
 			  #else
@@ -72,97 +120,47 @@ Inherits NSControl
 			  #endif
 			End Set
 		#tag EndSetter
-		BackgroundColor As Color
+		Bordered As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the color of the NSColorWell.
+			  
 			  #if targetCocoa
-			    if me.id = nil then
-			      return 0
-			    end if
-			    
-			    declare function pathStyle lib CocoaLib selector "pathStyle" (id as Ptr) as Integer
-			    
-			    return pathStyle(me.id)
-			  #endif
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  #if targetCocoa
-			    if me.id = nil then
-			      return
-			    end if
-			    
-			    declare sub setPathStyle lib CocoaLib selector "setPathStyle:" (id as Ptr, style as Integer)
-			    
-			    setPathStyle me.id, value
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
-		PathStyle As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  #if targetCocoa
-			    if me.id <> nil then
-			      declare function getURL lib CocoaLib selector "URL" (id as Ptr) as Ptr
+			    if self.id <> nil then
+			      declare function colour lib CocoaLib selector "color" (id as Ptr) as Ptr
 			      
-			      dim p as Ptr = getURL(me.id)
-			      if p <> nil then
-			        declare function absoluteString lib CocoaLib selector "absoluteString" (id as Ptr) as CFStringRef
-			        return absoluteString(p)
-			      else
-			        return ""
-			      end if
+			      return new NSColor(colour(self.id))
 			    else
-			      return ""
+			      return &cFFFFFF
 			    end if
 			  #endif
-			  
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //# Sets the color of the NSColorWell and redraws the NSColorWell.
+			  
 			  #if targetCocoa
-			    declare sub setURL lib CocoaLib selector "setURL:" (id as Ptr, url as Ptr)
-			    
-			    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
-			    declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
-			    declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, URLString as CFStringRef) as Ptr
-			    
-			    dim url_id as Ptr = initWithString(alloc(NSClassFromString("NSURL")), value)
-			    
-			    setURL me.id, url_id
-			    
-			    declare sub release lib CocoaLib selector "release" (id as Ptr)
-			    release url_id
+			    if self.id <> nil then
+			      declare sub setColour lib CocoaLib selector "setColor:"  (id as Ptr, colour as Ptr)
+			      
+			      setColour self.id, new NSColor(value)
+			    end if
 			    
 			  #else
 			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
-		URL As String
+		Colour As Color
 	#tag EndComputedProperty
 
-
-	#tag Constant, Name = NSPathStyleNavigationBar, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSPathStylePopUp, Type = Double, Dynamic = False, Default = \"2", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSPathStyleStandard, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
+	#tag Property, Flags = &h21
+		Private initialbordered As Boolean
+	#tag EndProperty
 
 
 	#tag ViewBehavior
@@ -201,18 +199,25 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="BackgroundColor"
-			Group="Behavior"
-			InitialValue="&c000000"
-			Type="Color"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Bold"
 			Visible=true
 			Group="Behavior"
 			InitialValue="false"
 			Type="Boolean"
 			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bordered"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Colour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
@@ -238,7 +243,7 @@ Inherits NSControl
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="20"
+			InitialValue="100"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -319,19 +324,6 @@ Inherits NSControl
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="PathStyle"
-			Visible=true
-			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - Standard"
-				"1 - Navigation Bar"
-				"2 - PopUp"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -369,8 +361,8 @@ Inherits NSControl
 			Name="TextSize"
 			Visible=true
 			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
+			InitialValue="0.0"
+			Type="double"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -387,13 +379,6 @@ Inherits NSControl
 			InitialValue="false"
 			Type="Boolean"
 			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="URL"
-			Visible=true
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseFocusRing"

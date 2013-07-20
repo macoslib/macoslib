@@ -194,7 +194,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function MinimumRangeOfUnit(unit as UInt32) As Cocoa.NSRange
-		  //# Returns the minimum range limits of the values that a given unit can take on in the receiver.
+		  //# Returns the minimum range limits of the values that a given unit can take on in the NSCalendar.
 		  
 		  #if targetMacOS
 		    declare function minimumRangeOfUnit lib CocoaLib selector "minimumRangeOfUnit:" (obj_id as Ptr, unit as UInt32) as Cocoa.NSRange
@@ -298,7 +298,7 @@ Inherits NSObject
 		#tag EndGetter
 		#tag Setter
 			Set
-			  //# Sets the index of the first weekday for the receiver.
+			  //# Sets the index of the first weekday for the NSCalendar.
 			  
 			  #if targetMacOS
 			    declare sub setFirstWeekday lib CocoaLib selector "setFirstWeekday:" (obj_id as Ptr, weekday as UInt32)
@@ -315,7 +315,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the identifier for the receiver.
+			  //# Returns the identifier for the NSCalendar.
 			  
 			  #if targetMacOS
 			    declare function calendarIdentifier lib CocoaLib selector "calendarIdentifier" (obj_id as Ptr) as CFStringRef
@@ -330,7 +330,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the locale for the receiver.
+			  //# Returns the locale for the NSCalendar.
 			  
 			  #if targetMacOS
 			    declare function locale lib CocoaLib selector "locale" (obj_id as Ptr) as Ptr
@@ -367,7 +367,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the minimum number of days in the first week of the receiver.
+			  //# Returns the minimum number of days in the first week of the NSCalendar.
 			  
 			  #if targetMacOS
 			    declare function minimumDaysInFirstWeek lib CocoaLib selector "minimumDaysInFirstWeek" (obj_id as Ptr) as UInt32
@@ -378,7 +378,7 @@ Inherits NSObject
 		#tag EndGetter
 		#tag Setter
 			Set
-			  //# Sets the minimum number of days in the first week of the receiver.
+			  //# Sets the minimum number of days in the first week of the NSCalendar.
 			  
 			  #if targetMacOS
 			    declare sub setMinimumDaysInFirstWeek lib CocoaLib selector "setMinimumDaysInFirstWeek:" (obj_id as Ptr, mdw as UInt32)
@@ -395,7 +395,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the time zone for the receiver.
+			  //# Returns the time zone for the NSCalendar.
 			  
 			  #if targetMacOS
 			    declare function timeZone lib CocoaLib selector "timeZone" (obj_id as Ptr) as Ptr
