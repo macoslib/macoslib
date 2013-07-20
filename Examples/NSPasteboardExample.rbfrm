@@ -212,7 +212,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  self.pboard = NSPasteboard.GeneralPboard
+		  self.pboard = NSPasteboard.GeneralPasteboard
 		  
 		  reload
 		End Sub

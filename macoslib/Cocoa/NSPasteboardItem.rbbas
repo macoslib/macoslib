@@ -30,6 +30,21 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PropertyList(dataType as String) As Ptr
+		  
+		  #if targetMacOS
+		    declare function propertyListForType lib CocoaLib selector "propertyListForType:" (obj_id as Ptr, dataType as CFStringRef) as Ptr
+		    
+		    return propertyListForType(self, dataType)
+		    
+		  #else
+		    #pragma unused dataType
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PropertyListForType(type as String) As variant
 		  #if TargetMacOS
 		    declare function propertyListForType lib CocoaLib selector "propertyListForType:" (id as Ptr, type as CFStringRef) as Ptr

@@ -160,6 +160,8 @@ Implements objHasVariantValue
 	#tag Method, Flags = &h0
 		Function VariantValue() As variant
 		  
+		  return self
+		  
 		End Function
 	#tag EndMethod
 

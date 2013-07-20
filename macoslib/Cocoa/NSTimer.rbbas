@@ -1,17 +1,6 @@
 #tag Class
-Class NSNull
+Class NSTimer
 Inherits NSObject
-	#tag Method, Flags = &h1000
-		Sub Constructor()
-		  #if TargetMacOS then
-		    declare function m_null lib CocoaLib selector "null" (Cls as Ptr) as Ptr
-		    
-		    Super.Constructor   m_null( Cocoa.NSClassFromString( "NSNull" )), true
-		  #endif
-		End Sub
-	#tag EndMethod
-
-
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
