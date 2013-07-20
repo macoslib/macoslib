@@ -3,7 +3,7 @@ Class NSFont
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AdvancementForGlyph(aGlyph as UInt32) As Cocoa.NSSize
-		  //# Returns the nominal spacing for the given glyph—the distance the current point moves after showing the glyph—accounting for the receiver’s size.
+		  //# Returns the nominal spacing for the given glyph—the distance the current point moves after showing the glyph—accounting for the NSFont’s size.
 		  
 		  #if TargetMacOS
 		    declare function advancementForGlyph lib CocoaLib selector "advancementForGlyph:" (obj_id as Ptr, aGlyph as UInt32) as Cocoa.NSSize
@@ -17,7 +17,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Ascender() As Single
-		  //# Returns the top y-coordinate, offset from the baseline, of the receiver’s longest ascender.
+		  //# Returns the top y-coordinate, offset from the baseline, of the NSFont’s longest ascender.
 		  
 		  #if TargetMacOS
 		    declare function ascender lib CocoaLib selector "ascender" (obj_id as Ptr) as Single

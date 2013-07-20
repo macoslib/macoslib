@@ -3,7 +3,7 @@ Class NSFileWrapper
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Function AddFileWrapper(childWrapper as NSFileWrapper) As String
-		  //# Adds a child file wrapper to the receiver, which must be a directory file wrapper.
+		  //# Adds a child file wrapper to the NSFileWrapper, which must be a directory file wrapper.
 		  
 		  #if targetMacOS
 		    declare function addFileWrapper lib CocoaLib selector "addFileWrapper:" (obj_id as Ptr, childWrapper as Ptr) as CFStringRef
@@ -22,7 +22,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function AddRegularFile(contents as NSData, preferredFileName as String) As String
-		  //# Creates a regular-file file wrapper with the given contents and adds it to the receiver, which must be a directory file wrapper.
+		  //# Creates a regular-file file wrapper with the given contents and adds it to the NSFileWrapper, which must be a directory file wrapper.
 		  
 		  #if targetMacOS
 		    declare function addRegularFileWithContents lib CocoaLib selector "addRegularFileWithContents:preferredFilename:" _
@@ -43,7 +43,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(contents as NSData)
-		  //# Initializes the receiver as a regular-file file wrapper.
+		  //# Initializes the NSFileWrapper as a regular-file file wrapper.
 		  
 		  #if targetMacOS
 		    declare function initRegularFileWithContents lib CocoaLib selector "initRegularFileWithContents:" (obj_id as Ptr, contents as Ptr) as Ptr
@@ -62,7 +62,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(childrenByPreferredName as NSDictionary)
-		  //# Initializes the receiver as a directory file wrapper, with a given file-wrapper list.
+		  //# Initializes the NSFileWrapper as a directory file wrapper, with a given file-wrapper list.
 		  
 		  #if targetMacOS
 		    declare function initDirectoryWithFileWrappers lib CocoaLib selector "initDirectoryWithFileWrappers:" (obj_id as Ptr, childrenByPreferredName as Ptr) as Ptr
@@ -81,7 +81,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(aURL as NSURL)
-		  //# Initializes the receiver as a symbolic-link file wrapper that links to a specified file.
+		  //# Initializes the NSFileWrapper as a symbolic-link file wrapper that links to a specified file.
 		  
 		  #if targetMacOS
 		    declare function initSymbolicLinkWithDestinationURL lib CocoaLib selector "initSymbolicLinkWithDestinationURL:" (obj_id as Ptr, aURL as Ptr) as Ptr
@@ -227,7 +227,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub RemoveFileWrapper(childWrapper as NSFileWrapper)
-		  //# Removes a child file wrapper from the receiver, which must be a directory file wrapper.
+		  //# Removes a child file wrapper from the NSFileWrapper, which must be a directory file wrapper.
 		  
 		  #if targetMacOS
 		    declare sub removeFileWrapper lib CocoaLib selector "removeFileWrapper:" (obj_id as Ptr, childWrapper as Ptr)
@@ -262,7 +262,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function SymbolicLinkURL() As NSURL
-		  //# Provides the URL referenced by the receiver, which must be a symbolic-link file wrapper.
+		  //# Provides the URL referenced by the NSFileWrapper, which must be a symbolic-link file wrapper.
 		  
 		  #if targetMacOS
 		    if IsSnowLeopard then
@@ -382,7 +382,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Indicates whether the receiver is a directory file wrapper.
+			  //# Indicates whether the NSFileWrapper is a directory file wrapper.
 			  
 			  #if targetMacOS
 			    declare function isDirectory lib CocoaLib selector "isDirectory" (obj_id as Ptr) as Boolean
@@ -397,7 +397,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Indicates whether the receiver is a regular-file file wrapper.
+			  //# Indicates whether the NSFileWrapper is a regular-file file wrapper.
 			  
 			  #if targetMacOS
 			    declare function isRegularFile lib CocoaLib selector "isRegularFile" (obj_id as Ptr) as Boolean

@@ -3,7 +3,7 @@ Class NSFileHandle
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AvailableData() As NSData
-		  //# Returns the data currently available in the receiver.
+		  //# Returns the data currently available in the NSFileHandle.
 		  
 		  #if targetMacOS
 		    declare function availableData lib CocoaLib selector "availableData" (obj_id as Ptr) as Ptr

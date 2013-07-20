@@ -456,7 +456,7 @@ Inherits NSControl
 		  end if
 		  
 		  'tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:
-		  'Allows the delegate to provide an array of appropriate completions for the contents of the receiver.
+		  'Allows the delegate to provide an array of appropriate completions for the contents of the NSTokenField.
 		  '
 		  '- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(NSInteger)tokenIndex indexOfSelectedItem:(NSInteger *)selectedIndex
 		  'Parameters

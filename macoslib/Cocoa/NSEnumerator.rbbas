@@ -3,7 +3,7 @@ Class NSEnumerator
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Function AllObjects() As NSArray
-		  //# Returns an array of objects the receiver has yet to enumerate.
+		  //# Returns an array of objects the NSEnumerator has yet to enumerate.
 		  
 		  #if targetMacOS
 		    declare function allObjects lib CocoaLib selector "allObjects" (obj_id as Ptr) as Ptr

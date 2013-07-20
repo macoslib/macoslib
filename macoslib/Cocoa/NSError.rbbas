@@ -198,7 +198,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the receiver’s error code.
+			  //# Returns the NSError’s error code.
 			  
 			  #if TargetMacOS
 			    declare function code lib CocoaLib selector "code" (obj_id as Ptr) as Integer
@@ -213,7 +213,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the receiver’s error domain.
+			  //# Returns the NSError’s error domain.
 			  
 			  #if TargetMacOS
 			    declare function domain lib CocoaLib selector "domain" (obj_id as Ptr) as CFStringRef
@@ -325,7 +325,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the receiver's user info dictionary.
+			  //# Returns the NSError's user info dictionary.
 			  
 			  #if TargetMacOS
 			    declare function userInfo lib CocoaLib selector "userInfo" (obj_id as Ptr) as Ptr

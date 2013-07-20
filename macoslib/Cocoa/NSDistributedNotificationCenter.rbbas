@@ -3,7 +3,7 @@ Class NSDistributedNotificationCenter
 Inherits NSNotificationCenter
 	#tag Method, Flags = &h0
 		Sub AddObserver(notObserver as NSObject, notSelector as String, notName as String, notSender as NSObject, deliveryBehavior as NSNotificationSuspensionBehavior)
-		  //# Adds an entry to the receiver’s dispatch table with a specific observer and suspended-notifications behavior, and optional notification name and sender.
+		  //# Adds an entry to the NSDistributedNotificationCenter’s dispatch table with a specific observer and suspended-notifications behavior, and optional notification name and sender.
 		  
 		  #if TargetMacOS
 		    declare sub addObserver lib CocoaLib selector "addObserver:selector:name:object:suspensionBehavior:" _
@@ -74,7 +74,7 @@ Inherits NSNotificationCenter
 
 	#tag Method, Flags = &h0
 		Sub PostNotification(notName as String, notSender as NSObject, userInfo as NSDictionary, deliverImmediately as Boolean)
-		  //# Creates a notification with information and an immediate-delivery specifier, and posts it to the receiver.
+		  //# Creates a notification with information and an immediate-delivery specifier, and posts it to the NSDistributedNotificationCenter.
 		  
 		  #if TargetMacOS
 		    declare sub postNotificationName lib CocoaLib selector "postNotificationName:object:userInfo:deliverImmediately:" _
@@ -102,7 +102,7 @@ Inherits NSNotificationCenter
 
 	#tag Method, Flags = &h0
 		Sub PostNotification(notName as String, notSender as NSObject, userInfo as NSDictionary, options as Integer)
-		  //# Creates a notification with information, and posts it to the receiver.
+		  //# Creates a notification with information, and posts it to the NSDistributedNotificationCenter.
 		  
 		  #if TargetMacOS
 		    declare sub postNotificationName lib CocoaLib selector "postNotificationName:object:userInfo:options:" _
