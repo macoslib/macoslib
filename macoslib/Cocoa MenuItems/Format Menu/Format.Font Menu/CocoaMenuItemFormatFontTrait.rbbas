@@ -68,8 +68,8 @@ Inherits CocoaMenuItem
 	#tag Method, Flags = &h21
 		Private Shared Function NSApp() As Ptr
 		  #if targetCocoa
-		    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
-		    declare function sharedApplication lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
+		    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+		    soft declare function sharedApplication lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
 		    
 		    return sharedApplication(NSClassFromString("NSApplication"))
 		  #endif

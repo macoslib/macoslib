@@ -19,7 +19,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function Now() As NSDate
 		  #if targetMacOS
-		    declare function date lib CocoaLib selector "date" (class_id as Ptr) as Ptr
+		    soft declare function date lib CocoaLib selector "date" (class_id as Ptr) as Ptr
 		    
 		    return new NSDate(date(Cocoa.NSClassFromString("NSDate")))
 		  #endif

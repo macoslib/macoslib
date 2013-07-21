@@ -25,7 +25,7 @@ Inherits NSResponder
 			    
 			    if me.RespondsToSelector( "backingScaleFactor" ) then
 			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) As Single
-			      r = instanceBackingScaleFactor( self )
+			      r = instanceBackingScaleFactor( m_id )
 			    end if
 			    
 			  #endif
@@ -45,7 +45,7 @@ Inherits NSResponder
 			    declare function IsDocumentEdited lib CarbonLib selector "isDocumentEdited" ( id As Ptr ) As Boolean
 			    // Introduced in MacOS X 10.0.
 			    
-			    return IsDocumentEdited( self )
+			    return IsDocumentEdited( m_id )
 			    
 			  #endif
 			  
@@ -58,7 +58,7 @@ Inherits NSResponder
 			    declare sub SetDocumentEdited lib CarbonLib selector "setDocumentEdited:" ( id As Ptr, value As Boolean )
 			    // Introduced in MacOS X 10.0.
 			    
-			    SetDocumentEdited( self, value )
+			    SetDocumentEdited( m_id, value )
 			    
 			  #endif
 			  
@@ -75,7 +75,7 @@ Inherits NSResponder
 			    declare function IsMovableByWindowBackground lib CarbonLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
 			    // Introduced in MacOS X 10.2.
 			    
-			    return IsMovableByWindowBackground( self )
+			    return IsMovableByWindowBackground( m_id )
 			    
 			  #endif
 			  
@@ -88,7 +88,7 @@ Inherits NSResponder
 			    declare sub SetMovableByWindowBackground lib CarbonLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
 			    // Introduced in MacOS X 10.2.
 			    
-			    SetMovableByWindowBackground( self, value )
+			    SetMovableByWindowBackground( m_id, value )
 			    
 			  #endif
 			  
@@ -152,7 +152,7 @@ Inherits NSResponder
 			    declare function instanceRepresentedFilename lib CarbonLib selector "representedFilename" ( id As Ptr ) As CFStringRef
 			    // Introduced in MacOS X 10.0.
 			    
-			    name = instanceRepresentedFilename( self )
+			    name = instanceRepresentedFilename( m_id )
 			    
 			  #endif
 			  
@@ -167,7 +167,7 @@ Inherits NSResponder
 			    declare sub instanceSetTitleWithRepresentedFilename lib CocoaLib selector "setTitleWithRepresentedFilename:" ( id as Ptr, name as CFStringRef )
 			    // Introduced in MacOS X 10.0.
 			    
-			    instanceSetTitleWithRepresentedFilename( self, value )
+			    instanceSetTitleWithRepresentedFilename( m_id, value )
 			    
 			  #endif
 			  
@@ -186,7 +186,7 @@ Inherits NSResponder
 			    declare function instanceRepresentedURL lib CarbonLib selector "representedURL" ( id As Ptr ) As Ptr
 			    // Introduced in MacOS X 10.5.
 			    
-			    dim p as Ptr = instanceRepresentedURL( self )
+			    dim p as Ptr = instanceRepresentedURL( m_id )
 			    if p <> nil then
 			      url = new NSURL( p, not hasOwnership )
 			    end if
@@ -205,9 +205,9 @@ Inherits NSResponder
 			    // Introduced in MacOS X 10.5.
 			    
 			    if value = nil then
-			      instanceSetRepresentedURL( self, nil )
+			      instanceSetRepresentedURL( m_id, nil )
 			    else
-			      instanceSetRepresentedURL( self, value.id )
+			      instanceSetRepresentedURL( m_id, value.id )
 			    end if
 			    
 			  #endif
@@ -220,21 +220,11 @@ Inherits NSResponder
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="BackingScaleFactor"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DocumentEdited"
-			Group="Behavior"
-			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -249,11 +239,6 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MovableByBackground"
-			Group="Behavior"
-			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
