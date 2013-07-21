@@ -1982,7 +1982,7 @@ Inherits NSResponder
 			    
 			    if me.RespondsToSelector( "backingScaleFactor" ) then
 			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) As Single
-			      r = instanceBackingScaleFactor( m_id )
+			      r = instanceBackingScaleFactor( self )
 			    end if
 			    
 			  #endif

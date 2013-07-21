@@ -127,6 +127,7 @@ End
 	#tag Event
 		Sub Action()
 		  'TabPanel1.SelectFirstTabViewItem
+		  MsgBox Str( self.ScalingFactor )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
