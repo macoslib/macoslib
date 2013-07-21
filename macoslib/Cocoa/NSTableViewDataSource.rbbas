@@ -3,8 +3,8 @@ Class NSTableViewDataSource
 	#tag Method, Flags = &h21
 		Private Shared Function AddInstanceMethod(class_id as Ptr, name as String, impl as Ptr, types as String) As Boolean
 		  #if targetMacOS
-		    soft declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    soft declare function NSSelectorFromString lib CocoaLib (aSelectorName as CFStringRef) as Ptr
+		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    declare function NSSelectorFromString lib CocoaLib (aSelectorName as CFStringRef) as Ptr
 		    
 		    return class_addMethod(class_id, NSSelectorFromString(name), impl, types)
 		  #endif
@@ -186,8 +186,8 @@ Class NSTableViewDataSource
 		  
 		  
 		  #if targetCocoa
-		    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
-		    soft declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
+		    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
@@ -195,7 +195,7 @@ Class NSTableViewDataSource
 		      return nil
 		    end if
 		    
-		    soft declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
+		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    
 		    objc_registerClassPair newClassId
 		    const MethodTypeEncoding = "v@:@"
@@ -237,8 +237,8 @@ Class NSTableViewDataSource
 	#tag Method, Flags = &h21
 		Private Shared Function NewNSTableViewSourcemacoslib() As Ptr
 		  #if targetCocoa
-		    soft declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
-		    soft declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
+		    declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
+		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
 		    
 		    return init(alloc(ObjCClass))
 		  #endif

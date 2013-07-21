@@ -24,7 +24,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Function GetCriticalValue() As Double
 		  #if targetCocoa
-		    soft declare function criticalValue lib CocoaLib selector "criticalValue" (id as Ptr) as Double
+		    declare function criticalValue lib CocoaLib selector "criticalValue" (id as Ptr) as Double
 		    
 		    return criticalValue(self.id)
 		  #endif
@@ -34,7 +34,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Function GetMaxValue() As Double
 		  #if targetCocoa
-		    soft declare function maxValue lib CocoaLib selector "maxValue" (id as Ptr) as Double
+		    declare function maxValue lib CocoaLib selector "maxValue" (id as Ptr) as Double
 		    
 		    return maxValue(self.id)
 		  #endif
@@ -45,7 +45,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Function GetMinValue() As Double
 		  #if targetCocoa
-		    soft declare function minValue lib CocoaLib selector "minValue" (id as Ptr) as Double
+		    declare function minValue lib CocoaLib selector "minValue" (id as Ptr) as Double
 		    
 		    return minValue(self.id)
 		  #endif
@@ -71,7 +71,7 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Function GetWarningValue() As Double
 		  #if targetCocoa
-		    soft declare function warningValue lib CocoaLib selector "warningValue" (id as Ptr) as Double
+		    declare function warningValue lib CocoaLib selector "warningValue" (id as Ptr) as Double
 		    
 		    return warningValue(self.id)
 		  #endif
@@ -116,7 +116,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if self.id <> nil then
-			      soft declare sub setCriticalValue lib CocoaLib selector "setCriticalValue:"  (id as Ptr, criticalValue as Double)
+			      declare sub setCriticalValue lib CocoaLib selector "setCriticalValue:"  (id as Ptr, criticalValue as Double)
 			      
 			      setCriticalValue self.id, value
 			    else
@@ -160,7 +160,7 @@ Inherits NSControl
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare function numberOfMajorTickMarks lib CocoaLib selector "numberOfMajorTickMarks" (id as Ptr) as Integer
+			      declare function numberOfMajorTickMarks lib CocoaLib selector "numberOfMajorTickMarks" (id as Ptr) as Integer
 			      
 			      return numberOfMajorTickMarks(me.id)
 			    else
@@ -173,7 +173,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare sub setNumberOfMajorTickMarks lib CocoaLib selector "setNumberOfMajorTickMarks:" (id as Ptr, count as Integer)
+			      declare sub setNumberOfMajorTickMarks lib CocoaLib selector "setNumberOfMajorTickMarks:" (id as Ptr, count as Integer)
 			      
 			      setNumberOfMajorTickMarks me.id, value
 			      
@@ -199,7 +199,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if self.id <> nil then
-			      soft declare sub setMaxValue lib CocoaLib selector "setMaxValue:"  (id as Ptr, maxValue as Double)
+			      declare sub setMaxValue lib CocoaLib selector "setMaxValue:"  (id as Ptr, maxValue as Double)
 			      
 			      setMaxValue self.id, value
 			    else
@@ -224,7 +224,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if self.id <> nil then
-			      soft declare sub setMinValue lib CocoaLib selector "setMinValue:"  (id as Ptr, minValue as Double)
+			      declare sub setMinValue lib CocoaLib selector "setMinValue:"  (id as Ptr, minValue as Double)
 			      
 			      setMinValue self.id, value
 			    else
@@ -249,7 +249,7 @@ Inherits NSControl
 			        return 0
 			      end if
 			      
-			      soft declare function levelIndicatorStyle lib CocoaLib selector "levelIndicatorStyle" (id as Ptr) as Integer
+			      declare function levelIndicatorStyle lib CocoaLib selector "levelIndicatorStyle" (id as Ptr) as Integer
 			      
 			      return levelIndicatorStyle(cell_id)
 			      
@@ -269,7 +269,7 @@ Inherits NSControl
 			        return
 			      end if
 			      
-			      soft declare sub setLevelIndicatorStyle lib CocoaLib selector "setLevelIndicatorStyle:"  (id as Ptr, levelIndicatorStyle as Integer)
+			      declare sub setLevelIndicatorStyle lib CocoaLib selector "setLevelIndicatorStyle:"  (id as Ptr, levelIndicatorStyle as Integer)
 			      
 			      setLevelIndicatorStyle cell_id, value
 			      
@@ -321,7 +321,7 @@ Inherits NSControl
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare function numberOfTickMarks lib CocoaLib selector "numberOfTickMarks" (id as Ptr) as Integer
+			      declare function numberOfTickMarks lib CocoaLib selector "numberOfTickMarks" (id as Ptr) as Integer
 			      
 			      return numberOfTickMarks(me.id)
 			    else
@@ -334,7 +334,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare sub setNumberOfTickMarks lib CocoaLib selector "setNumberOfTickMarks:" (id as Ptr, count as Integer)
+			      declare sub setNumberOfTickMarks lib CocoaLib selector "setNumberOfTickMarks:" (id as Ptr, count as Integer)
 			      
 			      setNumberOfTickMarks me.id, value
 			      
@@ -378,7 +378,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if self.id <> nil then
-			      soft declare sub setWarningValue lib CocoaLib selector "setWarningValue:"  (id as Ptr, warningValue as Double)
+			      declare sub setWarningValue lib CocoaLib selector "setWarningValue:"  (id as Ptr, warningValue as Double)
 			      
 			      setWarningValue self.id, value
 			    else

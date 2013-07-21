@@ -34,7 +34,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function instancePathExtension lib CocoaLib selector "pathExtension" (id as Ptr) as Ptr
 		    
-		    return new NSString( instancePathExtension( m_id ), false )
+		    return new NSString( instancePathExtension( self ), false )
 		    
 		  #endif
 		End Function

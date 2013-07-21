@@ -32,9 +32,9 @@ Inherits Canvas
 		      raise new macoslibException( "Unable to instantiate class " + NSClassName )
 		    end if
 		    
-		    soft declare sub addSubview lib CocoaLib selector "addSubview:" (id as Ptr, aView as Ptr)
-		    soft declare sub setAutoresizingMask lib CocoaLib selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
-		    soft declare sub setFrame lib CocoaLib selector "setFrame:" (id as Ptr, frameRect as Cocoa.NSRect)
+		    declare sub addSubview lib CocoaLib selector "addSubview:" (id as Ptr, aView as Ptr)
+		    declare sub setAutoresizingMask lib CocoaLib selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
+		    declare sub setFrame lib CocoaLib selector "setFrame:" (id as Ptr, frameRect as Cocoa.NSRect)
 		    
 		    const NSViewWidthSizable = 2
 		    const NSViewHeightSizable = 16
