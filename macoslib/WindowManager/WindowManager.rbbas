@@ -19,7 +19,7 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare function alphaValue lib CocoaLib selector "alphaValue" (id as Ptr) as Single
+		    soft declare function alphaValue lib CocoaLib selector "alphaValue" (id as Ptr) as Single
 		    
 		    return alphaValue(Ptr(w.Handle))
 		  #endif
@@ -45,7 +45,7 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (id as Ptr, windowAlpha as Single)
+		    soft declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (id as Ptr, windowAlpha as Single)
 		    
 		    setAlphaValue Ptr(w.Handle), value
 		  #endif

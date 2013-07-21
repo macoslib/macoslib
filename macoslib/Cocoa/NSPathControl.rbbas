@@ -4,7 +4,7 @@ Inherits NSControl
 	#tag Event
 		Sub Action()
 		  #if targetCocoa
-		    declare function clickedPathComponentCell lib CocoaLib selector "clickedPathComponentCell" (id as Ptr) as Ptr
+		    soft declare function clickedPathComponentCell lib CocoaLib selector "clickedPathComponentCell" (id as Ptr) as Ptr
 		    
 		    dim p as Ptr = clickedPathComponentCell(me.id)
 		    if p <> nil then
@@ -45,7 +45,7 @@ Inherits NSControl
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      declare function backgroundColor lib CocoaLib selector "backgroundColor" (id as Ptr) as Ptr
+			      soft declare function backgroundColor lib CocoaLib selector "backgroundColor" (id as Ptr) as Ptr
 			      
 			      dim c as new NSColor(backgroundColor(me.id))
 			      return c.ColorValue
@@ -59,7 +59,7 @@ Inherits NSControl
 			Set
 			  #if targetCocoa
 			    if me.id <> nil then
-			      declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (id as Ptr, c as Ptr)
+			      soft declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (id as Ptr, c as Ptr)
 			      
 			      dim c as new NSColor(value)
 			      setBackgroundColor me.id, c
@@ -83,7 +83,7 @@ Inherits NSControl
 			      return 0
 			    end if
 			    
-			    declare function pathStyle lib CocoaLib selector "pathStyle" (id as Ptr) as Integer
+			    soft declare function pathStyle lib CocoaLib selector "pathStyle" (id as Ptr) as Integer
 			    
 			    return pathStyle(me.id)
 			  #endif
@@ -96,7 +96,7 @@ Inherits NSControl
 			      return
 			    end if
 			    
-			    declare sub setPathStyle lib CocoaLib selector "setPathStyle:" (id as Ptr, style as Integer)
+			    soft declare sub setPathStyle lib CocoaLib selector "setPathStyle:" (id as Ptr, style as Integer)
 			    
 			    setPathStyle me.id, value
 			    
@@ -113,11 +113,11 @@ Inherits NSControl
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      declare function getURL lib CocoaLib selector "URL" (id as Ptr) as Ptr
+			      soft declare function getURL lib CocoaLib selector "URL" (id as Ptr) as Ptr
 			      
 			      dim p as Ptr = getURL(me.id)
 			      if p <> nil then
-			        declare function absoluteString lib CocoaLib selector "absoluteString" (id as Ptr) as CFStringRef
+			        soft declare function absoluteString lib CocoaLib selector "absoluteString" (id as Ptr) as CFStringRef
 			        return absoluteString(p)
 			      else
 			        return ""
@@ -133,17 +133,17 @@ Inherits NSControl
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    declare sub setURL lib CocoaLib selector "setURL:" (id as Ptr, url as Ptr)
+			    soft declare sub setURL lib CocoaLib selector "setURL:" (id as Ptr, url as Ptr)
 			    
-			    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
-			    declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
-			    declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, URLString as CFStringRef) as Ptr
+			    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+			    soft declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
+			    soft declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, URLString as CFStringRef) as Ptr
 			    
 			    dim url_id as Ptr = initWithString(alloc(NSClassFromString("NSURL")), value)
 			    
 			    setURL me.id, url_id
 			    
-			    declare sub release lib CocoaLib selector "release" (id as Ptr)
+			    soft declare sub release lib CocoaLib selector "release" (id as Ptr)
 			    release url_id
 			    
 			  #else
