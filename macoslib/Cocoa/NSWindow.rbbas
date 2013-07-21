@@ -1976,15 +1976,18 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  dim r as double = 1.
 			  
 			  #if TargetCocoa
-			    declare function backingScaleFactor lib CocoaLib selector "backingScaleFactor" (obj_id as Ptr) as Single
 			    
-			    return backingScaleFactor(self)
-			  #else
-			    return 1
+			    if me.RespondsToSelector( "backingScaleFactor" ) then
+			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) As Single
+			      r = instanceBackingScaleFactor( m_id )
+			    end if
+			    
 			  #endif
 			  
+			  return r
 			End Get
 		#tag EndGetter
 		BackingScaleFactor As Single
