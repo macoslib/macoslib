@@ -54,6 +54,17 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		140: 2013-07-18 by KT
+		- Added properties to NSWindow for BackingScaleFactor, DocumentEdited, MovableByWindowBackgound, 
+		  RepresentedFile, RepresentedFilename, and RepresentedURL.
+		- Added Constructor and Operator_Convert to NSWindow to allow assignment of a native window.
+		- Added NSObject.RespondsToSelector method.
+		- Added NSWindowExample window.
+		- Modified convenience methods to take advantage of new NSWindow properties.
+		
+		139: 2013-07-17 by KT
+		- Minor changes to WindowExtensions.ScalingFactor. 
+		
 		139: 2013-07-09 by VVB
 		- Added dutch translation.
 		- Added window lion fullscreen methods and menu item.
@@ -264,7 +275,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"139", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"140", Scope = Protected
 	#tag EndConstant
 
 

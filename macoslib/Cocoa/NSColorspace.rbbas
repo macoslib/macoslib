@@ -91,11 +91,9 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a calibrated or device-dependent RGB color space.
 		  
 		  #if TargetMacOS
-		    soft declare function deviceRGBColorSpace lib CocoaLib selector "deviceRGBColorSpace" (class_id as Ptr) as Ptr
+		    declare function deviceRGBColorSpace lib CocoaLib selector "deviceRGBColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = deviceRGBColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(deviceRGBColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -167,11 +165,9 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing an sRGB color space.
 		  
 		  #if TargetMacOS
-		    soft declare function sRGBColorSpace lib CocoaLib selector "sRGBColorSpace" (class_id as Ptr) as Ptr
+		    declare function sRGBColorSpace lib CocoaLib selector "sRGBColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = sRGBColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(sRGBColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -249,13 +245,9 @@ Inherits NSObject
 			  //# Returns the localized name of the NSColorSpace.
 			  
 			  #if TargetMacOS
-			    if me.id = nil then
-			      return ""
-			    end if
-			    
 			    declare function localizedName lib CocoaLib selector "localizedName" (id as Ptr) as CFStringRef
 			    
-			    return  localizedName(me.id)
+			    return localizedName(self)
 			  #endif
 			End Get
 		#tag EndGetter

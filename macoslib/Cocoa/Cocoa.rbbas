@@ -281,21 +281,6 @@ Protected Module Cocoa
 		  
 		  for each objClassName as string in objClassNameTree  //Scan inheritance tree down to NSObject (or root class)
 		    select case objClassName
-		    case "ABAddressBook"
-		      return   new ABAddressBook( id, hasOwnership )
-		      
-		    case "ABGroup"
-		      return   new ABGroup( id, hasOwnership )
-		      
-		    case "ABMultiValue"
-		      return   new ABMultiValue( id, hasOwnership )
-		      
-		    case "ABPerson"
-		      return   new ABPerson( id, hasOwnership )
-		      
-		    case "ABRecord"
-		      return   new ABRecord( id, hasOwnership )
-		      
 		    case "NSApplication"
 		      return  new NSApplication( id, hasOwnership )
 		      

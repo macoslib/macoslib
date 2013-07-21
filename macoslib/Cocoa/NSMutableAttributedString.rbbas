@@ -122,13 +122,6 @@ Inherits NSAttributedString
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  Super.Constructor( id, hasOwnership, "NSMutableAttributedString" )
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Sub EndEditing()
 		  #if TargetMacOS

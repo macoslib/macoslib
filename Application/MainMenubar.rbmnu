@@ -1098,6 +1098,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSWindow
+            SpecialMenu = 0
+            Text = "NSWindow"
+            Index = -2147483648
+            AutoEnable = True
+         End
       End
       Begin MenuItem ExamplesControls
          SpecialMenu = 0

@@ -282,7 +282,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function ComputeColorValue() As Color
 		  #if TargetMacOS
-		    dim c as NSColor = me.ConvertColorspace("NSCalibratedRGBColorSpace")
+		    dim c as NSColor = self.ConvertColorspace("NSCalibratedRGBColorSpace")
 		    
 		    dim red as Single
 		    dim green as Single
@@ -524,11 +524,10 @@ Inherits NSObject
 		  //# Returns the NSColor object specified by the given control tint.
 		  
 		  #if TargetMacOS
-		    soft declare function colorForControlTint lib CocoaLib selector "colorForControlTint:" (id as Ptr, controlTint as NSControlTint) as Ptr
+		    declare function colorForControlTint lib Cocoa selector "colorForControlTint:" (id as Ptr, controlTint as Integer) as Ptr
 		    
-		    dim c as new NSColor
-		    c.m_id = colorForControlTint(NSClassFromString(NSClassName), controlTint)
-		    return c
+		    return new NSColor(colorForControlTint(NSClassFromString(NSClassName), controlTint))
+		    
 		  #else
 		    #pragma unused controlTint
 		  #endif
@@ -600,16 +599,14 @@ Inherits NSObject
 		  //# Creates and returns an NSColor whose color is the same as the NSColor’s, except that the new NSColor is in the specified color space.
 		  
 		  #if TargetMacOS
-		    soft declare function colorUsingColorSpaceName lib CocoaLib selector "colorUsingColorSpaceName:" (id as Ptr, colorSpace as CFStringRef) as Ptr
+		    declare function colorUsingColorSpaceName lib Cocoa selector "colorUsingColorSpaceName:" (id as Ptr, colorSpace as CFStringRef) as Ptr
 		    
-		    dim p as Ptr = colorUsingColorSpaceName(me.id, spaceName)
+		    dim p as Ptr = colorUsingColorSpaceName(self, spaceName)
 		    if p <> nil then
-		      if p = me.id then
-		        return me
+		      if p = self.id then
+		        return self
 		      else
-		        dim c as new NSColor
-		        c.m_id = p
-		        return c
+		        return new NSColor(p)
 		      end if
 		    else
 		      //conversion could not be done
@@ -1023,12 +1020,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function MakeObjectFromClassMethod(d as ClassMethodDelegate) As NSColor
 		  #if TargetMacOS
-		    soft declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
-		    
-		    dim c as new NSColor
-		    c.m_id = d.Invoke(NSClassFromString(NSClassName))
-		    return c
-		    
+		    return new NSColor(d.Invoke(NSClassFromString(NSClassName)))
 		  #else
 		    #pragma unused d
 		  #endif
@@ -1038,7 +1030,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_alternateSelectedControlColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function alternateSelectedControlColor lib CocoaLib selector "alternateSelectedControlColor" (id as Ptr) as Ptr
+		    declare function alternateSelectedControlColor lib Cocoa selector "alternateSelectedControlColor" (id as Ptr) as Ptr
 		    
 		    return alternateSelectedControlColor(class_id)
 		    
@@ -1051,7 +1043,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_alternateSelectedControlTextColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function alternateSelectedControlTextColor lib CocoaLib selector "alternateSelectedControlTextColor" (id as Ptr) as Ptr
+		    declare function alternateSelectedControlTextColor lib Cocoa selector "alternateSelectedControlTextColor" (id as Ptr) as Ptr
 		    
 		    return alternateSelectedControlTextColor(class_id)
 		    
@@ -1064,7 +1056,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_blackColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function blackColor lib CocoaLib selector "blackColor" (id as Ptr) as Ptr
+		    declare function blackColor lib Cocoa selector "blackColor" (id as Ptr) as Ptr
 		    
 		    return blackColor(class_id)
 		    
@@ -1077,7 +1069,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_blueColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function blueColor lib CocoaLib selector "blueColor" (id as Ptr) as Ptr
+		    declare function blueColor lib Cocoa selector "blueColor" (id as Ptr) as Ptr
 		    
 		    return blueColor(class_id)
 		    
@@ -1090,7 +1082,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_brownColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function brownColor lib CocoaLib selector "brownColor" (id as Ptr) as Ptr
+		    declare function brownColor lib Cocoa selector "brownColor" (id as Ptr) as Ptr
 		    
 		    return brownColor(class_id)
 		    
@@ -1103,7 +1095,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_clearColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function clearColor lib CocoaLib selector "clearColor" (id as Ptr) as Ptr
+		    declare function clearColor lib Cocoa selector "clearColor" (id as Ptr) as Ptr
 		    
 		    return clearColor(class_id)
 		    
@@ -1116,7 +1108,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_cyanColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function cyanColor lib CocoaLib selector "cyanColor" (id as Ptr) as Ptr
+		    declare function cyanColor lib Cocoa selector "cyanColor" (id as Ptr) as Ptr
 		    
 		    return cyanColor(class_id)
 		    
@@ -1129,7 +1121,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_darkGrayColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function darkGrayColor lib CocoaLib selector "darkGrayColor" (id as Ptr) as Ptr
+		    declare function darkGrayColor lib Cocoa selector "darkGrayColor" (id as Ptr) as Ptr
 		    
 		    return darkGrayColor(class_id)
 		    
@@ -1142,7 +1134,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_grayColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function grayColor lib CocoaLib selector "grayColor" (id as Ptr) as Ptr
+		    declare function grayColor lib Cocoa selector "grayColor" (id as Ptr) as Ptr
 		    
 		    return grayColor(class_id)
 		    
@@ -1155,7 +1147,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_greenColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function greenColor lib CocoaLib selector "greenColor" (id as Ptr) as Ptr
+		    declare function greenColor lib Cocoa selector "greenColor" (id as Ptr) as Ptr
 		    
 		    return greenColor(class_id)
 		    
@@ -1168,7 +1160,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_lightGrayColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function lightGrayColor lib CocoaLib selector "lightGrayColor" (id as Ptr) as Ptr
+		    declare function lightGrayColor lib Cocoa selector "lightGrayColor" (id as Ptr) as Ptr
 		    
 		    return lightGrayColor(class_id)
 		    
@@ -1181,7 +1173,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_magentaColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function magentaColor lib CocoaLib selector "magentaColor" (id as Ptr) as Ptr
+		    declare function magentaColor lib Cocoa selector "magentaColor" (id as Ptr) as Ptr
 		    
 		    return magentaColor(class_id)
 		    
@@ -1194,7 +1186,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_orangeColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function orangeColor lib CocoaLib selector "orangeColor" (id as Ptr) as Ptr
+		    declare function orangeColor lib Cocoa selector "orangeColor" (id as Ptr) as Ptr
 		    
 		    return orangeColor(class_id)
 		    
@@ -1207,7 +1199,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_purpleColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function purpleColor lib CocoaLib selector "purpleColor" (id as Ptr) as Ptr
+		    declare function purpleColor lib Cocoa selector "purpleColor" (id as Ptr) as Ptr
 		    
 		    return purpleColor(class_id)
 		    
@@ -1220,7 +1212,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_redColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function redColor lib CocoaLib selector "redColor" (id as Ptr) as Ptr
+		    declare function redColor lib Cocoa selector "redColor" (id as Ptr) as Ptr
 		    
 		    return redColor(class_id)
 		    
@@ -1233,7 +1225,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_whiteColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function whiteColor lib CocoaLib selector "whiteColor" (id as Ptr) as Ptr
+		    declare function whiteColor lib Cocoa selector "whiteColor" (id as Ptr) as Ptr
 		    
 		    return whiteColor(class_id)
 		    
@@ -1246,23 +1238,13 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function m_yellowColor(class_id as Ptr) As Ptr
 		  #if TargetMacOS
-		    soft declare function yellowColor lib CocoaLib selector "yellowColor" (id as Ptr) as Ptr
+		    declare function yellowColor lib Cocoa selector "yellowColor" (id as Ptr) as Ptr
 		    
 		    return yellowColor(class_id)
 		    
 		  #else
 		    #pragma unused class_id
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Operator_Compare(c as NSColor) As Integer
-		  if c is nil then
-		    return 1
-		  else
-		    return Integer(me.id) - Integer(c.id)
-		  end if
 		End Function
 	#tag EndMethod
 
@@ -1961,9 +1943,9 @@ Inherits NSObject
 			  //# Returns the name of the NSColor's color space.
 			  
 			  #if TargetMacOS
-			    soft declare function colorSpaceName lib CocoaLib selector "colorSpaceName" (id as Ptr) as CFStringRef
+			    declare function colorSpaceName lib Cocoa selector "colorSpaceName" (id as Ptr) as CFStringRef
 			    
-			    return colorSpaceName(me.id)
+			    return colorSpaceName(self)
 			  #endif
 			End Get
 		#tag EndGetter

@@ -36,7 +36,7 @@ Inherits NSCharacterSet
 		  #if TargetMacOS
 		    declare sub addCharactersInString lib CocoaLib selector "addCharactersInString:" (id as Ptr, thestr as CFStringRef)
 		    
-		    addCharactersInString( me.id, theString )
+		    addCharactersInString(self, theString)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -164,26 +164,8 @@ Inherits NSCharacterSet
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  '#if TargetMacOS
-		  'me.m_id = NSObject.Initialize( NSObject.Allocate( "NSMutableCharacterSet" ))
-		  '#endif
-		  
-		  super.Constructor(Initialize(Allocate("NSMutableCharacterSet")), NSMutableCharacterSet.hasOwnership)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function ControlCharacterSet() As NSMutableCharacterSet
-		  
 		  #if TargetMacOS
-		    declare function controlCharacterSet lib CocoaLib selector "controlCharacterSet" (obj_id as Ptr) as Ptr
-		    
-		    dim charSetRef as Ptr = controlCharacterSet(ClassRef)
-		    if charSetRef <> nil then
-		      return new NSMutableCharacterSet(charSetRef)
-		    end if
-		    
+		    self.Constructor(NSObject.Initialize(NSObject.Allocate("NSMutableCharacterSet")), hasOwnership)
 		  #endif
 		  
 		End Function
@@ -226,7 +208,7 @@ Inherits NSCharacterSet
 		  #if TargetMacOS
 		    declare sub formIntersectionWithCharacterSet lib CocoaLib selector "formIntersectionWithCharacterSet:" (id as Ptr, chars as Ptr)
 		    
-		    formIntersectionWithCharacterSet   me.id, charSet.id
+		    formIntersectionWithCharacterSet(self, charSet)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -236,7 +218,7 @@ Inherits NSCharacterSet
 		  #if TargetMacOS
 		    declare sub formUnionWithCharacterSet lib CocoaLib selector "formUnionWithCharacterSet:" (id as Ptr, chars as Ptr)
 		    
-		    formUnionWithCharacterSet   me.id, charSet.id
+		    formUnionWithCharacterSet(self, charSet)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -403,9 +385,15 @@ Inherits NSCharacterSet
 	#tag Method, Flags = &h0
 		Sub RemoveCharactersInString(theString as CFStringRef)
 		  #if TargetMacOS
-		    declare sub removeCharactersInString lib CocoaLib selector "removeCharactersInString:" (id as Ptr, thestr as CFStringRef)
+		    declare sub removeCharactersInString lib CocoaLib selector "removeCharactersInString:" (id as Ptr, aString as Ptr)
+		    declare sub string_ lib CocoaLib selector "string" (class_id as Ptr)
 		    
-		    removeCharactersInString( me.id, theString )
+		    if theString = nil then
+		      //we treat it the same as an empty string; removeCharactersInString does nothing when aString = "". 
+		      return
+		    end if
+		    
+		    removeCharactersInString(self, theString)
 		  #endif
 		End Sub
 	#tag EndMethod
