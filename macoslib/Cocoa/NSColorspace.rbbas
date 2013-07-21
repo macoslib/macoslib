@@ -6,7 +6,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing an Adobe RGB (1998) color space.
 		  
 		  #if TargetMacOS
-		    soft declare function adobeRGB1998ColorSpace lib CocoaLib selector "adobeRGB1998ColorSpace" (class_id as Ptr) as Ptr
+		    declare function adobeRGB1998ColorSpace lib CocoaLib selector "adobeRGB1998ColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(adobeRGB1998ColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
@@ -61,7 +61,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a calibrated or device-dependent CMYK color space.
 		  
 		  #if TargetMacOS
-		    soft declare function deviceCMYKColorSpace lib CocoaLib selector "deviceCMYKColorSpace" (class_id as Ptr) as Ptr
+		    declare function deviceCMYKColorSpace lib CocoaLib selector "deviceCMYKColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(deviceCMYKColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
@@ -73,7 +73,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a calibrated or device-dependent gray color space.
 		  
 		  #if TargetMacOS
-		    soft declare function deviceGrayColorSpace lib CocoaLib selector "deviceGrayColorSpace" (class_id as Ptr) as Ptr
+		    declare function deviceGrayColorSpace lib CocoaLib selector "deviceGrayColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(deviceGrayColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
@@ -97,7 +97,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a device-independent RGB color space.
 		  
 		  #if TargetMacOS
-		    soft declare function genericCMYKColorSpace lib CocoaLib selector "genericCMYKColorSpace" (class_id as Ptr) as Ptr
+		    declare function genericCMYKColorSpace lib CocoaLib selector "genericCMYKColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(genericCMYKColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
@@ -109,7 +109,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a gray color space with a gamma value of 2.2.
 		  
 		  #if TargetMacOS
-		    soft declare function genericGamma22GrayColorSpace lib CocoaLib selector "genericGamma22GrayColorSpace" (class_id as Ptr) as Ptr
+		    declare function genericGamma22GrayColorSpace lib CocoaLib selector "genericGamma22GrayColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(genericGamma22GrayColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
@@ -121,7 +121,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a device-independent gray color space.
 		  
 		  #if TargetMacOS
-		    soft declare function genericGrayColorSpace lib CocoaLib selector "genericGrayColorSpace" (class_id as Ptr) as Ptr
+		    declare function genericGrayColorSpace lib CocoaLib selector "genericGrayColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(genericGrayColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
@@ -133,7 +133,7 @@ Inherits NSObject
 		  //# Returns an NSColorSpace object representing a device-independent RGB color space.
 		  
 		  #if TargetMacOS
-		    soft declare function genericRGBColorSpace lib CocoaLib selector "genericRGBColorSpace" (class_id as Ptr) as Ptr
+		    declare function genericRGBColorSpace lib CocoaLib selector "genericRGBColorSpace" (class_id as Ptr) as Ptr
 		    
 		    return new NSColorspace(genericRGBColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif

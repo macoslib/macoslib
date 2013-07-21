@@ -3,7 +3,7 @@ Class NotificationObserver
 	#tag Method, Flags = &h21
 		Private Shared Function AddInstanceMethod(class_id as Ptr, name as String, impl as Ptr, types as String) As Boolean
 		  #if targetMacOS
-		    soft declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
 		    
 		    return class_addMethod(class_id, Cocoa.NSSelectorFromString(name), impl, types)
 		  #endif
@@ -20,8 +20,8 @@ Class NotificationObserver
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  #if targetMacOS
-		    soft declare function alloc lib CocoaLIb selector "alloc" (classRef as Ptr) as Ptr
-		    soft declare function init lib CocoaLIb selector "init" (id as Ptr) as Ptr
+		    declare function alloc lib CocoaLIb selector "alloc" (classRef as Ptr) as Ptr
+		    declare function init lib CocoaLIb selector "init" (id as Ptr) as Ptr
 		    
 		    self.Observer = init(alloc(ClassRef))
 		    ObjectMap.Value(self.Observer) = new WeakRef(self)
@@ -105,7 +105,7 @@ Class NotificationObserver
 		  
 		  
 		  #if TargetMacOS
-		    soft declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
+		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
@@ -113,7 +113,7 @@ Class NotificationObserver
 		      return nil
 		    end if
 		    
-		    soft declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
+		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    
 		    objc_registerClassPair newClassId
 		    const MethodTypeEncoding = "v@:@"

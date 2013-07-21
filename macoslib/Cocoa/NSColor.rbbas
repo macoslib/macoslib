@@ -290,23 +290,23 @@ Inherits NSObject
 		    dim alpha as Single
 		    
 		    #if RBVersion >= 2011.04
-		      soft declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, ByRef alpha as Single)
+		      declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, ByRef alpha as Single)
 		      
 		      if c<>nil then
 		        getRGBComponents c.id, red, green, blue, alpha
 		      else
-		        getRGBComponents me.id, red, green, blue, alpha
+		        getRGBComponents self, red, green, blue, alpha
 		      end if
 		      
 		      return RGB(255.0*red, 255.0*green, 255.0*blue, (255.0-alpha)*255.0)
 		      
 		    #else
-		      soft declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, alpha as Ptr)
+		      declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, alpha as Ptr)
 		      
 		      if c<>nil then
 		        getRGBComponents c.id, red, green, blue, nil
 		      else
-		        getRGBComponents me.id, red, green, blue, nil
+		        getRGBComponents self, red, green, blue, nil
 		      end if
 		      
 		      return RGB(255.0*red, 255.0*green, 255.0*blue)

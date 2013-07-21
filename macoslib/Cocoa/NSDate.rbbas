@@ -355,7 +355,7 @@ Inherits NSObject
 		  //# Creates and returns a new date set to the current date and time.
 		  
 		  #if targetMacOS
-		    soft declare function date lib CocoaLib selector "date" (class_id as Ptr) as Ptr
+		    declare function date lib CocoaLib selector "date" (class_id as Ptr) as Ptr
 		    
 		    return new NSDate(date(Cocoa.NSClassFromString("NSDate")))
 		  #endif
