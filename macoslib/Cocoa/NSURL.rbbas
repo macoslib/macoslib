@@ -1228,12 +1228,12 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function pathExtension() As NSString
-		  // Added by Kem Tekinay.
+		  // Added by Kem Tekinay, modified by Vidal v. Bergen.
 		  
 		  #if TargetMacOS
-		    declare function instancePathExtension lib CocoaLib selector "pathExtension" (id as Ptr) as Ptr
+		    declare function pathExtension lib CocoaLib selector "pathExtension" (id as Ptr) as CFStringRef
 		    
-		    return new NSString( instancePathExtension( m_id ), false )
+		    return pathExtension(self)
 		    
 		  #endif
 		End Function
@@ -1955,11 +1955,41 @@ Inherits NSObject
 			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Fragment"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Host"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsFile"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsFileReference"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsReachable"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LastPathComponent"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1975,6 +2005,51 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ParameterString"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Password"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Path"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PathExtension"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Port"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Query"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RelativePath"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RelativeString"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Scheme"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -1986,6 +2061,11 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="User"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

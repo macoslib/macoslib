@@ -8,9 +8,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function adobeRGB1998ColorSpace lib CocoaLib selector "adobeRGB1998ColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = adobeRGB1998ColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(adobeRGB1998ColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -65,9 +63,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function deviceCMYKColorSpace lib CocoaLib selector "deviceCMYKColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = deviceCMYKColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(deviceCMYKColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -79,9 +75,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function deviceGrayColorSpace lib CocoaLib selector "deviceGrayColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = deviceGrayColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(deviceGrayColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -105,9 +99,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function genericCMYKColorSpace lib CocoaLib selector "genericCMYKColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = genericCMYKColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(genericCMYKColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -119,9 +111,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function genericGamma22GrayColorSpace lib CocoaLib selector "genericGamma22GrayColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = genericGamma22GrayColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(genericGamma22GrayColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -133,9 +123,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function genericGrayColorSpace lib CocoaLib selector "genericGrayColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = genericGrayColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(genericGrayColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -147,9 +135,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    soft declare function genericRGBColorSpace lib CocoaLib selector "genericRGBColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s.m_id = genericRGBColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(genericRGBColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod

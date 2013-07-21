@@ -284,7 +284,7 @@ Inherits NSResponder
 	#tag Method, Flags = &h1000
 		Sub Constructor(w as Window)
 		  
-		  super.Constructor(Ptr(w.handle))
+		  super.Constructor(Ptr(w.handle), not hasOwnership)
 		  
 		End Sub
 	#tag EndMethod
@@ -1058,6 +1058,13 @@ Inherits NSResponder
 		  return name
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Operator_Convert(w As Window)
+		  me.Constructor( w )
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1974,7 +1981,8 @@ Inherits NSResponder
 			    declare function backingScaleFactor lib CocoaLib selector "backingScaleFactor" (obj_id as Ptr) as Single
 			    
 			    return backingScaleFactor(self)
-			    
+			  #else
+			    return 1
 			  #endif
 			  
 			End Get
@@ -2553,6 +2561,36 @@ Inherits NSResponder
 			End Get
 		#tag EndGetter
 		DockTile As NSDockTile
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function IsDocumentEdited lib CarbonLib selector "isDocumentEdited" ( id As Ptr ) As Boolean
+			    // Introduced in MacOS X 10.0.
+			    
+			    return IsDocumentEdited( self )
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetMacOS
+			    
+			    declare sub SetDocumentEdited lib CarbonLib selector "setDocumentEdited:" ( id As Ptr, value As Boolean )
+			    // Introduced in MacOS X 10.0.
+			    
+			    SetDocumentEdited( self, value )
+			    
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		DocumentEdited As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3378,6 +3416,36 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #if TargetCocoa
+			    
+			    declare function IsMovableByWindowBackground lib CarbonLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
+			    // Introduced in MacOS X 10.2.
+			    
+			    return IsMovableByWindowBackground( self )
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa
+			    
+			    declare sub SetMovableByWindowBackground lib CarbonLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
+			    // Introduced in MacOS X 10.2.
+			    
+			    SetMovableByWindowBackground( self, value )
+			    
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		MovableByBackground As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if TargetCocoa
 			    declare function isOneShot lib CocoaLib selector "isOneShot" (obj_id as Ptr) as Boolean
@@ -3564,6 +3632,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		RepresentedFile As FolderItem
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim name as String
+			  
+			  #if TargetCocoa
+			    
+			    declare function instanceRepresentedFilename lib CarbonLib selector "representedFilename" ( id As Ptr ) As CFStringRef
+			    // Introduced in MacOS X 10.0.
+			    
+			    name = instanceRepresentedFilename( self )
+			    
+			  #endif
+			  
+			  return name
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa
+			    
+			    declare sub instanceSetTitleWithRepresentedFilename lib CocoaLib selector "setTitleWithRepresentedFilename:" ( id as Ptr, name as CFStringRef )
+			    // Introduced in MacOS X 10.0.
+			    
+			    instanceSetTitleWithRepresentedFilename( self, value )
+			    
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		RepresentedFilename As String
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

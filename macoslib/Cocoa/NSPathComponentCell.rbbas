@@ -59,11 +59,11 @@ Class NSPathComponentCell
 			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare function getURL lib Cocoa selector "URL" (id as Ptr) as Ptr
+			      soft declare function getURL lib CocoaLib selector "URL" (id as Ptr) as Ptr
 			      
 			      dim p as Ptr = getURL(me.id)
 			      if p <> nil then
-			        soft declare function absoluteString lib Cocoa selector "absoluteString" (id as Ptr) as CFStringRef
+			        soft declare function absoluteString lib CocoaLib selector "absoluteString" (id as Ptr) as CFStringRef
 			        return absoluteString(p)
 			      else
 			        return ""

@@ -168,7 +168,7 @@ Inherits NSCharacterSet
 		    self.Constructor(NSObject.Initialize(NSObject.Allocate("NSMutableCharacterSet")), hasOwnership)
 		  #endif
 		  
-		End Function
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -383,13 +383,13 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveCharactersInString(theString as CFStringRef)
+		Sub RemoveCharactersInString(theString as NSString)
 		  #if TargetMacOS
 		    declare sub removeCharactersInString lib CocoaLib selector "removeCharactersInString:" (id as Ptr, aString as Ptr)
 		    declare sub string_ lib CocoaLib selector "string" (class_id as Ptr)
 		    
 		    if theString = nil then
-		      //we treat it the same as an empty string; removeCharactersInString does nothing when aString = "". 
+		      //we treat it the same as an empty string; removeCharactersInString does nothing when aString = "".
 		      return
 		    end if
 		    

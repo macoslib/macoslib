@@ -173,13 +173,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  Super.Constructor( id, hasOwnership, "NSAttributedString" )
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
 		Sub Constructor(text as String)
 		  //# Returns an NSAttributedString object initialized with the characters of a given string and no attribute information.
 		  
