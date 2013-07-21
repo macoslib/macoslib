@@ -10,7 +10,7 @@ Inherits NSAttributedString
 		      m_Mutable = true
 		    end if
 		    
-		    me.m_id = fromNSAttributedString.id
+		    self.Constructor(fromNSAttributedString.id)
 		    NSbacking = fromNSAttributedString
 		    selection = Cocoa.NSMakeRange( 0, 0 )
 		  #endif
@@ -116,7 +116,7 @@ Inherits NSAttributedString
 			Get
 			  //# Handle of the object
 			  
-			  return Integer( m_id )
+			  return Integer(self.id)
 			End Get
 		#tag EndGetter
 		Handle As integer

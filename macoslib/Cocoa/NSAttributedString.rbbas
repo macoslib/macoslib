@@ -55,13 +55,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  Super.Constructor( id, hasOwnership, "NSAttributedString" )
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
 		Sub Constructor(text as String)
 		  #if TargetMacOS
 		    declare function initWithString lib CocoaLib selector "initWithString:" (id as Ptr, theString as CFStringRef) as Ptr
