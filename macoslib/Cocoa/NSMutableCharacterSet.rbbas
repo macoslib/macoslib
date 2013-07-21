@@ -172,6 +172,17 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function ControlCharacterSet() As NSMutableCharacterSet
+		  
+		  #if TargetMacOS
+		    declare function controlCharacterSet lib CocoaLib selector "controlCharacterSet" (obj_id as Ptr) as Ptr
+		    
+		    return new NSMutableCharacterSet(controlCharacterSet(ClassRef))
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function DecimalDigitCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
