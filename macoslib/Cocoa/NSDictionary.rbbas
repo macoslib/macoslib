@@ -40,13 +40,6 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  Super.Constructor( id, hasOwnership, "NSDictionary" )
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function Copy() As NSDictionary
 		  #if TargetMacOS

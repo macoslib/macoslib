@@ -13,8 +13,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
-		  me.m_id = NSObject.Initialize( NSObject.Allocate( "NSPasteboardItem" ))
+		  self.Constructor(NSObject.Initialize(NSObject.Allocate( "NSPasteboardItem")), hasOwnership)
 		  
 		End Sub
 	#tag EndMethod

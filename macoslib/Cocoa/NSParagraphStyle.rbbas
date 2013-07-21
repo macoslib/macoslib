@@ -1,19 +1,6 @@
 #tag Class
 Class NSParagraphStyle
 Inherits NSObject
-	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
-		  
-		  Super.Constructor( id, hasOwnership, "NSParagraphStyle" )
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		 Shared Function Default() As NSParagraphStyle
 		  //# Returns the default paragraph style
