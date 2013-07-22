@@ -58,11 +58,11 @@ Protected Module GeneralExtensions
 
 	#tag Method, Flags = &h0
 		Function InRange(extends Value as Double, Min as Double = 0, Max as Double = 32767) As Boolean
-		  If Value <= Min And Value <= Max Then
+		  if Value <= Min And Value <= Max then
 		    return True
 		  else
-		    return false
-		  End If
+		    return False
+		  end if
 		End Function
 	#tag EndMethod
 

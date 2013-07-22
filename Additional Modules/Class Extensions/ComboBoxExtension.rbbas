@@ -282,38 +282,30 @@ Protected Module ComboBoxExtension
 
 	#tag Method, Flags = &h0
 		Function SingleValue(Extends c as ComboBox) As Single
+		  //# Returns the value of the combo box’s cell as a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    
 		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Single
 		    
 		    return floatValue(c.handle)
-		    
 		  #else
-		    
 		    #pragma unused c
-		    
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub SingleValue(Extends c as ComboBox, Assigns value as Single)
+		  //# Sets the value of the combo box's cell using a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    
 		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Single)
 		    
 		    setFloatValue(c.handle, value)
-		    
 		  #else
-		    
 		    #pragma unused c
 		    #pragma unused value
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 

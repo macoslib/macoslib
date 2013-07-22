@@ -54,6 +54,10 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		141: 2013-07-22 by VVB
+		- Merged the vallebox project back into the most recent version of macoslib with a few slight modifications here and there.
+		  (http://code.google.com/r/vallebox--macoslib/)
+		
 		140: 2013-07-18 by KT
 		- Added properties to NSWindow for BackingScaleFactor, DocumentEdited, MovableByWindowBackgound, 
 		  RepresentedFile, RepresentedFilename, and RepresentedURL.
@@ -275,7 +279,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"140", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"141", Scope = Protected
 	#tag EndConstant
 
 

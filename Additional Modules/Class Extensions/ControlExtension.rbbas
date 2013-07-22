@@ -2,6 +2,7 @@
 Protected Module ControlExtension
 	#tag Method, Flags = &h0
 		Function AlphaValue(extends c as Control) As Single
+		  //# Returns the opacity of the control
 		  
 		  #if TargetCocoa then
 		    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Integer) as Single
@@ -19,6 +20,7 @@ Protected Module ControlExtension
 
 	#tag Method, Flags = &h0
 		Sub AlphaValue(extends c as Control, Assigns alpha as Single)
+		  //# Sets the opacity of the control.
 		  
 		  #if TargetCocoa
 		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Integer, alpha as Single)
@@ -159,6 +161,7 @@ Protected Module ControlExtension
 
 	#tag Method, Flags = &h0
 		Sub FrameCenterRotation(extends c as Control, Assigns angle as Single)
+		  //# Rotates the frame of the control about the layer’s position.
 		  
 		  #if TargetCocoa then
 		    declare sub setFrameCenterRotation lib CocoaLib selector "setFrameCenterRotation:" (obj_id as Integer, angle as Single)
@@ -177,6 +180,7 @@ Protected Module ControlExtension
 
 	#tag Method, Flags = &h0
 		Function FrameRotation(extends c as Control) As Single
+		  //# Returns the control’s rotation about the layer’s position.
 		  
 		  #if TargetCocoa then
 		    declare function frameRotation lib CocoaLib selector "frameRotation" (obj_id as Integer) as Single
@@ -212,6 +216,7 @@ Protected Module ControlExtension
 
 	#tag Method, Flags = &h0
 		Sub RotateByAngle(extends c as Control, angle as Single)
+		  //# Rotates the control’s bounds rectangle by a specified degree value around the origin of the coordinate system, (0.0, 0.0).
 		  
 		  #if TargetCocoa
 		    declare sub rotateByAngle lib CocoaLib selector "rotateByAngle:" (obj_id as Integer, angle as Single)
