@@ -19,16 +19,12 @@ Inherits CocoaMenuItem
 		      
 		      declare function GetStyleMask lib CocoaLib selector "styleMask" (target as Integer) as Integer
 		      
-		      try
-		        // Set the text correctly depending on the fullscreen mode of the frontmost window
-		        if ( GetStyleMask(w.Handle) = 16399 ) then
-		          self.Text = LocalizedTextExitFullscreen
-		        else
-		          self.Text = LocalizedTextEnterFullscreen
-		        end if
-		      Catch err as RuntimeException
-		        // Ignore if no window is available.
-		      end try
+		      // Set the text correctly depending on the fullscreen mode of the frontmost window
+		      if ( GetStyleMask(w.Handle) = kWindowMaskFullScreen ) then
+		        self.Text = LocalizedTextExitFullscreen
+		      else
+		        self.Text = LocalizedTextEnterFullscreen
+		      end if
 		      
 		    end if
 		  #else
