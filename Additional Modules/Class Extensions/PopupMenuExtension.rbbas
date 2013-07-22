@@ -91,7 +91,6 @@ Protected Module PopupMenuExtension
 		    return bezelStyle(p.Handle)
 		  #else
 		    #pragma Unused p
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -159,7 +158,6 @@ Protected Module PopupMenuExtension
 		    return isBordered(p.Handle)
 		  #else
 		    #pragma Unused p
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -191,7 +189,6 @@ Protected Module PopupMenuExtension
 		    return isTransparent(p.Handle)
 		  #else
 		    #pragma Unused p
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -346,7 +343,6 @@ Protected Module PopupMenuExtension
 		    return showsBorderOnlyWhileMouseInside(p.Handle)
 		  #else
 		    #pragma Unused p
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod

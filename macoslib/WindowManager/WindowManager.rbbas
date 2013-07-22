@@ -222,7 +222,6 @@ Module WindowManager
 		    end if
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod

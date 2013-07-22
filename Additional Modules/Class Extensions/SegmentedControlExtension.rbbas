@@ -42,7 +42,6 @@ Protected Module SegmentedControlExtension
 		  #else
 		    #pragma unused s
 		    #pragma unused segment
-		    #pragma unused width
 		  #endif
 		End Function
 	#tag EndMethod
@@ -58,7 +57,7 @@ Protected Module SegmentedControlExtension
 		  #else
 		    #pragma unused s
 		    #pragma unused segment
-		    #pragma unused width
+		    #pragma unused image
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -90,7 +89,6 @@ Protected Module SegmentedControlExtension
 		  #else
 		    #pragma Unused s
 		    #pragma Unused segment
-		    #pragma Unused text
 		  #endif
 		End Function
 	#tag EndMethod
@@ -184,7 +182,6 @@ Protected Module SegmentedControlExtension
 		    return selectedSegment(s.Handle)
 		  #else
 		    #pragma Unused s
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
