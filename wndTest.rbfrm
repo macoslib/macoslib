@@ -121,6 +121,13 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  self.FullScreenAllowed = true
+		End Sub
+	#tag EndEvent
+
+
 #tag EndWindowCode
 
 #tag Events PushButton1

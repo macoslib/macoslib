@@ -108,7 +108,6 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Untitled"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -174,7 +173,6 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "No file specified"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -240,7 +238,6 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "(Except this doesn't seem to work)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -275,7 +272,6 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "BackingScaleFactor:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -310,7 +306,6 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0.
       TextAlign       =   0
       TextColor       =   &h000000
@@ -376,7 +371,6 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "(Will put or remove the grey dot from the close button. If you've specified a file above, will also dim the icon.)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -407,6 +401,8 @@ End
 		  else
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
+		  
+		  self.FullScreenAllowed = true // Allow fullscreen mode
 		  
 		  UpdateBackingScaleFactor
 		End Sub
