@@ -3,6 +3,12 @@ Class NSWindow
 Inherits NSResponder
 	#tag Method, Flags = &h1000
 		Sub Constructor(w As Window)
+		  if w = nil then
+		    dim e as new NilObjectException
+		    e.Message = CurrentMethodName + ": w cannot be nil."
+		    raise e
+		  end if
+		  
 		  Super.Constructor( Ptr( w.Handle ), not hasOwnership )
 		  
 		End Sub
@@ -19,13 +25,13 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  dim r as double = 1.
+			  dim r as double = 1.0
 			  
 			  #if TargetCocoa
 			    
 			    if me.RespondsToSelector( "backingScaleFactor" ) then
 			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) As Single
-			      r = instanceBackingScaleFactor( m_id )
+			      r = instanceBackingScaleFactor(self)
 			    end if
 			    
 			  #endif
@@ -45,7 +51,7 @@ Inherits NSResponder
 			    declare function IsDocumentEdited lib CarbonLib selector "isDocumentEdited" ( id As Ptr ) As Boolean
 			    // Introduced in MacOS X 10.0.
 			    
-			    return IsDocumentEdited( m_id )
+			    return IsDocumentEdited(self)
 			    
 			  #endif
 			  
@@ -58,7 +64,7 @@ Inherits NSResponder
 			    declare sub SetDocumentEdited lib CarbonLib selector "setDocumentEdited:" ( id As Ptr, value As Boolean )
 			    // Introduced in MacOS X 10.0.
 			    
-			    SetDocumentEdited( m_id, value )
+			    SetDocumentEdited(self, value)
 			    
 			  #endif
 			  
@@ -75,7 +81,7 @@ Inherits NSResponder
 			    declare function IsMovableByWindowBackground lib CarbonLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
 			    // Introduced in MacOS X 10.2.
 			    
-			    return IsMovableByWindowBackground( m_id )
+			    return IsMovableByWindowBackground(self)
 			    
 			  #endif
 			  
@@ -88,7 +94,7 @@ Inherits NSResponder
 			    declare sub SetMovableByWindowBackground lib CarbonLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
 			    // Introduced in MacOS X 10.2.
 			    
-			    SetMovableByWindowBackground( m_id, value )
+			    SetMovableByWindowBackground(self, value )
 			    
 			  #endif
 			  
@@ -104,7 +110,7 @@ Inherits NSResponder
 			  
 			  #if TargetMacOS
 			    
-			    dim url as NSURL = me.RepresentedURL
+			    dim url as NSURL = self.RepresentedURL
 			    if url <> nil then
 			      f = url.Item
 			    end if
@@ -152,7 +158,7 @@ Inherits NSResponder
 			    declare function instanceRepresentedFilename lib CarbonLib selector "representedFilename" ( id As Ptr ) As CFStringRef
 			    // Introduced in MacOS X 10.0.
 			    
-			    name = instanceRepresentedFilename( m_id )
+			    name = instanceRepresentedFilename(self)
 			    
 			  #endif
 			  
@@ -167,7 +173,7 @@ Inherits NSResponder
 			    declare sub instanceSetTitleWithRepresentedFilename lib CocoaLib selector "setTitleWithRepresentedFilename:" ( id as Ptr, name as CFStringRef )
 			    // Introduced in MacOS X 10.0.
 			    
-			    instanceSetTitleWithRepresentedFilename( m_id, value )
+			    instanceSetTitleWithRepresentedFilename(self, value )
 			    
 			  #endif
 			  
@@ -181,17 +187,15 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa
 			    
-			    dim url as NSURL
-			    
 			    declare function instanceRepresentedURL lib CarbonLib selector "representedURL" ( id As Ptr ) As Ptr
 			    // Introduced in MacOS X 10.5.
 			    
-			    dim p as Ptr = instanceRepresentedURL( m_id )
+			    dim p as Ptr = instanceRepresentedURL(self)
 			    if p <> nil then
-			      url = new NSURL( p, not hasOwnership )
+			      return new NSURL(p, not hasOwnership)
+			    else
+			      return nil
 			    end if
-			    
-			    return url
 			    
 			  #endif
 			  
@@ -205,9 +209,9 @@ Inherits NSResponder
 			    // Introduced in MacOS X 10.5.
 			    
 			    if value = nil then
-			      instanceSetRepresentedURL( m_id, nil )
+			      instanceSetRepresentedURL(self, nil)
 			    else
-			      instanceSetRepresentedURL( m_id, value.id )
+			      instanceSetRepresentedURL(self, value)
 			    end if
 			    
 			  #endif
@@ -220,11 +224,21 @@ Inherits NSResponder
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BackingScaleFactor"
+			Group="Behavior"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DocumentEdited"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -239,6 +253,11 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MovableByBackground"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
