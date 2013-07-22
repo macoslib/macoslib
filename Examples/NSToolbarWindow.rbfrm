@@ -12,14 +12,14 @@ Begin Window NSToolbarWindow
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
-   MaximizeButton  =   True
+   MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   593336822
+   MenuBar         =   ""
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
    MinWidth        =   64
-   Placement       =   3
+   Placement       =   0
    Resizeable      =   True
    Title           =   "NSToolbar Example"
    Visible         =   True
@@ -145,7 +145,7 @@ Begin Window NSToolbarWindow
       TabPanelIndex   =   0
       TabStop         =   ""
       TextFont        =   "System"
-      TextSize        =   0.0
+      TextSize        =   0
       Top             =   -74
       Underlined      =   false
       UseFocusRing    =   ""
@@ -206,7 +206,6 @@ Begin Window NSToolbarWindow
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Enable/Disable item:"
       TextAlign       =   2
       TextColor       =   0
