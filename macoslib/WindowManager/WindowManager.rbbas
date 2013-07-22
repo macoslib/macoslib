@@ -195,30 +195,38 @@ Module WindowManager
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub EnableFullScreenSupport()
+		  #If TargetCocoa
+		    
+		    If IsLion And FullScreenEnabled = False Then
+		      declare Function objc_getClass lib CocoaLib (aClassName As CString) As Integer
+		      declare Function GetSharedApplication lib CocoaLib Selector "sharedApplication" (target As Integer) As Integer
+		      declare Sub SetPresentationOptions lib CocoaLib Selector "setPresentationOptions:" (target As Integer, options As Integer)
+		      
+		      Dim appclass As Integer = objc_getClass("NSApplication")
+		      If appclass > 0 Then
+		        Dim appid As Integer = GetSharedApplication(appclass)
+		        If appid > 0 Then
+		          SetPresentationOptions(appid,NSApplicationPresentationFullScreen)
+		          FullScreenEnabled = True
+		        End
+		      End
+		      
+		    End
+		  #EndIf
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function FullScreenAllowed(extends w as Window) As Boolean
 		  //# Indicates whether the window can enter full screen mode
 		  
 		  #if TargetCocoa then
 		    if IsLion then
-		      const NSWindowCollectionBehaviorDefault               = 0
-		      'const NSWindowCollectionBehaviorCanJoinAllSpaces      = 1
-		      'const NSWindowCollectionBehaviorMoveToActiveSpace     = 2
-		      'const NSWindowCollectionBehaviorManaged               = 4
-		      'const NSWindowCollectionBehaviorTransient             = 8
-		      'const NSWindowCollectionBehaviorStationary            = 16
-		      'const NSWindowCollectionBehaviorParticipatesInCycles  = 32
-		      'const NSWindowCollectionBehaviorIgnoreCycles          = 64
-		      const NSWindowCollectionBehaviorFullScreenPrimary     = 128
-		      const NSWindowCollectionBehaviorFullScreenAuxillary   = 256
+		      declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
 		      
-		      try
-		        declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
-		        
-		        return ( collectionBehavior(w) = NSWindowCollectionBehaviorFullScreenPrimary )
-		      catch err as RuntimeException
-		      end try
-		      
+		      return collectionBehavior(w) = kWindowCollectionBehaviorFullScreenPrimary
 		    end if
 		  #else
 		    #pragma Unused w
@@ -231,30 +239,18 @@ Module WindowManager
 		  //# Allows the window to enter full screen mode
 		  
 		  #if TargetCocoa then
+		    if FullScreenEnabled = false then
+		      EnableFullScreenSupport
+		    end if
+		    
 		    if IsLion then
-		      const NSWindowCollectionBehaviorDefault               = 0
-		      'const NSWindowCollectionBehaviorCanJoinAllSpaces      = 1
-		      'const NSWindowCollectionBehaviorMoveToActiveSpace     = 2
-		      'const NSWindowCollectionBehaviorManaged               = 4
-		      'const NSWindowCollectionBehaviorTransient             = 8
-		      'const NSWindowCollectionBehaviorStationary            = 16
-		      'const NSWindowCollectionBehaviorParticipatesInCycles  = 32
-		      'const NSWindowCollectionBehaviorIgnoreCycles          = 64
-		      const NSWindowCollectionBehaviorFullScreenPrimary     = 128
-		      const NSWindowCollectionBehaviorFullScreenAuxillary   = 256
+		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
 		      
-		      
-		      try
-		        declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
-		        
-		        if Value then
-		          setCollectionBehavior( w, NSWindowCollectionBehaviorFullScreenPrimary )
-		        else
-		          setCollectionBehavior( w, NSWindowCollectionBehaviorDefault )
-		        end if
-		      catch err as RuntimeException
-		      end try
-		      
+		      if Value then
+		        setCollectionBehavior( w, kWindowCollectionBehaviorFullScreenPrimary )
+		      else
+		        setCollectionBehavior( w, kWindowCollectionBehaviorDefault )
+		      end if
 		      
 		    end if
 		  #else
@@ -482,12 +478,9 @@ Module WindowManager
 		  
 		  #if TargetCocoa then
 		    if IsLion then
-		      try
-		        declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
-		        
-		        toggleFullScreen(w,nil)
-		      catch err as RuntimeException
-		      end try
+		      declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
+		      
+		      toggleFullScreen(w,nil)
 		    end if
 		  #else
 		    #pragma Unused w
@@ -517,6 +510,11 @@ Module WindowManager
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 	#tag EndNote
+
+
+	#tag Property, Flags = &h21
+		Private FullScreenEnabled As Boolean = False
+	#tag EndProperty
 
 
 	#tag Constant, Name = kAlertWindowClass, Type = Double, Dynamic = False, Default = \"1", Scope = Public
@@ -571,6 +569,36 @@ Module WindowManager
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowCollapseBoxRgn, Type = Double, Dynamic = False, Default = \"7", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorCanJoinAllSpaces, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorDefault, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorFullScreenAuxillary, Type = Double, Dynamic = False, Default = \"256", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorFullScreenPrimary, Type = Double, Dynamic = False, Default = \"128", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorIgnoreCycles, Type = Double, Dynamic = False, Default = \"64", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorManaged, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorMoveToActiveSpace, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorParticipatesInCycles, Type = Double, Dynamic = False, Default = \"32", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorStationary, Type = Double, Dynamic = False, Default = \"16", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowCollectionBehaviorTransient, Type = Double, Dynamic = False, Default = \"8", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowContentRgn, Type = Double, Dynamic = False, Default = \"33", Scope = Public
@@ -640,6 +668,9 @@ Module WindowManager
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowZoomTransitionEffect, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
 	#tag EndConstant
 
 

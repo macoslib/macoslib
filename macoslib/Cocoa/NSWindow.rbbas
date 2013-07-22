@@ -309,11 +309,13 @@ Inherits NSResponder
 		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Single)
 		  
 		  #if TargetCocoa
-		    declare sub setContentBorderThickness lib CocoaLib selector "setContentBorderThickness:forEdge:" _
-		    (obj_id as Ptr, thickness as Single, edge as Cocoa.NSRectEdge)
+		    declare sub setBackingType lib CocoaLib selector "setBackingType:" (obj_id as Ptr, BackingType as NSBackingStoreType)
+		    declare sub setAutorecalculatesContentBorderThicknessForEdge lib CocoaLib selector "setAutorecalculatesContentBorderThickness:forEdge:" (obj_id as Ptr, Flag as Boolean, edge as Cocoa.NSRectEdge)
+		    declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (obj_id as Ptr, thickness as Single, edge as Cocoa.NSRectEdge)
 		    
-		    setContentBorderThickness self, thickness, edge
-		    
+		    setBackingType self, NSBackingStoreType.NSBackingStoreBuffered
+		    setAutorecalculatesContentBorderThicknessForEdge self, false, edge // Do not recalculate the border thickness automatically
+		    setContentBorderThicknessForEdge self, thickness, edge
 		  #else
 		    #pragma unused thickness
 		    #pragma unused edge
@@ -673,6 +675,29 @@ Inherits NSResponder
 		    
 		  #endif
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub EnableFullScreenSupport()
+		  #If TargetCocoa
+		    
+		    If IsLion And FullScreenEnabled = False Then
+		      declare Function objc_getClass lib CocoaLib (aClassName As CString) As Integer
+		      declare Function GetSharedApplication lib CocoaLib Selector "sharedApplication" (target As Integer) As Integer
+		      declare Sub SetPresentationOptions lib CocoaLib Selector "setPresentationOptions:" (target As Integer, options As Integer)
+		      
+		      Dim appclass As Integer = objc_getClass("NSApplication")
+		      If appclass > 0 Then
+		        Dim appid As Integer = GetSharedApplication(appclass)
+		        If appid > 0 Then
+		          SetPresentationOptions(appid,NSApplicationPresentationFullScreen)
+		          FullScreenEnabled = True
+		        End
+		      End
+		      
+		    End
+		  #EndIf
 		End Sub
 	#tag EndMethod
 
@@ -2709,6 +2734,57 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Indicates whether the window can enter full screen mode
+			  
+			  #if TargetCocoa then
+			    if IsLion then
+			      if FullScreenEnabled then
+			        EnableFullScreenSupport
+			      end if
+			      
+			      declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (obj_id as Ptr) as Integer
+			      
+			      return collectionBehavior(self) = NSWindowCollectionBehaviorFullScreenPrimary
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  //# Allows the window to enter full screen mode
+			  
+			  #if TargetCocoa then
+			    if IsLion then
+			      if FullScreenEnabled = false then
+			        EnableFullScreenSupport
+			      end if
+			      
+			      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (obj_id as Ptr, inFlag as Integer)
+			      
+			      if self <> nil then
+			        if Value then
+			          setCollectionBehavior( self, NSWindowCollectionBehaviorFullScreenPrimary )
+			        else
+			          setCollectionBehavior( self, NSWindowCollectionBehaviorDefault )
+			        end if
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		FullscreenAllowed As Boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private FullScreenEnabled As Boolean
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if TargetCocoa
 			    declare function graphicsContext lib CocoaLib selector "graphicsContext" (obj_id as Ptr) as Ptr
@@ -4121,6 +4197,9 @@ Inherits NSResponder
 		WorksWhenModal As Boolean
 	#tag EndComputedProperty
 
+
+	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
+	#tag EndConstant
 
 	#tag Constant, Name = NSBorderlessWindowMask, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant

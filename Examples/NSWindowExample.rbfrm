@@ -7,7 +7,7 @@ Begin Window NSWindowExample
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   420
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -470,8 +470,8 @@ End
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
 		  
-		  self.FullScreenAllowed = true // Allow fullscreen mode
-		  
+		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
+		  m_NSWindow.ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge ) = 20
 		  UpdateBackingScaleFactor
 		End Sub
 	#tag EndEvent
@@ -538,7 +538,6 @@ End
 		  else
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
