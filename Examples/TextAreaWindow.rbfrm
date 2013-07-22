@@ -36,13 +36,15 @@ Begin Window TextAreaWindow
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   500
+      Height          =   501
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   ""
       Left            =   0
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -63,7 +65,7 @@ Begin Window TextAreaWindow
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   0
+      Top             =   -1
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
