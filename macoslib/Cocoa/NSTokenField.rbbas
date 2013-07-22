@@ -127,7 +127,7 @@ Inherits NSControl
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		Sub Paint(g as Graphics, areas() as REALbasic.Rect = Nil)
 		  #pragma unused g
 		  
 		  #if RBVersion >= 2012.02
@@ -456,7 +456,7 @@ Inherits NSControl
 		  end if
 		  
 		  'tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:
-		  'Allows the delegate to provide an array of appropriate completions for the contents of the receiver.
+		  'Allows the delegate to provide an array of appropriate completions for the contents of the NSTokenField.
 		  '
 		  '- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(NSInteger)tokenIndex indexOfSelectedItem:(NSInteger *)selectedIndex
 		  'Parameters

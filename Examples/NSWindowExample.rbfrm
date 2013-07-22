@@ -383,6 +383,74 @@ Begin Window NSWindowExample
       Visible         =   True
       Width           =   399
    End
+   Begin Label Label4
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      Text            =   "Fullscreen:"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   338
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   166
+   End
+   Begin Label lblIsFullscreen
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   186
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      Text            =   False
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   338
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   166
+   End
 End
 #tag EndWindow
 
@@ -402,7 +470,15 @@ End
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
 		  
+		  self.FullScreenAllowed = true // Allow fullscreen mode
+		  
 		  UpdateBackingScaleFactor
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resized()
+		  UpdateFullscreen
 		End Sub
 	#tag EndEvent
 
@@ -411,6 +487,12 @@ End
 		Sub UpdateBackingScaleFactor()
 		  dim factor as double = m_NSWindow.BackingScaleFactor
 		  lblBackingScaleFactor.Text = str( factor )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UpdateFullscreen()
+		  lblIsFullscreen.Text = Str( m_NSWindow.IsFullscreen )
 		End Sub
 	#tag EndMethod
 
