@@ -1,10 +1,54 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
+		Sub Append(extends s() as string, t() as string)
+		  //# Appends an array of strings to another array of strings
+		  
+		  for i as integer = 0 to UBound(t)
+		    s.Append t(i)
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function BooleanValue(extends s as string) As Boolean
+		  //# Returns true if string is not empty, and string is not a possible false value
+		  
+		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" or s = "no" )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Contains(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
 		  return  ( s.Instr( substring ) > 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ContainsB(extends s as string, substring as String) As Boolean
+		  //# Return true if 's' contains the 'substring'.
+		  
+		  //@ By 'contains' we mean binary containment, as with InStrB.
+		  
+		  return  ( s.InStrB( substring ) > 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring. (case-insensitive)
+		  
+		  return Right(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring, doing a binary comparison.
+		  
+		  return StrComp(RightB(s, substring.LenB), substring, 0) = 0
 		End Function
 	#tag EndMethod
 
@@ -190,6 +234,17 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function isEmail(extends s as String) As Boolean
+		  //# Returns true if the string is a valid email address
+		  
+		  dim nSearch as New RegEx
+		  
+		  nSearch.SearchPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+		  return ( nSearch.Search(s) <> Nil )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsInArray(extends s as String, L() as String) As Boolean
 		  //# Returns true if the string is contains in the string array
 		  
@@ -206,6 +261,22 @@ Protected Module StringExtension
 		  //@ [Cross-platform]
 		  
 		  return L.IndexOf(s) = -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring. (case-insensitive)
+		  
+		  return Left(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring, doing a binary comparison.
+		  
+		  return StrComp(LeftB(s, substring.LenB), substring, 0) = 0
 		End Function
 	#tag EndMethod
 

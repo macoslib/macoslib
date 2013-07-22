@@ -1,6 +1,36 @@
 #tag Module
 Protected Module LabelExtensions
 	#tag Method, Flags = &h0
+		Function Editable(Extends LBL as Label) As Boolean
+		  //# Returns a Boolean value indicating whether the user is allowed to select and edit the label's text.
+		  
+		  #if TargetCocoa then
+		    declare function isEditable lib CocoaLib selector "isEditable" (obj_id as Integer) as Boolean
+		    
+		    return isEditable(LBL.handle)
+		  #else
+		    #pragma unused s
+		    #pragma unused value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Editable(Extends LBL as Label, Assigns value as Boolean)
+		  //# Controls whether the user can edit the label’s text.
+		  
+		  #if TargetCocoa then
+		    declare sub setEditable lib CocoaLib selector "setEditable:" (obj_id as Integer, value as Boolean)
+		    
+		    setEditable(LBL.handle, value)
+		  #else
+		    #pragma unused s
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub LineBreak(extends TF as Label, assigns mode as integer)
 		  //# Set the paragraph LineBreak option for a Label
 		  
