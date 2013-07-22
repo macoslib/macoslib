@@ -299,18 +299,17 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsFullScreen(extends w As Window) As Boolean
-		  //# Returns the window’s style mask, indicating what kinds of control items it displays, in this case a fullscreen window.
+		Function IsFullScreen(extends w as Window) As Boolean
+		  //# Returns a boolean indicating the window's fullscreen status.
 		  
 		  #if TargetCocoa then
 		    if IsLion then
-		      try
-		        declare function GetStyleMask lib CocoaLib selector "styleMask" (target as Integer) as Integer
-		        
-		        Return ( GetStyleMask(w.handle) = 16399 )
-		      catch err as RuntimeException
-		      end try
-		    End If
+		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
+		      
+		      if w <> nil then
+		        return GetStyleMask(w) = kWindowMaskFullScreen
+		      end if
+		    end if
 		  #else
 		    #pragma Unused w
 		  #endif
@@ -597,6 +596,9 @@ Module WindowManager
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowIgnoreClicksAttribute, Type = Double, Dynamic = False, Default = \"536870912", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kWindowMaskFullScreen, Type = Double, Dynamic = False, Default = \"16399", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowMoveTransitionAction, Type = Double, Dynamic = False, Default = \"3", Scope = Protected
