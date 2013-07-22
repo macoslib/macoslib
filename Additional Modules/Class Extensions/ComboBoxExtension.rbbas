@@ -217,7 +217,8 @@ Protected Module ComboBoxExtension
 		    setIntercellSpacing(c.handle, value)
 		  #else
 		    #pragma unused c
-		    #pragma unused value
+		    #pragma unused width
+		    #pragma unused height
 		  #endif
 		End Sub
 	#tag EndMethod
