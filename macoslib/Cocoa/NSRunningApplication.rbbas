@@ -27,6 +27,17 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Hide()
+		  
+		  #if targetMacOS
+		    declare sub hide lib CocoaLib selector "hide" (obj_id as Ptr)
+		    
+		    hide(self)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Icon() As NSImage
 		  #if targetMacOS
 		    declare function icon lib CocoaLib selector "icon" (obj_id as Ptr) as Ptr
@@ -56,6 +67,32 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Unhide()
+		  
+		  #if targetMacOS
+		    declare sub unhide lib CocoaLib selector "unhide" (obj_id as Ptr)
+		    
+		    unhide(self)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  //@New
+			  #if targetMacOS
+			    declare function activationPolicy lib CocoaLib selector "activationPolicy" (obj_id as Ptr) as NSApplicationActivationPolicy
+			    
+			    return activationPolicy(self)
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		ActivationPolicy As NSApplicationActivationPolicy
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -74,6 +111,19 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
+			    declare function bundleURL lib CocoaLib selector "bundleURL" (obj_id as Ptr) as Ptr
+			    
+			    return New NSURL( bundleURL ) 'RetainedStringValue(localizedName(self))
+			  #endif
+			End Get
+		#tag EndGetter
+		bundleURL As NSURL
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
 			    declare function localizedName lib CocoaLib selector "localizedName" (obj_id as Ptr) as Ptr
 			    
 			    return RetainedStringValue(localizedName(self))
@@ -82,6 +132,20 @@ Inherits NSObject
 		#tag EndGetter
 		LocalizedName As String
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = NSApplicationActivateAllWindows, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSApplicationActivateIgnoringOtherApps, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+
+	#tag Enum, Name = NSApplicationActivationPolicy, Flags = &h0
+		NSApplicationActivationPolicyRegular
+		  NSApplicationActivationPolicyAccessory
+		NSApplicationActivationPolicyProhibited
+	#tag EndEnum
 
 
 	#tag ViewBehavior
