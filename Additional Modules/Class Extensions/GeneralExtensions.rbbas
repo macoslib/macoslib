@@ -1,6 +1,31 @@
 #tag Module
 Protected Module GeneralExtensions
 	#tag Method, Flags = &h0
+		Function FileMD5(extends TheFile as FolderItem) As string
+		  Dim f as FolderItem = TheFile
+		  Dim b as BinaryStream
+		  Dim s as String
+		  
+		  Dim d as New MD5Digest
+		  
+		  If f = Nil Then Return "Nil"
+		  
+		  If NOT f.IsReadable And NOT f.IsWriteable Then
+		    Return "Protected File"
+		  Else
+		    b=f.OpenAsBinaryFile( False )
+		    
+		    While NOT b.eof
+		      s = b.Read( 1000000 )
+		      d.Process s
+		    Wend
+		    
+		    Return EncodeHex( d.Value )
+		  End if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Hex(value as variant, digits as integer) As String
 		  //# Return a hex string with the passed number of digits, adding zeros at the beginning if necessary
 		  
@@ -28,6 +53,16 @@ Protected Module GeneralExtensions
 		  else
 		    return   valueIfFalse
 		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function InRange(extends Value as Double, Min as Double = 0, Max as Double = 32767) As Boolean
+		  If Value <= Min And Value <= Max Then
+		    return True
+		  else
+		    return false
+		  End If
 		End Function
 	#tag EndMethod
 
