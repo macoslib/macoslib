@@ -125,7 +125,9 @@ Inherits MenuItem
 		    return
 		  end if
 		  
-		  AddNewWindowItems(notification.AssociatedObject, self.Windows)
+		  #if TargetCocoa then
+		    AddNewWindowItems(notification.AssociatedObject, self.Windows)
+		  #endif
 		  
 		  #pragma unused observer
 		  

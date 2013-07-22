@@ -2966,19 +2966,16 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the window’s style mask, indicating what kinds of control items it displays, in this case a fullscreen window.
+			  //# Returns a boolean indicating the NSWindow's fullscreen status.
 			  
 			  #if TargetCocoa then
 			    if IsLion then
-			      try
-			        declare function GetStyleMask lib CocoaLib selector "styleMask" (obj_id as Ptr) as Integer
-			        
-			        Return ( GetStyleMask(self) = 16399 )
-			      catch err as RuntimeException
-			      end try
+			      declare function GetStyleMask lib CocoaLib selector "styleMask" (obj_id as Ptr) as Integer
+			      
+			      if self <> nil then
+			        return GetStyleMask(self) = NSWindowMaskFullScreen
+			      end if
 			    End If
-			  #else
-			    #pragma Unused w
 			  #endif
 			End Get
 		#tag EndGetter
@@ -4173,6 +4170,9 @@ Inherits NSResponder
 	#tag Constant, Name = NSWindowCollectionBehaviorTransient, Type = Double, Dynamic = False, Default = \"8", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = NSWindowMaskFullScreen, Type = Double, Dynamic = False, Default = \"16399", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = NSWindowNumberListAllApplications, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
@@ -4390,6 +4390,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlushWindowDisabled"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsFullscreen"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
