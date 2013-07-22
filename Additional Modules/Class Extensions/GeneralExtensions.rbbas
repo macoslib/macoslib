@@ -13,7 +13,7 @@ Protected Module GeneralExtensions
 		  If NOT f.IsReadable And NOT f.IsWriteable Then
 		    Return "Protected File"
 		  Else
-		    b=f.OpenAsBinaryFile( False )
+		    b = BinaryStream.Open( f, False )
 		    
 		    While NOT b.eof
 		      s = b.Read( 1000000 )
