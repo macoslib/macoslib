@@ -475,27 +475,6 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsFullScreen(extends w as Window) As Boolean
-		  //# Determines if the window is currently set to full screen mode
-		  
-		  #if TargetCocoa then
-		    const NSFullScreenWindowMask = 16399 '16384
-		    
-		    if IsLion then
-		      declare function styleMask Lib CocoaLib selector "styleMask" (WindowRef as WindowPtr) As Integer
-		      
-		      dim Value as integer = styleMask(w)
-		      return ( Value = NSFullScreenWindowMask )
-		    else
-		      return false
-		    end if
-		  #else
-		    #pragma Unused w
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function isMiniaturized(extends w as Window) As Boolean
 		  //# Indicates whether the window is minimized.
 		  
@@ -808,7 +787,7 @@ Protected Module WindowExtensions
 		Sub SetStyleMaskHUD(extends w as Window)
 		  //# Sets the window’s style mask to HUD.
 		  
-		  //@ Only works on floating (palette) windows. (frame = 3 & 7)
+		  //@discussion Only works on floating (palette) windows. (frame = 3 & 7)
 		  
 		  #if TargetCocoa then
 		    const kWindowMaskTitled     = 1
@@ -821,14 +800,14 @@ Protected Module WindowExtensions
 		    const kWindowMaskHUD        = 8192
 		    const kWindowBorderlessModal = 16384
 		    
-		    'if w.Frame = 3 or w.Frame = 7 then
-		    Dim tmpStyleMask as UInt32 = kWindowMaskHUD or kWindowMaskTitled or kWindowMaskUtility
-		    if w.Resizeable then tmpStyleMask = tmpStyleMask or kWindowMaskResizable
-		    if w.CloseBox   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
-		    
-		    declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (WindowRef as WindowPtr, Mask as UInt32)
-		    setStyleMask w, tmpStyleMask
-		    'end if
+		    if w.Frame = 3 or w.Frame = 7 then
+		      Dim tmpStyleMask as UInt32 = kWindowMaskHUD or kWindowMaskTitled or kWindowMaskUtility
+		      if w.Resizeable then tmpStyleMask = tmpStyleMask or kWindowMaskResizable
+		      if w.CloseBox   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      
+		      declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (WindowRef as WindowPtr, Mask as UInt32)
+		      setStyleMask w, tmpStyleMask
+		    end if
 		  #else
 		    #pragma Unused w
 		  #endif
@@ -904,18 +883,6 @@ Protected Module WindowExtensions
 		    #pragma Unused Align
 		    w.Width = Width
 		    w.Height = Height
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub ToggleFullScreen(extends w as Window)
-		  
-		  #if TargetCocoa then
-		    declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
-		    toggleFullScreen(w,nil)
-		  #else
-		    #pragma Unused w
 		  #endif
 		End Sub
 	#tag EndMethod
