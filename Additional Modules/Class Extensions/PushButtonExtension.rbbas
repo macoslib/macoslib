@@ -188,7 +188,6 @@ Protected Module PushButtonExtension
 		    return imagePosition(p.Handle)
 		  #else
 		    #pragma Unused p
-		    #pragma Unused value
 		  #endif
 		End Function
 	#tag EndMethod

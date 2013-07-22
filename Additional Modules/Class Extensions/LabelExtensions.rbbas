@@ -9,8 +9,7 @@ Protected Module LabelExtensions
 		    
 		    return isEditable(LBL.handle)
 		  #else
-		    #pragma unused s
-		    #pragma unused value
+		    #pragma unused LBL
 		  #endif
 		End Function
 	#tag EndMethod
@@ -24,7 +23,7 @@ Protected Module LabelExtensions
 		    
 		    setEditable(LBL.handle, value)
 		  #else
-		    #pragma unused s
+		    #pragma unused LBL
 		    #pragma unused value
 		  #endif
 		End Sub

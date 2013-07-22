@@ -53,7 +53,7 @@ Protected Module GroupBoxExtensions
 		    setBorderType(g.handle, aType)
 		  #else
 		    #pragma unused g
-		    #pragma unused value
+		    #pragma unused aType
 		  #endif
 		End Sub
 	#tag EndMethod

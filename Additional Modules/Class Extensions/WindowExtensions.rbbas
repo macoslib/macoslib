@@ -20,8 +20,8 @@ Protected Module WindowExtensions
 		    
 		    addChildWindow wParent, wChild, 1
 		  #else
-		    #pragma Unused ParentWindow
-		    #pragma Unused ChildWindow
+		    #pragma Unused wParent
+		    #pragma Unused wChild
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -43,8 +43,8 @@ Protected Module WindowExtensions
 		    
 		    addChildWindow wParent, wChild, -1
 		  #else
-		    #pragma Unused ParentWindow
-		    #pragma Unused ChildWindow
+		    #pragma Unused wParent
+		    #pragma Unused wChild
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -249,7 +249,6 @@ Protected Module WindowExtensions
 		    return canHide( w )
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -292,7 +291,6 @@ Protected Module WindowExtensions
 		    return isExcludedFromWindowsMenu(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -381,7 +379,6 @@ Protected Module WindowExtensions
 		    Return hasShadow(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -410,7 +407,6 @@ Protected Module WindowExtensions
 		    Return  hidesOnDeactivate(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -439,7 +435,6 @@ Protected Module WindowExtensions
 		    return ignoresMouseEvents(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -469,7 +464,6 @@ Protected Module WindowExtensions
 		    invalidateShadow w
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -484,7 +478,6 @@ Protected Module WindowExtensions
 		    return isMiniaturized(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -501,7 +494,6 @@ Protected Module WindowExtensions
 		    end if
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -536,7 +528,6 @@ Protected Module WindowExtensions
 		    return isMovableByWindowBackground(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Unused Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -667,7 +658,6 @@ Protected Module WindowExtensions
 		    Next
 		  #else
 		    #pragma Unused wChild
-		    #pragma Unused wParent
 		  #endif
 		End Function
 	#tag EndMethod
