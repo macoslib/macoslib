@@ -3,11 +3,11 @@ Class NSNull
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
-		  declare function m_null lib CocoaLib selector "null" (Cls as Ptr) as Ptr
-		  
-		  Super.Constructor   m_null( Cocoa.NSClassFromString( "NSNull" )), true
-		  
+		  #if TargetMacOS then
+		    declare function m_null lib CocoaLib selector "null" (Cls as Ptr) as Ptr
+		    
+		    Super.Constructor   m_null( Cocoa.NSClassFromString( "NSNull" )), true
+		  #endif
 		End Sub
 	#tag EndMethod
 

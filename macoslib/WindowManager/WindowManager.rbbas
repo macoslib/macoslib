@@ -196,6 +196,76 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FullScreenAllowed(extends w as Window) As Boolean
+		  //# Indicates whether the window can enter full screen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then
+		      const NSWindowCollectionBehaviorDefault               = 0
+		      'const NSWindowCollectionBehaviorCanJoinAllSpaces      = 1
+		      'const NSWindowCollectionBehaviorMoveToActiveSpace     = 2
+		      'const NSWindowCollectionBehaviorManaged               = 4
+		      'const NSWindowCollectionBehaviorTransient             = 8
+		      'const NSWindowCollectionBehaviorStationary            = 16
+		      'const NSWindowCollectionBehaviorParticipatesInCycles  = 32
+		      'const NSWindowCollectionBehaviorIgnoreCycles          = 64
+		      const NSWindowCollectionBehaviorFullScreenPrimary     = 128
+		      const NSWindowCollectionBehaviorFullScreenAuxillary   = 256
+		      
+		      try
+		        declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		        
+		        return ( collectionBehavior(w) = NSWindowCollectionBehaviorFullScreenPrimary )
+		      catch err as RuntimeException
+		      end try
+		      
+		    end if
+		  #else
+		    #pragma Unused w
+		    #pragma Unused Value
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FullScreenAllowed(extends w as Window, assigns Value as Boolean)
+		  //# Allows the window to enter full screen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then
+		      const NSWindowCollectionBehaviorDefault               = 0
+		      'const NSWindowCollectionBehaviorCanJoinAllSpaces      = 1
+		      'const NSWindowCollectionBehaviorMoveToActiveSpace     = 2
+		      'const NSWindowCollectionBehaviorManaged               = 4
+		      'const NSWindowCollectionBehaviorTransient             = 8
+		      'const NSWindowCollectionBehaviorStationary            = 16
+		      'const NSWindowCollectionBehaviorParticipatesInCycles  = 32
+		      'const NSWindowCollectionBehaviorIgnoreCycles          = 64
+		      const NSWindowCollectionBehaviorFullScreenPrimary     = 128
+		      const NSWindowCollectionBehaviorFullScreenAuxillary   = 256
+		      
+		      
+		      try
+		        declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
+		        
+		        if Value then
+		          setCollectionBehavior( w, NSWindowCollectionBehaviorFullScreenPrimary )
+		        else
+		          setCollectionBehavior( w, NSWindowCollectionBehaviorDefault )
+		        end if
+		      catch err as RuntimeException
+		      end try
+		      
+		      
+		    end if
+		  #else
+		    #pragma Unused w
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsCollapsed(extends w as Window) As Boolean
 		  #if TargetMacOS
 		    declare function IsWindowCollapsed lib CarbonLib (window as WindowPtr) as Boolean
@@ -224,6 +294,25 @@ Module WindowManager
 		    declare function IsWindowCollapsable lib CarbonLib (window as WindowPtr) as Boolean
 		    
 		    return IsWindowCollapsable(w)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsFullScreen(extends w As Window) As Boolean
+		  //# Returns the window’s style mask, indicating what kinds of control items it displays, in this case a fullscreen window.
+		  
+		  #if TargetCocoa then
+		    if IsLion then
+		      try
+		        declare function GetStyleMask lib CocoaLib selector "styleMask" (target as Integer) as Integer
+		        
+		        Return ( GetStyleMask(w.handle) = 16399 )
+		      catch err as RuntimeException
+		      end try
+		    End If
+		  #else
+		    #pragma Unused w
 		  #endif
 		End Function
 	#tag EndMethod
@@ -385,6 +474,25 @@ Module WindowManager
 		    bounds.bottom = bounds.bottom + (newHeight - w.Height)
 		    bounds.right = bounds.right + (newWidth - w.Width)
 		    OSError = TransitionWindow(w, kWindowSlideTransitionEffect, kWindowResizeTransitionAction, bounds)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ToggleFullScreen(extends w as Window)
+		  //# Takes the window into or out of fullscreen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then
+		      try
+		        declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
+		        
+		        toggleFullScreen(w,nil)
+		      catch err as RuntimeException
+		      end try
+		    end if
+		  #else
+		    #pragma Unused w
 		  #endif
 		End Sub
 	#tag EndMethod

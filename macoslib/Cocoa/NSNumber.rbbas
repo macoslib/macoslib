@@ -10,6 +10,26 @@ Inherits NSValue
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Compare(aNumber as NSNumber) As NSComparisonResult
+		  
+		  #if targetMacOS
+		    declare function compare lib CocoaLib selector "compare:" (obj_id as Ptr, aNumber as Ptr) as NSComparisonResult
+		    
+		    dim numberRef as Ptr
+		    if aNumber <> nil then
+		      numberRef = aNumber
+		    end if
+		    
+		    return compare(self, numberRef)
+		    
+		  #else
+		    #pragma unused aNumber
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub Constructor(value as Boolean)
 		  #if targetMacOS
@@ -71,6 +91,22 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(data as MemoryBlock, objc_type as String)
+		  
+		  #if targetMacOS
+		    declare function initWithBytes lib CocoaLib selector "initWithBytes:objCType:" (obj_id as Ptr, value as Ptr, type as CString) as Ptr
+		    
+		    self.Constructor(initWithBytes(Allocate("NSNumber"), data, objc_type), NSNumber.hasOwnership)
+		    
+		  #else
+		    #pragma unused data
+		    #pragma unused objc_type
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(value as Single)
 		  #if targetMacOS
 		    declare function numberWithFloat lib CocoaLib selector "numberWithFloat:" (class_id as Ptr, value as Single) as Ptr
@@ -120,6 +156,260 @@ Inherits NSValue
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithBoolean(value as Boolean) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithBool lib CocoaLib selector "numberWithBool:" (class_id as Ptr, value as Boolean) as Ptr
+		    
+		    dim numRef as Ptr = numberWithBool(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithBytes(data as MemoryBlock, objc_type as String) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function valueWithBytes lib CocoaLib selector "valueWithBytes:objCType:" (class_id as Ptr, value as Ptr, type as CString) as Ptr
+		    
+		    if data <> nil then
+		      return new NSNumber(valueWithBytes(ClassRef, data, objc_type))
+		    end if
+		    
+		  #else
+		    #pragma unused data
+		    #pragma unused objc_type
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithDouble(value as Double) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithDouble lib CocoaLib selector "numberWithDouble:" (class_id as Ptr, value as Double) as Ptr
+		    
+		    dim numRef as Ptr = numberWithDouble(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithInt16(value as Int16) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithShort lib CocoaLib selector "numberWithShort:" (class_id as Ptr, value as Int16) as Ptr
+		    
+		    dim numRef as Ptr = numberWithShort(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithInt32(value as Int32) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithLong lib CocoaLib selector "numberWithLong:" (class_id as Ptr, value as Int32) as Ptr
+		    
+		    dim numRef as Ptr = numberWithLong(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithInt64(value as Int64) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithLongLong lib CocoaLib selector "numberWithLongLong:" (class_id as Ptr, value as Int64) as Ptr
+		    
+		    dim numRef as Ptr = numberWithLongLong(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithInt8(value as Int8) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithChar lib CocoaLib selector "numberWithChar:" (class_id as Ptr, value as Int8) as Ptr
+		    
+		    dim numRef as Ptr = numberWithChar(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithInteger(value as Integer) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithInt lib CocoaLib selector "numberWithInt:" (class_id as Ptr, value as Integer) as Ptr
+		    
+		    dim numRef as Ptr = numberWithInt(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithSingle(value as Single) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithFloat lib CocoaLib selector "numberWithFloat:" (class_id as Ptr, value as Single) as Ptr
+		    
+		    dim numRef as Ptr = numberWithFloat(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithUInt16(value as UInt16) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithUnsignedShort lib CocoaLib selector "numberWithUnsignedShort:" (class_id as Ptr, value as UInt16) as Ptr
+		    
+		    dim numRef as Ptr = numberWithUnsignedShort(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithUInt32(value as UInt32) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithUnsignedLong lib CocoaLib selector "numberWithUnsignedLong:" (class_id as Ptr, value as UInt32) as Ptr
+		    
+		    dim numRef as Ptr = numberWithUnsignedLong(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithUInt64(value as UInt64) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithUnsignedLongLong lib CocoaLib selector "numberWithUnsignedLongLong:" (class_id as Ptr, value as UInt64) as Ptr
+		    
+		    dim numRef as Ptr = numberWithUnsignedLongLong(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithUInt8(value as UInt8) As NSNumber
+		  
+		  #if targetMacOS
+		    declare function numberWithUnsignedChar lib CocoaLib selector "numberWithUnsignedChar:" (class_id as Ptr, value as UInt8) as Ptr
+		    
+		    dim numRef as Ptr = numberWithUnsignedChar(ClassRef, value)
+		    if numRef <> nil then
+		      return new NSNumber(numRef)
+		    end if
+		    
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Description1(aLocale as NSLocale) As String
+		  
+		  #if targetMacOS
+		    declare function descriptionWithLocale lib CocoaLib selector "descriptionWithLocale:" (obj_id as Ptr, aLocale as Ptr) as CFStringRef
+		    
+		    dim localeRef as Ptr
+		    if aLocale <> nil then
+		      localeRef = aLocale
+		    end if
+		    
+		    return descriptionWithLocale(self, localeRef)
+		    
+		  #else
+		    #pragma unused aLocale
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function GetObjcType() As String
 		  
@@ -130,6 +420,14 @@ Inherits NSValue
 		  mb = m_objCType( me.id )
 		  
 		  return   mb.CString( 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Compare(aNumber as NSNumber) As Integer
+		  
+		  return Integer(self.Compare(aNumber))
+		  
 		End Function
 	#tag EndMethod
 

@@ -317,6 +317,12 @@ Inherits NSAttributedString
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSAttributedString"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
