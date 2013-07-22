@@ -7,10 +7,10 @@ Inherits NSAttributedString
 		  
 		  #if TargetMacOS
 		    if Cocoa.InheritsFromClass( fromNSAttributedString, "NSMutableAttributedString" ) then
-		      _Mutable = true
+		      m_Mutable = true
 		    end if
 		    
-		    me._id = fromNSAttributedString.id
+		    self.Constructor(fromNSAttributedString.id)
 		    NSbacking = fromNSAttributedString
 		    selection = Cocoa.NSMakeRange( 0, 0 )
 		  #endif
@@ -116,7 +116,7 @@ Inherits NSAttributedString
 			Get
 			  //# Handle of the object
 			  
-			  return Integer( _id )
+			  return Integer(self.id)
 			End Get
 		#tag EndGetter
 		Handle As integer
@@ -125,11 +125,15 @@ Inherits NSAttributedString
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _Mutable
+			  return  m_Mutable
 			End Get
 		#tag EndGetter
 		Mutable As Boolean
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private m_Mutable As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		NSbacking As NSAttributedString
@@ -182,10 +186,6 @@ Inherits NSAttributedString
 		#tag EndSetter
 		Private SelStart As Integer
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private _Mutable As Boolean
-	#tag EndProperty
 
 
 	#tag ViewBehavior

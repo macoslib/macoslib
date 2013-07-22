@@ -24,6 +24,20 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(fd as Integer, takeOwnership as Boolean)
+		  #if targetMacOS
+		    
+		    declare function initWithFileDescriptor lib CocoaLib selector "initWithFileDescriptor:closeOnDealloc:" (obj_id as Ptr, fileDescriptor as Integer,flag as Boolean) as Ptr
+		    
+		    super.Constructor(initWithFileDescriptor(Allocate("NSFileHandle"), fd, takeOwnership), hasOwnership)
+		    
+		  #else
+		    #pragma unused fd
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function NewNSFileHandle(p as Ptr) As NSFileHandle
 		  #if targetMacOS
@@ -38,7 +52,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NewReadHandle(path as String) As NSFileHandle
-		  //returns a read-only handle.
+		  //opens an existing file for reading.
 		  #if targetMacOS
 		    declare function fileHandleForReadingAtPath lib CocoaLib selector "fileHandleForReadingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
 		    
@@ -49,7 +63,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NewReadWriteHandle(path as String) As NSFileHandle
-		  //returns a read-only handle.
+		  //opens an existing file for reading/writing.
 		  #if targetMacOS
 		    declare function fileHandleForUpdatingAtPath lib CocoaLib selector "fileHandleForUpdatingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
 		    
@@ -60,7 +74,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NewWriteHandle(path as String) As NSFileHandle
-		  //returns a write-only handle.
+		  //opens an existing file for writing.
 		  #if targetMacOS
 		    declare function fileHandleForWritingAtPath lib CocoaLib selector "fileHandleForWritingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
 		    

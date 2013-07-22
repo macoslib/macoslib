@@ -41,6 +41,16 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsMavericks() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 100900
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsMountainLion() As Boolean
 		  // Tells you if this OS has features of this version
 		  // This means that it returns true for later OS versions as well.
@@ -91,6 +101,21 @@ Protected Module Carbon
 		  
 		  return theList
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub pTestAssert(b as Boolean, msg as String = "")
+		  #if DebugBuild
+		    if not b then
+		      break
+		      #if TargetHasGUI
+		        MsgBox "Test in Carbon module failed: "+EndOfLine+EndOfLine+msg
+		      #else
+		        Print "Test in Carbon module failed: "+msg
+		      #endif
+		    end
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -209,6 +234,32 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Attributes( hidden ) Protected Sub TestSelf()
+		  select case GetSystemVersionFromGestalt.Left(4)
+		  case "10.3"
+		    pTestAssert IsPanther
+		    pTestAssert not IsTiger
+		  case "10.4"
+		    pTestAssert IsPanther
+		    pTestAssert IsTiger
+		    pTestAssert not IsLeopard
+		  case "10.5"
+		    pTestAssert IsTiger
+		    pTestAssert IsLeopard
+		    pTestAssert not IsSnowLeopard
+		  case "10.6"
+		    pTestAssert IsLeopard
+		    pTestAssert IsSnowLeopard
+		    pTestAssert not IsLion
+		  else
+		    pTestAssert IsSnowLeopard
+		    pTestAssert IsLion
+		  end select
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function VersionAsInteger(versionString As String) As Integer
 		  // The value returned is scaled up, so that a version like 10.1.2 becomes 100102, i.e. two digits per part.
 		  //
@@ -220,7 +271,7 @@ Protected Module Carbon
 		  
 		  dim parts() as String = versionString.Split(".")
 		  if parts.Ubound <> -1 then
-		    version = 10000 * parts( 0 ).Val 
+		    version = 10000 * parts( 0 ).Val
 		    if parts.Ubound > 0 then
 		      version = version + 100 * parts( 1 ).Val
 		      if parts.Ubound > 1 then
@@ -232,46 +283,6 @@ Protected Module Carbon
 		  return version
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub _testAssert(b as Boolean, msg as String = "")
-		  #if DebugBuild
-		    if not b then
-		      break
-		      #if TargetHasGUI
-		        MsgBox "Test in Carbon module failed: "+EndOfLine+EndOfLine+msg
-		      #else
-		        Print "Test in Carbon module failed: "+msg
-		      #endif
-		    end
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub _TestSelf()
-		  select case GetSystemVersionFromGestalt.Left(4)
-		  case "10.3"
-		    _testAssert IsPanther
-		    _testAssert not IsTiger
-		  case "10.4"
-		    _testAssert IsPanther
-		    _testAssert IsTiger
-		    _testAssert not IsLeopard
-		  case "10.5"
-		    _testAssert IsTiger
-		    _testAssert IsLeopard
-		    _testAssert not IsSnowLeopard
-		  case "10.6"
-		    _testAssert IsLeopard
-		    _testAssert IsSnowLeopard
-		    _testAssert not IsLion
-		  else
-		    _testAssert IsSnowLeopard
-		    _testAssert IsLion
-		  end select
-		End Sub
 	#tag EndMethod
 
 

@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x81\x8D\xE3\x81\xA4\xE3\x81\x8F"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Resserrer"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Stringi"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Versmal"
 	#tag EndConstant
 
 

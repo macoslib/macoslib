@@ -1052,6 +1052,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSTask
+            SpecialMenu = 0
+            Text = "NSTask"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaSystemImages
             SpecialMenu = 0
             Text = "System Images"
@@ -1067,6 +1073,12 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaNSWorkspaceNotifications
             SpecialMenu = 0
             Text = "NSWorkspace notifications"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSWindow
+            SpecialMenu = 0
+            Text = "NSWindow"
             Index = -2147483648
             AutoEnable = True
          End
@@ -1283,6 +1295,12 @@ Begin Menu MainMenubar
       Begin MenuItem ExamplesCarbonPasteboard
          SpecialMenu = 0
          Text = "Carbon Pasteboard"
+         Index = -2147483648
+         AutoEnable = True
+      End
+      Begin MenuItem MenuItemExamplesMenuLocalizedTextDragManager
+         SpecialMenu = 0
+         Text = "Carbon Drag Manager"
          Index = -2147483648
          AutoEnable = True
       End

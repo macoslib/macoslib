@@ -190,7 +190,7 @@ Protected Module BonjourModule
 		The BonjourControl allows browsing the network for services of a certain type
 		
 		1. Add a BonjourControl in a Window
-		2. Call BrowseBonjourServicesOfType with the type to look for, e.g. "_printer._tcp", and the domain (usually "")
+		2. Call BrowseBonjourServicesOfType with the type to look for, e.g. "_printer.m_tcp", and the domain (usually "")
 		3. Services detected or removed from the network will trigger ServiceAdded or ServiceRemoved events
 		4. Once a service has been detected, you may call its Resolve method to determine its IP addresses and port
 		

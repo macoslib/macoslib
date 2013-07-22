@@ -4,7 +4,7 @@ Class CarbonPasteboard
 		Sub Clear()
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardClear lib CarbonLib (ref as Ptr) as Integer
+		  declare function PasteboardClear lib CarbonLib (ref as Integer) as Integer
 		  
 		  mLastError = PasteboardClear (mRef)
 		End Sub
@@ -26,7 +26,7 @@ Class CarbonPasteboard
 
 	#tag Method, Flags = &h1
 		Protected Sub Constructor(name as CFStringRef)
-		  declare function PasteboardCreate lib CarbonLib (name as CFStringRef, ByRef ref as Ptr) as Integer
+		  declare function PasteboardCreate lib CarbonLib (name as CFStringRef, ByRef ref as Integer) as Integer
 		  
 		  mLastError = PasteboardCreate (name, mRef)
 		  if mLastError <> 0 then
@@ -35,12 +35,33 @@ Class CarbonPasteboard
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub Constructor(pbRef as Integer)
+		  mRef = pbRef
+		  
+		  declare sub CFRetain lib CarbonLib (cf as Integer)
+		  CFRetain (mRef)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub Destructor()
-		  declare sub CFRelease lib CarbonLib (cf as Ptr)
+		  declare sub CFRelease lib CarbonLib (cf as Integer)
 		  CFRelease mRef
-		  mRef = nil
+		  mRef = 0
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function DragPasteboard(dragHandle as Integer) As CarbonPasteboard
+		  declare function GetDragPasteboard lib CarbonLib (dragRef as Integer, ByRef pbRefOut as Integer) as Integer
+		  
+		  dim r as Integer
+		  if GetDragPasteboard (dragHandle, r) = 0 then
+		    dim pb as CarbonPasteboard = new CarbonPasteboard (r)
+		    return pb
+		  end
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -50,10 +71,16 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Handle() As Integer
+		  return mRef
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ItemFlavorData(itemID as Ptr, flavor as String) As MemoryBlock
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardCopyItemFlavorData lib CarbonLib (ref as Ptr, id as Ptr, type as CFStringRef, ByRef data as Ptr) as Integer
+		  declare function PasteboardCopyItemFlavorData lib CarbonLib (ref as Integer, id as Ptr, type as CFStringRef, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
 		  mLastError = PasteboardCopyItemFlavorData (mRef, itemID, flavor, d)
@@ -69,7 +96,7 @@ Class CarbonPasteboard
 		Function ItemFlavorFlags(itemID as Ptr, flavor as String) As UInt32
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardGetItemFlavorFlags lib CarbonLib (ref as Ptr, id as Ptr, type as CFStringRef, ByRef data as UInt32) as Integer
+		  declare function PasteboardGetItemFlavorFlags lib CarbonLib (ref as Integer, id as Ptr, type as CFStringRef, ByRef data as UInt32) as Integer
 		  
 		  dim d as UInt32
 		  mLastError = PasteboardGetItemFlavorFlags (mRef, itemID, flavor, d)
@@ -84,7 +111,7 @@ Class CarbonPasteboard
 		Function ItemFlavors(itemID as Ptr) As String()
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardCopyItemFlavors lib CarbonLib (ref as Ptr, id as Ptr, ByRef data as Ptr) as Integer
+		  declare function PasteboardCopyItemFlavors lib CarbonLib (ref as Integer, id as Ptr, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
 		  mLastError = PasteboardCopyItemFlavors (mRef, itemID, d)
@@ -100,7 +127,7 @@ Class CarbonPasteboard
 		Function ItemIdentifier(index_1based as Integer) As Ptr
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardGetItemIdentifier lib CarbonLib (ref as Ptr, idx as Integer, ByRef data as Ptr) as Integer
+		  declare function PasteboardGetItemIdentifier lib CarbonLib (ref as Integer, idx as Integer, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
 		  mLastError = PasteboardGetItemIdentifier (mRef, index_1based, d)
@@ -123,7 +150,7 @@ Class CarbonPasteboard
 		Function PasteLocation() As CFURL
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardCopyPasteLocation lib CarbonLib (ref as Ptr, ByRef data as Ptr) as Integer
+		  declare function PasteboardCopyPasteLocation lib CarbonLib (ref as Integer, ByRef data as Ptr) as Integer
 		  
 		  dim d as Ptr
 		  mLastError = PasteboardCopyPasteLocation (mRef, d)
@@ -139,7 +166,7 @@ Class CarbonPasteboard
 		Function PutItemFlavor(itemID as Ptr, flavor as String, data as MemoryBlock, flags as UInt32) As Boolean
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardPutItemFlavor lib CarbonLib (ref as Ptr, id as Ptr, flavor as CFStringRef, data as Ptr, flags as UInt32) as Integer
+		  declare function PasteboardPutItemFlavor lib CarbonLib (ref as Integer, id as Ptr, flavor as CFStringRef, data as Ptr, flags as UInt32) as Integer
 		  
 		  mLastError = PasteboardPutItemFlavor (mRef, itemID, flavor, new CFData (data), flags)
 		  
@@ -151,7 +178,7 @@ Class CarbonPasteboard
 		Sub ResolvePromises()
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardResolvePromises lib CarbonLib (ref as Ptr) as Integer
+		  declare function PasteboardResolvePromises lib CarbonLib (ref as Integer) as Integer
 		  
 		  mLastError = PasteboardResolvePromises (mRef)
 		End Sub
@@ -161,7 +188,7 @@ Class CarbonPasteboard
 		Function SetPasteLocation(url as CFURL) As Boolean
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardSetPasteLocation lib CarbonLib (ref as Ptr, url as Ptr) as Integer
+		  declare function PasteboardSetPasteLocation lib CarbonLib (ref as Integer, url as Ptr) as Integer
 		  
 		  mLastError = PasteboardSetPasteLocation (mRef, url.Reference)
 		  
@@ -173,7 +200,7 @@ Class CarbonPasteboard
 		Sub Synchronize(ByRef modified as Boolean, ByRef isOwn as Boolean)
 		  #pragma DisableBackgroundTasks
 		  
-		  declare function PasteboardSynchronize lib CarbonLib (ref as Ptr) as UInt32
+		  declare function PasteboardSynchronize lib CarbonLib (ref as Integer) as UInt32
 		  
 		  dim n as UInt32 = PasteboardSynchronize (mRef)
 		  
@@ -184,11 +211,34 @@ Class CarbonPasteboard
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function UniquePasteboard() As CarbonPasteboard
+		  declare function PasteboardCreate lib CarbonLib (name as Ptr, ByRef ref as Integer) as Integer
+		  
+		  dim ref as Integer
+		  
+		  const kPasteboardUniqueName = nil
+		  dim err as Integer = PasteboardCreate (kPasteboardUniqueName, ref)
+		  if err <> 0 then
+		    return nil
+		  end if
+		  
+		  return new CarbonPasteboard (ref)
+		End Function
+	#tag EndMethod
+
+
+	#tag Note, Name = About
+		This is part of the open source "MacOSLib"
+		
+		Original sources are located here:  https://github.com/macoslib/macoslib
+	#tag EndNote
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  declare function PasteboardGetItemCount lib CarbonLib (ref as Ptr, ByRef n as UInt32) as Integer
+			  declare function PasteboardGetItemCount lib CarbonLib (ref as Integer, ByRef n as UInt32) as Integer
 			  
 			  dim n as UInt32
 			  mLastError = PasteboardGetItemCount (mRef, n)
@@ -206,7 +256,7 @@ Class CarbonPasteboard
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private mRef As Ptr
+		Private mRef As Integer
 	#tag EndProperty
 
 

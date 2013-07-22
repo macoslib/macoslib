@@ -191,7 +191,7 @@ Inherits MenuItem
 		    dim wItem as Ptr = FindMenuItemByTarget(notification.AssociatedObject)
 		    if wItem <> nil then
 		      if isMiniaturized(notification.AssociatedObject) then
-		        //beware that _NSGetThemeImage is private API.  This code may get your app rejected from the App Store.
+		        //beware that m_NSGetThemeImage is private API.  This code may get your app rejected from the App Store.
 		        setState(wItem, NSMixedState)
 		        setMixedStateImage(wItem, _NSGetThemeImage(155))
 		      else
@@ -319,6 +319,7 @@ Inherits MenuItem
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Finestra"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Fenster"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Fen\xC3\xAAtre"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Venster"
 	#tag EndConstant
 
 	#tag Constant, Name = NSMixedState, Type = Double, Dynamic = False, Default = \"-1", Scope = Private

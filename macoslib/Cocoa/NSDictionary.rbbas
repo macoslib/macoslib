@@ -4,13 +4,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AllKeys() As NSArray
 		  #if TargetMacOS
-		    declare function _allKeys lib CocoaLib selector "allKeys" (id as Ptr) as Ptr
+		    declare function m_allKeys lib CocoaLib selector "allKeys" (id as Ptr) as Ptr
 		    
-		    dim p as Ptr = _allKeys( me.id )
-		    
-		    if p<>nil then
-		      return   new NSArray( p, false )
-		    end if
+		    return new NSArray(m_allKeys(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -18,13 +14,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AllValues() As NSArray
 		  #if TargetMacOS
-		    declare function _allValues lib CocoaLib selector "allValues" (id as Ptr) as Ptr
+		    declare function m_allValues lib CocoaLib selector "allValues" (id as Ptr) as Ptr
 		    
-		    dim p as Ptr = _allValues( me.id )
-		    
-		    if p<>nil then
-		      return   new NSArray( p, false )
-		    end if
+		    return new NSArray(m_allValues(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -32,8 +24,8 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(cfd as CFDictionary)
 		  // Adopts a CFDictionary
-		  // Note: This shall _not_ create a copy of the passed CFDictionary. For that, there's the Copy function
-		  Super.Constructor( cfd, false )
+		  // Note: This shall m_not_ create a copy of the passed CFDictionary. For that, there's the Copy function
+		  Super.Constructor(cfd)
 		  
 		End Sub
 	#tag EndMethod
@@ -48,19 +40,12 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  Super.Constructor( id, hasOwnership, "NSDictionary" )
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function Copy() As NSDictionary
 		  #if TargetMacOS
-		    declare function _copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
+		    declare function m_copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
 		    
-		    return   new NSDictionary( _copy( me.id ), false )
+		    return   new NSDictionary( m_copy( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -193,9 +178,9 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function _count lib CocoaLib selector "count" ( id as Ptr ) as UInt32
+			    declare function m_count lib CocoaLib selector "count" ( id as Ptr ) as UInt32
 			    
-			    return   _count( me.id )
+			    return   m_count( me.id )
 			  #endif
 			End Get
 		#tag EndGetter

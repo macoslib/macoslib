@@ -3,9 +3,9 @@ Protected Class App
 Inherits Application
 	#tag Event
 		Sub NewDocument()
-		  Carbon._TestSelf
-		  CoreFoundation._TestSelf
-		  Cocoa._TestSelf
+		  Carbon.TestSelf
+		  CoreFoundation.TestSelf
+		  Cocoa.TestSelf
 		  ATSForFonts.ATSFont.SelfTest
 		  CertTools.SelfTest
 		  TestFileManager
@@ -129,9 +129,25 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSTask() As Boolean Handles CocoaNSTask.Action
+			NSTaskExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSTimeZone() As Boolean Handles CocoaNSTimeZone.Action
 			NSTimeZoneWindow.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSWindow() As Boolean Handles CocoaNSWindow.Action
+			NSWindowExample.Show
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -331,6 +347,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function MenuItemExamplesMenuLocalizedTextDragManager() As Boolean Handles MenuItemExamplesMenuLocalizedTextDragManager.Action
+			DragManagerExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function MenuItemExamplesMenuLocalizedTextThemeColors() As Boolean Handles MenuItemExamplesMenuLocalizedTextThemeColors.Action
 			ThemeColorExample.Show
 			Return True
@@ -484,7 +508,7 @@ Inherits Application
 		  // Test the FSRef related functions:
 		  dim f as FolderItem, s as String, ref as FSRef
 		  f = GetFolderItem("")
-		  s = f.NativePath
+		  s = FileManager.NativePath( f )
 		  ref = f.FSRef
 		  if ref.FolderItem.AbsolutePath <> f.AbsolutePath then
 		    break // test failed!

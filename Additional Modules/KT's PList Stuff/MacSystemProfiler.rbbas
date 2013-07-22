@@ -155,7 +155,7 @@ Protected Class MacSystemProfiler
 	#tag Method, Flags = &h0
 		 Shared Function IsAvailable() As Boolean
 		  #if TargetMacOS
-		    dim f as FolderItem = GetFolderItem( kSystemProfiler, FolderItem.PathTypeShell )
+		    dim f as FolderItem = GetFolderItem( kSystemProfilerShellPath, FolderItem.PathTypeShell )
 		    return f <> nil and f.Exists
 		  #else
 		    return false
@@ -227,7 +227,7 @@ Protected Class MacSystemProfiler
 		Protected Shared Function pExecute(ParamArray switches As String) As String
 		  #if TargetMacOS
 		    
-		    dim cmd as string = kSystemProfiler
+		    dim cmd as string = kSystemProfilerShellPath
 		    dim s as string = join( switches, " " )
 		    if s <> "" then
 		      cmd = cmd + " " + s
@@ -382,13 +382,22 @@ Protected Class MacSystemProfiler
 
 	#tag Method, Flags = &h0
 		Function Section(dataType As String) As MacPListBrowser
-		  dataType = pFixDataType( dataType )
-		  if dataType = "" and zDataTypes.Ubound = 0 then
-		    dataType = zDataTypes( 0 )
-		  end if
-		  dim r as MacPListBrowser = zSections.Value( dataType )
-		  return r.Clone
-		  
+		  #if TargetMacOS
+		    
+		    dataType = pFixDataType( dataType )
+		    if dataType = "" and zDataTypes.Ubound = 0 then
+		      dataType = zDataTypes( 0 )
+		    end if
+		    dim r as MacPListBrowser = zSections.Value( dataType )
+		    return r.Clone
+		    
+		  #else
+		    
+		    #pragma unused dataType
+		    
+		    return nil
+		    
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -396,6 +405,56 @@ Protected Class MacSystemProfiler
 		Function SectionCount() As Integer
 		  return zSections.Count
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Attributes( hidden )  Shared Function SelfTestShared() As Boolean
+		  try
+		    
+		    dim v as Variant
+		    v = MacSystemProfiler.HW_BootROMVersion
+		    v = MacSystemProfiler.HW_BusSpeed
+		    v = MacSystemProfiler.HW_CPUType
+		    v = MacSystemProfiler.HW_UUID
+		    v = MacSystemProfiler.HW_L2CachePerProcessor
+		    v = MacSystemProfiler.HW_MachineName
+		    v = MacSystemProfiler.HW_Memory
+		    v = MacSystemProfiler.HW_ModelIdentifier
+		    v = MacSystemProfiler.HW_NumberOfCores
+		    v = MacSystemProfiler.HW_NumberOfProcessors
+		    v = MacSystemProfiler.HW_ProcessorSpeed
+		    v = MacSystemProfiler.HW_SerialNumber
+		    v = MacSystemProfiler.HW_SMCVersion
+		    
+		    v = SystemSoftwareVersion
+		    if v = "" then
+		      return false
+		    end if
+		    v = SystemSoftwareBuild
+		    if v = "" then
+		      return false
+		    end if
+		    v = SystemSoftwareVersionAsInt
+		    
+		    dim d as date = SW_BootDate
+		    #pragma unused d
+		    v = SW_BootMode
+		    v = SW_BootVolume
+		    v = SW_ComputerName
+		    v = SW_KernelVersion
+		    v = SW_SecureVMEnabled
+		    v = SW_SystemVersion
+		    v = SW_UptimeInSecs
+		    v = SW_UserNameLong
+		    v = SW_UserNameShort
+		    
+		    return true
+		    
+		  catch
+		    return false
+		    
+		  end try
 		End Function
 	#tag EndMethod
 
@@ -587,7 +646,7 @@ Protected Class MacSystemProfiler
 		      dim item as MacPListBrowser = p( i ).Child( "_items" )
 		      dim found() as MacPListBrowser
 		      if identifierKey = "" or identifierValue = "" then
-		         found = item.FindByKey( key )
+		        found = item.FindByKey( key )
 		      else
 		        found = item.FindByKeyAndValue( identifierKey, identifierValue )
 		        if found.Ubound <> -1 then
@@ -606,56 +665,6 @@ Protected Class MacSystemProfiler
 		  
 		  return r
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function __SelfTestShared() As Boolean
-		  try
-		    
-		    dim v as Variant
-		    v = MacSystemProfiler.HW_BootROMVersion
-		    v = MacSystemProfiler.HW_BusSpeed
-		    v = MacSystemProfiler.HW_CPUType
-		    v = MacSystemProfiler.HW_UUID
-		    v = MacSystemProfiler.HW_L2CachePerProcessor
-		    v = MacSystemProfiler.HW_MachineName
-		    v = MacSystemProfiler.HW_Memory
-		    v = MacSystemProfiler.HW_ModelIdentifier
-		    v = MacSystemProfiler.HW_NumberOfCores
-		    v = MacSystemProfiler.HW_NumberOfProcessors
-		    v = MacSystemProfiler.HW_ProcessorSpeed
-		    v = MacSystemProfiler.HW_SerialNumber
-		    v = MacSystemProfiler.HW_SMCVersion
-		    
-		    v = SystemSoftwareVersion
-		    if v = "" then
-		      return false
-		    end if
-		    v = SystemSoftwareBuild
-		    if v = "" then
-		      return false
-		    end if
-		    v = SystemSoftwareVersionAsInt
-		    
-		    dim d as date = SW_BootDate
-		    #pragma unused d
-		    v = SW_BootMode
-		    v = SW_BootVolume
-		    v = SW_ComputerName
-		    v = SW_KernelVersion
-		    v = SW_SecureVMEnabled
-		    v = SW_SystemVersion
-		    v = SW_UptimeInSecs
-		    v = SW_UserNameLong
-		    v = SW_UserNameShort
-		    
-		    return true
-		    
-		  catch
-		    return false
-		    
-		  end try
 		End Function
 	#tag EndMethod
 
@@ -712,7 +721,6 @@ Protected Class MacSystemProfiler
 		SPNetworkVolumeDataType
 		SPWWANDataType
 		SPAirPortDataType
-		
 	#tag EndNote
 
 	#tag Note, Name = Legal
@@ -736,6 +744,10 @@ Protected Class MacSystemProfiler
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.01:
+		- Changed constant name to kSystemProfilerShellPath from kSystemProfiler to be more descriptive.
+		- Wrapped the Section code in an #if.
+		
 		1.0:
 		- Initial release.
 	#tag EndNote
@@ -803,8 +815,6 @@ Protected Class MacSystemProfiler
 		Data types always take the form "SP...DataType", e.g., "SPHardwareDataType" and "SPSoftwareDataType". As a
 		convenience, you only need to specify the part between "SP" and "DataType" and MacSystemProfiler will
 		fill in the rest for you, e.g., "Hardware" will automagically become "SPHardwareDataType".
-		
-		
 	#tag EndNote
 
 
@@ -1067,10 +1077,10 @@ Protected Class MacSystemProfiler
 	#tag Constant, Name = DataTypeSoftware, Type = String, Dynamic = False, Default = \"SPSoftwareDataType", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kSystemProfiler, Type = String, Dynamic = False, Default = \"/usr/sbin/system_profiler", Scope = Protected
+	#tag Constant, Name = kSystemProfilerShellPath, Type = String, Dynamic = False, Default = \"/usr/sbin/system_profiler", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.0", Scope = Public
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.01", Scope = Public
 	#tag EndConstant
 
 
@@ -1083,9 +1093,10 @@ Protected Class MacSystemProfiler
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="DataTypesString"
+			Name="DataTypesAsString"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

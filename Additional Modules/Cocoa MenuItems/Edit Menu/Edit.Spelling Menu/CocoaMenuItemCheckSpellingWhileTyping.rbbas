@@ -20,6 +20,7 @@ Inherits CocoaMenuItemToggle
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE5\x85\xA5\xE5\x8A\x9B\xE4\xB8\xAD\xE3\x81\xAB\xE3\x82\xB9\xE3\x83\x9A\xE3\x83\xAB\xE3\x83\x81\xE3\x82\xA7\xE3\x83\x83\xE3\x82\xAF"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"V\xC3\xA9rifier l\'orthographe lors de la frappe"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Controlla ortografia mentre scrivo"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Controleer spelling tijdens typen"
 	#tag EndConstant
 
 

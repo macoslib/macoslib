@@ -148,12 +148,10 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare function representedFilename lib CocoaLib selector "representedFilename" (id as Ptr) as Ptr
-		    
-		    dim p as Ptr = representedFilename(Ptr(w.Handle))
-		    dim s as CFStringRef = new CFString(p, not CFType.hasOwnership)
-		    return new FolderItem(s, FolderItem.PathTypeShell)
+		    dim nsw as NSWindow = w
+		    return nsw.RepresentedFile
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -191,14 +189,8 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare sub setTitleWithRepresentedFilename lib CocoaLib selector "setTitleWithRepresentedFilename:" (id as Ptr, filePath as CFStringRef)
-		    
-		    if f <> nil then
-		      setTitleWithRepresentedFilename Ptr(w.Handle), f.POSIXPath
-		    else
-		      //passing filePath = nil results in an Objective-C exception.
-		      setTitleWithRepresentedFilename Ptr(w.Handle), ""
-		    end if
+		    dim nsw as NSWindow = w
+		    nsw.RepresentedFile = f
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -249,9 +241,8 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare function isDocumentEdited lib CocoaLib selector "isDocumentEdited" (id as Ptr) as Boolean
-		    
-		    return isDocumentEdited(Ptr(w.Handle))
+		    dim nsw as NSWindow = w
+		    return nsw.DocumentEdited
 		  #endif
 		  
 		End Function
@@ -271,9 +262,8 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare sub setDocumentEdited lib CocoaLib selector "setDocumentEdited:" (id as Ptr, documentEdited as Boolean)
-		    
-		    setDocumentEdited Ptr(w.Handle), value
+		    dim nsw as NSWindow = w
+		    nsw.DocumentEdited = value
 		  #endif
 		End Sub
 	#tag EndMethod

@@ -3,7 +3,7 @@ Class NSWrapperForObject
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(v as variant)
-		  me._id = NSObject.Initialize( NSObject.Allocate( "NSObject" ))
+		  self.Constructor(NSObject.Initialize(NSObject.Allocate("NSObject")), hasOwnership)
 		  
 		  RBObject = v
 		  

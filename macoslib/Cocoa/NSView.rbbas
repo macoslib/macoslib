@@ -4,9 +4,9 @@ Inherits NSResponder
 	#tag Method, Flags = &h0
 		Function ParentWindow() As NSWindow
 		  #if TargetMacOS
-		    declare function _window lib CocoaLib selector "window" ( id as Ptr ) as Ptr
+		    declare function m_window lib CocoaLib selector "window" ( id as Ptr ) as Ptr
 		    
-		    return  new NSWindow( _window( me.id ), false )
+		    return  new NSWindow( m_window( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod

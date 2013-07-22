@@ -8,6 +8,27 @@ Protected Module About
 		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
 	#tag EndNote
 
+	#tag Note, Name = Contributors
+		
+		Charles Yeomans (CY)
+		Thomas Tempelmann (TT)
+		Stéphane Mons (SM)
+		Kem Tekinay (KT)
+		Vidal van Bergen (VVB)
+	#tag EndNote
+
+	#tag Note, Name = Documentation
+		The macoslib documentation is provided inside macoslib itself as described at http://ufos-software.com/docgen/
+		
+		Eventually, Docgen (1) will be able to export the full documentation of macoslib
+		
+		
+		
+		
+		
+		(1) "Docgen" is a codename. The final software name has not been chosen yet.
+	#tag EndNote
+
 	#tag Note, Name = How To Use
 		To add MacOSLib to your project, select the entire "macoslib" folder in this project, copy it and paste
 		it into your project. Do not attempt to import (or drag+drop) the folder from disk into your project,
@@ -31,6 +52,57 @@ Protected Module About
 		
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
+		Contributors are identified by initials. See the "Contributors" note for full names.
+		
+		140: 2013-07-18 by KT
+		- Added properties to NSWindow for BackingScaleFactor, DocumentEdited, MovableByWindowBackgound, 
+		  RepresentedFile, RepresentedFilename, and RepresentedURL.
+		- Added Constructor and Operator_Convert to NSWindow to allow assignment of a native window.
+		- Added NSObject.RespondsToSelector method.
+		- Added NSWindowExample window.
+		- Modified convenience methods to take advantage of new NSWindow properties.
+		
+		139: 2013-07-17 by KT
+		- Minor changes to WindowExtensions.ScalingFactor. 
+		
+		138: 2013-07-08 by KT
+		- Added pragmas for unused variables in various methods.
+		
+		137: 2013-07-07 by KT
+		- Changed FileManager code to utilitize FolderItem.NativePath functions in Xojo.
+		- Changed FileManager.NativePath from Global "extends" function to Public with parameter.
+		- Changed local variable declarations in two methods from "str" to "s" to avoid confusion with the native function Str.
+		
+		136: 2013-07-07 by CY
+		- Moved AddressBook out of Cocoa into AB module.
+		
+		135: 2013-07-06 by KT
+		- Changed constant name in MacSystemProfiler to kSystemProfilerShellPath for clarity.
+		- Copied GetFolderItemFromPOSIXPath from Cocoa to FileManager and made it Global.
+		- Deprecated Cocoa.GetFolderItemFromPOSIXPath.
+		
+		134: 2013-07-05 by SM
+		- Added link to Docgen wiki to About.
+		- Removed ShellPath from FSEvent.
+		- Set computed variables to static in StringExtension.FormatSize.
+		
+		133: 2013-07-03 by KT
+		- Added pragmas for unused method parameters.
+		- Added Contributors note.
+		
+		132: 2013-07-02 by VVB
+		- Added ScalingFactor method.
+		
+		131: 2013-07-01 by KT
+		- Changed methods/properties that started with "_" so they won't.
+		  New convention is that public methods/properties will simply be marked as "hidden",
+		  and private/protected ones will start with "m_".
+		
+		130: 2013-05-30 by TT
+		- Add CarbonDragManager along with Example. This makes the Drop Location available to Cocoa apps
+		
+		129: 2013-05-25 by CCY 
+		- Add NSTask class; fix a bug in ExtendedAttributesExtensions.libcErrorCode that prevented Linux/Windows builds.
 		
 		128: 2013-05-20 by KT 
 		- Fixed unused variables/parameters.
@@ -87,7 +159,7 @@ Protected Module About
 		
 		116: 2012-12-01 by KT
 		- Added caching for System.IsFunctionAvailable calls.
-		- CoreFoundation._TestSelf: Created switches as constants for each test category.
+		- CoreFoundation.TestSelf: Created switches as constants for each test category.
 		- CFBundle.Load: Removed older system function check and call, raise any returned CFError as an exception.
 		- ATSFont.File: Added check for older function because the documentation for both functions seems to have 
 		  dropped off of Apple's site except for a PDF that says it's all deprecated as of OS X 10.6 in favor of 
@@ -193,7 +265,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"128", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"140", Scope = Protected
 	#tag EndConstant
 
 

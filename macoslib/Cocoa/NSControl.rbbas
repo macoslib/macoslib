@@ -56,7 +56,7 @@ Inherits Canvas
 		    
 		    declare function initWithFrame lib CocoaLib selector "initWithFrame:" (obj_id as Ptr, frameRect as NSRect) as Ptr
 		    
-		    self._id = initWithFrame(Allocate(self.NSClassName), frame)
+		    self.m_id = initWithFrame(Allocate(self.NSClassName), frame)
 		    if self.id = nil then
 		      return
 		    end if
@@ -496,7 +496,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return me._id
+			  return me.m_id
 			End Get
 		#tag EndGetter
 		id As Ptr
@@ -520,6 +520,10 @@ Inherits Canvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Attributes( Hidden = true ) Private m_id As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private TargetID As Ptr
 	#tag EndProperty
 
@@ -533,10 +537,6 @@ Inherits Canvas
 
 	#tag Property, Flags = &h0
 		Underlined As Boolean = false
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Attributes( Hidden = true ) Private _id As Ptr
 	#tag EndProperty
 
 

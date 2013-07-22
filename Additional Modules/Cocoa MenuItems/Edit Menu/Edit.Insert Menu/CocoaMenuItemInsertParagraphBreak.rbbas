@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\xAE\xB5\xE8\x90\xBD\xE5\x8C\xBA\xE5\x88\x87\xE3\x82\x8A"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Ins\xC3\xA9rer un saut de paragraphe"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Interruzione di paragrafo"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Alinea-einde"
 	#tag EndConstant
 
 

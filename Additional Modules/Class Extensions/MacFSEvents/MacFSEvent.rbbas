@@ -9,9 +9,9 @@ Class MacFSEvent
 	#tag Method, Flags = &h0
 		Sub Constructor(path as string, flags as UInt32, ID as UInt64)
 		  
-		  _Path = path
-		  _Flags = flags
-		  _eventID = ID
+		  m_Path = path
+		  m_Flags = flags
+		  m_eventID = ID
 		  
 		End Sub
 	#tag EndMethod
@@ -39,7 +39,7 @@ Class MacFSEvent
 		  //@ If you set onlyIfFolderItemExists then this method will return nil if the FolderItem does not exist
 		  
 		  #if TargetMacOS
-		    dim f as FolderItem = new FolderItem( Path, FolderItem.PathTypeShell )
+		    dim f as FolderItem = GetFolderItemFromPOSIXPath( Path )
 		    
 		    if f<>nil then
 		      if onlyIfFolderItemExists then
@@ -59,7 +59,7 @@ Class MacFSEvent
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _eventID
+			  return  m_eventID
 			End Get
 		#tag EndGetter
 		eventID As UInt64
@@ -68,32 +68,32 @@ Class MacFSEvent
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _Flags
+			  return  m_Flags
 			End Get
 		#tag EndGetter
 		Flags As UInt32
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21
+		Private m_eventID As UInt64
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private m_Flags As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private m_Path As string
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _Path
+			  return  m_Path
 			End Get
 		#tag EndGetter
 		Path As string
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private _eventID As UInt64
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private _Flags As UInt32
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private _Path As string
-	#tag EndProperty
 
 
 	#tag ViewBehavior

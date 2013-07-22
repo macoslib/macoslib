@@ -9,9 +9,9 @@ Class FSEventStream
 	#tag Method, Flags = &h0
 		Sub Constructor(ref as Ptr, opts as integer, relativeToDevice as FolderItem = nil)
 		  #if TargetMacOS
-		    me._reference = ref
-		    me._options = opts
-		    me._RelativeTo = relativeToDevice
+		    me.m_reference = ref
+		    me.m_options = opts
+		    me.m_RelativeTo = relativeToDevice
 		    
 		    if gFSEventStreams=nil then
 		      gFSEventStreams = new Dictionary
@@ -132,7 +132,7 @@ Class FSEventStream
 		    
 		    if me.State > kStateInitialized then //Was scheduled with runloop. Unschedule.
 		      UnscheduleFromRunLoop
-		      me._State = 0
+		      me.m_State = 0
 		    end if
 		    
 		    gFSEventStreams.Remove( me.Reference ) //Remove global reference
@@ -140,7 +140,7 @@ Class FSEventStream
 		    soft declare sub FSEventStreamRelease lib CarbonLib (ref as Ptr)
 		    
 		    FSEventStreamRelease   me.Reference
-		    me._reference = nil
+		    me.m_reference = nil
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -237,9 +237,9 @@ Class FSEventStream
 		    arp.Append   path
 		    
 		    if RelativeTo<>nil then
-		      f = new FolderItem( RelativeTo.POSIXPath + "/" + path, FolderItem.PathTypeShell )
+		      f = GetFolderItemFromPOSIXPath( RelativeTo.POSIXPath + "/" + path )
 		    else
-		      f = new FolderItem( path, FolderItem.PathTypeShell )
+		      f = GetFolderItemFromPOSIXPath( path )
 		    end if
 		    
 		    flags = mb2.UInt32Value( i * 4 )
@@ -272,7 +272,7 @@ Class FSEventStream
 		    
 		    if me.State = kStateInitialized then
 		      FSEventStreamScheduleWithRunLoop   me.Reference, CFRunLoop.Current.Reference, "kCFRunLoopDefaultMode"
-		      me._state = kStateScheduled
+		      me.m_state = kStateScheduled
 		    else
 		      raise  new macoslibException( "Could not schedule FSEventStream. Incompatible state" )
 		    end if
@@ -288,7 +288,7 @@ Class FSEventStream
 		    if me.State = kStateScheduled OR me.State = kStateStopped then
 		      dim OK as Boolean = FSEventStreamStart( me.Reference )
 		      if OK then
-		        me._state = kStateStarted
+		        me.m_state = kStateStarted
 		      end if
 		      return  OK
 		    else
@@ -306,7 +306,7 @@ Class FSEventStream
 		    if me.State = kStateStarted then
 		      FlushSync
 		      FSEventStreamStop   me.Reference
-		      _State = kStateStopped
+		      m_State = kStateStopped
 		    else
 		      raise new macoslibException( "Cannot stop FSEventStream. Incompatible state." )
 		    end if
@@ -347,10 +347,26 @@ Class FSEventStream
 		Private Shared gFSEventStreams As Dictionary
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private m_options As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private m_Reference As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private m_RelativeTo As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private m_State As Integer
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return   _Reference
+			  return   m_Reference
 			End Get
 		#tag EndGetter
 		Reference As Ptr
@@ -359,7 +375,7 @@ Class FSEventStream
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _RelativeTo
+			  return  m_RelativeTo
 			End Get
 		#tag EndGetter
 		RelativeTo As FolderItem
@@ -368,27 +384,11 @@ Class FSEventStream
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return  _State
+			  return  m_State
 			End Get
 		#tag EndGetter
 		State As Integer
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private _options As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private _Reference As Ptr
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private _RelativeTo As FolderItem
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private _State As Integer
-	#tag EndProperty
 
 
 	#tag Constant, Name = kStateInitialized, Type = Double, Dynamic = False, Default = \"0", Scope = Public

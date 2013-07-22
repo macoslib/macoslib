@@ -8,6 +8,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"S\xC3\xA9lection"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Selezione"
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xA8\xE0\xA6\xBF\xE0\xA6\xB0\xE0\xA7\x8D\xE0\xA6\xAC\xE0\xA6\xBE\xE0\xA6\x9A\xE0\xA6\xA8"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Selectie"
 	#tag EndConstant
 
 

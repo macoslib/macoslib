@@ -13,8 +13,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
-		  me._id = NSObject.Initialize( NSObject.Allocate( "NSPasteboardItem" ))
+		  self.Constructor(NSObject.Initialize(NSObject.Allocate( "NSPasteboardItem")), hasOwnership)
 		  
 		End Sub
 	#tag EndMethod
@@ -85,9 +84,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Types() As NSArray
 		  #if TargetMacOS
-		    declare function _types lib CocoaLib selector "types" (id as Ptr) as Ptr
+		    declare function m_types lib CocoaLib selector "types" (id as Ptr) as Ptr
 		    
-		    return  new NSArray( _types( me.id ), false )
+		    return  new NSArray( m_types( me.id ), false )
 		  #endif
 		End Function
 	#tag EndMethod

@@ -45,17 +45,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false, checkForClass as string = "")
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
-		  
-		  Super.Constructor   id, hasOwnership, checkForClass
+		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
+		  Super.Constructor id, hasOwnership
 		  
 		  //ICDevices are instantiated by the ICDeviceBrowser so we need to set the delegate here
-		  if GetDelegate=nil then
+		  if GetDelegate = nil then
 		    SetDelegate
 		  end if
 		  
@@ -320,9 +314,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function GetDelegate() As Ptr
 		  #if targetMacOS
-		    declare function _delegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
+		    declare function m_delegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
 		    
-		    return  _delegate( me.id )
+		    return  m_delegate( me.id )
 		  #endif
 		End Function
 	#tag EndMethod

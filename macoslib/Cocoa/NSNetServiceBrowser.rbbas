@@ -10,8 +10,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
-		  me._id = NSObject.Initialize( NSObject.Allocate( "NSNetServiceBrowser" ))
+		  self.Constructor(NSObject.Initialize(NSObject.Allocate("NSNetServiceBrowser")), hasOwnership)
 		  SetDelegate
 		  
 		  
@@ -357,7 +356,7 @@ Inherits NSObject
 		Sub SearchForAllServiceTypes(inDomain as string = "")
 		  #pragma unused inDomain
 		  
-		  //dns-sd -B _services._dns-sd._udp .
+		  //dns-sd -B m_services.m_dns-sd.m_udp .
 		End Sub
 	#tag EndMethod
 
@@ -381,9 +380,9 @@ Inherits NSObject
 		  //@ not need to store it as you can create another instance from the service name, type and domain.
 		  
 		  #if TargetMacOS
-		    declare sub _searchForServicesOfType lib CocoaLib selector "searchForServicesOfType:inDomain:" (id as Ptr, type as CFStringRef, domain as CFStringRef)
+		    declare sub m_searchForServicesOfType lib CocoaLib selector "searchForServicesOfType:inDomain:" (id as Ptr, type as CFStringRef, domain as CFStringRef)
 		    
-		    _searchForServicesOfType   me.id, ServiceType, DomainName
+		    m_searchForServicesOfType   me.id, ServiceType, DomainName
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -448,9 +447,9 @@ Inherits NSObject
 		  //# Stop searching (either domains or services). When stopped, it fires the SearchStopped event
 		  
 		  #if TargetMacOS
-		    declare sub _stop lib CocoaLib selector "stop" (id as Ptr)
+		    declare sub m_stop lib CocoaLib selector "stop" (id as Ptr)
 		    
-		    _stop  me.id
+		    m_stop  me.id
 		  #endif
 		End Sub
 	#tag EndMethod

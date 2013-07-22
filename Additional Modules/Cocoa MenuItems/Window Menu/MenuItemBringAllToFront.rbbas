@@ -13,6 +13,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Alle nach vorne bringen"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Tout ramener au premier plan"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Porta tutto in primo piano"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Alles op voorgrond"
 	#tag EndConstant
 
 

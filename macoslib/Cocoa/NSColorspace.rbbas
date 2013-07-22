@@ -10,31 +10,19 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function DeviceRGBColorSpace() As NSColorspace
 		  #if TargetMacOS
-		    soft declare function deviceRGBColorSpace lib Cocoa selector "deviceRGBColorSpace" (class_id as Ptr) as Ptr
-		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
+		    declare function deviceRGBColorSpace lib CocoaLib selector "deviceRGBColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s._id = deviceRGBColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(deviceRGBColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Operator_Convert() As Ptr
-		  return me.id
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function sRGBColorSpace() As NSColorspace
 		  #if TargetMacOS
-		    soft declare function sRGBColorSpace lib Cocoa selector "sRGBColorSpace" (class_id as Ptr) as Ptr
-		    soft declare function NSClassFromString lib Cocoa (aClassName as CFStringRef) as Ptr
+		    declare function sRGBColorSpace lib CocoaLib selector "sRGBColorSpace" (class_id as Ptr) as Ptr
 		    
-		    dim s as new NSColorspace
-		    s._id = sRGBColorSpace(NSClassFromString("NSColorSpace"))
-		    return s
+		    return new NSColorspace(sRGBColorSpace(NSClassFromString("NSColorSpace")))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -44,22 +32,14 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    if me.id = nil then
-			      return ""
-			    end if
+			    declare function localizedName lib CocoaLib selector "localizedName" (id as Ptr) as CFStringRef
 			    
-			    soft declare function localizedName lib Cocoa selector "localizedName" (id as Ptr) as CFStringRef
-			    
-			    return  localizedName(me.id)
+			    return localizedName(self)
 			  #endif
 			End Get
 		#tag EndGetter
 		LocalizedName As String
 	#tag EndComputedProperty
-
-
-	#tag Constant, Name = Cocoa, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Private
-	#tag EndConstant
 
 
 	#tag ViewBehavior

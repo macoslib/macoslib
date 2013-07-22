@@ -14,6 +14,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE6\x94\xB9\xE8\xA1\x8C"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Saut de ligne"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Interruzione di riga"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Regeleinde"
 	#tag EndConstant
 
 

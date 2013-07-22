@@ -6,8 +6,7 @@ Inherits NSIndexSet
 		  #if TargetMacOS
 		    declare sub addIndex lib CocoaLib selector "addIndex:" (id as Ptr, idx as integer)
 		    
-		    addIndex  me.id, newIndex
-		    
+		    addIndex(self, newIndex)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -15,7 +14,7 @@ Inherits NSIndexSet
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if TargetMacOS
-		    me._id = NSObject.Initialize( NSObject.Allocate( "NSMutableIndexSet" ))
+		    self.Constructor(NSObject.Initialize(NSObject.Allocate("NSMutableIndexSet")), hasOwnership)
 		  #endif
 		End Sub
 	#tag EndMethod

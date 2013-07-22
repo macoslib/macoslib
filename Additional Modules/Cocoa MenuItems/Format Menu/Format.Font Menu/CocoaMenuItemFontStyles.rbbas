@@ -43,6 +43,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Styles\xE2\x80\xA6"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Stili..."
 		#Tag Instance, Platform = Any, Language = bn, Definition  = \"\xE0\xA6\xB6\xE0\xA7\x88\xE0\xA6\xB2\xE0\xA7\x80\xE2\x80\xA6"
+		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Stijlen..."
 	#tag EndConstant
 
 

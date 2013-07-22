@@ -11,19 +11,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(id as Ptr, hasOwnership as boolean = false)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
-		  
-		  Super.Constructor( id, hasOwnership, "NSTextField" )
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
 		Sub Constructor(fromObject as TextField)
 		  
 		  #if TargetMacOS
@@ -53,7 +40,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function attributedStringValue lib CocoaLib selector "attributedStringValue" (id as Ptr) as Ptr
 			    
-			    return   Cocoa.NSObjectFromNSPtr( attributedStringValue( me._id ))
+			    return new NSAttributedString(attributedStringValue(self))
 			  #endif
 			End Get
 		#tag EndGetter
@@ -62,7 +49,11 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub attributedStringValue lib CocoaLib selector "setAttributedStringValue:" (id as Ptr, value as Ptr)
 			    
-			    attributedStringValue( me._id, value.id )
+			    if value <> nil then
+			      attributedStringValue(self, value)
+			    else
+			      //do nothing.
+			    end if
 			    
 			  #else
 			    #pragma unused value
@@ -78,7 +69,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function isEditable lib CocoaLib selector "isEditable" (id as Ptr) as Boolean
 			    
-			    return   isEditable( me._id )
+			    return isEditable(self)
 			  #endif
 			End Get
 		#tag EndGetter
@@ -87,7 +78,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub setEditable lib CocoaLib selector "setEditable:" (id as Ptr, value as boolean)
 			    
-			    setEditable( me._id, value )
+			    setEditable(self, value)
 			    
 			  #else
 			    #pragma unused value
@@ -103,7 +94,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function allowsEditingTextAttributes lib CocoaLib selector "allowsEditingTextAttributes" (id as Ptr) as Boolean
 			    
-			    return   allowsEditingTextAttributes( me._id )
+			    return allowsEditingTextAttributes(self)
 			  #endif
 			End Get
 		#tag EndGetter
@@ -112,7 +103,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub allowsEditingTextAttributes lib CocoaLib selector "setAllowsEditingTextAttributes:" (id as Ptr, value as boolean)
 			    
-			    allowsEditingTextAttributes( me._id, value )
+			    allowsEditingTextAttributes(self, value)
 			    
 			  #else
 			    #pragma unused value
@@ -128,7 +119,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare function isSelectable lib CocoaLib selector "isSelectable" (id as Ptr) as Boolean
 			    
-			    return   isSelectable( me._id )
+			    return isSelectable(self)
 			  #endif
 			End Get
 		#tag EndGetter
@@ -137,7 +128,7 @@ Inherits NSObject
 			  #if TargetMacOS
 			    declare sub setSelectable lib CocoaLib selector "setSelectable:" (id as Ptr, value as boolean)
 			    
-			    setSelectable( me._id, value )
+			    setSelectable(self, value)
 			    
 			  #else
 			    #pragma unused value

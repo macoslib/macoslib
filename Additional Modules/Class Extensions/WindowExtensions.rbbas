@@ -30,6 +30,34 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ScalingFactor(Extends w as Window) As Single
+		  //# Determines if the window is displayed on a Retina screen or other HiDPI mode.
+		  
+		  //@result The ScalingFactor is 2 for a Retina MacBook Pro (or other HiDPI modes) and 1 for anything else
+		  
+		  //@ The following property needs to be added to the app's __Info.plist__ in order to make your Cocoa app Retina capable:
+		  // __<key>NSHighResolutionCapable</key>__
+		  // __<true/>__
+		  
+		  dim r as Single = 1. // Default response
+		  
+		  #if TargetCocoa
+		    
+		    dim nsw as NSWindow = w
+		    r = nsw.BackingScaleFactor
+		    
+		  #else
+		    
+		    #pragma Unused w
+		    
+		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function SetFrameAutosaveName(extends w as Window, saveName as String) As Boolean
 		  //# Set the autosave name for the Window's frame.
 		  
