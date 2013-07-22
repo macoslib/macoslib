@@ -2966,6 +2966,28 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the window’s style mask, indicating what kinds of control items it displays, in this case a fullscreen window.
+			  
+			  #if TargetCocoa then
+			    if IsLion then
+			      try
+			        declare function GetStyleMask lib CocoaLib selector "styleMask" (obj_id as Ptr) as Integer
+			        
+			        Return ( GetStyleMask(self) = 16399 )
+			      catch err as RuntimeException
+			      end try
+			    End If
+			  #else
+			    #pragma Unused w
+			  #endif
+			End Get
+		#tag EndGetter
+		IsFullscreen As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if TargetCocoa
 			    declare function isKeyWindow lib CocoaLib selector "isKeyWindow" (obj_id as Ptr) as Boolean
@@ -4474,6 +4496,7 @@ Inherits NSResponder
 			Name="RepresentedFilename"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsResizeIndicator"
