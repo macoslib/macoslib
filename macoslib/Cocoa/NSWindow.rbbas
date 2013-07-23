@@ -155,14 +155,13 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub Center()
+		  //@header Sets the window’s location to the center of the screen.
 		  
 		  #if TargetCocoa
 		    declare sub center lib CocoaLib selector "center" (obj_id as Ptr)
 		    
 		    center self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -290,23 +289,54 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ContentBorderBottomThickness() As Single
+		  //@header Returns the thickness of the bottom border of the window.
+		  
+		  // Convenience method.
+		  return ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ContentBorderBottomThickness(assigns thickness as Single)
+		  //@header Indicates the thickness of the bottom border of the window.
+		  
+		  // Convenience method.
+		  ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge ) = thickness
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ContentBorderThickness(edge as Cocoa.NSRectEdge) As Single
+		  //@header Indicates the thickness of a given border of the window.
 		  
 		  #if TargetCocoa
 		    declare function contentBorderThicknessForEdge lib CocoaLib selector "contentBorderThicknessForEdge:" _
 		    (obj_id as Ptr, edge as Cocoa.NSRectEdge) as Single
 		    
 		    return contentBorderThicknessForEdge(self, edge)
-		    
 		  #else
 		    #pragma unused edge
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Single)
+		  //@header Specifies the thickness of a given border of the window.
+		  
+		  //@param thickness The thickness for edge
+		  //@param edge The border whose thickness to set _
+		  //  NSMaxYEdge: Top border. _
+		  //  NSMinYEdge: Bottom border. _
+		  //@param
+		  
+		  //@discussion
+		  // In a non-textured window calling setContentBorderThickness:forEdge: passing NSMaxYEdge will raise an exception. _
+		  // It is only valid to set the content border thickness of the top edge in a textured window.
+		  // The contentBorder does not include the titlebar or toolbar, so a textured window that just wants the gradient _
+		  // in the titlebar and toolbar should have a contentBorderThickness of 0 for NSMaxYEdge.
+		  //discussion@
 		  
 		  #if TargetCocoa
 		    declare sub setBackingType lib CocoaLib selector "setBackingType:" (obj_id as Ptr, BackingType as NSBackingStoreType)
@@ -320,7 +350,6 @@ Inherits NSResponder
 		    #pragma unused thickness
 		    #pragma unused edge
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -1494,15 +1523,14 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub toggleToolbar()
+		Sub ToggleToolbar()
+		  //@header Toggle the toolbar's visibility.
 		  
 		  #if TargetCocoa
 		    declare sub toggleToolbarShown lib CocoaLib selector "toggleToolbarShown:" (obj_id as Ptr, sender as Ptr)
 		    
 		    toggleToolbarShown self, self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -1521,14 +1549,13 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub Update()
+		  //@header Updates the window.
 		  
 		  #if TargetCocoa
 		    declare sub update lib CocoaLib selector "update" (obj_id as Ptr)
 		    
 		    update self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -2422,7 +2449,6 @@ Inherits NSResponder
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		Dealegate As Ptr
@@ -2708,10 +2734,11 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Indicates whether the window can enter full screen mode
+		#tag EndNote
 		#tag Getter
 			Get
-			  //# Indicates whether the window can enter full screen mode
-			  
 			  #if TargetCocoa then
 			    if IsLion then
 			      return CollectionBehavior = NSWindowCollectionBehavior.FullScreenPrimary
@@ -2721,8 +2748,6 @@ Inherits NSResponder
 		#tag EndGetter
 		#tag Setter
 			Set
-			  //# Allows the window to enter full screen mode
-			  
 			  #if TargetCocoa then
 			    if IsLion then
 			      
@@ -2999,10 +3024,11 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Indicates whether a window is currently in fullscreen mode
+		#tag EndNote
 		#tag Getter
 			Get
-			  //# Returns a boolean indicating the NSWindow's fullscreen status.
-			  
 			  #if TargetCocoa then
 			    if IsLion then
 			      soft declare Function GetStyleMask lib CocoaLib Selector "styleMask" (obj_id As Ptr) As Integer
@@ -4035,9 +4061,11 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Returns the deepest screen the window is on (it may be split over several screens).
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function deepestScreen lib CocoaLib selector "deepestScreen" (obj_id as Ptr) as Ptr
 			    
@@ -4045,34 +4073,39 @@ Inherits NSResponder
 			    if screenRef <> nil then
 			      return new NSScreen(screenRef)
 			    end if
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		WindowDeepestScreen As NSScreen
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			
+			Each window device in an application is given a unique window number—note that this isn’t the same as the global
+			window number assigned by the window server. This number can be used to identify the window device with the
+			orderWindow:relativeTo: method and in the Application Kit function NSWindowList.
+			Provides the window number of the window’s window device.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function windowNumber lib CocoaLib selector "windowNumber" (obj_id as Ptr) as Integer
 			    
 			    return windowNumber(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		WindowNumber As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Returns the screen the window is on.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function screen_ lib CocoaLib selector "screen" (obj_id as Ptr) as Ptr
 			    
@@ -4082,16 +4115,17 @@ Inherits NSResponder
 			    end if
 			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		WindowScreen As NSScreen
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Get & Set the window’s toolbar.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function toolbar_ lib CocoaLib selector "toolbar" (obj_id as Ptr) as Ptr
 			    
@@ -4100,14 +4134,11 @@ Inherits NSResponder
 			    if toolbarRef <> nil then
 			      return new NSToolbar(toolbarRef)
 			    end if
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  
 			  #if TargetCocoa
 			    declare sub setToolbar lib CocoaLib selector "setToolbar:" (obj_id as Ptr, aToolbar as Ptr)
 			    
@@ -4117,11 +4148,9 @@ Inherits NSResponder
 			    end if
 			    
 			    setToolbar self, toolbarRef
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		WindowToolbar As NSToolbar
@@ -4130,28 +4159,26 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //@header Indicates whether the NSWindow receives keyboard and mouse events even when some other window is being run modally.
 			  
 			  #if TargetCocoa
 			    declare function worksWhenModal lib CocoaLib selector "worksWhenModal" (obj_id as Ptr) as Boolean
 			    
 			    return worksWhenModal(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //@header Specifies whether the NSWindow receives keyboard and mouse events even when some other window is being run modally.
 			  
 			  #if TargetCocoa
 			    declare sub setWorksWhenModal lib CocoaLib selector "setWorksWhenModal:" (obj_id as Ptr, flag as Boolean)
 			    
 			    setWorksWhenModal self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		WorksWhenModal As Boolean

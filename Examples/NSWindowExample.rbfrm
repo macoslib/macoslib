@@ -479,7 +479,7 @@ End
 		  end if
 		  
 		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
-		  m_NSWindow.ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge ) = 20 // Draw a border at the bottom of the window
+		  m_NSWindow.ContentBorderBottomThickness = 20 // Draw a border at the bottom of the window
 		  
 		  UpdateBackingScaleFactor
 		End Sub
