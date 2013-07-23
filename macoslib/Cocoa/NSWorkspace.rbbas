@@ -381,6 +381,33 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function RevealFilesInFinder(files() as FolderItem) As Boolean
+		  #if TargetMacOS
+		    // Available in OS X v10.6 and later.
+		    //
+		    // Returns false if called on systems before 10.6, otherwise true.
+		    //
+		    // Hint: If you need this to work on pre-10.6 systems, invoke MacOSFolderItemExtension.RevealInFinder() instead
+		    
+		    declare sub reveal lib CocoaLib selector "activateFileViewerSelectingURLs:" (id as Ptr, urls as Ptr)
+		    declare function respondsToSelector lib "Cocoa" selector "respondsToSelector:" (obj as Ptr, sel as Ptr) as Boolean
+		    
+		    dim id as Ptr = NSWorkspace.sharedInstance
+		    if id <> nil then
+		      if respondsToSelector (id, Cocoa.NSSelectorFromString("activateFileViewerSelectingURLs:")) then
+		        dim arr as new CFMutableArray
+		        for each f as FolderItem in files
+		          arr.Append new CFURL(f)
+		        next
+		        reveal (id, arr)
+		        return true
+		      end if
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function RunningApplications() As NSRunningApplication()
 		  #if TargetMacOS
 		    declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
