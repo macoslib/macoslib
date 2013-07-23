@@ -2,26 +2,18 @@
 Protected Module GeneralExtensions
 	#tag Method, Flags = &h0
 		Function FileMD5(extends TheFile as FolderItem) As string
-		  Dim f as FolderItem = TheFile
 		  Dim b as BinaryStream
 		  Dim s as String
 		  
 		  Dim d as New MD5Digest
+		  b = BinaryStream.Open( TheFile, False )
 		  
-		  If f = Nil Then Return "Nil"
+		  While NOT b.eof
+		    s = b.Read( 1048576 )
+		    d.Process s
+		  Wend
 		  
-		  If NOT f.IsReadable And NOT f.IsWriteable Then
-		    Return "Protected File"
-		  Else
-		    b = BinaryStream.Open( f, False )
-		    
-		    While NOT b.eof
-		      s = b.Read( 1000000 )
-		      d.Process s
-		    Wend
-		    
-		    Return EncodeHex( d.Value )
-		  End if
+		  Return EncodeHex( d.Value )
 		End Function
 	#tag EndMethod
 
@@ -58,11 +50,7 @@ Protected Module GeneralExtensions
 
 	#tag Method, Flags = &h0
 		Function InRange(extends Value as Double, Min as Double = 0, Max as Double = 32767) As Boolean
-		  if Value <= Min And Value <= Max then
-		    return True
-		  else
-		    return False
-		  end if
+		  return Value >= Min And Value <= Max
 		End Function
 	#tag EndMethod
 
