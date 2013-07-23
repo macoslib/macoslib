@@ -678,29 +678,6 @@ Inherits NSResponder
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub EnableFullScreenSupport()
-		  #If TargetCocoa
-		    
-		    If IsLion And FullScreenEnabled = False Then
-		      declare Function objc_getClass lib CocoaLib (aClassName As CString) As Integer
-		      declare Function GetSharedApplication lib CocoaLib Selector "sharedApplication" (target As Integer) As Integer
-		      declare Sub SetPresentationOptions lib CocoaLib Selector "setPresentationOptions:" (target As Integer, options As Integer)
-		      
-		      Dim appclass As Integer = objc_getClass("NSApplication")
-		      If appclass > 0 Then
-		        Dim appid As Integer = GetSharedApplication(appclass)
-		        If appid > 0 Then
-		          SetPresentationOptions(appid,NSApplicationPresentationFullScreen)
-		          FullScreenEnabled = True
-		        End
-		      End
-		      
-		    End
-		  #EndIf
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Sub EnableKeyEquivalentForDefaultButtonCell()
 		  
@@ -1511,7 +1488,6 @@ Inherits NSResponder
 		    declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (obj_id as Ptr, sender as Ptr)
 		    
 		    toggleFullScreen self, self
-		    
 		  #endif
 		  
 		End Sub
@@ -2161,7 +2137,7 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function collectionBehavior lib CocoaLib selector "collectionBehavior" (obj_id as Ptr) as UInt32
+			    declare function collectionBehavior lib CocoaLib selector "collectionBehavior" (obj_id as Ptr) as NSWindowCollectionBehavior
 			    
 			    return collectionBehavior(self)
 			    
@@ -2173,7 +2149,7 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetCocoa
-			    declare sub setCollectionBehavior lib CocoaLib selector "setCollectionBehavior:" (obj_id as Ptr, behavior as UInt32)
+			    declare sub setCollectionBehavior lib CocoaLib selector "setCollectionBehavior:" (obj_id as Ptr, behavior as NSWindowCollectionBehavior)
 			    
 			    setCollectionBehavior self, value
 			    
@@ -2183,7 +2159,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		CollectionBehavior As UInt32
+		CollectionBehavior As NSWindowCollectionBehavior
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2738,13 +2714,7 @@ Inherits NSResponder
 			  
 			  #if TargetCocoa then
 			    if IsLion then
-			      if FullScreenEnabled then
-			        EnableFullScreenSupport
-			      end if
-			      
-			      declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (obj_id as Ptr) as Integer
-			      
-			      return collectionBehavior(self) = NSWindowCollectionBehaviorFullScreenPrimary
+			      return CollectionBehavior = NSWindowCollectionBehavior.FullScreenPrimary
 			    end if
 			  #endif
 			End Get
@@ -2755,18 +2725,11 @@ Inherits NSResponder
 			  
 			  #if TargetCocoa then
 			    if IsLion then
-			      if FullScreenEnabled = false then
-			        EnableFullScreenSupport
-			      end if
 			      
-			      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (obj_id as Ptr, inFlag as Integer)
-			      
-			      if self <> nil then
-			        if Value then
-			          setCollectionBehavior( self, NSWindowCollectionBehaviorFullScreenPrimary )
-			        else
-			          setCollectionBehavior( self, NSWindowCollectionBehaviorDefault )
-			        end if
+			      if Value then
+			        CollectionBehavior = NSWindowCollectionBehavior.FullScreenPrimary
+			      else
+			        CollectionBehavior = NSWindowCollectionBehavior.Default
 			      end if
 			      
 			    end if
@@ -2777,10 +2740,6 @@ Inherits NSResponder
 		#tag EndSetter
 		FullscreenAllowed As Boolean
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private FullScreenEnabled As Boolean
-	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -3046,10 +3005,11 @@ Inherits NSResponder
 			  
 			  #if TargetCocoa then
 			    if IsLion then
-			      declare function GetStyleMask lib CocoaLib selector "styleMask" (obj_id as Ptr) as Integer
+			      soft declare Function GetStyleMask lib CocoaLib Selector "styleMask" (obj_id As Ptr) As Integer
 			      
 			      if self <> nil then
-			        return GetStyleMask(self) = NSWindowMaskFullScreen
+			        dim value as integer = GetStyleMask(self)
+			        return Bitwise.BitAnd(Value,NSFullScreenWindowMask) = NSFullScreenWindowMask
 			      end if
 			    End If
 			  #endif
@@ -4198,13 +4158,13 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
-	#tag EndConstant
-
 	#tag Constant, Name = NSBorderlessWindowMask, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSClosableWindowMask, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = NSMiniaturizableWindowMask, Type = Double, Dynamic = False, Default = \"4", Scope = Public
@@ -4217,39 +4177,6 @@ Inherits NSResponder
 	#tag EndConstant
 
 	#tag Constant, Name = NSTitledWindowMask, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorCanJoinAllSpaces, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorDefault, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorFullScreenAuxiliary, Type = Double, Dynamic = False, Default = \"256", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorFullScreenPrimary, Type = Double, Dynamic = False, Default = \"128", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorIgnoresCycle, Type = Double, Dynamic = False, Default = \"64", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorManaged, Type = Double, Dynamic = False, Default = \"4", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorMoveToActiveSpace, Type = Double, Dynamic = False, Default = \"2", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorParticipatesInCycle, Type = Double, Dynamic = False, Default = \"32", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorStationary, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorTransient, Type = Double, Dynamic = False, Default = \"8", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowMaskFullScreen, Type = Double, Dynamic = False, Default = \"16399", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSWindowNumberListAllApplications, Type = Double, Dynamic = False, Default = \"1", Scope = Public
@@ -4293,6 +4220,19 @@ Inherits NSResponder
 		  NSWindowDocumentIconButton
 		  NSWindowDocumentVersionsButton = 6
 		NSWindowFullScreenButton
+	#tag EndEnum
+
+	#tag Enum, Name = NSWindowCollectionBehavior, Flags = &h0
+		Default=0
+		  CanJoinAllSpaces=1
+		  MoveToActiveSpace=2
+		  Managed=4
+		  Transient=8
+		  Stationary=16
+		  ParticipatesInCycle=32
+		  IgnoresCycle=64
+		  FullScreenPrimary=128
+		FullScreenAuxiliary=256
 	#tag EndEnum
 
 	#tag Enum, Name = NSWindowLevel, Type = Integer, Flags = &h0
@@ -4424,6 +4364,11 @@ Inherits NSResponder
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FullscreenAllowed"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GState"

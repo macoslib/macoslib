@@ -17,10 +17,11 @@ Inherits CocoaMenuItem
 		      
 		      if w = Nil then return // Return if there's no frontmost window
 		      
-		      declare function GetStyleMask lib CocoaLib selector "styleMask" (target as Integer) as Integer
+		      declare function GetStyleMask lib CocoaLib selector "styleMask" (windowref as WindowPtr) as Integer
 		      
 		      // Set the text correctly depending on the fullscreen mode of the frontmost window
-		      if GetStyleMask(w.Handle) = kWindowMaskFullScreen then
+		      dim value as Integer = GetStyleMask(w)
+		      if Bitwise.BitAnd(Value,NSFullScreenWindowMask) = NSFullScreenWindowMask then
 		        self.Text = LocalizedTextExitFullscreen
 		      else
 		        self.Text = LocalizedTextEnterFullscreen
@@ -49,6 +50,9 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Quitter le mode plein \xC3\xA9cran"
 		#Tag Instance, Platform = Any, Language = sv, Definition  = \"L\xC3\xA4mna helsk\xC3\xA4rmsl\xC3\xA4ge"
 		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Schakel schermvullende weergave uit"
+	#tag EndConstant
+
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Private
 	#tag EndConstant
 
 

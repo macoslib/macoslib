@@ -463,6 +463,14 @@ End
 
 	#tag Event
 		Sub Open()
+		  
+		  // Set presentation options for full screen mode
+		  Dim NSApp as NSApplication = NSApplication.App
+		  NSApp.PresentationOptions = integer(NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationFullScreen or _
+		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideToolbar or _
+		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideMenuBar or _
+		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideDock)
+		  
 		  m_NSWindow = self // Record a reference to NSWindow
 		  if m_NSWindow.MovableByBackground then
 		    lblIsMovableByBackground.Text = "It's movable!"
@@ -471,7 +479,8 @@ End
 		  end if
 		  
 		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
-		  m_NSWindow.ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge ) = 20
+		  m_NSWindow.ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge ) = 20 // Draw a border at the bottom of the window
+		  
 		  UpdateBackingScaleFactor
 		End Sub
 	#tag EndEvent
@@ -538,6 +547,8 @@ End
 		  else
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
+		  
+		  MsgBox str( m_NSWindow.FullscreenAllowed )
 		End Sub
 	#tag EndEvent
 #tag EndEvents

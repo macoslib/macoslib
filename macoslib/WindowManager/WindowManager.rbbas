@@ -195,38 +195,15 @@ Module WindowManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub EnableFullScreenSupport()
-		  #If TargetCocoa
-		    
-		    If IsLion And FullScreenEnabled = False Then
-		      declare Function objc_getClass lib CocoaLib (aClassName As CString) As Integer
-		      declare Function GetSharedApplication lib CocoaLib Selector "sharedApplication" (target As Integer) As Integer
-		      declare Sub SetPresentationOptions lib CocoaLib Selector "setPresentationOptions:" (target As Integer, options As Integer)
-		      
-		      Dim appclass As Integer = objc_getClass("NSApplication")
-		      If appclass > 0 Then
-		        Dim appid As Integer = GetSharedApplication(appclass)
-		        If appid > 0 Then
-		          SetPresentationOptions(appid,NSApplicationPresentationFullScreen)
-		          FullScreenEnabled = True
-		        End
-		      End
-		      
-		    End
-		  #EndIf
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function FullScreenAllowed(extends w as Window) As Boolean
 		  //# Indicates whether the window can enter full screen mode
 		  
 		  #if TargetCocoa then
 		    if IsLion then
-		      declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as WindowCollectionBehavior
 		      
-		      return collectionBehavior(w) = kWindowCollectionBehaviorFullScreenPrimary
+		      return collectionBehavior(w) = WindowCollectionBehavior.FullScreenPrimary
 		    end if
 		  #else
 		    #pragma Unused w
@@ -239,19 +216,14 @@ Module WindowManager
 		  //# Allows the window to enter full screen mode
 		  
 		  #if TargetCocoa then
-		    if FullScreenEnabled = false then
-		      EnableFullScreenSupport
-		    end if
-		    
 		    if IsLion then
-		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
+		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as WindowCollectionBehavior)
 		      
 		      if Value then
-		        setCollectionBehavior( w, kWindowCollectionBehaviorFullScreenPrimary )
+		        setCollectionBehavior( w, WindowCollectionBehavior.FullScreenPrimary )
 		      else
-		        setCollectionBehavior( w, kWindowCollectionBehaviorDefault )
+		        setCollectionBehavior( w, WindowCollectionBehavior.Default )
 		      end if
-		      
 		    end if
 		  #else
 		    #pragma Unused w
@@ -302,7 +274,8 @@ Module WindowManager
 		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
 		      
 		      if w <> nil then
-		        return GetStyleMask(w) = kWindowMaskFullScreen
+		        dim value as Integer = GetStyleMask(w)
+		        return Bitwise.BitAnd(Value,NSFullScreenWindowMask) = NSFullScreenWindowMask
 		      end if
 		    end if
 		  #else
@@ -512,11 +485,6 @@ Module WindowManager
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21
-		Private FullScreenEnabled As Boolean = False
-	#tag EndProperty
-
-
 	#tag Constant, Name = kAlertWindowClass, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
@@ -571,36 +539,6 @@ Module WindowManager
 	#tag Constant, Name = kWindowCollapseBoxRgn, Type = Double, Dynamic = False, Default = \"7", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kWindowCollectionBehaviorCanJoinAllSpaces, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorDefault, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorFullScreenAuxillary, Type = Double, Dynamic = False, Default = \"256", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorFullScreenPrimary, Type = Double, Dynamic = False, Default = \"128", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorIgnoreCycles, Type = Double, Dynamic = False, Default = \"64", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorManaged, Type = Double, Dynamic = False, Default = \"4", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorMoveToActiveSpace, Type = Double, Dynamic = False, Default = \"2", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorParticipatesInCycles, Type = Double, Dynamic = False, Default = \"32", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorStationary, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowCollectionBehaviorTransient, Type = Double, Dynamic = False, Default = \"8", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = kWindowContentRgn, Type = Double, Dynamic = False, Default = \"33", Scope = Public
 	#tag EndConstant
 
@@ -623,9 +561,6 @@ Module WindowManager
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowIgnoreClicksAttribute, Type = Double, Dynamic = False, Default = \"536870912", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = kWindowMaskFullScreen, Type = Double, Dynamic = False, Default = \"16399", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = kWindowMoveTransitionAction, Type = Double, Dynamic = False, Default = \"3", Scope = Protected
@@ -673,6 +608,9 @@ Module WindowManager
 	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
+	#tag EndConstant
+
 
 	#tag Structure, Name = MacPoint, Flags = &h0
 		v as Int16
@@ -691,6 +629,20 @@ Module WindowManager
 		  green as UInt16
 		blue as UInt16
 	#tag EndStructure
+
+
+	#tag Enum, Name = WindowCollectionBehavior, Type = Integer, Flags = &h0
+		Default=0
+		  CanJoinAllSpaces=1
+		  MoveToActiveSpace=2
+		  Managed=4
+		  Transient=8
+		  Stationary=16
+		  ParticipatesInCycle=32
+		  IgnoresCycle=64
+		  FullScreenPrimary=128
+		FullScreenAuxiliary=256
+	#tag EndEnum
 
 
 	#tag ViewBehavior
