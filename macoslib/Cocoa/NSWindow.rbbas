@@ -327,16 +327,16 @@ Inherits NSResponder
 		  
 		  //@param thickness The thickness for edge
 		  //@param edge The border whose thickness to set _
-		  //  NSMaxYEdge: Top border. _
-		  //  NSMinYEdge: Bottom border. _
-		  //@param
+		  //  _NSMaxYEdge_: Top border. _
+		  //  _NSMinYEdge_: Bottom border. _
+		  //@param/
 		  
 		  //@discussion
 		  // In a non-textured window calling setContentBorderThickness:forEdge: passing NSMaxYEdge will raise an exception. _
 		  // It is only valid to set the content border thickness of the top edge in a textured window.
 		  // The contentBorder does not include the titlebar or toolbar, so a textured window that just wants the gradient _
 		  // in the titlebar and toolbar should have a contentBorderThickness of 0 for NSMaxYEdge.
-		  //discussion@
+		  //@discussion/
 		  
 		  #if TargetCocoa
 		    declare sub setBackingType lib CocoaLib selector "setBackingType:" (obj_id as Ptr, BackingType as NSBackingStoreType)
