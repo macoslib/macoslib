@@ -325,10 +325,10 @@ Inherits NSResponder
 		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Single)
 		  //@header Specifies the thickness of a given border of the window.
 		  
-		  //@param thickness The thickness for edge
-		  //@param edge The border whose thickness to set _
-		  //  _NSMaxYEdge_: Top border. _
-		  //  _NSMinYEdge_: Bottom border. _
+		  //@param '''thickness''' The thickness for edge
+		  //@param '''edge''' The border whose thickness to set _
+		  //  __NSMaxYEdge__: Top border. _
+		  //  __NSMinYEdge__: Bottom border. _
 		  //@param/
 		  
 		  //@discussion
