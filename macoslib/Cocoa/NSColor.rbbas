@@ -117,41 +117,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CMYK(cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity value and CMYK components.
-		  
-		  //@param cyan:     The cyan    component of the color object.
-		  //@param magenta:  The magenta component of the color object.
-		  //@param yellow:   The yellow  component of the color object.
-		  //@param black:    The black   component of the color object.
-		  //@param alpha:    The opacity value     of the color object.
-		  
-		  //@return NSColor: The color object.
-		  
-		  //@Discussion: Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
-		  
-		  #if targetMacOS
-		    declare function colorWithDeviceCyan lib CocoaLib selector "colorWithDeviceCyan:magenta:yellow:black:alpha:" _
-		    (id as Ptr, cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithDeviceCyan(ClassRef, cyan, magenta, yellow, black, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused cyan
-		    #pragma unused magenta
-		    #pragma unused yellow
-		    #pragma unused black
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function ColorFromPasteboard(pasteBoard as NSPasteboard) As NSColor
 		  //# Returns the NSColor currently on the given pasteboard.
 		  
@@ -250,6 +215,41 @@ Inherits NSObject
 		    end if
 		    
 		  #else
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function colorWithCMYK(cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity value and CMYK components.
+		  
+		  //@param cyan:     The cyan    component of the color object.
+		  //@param magenta:  The magenta component of the color object.
+		  //@param yellow:   The yellow  component of the color object.
+		  //@param black:    The black   component of the color object.
+		  //@param alpha:    The opacity value     of the color object.
+		  
+		  //@return NSColor: The color object.
+		  
+		  //@Discussion: Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+		  
+		  #if targetMacOS
+		    declare function colorWithDeviceCyan lib CocoaLib selector "colorWithDeviceCyan:magenta:yellow:black:alpha:" _
+		    (id as Ptr, cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithDeviceCyan(ClassRef, cyan, magenta, yellow, black, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused cyan
+		    #pragma unused magenta
+		    #pragma unused yellow
+		    #pragma unused black
 		    #pragma unused alpha
 		  #endif
 		End Function
