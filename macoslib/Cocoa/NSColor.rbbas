@@ -2026,7 +2026,7 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Shared IgnoresAlpha1 As Boolean
+		Shared IgnoresAlpha As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
