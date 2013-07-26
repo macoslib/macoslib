@@ -222,7 +222,7 @@ Begin Window NSWindowExample
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   20
+      Height          =   14
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -239,16 +239,16 @@ Begin Window NSWindowExample
       TabIndex        =   7
       TabPanelIndex   =   0
       Text            =   "(Except this doesn't seem to work)"
-      TextAlign       =   0
+      TextAlign       =   1
       TextColor       =   &h000000
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   11
       TextUnit        =   0
-      Top             =   203
+      Top             =   196
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   399
+      Width           =   243
    End
    Begin Label Label2
       AutoDeactivate  =   True
@@ -451,6 +451,71 @@ Begin Window NSWindowExample
       Visible         =   True
       Width           =   166
    End
+   Begin PushButton btnToggleMovable
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   "Toggle Movable"
+      Default         =   False
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   139
+      Underline       =   ""
+      Visible         =   True
+      Width           =   243
+   End
+   Begin Label lblIsMovable
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   285
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      Text            =   "Untitled"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   139
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   295
+   End
 End
 #tag EndWindow
 
@@ -463,6 +528,7 @@ End
 
 	#tag Event
 		Sub Open()
+		  m_NSWindow = self // Record a reference to NSWindow
 		  
 		  // Set presentation options for full screen mode
 		  Dim NSApp as NSApplication = NSApplication.App
@@ -471,17 +537,24 @@ End
 		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideMenuBar or _
 		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideDock)
 		  
-		  m_NSWindow = self // Record a reference to NSWindow
 		  if m_NSWindow.MovableByBackground then
 		    lblIsMovableByBackground.Text = "It's movable!"
 		  else
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
 		  
+		  if m_NSWindow.IsMovable then
+		    lblIsMovable.Text = "It's movable!"
+		  else
+		    lblIsMovable.Text = "NOT movable!"
+		  end if
+		  
 		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
 		  m_NSWindow.ContentBorderBottomThickness = 20 // Draw a border at the bottom of the window
 		  
 		  UpdateBackingScaleFactor
+		  
+		  m_NSWindow.ShowsResizeIndicator = True
 		End Sub
 	#tag EndEvent
 
@@ -547,8 +620,6 @@ End
 		  else
 		    lblIsMovableByBackground.Text = "NOT movable!"
 		  end if
-		  
-		  MsgBox str( m_NSWindow.FullscreenAllowed )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -607,6 +678,18 @@ End
 		  // more often than calling the NSWindow method directly. It, in turn, calls NSWindow.DocumentEdited.
 		  //
 		  // Otherwise, I could have used m_NSWindow.DocumentEdited.
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnToggleMovable
+	#tag Event
+		Sub Action()
+		  m_NSWindow.IsMovable = not m_NSWindow.IsMovable
+		  if m_NSWindow.IsMovable then
+		    lblIsMovable.Text = "It's movable!"
+		  else
+		    lblIsMovable.Text = "NOT movable!"
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

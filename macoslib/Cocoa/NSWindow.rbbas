@@ -969,6 +969,21 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub MakeHUDWindow()
+		  //# Sets the window’s style mask to HUD.
+		  
+		  //@discussion Only works on floating (palette) windows. (frame = 3 & 7)
+		  
+		  Dim tmpStyleMask as UInt32 = NSHUDWindowMask or NSTitledWindowMask or NSUtilityWindowMask
+		  dim w as window = self
+		  if w.Resizeable then tmpStyleMask = tmpStyleMask or NSResizableWindowMask
+		  if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  
+		  StyleMask = tmpStyleMask
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MakeKeyAndOrderFront()
 		  
 		  #if TargetCocoa
@@ -1088,6 +1103,18 @@ Inherits NSResponder
 		  static name as String = Cocoa.StringConstant ("NSDeviceSize")
 		  return name
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As Window
+		  
+		  for i as Integer = 0 to (WindowCount() - 1)
+		    Dim w as NSWindow = Window(i)
+		    if w <> Nil and w = self then
+		      return window(i)
+		    end if
+		  next
 		End Function
 	#tag EndMethod
 
@@ -4194,6 +4221,9 @@ Inherits NSResponder
 	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = NSHUDWindowMask, Type = Double, Dynamic = False, Default = \"8192", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = NSMiniaturizableWindowMask, Type = Double, Dynamic = False, Default = \"4", Scope = Public
 	#tag EndConstant
 
@@ -4204,6 +4234,9 @@ Inherits NSResponder
 	#tag EndConstant
 
 	#tag Constant, Name = NSTitledWindowMask, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSUtilityWindowMask, Type = Double, Dynamic = False, Default = \"16", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSWindowNumberListAllApplications, Type = Double, Dynamic = False, Default = \"1", Scope = Public
