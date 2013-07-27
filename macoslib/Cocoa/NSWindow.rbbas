@@ -3154,36 +3154,6 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function isMovableByWindowBackground lib CocoaLib selector "isMovableByWindowBackground" (obj_id as Ptr) as Boolean
-			    
-			    return isMovableByWindowBackground(self)
-			    
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  #if TargetCocoa
-			    declare sub setMovableByWindowBackground lib CocoaLib selector "setMovableByWindowBackground:" (obj_id as Ptr, flag as Boolean)
-			    
-			    setMovableByWindowBackground self, value
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			  
-			End Set
-		#tag EndSetter
-		IsMovableByWindowBackground As Boolean
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  
-			  #if TargetCocoa
 			    declare function isOnActiveSpace lib CocoaLib selector "isOnActiveSpace" (obj_id as Ptr) as Boolean
 			    
 			    return isOnActiveSpace(self)
@@ -3529,7 +3499,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa
 			    
-			    declare function IsMovableByWindowBackground lib CarbonLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
+			    declare function IsMovableByWindowBackground lib CocoaLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
 			    // Introduced in MacOS X 10.2.
 			    
 			    return IsMovableByWindowBackground( self )
@@ -3542,7 +3512,7 @@ Inherits NSResponder
 			Set
 			  #if TargetCocoa
 			    
-			    declare sub SetMovableByWindowBackground lib CarbonLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
+			    declare sub SetMovableByWindowBackground lib CocoaLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
 			    // Introduced in MacOS X 10.2.
 			    
 			    SetMovableByWindowBackground( self, value )
