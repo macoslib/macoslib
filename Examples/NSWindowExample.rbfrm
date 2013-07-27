@@ -238,7 +238,7 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      Text            =   "(Except this doesn't seem to work)"
+      Text            =   "(This doesn't seem to work in REALStudio, but does in Xojo)"
       TextAlign       =   1
       TextColor       =   &h000000
       TextFont        =   "System"
@@ -248,7 +248,7 @@ Begin Window NSWindowExample
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   243
+      Width           =   399
    End
    Begin Label Label2
       AutoDeactivate  =   True
