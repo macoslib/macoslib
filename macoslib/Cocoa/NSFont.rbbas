@@ -113,23 +113,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function CoveredCharacterSet() As NSCharacterSet
-		  #if TargetMacOS
-		    declare function coveredCharacterSet lib CocoaLib selector "coveredCharacterSet" (Cls as Ptr) as Ptr
-		    
-		    dim p as Ptr
-		    p = coveredCharacterSet( me.id )
-		    
-		    if p<>nil then
-		      return new NSCharacterSet( p, false )
-		    else
-		      return  nil
-		    end if
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function CoveredCharacterSet1() As NSCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function coveredCharacterSet lib CocoaLib selector "coveredCharacterSet" (obj_id as Ptr) as Ptr
@@ -140,7 +123,6 @@ Inherits NSObject
 		    else
 		      return nil
 		    end if
-		    
 		  #endif
 		  
 		End Function
