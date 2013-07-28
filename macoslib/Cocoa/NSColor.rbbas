@@ -2,6 +2,20 @@
 Class NSColor
 Inherits NSObject
 	#tag Method, Flags = &h0
+		Function AlphaComponent() As Single
+		  //# Returns the NSColor's alpha (opacity) component.
+		  
+		  //@discussion: The alpha component of the color object. If the NSColor has no alpha component, this is 1.0 (opaque).
+		  
+		  #if targetMacOS
+		    declare function alphaComponent lib CocoaLib selector "alphaComponent" (id as Ptr) as Single
+		    
+		    return alphaComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function AlternateSelectedControlColor() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_alternateSelectedControlColor)
@@ -21,6 +35,20 @@ Inherits NSObject
 		 Shared Function Black() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_blackColor)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function BlackComponent() As Single
+		  //# Returns the NSColor's black component.
+		  
+		  //@discussion: This method works only with objects representing colors in the NSDeviceCMYKColorSpace color space. Sending it to other objects raises an exception.
+		  
+		  #if targetMacOS
+		    declare function blackComponent lib CocoaLib selector "blackComponent" (id as Ptr) as Single
+		    
+		    return blackComponent(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -66,6 +94,22 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function BrightnessComponent() As Single
+		  //# Returns the brightness component of the HSB color equivalent to the NSColor.
+		  
+		  //@return Single: The color object's brightness component.
+		  
+		  //@discussion: This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
+		  
+		  #if targetMacOS
+		    declare function brightnessComponent lib CocoaLib selector "brightnessComponent" (id as Ptr) as Single
+		    
+		    return brightnessComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Brown() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_brownColor)
@@ -91,6 +135,21 @@ Inherits NSObject
 		  #else
 		    #pragma unused listName
 		    #pragma unused colorName
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CatalogNameComponent() As String
+		  //# Returns the name of the catalog containing the NSColor's name.
+		  
+		  //@result NSString: The name of the catalog containing the color object.
+		  //@discussion: This method raises an exception if the NSColor’s color space isn’t NSNamedColorSpace.
+		  
+		  #if targetMacOS
+		    declare function catalogNameComponent lib CocoaLib selector "catalogNameComponent" (id as Ptr) as CFStringRef
+		    
+		    return catalogNameComponent(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -139,6 +198,21 @@ Inherits NSObject
 		    
 		  #else
 		    #pragma unused pasteboard
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ColorNameComponent() As String
+		  //# Returns the NSColor's name.
+		  
+		  //@return String: The name of the color object.
+		  //@discussion: This method raises an exception if the NSColor’s color space isn’t NSNamedColorSpace.
+		  
+		  #if targetMacOS
+		    declare function colorNameComponent lib CocoaLib selector "colorNameComponent" (id as Ptr) as CFStringRef
+		    
+		    return colorNameComponent(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -821,6 +895,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CyanComponent() As Single
+		  //# Returns the NSColor's cyan component.
+		  
+		  #if targetMacOS
+		    declare function cyanComponent lib CocoaLib selector "cyanComponent" (id as Ptr) as Single
+		    
+		    return cyanComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function DarkGray() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_darkGrayColor)
@@ -974,6 +1060,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GreenComponent() As Single
+		  //# Returns the NSColor's green component.
+		  
+		  #if targetMacOS
+		    declare function greenComponent lib CocoaLib selector "greenComponent" (id as Ptr) as Single
+		    
+		    return greenComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function GridColor() As NSColor
 		  //# Returns the system color used for the optional gridlines in, for example, a table view.
 		  
@@ -1068,6 +1166,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function HueComponent() As Single
+		  //# Returns the hue component of the HSB color equivalent to the NSColor.
+		  
+		  #if targetMacOS
+		    declare function hueComponent lib CocoaLib selector "hueComponent" (id as Ptr) as Single
+		    
+		    return hueComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function KeyboardFocusIndicatorColor() As NSColor
 		  //# Returns the system color that represents the keyboard focus ring around controls.
 		  
@@ -1112,9 +1222,33 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LocalizedCatalogNameComponent() As String
+		  //# Returns the name of the catalog containing the NSColor's name as a localized string.
+		  
+		  #if targetMacOS
+		    declare function localizedCatalogNameComponent lib CocoaLib selector "localizedCatalogNameComponent" (id as Ptr) as CFStringRef
+		    
+		    return localizedCatalogNameComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Magenta() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_magentaColor)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MagentaComponent() As Single
+		  //# Returns the NSColor's magenta component.
+		  
+		  #if targetMacOS
+		    declare function magentaComponent lib CocoaLib selector "magentaComponent" (id as Ptr) as Single
+		    
+		    return magentaComponent(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -1351,6 +1485,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function NumberOfComponents() As Integer
+		  //# Returns the number of components in the NSColor.
+		  
+		  #if targetMacOS
+		    declare function numberOfComponents lib CocoaLib selector "numberOfComponents" (id as Ptr) as Integer
+		    
+		    return numberOfComponents(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Convert() As Color
 		  return self.ColorValue
 		End Function
@@ -1434,6 +1580,30 @@ Inherits NSObject
 		 Shared Function Red() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_redColor)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RedComponent() As Single
+		  //# Returns the NSColor's red component.
+		  
+		  #if targetMacOS
+		    declare function redComponent lib CocoaLib selector "redComponent" (id as Ptr) as Single
+		    
+		    return redComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SaturationComponent() As Single
+		  //# Returns the NSColor's saturation component.
+		  
+		  #if targetMacOS
+		    declare function saturationComponent lib CocoaLib selector "saturationComponent" (id as Ptr) as Single
+		    
+		    return saturationComponent(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -1754,6 +1924,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function WhiteComponent() As Single
+		  //# Returns the NSColor's white component.
+		  
+		  #if targetMacOS
+		    declare function whiteComponent lib CocoaLib selector "whiteComponent" (id as Ptr) as Single
+		    
+		    return whiteComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function WindowBackgroundColor() As NSColor
 		  //# Returns a pattern color that will draw the ruled lines for the window background.
 		  
@@ -1834,95 +2016,18 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function YellowComponent() As Single
+		  //# Returns the NSColor's yellow component.
+		  
+		  #if targetMacOS
+		    declare function yellowComponent lib CocoaLib selector "yellowComponent" (id as Ptr) as Single
+		    
+		    return yellowComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
 
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's alpha (opacity) component.
-			  
-			  //@discussion: The alpha component of the color object. If the NSColor has no alpha component, this is 1.0 (opaque).
-			  
-			  #if targetMacOS
-			    declare function alphaComponent lib CocoaLib selector "alphaComponent" (id as Ptr) as Single
-			    
-			    return alphaComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		AlphaComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's black component.
-			  
-			  //@discussion: This method works only with objects representing colors in the NSDeviceCMYKColorSpace color space. Sending it to other objects raises an exception.
-			  
-			  #if targetMacOS
-			    declare function blackComponent lib CocoaLib selector "blackComponent" (id as Ptr) as Single
-			    
-			    return blackComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		BlackComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the brightness component of the HSB color equivalent to the NSColor.
-			  
-			  //@return Single: The color object's brightness component.
-			  
-			  //@discussion: This method works only with objects representing colors in the NSCalibratedRGBColorSpace or NSDeviceRGBColorSpace color space. Sending it to other objects raises an exception.
-			  
-			  #if targetMacOS
-			    declare function brightnessComponent lib CocoaLib selector "brightnessComponent" (id as Ptr) as Single
-			    
-			    return brightnessComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		BrightnessComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the name of the catalog containing the NSColor's name.
-			  
-			  //@result NSString: The name of the catalog containing the color object.
-			  //@discussion: This method raises an exception if the NSColor’s color space isn’t NSNamedColorSpace.
-			  
-			  #if targetMacOS
-			    declare function catalogNameComponent lib CocoaLib selector "catalogNameComponent" (id as Ptr) as CFStringRef
-			    
-			    return catalogNameComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		CatalogNameComponent As String
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's name.
-			  
-			  //@return String: The name of the color object.
-			  //@discussion: This method raises an exception if the NSColor’s color space isn’t NSNamedColorSpace.
-			  
-			  #if targetMacOS
-			    declare function colorNameComponent lib CocoaLib selector "colorNameComponent" (id as Ptr) as CFStringRef
-			    
-			    return colorNameComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		ColorNameComponent As String
-	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -1959,51 +2064,6 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the NSColor's cyan component.
-			  
-			  #if targetMacOS
-			    declare function cyanComponent lib CocoaLib selector "cyanComponent" (id as Ptr) as Single
-			    
-			    return cyanComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		CyanComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's green component.
-			  
-			  #if targetMacOS
-			    declare function greenComponent lib CocoaLib selector "greenComponent" (id as Ptr) as Single
-			    
-			    return greenComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		GreenComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the hue component of the HSB color equivalent to the NSColor.
-			  
-			  #if targetMacOS
-			    declare function hueComponent lib CocoaLib selector "hueComponent" (id as Ptr) as Single
-			    
-			    return hueComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		HueComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
 			  //# Returns a Boolean value indicating whether the application supports alpha.
 			  
 			  #if targetMacOS
@@ -2032,21 +2092,6 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //# Returns the name of the catalog containing the NSColor's name as a localized string.
-			  
-			  #if targetMacOS
-			    declare function localizedCatalogNameComponent lib CocoaLib selector "localizedCatalogNameComponent" (id as Ptr) as CFStringRef
-			    
-			    return localizedCatalogNameComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		LocalizedCatalogNameComponent As String
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
 			  //# Returns the name of the NSColor as a localized string.
 			  
 			  #if targetMacOS
@@ -2059,36 +2104,6 @@ Inherits NSObject
 		LocalizedColorNameComponent As String
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's magenta component.
-			  
-			  #if targetMacOS
-			    declare function magentaComponent lib CocoaLib selector "magentaComponent" (id as Ptr) as Single
-			    
-			    return magentaComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		MagentaComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the number of components in the NSColor.
-			  
-			  #if targetMacOS
-			    declare function numberOfComponents lib CocoaLib selector "numberOfComponents" (id as Ptr) as Integer
-			    
-			    return numberOfComponents(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		NumberOfComponents As Integer
-	#tag EndComputedProperty
-
 	#tag Property, Flags = &h21
 		Attributes( Hidden = true ) Private rbcolor As Color
 	#tag EndProperty
@@ -2096,66 +2111,6 @@ Inherits NSObject
 	#tag Property, Flags = &h21
 		Attributes( Hidden = true ) Private rbcolorcomputed As Boolean
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's red component.
-			  
-			  #if targetMacOS
-			    declare function redComponent lib CocoaLib selector "redComponent" (id as Ptr) as Single
-			    
-			    return redComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		RedComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's saturation component.
-			  
-			  #if targetMacOS
-			    declare function saturationComponent lib CocoaLib selector "saturationComponent" (id as Ptr) as Single
-			    
-			    return saturationComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		SaturationComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's white component.
-			  
-			  #if targetMacOS
-			    declare function whiteComponent lib CocoaLib selector "whiteComponent" (id as Ptr) as Single
-			    
-			    return whiteComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		WhiteComponent As Single
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the NSColor's yellow component.
-			  
-			  #if targetMacOS
-			    declare function yellowComponent lib CocoaLib selector "yellowComponent" (id as Ptr) as Single
-			    
-			    return yellowComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		YellowComponent As Single
-	#tag EndComputedProperty
 
 
 	#tag Constant, Name = NSClassName, Type = String, Dynamic = False, Default = \"NSColor", Scope = Private
