@@ -304,6 +304,7 @@ End
 		  NSToolbarSpaceItemIdentifier, _
 		  NSSlider1.name, _
 		  NSToolbarCustomizeToolbarItemIdentifier, _
+		  "TemplateToolbarItem",_
 		  "HomeToolbarItem", _
 		  "SelectToolbarItem",_
 		  NSToolbarFlexibleSpaceItemIdentifier, _
@@ -321,6 +322,7 @@ End
 		  NSToolbarPrintItemIdentifier, _
 		  NSSlider1.name, _
 		  NSToolbarCustomizeToolbarItemIdentifier, _
+		  "TemplateToolbarItem",_
 		  "HomeToolbarItem", _
 		  "SelectToolbarItem",_
 		  NSToolbarFlexibleSpaceItemIdentifier, _
@@ -354,6 +356,15 @@ End
 		  ti.ItemLabel = "Home"
 		  ti.PaletteLabel = "Home"
 		  ti.ToolTip = "Home folder"
+		  t.AddItem ti
+		  
+		  // a button item using a Template (Black/transparent) image
+		  ti = new NSToolbarButtonItem("TemplateToolbarItem")
+		  ti.Image = NSImage.HomeTemplate
+		  ti.Image.Template = true
+		  ti.ItemLabel = "Template"
+		  ti.PaletteLabel = "Template Image"
+		  ti.ToolTip = "Template Image"
 		  t.AddItem ti
 		  
 		  // a custom toolbar item which uses a NSControl subclass
