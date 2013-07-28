@@ -2297,17 +2297,18 @@ Inherits NSResponder
 		#tag Getter
 			Get
 			  #if TargetCocoa then
-			    return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) ) <> 0
+			    return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) ) <> 0
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
 			  #if TargetCocoa then
+			    
 			    if Value then
-			      CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) )
+			      CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.CanJoinAllSpaces)
 			    else
-			      CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) )
+			      CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.CanJoinAllSpaces)
 			    end if
 			  #else
 			    #pragma Unused Value
@@ -2916,7 +2917,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -2927,9 +2928,9 @@ Inherits NSResponder
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.FullScreenPrimary)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.FullScreenPrimary)
 			      end if
 			      
 			    end if
@@ -2944,13 +2945,12 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Note
 			Windows with this collection behavior can be shown on the same space as the fullscreen window.
-			
 		#tag EndNote
 		#tag Getter
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -2961,9 +2961,9 @@ Inherits NSResponder
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.FullScreenAuxiliary)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.FullScreenAuxiliary)
 			      end if
 			      
 			    end if
@@ -3080,7 +3080,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.IgnoresCycle) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.IgnoresCycle) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -3091,9 +3091,9 @@ Inherits NSResponder
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.IgnoresCycle) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.IgnoresCycle)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.IgnoresCycle) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.IgnoresCycle)
 			      end if
 			      
 			    end if
@@ -3274,7 +3274,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is first introduced in 10.7
-			      return Bitwise.BitAnd( self.StyleMask, NSFullScreenWindowMask ) = NSFullScreenWindowMask
+			      return ( self.StyleMask and NSFullScreenWindowMask ) = NSFullScreenWindowMask
 			    End If
 			  #endif
 			End Get
@@ -3538,7 +3538,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.Managed) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.Managed) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -3549,9 +3549,9 @@ Inherits NSResponder
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.Managed) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.Managed)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.Managed) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.Managed)
 			      end if
 			      
 			    end if
@@ -3745,7 +3745,7 @@ Inherits NSResponder
 		#tag Getter
 			Get
 			  #if TargetCocoa then
-			    return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.MoveToActiveSpace) ) <> 0
+			    return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.MoveToActiveSpace) ) <> 0
 			  #endif
 			End Get
 		#tag EndGetter
@@ -3753,9 +3753,9 @@ Inherits NSResponder
 			Set
 			  #if TargetCocoa then
 			    if Value then
-			      CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.MoveToActiveSpace) )
+			      CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.MoveToActiveSpace)
 			    else
-			      CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.MoveToActiveSpace) )
+			      CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.MoveToActiveSpace)
 			    end if
 			  #else
 			    #pragma Unused Value
@@ -3843,7 +3843,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.ParticipatesInCycle) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.ParticipatesInCycle) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -3854,9 +3854,9 @@ Inherits NSResponder
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.ParticipatesInCycle) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.ParticipatesInCycle)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.ParticipatesInCycle) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.ParticipatesInCycle)
 			      end if
 			      
 			    end if
@@ -4224,7 +4224,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.Stationary) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.Stationary) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -4235,9 +4235,9 @@ Inherits NSResponder
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.Stationary) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.Stationary)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.Stationary) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.Stationary)
 			      end if
 			      
 			    end if
@@ -4318,7 +4318,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.Transient) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.Transient) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -4329,9 +4329,9 @@ Inherits NSResponder
 			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.Transient) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.Transient)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.Transient) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.Transient)
 			      end if
 			      
 			    end if
@@ -4787,6 +4787,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FullscreenAllowedAuxiliary"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="GState"
 			Group="Behavior"
 			Type="Integer"
@@ -4798,6 +4803,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HidesOnDeactivate"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IgnoresCycle"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -4933,6 +4943,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ParticipatesInCycle"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="PreservesContentDuringLiveResize"
 			Group="Behavior"
 			Type="Boolean"
@@ -4955,6 +4970,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsToolbarButton"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Stationary"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

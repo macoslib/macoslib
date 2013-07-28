@@ -43,7 +43,7 @@ Begin Window NSWindowExample
       TabIndex        =   16
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   0
       Visible         =   True
       Width           =   500
       Begin PushButton btnSetFileByURL
@@ -481,7 +481,7 @@ Begin Window NSWindowExample
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         State           =   0
+         State           =   1
          TabIndex        =   10
          TabPanelIndex   =   2
          TabStop         =   True
@@ -490,7 +490,7 @@ Begin Window NSWindowExample
          TextUnit        =   0
          Top             =   238
          Underline       =   ""
-         Value           =   False
+         Value           =   True
          Visible         =   True
          Width           =   190
       End
@@ -526,7 +526,7 @@ Begin Window NSWindowExample
          Visible         =   True
          Width           =   190
       End
-      Begin CheckBox CheckBox1
+      Begin CheckBox chkIsModified
          AutoDeactivate  =   True
          Bold            =   ""
          Caption         =   "Document Edited"
@@ -1344,22 +1344,12 @@ End
 		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideMenuBar or _
 		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideDock)
 		  
-		  
 		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
 		  m_NSWindow.ContentBorderBottomThickness = 23 // Draw a border at the bottom of the window
 		  
-		  // Set the window behavior checkboxes to the current values
-		  chkBehaviorCanJoinAllSpaces.Value = m_NSWindow.CanJoinAllSpaces
-		  chkBehaviorIgnoresCycle.Value = m_NSWindow.IgnoresCycle
-		  chkBehaviorFullscreenAllowed.Value = m_NSWindow.FullscreenAllowed
-		  chkBehaviorManaged.Value = m_NSWindow.Managed
-		  chkBehaviorMoveToActiveSpace.Value = m_NSWindow.MoveToActiveSpace
-		  chkBehaviorParticipatesInCycle.Value = m_NSWindow.ParticipatesInCycle
-		  chkBehaviorStationary.Value = m_NSWindow.Stationary
-		  chkBehaviorTransient.Value = m_NSWindow.Transient
-		  
 		  // Check whether the window is on a retina screen
 		  UpdateBackingScaleFactor
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 
@@ -1374,6 +1364,12 @@ End
 		Sub UpdateBackingScaleFactor()
 		  dim factor as double = m_NSWindow.BackingScaleFactor
 		  lblBackingScaleFactor.Text = str( factor )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UpdateCollectionBehavior()
+		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
 		End Sub
 	#tag EndMethod
 
@@ -1481,7 +1477,7 @@ End
 		  end if
 		  m_NSWindow.CanJoinAllSpaces = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1495,7 +1491,7 @@ End
 		  end if
 		  m_NSWindow.MoveToActiveSpace = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1504,7 +1500,7 @@ End
 		Sub Action()
 		  m_NSWindow.Managed = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1513,7 +1509,7 @@ End
 		Sub Action()
 		  m_NSWindow.Transient = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1522,7 +1518,7 @@ End
 		Sub Action()
 		  m_NSWindow.Stationary = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1531,7 +1527,7 @@ End
 		Sub Action()
 		  m_NSWindow.ParticipatesInCycle = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1540,7 +1536,7 @@ End
 		Sub Action()
 		  m_NSWindow.IgnoresCycle = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1549,7 +1545,7 @@ End
 		Sub Action()
 		  m_NSWindow.FullscreenAllowed = me.Value
 		  
-		  lblCollectionBehavior.Text = str( m_NSWindow.CollectionBehavior )
+		  UpdateCollectionBehavior
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1560,7 +1556,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CheckBox1
+#tag Events chkIsModified
 	#tag Event
 		Sub Action()
 		  self.IsModified = me.Value
