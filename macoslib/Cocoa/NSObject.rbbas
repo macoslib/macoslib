@@ -9,7 +9,7 @@ Implements objHasVariantValue
 		    
 		    return alloc(class_id)
 		  #else
-		    #pragma unused NSClassName
+		    #pragma unused class_id
 		  #endif
 		End Function
 	#tag EndMethod

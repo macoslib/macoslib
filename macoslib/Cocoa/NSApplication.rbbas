@@ -1004,19 +1004,19 @@ Inherits NSResponder
 
 
 	#tag Enum, Name = NSApplicationPresentationOptions, Type = Integer, Flags = &h0
-		NSApplicationPresentationDefault
-		  NSApplicationPresentationAutoHideDock
-		  NSApplicationPresentationHideDock
-		  NSApplicationPresentationAutoHideMenuBar
-		  NSApplicationPresentationHideMenuBar
-		  NSApplicationPresentationDisableAppleMenu
-		  NSApplicationPresentationDisableProcessSwitching
-		  NSApplicationPresentationDisableForceQuit
-		  NSApplicationPresentationDisableSessionTermination
-		  NSApplicationPresentationDisableHideApplication
-		  NSApplicationPresentationDisableMenuBarTransparency
-		  NSApplicationPresentationFullScreen
-		NSApplicationPresentationAutoHideToolbar
+		NSApplicationPresentationDefault = 0
+		  NSApplicationPresentationAutoHideDock = 1
+		  NSApplicationPresentationHideDock = 2
+		  NSApplicationPresentationAutoHideMenuBar = 4
+		  NSApplicationPresentationHideMenuBar = 8
+		  NSApplicationPresentationDisableAppleMenu = 16
+		  NSApplicationPresentationDisableProcessSwitching = 32
+		  NSApplicationPresentationDisableForceQuit = 64
+		  NSApplicationPresentationDisableSessionTermination = 128
+		  NSApplicationPresentationDisableHideApplication = 256
+		  NSApplicationPresentationDisableMenuBarTransparency = 512
+		  NSApplicationPresentationFullScreen = 1024
+		NSApplicationPresentationAutoHideToolbar = 2048
 	#tag EndEnum
 
 	#tag Enum, Name = NSRemoteNotificationType, Type = Integer, Flags = &h0

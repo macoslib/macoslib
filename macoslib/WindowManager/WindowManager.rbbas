@@ -200,25 +200,10 @@ Module WindowManager
 		  //# Indicates whether the window can enter full screen mode
 		  
 		  #if TargetCocoa then
-		    if IsLion then
-		      const NSWindowCollectionBehaviorDefault               = 0
-		      'const NSWindowCollectionBehaviorCanJoinAllSpaces      = 1
-		      'const NSWindowCollectionBehaviorMoveToActiveSpace     = 2
-		      'const NSWindowCollectionBehaviorManaged               = 4
-		      'const NSWindowCollectionBehaviorTransient             = 8
-		      'const NSWindowCollectionBehaviorStationary            = 16
-		      'const NSWindowCollectionBehaviorParticipatesInCycles  = 32
-		      'const NSWindowCollectionBehaviorIgnoreCycles          = 64
-		      const NSWindowCollectionBehaviorFullScreenPrimary     = 128
-		      const NSWindowCollectionBehaviorFullScreenAuxillary   = 256
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
 		      
-		      try
-		        declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
-		        
-		        return ( collectionBehavior(w) = NSWindowCollectionBehaviorFullScreenPrimary )
-		      catch err as RuntimeException
-		      end try
-		      
+		      return Bitwise.BitAnd( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) = Integer(WindowCollectionBehavior.FullScreenPrimary)
 		    end if
 		  #else
 		    #pragma Unused w
@@ -231,31 +216,15 @@ Module WindowManager
 		  //# Allows the window to enter full screen mode
 		  
 		  #if TargetCocoa then
-		    if IsLion then
-		      const NSWindowCollectionBehaviorDefault               = 0
-		      'const NSWindowCollectionBehaviorCanJoinAllSpaces      = 1
-		      'const NSWindowCollectionBehaviorMoveToActiveSpace     = 2
-		      'const NSWindowCollectionBehaviorManaged               = 4
-		      'const NSWindowCollectionBehaviorTransient             = 8
-		      'const NSWindowCollectionBehaviorStationary            = 16
-		      'const NSWindowCollectionBehaviorParticipatesInCycles  = 32
-		      'const NSWindowCollectionBehaviorIgnoreCycles          = 64
-		      const NSWindowCollectionBehaviorFullScreenPrimary     = 128
-		      const NSWindowCollectionBehaviorFullScreenAuxillary   = 256
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
 		      
-		      
-		      try
-		        declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
-		        
-		        if Value then
-		          setCollectionBehavior( w, NSWindowCollectionBehaviorFullScreenPrimary )
-		        else
-		          setCollectionBehavior( w, NSWindowCollectionBehaviorDefault )
-		        end if
-		      catch err as RuntimeException
-		      end try
-		      
-		      
+		      if Value then
+		        setCollectionBehavior( w, Bitwise.BitOr( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
+		      else
+		        setCollectionBehavior( w, Bitwise.BitXor( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
+		      end if
 		    end if
 		  #else
 		    #pragma Unused w
@@ -302,11 +271,11 @@ Module WindowManager
 		  //# Returns a boolean indicating the window's fullscreen status.
 		  
 		  #if TargetCocoa then
-		    if IsLion then
+		    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is introduced in 10.7
 		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
 		      
 		      if w <> nil then
-		        return GetStyleMask(w) = kWindowMaskFullScreen
+		        return Bitwise.BitAnd( GetStyleMask(w), NSFullScreenWindowMask ) = NSFullScreenWindowMask
 		      end if
 		    end if
 		  #else
@@ -482,12 +451,9 @@ Module WindowManager
 		  
 		  #if TargetCocoa then
 		    if IsLion then
-		      try
-		        declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
-		        
-		        toggleFullScreen(w,nil)
-		      catch err as RuntimeException
-		      end try
+		      declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
+		      
+		      toggleFullScreen(w,nil)
 		    end if
 		  #else
 		    #pragma Unused w
@@ -597,9 +563,6 @@ Module WindowManager
 	#tag Constant, Name = kWindowIgnoreClicksAttribute, Type = Double, Dynamic = False, Default = \"536870912", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kWindowMaskFullScreen, Type = Double, Dynamic = False, Default = \"16399", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = kWindowMoveTransitionAction, Type = Double, Dynamic = False, Default = \"3", Scope = Protected
 	#tag EndConstant
 
@@ -642,6 +605,12 @@ Module WindowManager
 	#tag Constant, Name = kWindowZoomTransitionEffect, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
+	#tag EndConstant
+
 
 	#tag Structure, Name = MacPoint, Flags = &h0
 		v as Int16
@@ -660,6 +629,20 @@ Module WindowManager
 		  green as UInt16
 		blue as UInt16
 	#tag EndStructure
+
+
+	#tag Enum, Name = WindowCollectionBehavior, Type = Integer, Flags = &h0
+		Default=0
+		  CanJoinAllSpaces=1
+		  MoveToActiveSpace=2
+		  Managed=4
+		  Transient=8
+		  Stationary=16
+		  ParticipatesInCycle=32
+		  IgnoresCycle=64
+		  FullScreenPrimary=128
+		FullScreenAuxiliary=256
+	#tag EndEnum
 
 
 	#tag ViewBehavior

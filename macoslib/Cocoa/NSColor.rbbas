@@ -117,41 +117,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CMYK(cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity value and CMYK components.
-		  
-		  //@param cyan:     The cyan    component of the color object.
-		  //@param magenta:  The magenta component of the color object.
-		  //@param yellow:   The yellow  component of the color object.
-		  //@param black:    The black   component of the color object.
-		  //@param alpha:    The opacity value     of the color object.
-		  
-		  //@return NSColor: The color object.
-		  
-		  //@Discussion: Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
-		  
-		  #if targetMacOS
-		    declare function colorWithDeviceCyan lib CocoaLib selector "colorWithDeviceCyan:magenta:yellow:black:alpha:" _
-		    (id as Ptr, cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithDeviceCyan(ClassRef, cyan, magenta, yellow, black, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused cyan
-		    #pragma unused magenta
-		    #pragma unused yellow
-		    #pragma unused black
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function ColorFromPasteboard(pasteBoard as NSPasteboard) As NSColor
 		  //# Returns the NSColor currently on the given pasteboard.
 		  
@@ -256,6 +221,204 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function colorWithCMYK(cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity value and CMYK components.
+		  
+		  //@param cyan:     The cyan    component of the color object.
+		  //@param magenta:  The magenta component of the color object.
+		  //@param yellow:   The yellow  component of the color object.
+		  //@param black:    The black   component of the color object.
+		  //@param alpha:    The opacity value     of the color object.
+		  
+		  //@return NSColor: The color object.
+		  
+		  //@Discussion: Values below 0.0 are interpreted as 0.0, and values above 1.0 are interpreted as 1.0.
+		  
+		  #if targetMacOS
+		    declare function colorWithDeviceCyan lib CocoaLib selector "colorWithDeviceCyan:magenta:yellow:black:alpha:" _
+		    (id as Ptr, cyan as Single, magenta as Single, yellow as Single, black as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithDeviceCyan(ClassRef, cyan, magenta, yellow, black, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused cyan
+		    #pragma unused magenta
+		    #pragma unused yellow
+		    #pragma unused black
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function colorWithHSB(hue as Single, saturation as Single, brightness as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity value and HSB color space components.
+		  
+		  #if targetMacOS
+		    declare function colorWithDeviceHue lib CocoaLib selector "colorWithDeviceHue:saturation:brightness:alpha:" _
+		    (id as Ptr, hue as Single, saturation as Single, brightness as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithDeviceHue(ClassRef, hue, saturation, brightness, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused hue
+		    #pragma unused saturation
+		    #pragma unused brightness
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColorWithHSBACalibrated(hue as Single, saturation as Single, brightness as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity and HSB color space components.
+		  
+		  #if targetMacOS
+		    declare function colorWithCalibratedHue lib CocoaLib selector "colorWithCalibratedHue:saturation:brightness:alpha:" _
+		    (id as Ptr, hue as Single, saturation as Single, brightness as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithCalibratedHue(ClassRef, hue, saturation, brightness, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused hue
+		    #pragma unused saturation
+		    #pragma unused brightness
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColorWithRGB(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity value and RGB components.
+		  
+		  #if targetMacOS
+		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" _
+		    (id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithDeviceRed(ClassRef, red, green, blue, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused red
+		    #pragma unused green
+		    #pragma unused blue
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColorWithRGBACalibrated(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
+		  
+		  #if targetMacOS
+		    declare function colorWithCalibratedRed lib CocoaLib selector "colorWithCalibratedRed:green:blue:alpha:" _
+		    (id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithCalibratedRed(ClassRef, red, green, blue, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused red
+		    #pragma unused green
+		    #pragma unused blue
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColorWithSRGB(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
+		  //# Returns a color created from the specified components in the sRGB colorspace.
+		  
+		  #if targetMacOS
+		    declare function colorWithSRGBRed lib CocoaLib selector "colorWithSRGBRed:green:blue:alpha:" _
+		    (id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithSRGBRed(ClassRef, red, green, blue, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused red
+		    #pragma unused green
+		    #pragma unused blue
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColorWithWA(white as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity and grayscale values.
+		  
+		  #if targetMacOS
+		    declare function colorWithDeviceWhite lib CocoaLib selector "colorWithDeviceWhite:alpha:" _
+		    (id as Ptr, white as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithDeviceWhite(ClassRef, white, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused white
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ColorWithWACalibrated(white as Single, alpha as Single) As NSColor
+		  //# Creates and returns an NSColor object using the given opacity and grayscale value.
+		  
+		  #if targetMacOS
+		    declare function colorWithCalibratedWhite lib CocoaLib selector "colorWithCalibratedWhite:alpha:" _
+		    (id as Ptr, white as Single, alpha as Single) as Ptr
+		    
+		    dim colorRef as Ptr = colorWithCalibratedWhite(ClassRef, white, alpha)
+		    if colorRef <> nil then
+		      return new NSColor(colorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused white
+		    #pragma unused alpha
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Components() As Single()
 		  //# Returns the components of the NSColor as an array.
 		  
@@ -284,31 +447,22 @@ Inherits NSObject
 		  #if TargetMacOS
 		    dim c as NSColor = self.ConvertColorspace("NSCalibratedRGBColorSpace")
 		    
+		    declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, ByRef alpha as Single)
+		    
 		    dim red as Single
 		    dim green as Single
 		    dim blue as Single
 		    dim alpha as Single
 		    
+		    if c<>nil then
+		      getRGBComponents c.id, red, green, blue, alpha
+		    else
+		      getRGBComponents self, red, green, blue, alpha
+		    end if
+		    
 		    #if RBVersion >= 2011.04
-		      declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, ByRef alpha as Single)
-		      
-		      if c<>nil then
-		        getRGBComponents c.id, red, green, blue, alpha
-		      else
-		        getRGBComponents self, red, green, blue, alpha
-		      end if
-		      
-		      return RGB(255.0*red, 255.0*green, 255.0*blue, (255.0-alpha)*255.0)
-		      
+		      return RGB(255.0*red, 255.0*green, 255.0*blue, 255.0-(alpha*255.0))
 		    #else
-		      declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, alpha as Ptr)
-		      
-		      if c<>nil then
-		        getRGBComponents c.id, red, green, blue, nil
-		      else
-		        getRGBComponents self, red, green, blue, nil
-		      end if
-		      
 		      return RGB(255.0*red, 255.0*green, 255.0*blue)
 		    #endif
 		    
@@ -914,54 +1068,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function HSB(hue as Single, saturation as Single, brightness as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity value and HSB color space components.
-		  
-		  #if targetMacOS
-		    declare function colorWithDeviceHue lib CocoaLib selector "colorWithDeviceHue:saturation:brightness:alpha:" _
-		    (id as Ptr, hue as Single, saturation as Single, brightness as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithDeviceHue(ClassRef, hue, saturation, brightness, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused hue
-		    #pragma unused saturation
-		    #pragma unused brightness
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function HSBACalibratedColor(hue as Single, saturation as Single, brightness as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity and HSB color space components.
-		  
-		  #if targetMacOS
-		    declare function colorWithCalibratedHue lib CocoaLib selector "colorWithCalibratedHue:saturation:brightness:alpha:" _
-		    (id as Ptr, hue as Single, saturation as Single, brightness as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithCalibratedHue(ClassRef, hue, saturation, brightness, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused hue
-		    #pragma unused saturation
-		    #pragma unused brightness
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function KeyboardFocusIndicatorColor() As NSColor
 		  //# Returns the system color that represents the keyboard focus ring around controls.
 		  
@@ -1333,53 +1439,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RGB(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity value and RGB components.
-		  
-		  #if targetMacOS
-		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" _
-		    (id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithDeviceRed(ClassRef, red, green, blue, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused red
-		    #pragma unused green
-		    #pragma unused blue
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function RGBACalibratedColor(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
-		  
-		  #if targetMacOS
-		    declare function colorWithCalibratedRed lib CocoaLib selector "colorWithCalibratedRed:green:blue:alpha:" _
-		    (id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithCalibratedRed(ClassRef, red, green, blue, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused red
-		    #pragma unused green
-		    #pragma unused blue
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function ScrollBarColor() As NSColor
 		  //# Returns the system color used for scroll “bars”—that is, for the groove in which a scroller’s knob moves
 		  
@@ -1624,30 +1683,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SRGBColor(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
-		  //# Returns a color created from the specified components in the sRGB colorspace.
-		  
-		  #if targetMacOS
-		    declare function colorWithSRGBRed lib CocoaLib selector "colorWithSRGBRed:green:blue:alpha:" _
-		    (id as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithSRGBRed(ClassRef, red, green, blue, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused red
-		    #pragma unused green
-		    #pragma unused blue
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function TextBackgroundColor() As NSColor
 		  //# Returns the system color used for the text background.
 		  
@@ -1707,50 +1742,6 @@ Inherits NSObject
 		Function VariantValue() As variant
 		  
 		  return  ColorValue
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function WA(white as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity and grayscale values.
-		  
-		  #if targetMacOS
-		    declare function colorWithDeviceWhite lib CocoaLib selector "colorWithDeviceWhite:alpha:" _
-		    (id as Ptr, white as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithDeviceWhite(ClassRef, white, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused white
-		    #pragma unused alpha
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function WACalibratedColor(white as Single, alpha as Single) As NSColor
-		  //# Creates and returns an NSColor object using the given opacity and grayscale value.
-		  
-		  #if targetMacOS
-		    declare function colorWithCalibratedWhite lib CocoaLib selector "colorWithCalibratedWhite:alpha:" _
-		    (id as Ptr, white as Single, alpha as Single) as Ptr
-		    
-		    dim colorRef as Ptr = colorWithCalibratedWhite(ClassRef, white, alpha)
-		    if colorRef <> nil then
-		      return new NSColor(colorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused white
-		    #pragma unused alpha
-		  #endif
 		End Function
 	#tag EndMethod
 
@@ -2035,7 +2026,7 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Shared IgnoresAlpha1 As Boolean
+		Shared IgnoresAlpha As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

@@ -326,7 +326,7 @@ Inherits NSObject
 		    end if
 		    
 		  #else
-		    #pragma unused file
+		    #pragma unused aURL
 		    #pragma unused atomically
 		  #endif
 		End Function

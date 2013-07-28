@@ -1084,7 +1084,7 @@ Inherits NSObject
 			  
 			End Get
 		#tag EndGetter
-		AbsolotePath As Boolean
+		AbsolutePath As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

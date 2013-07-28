@@ -279,7 +279,7 @@ Inherits NSObject
 		    end if
 		    
 		  #else
-		    #pragma unused file
+		    #pragma unused TheFile
 		  #endif
 		  
 		End Sub
@@ -342,7 +342,7 @@ Inherits NSObject
 		    end if
 		    
 		  #else
-		    #pragma unused aURL
+		    #pragma unused URL
 		  #endif
 		  
 		End Sub
@@ -2265,6 +2265,7 @@ Inherits NSObject
 			Name="AccessibilityDescription"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
