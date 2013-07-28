@@ -1111,7 +1111,7 @@ Inherits NSResponder
 		  
 		  for i as Integer = 0 to (WindowCount() - 1)
 		    Dim w as NSWindow = Window(i)
-		    if w <> Nil and w = self then
+		    if w = self then
 		      return window(i)
 		    end if
 		  next
@@ -4469,11 +4469,6 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsMovable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsMovableByWindowBackground"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
