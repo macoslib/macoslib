@@ -824,34 +824,34 @@ Protected Module WindowExtensions
 		    
 		    select case Align // Use deltas in measurements, not absolutes
 		      
-		    case 0 // Lock upper left (v>)
+		    case 0 // Lock top left (v>)
 		      // Just change the Width & Height
 		      
-		    case 1 // Lock upper right (<v)
+		    case 1 // Lock top right (<v)
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      
-		    case 2 // Lock lower left (^>)
+		    case 2 // Lock bottom left (^>)
 		      NewRect.y = OrigRect.y - ( Height - w.Height )
 		      
-		    case 3 // Lock lower right (<^)
+		    case 3 // Lock bottom right (<^)
 		      NewRect.y = OrigRect.y - ( Height - w.Height )
 		      NewRect.x = OrigRect.x - ( Width  - w.Width )
 		      
-		    case 4 // Lock top center (<v>)
+		    case 4 // Lock center top (<v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      
-		    case 5 // Lock left center (^v>)
+		    case 5 // Lock center left (^v>)
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 6 // Lock bottom center (<^>)
+		    case 6 // Lock center bottom (<^>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( Height - w.Height )
 		      
-		    case 7 // Lock right center (<^v)
+		    case 7 // Lock center right (<^v)
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 8 // Lock center center (<^v>)
+		    case 8 // Expand All Sides (<^v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
