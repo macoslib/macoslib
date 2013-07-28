@@ -43,7 +43,7 @@ Begin Window NSWindowExample
       TabIndex        =   16
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   2
       Visible         =   True
       Width           =   500
       Begin PushButton btnSetFileByURL
@@ -929,7 +929,7 @@ Begin Window NSWindowExample
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "ppExamples"
-         InitialValue    =   "Lock Top Left\rLock Top Right\rLock Bottom Left\rLock Bottom Right\rLock Center Top\rLock Center Left\rLock Center Bottom\rLock Center Right\rExpand All Sides"
+         InitialValue    =   "Lock Top Left\rLock Top Right\rLock Bottom Left\rLock Bottom Right\rLock Center Top\rLock Center Left\rLock Center Bottom\rLock Center Right\rResize All Sides"
          Italic          =   ""
          Left            =   414
          ListIndex       =   0

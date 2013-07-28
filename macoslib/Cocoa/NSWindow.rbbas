@@ -1560,7 +1560,7 @@ Inherits NSResponder
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 8 // Expand All Sides (<^v>)
+		    case 8 // Resize all sides (<^v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
@@ -1569,10 +1569,7 @@ Inherits NSResponder
 		      
 		    end select
 		    
-		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height )
-		    if ( w.Height <> NewRect.h ) then
-		      NewRect.y = NewRect.y - ( NewRect.h - w.Height )
-		    end if
+		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height ) - ( NewRect.h - w.Height )
 		    NewRect.h = NewRect.h + TitlebarAdjustment
 		    
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (obj_id as Ptr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
