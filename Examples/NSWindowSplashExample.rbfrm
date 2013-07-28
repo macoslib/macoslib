@@ -97,6 +97,12 @@ End
 
 #tag WindowCode
 	#tag Event
+		Sub Close()
+		  nsw.AnimationBehavior = NSWindow.NSWindowAnimationBehavior.NSWindowAnimationBehaviorUtilityWindow // Fade-out on closing
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  return true
 		End Function
@@ -110,9 +116,13 @@ End
 
 	#tag Event
 		Sub Open()
-		  dim nsw as New NSWindow(self)
+		  nsw = New NSWindow(self)
 		  
 		  nsw.Transparency = 0
+		  
+		  nsw.Center
+		  nsw.AnimationBehavior = NSWindow.NSWindowAnimationBehavior.NSWindowAnimationBehaviorDocumentWindow // Zoom in slowely as if opening a document
+		  
 		  nsw.MovableByBackground = true
 		End Sub
 	#tag EndEvent
@@ -123,6 +133,11 @@ End
 		  g.DrawPicture p, ( self.Width / 2 ) - ( p.Width / 2 ), ( self.Height / 2 ) - ( p.Height / 2 )
 		End Sub
 	#tag EndEvent
+
+
+	#tag Property, Flags = &h0
+		nsw As NSWindow
+	#tag EndProperty
 
 
 #tag EndWindowCode
