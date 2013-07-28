@@ -1234,6 +1234,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LocalizedColorNameComponent() As String
+		  //# Returns the name of the NSColor as a localized string.
+		  
+		  #if targetMacOS
+		    declare function localizedColorNameComponent lib CocoaLib selector "localizedColorNameComponent" (id as Ptr) as CFStringRef
+		    
+		    return localizedColorNameComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Magenta() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_magentaColor)
@@ -2087,21 +2099,6 @@ Inherits NSObject
 			End Set
 		#tag EndSetter
 		Shared IgnoresAlpha As Boolean
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  //# Returns the name of the NSColor as a localized string.
-			  
-			  #if targetMacOS
-			    declare function localizedColorNameComponent lib CocoaLib selector "localizedColorNameComponent" (id as Ptr) as CFStringRef
-			    
-			    return localizedColorNameComponent(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		LocalizedColorNameComponent As String
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
