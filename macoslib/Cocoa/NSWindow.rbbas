@@ -1655,6 +1655,33 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Transparency(Value as Double = 0.0)
+		  //# Gives the window a transparent background color, resulting in the window becoming see-through while anything on the window remains visible.
+		  
+		  //@discussion _
+		  // The titlebar and close/minimize/maximize buttons will remain visible as well, for the best effect use a borderless window. _
+		  // This method is perfect for a custom or image shaped splash-window effect. _
+		  //@discussion//
+		  
+		  #if TargetCocoa
+		    // Create the NSColor to use for the window's background with an alpha value.
+		    dim c as Color
+		    dim nsc as NSColor = NSColor.ColorWithRGB( 0.92, 0.92, 0.92, Value ) // Aproximately the same as window background color
+		    
+		    // Set the features on the window
+		    self.AlphaValue = 1.0
+		    self.IsOpaque = false
+		    self.BackgroundColor = c
+		    
+		    // Force the window's shadow to update so we get the proper shadowing
+		    self.InvalidateShadow
+		  #else
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub UnregisterDraggedTypes()
 		  
 		  #if TargetCocoa
