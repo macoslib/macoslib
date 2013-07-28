@@ -1573,7 +1573,7 @@ Inherits NSResponder
 		    if ( w.Height <> NewRect.h ) then
 		      NewRect.y = NewRect.y - ( NewRect.h - w.Height )
 		    end if
-		    NewRect.h = NewRect.h + 22 // Account for titlebar
+		    NewRect.h = NewRect.h + TitlebarAdjustment
 		    
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (obj_id as Ptr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
 		    setFrameDisplayAnimate self, NewRect, true, true
@@ -4591,6 +4591,9 @@ Inherits NSResponder
 	#tag EndConstant
 
 	#tag Constant, Name = NSWindowNumberListAllSpaces, Type = Double, Dynamic = False, Default = \"16", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TitlebarAdjustment, Type = Double, Dynamic = False, Default = \"22", Scope = Protected
 	#tag EndConstant
 
 
