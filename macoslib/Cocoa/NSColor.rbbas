@@ -328,7 +328,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ColorWithRGBACalibratedColor(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
+		 Shared Function ColorWithRGBACalibrated(red as Single, green as Single, blue as Single, alpha as Single) As NSColor
 		  
 		  #if targetMacOS
 		    declare function colorWithCalibratedRed lib CocoaLib selector "colorWithCalibratedRed:green:blue:alpha:" _
