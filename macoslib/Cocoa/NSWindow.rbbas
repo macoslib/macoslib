@@ -354,6 +354,24 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ContentBorderTopThickness() As Single
+		  //@header Returns the thickness of the top border of the window.
+		  
+		  // Convenience method.
+		  return ContentBorderThickness( cocoa.NSRectEdge.NSMaxYEdge )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ContentBorderTopThickness(assigns thickness as Single)
+		  //@header Indicates the thickness of the top border of the window.
+		  
+		  // Convenience method.
+		  ContentBorderThickness( cocoa.NSRectEdge.NSMaxYEdge ) = thickness
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ContentRect(windowFrame as Cocoa.NSRect) As Cocoa.NSRect
 		  
 		  #if TargetCocoa
