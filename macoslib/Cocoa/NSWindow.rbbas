@@ -2191,7 +2191,7 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function collectionBehavior lib CocoaLib selector "collectionBehavior" (obj_id as Ptr) as NSWindowCollectionBehavior
+			    declare function collectionBehavior lib CocoaLib selector "collectionBehavior" (obj_id as Ptr) as Integer
 			    
 			    return collectionBehavior(self)
 			    
@@ -2203,7 +2203,7 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetCocoa
-			    declare sub setCollectionBehavior lib CocoaLib selector "setCollectionBehavior:" (obj_id as Ptr, behavior as NSWindowCollectionBehavior)
+			    declare sub setCollectionBehavior lib CocoaLib selector "setCollectionBehavior:" (obj_id as Ptr, behavior as Integer)
 			    
 			    setCollectionBehavior self, value
 			    
@@ -2213,7 +2213,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		CollectionBehavior As NSWindowCollectionBehavior
+		CollectionBehavior As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2767,8 +2767,8 @@ Inherits NSResponder
 		#tag Getter
 			Get
 			  #if TargetCocoa then
-			    if IsLion then
-			      return CollectionBehavior = NSWindowCollectionBehavior.FullScreenPrimary
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) = Integer(NSWindowCollectionBehavior.FullScreenPrimary)
 			    end if
 			  #endif
 			End Get
@@ -2776,12 +2776,12 @@ Inherits NSResponder
 		#tag Setter
 			Set
 			  #if TargetCocoa then
-			    if IsLion then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
 			      
 			      if Value then
-			        CollectionBehavior = NSWindowCollectionBehavior.FullScreenPrimary
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
 			      else
-			        CollectionBehavior = NSWindowCollectionBehavior.Default
+			        CollectionBehavior = Bitwise.BitXor( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
 			      end if
 			      
 			    end if
@@ -3057,13 +3057,8 @@ Inherits NSResponder
 		#tag Getter
 			Get
 			  #if TargetCocoa then
-			    if IsLion then
-			      soft declare Function GetStyleMask lib CocoaLib Selector "styleMask" (obj_id As Ptr) As Integer
-			      
-			      if self <> nil then
-			        dim value as integer = GetStyleMask(self)
-			        return Bitwise.BitAnd(Value,NSFullScreenWindowMask) = NSFullScreenWindowMask
-			      end if
+			    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is first introduced in 10.7
+			      return Bitwise.BitAnd( self.StyleMask, NSFullScreenWindowMask ) = NSFullScreenWindowMask
 			    End If
 			  #endif
 			End Get

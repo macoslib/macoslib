@@ -238,8 +238,8 @@ Begin Window NSWindowExample
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      Text            =   "(This doesn't seem to work in REALStudio, but does in Xojo)"
-      TextAlign       =   1
+      Text            =   "(Move by background doesn't seem to work in REALStudio, but does in Xojo)"
+      TextAlign       =   0
       TextColor       =   &h000000
       TextFont        =   "System"
       TextSize        =   11
@@ -248,7 +248,7 @@ Begin Window NSWindowExample
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   399
+      Width           =   561
    End
    Begin Label Label2
       AutoDeactivate  =   True
@@ -553,8 +553,6 @@ End
 		  m_NSWindow.ContentBorderBottomThickness = 20 // Draw a border at the bottom of the window
 		  
 		  UpdateBackingScaleFactor
-		  
-		  m_NSWindow.ShowsResizeIndicator = True
 		End Sub
 	#tag EndEvent
 

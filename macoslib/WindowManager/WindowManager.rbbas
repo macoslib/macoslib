@@ -200,10 +200,10 @@ Module WindowManager
 		  //# Indicates whether the window can enter full screen mode
 		  
 		  #if TargetCocoa then
-		    if IsLion then
-		      declare function collectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as WindowCollectionBehavior
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
 		      
-		      return collectionBehavior(w) = WindowCollectionBehavior.FullScreenPrimary
+		      return Bitwise.BitAnd( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) = Integer(WindowCollectionBehavior.FullScreenPrimary)
 		    end if
 		  #else
 		    #pragma Unused w
@@ -216,13 +216,14 @@ Module WindowManager
 		  //# Allows the window to enter full screen mode
 		  
 		  #if TargetCocoa then
-		    if IsLion then
-		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as WindowCollectionBehavior)
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
 		      
 		      if Value then
-		        setCollectionBehavior( w, WindowCollectionBehavior.FullScreenPrimary )
+		        setCollectionBehavior( w, Bitwise.BitOr( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
 		      else
-		        setCollectionBehavior( w, WindowCollectionBehavior.Default )
+		        setCollectionBehavior( w, Bitwise.BitXor( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
 		      end if
 		    end if
 		  #else
@@ -270,12 +271,11 @@ Module WindowManager
 		  //# Returns a boolean indicating the window's fullscreen status.
 		  
 		  #if TargetCocoa then
-		    if IsLion then
+		    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is introduced in 10.7
 		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
 		      
 		      if w <> nil then
-		        dim value as Integer = GetStyleMask(w)
-		        return Bitwise.BitAnd(Value,NSFullScreenWindowMask) = NSFullScreenWindowMask
+		        return Bitwise.BitAnd( GetStyleMask(w), NSFullScreenWindowMask ) = NSFullScreenWindowMask
 		      end if
 		    end if
 		  #else
