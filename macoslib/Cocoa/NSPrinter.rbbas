@@ -206,8 +206,7 @@ Inherits NSObject
 		    
 		    return statusForTable(self, tableName)
 		  #else
-		    #pragma Unused key
-		    #pragma Unused table
+		    #pragma Unused tableName
 		  #endif
 		End Function
 	#tag EndMethod

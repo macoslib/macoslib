@@ -508,7 +508,7 @@ Inherits NSObject
 		    end if
 		    
 		  #else
-		    #pragma unused RTFdata
+		    #pragma unused RTFDdata
 		  #endif
 		End Function
 	#tag EndMethod

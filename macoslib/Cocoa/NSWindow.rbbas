@@ -155,14 +155,13 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub Center()
+		  //@header Sets the window’s location to the center of the screen.
 		  
 		  #if TargetCocoa
 		    declare sub center lib CocoaLib selector "center" (obj_id as Ptr)
 		    
 		    center self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -290,35 +289,67 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ContentBorderBottomThickness() As Single
+		  //@header Returns the thickness of the bottom border of the window.
+		  
+		  // Convenience method.
+		  return ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ContentBorderBottomThickness(assigns thickness as Single)
+		  //@header Indicates the thickness of the bottom border of the window.
+		  
+		  // Convenience method.
+		  ContentBorderThickness( cocoa.NSRectEdge.NSMinYEdge ) = thickness
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ContentBorderThickness(edge as Cocoa.NSRectEdge) As Single
+		  //@header Indicates the thickness of a given border of the window.
 		  
 		  #if TargetCocoa
 		    declare function contentBorderThicknessForEdge lib CocoaLib selector "contentBorderThicknessForEdge:" _
 		    (obj_id as Ptr, edge as Cocoa.NSRectEdge) as Single
 		    
 		    return contentBorderThicknessForEdge(self, edge)
-		    
 		  #else
 		    #pragma unused edge
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Single)
+		  //@header Specifies the thickness of a given border of the window.
+		  
+		  //@param '''thickness''' The thickness for edge
+		  //@param '''edge''' The border whose thickness to set _
+		  //  __NSMaxYEdge__: Top border. _
+		  //  __NSMinYEdge__: Bottom border. _
+		  //@param/
+		  
+		  //@discussion
+		  // In a non-textured window calling setContentBorderThickness:forEdge: passing NSMaxYEdge will raise an exception. _
+		  // It is only valid to set the content border thickness of the top edge in a textured window.
+		  // The contentBorder does not include the titlebar or toolbar, so a textured window that just wants the gradient _
+		  // in the titlebar and toolbar should have a contentBorderThickness of 0 for NSMaxYEdge.
+		  //@discussion/
 		  
 		  #if TargetCocoa
-		    declare sub setContentBorderThickness lib CocoaLib selector "setContentBorderThickness:forEdge:" _
-		    (obj_id as Ptr, thickness as Single, edge as Cocoa.NSRectEdge)
+		    declare sub setBackingType lib CocoaLib selector "setBackingType:" (obj_id as Ptr, BackingType as NSBackingStoreType)
+		    declare sub setAutorecalculatesContentBorderThicknessForEdge lib CocoaLib selector "setAutorecalculatesContentBorderThickness:forEdge:" (obj_id as Ptr, Flag as Boolean, edge as Cocoa.NSRectEdge)
+		    declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (obj_id as Ptr, thickness as Single, edge as Cocoa.NSRectEdge)
 		    
-		    setContentBorderThickness self, thickness, edge
-		    
+		    setBackingType self, NSBackingStoreType.NSBackingStoreBuffered
+		    setAutorecalculatesContentBorderThicknessForEdge self, false, edge // Do not recalculate the border thickness automatically
+		    setContentBorderThicknessForEdge self, thickness, edge
 		  #else
 		    #pragma unused thickness
 		    #pragma unused edge
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -938,6 +969,21 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub MakeHUDWindow()
+		  //# Sets the window’s style mask to HUD.
+		  
+		  //@discussion Only works on floating (palette) windows. (frame = 3 & 7)
+		  
+		  Dim tmpStyleMask as UInt32 = NSHUDWindowMask or NSTitledWindowMask or NSUtilityWindowMask
+		  dim w as window = self
+		  if w.Resizeable then tmpStyleMask = tmpStyleMask or NSResizableWindowMask
+		  if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  
+		  StyleMask = tmpStyleMask
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MakeKeyAndOrderFront()
 		  
 		  #if TargetCocoa
@@ -1057,6 +1103,18 @@ Inherits NSResponder
 		  static name as String = Cocoa.StringConstant ("NSDeviceSize")
 		  return name
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As Window
+		  
+		  for i as Integer = 0 to (WindowCount() - 1)
+		    Dim w as NSWindow = Window(i)
+		    if w = self then
+		      return window(i)
+		    end if
+		  next
 		End Function
 	#tag EndMethod
 
@@ -1486,22 +1544,20 @@ Inherits NSResponder
 		    declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (obj_id as Ptr, sender as Ptr)
 		    
 		    toggleFullScreen self, self
-		    
 		  #endif
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub toggleToolbar()
+		Sub ToggleToolbar()
+		  //@header Toggle the toolbar's visibility.
 		  
 		  #if TargetCocoa
 		    declare sub toggleToolbarShown lib CocoaLib selector "toggleToolbarShown:" (obj_id as Ptr, sender as Ptr)
 		    
 		    toggleToolbarShown self, self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -1520,14 +1576,13 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub Update()
+		  //@header Updates the window.
 		  
 		  #if TargetCocoa
 		    declare sub update lib CocoaLib selector "update" (obj_id as Ptr)
 		    
 		    update self
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -2136,7 +2191,7 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function collectionBehavior lib CocoaLib selector "collectionBehavior" (obj_id as Ptr) as UInt32
+			    declare function collectionBehavior lib CocoaLib selector "collectionBehavior" (obj_id as Ptr) as Integer
 			    
 			    return collectionBehavior(self)
 			    
@@ -2148,7 +2203,7 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetCocoa
-			    declare sub setCollectionBehavior lib CocoaLib selector "setCollectionBehavior:" (obj_id as Ptr, behavior as UInt32)
+			    declare sub setCollectionBehavior lib CocoaLib selector "setCollectionBehavior:" (obj_id as Ptr, behavior as Integer)
 			    
 			    setCollectionBehavior self, value
 			    
@@ -2158,7 +2213,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		CollectionBehavior As UInt32
+		CollectionBehavior As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2421,7 +2476,6 @@ Inherits NSResponder
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		Dealegate As Ptr
@@ -2707,6 +2761,39 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Indicates whether the window can enter full screen mode
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		FullscreenAllowed As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -2964,17 +3051,14 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Indicates whether a window is currently in fullscreen mode
+		#tag EndNote
 		#tag Getter
 			Get
-			  //# Returns a boolean indicating the NSWindow's fullscreen status.
-			  
 			  #if TargetCocoa then
-			    if IsLion then
-			      declare function GetStyleMask lib CocoaLib selector "styleMask" (obj_id as Ptr) as Integer
-			      
-			      if self <> nil then
-			        return GetStyleMask(self) = NSWindowMaskFullScreen
-			      end if
+			    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is first introduced in 10.7
+			      return Bitwise.BitAnd( self.StyleMask, NSFullScreenWindowMask ) = NSFullScreenWindowMask
 			    End If
 			  #endif
 			End Get
@@ -3058,36 +3142,6 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		IsMovable As Boolean
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  
-			  #if TargetCocoa
-			    declare function isMovableByWindowBackground lib CocoaLib selector "isMovableByWindowBackground" (obj_id as Ptr) as Boolean
-			    
-			    return isMovableByWindowBackground(self)
-			    
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  #if TargetCocoa
-			    declare sub setMovableByWindowBackground lib CocoaLib selector "setMovableByWindowBackground:" (obj_id as Ptr, flag as Boolean)
-			    
-			    setMovableByWindowBackground self, value
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			  
-			End Set
-		#tag EndSetter
-		IsMovableByWindowBackground As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3440,7 +3494,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa
 			    
-			    declare function IsMovableByWindowBackground lib CarbonLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
+			    declare function IsMovableByWindowBackground lib CocoaLib selector "isMovableByWindowBackground" ( id As Ptr ) As Boolean
 			    // Introduced in MacOS X 10.2.
 			    
 			    return IsMovableByWindowBackground( self )
@@ -3453,7 +3507,7 @@ Inherits NSResponder
 			Set
 			  #if TargetCocoa
 			    
-			    declare sub SetMovableByWindowBackground lib CarbonLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
+			    declare sub SetMovableByWindowBackground lib CocoaLib selector "setMovableByWindowBackground:" ( id As Ptr, value As Boolean )
 			    // Introduced in MacOS X 10.2.
 			    
 			    SetMovableByWindowBackground( self, value )
@@ -3999,9 +4053,11 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Returns the deepest screen the window is on (it may be split over several screens).
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function deepestScreen lib CocoaLib selector "deepestScreen" (obj_id as Ptr) as Ptr
 			    
@@ -4009,34 +4065,39 @@ Inherits NSResponder
 			    if screenRef <> nil then
 			      return new NSScreen(screenRef)
 			    end if
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		WindowDeepestScreen As NSScreen
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			
+			Each window device in an application is given a unique window number—note that this isn’t the same as the global
+			window number assigned by the window server. This number can be used to identify the window device with the
+			orderWindow:relativeTo: method and in the Application Kit function NSWindowList.
+			Provides the window number of the window’s window device.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function windowNumber lib CocoaLib selector "windowNumber" (obj_id as Ptr) as Integer
 			    
 			    return windowNumber(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		WindowNumber As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Returns the screen the window is on.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function screen_ lib CocoaLib selector "screen" (obj_id as Ptr) as Ptr
 			    
@@ -4046,16 +4107,17 @@ Inherits NSResponder
 			    end if
 			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		WindowScreen As NSScreen
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Get & Set the window’s toolbar.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
 			  #if TargetCocoa
 			    declare function toolbar_ lib CocoaLib selector "toolbar" (obj_id as Ptr) as Ptr
 			    
@@ -4064,14 +4126,11 @@ Inherits NSResponder
 			    if toolbarRef <> nil then
 			      return new NSToolbar(toolbarRef)
 			    end if
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  
 			  #if TargetCocoa
 			    declare sub setToolbar lib CocoaLib selector "setToolbar:" (obj_id as Ptr, aToolbar as Ptr)
 			    
@@ -4081,11 +4140,9 @@ Inherits NSResponder
 			    end if
 			    
 			    setToolbar self, toolbarRef
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		WindowToolbar As NSToolbar
@@ -4094,28 +4151,26 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //@header Indicates whether the NSWindow receives keyboard and mouse events even when some other window is being run modally.
 			  
 			  #if TargetCocoa
 			    declare function worksWhenModal lib CocoaLib selector "worksWhenModal" (obj_id as Ptr) as Boolean
 			    
 			    return worksWhenModal(self)
-			    
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
+			  //@header Specifies whether the NSWindow receives keyboard and mouse events even when some other window is being run modally.
 			  
 			  #if TargetCocoa
 			    declare sub setWorksWhenModal lib CocoaLib selector "setWorksWhenModal:" (obj_id as Ptr, flag as Boolean)
 			    
 			    setWorksWhenModal self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
 		WorksWhenModal As Boolean
@@ -4126,6 +4181,12 @@ Inherits NSResponder
 	#tag EndConstant
 
 	#tag Constant, Name = NSClosableWindowMask, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = NSHUDWindowMask, Type = Double, Dynamic = False, Default = \"8192", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSMiniaturizableWindowMask, Type = Double, Dynamic = False, Default = \"4", Scope = Public
@@ -4140,37 +4201,7 @@ Inherits NSResponder
 	#tag Constant, Name = NSTitledWindowMask, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = NSWindowCollectionBehaviorCanJoinAllSpaces, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorDefault, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorFullScreenAuxiliary, Type = Double, Dynamic = False, Default = \"256", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorFullScreenPrimary, Type = Double, Dynamic = False, Default = \"128", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorIgnoresCycle, Type = Double, Dynamic = False, Default = \"64", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorManaged, Type = Double, Dynamic = False, Default = \"4", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorMoveToActiveSpace, Type = Double, Dynamic = False, Default = \"2", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorParticipatesInCycle, Type = Double, Dynamic = False, Default = \"32", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorStationary, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowCollectionBehaviorTransient, Type = Double, Dynamic = False, Default = \"8", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSWindowMaskFullScreen, Type = Double, Dynamic = False, Default = \"16399", Scope = Public
+	#tag Constant, Name = NSUtilityWindowMask, Type = Double, Dynamic = False, Default = \"16", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSWindowNumberListAllApplications, Type = Double, Dynamic = False, Default = \"1", Scope = Public
@@ -4214,6 +4245,19 @@ Inherits NSResponder
 		  NSWindowDocumentIconButton
 		  NSWindowDocumentVersionsButton = 6
 		NSWindowFullScreenButton
+	#tag EndEnum
+
+	#tag Enum, Name = NSWindowCollectionBehavior, Flags = &h0
+		Default=0
+		  CanJoinAllSpaces=1
+		  MoveToActiveSpace=2
+		  Managed=4
+		  Transient=8
+		  Stationary=16
+		  ParticipatesInCycle=32
+		  IgnoresCycle=64
+		  FullScreenPrimary=128
+		FullScreenAuxiliary=256
 	#tag EndEnum
 
 	#tag Enum, Name = NSWindowLevel, Type = Integer, Flags = &h0
@@ -4347,6 +4391,11 @@ Inherits NSResponder
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FullscreenAllowed"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="GState"
 			Group="Behavior"
 			Type="Integer"
@@ -4415,11 +4464,6 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsMovable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsMovableByWindowBackground"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
