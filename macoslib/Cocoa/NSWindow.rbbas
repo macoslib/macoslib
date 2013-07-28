@@ -2768,7 +2768,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) = Integer(NSWindowCollectionBehavior.FullScreenPrimary)
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -2781,7 +2781,7 @@ Inherits NSResponder
 			      if Value then
 			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
 			      else
-			        CollectionBehavior = Bitwise.BitXor( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
 			      end if
 			      
 			    end if
