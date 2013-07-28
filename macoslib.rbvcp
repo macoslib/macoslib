@@ -584,6 +584,7 @@ Class=NSToolbarDropMenuItem;macoslib/CocoaToolbar/NSToolbarDropMenuItem.rbbas;&h
 Window=TextAreaWindow;Examples/TextAreaWindow.rbfrm;&h1D0FF666;&h4BD59C08;false
 Window=TextAreaOptionsPanel;Examples/TextAreaOptionsPanel.rbfrm;&h2F9F318;&h4BD59C08;false
 Module=XMLExtensions;Additional Modules/Class Extensions/XMLExtensions.rbbas;&h6D92F06F;&h2AC71A61;false
+Window=TextColorExample;TextColorExample.rbfrm;&h1ABC89FB;&h0;false
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0

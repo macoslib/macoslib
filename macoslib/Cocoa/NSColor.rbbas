@@ -298,7 +298,7 @@ Inherits NSObject
 		        getRGBComponents self, red, green, blue, alpha
 		      end if
 		      
-		      return RGB(255.0*red, 255.0*green, 255.0*blue, (255.0-alpha)*255.0)
+		      return REALbasic.RGB(255.0*red, 255.0*green, 255.0*blue, (255.0-alpha)*255.0)
 		      
 		    #else
 		      declare sub getRGBComponents lib CocoaLib selector "getRed:green:blue:alpha:" (id as Ptr, ByRef red as Single, ByRef green as Single, ByRef blue as Single, alpha as Ptr)
@@ -309,7 +309,7 @@ Inherits NSObject
 		        getRGBComponents self, red, green, blue, nil
 		      end if
 		      
-		      return RGB(255.0*red, 255.0*green, 255.0*blue)
+		      return REALbasic.RGB(255.0*red, 255.0*green, 255.0*blue)
 		    #endif
 		    
 		  #endif

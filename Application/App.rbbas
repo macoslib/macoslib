@@ -26,6 +26,16 @@ Inherits Application
 		  
 		  Cocoa.Initialize
 		  
+		  #pragma warning "DELETE THIS CODE!"
+		  
+		  dim dict as new Dictionary
+		  dim nsc as new NSColor( RGB( 0, 0, 0 ) ) 
+		  dict.Value( "someColor" ) = nsc
+		  dim nsd as NSDictionary = Cocoa.NSObjectFromVariant( dict )
+		  dict = nsd.VariantValue
+		  
+		  
+		  TextColorExample.Show
 		End Sub
 	#tag EndEvent
 
