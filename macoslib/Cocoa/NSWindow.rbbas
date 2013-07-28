@@ -3968,6 +3968,8 @@ Inherits NSResponder
 			    dim Path as string = representedFilename(self)
 			    if Path <> "" then
 			      return new FolderItem(Path, FolderItem.PathTypeShell)
+			    else
+			      return Nil
 			    end if
 			    
 			  #endif
