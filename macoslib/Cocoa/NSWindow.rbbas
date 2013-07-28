@@ -2171,6 +2171,33 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			The window appears in all spaces.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) ) <> 0
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if Value then
+			      CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) )
+			    else
+			      CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) )
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		CanJoinAllSpaces As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -2762,7 +2789,8 @@ Inherits NSResponder
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Note
-			Indicates whether the window can enter full screen mode
+			
+			A window with this collection behavior has a fullscreen button in the upper right of its titlebar.
 		#tag EndNote
 		#tag Getter
 			Get
@@ -2791,6 +2819,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		FullscreenAllowed As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Windows with this collection behavior can be shown on the same space as the fullscreen window.
+			
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) )
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		FullscreenAllowedAuxiliary As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2887,6 +2949,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		HidesOnDeactivate As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window is not part of the window cycle for use with the Cycle Through Windows Window menu item.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.IgnoresCycle) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.IgnoresCycle) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.IgnoresCycle) )
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		IgnoresCycle As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3315,33 +3411,36 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			The window participates in Spaces and Exposé. This is the default behavior if windowLevel is equal to NSNormalWindowLevel.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
-			  #if TargetCocoa
-			    declare function level lib CocoaLib selector "level" (obj_id as Ptr) as NSWindowLevel
-			    
-			    return level(self)
-			    
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.Managed) ) <> 0
+			    end if
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  
-			  #if TargetCocoa
-			    declare sub setLevel lib CocoaLib selector "setLevel:" (obj_id as Ptr, level as NSWindowLevel)
-			    
-			    setLevel self, value
-			    
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.Managed) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.Managed) )
+			      end if
+			      
+			    end if
 			  #else
-			    #pragma unused value
+			    #pragma Unused Value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
-		Level As NSWindowLevel
+		Managed As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3520,6 +3619,33 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Making the window active does not cause a space switch; the window switches to the active space.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.MoveToActiveSpace) ) <> 0
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if Value then
+			      CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.MoveToActiveSpace) )
+			    else
+			      CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.MoveToActiveSpace) )
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		MoveToActiveSpace As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -3586,6 +3712,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		ParentWindow As NSWindow
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window participates in the window cycle for use with the Cycle Through Windows Window menu item.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.ParticipatesInCycle) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.ParticipatesInCycle) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.ParticipatesInCycle) )
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		ParticipatesInCycle As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3685,7 +3845,10 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    declare function representedFilename lib CocoaLib selector "representedFilename" (obj_id as Ptr) as CFStringRef
 			    
-			    return new FolderItem(representedFilename(self), FolderItem.PathTypeShell)
+			    dim Path as string = representedFilename(self)
+			    if Path <> "" then
+			      return new FolderItem(Path, FolderItem.PathTypeShell)
+			    end if
 			    
 			  #endif
 			  
@@ -3933,6 +4096,40 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window is unaffected by Exposé; it stays visible and stationary, like the desktop window.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.Stationary) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.Stationary) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.Stationary) )
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		Stationary As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -3990,6 +4187,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		Title As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window floats in Spaces and is hidden by Exposé. This is the default behavior if windowLevel is not equal to NSNormalWindowLevel.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.Transient) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.Transient) )
+			      else
+			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.Transient) )
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		Transient As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4069,6 +4300,36 @@ Inherits NSResponder
 			End Get
 		#tag EndGetter
 		WindowDeepestScreen As NSScreen
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    declare function level lib CocoaLib selector "level" (obj_id as Ptr) as NSWindowLevel
+			    
+			    return level(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    declare sub setLevel lib CocoaLib selector "setLevel:" (obj_id as Ptr, level as NSWindowLevel)
+			    
+			    setLevel self, value
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		WindowLevel As NSWindowLevel
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4347,9 +4608,19 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="CanJoinAllSpaces"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="CanStoreColor"
 			Group="Behavior"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CollectionBehavior"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DepthLimit"
@@ -4510,6 +4781,11 @@ Inherits NSResponder
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Managed"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="MiniwindowTitle"
 			Group="Behavior"
 			Type="String"
@@ -4517,6 +4793,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MovableByBackground"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MoveToActiveSpace"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -4575,6 +4856,11 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Transient"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ViewsNeedDisplay"
