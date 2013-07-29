@@ -11,14 +11,6 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function BooleanValue(extends s as string) As Boolean
-		  //# Returns true if string is not empty, and string is not a possible false value
-		  
-		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" or s = "no" )
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function Contains(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
@@ -53,37 +45,66 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FormatSize(size as Int64) As String
-		  //# Format a file size as a 2-decimal number with appropriate unit (K, M, G, T). It is up to you to add the proper localized abbreviation for "byte".
+		Function FormatSize(size as Int64, use1024 as boolean = true) As String
+		  //# Format a file size to its shortest form and unit, like 17.32G.
 		  
-		  //@ [Cross-platform]
+		  //@param size
+		  //    The size to format.
+		  //@param/
+		  //@param use1024=true
+		  //    If true, use 1024 bytes as the basic unit. Otherwise, uses 1000 bytes (like Apple). Default is 1024 bytes.
+		  //@param/
 		  
+		  //@result
+		  //    The size as a 2-decimal number with appropriate unit (K, M, G, T, P, E). It is up to you to add the proper localized abbreviation for "byte".
+		  //@result/
 		  
-		  static KB as Int64 = 1024
-		  static MB as Int64 = KB * KB
-		  static GB as Int64 = MB * KB
-		  static TB as Int64 = GB * KB
-		  static EB as Int64 = TB * KB
+		  dim KB as Int64
 		  
-		  if size<1024 then
-		    return  Str( size )
+		  if use1024 then
+		    KB = 1024
 		    
-		  else
-		    if size < MB then
-		      return   Str( size / KB, "#########.##" ) + " K"
-		      
-		    elseif size < GB then
-		      return   Str( size / MB, "#########.##" ) + " M"
-		      
-		    elseif size < TB then
-		      return   Str( size / GB, "#########.##" ) + " G"
-		      
-		    elseif size < EB then
-		      return   Str( size / EB, "#########.##" ) + " T"
-		      
-		    end if
+		  else //Apple format: 1K=1000 bytes
+		    KB = 1000
 		    
 		  end if
+		  
+		  dim usize as Int64 = Abs( size ) //We must compare absolute value, even for negative sizes
+		  
+		  if usize<KB then
+		    return  Str( size )
+		  end if
+		  
+		  dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
+		  if usize < MB then
+		    return   Str( size / KB, "#########.##" ) + " K"
+		  end if
+		  
+		  dim GB as Int64 = MB * KB
+		  if usize < GB then
+		    return   Str( size / MB, "#########.##" ) + " M"
+		  end if
+		  
+		  dim TB as Int64 = GB * KB
+		  if usize < TB then
+		    return   Str( size / GB, "#########.##" ) + " G"
+		  end if
+		  
+		  dim PB as Int64 = TB * KB
+		  if usize < PB then
+		    return   Str( size / TB, "#########.##" ) + " T"
+		  end if
+		  
+		  dim EB as Int64 = PB * KB
+		  if usize < EB then
+		    return   Str( size / PB, "#########.##" ) + " P"
+		  end if
+		  
+		  dim ZB as Int64 = EB * KB
+		  if usize < ZB then
+		    return   Str( size / EB, "#########.##" ) + " E"
+		  end if
+		  
 		End Function
 	#tag EndMethod
 
@@ -230,17 +251,6 @@ Protected Module StringExtension
 		      return   nil
 		    end if
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function isEmail(extends s as String) As Boolean
-		  //# Returns true if the string is a valid email address
-		  
-		  dim nSearch as New RegEx
-		  
-		  nSearch.SearchPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-		  return ( nSearch.Search(s) <> Nil )
 		End Function
 	#tag EndMethod
 
