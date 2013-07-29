@@ -221,9 +221,9 @@ Module WindowManager
 		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
 		      
 		      if Value then
-		        setCollectionBehavior( w, Bitwise.BitOr( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
+		        setCollectionBehavior( w, getCollectionBehavior(w) or Integer(WindowCollectionBehavior.FullScreenPrimary) )
 		      else
-		        setCollectionBehavior( w, Bitwise.BitXor( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
+		        setCollectionBehavior( w, getCollectionBehavior(w) Xor Integer(WindowCollectionBehavior.FullScreenPrimary) )
 		      end if
 		    end if
 		  #else
@@ -275,7 +275,7 @@ Module WindowManager
 		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
 		      
 		      if w <> nil then
-		        return Bitwise.BitAnd( GetStyleMask(w), NSFullScreenWindowMask ) = NSFullScreenWindowMask
+		        return ( GetStyleMask(w) and NSFullScreenWindowMask ) = NSFullScreenWindowMask
 		      end if
 		    end if
 		  #else
