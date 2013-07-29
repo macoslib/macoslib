@@ -7,15 +7,65 @@ Inherits NSObject
 		    declare function booleanForKey lib CocoaLib selector "booleanForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Boolean
 		    
 		    return booleanForKey(self, key, table)
+		  #else
+		    #pragma unused key
+		    #pragma unused table
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function ClassRef() As Ptr
+		  
+		  static ref as Ptr = Cocoa.NSClassFromString("NSPrinter")
+		  return ref
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateWithName(name as String) As NSPrinter
+		  
+		  #if targetMacOS
+		    declare function printerWithName lib CocoaLib selector "printerWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
+		    
+		    dim p as Ptr = printerWithName(ClassRef, name)
+		    if p <> nil then
+		      return new NSPrinter(p)
+		    end if
+		    
+		  #else
+		    #pragma unused name
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateWithType(type as String) As NSPrinter
+		  
+		  #if targetMacOS
+		    declare function printerWithType lib CocoaLib selector "printerWithType:" (class_id as Ptr, type as CFStringRef) as Ptr
+		    
+		    dim p as Ptr = printerWithType(ClassRef, type)
+		    if p <> nil then
+		      return new NSPrinter(p)
+		    end if
+		    
+		  #else
+		    #pragma unused type
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function DeviceDescription() As CFDictionary
-		  declare function deviceDescription lib CocoaLib selector "deviceDescription" (id as Ptr) as Ptr
-		  
-		  return   new CFDictionary( deviceDescription( me.id ), false )
+		  #if TargetMacOS then
+		    declare function deviceDescription lib CocoaLib selector "deviceDescription" (id as Ptr) as Ptr
+		    
+		    return   new CFDictionary( deviceDescription( me.id ), false )
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -40,6 +90,9 @@ Inherits NSObject
 		    declare function intForKey lib CocoaLib selector "intForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Integer
 		    
 		    return intForKey(self, key, table)
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -50,6 +103,9 @@ Inherits NSObject
 		    declare function isKeyInTable lib CocoaLib selector "isKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Boolean
 		    
 		    return isKeyInTable(self, key, table)
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -59,7 +115,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function printerNames lib CocoaLib selector "printerNames" (class_id as Ptr) as Ptr
 		    
-		    dim theArray as new CFArray(printerNames(Cocoa.NSClassFromString("NSPrinter")),not CFType.hasOwnership)
+		    dim theArray as new CFArray(printerNames(ClassRef),not CFType.hasOwnership)
 		    return theArray.StringValues
 		  #endif
 		End Function
@@ -71,6 +127,9 @@ Inherits NSObject
 		    declare function rectForKey lib CocoaLib selector "rectForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Cocoa.NSRect
 		    
 		    return rectForKey(self, key, table)
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -81,6 +140,9 @@ Inherits NSObject
 		    declare function sizeForKey lib CocoaLib selector "sizeForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Cocoa.NSSize
 		    
 		    return sizeForKey(self, key, table)
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -91,6 +153,8 @@ Inherits NSObject
 		    declare function pageSizeForPaper lib CocoaLib selector "pageSizeForPaper:" (obj_id as Ptr, paperName as CFStringRef) as Cocoa.NSSize
 		    
 		    return pageSizeForPaper(self, paperName)
+		  #else
+		    #pragma Unused paperName
 		  #endif
 		End Function
 	#tag EndMethod
@@ -101,6 +165,9 @@ Inherits NSObject
 		    declare function floatForKey lib CocoaLib selector "floatForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Single
 		    
 		    return floatForKey(self, key, table)
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -112,6 +179,9 @@ Inherits NSObject
 		    
 		    dim theArray as new CFArray(stringListForKey(self, key, table), not CFType.hasOwnership)
 		    return theArray.StringValues
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -122,6 +192,9 @@ Inherits NSObject
 		    declare function stringforKey lib CocoaLib selector "stringForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Ptr
 		    
 		    return RetainedStringValue(stringForKey(self, key, table))
+		  #else
+		    #pragma Unused key
+		    #pragma Unused table
 		  #endif
 		End Function
 	#tag EndMethod
@@ -132,6 +205,8 @@ Inherits NSObject
 		    declare function statusForTable lib CocoaLib selector "statusForTable:" (obj_id as Ptr, tableName as CFStringRef) as TableStatus
 		    
 		    return statusForTable(self, tableName)
+		  #else
+		    #pragma Unused tableName
 		  #endif
 		End Function
 	#tag EndMethod

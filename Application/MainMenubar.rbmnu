@@ -14,10 +14,10 @@ Begin Menu MainMenubar
          MenuModifier = True
          AutoEnable = False
       End
-      Begin MenuItem UntitledSeparator
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 0
          AutoEnable = True
       End
       Begin CocoaMenuItemPageSetup CocoaFilePageSetup
@@ -39,10 +39,10 @@ Begin Menu MainMenubar
          MenuModifier = True
          AutoEnable = True
       End
-      Begin MenuItem UntitledSeparator2
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 1
          AutoEnable = True
       End
       Begin QuitMenuItem FileQuit
@@ -84,10 +84,10 @@ Begin Menu MainMenubar
          AltMenuModifier = True
          AutoEnable = False
       End
-      Begin MenuItem UntitledMenu1
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 2
          AutoEnable = True
       End
       Begin CocoaMenuItemCut EditCut
@@ -152,10 +152,10 @@ Begin Menu MainMenubar
          MenuModifier = True
          AutoEnable = True
       End
-      Begin MenuItem UntitledMenu0
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 3
          AutoEnable = True
       End
       Begin CocoaMenuItemInsert EditInsert
@@ -192,10 +192,10 @@ Begin Menu MainMenubar
          MenuModifier = True
          AutoEnable = False
       End
-      Begin MenuItem UntitledSeparator6
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 4
          AutoEnable = True
       End
       Begin CocoaMenuItemFindParent EditFind
@@ -284,10 +284,10 @@ Begin Menu MainMenubar
             MenuModifier = True
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator13
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 5
             AutoEnable = True
          End
          Begin CocoaMenuItemCheckSpellingWhileTyping SpellingandGrammarCheckSpellingWhileTyping
@@ -321,10 +321,10 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator14
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 6
             AutoEnable = True
          End
          Begin CocoaMenuItemSmartCopyPaste SubstitutionsSmartCopyPaste
@@ -468,10 +468,10 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator4
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 9
             AutoEnable = True
          End
          Begin CocoaMenuItemBigger FontsBigger
@@ -492,10 +492,10 @@ Begin Menu MainMenubar
             MenuModifier = True
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator8
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 10
             AutoEnable = True
          End
          Begin CocoaMenuItemFormatFontKern UntitledItem
@@ -612,10 +612,10 @@ Begin Menu MainMenubar
                AutoEnable = False
             End
          End
-         Begin MenuItem UntitledSeparator5
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 11
             AutoEnable = True
          End
          Begin CocoaMenuItemShowColors FontsShowColors
@@ -628,10 +628,10 @@ Begin Menu MainMenubar
             AltMenuModifier = True
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator9
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 12
             AutoEnable = True
          End
          Begin CocoaMenuItemCopyStyle FontsCopyStyle
@@ -694,10 +694,10 @@ Begin Menu MainMenubar
             MenuModifier = True
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator10
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 13
             AutoEnable = True
          End
          Begin CocoaMenuItemWritingDirection TextWritingDirection
@@ -755,10 +755,10 @@ Begin Menu MainMenubar
                AutoEnable = False
             End
          End
-         Begin MenuItem UntitledSeparator11
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 14
             AutoEnable = True
          End
          Begin CocoaMenuItemShowRuler TextShowRuler
@@ -790,10 +790,10 @@ Begin Menu MainMenubar
             MacControlKey = True
             AutoEnable = False
          End
-         Begin MenuItem UntitledSeparator12
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 15
             AutoEnable = True
          End
          Begin CocoaMenuItemSpacing TextSpacing
@@ -803,10 +803,10 @@ Begin Menu MainMenubar
             AutoEnable = True
          End
       End
-      Begin MenuItem UntitledSeparator
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 7
          AutoEnable = True
       End
       Begin MenuItem FormatMakePlainText
@@ -841,10 +841,10 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
       End
-      Begin MenuItem UntitledSeparator7
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 8
          AutoEnable = True
       End
       Begin CocoaMenuItemList FormatList
@@ -865,17 +865,33 @@ Begin Menu MainMenubar
       Text = "#MenuItemViewMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
-      Begin CocoaMenuItemShowToolbar MenuItemViewMenuLocalizedTextCocoaMenuItemShowToolbarLocalizedText
+      Begin CocoaMenuItemShowToolbar ViewToggleToolbar
          SpecialMenu = 0
          Text = "#CocoaMenuItemShowToolbar.LocalizedTextShow"
          Index = -2147483648
          AutoEnable = False
       End
-      Begin CocoaMenuItemCustomizeToolbar MenuItemViewMenuLocalizedTextCocoaMenuItemCustomizeToolbarLocalizedText
+      Begin CocoaMenuItemCustomizeToolbar ViewCustomizeToolbar
          SpecialMenu = 0
          Text = "#CocoaMenuItemCustomizeToolbar.LocalizedText"
          Index = -2147483648
          AutoEnable = False
+      End
+      Begin MenuItem MenuSeparator
+         SpecialMenu = 0
+         Text = "-"
+         Index = 16
+         AutoEnable = True
+      End
+      Begin CocoaMenuItemToggleFullscreen ViewToggleFullscreen
+         SpecialMenu = 0
+         Text = "#CocoaMenuItemToggleFullscreen.LocalizedTextEnterFullscreen"
+         Index = -2147483648
+         ShortcutKey = "F"
+         Shortcut = "Cmd+Control+F"
+         MenuModifier = True
+         MacControlKey = True
+         AutoEnable = True
       End
    End
    Begin MenuItemExamplesMenu ExamplesMenu
@@ -950,10 +966,10 @@ Begin Menu MainMenubar
             AutoEnable = True
          End
       End
-      Begin MenuItem UntitledSeparator3
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 17
          AutoEnable = True
       End
       Begin MenuItem ExamplesCocoa
@@ -998,10 +1014,10 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem UntitledSeparator15
+         Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
-            Index = -2147483648
+            Index = 18
             AutoEnable = True
          End
          Begin MenuItem CocoaApplicationIcon
@@ -1073,6 +1089,18 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaNSWorkspaceNotifications
             SpecialMenu = 0
             Text = "NSWorkspace notifications"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSToolbar
+            SpecialMenu = 0
+            Text = "NSToolbar"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSWindow
+            SpecialMenu = 0
+            Text = "NSWindow"
             Index = -2147483648
             AutoEnable = True
          End
@@ -1325,10 +1353,10 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
       End
-      Begin MenuItem UntitledSeparator0
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 19
          AutoEnable = True
       End
       Begin MenuItemBringAllToFront AppWindowMenuTitleBringAllToFront
@@ -1337,12 +1365,18 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
       End
-      Begin MenuItem UntitledSeparator1
+      Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
+         Index = 20
          AutoEnable = True
       End
+   End
+   Begin MenuItemHelpMenu HelpMenu
+      SpecialMenu = 0
+      Text = "#MenuItemHelpMenu.LocalizedText"
+      Index = -2147483648
+      AutoEnable = True
    End
 End
 #tag EndMenu

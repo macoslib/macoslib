@@ -24,13 +24,46 @@ Class NSPathComponentCell
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Returns the image used for the NSPathComponentCell.
+			  
+			  #if TargetMacOS
+			    declare function Image_ Lib CocoaLib selector "image" (obj_id as Ptr) as Ptr
+			    
+			    return new NSImage(Image_(self.id))
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetMacOS
+			    declare sub setImage lib CocoaLib selector "setImage:" (obj_id as Ptr, anImage as Ptr)
+			    
+			    dim imageRef as Ptr
+			    if value <> nil then
+			      imageRef = value
+			    end if
+			    
+			    setImage(self.id, imageRef)
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Image As NSImage
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetCocoa
 			    if me.id <> nil then
-			      soft declare function getURL lib Cocoa selector "URL" (id as Ptr) as Ptr
+			      declare function getURL lib CocoaLib selector "URL" (id as Ptr) as Ptr
 			      
 			      dim p as Ptr = getURL(me.id)
 			      if p <> nil then
-			        soft declare function absoluteString lib Cocoa selector "absoluteString" (id as Ptr) as CFStringRef
+			        declare function absoluteString lib CocoaLib selector "absoluteString" (id as Ptr) as CFStringRef
 			        return absoluteString(p)
 			      else
 			        return ""

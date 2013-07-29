@@ -54,6 +54,31 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		141: 2013-07-22 by VVB
+		- Merged the vallebox project back into the most recent version of macoslib with a few slight modifications here and there.
+		  (http://code.google.com/r/vallebox--macoslib/)
+		
+		140: 2013-07-18 by KT
+		- Added properties to NSWindow for BackingScaleFactor, DocumentEdited, MovableByWindowBackgound, 
+		  RepresentedFile, RepresentedFilename, and RepresentedURL.
+		- Added Constructor and Operator_Convert to NSWindow to allow assignment of a native window.
+		- Added NSObject.RespondsToSelector method.
+		- Added NSWindowExample window.
+		- Modified convenience methods to take advantage of new NSWindow properties.
+		
+		139: 2013-07-17 by KT
+		- Minor changes to WindowExtensions.ScalingFactor. 
+		
+		139: 2013-07-09 by VVB
+		- Added dutch translation.
+		- Added window lion fullscreen methods and menu item.
+		- Added help menu to get the auto search menu item.
+		- Added some new constructors to NSImage.
+		- Added Operator_Convert from Picture to NSImage.
+		- Added isTemplate option to NSImage.
+		- Set NSIMage size using with/height double values.
+		- Made the NSObject.allocate method a little more flexible.
+		
 		138: 2013-07-08 by KT
 		- Added pragmas for unused variables in various methods.
 		
@@ -254,7 +279,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"138", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"141", Scope = Protected
 	#tag EndConstant
 
 

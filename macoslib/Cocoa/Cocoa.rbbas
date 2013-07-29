@@ -236,9 +236,17 @@ Protected Module Cocoa
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h1
+		Protected Function NSMakePoint(x as Single, y as Single) As NSPoint
+		  dim p as NSPoint
+		  p.x = x
+		  p.y = y
+		  return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function NSMakeRange(start as integer, length as integer) As NSRange
 		  dim r as NSRange
-		  
 		  r.location = start
 		  r.length = length
 		  return r
@@ -257,6 +265,15 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function NSMakeSize(width as Single, Height as Single) As NSSize
+		  dim s as NSSize
+		  s.width = width
+		  s.height = Height
+		  return s
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function NSObjectFromNSPtr(id as Ptr, hasOwnership as Boolean = false, DontReturnNSObject as boolean = false) As variant
 		  //Creates an instance of an RB Cocoa object from the passed Cocoa object instance id
 		  
@@ -264,21 +281,6 @@ Protected Module Cocoa
 		  
 		  for each objClassName as string in objClassNameTree  //Scan inheritance tree down to NSObject (or root class)
 		    select case objClassName
-		    case "ABAddressBook"
-		      return   new ABAddressBook( id, hasOwnership )
-		      
-		    case "ABGroup"
-		      return   new ABGroup( id, hasOwnership )
-		      
-		    case "ABMultiValue"
-		      return   new ABMultiValue( id, hasOwnership )
-		      
-		    case "ABPerson"
-		      return   new ABPerson( id, hasOwnership )
-		      
-		    case "ABRecord"
-		      return   new ABRecord( id, hasOwnership )
-		      
 		    case "NSApplication"
 		      return  new NSApplication( id, hasOwnership )
 		      
@@ -534,6 +536,31 @@ Protected Module Cocoa
 		Protected Declare Function NSUserName Lib CocoaLib () As CFStringRef
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h0
+		Function NSZeroPoint() As NSPoint
+		  
+		  return NSMakePoint(0, 0)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSZeroRect() As NSRect
+		  
+		  return NSMakeRect(0.0, 0.0, 0.0, 0.0)
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSZeroSize() As NSSize
+		  
+		  return NSMakeSize(0.0, 0.0)
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub pTestAssert(b as Boolean, msg as String = "")
 		  #if DebugBuild
@@ -735,6 +762,20 @@ Protected Module Cocoa
 		width as Single
 		height as Single
 	#tag EndStructure
+
+
+	#tag Enum, Name = NSComparisonResult, Flags = &h0
+		NSOrderedAscending = -1
+		  NSOrderedSame = 0
+		NSOrderedDescending = 1
+	#tag EndEnum
+
+	#tag Enum, Name = NSRectEdge, Flags = &h0
+		NSMinXEdge
+		  NSMinYEdge
+		  NSMaxXEdge
+		NSMaxYEdge
+	#tag EndEnum
 
 
 	#tag ViewBehavior

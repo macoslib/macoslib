@@ -148,14 +148,10 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare function representedFilename lib CocoaLib selector "representedFilename" (id as Ptr) as Ptr
-		    
-		    dim p as Ptr = representedFilename(Ptr(w.Handle))
-		    dim s as CFStringRef = new CFString(p, not CFType.hasOwnership)
-		    if s <> "" then
-		      return new FolderItem(s, FolderItem.PathTypeShell)
-		    end if
+		    dim nsw as NSWindow = w
+		    return nsw.RepresentedFile
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -193,14 +189,46 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare sub setTitleWithRepresentedFilename lib CocoaLib selector "setTitleWithRepresentedFilename:" (id as Ptr, filePath as CFStringRef)
-		    
-		    if f <> nil then
-		      setTitleWithRepresentedFilename Ptr(w.Handle), f.POSIXPath
-		    else
-		      //passing filePath = nil results in an Objective-C exception.
-		      setTitleWithRepresentedFilename Ptr(w.Handle), ""
+		    dim nsw as NSWindow = w
+		    nsw.RepresentedFile = f
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FullScreenAllowed(extends w as Window) As Boolean
+		  //# Indicates whether the window can enter full screen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      
+		      return Bitwise.BitAnd( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) = Integer(WindowCollectionBehavior.FullScreenPrimary)
 		    end if
+		  #else
+		    #pragma Unused w
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FullScreenAllowed(extends w as Window, assigns Value as Boolean)
+		  //# Allows the window to enter full screen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
+		      
+		      if Value then
+		        setCollectionBehavior( w, Bitwise.BitOr( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
+		      else
+		        setCollectionBehavior( w, Bitwise.BitXor( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) )
+		      end if
+		    end if
+		  #else
+		    #pragma Unused w
+		    #pragma Unused Value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -239,6 +267,24 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsFullScreen(extends w as Window) As Boolean
+		  //# Returns a boolean indicating the window's fullscreen status.
+		  
+		  #if TargetCocoa then
+		    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is introduced in 10.7
+		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
+		      
+		      if w <> nil then
+		        return Bitwise.BitAnd( GetStyleMask(w), NSFullScreenWindowMask ) = NSFullScreenWindowMask
+		      end if
+		    end if
+		  #else
+		    #pragma Unused w
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsModified(extends w as Window) As Boolean
 		  if w.Handle = 0 then
 		    return false
@@ -251,9 +297,8 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare function isDocumentEdited lib CocoaLib selector "isDocumentEdited" (id as Ptr) as Boolean
-		    
-		    return isDocumentEdited(Ptr(w.Handle))
+		    dim nsw as NSWindow = w
+		    return nsw.DocumentEdited
 		  #endif
 		  
 		End Function
@@ -273,9 +318,8 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    declare sub setDocumentEdited lib CocoaLib selector "setDocumentEdited:" (id as Ptr, documentEdited as Boolean)
-		    
-		    setDocumentEdited Ptr(w.Handle), value
+		    dim nsw as NSWindow = w
+		    nsw.DocumentEdited = value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -397,6 +441,22 @@ Module WindowManager
 		    bounds.bottom = bounds.bottom + (newHeight - w.Height)
 		    bounds.right = bounds.right + (newWidth - w.Width)
 		    OSError = TransitionWindow(w, kWindowSlideTransitionEffect, kWindowResizeTransitionAction, bounds)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ToggleFullScreen(extends w as Window)
+		  //# Takes the window into or out of fullscreen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then
+		      declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
+		      
+		      toggleFullScreen(w,nil)
+		    end if
+		  #else
+		    #pragma Unused w
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -545,6 +605,12 @@ Module WindowManager
 	#tag Constant, Name = kWindowZoomTransitionEffect, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
+	#tag EndConstant
+
 
 	#tag Structure, Name = MacPoint, Flags = &h0
 		v as Int16
@@ -563,6 +629,20 @@ Module WindowManager
 		  green as UInt16
 		blue as UInt16
 	#tag EndStructure
+
+
+	#tag Enum, Name = WindowCollectionBehavior, Type = Integer, Flags = &h0
+		Default=0
+		  CanJoinAllSpaces=1
+		  MoveToActiveSpace=2
+		  Managed=4
+		  Transient=8
+		  Stationary=16
+		  ParticipatesInCycle=32
+		  IgnoresCycle=64
+		  FullScreenPrimary=128
+		FullScreenAuxiliary=256
+	#tag EndEnum
 
 
 	#tag ViewBehavior

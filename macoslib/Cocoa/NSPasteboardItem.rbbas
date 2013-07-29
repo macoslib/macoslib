@@ -13,8 +13,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
-		  me.m_id = NSObject.Initialize( NSObject.Allocate( "NSPasteboardItem" ))
+		  self.Constructor(NSObject.Initialize(NSObject.Allocate( "NSPasteboardItem")), hasOwnership)
 		  
 		End Sub
 	#tag EndMethod
@@ -26,6 +25,21 @@ Inherits NSObject
 		    
 		    return  new NSData( dataForType( me.id, type ), false)
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PropertyList(dataType as String) As Ptr
+		  
+		  #if targetMacOS
+		    declare function propertyListForType lib CocoaLib selector "propertyListForType:" (obj_id as Ptr, dataType as CFStringRef) as Ptr
+		    
+		    return propertyListForType(self, dataType)
+		    
+		  #else
+		    #pragma unused dataType
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 

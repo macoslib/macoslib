@@ -58,16 +58,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function DictionaryRepresentation() As NSDictionary
-		  #if TargetMacOS
-		    declare function dictionaryRepresentation lib CocoaLib selector "dictionaryRepresentation" (id as Ptr) as Ptr
-		    
-		    return new NSDictionary(dictionaryRepresentation(self), hasOwnership)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function DictionaryValue(key as String) As NSDictionary
 		  #if TargetMacOS
 		    declare function dictionaryForKey lib CocoaLib selector "dictionaryForKey:" (id as Ptr, key as CFStringRef) as Ptr
@@ -264,6 +254,20 @@ Inherits NSObject
 		  #endif
 		End Sub
 	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    declare function dictionaryRepresentation lib CocoaLib selector "dictionaryRepresentation" (id as Ptr) as Ptr
+			    
+			    return new NSDictionary(dictionaryRepresentation(self), hasOwnership)
+			  #endif
+			End Get
+		#tag EndGetter
+		DictionaryRepresentation As NSDictionary
+	#tag EndComputedProperty
 
 
 	#tag ViewBehavior

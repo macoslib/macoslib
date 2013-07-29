@@ -1,6 +1,24 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
+		Sub Append(extends s() as string, t() as string)
+		  //# Appends an array of strings to another array of strings
+		  
+		  for i as integer = 0 to UBound(t)
+		    s.Append t(i)
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function BooleanValue(extends s as string) As Boolean
+		  //# Returns true if string is not empty, and string is not a possible false value
+		  
+		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" or s = "no" )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Contains(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
@@ -9,36 +27,45 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FormatSize(size as Int64, use1024 as boolean = true) As String
+		Function ContainsB(extends s as string, substring as String) As Boolean
+		  //# Return true if 's' contains the 'substring'.
+		  
+		  //@ By 'contains' we mean binary containment, as with InStrB.
+		  
+		  return  ( s.InStrB( substring ) > 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring. (case-insensitive)
+		  
+		  return Right(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring, doing a binary comparison.
+		  
+		  return StrComp(RightB(s, substring.LenB), substring, 0) = 0
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FormatSize(size as Int64) As String
 		  //# Format a file size as a 2-decimal number with appropriate unit (K, M, G, T). It is up to you to add the proper localized abbreviation for "byte".
 		  
-		  //@param use1024=true If true, use 1024 bytes as the basic unit. Otherwise, uses 1000 bytes (like Apple). Default is 1024 bytes.
 		  //@ [Cross-platform]
 		  
-		  dim smallestSize as Int64
 		  
-		  if use1024 then
-		    smallestSize = 1024
-		  else
-		    smallestSize = 1000
-		  end if
-		  
-		  static KB as Int64
-		  
-		  if use1024 then
-		    KB = 1024
-		    
-		  else //Apple format: 1K=1000 bytes
-		    KB = 1000
-		    
-		  end if
-		  
+		  static KB as Int64 = 1024
 		  static MB as Int64 = KB * KB
 		  static GB as Int64 = MB * KB
 		  static TB as Int64 = GB * KB
 		  static EB as Int64 = TB * KB
 		  
-		  if size<smallestSize then
+		  if size<1024 then
 		    return  Str( size )
 		    
 		  else
@@ -207,6 +234,17 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function isEmail(extends s as String) As Boolean
+		  //# Returns true if the string is a valid email address
+		  
+		  dim nSearch as New RegEx
+		  
+		  nSearch.SearchPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+		  return ( nSearch.Search(s) <> Nil )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsInArray(extends s as String, L() as String) As Boolean
 		  //# Returns true if the string is contains in the string array
 		  
@@ -223,6 +261,22 @@ Protected Module StringExtension
 		  //@ [Cross-platform]
 		  
 		  return L.IndexOf(s) = -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring. (case-insensitive)
+		  
+		  return Left(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring, doing a binary comparison.
+		  
+		  return StrComp(LeftB(s, substring.LenB), substring, 0) = 0
 		End Function
 	#tag EndMethod
 
