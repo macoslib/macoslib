@@ -11,14 +11,6 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function BooleanValue(extends s as string) As Boolean
-		  //# Returns true if string is not empty, and string is not a possible false value
-		  
-		  return NOT ( s = "" or s = "false" or s = "f" or s = "0" or s = "no" )
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function Contains(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
@@ -234,17 +226,6 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function isEmail(extends s as String) As Boolean
-		  //# Returns true if the string is a valid email address
-		  
-		  dim nSearch as New RegEx
-		  
-		  nSearch.SearchPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-		  return ( nSearch.Search(s) <> Nil )
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function IsInArray(extends s as String, L() as String) As Boolean
 		  //# Returns true if the string is contains in the string array
 		  
@@ -261,6 +242,17 @@ Protected Module StringExtension
 		  //@ [Cross-platform]
 		  
 		  return L.IndexOf(s) = -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsValidEmailAddressPattern(extends s as String) As Boolean
+		  //# Returns true if the string is a valid email address
+		  
+		  dim nSearch as New RegEx
+		  
+		  nSearch.SearchPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+		  return nSearch.Search(s) <> Nil
 		End Function
 	#tag EndMethod
 
