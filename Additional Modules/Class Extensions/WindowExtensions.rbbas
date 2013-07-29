@@ -139,7 +139,12 @@ Protected Module WindowExtensions
 		    
 		    // Now ask the NSColor class to create a new NSColor from the values we have
 		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" (classRef as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
-		    dim NSColorInstance as Ptr = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, Value.Alpha / 255)
+		    dim NSColorInstance as Ptr
+		    #if RBVersion >= 2011.04
+		      NSColorInstance = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, Value.Alpha / 255)
+		    #else
+		      NSColorInstance = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, 255 )
+		    #endif
 		    
 		    // Set the features on the window
 		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (WindowRef as WindowPtr, AlphaValue as Single)
@@ -151,8 +156,6 @@ Protected Module WindowExtensions
 		    setBackgroundColor w, NSColorInstance
 		    
 		    // Force the window to update so we get the proper shadowing
-		    'w.Width = w.Width + 1
-		    'w.Width = w.Width - 1
 		    w.InvalidateShadow
 		  #else
 		    #pragma Unused w
@@ -904,8 +907,6 @@ Protected Module WindowExtensions
 		    setBackgroundColor w, NSColorInstance
 		    
 		    // Force the window to update so we get the proper shadowing
-		    'w.Width = w.Width + 1
-		    'w.Width = w.Width - 1
 		    w.InvalidateShadow
 		  #else
 		    #pragma Unused w

@@ -1652,7 +1652,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Transparency(Value as Double = 0.0)
+		Sub Transparency(Assigns Value as Double)
 		  //# Gives the window a transparent background color, resulting in the window becoming see-through while anything on the window remains visible.
 		  
 		  //@discussion _
@@ -1662,13 +1662,12 @@ Inherits NSResponder
 		  
 		  #if TargetCocoa
 		    // Create the NSColor to use for the window's background with an alpha value.
-		    dim c as Color
 		    dim nsc as NSColor = NSColor.ColorWithRGB( 0.92, 0.92, 0.92, Value ) // Aproximately the same as window background color
 		    
 		    // Set the features on the window
 		    self.AlphaValue = 1.0
 		    self.IsOpaque = false
-		    self.BackgroundColor = c
+		    self.BackgroundColor = nsc
 		    
 		    // Force the window's shadow to update so we get the proper shadowing
 		    self.InvalidateShadow
