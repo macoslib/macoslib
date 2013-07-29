@@ -29,9 +29,9 @@ Begin Window NSColorWindow
       AutoHideScrollbars=   True
       Bold            =   ""
       Border          =   True
-      ColumnCount     =   3
+      ColumnCount     =   2
       ColumnsResizable=   True
-      ColumnWidths    =   "*, *, 120"
+      ColumnWidths    =   "*, 120"
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   20
@@ -47,7 +47,7 @@ Begin Window NSColorWindow
       Hierarchical    =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Color Name	Color Value	Color"
+      InitialValue    =   "Color Name	Color"
       Italic          =   ""
       Left            =   0
       LockBottom      =   True
@@ -91,8 +91,8 @@ End
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  if row < me.ListCount then
-		    if column = 2 then
-		      dim c as NSColor = me.CellTag(row, 2)
+		    if column = 1 then
+		      dim c as NSColor = me.CellTag(row, 1)
 		      if c <> nil then
 		        g.ForeColor = c.ColorValue
 		        g.FillRect 0, 0, g.Width, g.Height
@@ -161,18 +161,8 @@ End
 		  
 		  for each item as Pair in colors
 		    me.AddRow item.Left.StringValue
-		    me.CellTag(me.LastIndex, 2) = item.Right
-		    
-		    dim c as Color = item.Right
-		    Dim colorString as String = "RGB( " + Format( c.Red, "000" ) + ", " + Format( c.Green, "000" ) + ", " + Format( c.Blue, "000" )
-		    if c.Alpha > 0 then
-		      me.Cell(me.LastIndex, 1) = colorString + ", " + Format( 255 - c.Alpha, "000" ) + " )"
-		    else
-		      me.Cell(me.LastIndex, 1) = colorString + " )"
-		    end if
+		    me.CellTag(me.LastIndex, 1) = item.Right
 		  next
-		  
-		  'Listbox1.ColumnAlignment(2) = Listbox.AlignRight
 		End Sub
 	#tag EndEvent
 #tag EndEvents
