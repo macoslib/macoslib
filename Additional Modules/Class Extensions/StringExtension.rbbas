@@ -246,17 +246,6 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsValidEmailAddressPattern(extends s as String) As Boolean
-		  //# Returns true if the string is a valid email address
-		  
-		  dim nSearch as New RegEx
-		  
-		  nSearch.SearchPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-		  return nSearch.Search(s) <> Nil
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function StartsWith(extends s as string, substring as string) As Boolean
 		  //# Return true if the string starts with the substring. (case-insensitive)
 		  
