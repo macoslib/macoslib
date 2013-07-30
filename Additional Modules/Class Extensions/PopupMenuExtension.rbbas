@@ -129,6 +129,13 @@ Protected Module PopupMenuExtension
 		    setSize(icon, size)
 		    
 		    setImage(item, icon)
+		    
+		  #else
+		    
+		    #pragma unused p
+		    #pragma unused index
+		    #pragma unused value
+		    
 		  #endif
 		End Sub
 	#tag EndMethod

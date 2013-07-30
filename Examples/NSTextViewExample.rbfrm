@@ -152,7 +152,6 @@ End
 #tag Events btnSetBkgColor
 	#tag Event
 		Sub Action()
-		  dim t as string = TextArea1.Text
 		  TextArea1.FontBackgroundColor( TextArea1.SelStart, TextArea1.SelLength ) = RGB( 255, 0, 0 )
 		End Sub
 	#tag EndEvent

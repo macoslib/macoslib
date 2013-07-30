@@ -145,6 +145,7 @@ Inherits NSObject
 		Private Shared Function GeneralPboard_() As NSPasteboard
 		  static name as String = Cocoa.StringConstant ("NSGeneralPboard")
 		  'return WithName (name)
+		  #pragma unused name
 		End Function
 	#tag EndMethod
 

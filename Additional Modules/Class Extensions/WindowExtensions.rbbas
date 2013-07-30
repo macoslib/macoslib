@@ -576,7 +576,6 @@ Protected Module WindowExtensions
 		    return miniwindowTitle(w)
 		  #else
 		    #pragma Unused w
-		    #pragma Value
 		  #endif
 		End Function
 	#tag EndMethod
@@ -596,7 +595,7 @@ Protected Module WindowExtensions
 		    setMiniwindowTitle w, Value
 		  #else
 		    #pragma Unused w
-		    #pragma Value
+		    #pragma unused Value
 		  #endif
 		End Sub
 	#tag EndMethod

@@ -526,7 +526,7 @@ Protected Module TextAreaExtension
 		    #pragma unused offset
 		    #pragma unused length
 		    #pragma unused value
-		  
+		    
 		  #endif
 		  
 		End Sub
@@ -960,12 +960,10 @@ Protected Module TextAreaExtension
 		Sub RemoveAllFontBackgroundColor(Extends ta As TextArea)
 		  #if TargetCocoa
 		    
-		    dim txt as string = ta.Text
-		    dim l as integer = txt.Len
 		    dim tv as NSTextView = new NSTextView( ta )
+		    dim ts as NSTextStorage = tv.TextStorage
 		    
 		    // Remove any existing color
-		    dim ts as NSTextStorage = tv.TextStorage
 		    call ts.RemoveAttribute( ts.kNSBackgroundColorAttributeName )
 		    
 		    // Reset the color when typing in the field
