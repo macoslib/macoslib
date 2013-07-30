@@ -511,6 +511,7 @@ Protected Module TextAreaExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+<<<<<<< HEAD
 		Sub FontBackgroundColor(Extends t As TextArea, offset As Integer, length As Integer, Assigns value As Color)
 		  #if targetMacOS
 		    declare function textStorage lib CocoaLib selector "textStorage" (obj_id as Ptr) as Ptr
@@ -523,6 +524,24 @@ Protected Module TextAreaExtension
 		    range.Length = length
 		    
 		    call attStr.AddAttribute( "NSBackgroundColorAttributeName", value, range )
+=======
+		Sub FontBackgroundColor(Extends ta As TextArea, offset As Integer, length As Integer, Assigns value As Color)
+		  #if TargetMacOS
+		    
+		    dim tv as NSTextView = new NSTextView( ta )
+		    dim ts as NSTextStorage = tv.TextStorage
+		    
+		    dim range as Cocoa.NSRange = Cocoa.NSMakeRange( offset, length )
+		    call ts.AddAttribute( ts.kNSBackgroundColorAttributeName,value, range )
+		    
+		  #else
+		    
+		    #pragma unused ta
+		    #pragma unused offset
+		    #pragma unused length
+		    #pragma unused value
+		    
+>>>>>>> macoslib-master
 		    
 		  #endif
 		  
@@ -951,6 +970,32 @@ Protected Module TextAreaExtension
 		  #endif
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveAllFontBackgroundColor(Extends ta As TextArea)
+		  #if TargetCocoa
+		    
+		    dim txt as string = ta.Text
+		    dim l as integer = txt.Len
+		    dim tv as NSTextView = new NSTextView( ta )
+		    
+		    // Remove any existing color
+		    dim ts as NSTextStorage = tv.TextStorage
+		    call ts.RemoveAttribute( ts.kNSBackgroundColorAttributeName )
+		    
+		    // Reset the color when typing in the field
+		    dim dict as new NSMutableDictionary( tv.TypingAttributes.MutableCopy, NSObject.hasOwnership )
+		    dict.Value( "NSBackgroundColor" ) = NSColor.TextBackgroundColor
+		    tv.TypingAttributes = dict
+		    
+		  #else
+		    
+		    #pragma unused ta
+		    
+		  #endif
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
