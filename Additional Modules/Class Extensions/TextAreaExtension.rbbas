@@ -511,20 +511,6 @@ Protected Module TextAreaExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-<<<<<<< HEAD
-		Sub FontBackgroundColor(Extends t As TextArea, offset As Integer, length As Integer, Assigns value As Color)
-		  #if targetMacOS
-		    declare function textStorage lib CocoaLib selector "textStorage" (obj_id as Ptr) as Ptr
-		    
-		    dim text as Ptr = textStorage(t.TextViewRef)
-		    dim attStr as new NSMutableAttributedString( text, not NSObject.hasOwnership )
-		    
-		    dim range as Cocoa.NSRange
-		    range.location = offset
-		    range.Length = length
-		    
-		    call attStr.AddAttribute( "NSBackgroundColorAttributeName", value, range )
-=======
 		Sub FontBackgroundColor(Extends ta As TextArea, offset As Integer, length As Integer, Assigns value As Color)
 		  #if TargetMacOS
 		    
@@ -540,9 +526,7 @@ Protected Module TextAreaExtension
 		    #pragma unused offset
 		    #pragma unused length
 		    #pragma unused value
-		    
->>>>>>> macoslib-master
-		    
+		    		    
 		  #endif
 		  
 		End Sub
