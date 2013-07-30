@@ -215,14 +215,20 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  dim tv as NSTextView
 			  
 			  #if TargetMacOS
+			    
 			    declare function textView lib CocoaLib selector "textView" (obj_id as Ptr) as Ptr
 			    
-			    return textView(self)
+			    dim p as Ptr = textView(self)
+			    if p <> nil then
+			      tv = new NSTextView( p, not hasOwnership )
+			    end if
 			    
 			  #endif
 			  
+			  return tv
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -239,7 +245,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		TextView As Ptr
+		TextView As NSTextView
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

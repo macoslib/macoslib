@@ -1258,6 +1258,11 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="AbsolutePath"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
@@ -1265,11 +1270,21 @@ Inherits NSObject
 			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1288,6 +1303,11 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SingleValue"
+			Group="Behavior"
+			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
