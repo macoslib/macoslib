@@ -526,7 +526,7 @@ Protected Module TextAreaExtension
 		    #pragma unused offset
 		    #pragma unused length
 		    #pragma unused value
-		    		    
+		  
 		  #endif
 		  
 		End Sub
