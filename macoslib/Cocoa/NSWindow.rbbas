@@ -4352,6 +4352,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="CollectionBehavior"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DepthLimit"
 			Group="Behavior"
 			Type="Integer"
