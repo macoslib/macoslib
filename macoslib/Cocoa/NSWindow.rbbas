@@ -354,6 +354,24 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ContentBorderTopThickness() As Single
+		  //@header Returns the thickness of the top border of the window.
+		  
+		  // Convenience method.
+		  return ContentBorderThickness( cocoa.NSRectEdge.NSMaxYEdge )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ContentBorderTopThickness(assigns thickness as Single)
+		  //@header Indicates the thickness of the top border of the window.
+		  
+		  // Convenience method.
+		  ContentBorderThickness( cocoa.NSRectEdge.NSMaxYEdge ) = thickness
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ContentRect(windowFrame as Cocoa.NSRect) As Cocoa.NSRect
 		  
 		  #if TargetCocoa
@@ -1494,6 +1512,78 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SmoothResize(Width as Integer, Height as Integer, Align as Integer = 4)
+		  //# Easy to use animated window resizing with the ability to customize the animation origin.
+		  
+		  #if TargetCocoa then
+		    
+		    dim w as window = self
+		    
+		    Dim OrigRect, NewRect as Cocoa.NSRect
+		    OrigRect.x = w.Left
+		    OrigRect.y = w.Top
+		    OrigRect.w = w.Width
+		    OrigRect.h = w.Height
+		    
+		    // Re-calculate the co-ordinates
+		    NewRect = OrigRect
+		    
+		    NewRect.w = Width
+		    NewRect.h = Height
+		    
+		    select case Align // Use deltas in measurements, not absolutes
+		      
+		    case 0 // Lock top left (v>)
+		      // Just change the Width & Height
+		      
+		    case 1 // Lock top right (<v)
+		      NewRect.x = OrigRect.x - ( Width - w.Width )
+		      
+		    case 2 // Lock bottom left (^>)
+		      NewRect.y = OrigRect.y - ( Height - w.Height )
+		      
+		    case 3 // Lock bottom right (<^)
+		      NewRect.y = OrigRect.y - ( Height - w.Height )
+		      NewRect.x = OrigRect.x - ( Width  - w.Width )
+		      
+		    case 4 // Lock center top (<v>)
+		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
+		      
+		    case 5 // Lock center left (^v>)
+		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
+		      
+		    case 6 // Lock center bottom (<^>)
+		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
+		      NewRect.y = OrigRect.y - ( Height - w.Height )
+		      
+		    case 7 // Lock center right (<^v)
+		      NewRect.x = OrigRect.x - ( Width - w.Width )
+		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
+		      
+		    case 8 // Resize all sides (<^v>)
+		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
+		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
+		      
+		    else
+		      return
+		      
+		    end select
+		    
+		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height ) - ( NewRect.h - w.Height )
+		    NewRect.h = NewRect.h + TitlebarAdjustment
+		    
+		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (obj_id as Ptr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
+		    setFrameDisplayAnimate self, NewRect, true, true
+		    
+		  #else
+		    #pragma Unused Align
+		    w.Width = Width
+		    w.Height = Height
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function StandardWindowButton(windowButtonKind as NSWindowButton) As Ptr
 		  
 		  #if TargetCocoa
@@ -1557,6 +1647,32 @@ Inherits NSResponder
 		    declare sub toggleToolbarShown lib CocoaLib selector "toggleToolbarShown:" (obj_id as Ptr, sender as Ptr)
 		    
 		    toggleToolbarShown self, self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Transparency(Assigns Value as Double)
+		  //# Gives the window a transparent background color, resulting in the window becoming see-through while anything on the window remains visible.
+		  
+		  //@discussion _
+		  // The titlebar and close/minimize/maximize buttons will remain visible as well, for the best effect use a borderless window. _
+		  // This method is perfect for a custom or image shaped splash-window effect. _
+		  //@discussion//
+		  
+		  #if TargetCocoa
+		    // Create the NSColor to use for the window's background with an alpha value.
+		    dim nsc as NSColor = NSColor.ColorWithRGB( 0.92, 0.92, 0.92, Value ) // Aproximately the same as window background color
+		    
+		    // Set the features on the window
+		    self.AlphaValue = 1.0
+		    self.IsOpaque = false
+		    self.BackgroundColor = nsc
+		    
+		    // Force the window's shadow to update so we get the proper shadowing
+		    self.InvalidateShadow
+		  #else
+		    #pragma Unused Value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -2171,6 +2287,34 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			The window appears in all spaces.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.CanJoinAllSpaces) ) <> 0
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    
+			    if Value then
+			      CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.CanJoinAllSpaces)
+			    else
+			      CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.CanJoinAllSpaces)
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		CanJoinAllSpaces As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -2762,13 +2906,14 @@ Inherits NSResponder
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Note
-			Indicates whether the window can enter full screen mode
+			
+			A window with this collection behavior has a fullscreen button in the upper right of its titlebar.
 		#tag EndNote
 		#tag Getter
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
-			      return Bitwise.BitAnd( CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) <> 0
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.FullScreenPrimary) ) <> 0
 			    end if
 			  #endif
 			End Get
@@ -2779,9 +2924,9 @@ Inherits NSResponder
 			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
 			      
 			      if Value then
-			        CollectionBehavior = Bitwise.BitOr( self.CollectionBehavior, Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.FullScreenPrimary)
 			      else
-			        CollectionBehavior = Bitwise.BitAnd( self.CollectionBehavior, NOT Integer(NSWindowCollectionBehavior.FullScreenPrimary) )
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.FullScreenPrimary)
 			      end if
 			      
 			    end if
@@ -2791,6 +2936,39 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		FullscreenAllowed As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Windows with this collection behavior can be shown on the same space as the fullscreen window.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.FullScreenAuxiliary) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+			      
+			      if Value then
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.FullScreenAuxiliary)
+			      else
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.FullScreenAuxiliary)
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		FullscreenAllowedAuxiliary As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2887,6 +3065,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		HidesOnDeactivate As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window is not part of the window cycle for use with the Cycle Through Windows Window menu item.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.IgnoresCycle) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.IgnoresCycle)
+			      else
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.IgnoresCycle)
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		IgnoresCycle As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3058,7 +3270,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is first introduced in 10.7
-			      return Bitwise.BitAnd( self.StyleMask, NSFullScreenWindowMask ) = NSFullScreenWindowMask
+			      return ( self.StyleMask and NSFullScreenWindowMask ) = NSFullScreenWindowMask
 			    End If
 			  #endif
 			End Get
@@ -3315,33 +3527,36 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			The window participates in Spaces and Exposé. This is the default behavior if windowLevel is equal to NSNormalWindowLevel.
+		#tag EndNote
 		#tag Getter
 			Get
-			  
-			  #if TargetCocoa
-			    declare function level lib CocoaLib selector "level" (obj_id as Ptr) as NSWindowLevel
-			    
-			    return level(self)
-			    
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.Managed) ) <> 0
+			    end if
 			  #endif
-			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  
-			  #if TargetCocoa
-			    declare sub setLevel lib CocoaLib selector "setLevel:" (obj_id as Ptr, level as NSWindowLevel)
-			    
-			    setLevel self, value
-			    
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.Managed)
+			      else
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.Managed)
+			      end if
+			      
+			    end if
 			  #else
-			    #pragma unused value
+			    #pragma Unused Value
 			  #endif
-			  
 			End Set
 		#tag EndSetter
-		Level As NSWindowLevel
+		Managed As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3520,6 +3735,33 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Making the window active does not cause a space switch; the window switches to the active space.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.MoveToActiveSpace) ) <> 0
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if Value then
+			      CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.MoveToActiveSpace)
+			    else
+			      CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.MoveToActiveSpace)
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		MoveToActiveSpace As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -3586,6 +3828,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		ParentWindow As NSWindow
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window participates in the window cycle for use with the Cycle Through Windows Window menu item.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.ParticipatesInCycle) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.ParticipatesInCycle)
+			      else
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.ParticipatesInCycle)
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		ParticipatesInCycle As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -3685,7 +3961,12 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    declare function representedFilename lib CocoaLib selector "representedFilename" (obj_id as Ptr) as CFStringRef
 			    
-			    return new FolderItem(representedFilename(self), FolderItem.PathTypeShell)
+			    dim Path as string = representedFilename(self)
+			    if Path <> "" then
+			      return new FolderItem(Path, FolderItem.PathTypeShell)
+			    else
+			      return Nil
+			    end if
 			    
 			  #endif
 			  
@@ -3933,6 +4214,40 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window is unaffected by Exposé; it stays visible and stationary, like the desktop window.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.Stationary) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Stationary is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.Stationary)
+			      else
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.Stationary)
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		Stationary As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -3990,6 +4305,40 @@ Inherits NSResponder
 			End Set
 		#tag EndSetter
 		Title As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			
+			The window floats in Spaces and is hidden by Exposé. This is the default behavior if windowLevel is not equal to NSNormalWindowLevel.
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      return ( CollectionBehavior and Integer(NSWindowCollectionBehavior.Transient) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsSnowLeopard then // the CollectionBehavior selector is available since 10.5, but the behavior Managed is first introduced in 10.6
+			      
+			      if Value then
+			        CollectionBehavior = self.CollectionBehavior or Integer(NSWindowCollectionBehavior.Transient)
+			      else
+			        CollectionBehavior = self.CollectionBehavior and NOT Integer(NSWindowCollectionBehavior.Transient)
+			      end if
+			      
+			    end if
+			  #else
+			    #pragma Unused Value
+			  #endif
+			End Set
+		#tag EndSetter
+		Transient As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4069,6 +4418,36 @@ Inherits NSResponder
 			End Get
 		#tag EndGetter
 		WindowDeepestScreen As NSScreen
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    declare function level lib CocoaLib selector "level" (obj_id as Ptr) as NSWindowLevel
+			    
+			    return level(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    declare sub setLevel lib CocoaLib selector "setLevel:" (obj_id as Ptr, level as NSWindowLevel)
+			    
+			    setLevel self, value
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		WindowLevel As NSWindowLevel
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4210,6 +4589,9 @@ Inherits NSResponder
 	#tag Constant, Name = NSWindowNumberListAllSpaces, Type = Double, Dynamic = False, Default = \"16", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = TitlebarAdjustment, Type = Double, Dynamic = False, Default = \"22", Scope = Protected
+	#tag EndConstant
+
 
 	#tag Enum, Name = NSBackingStoreType, Type = UInt32, Flags = &h0
 		NSBackingStoreRetained
@@ -4347,6 +4729,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="CanJoinAllSpaces"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="CanStoreColor"
 			Group="Behavior"
 			Type="Boolean"
@@ -4401,6 +4788,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FullscreenAllowedAuxiliary"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="GState"
 			Group="Behavior"
 			Type="Integer"
@@ -4412,6 +4804,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HidesOnDeactivate"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IgnoresCycle"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -4515,6 +4912,11 @@ Inherits NSResponder
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Managed"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="MiniwindowTitle"
 			Group="Behavior"
 			Type="String"
@@ -4526,6 +4928,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="MoveToActiveSpace"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
@@ -4533,6 +4940,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="OneShot"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ParticipatesInCycle"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -4563,6 +4975,11 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Stationary"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -4580,6 +4997,11 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Transient"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ViewsNeedDisplay"

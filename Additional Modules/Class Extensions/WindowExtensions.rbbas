@@ -139,7 +139,12 @@ Protected Module WindowExtensions
 		    
 		    // Now ask the NSColor class to create a new NSColor from the values we have
 		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" (classRef as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
-		    dim NSColorInstance as Ptr = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, Value.Alpha / 255)
+		    dim NSColorInstance as Ptr
+		    #if RBVersion >= 2011.04
+		      NSColorInstance = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, Value.Alpha / 255)
+		    #else
+		      NSColorInstance = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, 255 )
+		    #endif
 		    
 		    // Set the features on the window
 		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (WindowRef as WindowPtr, AlphaValue as Single)
@@ -151,8 +156,6 @@ Protected Module WindowExtensions
 		    setBackgroundColor w, NSColorInstance
 		    
 		    // Force the window to update so we get the proper shadowing
-		    'w.Width = w.Width + 1
-		    'w.Width = w.Width - 1
 		    w.InvalidateShadow
 		  #else
 		    #pragma Unused w
@@ -824,34 +827,34 @@ Protected Module WindowExtensions
 		    
 		    select case Align // Use deltas in measurements, not absolutes
 		      
-		    case 0 // Lock upper left (v>)
+		    case 0 // Lock top left (v>)
 		      // Just change the Width & Height
 		      
-		    case 1 // Lock upper right (<v)
+		    case 1 // Lock top right (<v)
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      
-		    case 2 // Lock lower left (^>)
+		    case 2 // Lock bottom left (^>)
 		      NewRect.y = OrigRect.y - ( Height - w.Height )
 		      
-		    case 3 // Lock lower right (<^)
+		    case 3 // Lock bottom right (<^)
 		      NewRect.y = OrigRect.y - ( Height - w.Height )
 		      NewRect.x = OrigRect.x - ( Width  - w.Width )
 		      
-		    case 4 // Lock top center (<v>)
+		    case 4 // Lock center top (<v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      
-		    case 5 // Lock left center (^v>)
+		    case 5 // Lock center left (^v>)
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 6 // Lock bottom center (<^>)
+		    case 6 // Lock center bottom (<^>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( Height - w.Height )
 		      
-		    case 7 // Lock right center (<^v)
+		    case 7 // Lock center right (<^v)
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 8 // Lock center center (<^v>)
+		    case 8 // Expand All Sides (<^v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
@@ -904,8 +907,6 @@ Protected Module WindowExtensions
 		    setBackgroundColor w, NSColorInstance
 		    
 		    // Force the window to update so we get the proper shadowing
-		    'w.Width = w.Width + 1
-		    'w.Width = w.Width - 1
 		    w.InvalidateShadow
 		  #else
 		    #pragma Unused w

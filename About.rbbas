@@ -54,6 +54,12 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		142: 2013-07-29 by VVB
+		- Better NSWindow fullscreen methods.
+		- Added convienience methods for NSWindow CollectionBehaviors.
+		- Added more examples to the NSWindow example.
+		- Added more colors to the colorbrowser example.
+		
 		141: 2013-07-22 by VVB
 		- Merged the vallebox project back into the most recent version of macoslib with a few slight modifications here and there.
 		  (http://code.google.com/r/vallebox--macoslib/)
@@ -279,7 +285,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"141", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"142", Scope = Protected
 	#tag EndConstant
 
 
