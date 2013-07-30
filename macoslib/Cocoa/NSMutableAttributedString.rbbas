@@ -123,6 +123,19 @@ Inherits NSAttributedString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DeleteCharactersInRange(range As NSRange)
+		  #if TargetMacOS
+		    
+		    declare sub deleteCharactersInRange lib CocoaLib selector "deleteCharactersInRange:" ( id as Ptr, range As NSRange )
+		    
+		    deleteCharactersInRange( me.id, range )
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub EndEditing()
 		  #if TargetMacOS
 		    declare sub endEditing lib CocoaLib selector "endEditing" (id as Ptr)
@@ -158,16 +171,107 @@ Inherits NSAttributedString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MutableString() As NSMutableString
+		Sub InsertAttributedString(attrString As NSAttributedString, index As Integer)
 		  #if TargetMacOS
-		    declare Function mutableString lib CocoaLib selector "mutableString" (id as Ptr) as Ptr
 		    
-		    dim p as Ptr = mutableString( me.id )
+		    declare sub insertAttributedString lib CarbonLib selector "insertAttributedString:atIndex:" ( obj_id As Ptr, attributedString As Ptr, atIndex As Integer )
+		    // Introduced in MacOS X 10.0.
 		    
-		    return   new NSMutableString( p, false )
+		    insertAttributedString( self, attrString, index )
+		    
+		  #else
+		    
+		    #pragma unused index
+		    
 		  #endif
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RemoveAttribute(attributeName as string, optional forRange as NSRange) As Boolean
+		  //@ Simple values like string, numbers, colors can be set in 'value', otherwise, only NSObjects can be used.
+		  
+		  #if TargetMacOS
+		    declare sub removeAttribute lib CocoaLib selector "removeAttribute:range:" (id as Ptr, name as CFStringRef, aRange as NSRange)
+		    
+		    'dim mgr as NSFontManager = NSFontManager.SharedManager
+		    dim realrange as NSRange
+		    
+		    if forRange.length=0 then
+		      realrange = Cocoa.NSMakeRange( 0, me.Length )
+		    else
+		      realrange = forRange
+		    end if
+		    
+		    removeAttribute( self, Cocoa.StringConstant( attributeName ), realrange )
+		    
+		    return  true
+		  #endif
+		  
+		  'NSString *NSFontAttributeName;
+		  'NSString *NSParagraphStyleAttributeName;
+		  'NSString *NSForegroundColorAttributeName;
+		  'NSString *NSUnderlineStyleAttributeName;
+		  'NSString *NSSuperscriptAttributeName;
+		  'NSString *NSBackgroundColorAttributeName;
+		  'NSString *NSAttachmentAttributeName;
+		  'NSString *NSLigatureAttributeName;
+		  'NSString *NSBaselineOffsetAttributeName;
+		  'NSString *NSKernAttributeName;
+		  'NSString *NSLinkAttributeName;
+		  'NSString *NSStrokeWidthAttributeName;
+		  'NSString *NSStrokeColorAttributeName;
+		  'NSString *NSUnderlineColorAttributeName;
+		  'NSString *NSStrikethroughStyleAttributeName;
+		  'NSString *NSStrikethroughColorAttributeName;
+		  'NSString *NSShadowAttributeName;
+		  'NSString *NSObliquenessAttributeName;
+		  'NSString *NSExpansionAttributeName;
+		  'NSString *NSCursorAttributeName;
+		  'NSString *NSToolTipAttributeName;
+		  'NSString *NSMarkedClauseSegmentAttributeName;
+		  'NSString *NSWritingDirectionAttributeName;
+		  'NSString *NSVerticalGlyphFormAttributeName;
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReplaceCharactersInRange(aRange As Cocoa.NSRange, attrString As NSAttributedString)
+		  #if TargetMacOS
+		    
+		    declare sub replaceCharactersInRange lib CarbonLib selector "replaceCharactersInRange:withAttributedString:" ( obj_id As Ptr, aRange As Cocoa.NSRange, attrString As Ptr )
+		    // Introduced in MacOS X 10.0.
+		    
+		    replaceCharactersInRange( self, aRange, attrString )
+		    
+		  #else
+		    
+		    #pragma unused aRange
+		    #pragma unused attrString
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReplaceCharactersInRange(aRange As Cocoa.NSRange, s As NSString)
+		  #if TargetMacOS
+		    
+		    declare sub replaceCharactersInRange lib CarbonLib selector "replaceCharactersInRange:withString:" ( obj_id As Ptr, aRange As Cocoa.NSRange, s As Ptr )
+		    // Introduced in MacOS X 10.0.
+		    
+		    replaceCharactersInRange( self, aRange, s )
+		    
+		  #else
+		    
+		    #pragma unused aRange
+		    #pragma unused attrString
+		    
+		  #endif
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -281,6 +385,30 @@ Inherits NSAttributedString
 	#tag Property, Flags = &h21
 		Private IsEditing_ As Boolean
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim s as NSMutableString
+			  
+			  #if TargetMacOS
+			    
+			    declare Function mutableString lib CocoaLib selector "mutableString" (id as Ptr) as Ptr
+			    // Introduced in MacOS X 10.0.
+			    
+			    dim p as Ptr = mutableString( self )
+			    if p <> nil then
+			      s = new NSMutableString( p, not hasOwnership )
+			    end if
+			    
+			  #endif
+			  
+			  return s
+			  
+			End Get
+		#tag EndGetter
+		MutableString As NSMutableString
+	#tag EndComputedProperty
 
 
 	#tag ViewBehavior
