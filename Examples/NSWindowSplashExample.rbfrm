@@ -46,6 +46,7 @@ Begin Window NSWindowSplashExample
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Hello World!"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -80,6 +81,7 @@ Begin Window NSWindowSplashExample
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Hello World!"
       TextAlign       =   1
       TextColor       =   "&cFFFFFF"
@@ -105,12 +107,19 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  return true
+		  
+		  #pragma unused X
+		  #pragma unused Y
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
 		  self.Close
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Sub
 	#tag EndEvent
 
@@ -131,6 +140,10 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  dim p as Picture = SystemIcons.Computer( self.Width, 0.0 )
 		  g.DrawPicture p, ( self.Width / 2 ) - ( p.Width / 2 ), ( self.Height / 2 ) - ( p.Height / 2 )
+		  
+		  #if RBVersion >=2012.02
+		    #pragma unused areas
+		  #endif
 		End Sub
 	#tag EndEvent
 

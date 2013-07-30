@@ -804,6 +804,7 @@ Inherits NSObject
 			Name="Action"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Alternate"
@@ -853,6 +854,7 @@ Inherits NSObject
 			Name="KeyEquivalent"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="KeyEquivalentModifierMask"
@@ -898,6 +900,7 @@ Inherits NSObject
 			Name="ToolTip"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
