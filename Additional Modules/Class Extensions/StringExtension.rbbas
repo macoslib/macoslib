@@ -56,17 +56,13 @@ Protected Module StringExtension
 		  //@param/
 		  
 		  //@result
-		  //    The size as a 2-decimal number with appropriate unit (K, M, G, T, P, E). It is up to you to add the proper localized abbreviation for "byte".
+		  //    The size as a 2-decimal number with appropriate unit (K, M, G, T, P, E, Z, Y). It is up to you to add the proper localized abbreviation for "byte".
 		  //@result/
 		  
-		  dim KB as Int64
+		  dim KB as Int64 = 1024
 		  
-		  if use1024 then
-		    KB = 1024
-		    
-		  else //Apple format: 1K=1000 bytes
+		  if not use1024 then //Apple format: 1K=1000 bytes
 		    KB = 1000
-		    
 		  end if
 		  
 		  dim usize as Int64 = Abs( size ) //We must compare absolute value, even for negative sizes
@@ -75,35 +71,42 @@ Protected Module StringExtension
 		    return  Str( size )
 		  end if
 		  
+		  if Round( usize / KB ) < KB then
+		    return   Format( size / KB, "-#.00" ) + " K"
+		  end if
+		  
 		  dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
-		  if usize < MB then
-		    return   Str( size / KB, "#########.##" ) + " K"
+		  if Round( usize / MB ) < KB then
+		    return   Format( size / MB, "-#.00" ) + " M"
 		  end if
 		  
 		  dim GB as Int64 = MB * KB
-		  if usize < GB then
-		    return   Str( size / MB, "#########.##" ) + " M"
+		  if Round( usize / GB ) < KB then
+		    return   Format( size / GB, "-#.00" ) + " G"
 		  end if
 		  
 		  dim TB as Int64 = GB * KB
-		  if usize < TB then
-		    return   Str( size / GB, "#########.##" ) + " G"
+		  if Round( usize / TB ) < KB then
+		    return   Format( size / TB, "-#.00" ) + " T"
 		  end if
 		  
 		  dim PB as Int64 = TB * KB
-		  if usize < PB then
-		    return   Str( size / TB, "#########.##" ) + " T"
+		  if Round( usize / PB ) < KB then
+		    return   Format( size / PB, "-#.00" ) + " P"
 		  end if
 		  
 		  dim EB as Int64 = PB * KB
-		  if usize < EB then
-		    return   Str( size / PB, "#########.##" ) + " P"
+		  if Round( usize / EB ) < KB then
+		    return   Format( size / EB, "-#.00" ) + " E"
 		  end if
 		  
 		  dim ZB as Int64 = EB * KB
-		  if usize < ZB then
-		    return   Str( size / EB, "#########.##" ) + " E"
+		  if Round( usize / ZB ) < KB then
+		    return   Format( size / ZB, "-#.00" ) + " Z"
 		  end if
+		  
+		  dim YB as Int64 = ZB * KB // I'm not currently aware of a format larger than the yottabyte.
+		  return    Format( size / YB, "-#.00" ) + " Y"
 		  
 		End Function
 	#tag EndMethod
