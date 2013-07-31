@@ -68,7 +68,7 @@ Protected Module StringExtension
 		  dim usize as Int64 = Abs( size ) //We must compare absolute value, even for negative sizes
 		  
 		  if usize<KB then
-		    return  Str( size )
+		    return  Str( size ) + " "
 		  end if
 		  
 		  if Round( usize / KB ) < KB then
