@@ -1026,6 +1026,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSByteCountFormatter
+            SpecialMenu = 0
+            Text = "NSByteCountFormatter"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSColorBrowser
             SpecialMenu = 0
             Text = "NSColor Browser"
@@ -1044,6 +1050,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSPasteboard
+            SpecialMenu = 0
+            Text = "NSPasteboard"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSPrinter
             SpecialMenu = 0
             Text = "NSPrinter"
@@ -1056,21 +1068,15 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaNSTimeZone
-            SpecialMenu = 0
-            Text = "NSTimeZone"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSPasteboard
-            SpecialMenu = 0
-            Text = "NSPasteboard"
-            Index = -2147483648
-            AutoEnable = True
-         End
          Begin MenuItem CocoaNSTask
             SpecialMenu = 0
             Text = "NSTask"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSTimeZone
+            SpecialMenu = 0
+            Text = "NSTimeZone"
             Index = -2147483648
             AutoEnable = True
          End

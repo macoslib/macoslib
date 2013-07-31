@@ -45,77 +45,88 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FormatSize(size as Int64, AppleFormatting as Boolean = True) As String
-		  //# Format a file size to its shortest form and unit, like 17.32G.
+		Function FormatSize(size as UInt64, binary as Boolean = True) As String
+		  //# Format a file size to its shortest form and unit, like 17.32 GB.
 		  
 		  //@param size
 		  //    The size to format.
 		  //@param/
-		  //@param use1024=true
+		  //@param binary=true
 		  //    If true, use 1024 bytes as the basic unit. Otherwise, uses 1000 bytes (like Apple). Default is 1024 bytes.
 		  //@param/
 		  
 		  //@result
-		  //    The size as a 2-decimal number with appropriate unit (K, M, G, T, P, E, Z, Y). It is up to you to add the proper localized abbreviation for "byte".
+		  //    A string containing the formatted size value.
 		  //@result/
 		  
-		  dim KB as Int64 = 1024
-		  dim unit_type() as String   = Array( " byte", " bytes", " KiB", " MiB", " GiB", " TiB", " PiB", " EiB", " ZiB", " YiB" )
-		  Dim unit_format() as String = Array( "-#.00", "-#.00", "-#.00" )
-		  
-		  if AppleFormatting then
-		    KB = 1000 //Apple format: 1K=1000 bytes
-		    unit_type   = Array( " byte", " bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB" )
-		    unit_format = Array( "-#", "-#.0", "-#.00" )
-		  end if
-		  
-		  dim usize as Int64 = Abs( size ) //We must compare absolute value, even for negative sizes
-		  
-		  if usize<KB then
-		    if usize = 1 then
-		      return  Str( size ) + unit_type(0)
+		  if IsMountainLion and size >= 0 then
+		    // Use Apple's official NSByteCountFormatter.
+		    if binary then
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.NSByteCountFormatterCountStyle.Binary ) // 1k = 1024 bytes
 		    else
-		      return  Str( size ) + unit_type(1)
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.NSByteCountFormatterCountStyle.Decimal ) // 1k = 1000 bytes
 		    end if
+		    
+		  else
+		    // Mimic Apple's results manually, and allow for negative numbers.
+		    if size = 0 then
+		      return "Zero KB"
+		    end if
+		    
+		    dim KB as UInt64 = 1024
+		    
+		    if not binary then
+		      KB = 1000 // Apple decimal format: 1K=1000 bytes
+		    end if
+		    
+		    dim usize as UInt64 = Abs( size ) // Comparing with absolute values is easier then dealing with negative sizes.
+		    
+		    if usize < KB then
+		      if usize = 1 then
+		        return  Str( size ) + " byte"
+		      else
+		        return  Str( size ) + " bytes"
+		      end if
+		    end if
+		    
+		    if Round( usize / KB ) < KB then
+		      return   Format( size / KB, "-#" ) + " KB"
+		    end if
+		    
+		    dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
+		    if Round( usize / MB ) < KB then
+		      return   Format( size / MB, "-#.0" ) + " MB"
+		    end if
+		    
+		    dim GB as Int64 = MB * KB
+		    if Round( usize / GB ) < KB then
+		      return   Format( size / GB, "-#.00" ) + " GB"
+		    end if
+		    
+		    dim TB as Int64 = GB * KB
+		    if Round( usize / TB ) < KB then
+		      return   Format( size / TB, "-#.00" ) + " TB"
+		    end if
+		    
+		    dim PB as Int64 = TB * KB
+		    if Round( usize / PB ) < KB then
+		      return   Format( size / PB, "-#.00" ) + " PB"
+		    end if
+		    
+		    dim EB as Int64 = PB * KB
+		    if Round( usize / EB ) < KB then
+		      return   Format( size / EB, "-#.00" ) + " EB"
+		    end if
+		    
+		    dim ZB as Int64 = EB * KB
+		    if Round( usize / ZB ) < KB then
+		      return   Format( size / ZB, "-#.00" ) + " ZB"
+		    end if
+		    
+		    dim YB as Int64 = ZB * KB // I'm not currently aware of a format larger than the yottabyte, and Apple doesn't seem to return anything larger than 16 or 18.45 exabyte.
+		    return    Format( size / YB, "-#.00" ) + " YB"
+		    
 		  end if
-		  
-		  if Round( usize / KB ) < KB then
-		    return   Format( size / KB, unit_format(0) ) + unit_type(2)
-		  end if
-		  
-		  dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
-		  if Round( usize / MB ) < KB then
-		    return   Format( size / MB, unit_format(1) ) + unit_type(3)
-		  end if
-		  
-		  dim GB as Int64 = MB * KB
-		  if Round( usize / GB ) < KB then
-		    return   Format( size / GB, unit_format(2) ) + unit_type(4)
-		  end if
-		  
-		  dim TB as Int64 = GB * KB
-		  if Round( usize / TB ) < KB then
-		    return   Format( size / TB, unit_format(2) ) + unit_type(5)
-		  end if
-		  
-		  dim PB as Int64 = TB * KB
-		  if Round( usize / PB ) < KB then
-		    return   Format( size / PB, unit_format(2) ) + unit_type(5)
-		  end if
-		  
-		  dim EB as Int64 = PB * KB
-		  if Round( usize / EB ) < KB then
-		    return   Format( size / EB, unit_format(2) ) + unit_type(7)
-		  end if
-		  
-		  dim ZB as Int64 = EB * KB
-		  if Round( usize / ZB ) < KB then
-		    return   Format( size / ZB, unit_format(2) ) + unit_type(8)
-		  end if
-		  
-		  dim YB as Int64 = ZB * KB // I'm not currently aware of a format larger than the yottabyte.
-		  return    Format( size / YB, unit_format(2) ) + unit_type(9)
-		  
 		End Function
 	#tag EndMethod
 
