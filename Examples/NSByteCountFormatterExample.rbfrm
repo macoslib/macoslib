@@ -48,7 +48,7 @@ Begin Window NSByteCountFormatterExample
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      Mask            =   "####################"
+      Mask            =   "#######################"
       Password        =   ""
       ReadOnly        =   ""
       Scope           =   0
