@@ -5,7 +5,7 @@ Inherits NSObject
 		 Shared Function ByteCount(byteCount as UInt64) As String
 		  //# Converts a byte count into a string without creating an NSNumber object.
 		  
-		  //@param bytes
+		  //@param byteCount
 		  //    The byte count.
 		  //@param/
 		  
@@ -28,7 +28,19 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ByteCountWithStyle(byteCount as UInt64, byteStyle as NSByteCountFormatterCountStyle) As String
+		 Shared Function ByteCountWithStyle(byteCount as UInt64, countStyle as NSByteCountFormatterCountStyle) As String
+		  //# Converts a byte count into the specified string format without creating an NSNumber object.
+		  
+		  //@param byteCount
+		  //    The byte count.
+		  //@param/
+		  //@param countStyle
+		  //    The formatter style. See “NSByteCountFormatterCountStyle” for possible values.
+		  //@param/
+		  
+		  //@return
+		  //    A string containing the formatted byteCount value.
+		  //@return /
 		  
 		  #if TargetCocoa then
 		    declare function respondsToSelector lib CocoaLib selector "respondsToSelector:" (obj_id as Ptr, aSelector as Ptr) as Boolean
@@ -36,7 +48,7 @@ Inherits NSObject
 		    if respondsToSelector( ClassRef, Cocoa.NSSelectorFromString("stringFromByteCount:countStyle:") ) then
 		      declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64, countStyle as NSByteCountFormatterCountStyle) as CFStringRef
 		      
-		      return stringFromByteCount(ClassRef, byteCount, byteStyle)
+		      return stringFromByteCount(ClassRef, byteCount, countStyle)
 		    end if
 		  #else
 		    #pragma Unused bytes
@@ -62,6 +74,15 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function StringFromByteCount(byteCount as UInt64) As String
+		  //# Converts a byte count into a string without creating an NSNumber object.
+		  
+		  //@param byteCount
+		  //    The byte count.
+		  //@param/
+		  
+		  //@return
+		  //    A string containing the formatted byteCount value.
+		  //@return /
 		  
 		  #if TargetCocoa then
 		    if RespondsToSelector("stringFromByteCount:countStyle:") then
@@ -76,13 +97,25 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function StringFromByteCountWithStyle(byteCount as UInt64, style as NSByteCountFormatterCountStyle) As String
+		Function StringFromByteCountWithStyle(byteCount as UInt64, countStyle as NSByteCountFormatterCountStyle) As String
+		  //# Converts a byte count into the specified string format without creating an NSNumber object.
+		  
+		  //@param byteCount
+		  //    The byte count.
+		  //@param/
+		  //@param countStyle
+		  //    The formatter style. See “NSByteCountFormatterCountStyle” for possible values.
+		  //@param/
+		  
+		  //@return
+		  //    A string containing the formatted byteCount value.
+		  //@return /
 		  
 		  #if TargetCocoa then
 		    if RespondsToSelector("stringFromByteCount:countStyle:") then
 		      declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as Int64, countStyle as NSByteCountFormatterCountStyle) as CFStringRef
 		      
-		      return stringFromByteCount(self, byteCount, style)
+		      return stringFromByteCount(self, byteCount, countStyle)
 		    end if
 		  #else
 		    #pragma Unused bytes
