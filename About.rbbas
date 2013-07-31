@@ -54,6 +54,11 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		143: 2013-07-31 by VVB & SM
+		- Added NSByteCountFormatter.
+		- Now using NSByteCountFormatter in StringExtension.FormatSize if you're on Mac OS X 10.8+ and using a postive value.
+		- StringExtension.FormatSize now mimics Apple's NSByteCountFormatter if on Mac OS X 10.7 and below.
+		
 		142: 2013-07-29 by VVB
 		- Better NSWindow fullscreen methods.
 		- Added convienience methods for NSWindow CollectionBehaviors.
@@ -74,7 +79,6 @@ Protected Module About
 		
 		139: 2013-07-17 by KT
 		- Minor changes to WindowExtensions.ScalingFactor. 
-		
 		139: 2013-07-09 by VVB
 		- Added dutch translation.
 		- Added window lion fullscreen methods and menu item.
@@ -285,7 +289,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"142", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"143", Scope = Protected
 	#tag EndConstant
 
 
