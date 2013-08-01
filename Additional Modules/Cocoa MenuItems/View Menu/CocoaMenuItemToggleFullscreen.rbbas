@@ -29,9 +29,11 @@ Inherits CocoaMenuItem
 		      
 		    end if
 		  #else
-		    #pragma Unused target
 		    self.Visible = false
 		  #endif
+		  
+		  #pragma Unused target
+		  
 		End Sub
 	#tag EndEvent
 

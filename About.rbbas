@@ -54,6 +54,15 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		143: 2013-07-29 by KT
+		- Added functions/properties to NSTextView.
+		- Added NSTextStorage class.
+		- Changed some methods into properties to allow access during debugging.
+		- Added convenience functions to TextAreaExtension to set and remove font
+		background color.
+		- Added pragmas for unused variables/parameters.
+		- Fixed some code for compiling in Carbon/Windows.
+		
 		143: 2013-07-31 by VVB & SM
 		- Added NSByteCountFormatter.
 		- Now using NSByteCountFormatter in StringExtension.FormatSize if you're on Mac OS X 10.8+ and using a postive value.
