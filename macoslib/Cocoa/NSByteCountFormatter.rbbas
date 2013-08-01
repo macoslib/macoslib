@@ -22,7 +22,7 @@ Inherits NSObject
 		      return stringFromByteCount(ClassRef, byteCount)
 		    end if
 		  #else
-		    #pragma Unused bytes
+		    #pragma Unused ByteCount
 		  #endif
 		End Function
 	#tag EndMethod
@@ -51,7 +51,8 @@ Inherits NSObject
 		      return stringFromByteCount(ClassRef, byteCount, countStyle)
 		    end if
 		  #else
-		    #pragma Unused bytes
+		    #pragma Unused ByteCount
+		    #pragma Unused countStyle
 		  #endif
 		End Function
 	#tag EndMethod
@@ -67,8 +68,15 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  Super.Constructor(self, not hasOwnership)
-		  
+		  #if TargetCocoa then
+		    'if RespondsToSelector("stringFromByteCount:countStyle:") then
+		    declare function getStringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as Int64) as Ptr
+		    
+		    Super.Constructor( getStringFromByteCount(Cocoa.NSClassFromString("NSByteCountFormatter"), 0 ) )
+		    'end if
+		  #else
+		    #pragma Unused byteCount
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -86,12 +94,12 @@ Inherits NSObject
 		  
 		  #if TargetCocoa then
 		    if RespondsToSelector("stringFromByteCount:countStyle:") then
-		      declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as Int64) as CFStringRef
+		      declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64) as CFStringRef
 		      
 		      return stringFromByteCount(self, byteCount)
 		    end if
 		  #else
-		    #pragma Unused bytes
+		    #pragma Unused byteCount
 		  #endif
 		End Function
 	#tag EndMethod
@@ -113,15 +121,43 @@ Inherits NSObject
 		  
 		  #if TargetCocoa then
 		    if RespondsToSelector("stringFromByteCount:countStyle:") then
-		      declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as Int64, countStyle as NSByteCountFormatterCountStyle) as CFStringRef
+		      declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64, countStyle as NSByteCountFormatterCountStyle) as CFStringRef
 		      
 		      return stringFromByteCount(self, byteCount, countStyle)
 		    end if
 		  #else
-		    #pragma Unused bytes
+		    #pragma Unused byteCount
+		    #pragma Unused countStyle
 		  #endif
 		End Function
 	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa then
+			    declare function getAllowsNonnumericFormatting lib CocoaLib selector "allowsNonnumericFormatting" (obj_id as Ptr) as Boolean
+			    
+			    return getAllowsNonnumericFormatting(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa then
+			    declare sub setAllowsNonnumericFormatting lib CocoaLib selector "allowsNonnumericFormatting" (obj_id as Ptr, value as Boolean)
+			    
+			    setAllowsNonnumericFormatting(self, value)
+			  #else
+			    #pragma Unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		AllowsNonnumericFormatting As Boolean
+	#tag EndComputedProperty
 
 
 	#tag Enum, Name = NSByteCountFormatterCountStyle, Type = Integer, Flags = &h0

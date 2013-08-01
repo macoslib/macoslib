@@ -705,9 +705,16 @@ End
 #tag Events edtBytes
 	#tag Event
 		Sub TextChange()
-		  
 		  // FormatSize uses NSByteCountFormatter when possible, and reverts to manual calculation otherwise.
 		  dim value as UInt64 = CDbl( me.Text )
+		  
+		  // Testing instancinating NSByteCountFormatter
+		  dim mat as New NSByteCountFormatter
+		  dim s as string = mat.ByteCount( value )
+		  
+		  mat.AllowsNonnumericFormatting = true
+		  dim b as Boolean = mat.AllowsNonnumericFormatting
+		  //@END Testing
 		  
 		  edtFormatSizeBinary.Text  = FormatSize( value, True )
 		  edtFormatSizeDecimal.Text = FormatSize( value, False )
