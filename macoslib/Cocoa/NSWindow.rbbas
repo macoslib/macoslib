@@ -1515,9 +1515,9 @@ Inherits NSResponder
 		Sub SmoothResize(Width as Integer, Height as Integer, Align as Integer = 4)
 		  //# Easy to use animated window resizing with the ability to customize the animation origin.
 		  
+		  dim w as window = self
+		  
 		  #if TargetCocoa then
-		    
-		    dim w as window = self
 		    
 		    Dim OrigRect, NewRect as Cocoa.NSRect
 		    OrigRect.x = w.Left
@@ -3727,6 +3727,10 @@ Inherits NSResponder
 			    
 			    SetMovableByWindowBackground( self, value )
 			    
+			  #else
+			    
+			    #pragma unused value
+			    
 			  #endif
 			  
 			End Set
@@ -4017,6 +4021,10 @@ Inherits NSResponder
 			    // Introduced in MacOS X 10.0.
 			    
 			    instanceSetTitleWithRepresentedFilename( self, value )
+			    
+			  #else
+			    
+			    #pragma unused value
 			    
 			  #endif
 			  

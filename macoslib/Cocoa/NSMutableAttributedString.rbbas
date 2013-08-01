@@ -267,7 +267,7 @@ Inherits NSAttributedString
 		  #else
 		    
 		    #pragma unused aRange
-		    #pragma unused attrString
+		    #pragma unused s
 		    
 		  #endif
 		  

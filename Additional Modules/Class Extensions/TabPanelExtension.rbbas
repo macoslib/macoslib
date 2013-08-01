@@ -123,6 +123,7 @@ Protected Module TabPanelExtension
 		    setTabViewType(t.handle, type)
 		  #else
 		    #pragma unused t
+		    #pragma unused type
 		  #endif
 		End Sub
 	#tag EndMethod
