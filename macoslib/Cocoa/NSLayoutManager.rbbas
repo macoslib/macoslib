@@ -74,7 +74,7 @@ Inherits NSObject
 		    
 		  #else
 		    
-		    #pragma unused value
+		    #pragma unused newTextStorage
 		    
 		  #endif
 		  
