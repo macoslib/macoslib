@@ -23,6 +23,8 @@ Inherits ICDevice
 		  end if
 		  
 		  
+		  #pragma unused checkForClass
+		  
 		End Sub
 	#tag EndMethod
 
