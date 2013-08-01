@@ -705,26 +705,18 @@ End
 #tag Events edtBytes
 	#tag Event
 		Sub TextChange()
-		  // FormatSize uses NSByteCountFormatter when possible, and reverts to manual calculation otherwise.
 		  dim value as UInt64 = CDbl( me.Text )
 		  
-		  // Testing instancinating NSByteCountFormatter
-		  dim mat as New NSByteCountFormatter
-		  dim s as string = mat.ByteCount( value )
-		  
-		  mat.AllowsNonnumericFormatting = true
-		  dim b as Boolean = mat.AllowsNonnumericFormatting
-		  //@END Testing
-		  
+		  // FormatSize uses NSByteCountFormatter when possible, and reverts to manual calculation otherwise.
 		  edtFormatSizeBinary.Text  = FormatSize( value, True )
 		  edtFormatSizeDecimal.Text = FormatSize( value, False )
 		  
 		  // Use Apple's own API, works only on Mac OS X 10.8+
 		  edtDefault.Text = NSByteCountFormatter.ByteCount( value )
-		  edtFile.Text    = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.NSByteCountFormatterCountStyle.File )
-		  edtMemory.Text  = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.NSByteCountFormatterCountStyle.Memory )
-		  edtBinary.Text  = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.NSByteCountFormatterCountStyle.Binary )
-		  edtDecimal.Text = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.NSByteCountFormatterCountStyle.Decimal )
+		  edtFile.Text    = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.CountStyle.File )
+		  edtMemory.Text  = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.CountStyle.Memory )
+		  edtBinary.Text  = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.CountStyle.Binary )
+		  edtDecimal.Text = NSByteCountFormatter.ByteCountWithStyle( value, NSByteCountFormatter.CountStyle.Decimal )
 		End Sub
 	#tag EndEvent
 	#tag Event

@@ -62,9 +62,9 @@ Protected Module StringExtension
 		  if IsMountainLion and size >= 0 then
 		    // Use Apple's official NSByteCountFormatter.
 		    if binary then
-		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.NSByteCountFormatterCountStyle.Binary ) // 1k = 1024 bytes
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Binary ) // 1k = 1024 bytes
 		    else
-		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.NSByteCountFormatterCountStyle.Decimal ) // 1k = 1000 bytes
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Decimal ) // 1k = 1000 bytes
 		    end if
 		    
 		  else
