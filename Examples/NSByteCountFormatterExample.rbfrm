@@ -987,6 +987,262 @@ Begin Window NSByteCountFormatterExample
       Visible         =   True
       Width           =   265
    End
+   Begin CheckBox chkUseBytes
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use Bytes"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   384
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   31
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   238
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUseKB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use KB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   384
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   32
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   273
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUseMB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use MB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   384
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   33
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   306
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUseGB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use GB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   384
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   34
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   336
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUsePB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use PB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   497
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   35
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   274
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUseTB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use TB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   497
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   36
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   238
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUseEB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use EB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   496
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   37
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   306
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
+   Begin CheckBox chkUseZB
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use ZB"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   496
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   38
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   336
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   100
+   End
 End
 #tag EndWindow
 
@@ -995,6 +1251,8 @@ End
 		Sub Open()
 		  bcf = new NSByteCountFormatter
 		  UpdateByteCount
+		  
+		  UseFormats
 		End Sub
 	#tag EndEvent
 
@@ -1017,6 +1275,49 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub UseFormats()
+		  
+		  dim i as Integer = bcf.UseAll
+		  
+		  if not chkUseBytes.Value then
+		    i = i and NOT bcf.UseBytes
+		  end if
+		  
+		  if not chkUseKB.Value then
+		    i = i and NOT bcf.UseKB
+		  end if
+		  
+		  if not chkUseMB.Value then
+		    i = i and NOT bcf.UseMB
+		  end if
+		  
+		  if not chkUseGB.Value then
+		    i = i and NOT bcf.UseGB
+		  end if
+		  
+		  if not chkUseTB.Value then
+		    i = i and NOT bcf.UseTB
+		  end if
+		  
+		  if not chkUsePB.Value then
+		    i = i and NOT bcf.UsePB
+		  end if
+		  
+		  if not chkUseEB.Value then
+		    i = i and NOT bcf.UseEB
+		  end if
+		  
+		  if not chkUseZB.Value then
+		    i = i and NOT bcf.UseZB
+		  end if
+		  
+		  bcf.AllowedUnits = i
+		  
+		  UpdateByteCount
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h0
 		bcf As NSByteCountFormatter
@@ -1035,12 +1336,15 @@ End
 #tag Events udBytes
 	#tag Event
 		Sub Up()
-		  edtBytes.Text = Str( CDbl( edtBytes.Text ) + 1024 )
+		  dim i as Int64 = val( edtBytes.Text )
+		  if i = 0 then i = 1
+		  edtBytes.Text = Str( Floor( i * 2 ) ) '+ 1024 )
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Down()
-		  edtBytes.Text = Str( CDbl( edtBytes.Text ) - 1024 )
+		  dim i as Int64 = Val( edtBytes.Text )
+		  edtBytes.Text = Str( Floor( i / 2 ) ) '- 1024 )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1097,6 +1401,62 @@ End
 		Sub Action()
 		  bcf.ZeroPadsFractionDigits = me.Value
 		  UpdateByteCount
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseBytes
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseKB
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseMB
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseGB
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUsePB
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseTB
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseEB
+	#tag Event
+		Sub Action()
+		  UseFormats
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkUseZB
+	#tag Event
+		Sub Action()
+		  UseFormats
 		End Sub
 	#tag EndEvent
 #tag EndEvents
