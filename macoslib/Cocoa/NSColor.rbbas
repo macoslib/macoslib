@@ -557,9 +557,9 @@ Inherits NSObject
 		    
 		    #if RBVersion >= 2011.04 // RB 2011.04 and later supports colors with alpha value
 		      #pragma unused alpha
-		      self.Constructor(colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, (255-c.alpha)/255), not hasOwnership)
+		      super.Constructor(colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, (255-c.alpha)/255), not hasOwnership)
 		    #else
-		      self.Constructor(colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha), not hasOwnership)
+		      super.Constructor(colorFromRGBA(NSClassFromString("NSColor"), c.Red/255, c.Green/255, c.Blue/255, alpha), not hasOwnership)
 		    #endif
 		    
 		  #else
