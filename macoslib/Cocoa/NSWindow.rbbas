@@ -3984,6 +3984,8 @@ Inherits NSResponder
 			    
 			    if value <> nil then
 			      setRepresentedFilename self, value.POSIXPath
+			    else
+			      setRepresentedFilename self, ""
 			    end if
 			    
 			  #else
@@ -4055,12 +4057,11 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    declare sub setRepresentedURL lib CocoaLib selector "setRepresentedURL:" (obj_id as Ptr, aURL as Ptr)
 			    
-			    dim urlRef as Ptr
 			    if value <> nil then
-			      urlRef = value
+			      setRepresentedURL self, value
+			    else
+			      setRepresentedURL self, nil
 			    end if
-			    
-			    setRepresentedURL self, urlRef
 			    
 			  #else
 			    #pragma unused value
