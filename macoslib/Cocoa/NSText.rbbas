@@ -559,44 +559,6 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function deleagate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
-			    
-			    dim delegateRef as Ptr = deleagate(self)
-			    if delegateRef <> nil then
-			      return new NSObject(delegateRef)
-			    end if
-			    
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  #if TargetMacOS
-			    declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, newDelegate as Ptr)
-			    
-			    dim delegateRef as Ptr
-			    if value <> nil then
-			      delegateRef = value
-			    end if
-			    
-			    setDelegate self, delegateRef
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			  
-			End Set
-		#tag EndSetter
-		Deleagate As NSObject
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  
-			  #if TargetMacOS
 			    declare function drawsBackground lib CocoaLib selector "drawsBackground" (id as Ptr) as Boolean
 			    
 			    return drawsBackground(self)

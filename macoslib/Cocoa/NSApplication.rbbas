@@ -725,34 +725,6 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  //#
-			  
-			  #if TargetMacOS
-			    declare function dealegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
-			    
-			    return dealegate(self)
-			  #endif
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  //#
-			  
-			  #if TargetMacOS
-			    declare sub setDealegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, dealegate as Ptr)
-			    
-			    setDealegate self, value
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
-		Dealegate As Ptr
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
 			  //# Returns the help menu used by the application.
 			  
 			  #if targetMacOS
