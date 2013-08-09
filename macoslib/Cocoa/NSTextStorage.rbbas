@@ -1,6 +1,125 @@
 #tag Class
 Class NSTextStorage
 Inherits NSMutableAttributedString
+	#tag Method, Flags = &h0
+		Sub AddLayoutManager(aLayoutManager As NSLayoutManager)
+		  #if TargetCocoa
+		    
+		    declare sub addLayoutManager lib CocoaLib selector "addLayoutManager:" ( obj_id As Ptr, aLayoutManager As Ptr )
+		    // Introduced in MacOS X 10.0.
+		    
+		    addLayoutManager( self, aLayoutManager )
+		    
+		  #else
+		    
+		    #pragma unused aLayoutManager
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnsureAttributesAreFixedInRange(rng As Cocoa.NSRange)
+		  #if TargetCocoa
+		    
+		    declare sub ensureAttributesAreFixedInRange lib CocoaLib selector "ensureAttributesAreFixedInRange:" ( obj_id As Ptr, rng As Cocoa.NSRange )
+		    // Introduced in MacOS X 10.0.
+		    
+		    ensureAttributesAreFixedInRange( self, rng )
+		    
+		  #else
+		    
+		    #pragma unused rng
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveLayoutManager(aLayoutManager As NSLayoutManager)
+		  #if TargetCocoa
+		    
+		    declare sub removeLayoutManager lib CocoaLib selector "removeLayoutManager:" ( obj_id As Ptr, aLayoutManager As Ptr )
+		    // Introduced in MacOS X 10.0.
+		    
+		    removeLayoutManager( self, aLayoutManager )
+		    
+		  #else
+		    
+		    #pragma unused aLayoutManager
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetCocoa
+			    
+			    declare function editedRange lib CocoaLib selector "editedRange" ( obj_id As Ptr ) As Cocoa.NSRange
+			    // Introduced in MacOS X 10.0.
+			    
+			    dim rng as Cocoa.NSRange = editedRange( self )
+			    return rng
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		EditedRange As Cocoa.NSRange
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as Boolean
+			  
+			  #if TargetCocoa
+			    
+			    declare function fixesAttributesLazily lib CocoaLib selector "fixesAttributesLazily" ( obj_id As Ptr ) As Boolean
+			    // Introduced in MacOS X 10.0.
+			    
+			    r = fixesAttributesLazily( self )
+			    
+			  #endif
+			  
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		FixesAttributesLazily As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim arr as NSArray
+			  
+			  #if TargetCocoa
+			    
+			    declare function layoutManagers lib CocoaLib selector "layoutManagers" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.0.
+			    
+			    dim p as Ptr = layoutManagers( self )
+			    if p <> nil then
+			      arr = new NSArray( p, not hasOwnership )
+			    end if
+			    
+			  #endif
+			  
+			  return arr
+			  
+			End Get
+		#tag EndGetter
+		LayoutManagers As NSArray
+	#tag EndComputedProperty
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
@@ -10,41 +129,17 @@ Inherits NSMutableAttributedString
 			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="DrawsBackground"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Editable"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="FieldEditor"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HorizontallyResizable"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ImportsGraphics"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsEditing"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSMutableAttributedString"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -60,28 +155,10 @@ Inherits NSMutableAttributedString
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="RichText"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RulerVisible"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Selectable"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
-			EditorType="MultiLineEditor"
+			InheritedFrom="NSAttributedString"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
@@ -95,18 +172,6 @@ Inherits NSMutableAttributedString
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="UsesFontPanel"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="VerticallyResizable"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSText"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

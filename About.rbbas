@@ -54,6 +54,12 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		144: 2013-08-01 by KT
+		- Fixed bug when setting NSWindow.RepresentedFile to nil.
+		- Fixed bug when setting NSWindow.RepresentedURL to nil.
+		- Fixed bug in NSArray.CreateFromObjectsArray.
+		- Added methods to NSLayoutManager and NSTextStorage.
+		
 		
 		143: 2013-07-31 by SM & VVB & CY
 		- Added NSByteCountFormatter.
@@ -299,7 +305,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"143", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"144", Scope = Protected
 	#tag EndConstant
 
 

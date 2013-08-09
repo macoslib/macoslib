@@ -146,6 +146,18 @@ End
 		  
 		  dim tv as new NSTextView( me )
 		  tv.SelectionGranularity = NSTextView.NSSelectionGranularity.NSSelectByParagraph
+		  
+		  dim ts as NSTextStorage = tv.TextStorage
+		  dim arr as NSArray = ts.LayoutManagers
+		  dim firstLayoutManager as NSLayoutManager
+		  if arr.Count <> 0 then
+		    firstLayoutManager = new NSLayoutManager( arr.Value( 0 ), not NSObject.hasOwnership )
+		    firstLayoutManager.ShowsInvisibleCharacters = true
+		    firstLayoutManager.ShowsControlCharacters = true
+		  end if
+		  
+		  #pragma unused arr
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
