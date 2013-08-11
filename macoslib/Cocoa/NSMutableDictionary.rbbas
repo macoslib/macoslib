@@ -352,6 +352,24 @@ Inherits NSDictionary
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Remove(key as Variant)
+		  
+		  #if TargetMacos
+		    declare sub removeObjectForKey lib CocoaLib selector "removeObjectForKey:" ( id as Ptr, key as Ptr )
+		    
+		    dim truekey as NSObject
+		    if key IsA NSObject then
+		      truekey = key
+		    else
+		      truekey = Cocoa.NSObjectFromVariant( key )
+		    end if
+		    
+		    removeObjectForKey   me.id, truekey.id
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub RemoveAll()
 		  
@@ -383,20 +401,26 @@ Inherits NSDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Value(key as variant, assigns newValue as NSObject)
+		Sub Value(key as variant, assigns newValue as Variant)
 		  
 		  #if TargetMacOS
 		    declare sub setObject lib Cocoalib selector "setObject:forKey:" ( id as Ptr, key as Ptr, value as Ptr )
 		    
 		    dim truekey as NSObject
-		    
 		    if key IsA NSObject then
 		      truekey = key
 		    else
 		      truekey = Cocoa.NSObjectFromVariant( key )
 		    end if
 		    
-		    setObject( me.id, newValue.id, truekey.id )
+		    dim truenewvalue as NSObject
+		    if newValue IsA NSObject then
+		      truenewvalue = newValue
+		    else
+		      truenewvalue = cocoa.NSObjectFromVariant( newValue )
+		    end if
+		    
+		    setObject( me.id, truenewvalue.id, truekey.id )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -445,6 +469,25 @@ Inherits NSDictionary
 		    #pragma unused anObject
 		  #endif
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Value_(key as variant, assigns newValue as NSObject)
+		  
+		  #if TargetMacOS
+		    declare sub setObject lib Cocoalib selector "setObject:forKey:" ( id as Ptr, key as Ptr, value as Ptr )
+		    
+		    dim truekey as NSObject
+		    
+		    if key IsA NSObject then
+		      truekey = key
+		    else
+		      truekey = Cocoa.NSObjectFromVariant( key )
+		    end if
+		    
+		    setObject( me.id, newValue.id, truekey.id )
+		  #endif
 		End Sub
 	#tag EndMethod
 

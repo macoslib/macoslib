@@ -1044,6 +1044,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSDockTile
+            SpecialMenu = 0
+            Text = "NSDockTile"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSHost
             SpecialMenu = 0
             Text = "NSHost"
@@ -1080,15 +1086,21 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaSystemImages
+         Begin MenuItem CocoaNSToolbar
             SpecialMenu = 0
-            Text = "System Images"
+            Text = "NSToolbar"
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaTextArea
+         Begin MenuItem CocoaNSUserNotifications
             SpecialMenu = 0
-            Text = "Text Area"
+            Text = "NSUserNotifications"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSWindow
+            SpecialMenu = 0
+            Text = "NSWindow"
             Index = -2147483648
             AutoEnable = True
          End
@@ -1098,15 +1110,15 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaNSToolbar
+         Begin MenuItem CocoaSystemImages
             SpecialMenu = 0
-            Text = "NSToolbar"
+            Text = "System Images"
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaNSWindow
+         Begin MenuItem CocoaTextArea
             SpecialMenu = 0
-            Text = "NSWindow"
+            Text = "Text Area"
             Index = -2147483648
             AutoEnable = True
          End
