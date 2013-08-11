@@ -56,6 +56,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSByteCountFormatter() As Boolean Handles CocoaNSByteCountFormatter.Action
+			NSByteCountFormatterExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSColorBrowser() As Boolean Handles CocoaNSColorBrowser.Action
 			NSColorWindow.Show
 			return true
