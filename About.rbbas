@@ -57,7 +57,6 @@ Protected Module About
 		145: 2013-08-11 by VVB
 		- Added NSUserNotification/Center and example.
 		- Added NSMenu Delegates.
-		- NSMutableDictionary now uses value(variant) = variant and remove(variant) instead of NSObjects.
 		- Made it slightly easier to call on NSDockTile.
 		- Filled out NSEvent a bit.
 		- SegmentedControlExtension enumerations shortened.
