@@ -353,19 +353,14 @@ Inherits NSDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Remove(key as Variant)
+		Sub Remove(key as String)
 		  
 		  #if TargetMacos
 		    declare sub removeObjectForKey lib CocoaLib selector "removeObjectForKey:" ( id as Ptr, key as Ptr )
 		    
-		    dim truekey as NSObject
-		    if key IsA NSObject then
-		      truekey = key
-		    else
-		      truekey = Cocoa.NSObjectFromVariant( key )
-		    end if
+		    dim truekey as New NSString( key )
 		    
-		    removeObjectForKey   me.id, truekey.id
+		    removeObjectForKey   self, truekey
 		  #endif
 		End Sub
 	#tag EndMethod
