@@ -279,6 +279,8 @@ Inherits NSObject
 		    dim dateRef as Ptr = fileCreationDate(self)
 		    if dateRef <> nil then
 		      return new NSDate(dateRef)
+		    else
+		      return nil
 		    end if
 		    
 		  #endif
