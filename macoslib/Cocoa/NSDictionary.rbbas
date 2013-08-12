@@ -422,9 +422,9 @@ Inherits NSObject
 		  //# Returns the value for the key NSFilePosixPermissions.
 		  
 		  #if targetMacOS
-		    declare function fileOwnerAccountName lib CocoaLib selector "fileOwnerAccountName" (obj_id as Ptr) as UInt32
+		    declare function filePosixPermissions lib CocoaLib selector "filePosixPermissions" (obj_id as Ptr) as UInt32
 		    
-		    return fileOwnerAccountName(self)
+		    return filePosixPermissions(self)
 		  #endif
 		End Function
 	#tag EndMethod
