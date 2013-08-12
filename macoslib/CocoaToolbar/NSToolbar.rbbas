@@ -444,7 +444,7 @@ Inherits NSObject
 		  dim item as NSToolbarItem
 		  
 		  if d <> nil then
-		    itemPtr = d.Lookup("item", nil) // get the Ptr to the NSToolbarItem
+		    itemPtr = d.Value(new NSString("item")) // get the Ptr to the NSToolbarItem
 		    
 		    if itemPtr <> nil then
 		      dim tmpItem as NSToolbarItem = new NSToolbarItem(itemPtr) // construct a NSToolbarItem from Ptr
@@ -511,16 +511,14 @@ Inherits NSObject
 		  
 		  // get the notification info dictionary which contains "item" key
 		  dim d as NSDictionary = notification.UserInfo
-		  dim itemPtr as Ptr
-		  dim item as NSToolbarItem
 		  
 		  if d <> nil then
-		    itemPtr = d.Lookup("item", nil) // get the Ptr to the NSToolbarItem
+		    dim itemPtr as Ptr = d.Value(new NSString("item")) // get the Ptr to the NSToolbarItem
 		    
 		    if itemPtr <> nil then
 		      dim tmpItem as NSToolbarItem = new NSToolbarItem(itemPtr) // construct a NSToolbarItem from Ptr
 		      dim tmpIdentifier as String = tmpItem.itemIdentifier // get the item identifier
-		      item = ToolbarItems.Lookup(tmpIdentifier, nil) // lookup the item in local dictionary
+		      dim item as NSToolbarItem = ToolbarItems.Lookup(tmpIdentifier, nil) // lookup the item in local dictionary
 		      if item = nil then // items are normally present but that's not true for standard items (space, separator, color, print, etc.)
 		        item = tmpItem
 		        ToolbarItems.value(tmpIdentifier) = item // so we eventually add them to the local dictionary

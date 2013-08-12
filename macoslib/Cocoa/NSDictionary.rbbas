@@ -18,6 +18,8 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function allKeysForObject lib CocoaLib selector "allKeysForObject:" (obj_id as Ptr, anObject as Ptr) as Ptr
 		    
+		    RequireNonNilArgument(anObject, "anObject")
+		    
 		    return new NSArray(allKeysForObject(self, anObject))
 		  #else
 		    #pragma unused anObject
@@ -45,27 +47,24 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(file as FolderItem)
-		  //# Create a new NSDictionary from a file (like as .plist file)
-		  
-		  #if targetMacOS
-		    declare function initWithContentsOfFile lib CocoaLib selector "initWithContentsOfFile:" (obj_id as Ptr, path as CFStringRef) as Ptr
-		    
-		    super.Constructor(initWithContentsOfFile(Allocate("NSDictionary"), file.POSIXPath), NSDictionary.hasOwnership)
-		  #else
-		    #pragma unused file
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
 		Sub Constructor(keys as NSArray, values as NSArray)
 		  //# Creates and returns a dictionary containing entries constructed from the contents of an array of keys and an array of values.
 		  
 		  #if TargetMacOS
-		    declare function dictionaryWithObjectsforKeys lib CocoaLib selector "dictionaryWithObjects:forKeys:" ( cls as Ptr, nsa1 as Ptr, nsa2 as Ptr ) as Ptr
+		    declare function dictionaryWithObjectsforKeys lib CocoaLib selector "dictionaryWithObjects:forKeys:" (cls as Ptr, nsa1 as Ptr, nsa2 as Ptr) as Ptr
 		    
-		    Super.Constructor( dictionaryWithObjectsforKeys( Cocoa.NSClassFromString( "NSDictionary" ), values.id, keys.id ), false )
+		    if keys is nil then
+		      dim e as new NilObjectException
+		      e.Message = CurrentMethodName + ": keys cannot be nil."
+		      raise e
+		    end if
+		    if keys is nil then
+		      dim e as new NilObjectException
+		      e.Message = CurrentMethodName + ": keys cannot be nil."
+		      raise e
+		    end if
+		    
+		    Super.Constructor(dictionaryWithObjectsforKeys( Cocoa.NSClassFromString("NSDictionary"), values, keys))
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -75,6 +74,8 @@ Inherits NSObject
 		  //#
 		  #if targetMacOS
 		    declare function initWithDictionary lib CocoaLib selector "initWithDictionary:" (obj_id as Ptr, otherDictionary as Ptr) as Ptr
+		    
+		    RequireNonNilArgument(otherDictionary, "otherDictionary")
 		    
 		    super.Constructor(initWithDictionary(Allocate("NSDictionary"), otherDictionary), NSDictionary.hasOwnership)
 		  #else
@@ -102,11 +103,29 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(path as NSString)
+		  //# Create a new NSDictionary from a file (like as .plist file)
+		  
+		  #if targetMacOS
+		    declare function initWithContentsOfFile lib CocoaLib selector "initWithContentsOfFile:" (obj_id as Ptr, path as CFStringRef) as Ptr
+		    
+		    RequireNonNilArgument(path, "path")
+		    
+		    super.Constructor(initWithContentsOfFile(Allocate("NSDictionary"), path), NSDictionary.hasOwnership)
+		  #else
+		    #pragma unused file
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(aURL as NSURL)
 		  //# Initializes a newly allocated dictionary using the keys and values found at a given URL.
 		  
 		  #if targetMacOS
 		    declare function initWithContentsOfURL lib CocoaLib selector "initWithContentsOfURL:" (obj_id as Ptr, aURL as Ptr) as Ptr
+		    
+		    RequireNonNilArgument(aURL, "aURL")
 		    
 		    super.Constructor(initWithContentsOfURL(Allocate("NSDictionary"), aURL), NSDictionary.hasOwnership)
 		  #else
@@ -118,9 +137,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Copy() As NSDictionary
 		  #if TargetMacOS
-		    declare function m_copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
+		    declare function copy lib CocoaLib selector "copy" (id as Ptr) as Ptr
 		    
-		    return   new NSDictionary( m_copy( me.id ), false )
+		    return new NSDictionary(copy(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -305,6 +324,8 @@ Inherits NSObject
 		    dim numberRef as Ptr = fileGroupOwnerAccountID(self)
 		    if numberRef <> nil then
 		      return new NSNumber(numberRef)
+		    else
+		      return nil
 		    end if
 		    
 		  #endif
@@ -312,13 +333,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FileGroupOwnerAccountName() As String
+		Function FileGroupOwnerAccountName() As NSString
 		  //# Returns the value for the NSFileGroupOwnerAccountName key.
 		  
 		  #if targetMacOS
-		    declare function fileGroupOwnerAccountName lib CocoaLib selector "fileGroupOwnerAccountName" (obj_id as Ptr) as CFStringRef
+		    declare function fileGroupOwnerAccountName lib CocoaLib selector "fileGroupOwnerAccountName" (obj_id as Ptr) as Ptr
 		    
-		    return fileGroupOwnerAccountName(self)
+		    return new NSString(fileGroupOwnerAccountName(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -381,6 +402,8 @@ Inherits NSObject
 		    dim dateRef as Ptr = fileModificationDate(self)
 		    if dateRef <> nil then
 		      return new NSDate(dateRef)
+		    else
+		      return nil
 		    end if
 		    
 		  #endif
@@ -397,6 +420,8 @@ Inherits NSObject
 		    dim numberRef as Ptr = fileOwnerAccountID(self)
 		    if numberRef <> nil then
 		      return new NSNumber(numberRef)
+		    else
+		      return nil
 		    end if
 		    
 		  #endif
@@ -404,13 +429,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FileOwnerAccountName() As String
+		Function FileOwnerAccountName() As NSString
 		  //# Returns the value for the key NSFileOwnerAccountName.
 		  
 		  #if targetMacOS
-		    declare function fileOwnerAccountName lib CocoaLib selector "fileOwnerAccountName" (obj_id as Ptr) as CFStringRef
+		    declare function fileOwnerAccountName lib CocoaLib selector "fileOwnerAccountName" (obj_id as Ptr) as Ptr
 		    
-		    return fileOwnerAccountName(self)
+		    return new NSString(fileOwnerAccountName(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -464,13 +489,13 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function FileType() As String
+		Function FileType() As NSString
 		  //# Returns the value for the key NSFileType.
 		  
 		  #if targetMacOS
-		    declare function fileType lib CocoaLib selector "fileType" (obj_id as Ptr) as CFStringRef
+		    declare function fileType lib CocoaLib selector "fileType" (obj_id as Ptr) as Ptr
 		    
-		    return fileType(self)
+		    return new NSString(fileType(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -492,6 +517,8 @@ Inherits NSObject
 		    dim otherDictRef as Ptr
 		    if otherDictionary <> nil then
 		      otherDictRef = otherDictionary
+		    else
+		      otherDictRef = nil
 		    end if
 		    
 		    return isEqualToDictionary(self, otherDictRef)
@@ -508,58 +535,40 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function keyEnumerator lib CocoaLib selector "keyEnumerator" (obj_id as Ptr) as Ptr
 		    
-		    dim enumRef as Ptr = keyEnumerator(self)
-		    if enumRef <> nil then
-		      return new NSEnumerator(enumRef)
-		    end if
-		    
+		    return new NSEnumerator(keyEnumerator(self))
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Lookup(key as NSObject, defaultValue as variant) As Variant
-		  //# Get a value corresponding to a key of the passed defaukt value if not found
+		Function NSStringValue(key as NSObject) As NSString
+		  //# Get an NSString corresponding to a key
 		  
 		  #if TargetMacOS
-		    Declare function objectForKey lib CocoaLib selector "objectForKey:" ( id as Ptr, key as Ptr ) as Ptr
-		    
-		    dim p as Ptr = objectForKey( me.id, key.id )
-		    
-		    if p=nil then
-		      return  defaultValue
+		    dim p as Ptr = self.Value(key)
+		    if p <> nil then
+		      return new NSString(p)
+		    else
+		      //key not found, I believe.
+		      return nil
 		    end if
-		    
-		    return   Cocoa.NSObjectFromNSPtr( p, false )
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Lookup(key as Ptr, fallbackValue as Ptr) As Ptr
+		Function NSURLValue(key as NSObject) As NSURL
+		  //# Get an NSURL corresponding to a key
 		  
-		  dim lookupValue as Ptr = self.Value(key)
-		  
-		  if lookupValue <> nil then
-		    return lookupValue
-		  else
-		    return fallbackValue
-		  end if
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Lookup(key as String, fallbackValue as Ptr) As Ptr
-		  
-		  dim lookupValue as Ptr = self.Value(key)
-		  
-		  if lookupValue <> nil then
-		    return lookupValue
-		  else
-		    return fallbackValue
-		  end if
-		  
+		  #if TargetMacOS
+		    dim p as Ptr = self.Value(key)
+		    if p <> nil then
+		      return new NSURL(p)
+		    else
+		      //key not found, I believe.
+		      return nil
+		    end if
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -571,28 +580,26 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Sub RequireNonNilArgument(value as Variant, name as String)
+		  if value is nil then
+		    dim e as new NilObjectException
+		    e.Message = name + " cannot be nil."
+		    raise e
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
-		Function Value(key as variant) As Variant
+		Function Value(key as Ptr) As Ptr
 		  //# Get a value corresponding to a key
 		  
 		  #if TargetMacOS
-		    Declare function objectForKey lib CocoaLib selector "objectForKey:" ( id as Ptr, key as Ptr ) as Ptr
+		    declare function objectForKey lib CocoaLib selector "objectForKey:" (id as Ptr, key as Ptr) as Ptr
 		    
-		    dim trueKey as NSObject
+		    RequireNonNilArgument(key, "key")
 		    
-		    if key isa NSObject then
-		      trueKey = Key
-		    else
-		      trueKey = Cocoa.NSObjectFromVariant( key )
-		    end if
-		    
-		    dim p as Ptr = objectForKey( me.id, truekey.id )
-		    
-		    if p=nil then
-		      return   nil
-		    end if
-		    
-		    return   Cocoa.NSObjectFromNSPtr( p, false )
+		    return objectForKey(self, key)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -604,11 +611,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function objectEnumerator lib CocoaLib selector "objectEnumerator" (obj_id as Ptr) as Ptr
 		    
-		    dim enumRef as Ptr = objectEnumerator(self)
-		    if enumRef <> nil then
-		      return new NSEnumerator(enumRef)
-		    end if
-		    
+		    return new NSEnumerator(objectEnumerator(self))
 		  #endif
 		End Function
 	#tag EndMethod
@@ -641,9 +644,11 @@ Inherits NSObject
 		  //# Write the NSDictionary to 'file'. Returns true on success
 		  
 		  #if TargetMacOS
-		    declare function writeToFile lib CocoaLib selector "writeToFile:atomically:" ( id as Ptr, path as CFStringRef, atomically as Boolean ) as Boolean
+		    declare function writeToFile lib CocoaLib selector "writeToFile:atomically:" (id as Ptr, path as CFStringRef, atomically as Boolean) as Boolean
 		    
-		    return   writeToFile( me.id, file.POSIXPath, atomically )
+		    RequireNonNilArgument(file, "file")
+		    
+		    return writeToFile(self, file.POSIXPath, atomically )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -658,6 +663,8 @@ Inherits NSObject
 		    dim urlRef as Ptr
 		    if urlRef <> nil then
 		      urlRef = aURL
+		    else 
+		      urlRef = nil
 		    end if
 		    
 		    return writeToURL(self, urlRef, atomically)
@@ -666,15 +673,6 @@ Inherits NSObject
 		    #pragma unused atomically
 		  #endif
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1021
-		Private Sub _Constructor(cfd as CFDictionary)
-		  // Adopts a CFDictionary
-		  // Note: This shall m_not_ create a copy of the passed CFDictionary. For that, there's the Copy function
-		  Super.Constructor(cfd)
-		  
-		End Sub
 	#tag EndMethod
 
 
