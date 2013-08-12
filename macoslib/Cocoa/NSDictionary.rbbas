@@ -4,25 +4,21 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AllKeys() As NSArray
 		  #if TargetMacOS
-		    declare function m_allKeys lib CocoaLib selector "allKeys" (id as Ptr) as Ptr
+		    declare function allKeys lib CocoaLib selector "allKeys" (id as Ptr) as Ptr
 		    
-		    return new NSArray(m_allKeys(self))
+		    return new NSArray(allKeys(self))
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function AllKeys(anObject as Ptr) As NSArray
+		Function AllKeys(anObject as NSObject) As NSArray
 		  //# Returns a new array containing the keys corresponding to all occurrences of a given object in the dictionary.
 		  
 		  #if targetMacOS
 		    declare function allKeysForObject lib CocoaLib selector "allKeysForObject:" (obj_id as Ptr, anObject as Ptr) as Ptr
 		    
-		    dim arrayRef as Ptr = allKeysForObject(self, anObject)
-		    if arrayRef <> nil then
-		      return new NSArray(arrayRef)
-		    end if
-		    
+		    return new NSArray(allKeysForObject(self, anObject))
 		  #else
 		    #pragma unused anObject
 		  #endif
@@ -32,9 +28,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AllValues() As NSArray
 		  #if TargetMacOS
-		    declare function m_allValues lib CocoaLib selector "allValues" (id as Ptr) as Ptr
+		    declare function allValues lib CocoaLib selector "allValues" (id as Ptr) as Ptr
 		    
-		    return new NSArray(m_allValues(self))
+		    return new NSArray(allValues(self))
 		  #endif
 		End Function
 	#tag EndMethod
