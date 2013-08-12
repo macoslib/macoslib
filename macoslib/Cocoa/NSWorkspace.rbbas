@@ -267,161 +267,161 @@ Inherits NSObject
 		    dim userinfo as NSDictionary
 		    dim appl as Cocoa.NSRunningApplication
 		    dim locName as string
-		    dim url as CoreFoundation.CFURL
+		    dim url as NSURL
 		    
-		    declare function valueForKey lib CocoaLib selector "valueForKey:" (id as Ptr, key as CFStringRef) as Ptr //Access to NSDictionary for non-CFType values
+		    declare function objectForKey lib CocoaLib selector "objectForKey:" (id as Ptr, key as Ptr) as Ptr
 		    
 		    select case notification.Name
 		    case "NSWorkspaceWillLaunchApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceWillLaunchApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceWillLaunchApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceDidLaunchApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceDidLaunchApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceDidLaunchApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceDidTerminateApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceDidTerminateApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceDidTerminateApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceSessionDidBecomeActiveNotification"
-		      RaiseEvent   NSWorkspaceSessionDidBecomeActiveNotification( notification )
+		      RaiseEvent NSWorkspaceSessionDidBecomeActiveNotification( notification )
 		      
 		      
 		    case "NSWorkspaceSessionDidResignActiveNotification"
-		      RaiseEvent   NSWorkspaceSessionDidResignActiveNotification( notification )
+		      RaiseEvent NSWorkspaceSessionDidResignActiveNotification( notification )
 		      
 		      
 		    case "NSWorkspaceDidHideApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceDidHideApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceDidHideApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceDidUnhideApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceDidUnhideApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceDidUnhideApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceDidActivateApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceDidActivateApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceDidActivateApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceDidDeactivateApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication( valueForKey( userinfo, Cocoa.StringConstant( "NSWorkspaceApplicationKey" )), false )
+		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
 		      end if
 		      
-		      RaiseEvent   NSWorkspaceDidDeactivateApplicationNotification( notification, appl )
+		      RaiseEvent NSWorkspaceDidDeactivateApplicationNotification( notification, appl )
 		      
 		      
 		    case "NSWorkspaceDidRenameVolumeNotification"
 		      userinfo = notification.UserInfo
 		      dim oldLocName as string
-		      dim oldurl as CoreFoundation.CFURL
+		      dim oldurl as NSURL
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
-		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
-		        oldLocName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldLocalizedNameKey" )))'.VariantValue
-		        oldurl = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeOldURLKey" ))))
+		        locName = new NSString(objectForKey(userinfo, NSWorkspaceVolumeLocalizedNameKey))
+		        url = new NSURL(objectForKey(userinfo, NSWorkspaceVolumeURLKey))
+		        oldLocName = new NSString(objectForKey(userinfo, NSWorkspaceVolumeOldLocalizedNameKey))
+		        oldurl = new NSURL(objectForKey(userinfo, NSWorkspaceVolumeOldURLKey))
 		      end if
 		      
-		      RaiseEvent  NSWorkspaceDidRenameVolumeNotification( notification, oldurl, oldLocName, url, locName )
+		      RaiseEvent NSWorkspaceDidRenameVolumeNotification( notification, oldurl, oldLocName, url, locName )
 		      
 		      
 		    case "NSWorkspaceDidMountNotification"
 		      userinfo = notification.UserInfo
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
-		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		        locName = new NSString(objectForKey(userinfo, NSWorkspaceVolumeLocalizedNameKey))
+		        url = new NSURL(objectForKey(userinfo, NSWorkspaceVolumeURLKey))
 		      end if
 		      
-		      RaiseEvent  NSWorkspaceDidMountNotification( notification, url, locName )
+		      RaiseEvent NSWorkspaceDidMountNotification( notification, url, locName )
 		      
 		      
 		    case "NSWorkspaceWillUnmountNotification"
 		      userinfo = notification.UserInfo
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
-		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		        locName = new NSString(objectForKey(userinfo, NSWorkspaceVolumeLocalizedNameKey))
+		        url = new NSURL(objectForKey(userinfo, NSWorkspaceVolumeURLKey))
 		      end if
 		      
-		      RaiseEvent  NSWorkspaceWillUnmountNotification( notification, url, locName )
+		      RaiseEvent NSWorkspaceWillUnmountNotification(notification, url, locName)
 		      
 		      
 		    case "NSWorkspaceDidUnmountNotification"
 		      userinfo = notification.UserInfo
 		      
 		      if IsSnowLeopard then
-		        locName = userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeLocalizedNameKey" )))'.VariantValue
-		        url = CoreFoundation.CFURL( userinfo.Value( CFString( Cocoa.StringConstant( "NSWorkspaceVolumeURLKey" ))))
+		        locName = new NSString(objectForKey(userinfo, NSWorkspaceVolumeLocalizedNameKey))
+		        url = new NSURL(objectForKey(userinfo, NSWorkspaceVolumeURLKey))
 		      end if
 		      
-		      RaiseEvent  NSWorkspaceDidUnmountNotification( notification, url, locName )
+		      RaiseEvent NSWorkspaceDidUnmountNotification( notification, url, locName )
 		      
 		      
 		    case "NSWorkspaceDidPerformFileOperationNotification"
 		      dim opNbr as Cocoa.NSNumber
 		      userinfo = notification.UserInfo
-		      opNbr = new NSNumber( valueForKey( userinfo, CFString( "NSOperationNumber" )), false )
+		      opNbr = new NSNumber(objectForKey(userinfo, new NSString("NSOperationNumber")))
 		      
-		      RaiseEvent   NSWorkspaceDidPerformFileOperationNotification( notification, opNbr.Int32Value )
+		      RaiseEvent  NSWorkspaceDidPerformFileOperationNotification( notification, opNbr.Int32Value )
 		      
 		      
 		    case "NSWorkspaceDidChangeFileLabelsNotification"
-		      RaiseEvent   NSWorkspaceDidChangeFileLabelsNotification( notification )
+		      RaiseEvent  NSWorkspaceDidChangeFileLabelsNotification( notification )
 		      
 		    case "NSWorkspaceActiveSpaceDidChangeNotification"
-		      RaiseEvent   NSWorkspaceActiveSpaceDidChangeNotification( notification )
+		      RaiseEvent  NSWorkspaceActiveSpaceDidChangeNotification( notification )
 		      
 		    case "NSWorkspaceDidWakeNotification"
-		      RaiseEvent   NSWorkspaceDidWakeNotification( notification )
+		      RaiseEvent  NSWorkspaceDidWakeNotification( notification )
 		      
 		    case "NSWorkspaceWillPowerOffNotification"
-		      RaiseEvent   NSWorkspaceWillPowerOffNotification( notification )
+		      RaiseEvent  NSWorkspaceWillPowerOffNotification( notification )
 		      
 		    case "NSWorkspaceWillSleepNotification"
-		      RaiseEvent   NSWorkspaceWillSleepNotification( notification )
+		      RaiseEvent  NSWorkspaceWillSleepNotification( notification )
 		      
 		    case "NSWorkspaceScreensDidSleepNotification"
-		      RaiseEvent   NSWorkspaceScreensDidSleepNotification( notification )
+		      RaiseEvent  NSWorkspaceScreensDidSleepNotification( notification )
 		      
 		    case "NSWorkspaceScreensDidWakeNotification"
-		      RaiseEvent   NSWorkspaceScreensDidWakeNotification( notification )
+		      RaiseEvent  NSWorkspaceScreensDidWakeNotification( notification )
 		      
 		    else
-		      RaiseEvent   NSWorkspaceOtherNotification( notification )
+		      RaiseEvent  NSWorkspaceOtherNotification( notification )
 		    end select
 		  #endif
 		End Sub
@@ -662,26 +662,31 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function NSStringConstant(symbolName as String) As NSString
+		  dim b as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
+		  return new NSString(b.DataPointerNotRetained(symbolName))
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceApplicationKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceApplicationKey")
+		 Shared Function NSWorkspaceApplicationKey() As NSString
+		  return NSStringConstant("NSWorkspaceApplicationKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceCompressOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceCompressOperation")
+		 Shared Function NSWorkspaceCompressOperation() As NSString
+		  return NSStringConstant("NSWorkspaceCompressOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceCopyOperation() As String
+		 Shared Function NSWorkspaceCopyOperation() As NSString
 		  
-		  return Cocoa.StringConstant("NSWorkspaceCopyOperation")
+		  return NSStringConstant("NSWorkspaceCopyOperation")
 		  
 		End Function
 	#tag EndMethod
@@ -689,151 +694,134 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function NSWorkspaceDecompressOperation() As String
 		  
-		  return Cocoa.StringConstant("NSWorkspaceDecompressOperation")
+		  return NSStringConstant("NSWorkspaceDecompressOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDecryptOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceDecryptOperation")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDesktopImageAllowClippingKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceDesktopImageAllowClippingKey")
+		 Shared Function NSWorkspaceDecryptOperation() As NSString
+		  return NSStringConstant("NSWorkspaceDecryptOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDesktopImageFillColorKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceDesktopImageFillColorKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDesktopImageScalingKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceDesktopImageScalingKey")
+		 Shared Function NSWorkspaceDesktopImageAllowClippingKey() As NSString
+		  return NSStringConstant("NSWorkspaceDesktopImageAllowClippingKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDestroyOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceDestroyOperation")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDuplicateOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceDuplicateOperation")
+		 Shared Function NSWorkspaceDesktopImageFillColorKey() As NSString
+		  return NSStringConstant("NSWorkspaceDesktopImageFillColorKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceEncryptOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceEncryptOperation")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationAppleEvent() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceLaunchConfigurationAppleEvent")
+		 Shared Function NSWorkspaceDesktopImageScalingKey() As NSString
+		  return NSStringConstant("NSWorkspaceDesktopImageScalingKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationArchitecture() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceLaunchConfigurationArchitecture")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationArguments() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceLaunchConfigurationArguments")
+		 Shared Function NSWorkspaceDestroyOperation() As NSString
+		  return NSStringConstant("NSWorkspaceDestroyOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationEnvironment() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceLaunchConfigurationEnvironment")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLinkOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceLinkOperation")
+		 Shared Function NSWorkspaceDuplicateOperation() As NSString
+		  return NSStringConstant("NSWorkspaceDuplicateOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceMoveOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceMoveOperation")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceRecycleOperation() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceRecycleOperation")
+		 Shared Function NSWorkspaceEncryptOperation() As NSString
+		  return NSStringConstant("NSWorkspaceEncryptOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeLocalizedNameKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceVolumeLocalizedNameKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeOldLocalizedNameKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceVolumeOldLocalizedNameKey")
+		 Shared Function NSWorkspaceLaunchConfigurationAppleEvent() As NSString
+		  return NSStringConstant("NSWorkspaceLaunchConfigurationAppleEvent")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeOldURLKey() As String
-		  
-		  return Cocoa.StringConstant("NSWorkspaceVolumeOldURLKey")
+		 Shared Function NSWorkspaceLaunchConfigurationArchitecture() As NSString
+		  return NSStringConstant("NSWorkspaceLaunchConfigurationArchitecture")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeURLKey() As String
+		 Shared Function NSWorkspaceLaunchConfigurationArguments() As NSString
+		  return NSStringConstant("NSWorkspaceLaunchConfigurationArguments")
 		  
-		  return Cocoa.StringConstant("NSWorkspaceVolumeURLKey")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceLaunchConfigurationEnvironment() As NSString
+		  return NSStringConstant("NSWorkspaceLaunchConfigurationEnvironment")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceLinkOperation() As NSString
+		  return NSStringConstant("NSWorkspaceLinkOperation")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceMoveOperation() As NSString
+		  return NSStringConstant("NSWorkspaceMoveOperation")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceRecycleOperation() As NSString
+		  return NSStringConstant("NSWorkspaceRecycleOperation")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceVolumeLocalizedNameKey() As NSString
+		  return NSStringConstant("NSWorkspaceVolumeLocalizedNameKey")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceVolumeOldLocalizedNameKey() As NSString
+		  return NSStringConstant("NSWorkspaceVolumeOldLocalizedNameKey")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceVolumeOldURLKey() As NSString
+		  return NSStringConstant("NSWorkspaceVolumeOldURLKey")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function NSWorkspaceVolumeURLKey() As NSString
+		  
+		  return NSStringConstant("NSWorkspaceVolumeURLKey")
 		  
 		End Function
 	#tag EndMethod
@@ -1402,7 +1390,7 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event NSWorkspaceDidMountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+		Event NSWorkspaceDidMountNotification(notification as NSNotification, url as NSURL, localizedName as String)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -1410,7 +1398,7 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event NSWorkspaceDidRenameVolumeNotification(notification as NSNotification, oldURL as CoreFoundation.CFURL, oldLocalizedName as string, newURL as CoreFoundation.CFURL, newLocalizedName as string)
+		Event NSWorkspaceDidRenameVolumeNotification(notification as NSNotification, oldURL as NSURL, oldLocalizedName as string, newURL as NSURL, newLocalizedName as string)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -1422,7 +1410,7 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event NSWorkspaceDidUnmountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+		Event NSWorkspaceDidUnmountNotification(notification as NSNotification, url as NSURL, localizedName as String)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -1462,7 +1450,7 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event NSWorkspaceWillUnmountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+		Event NSWorkspaceWillUnmountNotification(notification as NSNotification, url as NSURL, localizedName as String)
 	#tag EndHook
 
 
