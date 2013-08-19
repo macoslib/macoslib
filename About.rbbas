@@ -60,6 +60,12 @@ Protected Module About
 		- Fixed bug in NSArray.CreateFromObjectsArray.
 		- Added methods to NSLayoutManager and NSTextStorage.
 		
+		
+		143: 2013-07-31 by SM & VVB & CY
+		- Added NSByteCountFormatter.
+		- Now using NSByteCountFormatter in StringExtension.FormatSize if you're on Mac OS X 10.8+ and using a postive value.
+		- StringExtension.FormatSize now mimics Apple's NSByteCountFormatter if on Mac OS X 10.7 and below.
+		
 		143: 2013-07-29 by KT
 		- Added functions/properties to NSTextView.
 		- Added NSTextStorage class.
@@ -89,7 +95,6 @@ Protected Module About
 		
 		139: 2013-07-17 by KT
 		- Minor changes to WindowExtensions.ScalingFactor. 
-		
 		139: 2013-07-09 by VVB
 		- Added dutch translation.
 		- Added window lion fullscreen methods and menu item.
