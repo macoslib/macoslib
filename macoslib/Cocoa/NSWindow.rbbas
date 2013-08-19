@@ -2601,35 +2601,6 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function dealegate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
-			    
-			    return dealegate(self)
-			    
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  #if TargetCocoa
-			    declare sub setDealegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, dealegate as Ptr)
-			    
-			    setDealegate self, value
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
-		Dealegate As Ptr
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  
-			  #if TargetCocoa
 			    declare function defaultButtonCell lib CocoaLib selector "defaultButtonCell" (obj_id as Ptr) as Ptr
 			    
 			    dim cellRef as Ptr = defaultButtonCell(self)

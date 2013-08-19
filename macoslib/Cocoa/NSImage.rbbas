@@ -2013,36 +2013,6 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  
-			  #if TargetMacOS
-			    declare function deleagate lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
-			    
-			    return deleagate(self)
-			    
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  #if TargetMacOS
-			    declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, newDelegate as Ptr)
-			    
-			    setDelegate self, value
-			    
-			  #else
-			    #pragma unused value
-			  #endif
-			  
-			End Set
-		#tag EndSetter
-		Deleagate As Ptr
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  
 			  #if targetMacOS
 			    declare function matchesOnMultipleResolution lib CocoaLib selector "matchesOnMultipleResolution" (obj_id as Ptr) as Boolean
 			    

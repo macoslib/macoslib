@@ -1,6 +1,33 @@
 #tag Class
 Class NSByteCountFormatter
 Inherits NSFormatter
+	#tag Method, Flags = &h0
+		 Shared Function ByteCount(byteCount as Int64) As NSString
+		  #if targetMacOS
+		    declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64) as CFStringRef
+		    
+		    return stringFromByteCount(ClassRef, byteCount)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ByteCountWithStyle(byteCount as Int64, countStyle as CountStyle) As NSString
+		  #if targetMacOS
+		    declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64, countStyle as CountStyle) as CFStringRef
+		    
+		    return stringFromByteCount(ClassRef, byteCount, countStyle)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function ClassRef() As Ptr
+		  static ref as Ptr = NSClassFromString("NSByteCountFormatter")
+		  return ref
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if targetMacOS
@@ -12,9 +39,9 @@ Inherits NSFormatter
 	#tag Method, Flags = &h0
 		Function StringValue(byteCount as Int64) As NSString
 		  #if targetMacOS
-		    declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:" (obj_id as Ptr, byteCount as Int64) as Ptr
+		    declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:" (obj_id as Ptr, byteCount as Int64) as CFStringRef
 		    
-		    return new NSString(stringFromByteCount(self, byteCount))
+		    return stringFromByteCount(self, byteCount)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -248,11 +275,41 @@ Inherits NSFormatter
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="AllowedUnits"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsNonnumericFormatting"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="includesActualByteCount"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IncludesCount"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IncludesUnit"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsAdaptive"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -279,6 +336,11 @@ Inherits NSFormatter
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ZeroPadsFractionDigits"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
