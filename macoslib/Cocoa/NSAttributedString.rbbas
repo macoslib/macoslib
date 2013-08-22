@@ -906,729 +906,638 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSAttachmentAttributeName() As String
+		 Shared Function NSAttachmentAttributeName() As Ptr
+		  return ResolveSymbol("NSAttachmentAttributeName")
 		  
-		  return Cocoa.StringConstant("NSAttachmentAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSAuthorDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSAuthorDocumentAttribute")
+		 Shared Function NSAuthorDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSAuthorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBackgroundColorAttributeName() As String
+		 Shared Function NSBackgroundColorAttributeName() As Ptr
+		  return ResolveSymbol("NSBackgroundColorAttributeName")
 		  
-		  return Cocoa.StringConstant("NSBackgroundColorAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBackgroundColorDocumentAttribute() As String
+		 Shared Function NSBackgroundColorDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSBackgroundColorDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSBackgroundColorDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBaselineOffsetAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSBaselineOffsetAttributeName")
+		 Shared Function NSBaselineOffsetAttributeName() As Ptr
+		  return ResolveSymbol("NSBaselineOffsetAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBaseURLDocumentOption() As String
+		 Shared Function NSBaseURLDocumentOption() As Ptr
+		  return ResolveSymbol("NSBaseURLDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSBaseURLDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBottomMarginDocumentAttribute() As String
+		 Shared Function NSBottomMarginDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSBottomMarginDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSBottomMarginDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCategoryDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSCategoryDocumentAttribute")
+		 Shared Function NSCategoryDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCategoryDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCharacterEncodingDocumentAttribute() As String
+		 Shared Function NSCharacterEncodingDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCharacterEncodingDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSCharacterEncodingDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCharacterEncodingDocumentOption() As String
+		 Shared Function NSCharacterEncodingDocumentOption() As Ptr
+		  return ResolveSymbol("NSCharacterEncodingDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSCharacterEncodingDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCharacterShapeAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSCharacterShapeAttributeName")
+		 Shared Function NSCharacterShapeAttributeName() As Ptr
+		  return ResolveSymbol("NSCharacterShapeAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCocoaVersionDocumentAttribute() As String
+		 Shared Function NSCocoaVersionDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCocoaVersionDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSCocoaVersionDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCommentDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSCommentDocumentAttribute")
+		 Shared Function NSCommentDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCommentDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCompanyDocumentAttribute() As String
+		 Shared Function NSCompanyDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCompanyDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSCompanyDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSConvertedDocumentAttribute() As String
+		 Shared Function NSConvertedDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSConvertedDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSConvertedDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCopyrightDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSCopyrightDocumentAttribute")
+		 Shared Function NSCopyrightDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCopyrightDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCreationTimeDocumentAttribute() As String
+		 Shared Function NSCreationTimeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSCreationTimeDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSCreationTimeDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCursorAttributeName() As String
+		 Shared Function NSCursorAttributeName() As Ptr
+		  return ResolveSymbol("NSCursorAttributeName")
 		  
-		  return Cocoa.StringConstant("NSCursorAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDefaultAttributesDocumentOption() As String
-		  
-		  return Cocoa.StringConstant("NSDefaultAttributesDocumentOption")
+		 Shared Function NSDefaultAttributesDocumentOption() As Ptr
+		  return ResolveSymbol("NSDefaultAttributesDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDefaultTabIntervalDocumentAttribute() As String
+		 Shared Function NSDefaultTabIntervalDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSDefaultTabIntervalDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSDefaultTabIntervalDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDocFormatTextDocumentType() As String
+		 Shared Function NSDocFormatTextDocumentType() As Ptr
+		  return ResolveSymbol("NSDocFormatTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSDocFormatTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDocumentTypeDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSDocumentTypeDocumentAttribute")
+		 Shared Function NSDocumentTypeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSDocumentTypeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDocumentTypeDocumentOption() As String
+		 Shared Function NSDocumentTypeDocumentOption() As Ptr
+		  return ResolveSymbol("NSDocumentTypeDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSDocumentTypeDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSEditorDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSEditorDocumentAttribute")
+		 Shared Function NSEditorDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSEditorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSExcludedElementsDocumentAttribute() As String
+		 Shared Function NSExcludedElementsDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSExcludedElementsDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSExcludedElementsDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSExpansionAttributeName() As String
+		 Shared Function NSExpansionAttributeName() As Ptr
+		  return ResolveSymbol("NSExpansionAttributeName")
 		  
-		  return Cocoa.StringConstant("NSExpansionAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFileTypeDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSFileTypeDocumentAttribute")
+		 Shared Function NSFileTypeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSFileTypeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFileTypeDocumentOption() As String
+		 Shared Function NSFileTypeDocumentOption() As Ptr
+		  return ResolveSymbol("NSFileTypeDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSFileTypeDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontAttributeName() As String
+		 Shared Function NSFontAttributeName() As Ptr
+		  return ResolveSymbol("NSFontAttributeName")
 		  
-		  return Cocoa.StringConstant("NSFontAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSForegroundColorAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSForegroundColorAttributeName")
+		 Shared Function NSForegroundColorAttributeName() As Ptr
+		  return ResolveSymbol("NSForegroundColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSGlyphInfoAttributeName() As String
+		 Shared Function NSGlyphInfoAttributeName() As Ptr
+		  return ResolveSymbol("NSGlyphInfoAttributeName")
 		  
-		  return Cocoa.StringConstant("NSGlyphInfoAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSHTMLTextDocumentType() As String
+		 Shared Function NSHTMLTextDocumentType() As Ptr
+		  return ResolveSymbol("NSHTMLTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSHTMLTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSHyphenationFactorDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSHyphenationFactorDocumentAttribute")
+		 Shared Function NSHyphenationFactorDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSHyphenationFactorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSKernAttributeName() As String
+		 Shared Function NSKernAttributeName() As Ptr
+		  return ResolveSymbol("NSKernAttributeName")
 		  
-		  return Cocoa.StringConstant("NSKernAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSKeywordsDocumentAttribute() As String
+		 Shared Function NSKeywordsDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSKeywordsDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSKeywordsDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLeftMarginDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSLeftMarginDocumentAttribute")
+		 Shared Function NSLeftMarginDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSLeftMarginDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLigatureAttributeName() As String
+		 Shared Function NSLigatureAttributeName() As Ptr
+		  return ResolveSymbol("NSLigatureAttributeName")
 		  
-		  return Cocoa.StringConstant("NSLigatureAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLinkAttributeName() As String
+		 Shared Function NSLinkAttributeName() As Ptr
+		  return ResolveSymbol("NSLinkAttributeName")
 		  
-		  return Cocoa.StringConstant("NSLinkAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSMacSimpleTextDocumentType() As String
-		  
-		  return Cocoa.StringConstant("NSMacSimpleTextDocumentType")
+		 Shared Function NSMacSimpleTextDocumentType() As Ptr
+		  return ResolveSymbol("NSMacSimpleTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSManagerDocumentAttribute() As String
+		 Shared Function NSManagerDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSManagerDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSManagerDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSMarkedClauseSegmentAttributeName() As String
+		 Shared Function NSMarkedClauseSegmentAttributeName() As Ptr
+		  return ResolveSymbol("NSMarkedClauseSegmentAttributeName")
 		  
-		  return Cocoa.StringConstant("NSMarkedClauseSegmentAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSModificationTimeDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSModificationTimeDocumentAttribute")
+		 Shared Function NSModificationTimeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSModificationTimeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSObliquenessAttributeName() As String
+		 Shared Function NSObliquenessAttributeName() As Ptr
+		  return ResolveSymbol("NSObliquenessAttributeName")
 		  
-		  return Cocoa.StringConstant("NSObliquenessAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSOfficeOpenXMLTextDocumentType() As String
+		 Shared Function NSOfficeOpenXMLTextDocumentType() As Ptr
+		  return ResolveSymbol("NSOfficeOpenXMLTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSOfficeOpenXMLTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSOpenDocumentTextDocumentType() As String
-		  
-		  return Cocoa.StringConstant("NSOpenDocumentTextDocumentType")
+		 Shared Function NSOpenDocumentTextDocumentType() As Ptr
+		  return ResolveSymbol("NSOpenDocumentTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPaperSizeDocumentAttribute() As String
+		 Shared Function NSPaperSizeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSPaperSizeDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSPaperSizeDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSParagraphStyleAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSParagraphStyleAttributeName")
+		 Shared Function NSParagraphStyleAttributeName() As Ptr
+		  return ResolveSymbol("NSParagraphStyleAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPlainTextDocumentType() As String
+		 Shared Function NSPlainTextDocumentType() As Ptr
+		  return ResolveSymbol("NSPlainTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSPlainTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPrefixSpacesDocumentAttribute() As String
+		 Shared Function NSPrefixSpacesDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSPrefixSpacesDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSPrefixSpacesDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSReadOnlyDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSReadOnlyDocumentAttribute")
+		 Shared Function NSReadOnlyDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSReadOnlyDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRightMarginDocumentAttribute() As String
+		 Shared Function NSRightMarginDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSRightMarginDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSRightMarginDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRTFDTextDocumentType() As String
+		 Shared Function NSRTFDTextDocumentType() As Ptr
+		  return ResolveSymbol("NSRTFDTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSRTFDTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRTFTextDocumentType() As String
-		  
-		  return Cocoa.StringConstant("NSRTFTextDocumentType")
+		 Shared Function NSRTFTextDocumentType() As Ptr
+		  return ResolveSymbol("NSRTFTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSShadowAttributeName() As String
+		 Shared Function NSShadowAttributeName() As Ptr
+		  return ResolveSymbol("NSShadowAttributeName")
 		  
-		  return Cocoa.StringConstant("NSShadowAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSSpellingStateAttributeName() As String
+		 Shared Function NSSpellingStateAttributeName() As Ptr
+		  return ResolveSymbol("NSSpellingStateAttributeName")
 		  
-		  return Cocoa.StringConstant("NSSpellingStateAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrikethroughColorAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSStrikethroughColorAttributeName")
+		 Shared Function NSStrikethroughColorAttributeName() As Ptr
+		  return ResolveSymbol("NSStrikethroughColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrikethroughStyleAttributeName() As String
+		 Shared Function NSStrikethroughStyleAttributeName() As Ptr
+		  return ResolveSymbol("NSStrikethroughStyleAttributeName")
 		  
-		  return Cocoa.StringConstant("NSStrikethroughStyleAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrokeColorAttributeName() As String
+		 Shared Function NSStrokeColorAttributeName() As Ptr
+		  return ResolveSymbol("NSStrokeColorAttributeName")
 		  
-		  return Cocoa.StringConstant("NSStrokeColorAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrokeWidthAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSStrokeWidthAttributeName")
+		 Shared Function NSStrokeWidthAttributeName() As Ptr
+		  return ResolveSymbol("NSStrokeWidthAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSSubjectDocumentAttribute() As String
+		 Shared Function NSSubjectDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSSubjectDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSSubjectDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSSuperscriptAttributeName() As String
+		 Shared Function NSSuperscriptAttributeName() As Ptr
+		  return ResolveSymbol("NSSuperscriptAttributeName")
 		  
-		  return Cocoa.StringConstant("NSSuperscriptAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextEncodingNameDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSTextEncodingNameDocumentAttribute")
+		 Shared Function NSTextEncodingNameDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSTextEncodingNameDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextEncodingNameDocumentOption() As String
+		 Shared Function NSTextEncodingNameDocumentOption() As Ptr
+		  return ResolveSymbol("NSTextEncodingNameDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSTextEncodingNameDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextLayoutSectionOrientation() As String
+		 Shared Function NSTextLayoutSectionOrientation() As Ptr
+		  return ResolveSymbol("NSTextLayoutSectionOrientation")
 		  
-		  return Cocoa.StringConstant("NSTextLayoutSectionOrientation")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextLayoutSectionRange() As String
-		  
-		  return Cocoa.StringConstant("NSTextLayoutSectionRange")
+		 Shared Function NSTextLayoutSectionRange() As Ptr
+		  return ResolveSymbol("NSTextLayoutSectionRange")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextLayoutSectionsAttribute() As String
+		 Shared Function NSTextLayoutSectionsAttribute() As Ptr
+		  return ResolveSymbol("NSTextLayoutSectionsAttribute")
 		  
-		  return Cocoa.StringConstant("NSTextLayoutSectionsAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextSizeMultiplierDocumentOption() As String
+		 Shared Function NSTextSizeMultiplierDocumentOption() As Ptr
+		  return ResolveSymbol("NSTextSizeMultiplierDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSTextSizeMultiplierDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTimeoutDocumentOption() As String
-		  
-		  return Cocoa.StringConstant("NSTimeoutDocumentOption")
+		 Shared Function NSTimeoutDocumentOption() As Ptr
+		  return ResolveSymbol("NSTimeoutDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTitleDocumentAttribute() As String
+		 Shared Function NSTitleDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSTitleDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSTitleDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSToolTipAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSToolTipAttributeName")
+		 Shared Function NSToolTipAttributeName() As Ptr
+		  return ResolveSymbol("NSToolTipAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTopMarginDocumentAttribute() As String
+		 Shared Function NSTopMarginDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSTopMarginDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSTopMarginDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineColorAttributeName() As String
+		 Shared Function NSUnderlineColorAttributeName() As Ptr
+		  return ResolveSymbol("NSUnderlineColorAttributeName")
 		  
-		  return Cocoa.StringConstant("NSUnderlineColorAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDash() As String
-		  
-		  return Cocoa.StringConstant("NSUnderlinePatternDash")
+		 Shared Function NSUnderlinePatternDash() As Ptr
+		  return ResolveSymbol("NSUnderlinePatternDash")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDashDot() As String
+		 Shared Function NSUnderlinePatternDashDot() As Ptr
+		  return ResolveSymbol("NSUnderlinePatternDashDot")
 		  
-		  return Cocoa.StringConstant("NSUnderlinePatternDashDot")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDashDotDot() As String
+		 Shared Function NSUnderlinePatternDashDotDot() As Ptr
+		  return ResolveSymbol("NSUnderlinePatternDashDotDot")
 		  
-		  return Cocoa.StringConstant("NSUnderlinePatternDashDotDot")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDot() As String
-		  
-		  return Cocoa.StringConstant("NSUnderlinePatternDot")
+		 Shared Function NSUnderlinePatternDot() As Ptr
+		  return ResolveSymbol("NSUnderlinePatternDot")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternSolid() As String
+		 Shared Function NSUnderlinePatternSolid() As Ptr
+		  return ResolveSymbol("NSUnderlinePatternSolid")
 		  
-		  return Cocoa.StringConstant("NSUnderlinePatternSolid")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleAttributeName() As String
+		 Shared Function NSUnderlineStyleAttributeName() As Ptr
+		  return ResolveSymbol("NSUnderlineStyleAttributeName")
 		  
-		  return Cocoa.StringConstant("NSUnderlineStyleAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleDouble() As String
-		  
-		  return Cocoa.StringConstant("NSUnderlineStyleDouble")
+		 Shared Function NSUnderlineStyleDouble() As Ptr
+		  return ResolveSymbol("NSUnderlineStyleDouble")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleNone() As String
+		 Shared Function NSUnderlineStyleNone() As Ptr
+		  return ResolveSymbol("NSUnderlineStyleNone")
 		  
-		  return Cocoa.StringConstant("NSUnderlineStyleNone")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleSingle() As String
+		 Shared Function NSUnderlineStyleSingle() As Ptr
+		  return ResolveSymbol("NSUnderlineStyleSingle")
 		  
-		  return Cocoa.StringConstant("NSUnderlineStyleSingle")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleThick() As String
-		  
-		  return Cocoa.StringConstant("NSUnderlineStyleThick")
+		 Shared Function NSUnderlineStyleThick() As Ptr
+		  return ResolveSymbol("NSUnderlineStyleThick")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSVerticalGlyphFormAttributeName() As String
+		 Shared Function NSVerticalGlyphFormAttributeName() As Ptr
+		  return ResolveSymbol("NSVerticalGlyphFormAttributeName")
 		  
-		  return Cocoa.StringConstant("NSVerticalGlyphFormAttributeName")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSViewModeDocumentAttribute() As String
+		 Shared Function NSViewModeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSViewModeDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSViewModeDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSViewSizeDocumentAttribute() As String
-		  
-		  return Cocoa.StringConstant("NSViewSizeDocumentAttribute")
+		 Shared Function NSViewSizeDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSViewSizeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSViewZoomDocumentAttribute() As String
+		 Shared Function NSViewZoomDocumentAttribute() As Ptr
+		  return ResolveSymbol("NSViewZoomDocumentAttribute")
 		  
-		  return Cocoa.StringConstant("NSViewZoomDocumentAttribute")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWebArchiveTextDocumentType() As String
+		 Shared Function NSWebArchiveTextDocumentType() As Ptr
+		  return ResolveSymbol("NSWebArchiveTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSWebArchiveTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWebPreferencesDocumentOption() As String
-		  
-		  return Cocoa.StringConstant("NSWebPreferencesDocumentOption")
+		 Shared Function NSWebPreferencesDocumentOption() As Ptr
+		  return ResolveSymbol("NSWebPreferencesDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWebResourceLoadDelegateDocumentOption() As String
+		 Shared Function NSWebResourceLoadDelegateDocumentOption() As Ptr
+		  return ResolveSymbol("NSWebResourceLoadDelegateDocumentOption")
 		  
-		  return Cocoa.StringConstant("NSWebResourceLoadDelegateDocumentOption")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWordMLTextDocumentType() As String
+		 Shared Function NSWordMLTextDocumentType() As Ptr
+		  return ResolveSymbol("NSWordMLTextDocumentType")
 		  
-		  return Cocoa.StringConstant("NSWordMLTextDocumentType")
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWritingDirectionAttributeName() As String
-		  
-		  return Cocoa.StringConstant("NSWritingDirectionAttributeName")
+		 Shared Function NSWritingDirectionAttributeName() As Ptr
+		  return ResolveSymbol("NSWritingDirectionAttributeName")
 		  
 		End Function
 	#tag EndMethod
@@ -1682,149 +1591,10 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		 Shared Function QuickCreate(text as string, baseStyles as NSDictionary, paramarray styles as Tuple) As NSAttributedString
-		  
-		  dim nsdict as NSMutableDictionary
-		  dim result as NSAttributedString
-		  
-		  nsdict = StyleDictionaryFromTuples( styles, baseStyles )
-		  
-		  'if baseStyles<>nil then
-		  'nsdict = new NSMutableDictionary( baseStyles.MutableCopy, true )
-		  'else
-		  'nsdict = new NSMutableDictionary
-		  'end if
-		  '
-		  'for i as integer=0 to styles.Ubound
-		  't = styles( i )
-		  '
-		  'select case t(0)
-		  'case "font"
-		  'dim fontfamily as string
-		  'dim isBold as Boolean
-		  'dim isItalic as Boolean
-		  'dim textColor as color = &c000000
-		  'dim size as double = 12.0
-		  'dim nsf as NSFont
-		  'dim IsSuperScript as Boolean
-		  'dim IsSubscript as Boolean
-		  '
-		  'for j = 1 to t.Count - 1
-		  'select case Vartype( t(j))
-		  'case Variant.TypeString
-		  'select case t(j)
-		  'case "bold"
-		  'isBold = true
-		  'case "italic"
-		  'isItalic = true
-		  'case "sup", "super", "superscript"
-		  'IsSuperScript = true
-		  'case "sub", "subscript"
-		  'IsSubscript = true
-		  'else
-		  'fontfamily = t(j)
-		  'end select
-		  'case Variant.TypeInteger, Variant.TypeDouble
-		  'size = t(j)
-		  'case Variant.TypeColor
-		  'textColor = t(j)
-		  'else
-		  '
-		  'end select
-		  'next
-		  '
-		  'nsf = NSFontManager.SharedManager.GetFont( fontfamily, size, isBold, isItalic )
-		  'nsdict.Value( Cocoa.StringConstant( "NSFontAttributeName" )) = nsf
-		  'nsdict.Value( Cocoa.StringConstant( "NSForegroundColorAttributeName" )) = new NSColor( textColor )
-		  '
-		  'case "underline", "strikethrough"
-		  'dim underlineStyle as integer
-		  'dim underlineColor as Color
-		  'dim hasUnderlineColor as Boolean
-		  'dim underlinePattern as integer
-		  'dim underlineByWord as Boolean //Mask = 32768, i.e. &h8000
-		  'dim StyleValue as integer
-		  '
-		  'for j = 1 to t.Count - 1
-		  'select case Vartype( t(j))
-		  'case Variant.TypeString
-		  'select case t(j)
-		  'case "single"
-		  'underlineStyle = 1
-		  'case "thick"
-		  'underlineStyle = 2
-		  'case "double"
-		  'underlineStyle = 9
-		  'case "solid"
-		  'underlinePattern = 0
-		  'case "dash"
-		  'underlinePattern = &h200
-		  'case "dashdot"
-		  'underlinePattern = &h300
-		  'case "dashdotdot"
-		  'underlinePattern = &h400
-		  'case "dot"
-		  'underlinePattern = &h100
-		  'case "byword"
-		  'underlineByWord = true
-		  'end select
-		  '
-		  'case Variant.TypeColor
-		  'underlineColor = t(j)
-		  'hasUnderlineColor = true
-		  'else
-		  '
-		  'end select
-		  'next
-		  '
-		  'StyleValue = underlineStyle OR underlinePattern
-		  'if underlineByWord then
-		  'StyleValue = StyleValue OR &h8000
-		  'end if
-		  'if t(0)="underline" then
-		  'nsdict.Value( Cocoa.StringConstant( "NSUnderlineStyleAttributeName" )) = new NSNumber( StyleValue )
-		  'else
-		  'nsdict.Value( Cocoa.StringConstant( "NSStrikethroughStyleAttributeName" )) = new NSNumber( StyleValue )
-		  'end if
-		  '
-		  'if hasUnderlineColor then
-		  'if t(0)="underline" then
-		  'nsdict.Value( Cocoa.StringConstant( "NSUnderlineColorAttributeName" )) = new NSColor( underlineColor )
-		  'else
-		  'nsdict.Value( Cocoa.StringConstant( "NSStrikethroughColorAttributeName" )) = new NSColor( underlineColor )
-		  'end if
-		  'end if
-		  '
-		  'case "link"
-		  'nsdict.Value( Cocoa.StringConstant( "NSLinkAttributeName" )) = NSString( t(1))
-		  '
-		  'case "tooltip"
-		  'nsdict.Value( Cocoa.StringConstant( "NSToolTipAttributeName" )) = NSString( t(1))
-		  '
-		  'case "spacing"
-		  '
-		  'else
-		  '
-		  'end select
-		  '
-		  'next
-		  '
-		  'nsdict.Value( Cocoa.StringConstant( "NSParagraphStyleAttributeName" )) = NSParagraphStyle.Default
-		  '
-		  result = NSAttributedString.CreateFromString_WithAttributes( text, nsdict )
-		  if nsdict.HasKey(new NSString( "macoslibSuperScript" )) OR nsdict.HasKey(new NSString( "macoslibSubScript" )) then
-		    dim nsmas as NSMutableAttributedString = new NSMutableAttributedString( result.MutableCopy, true )
-		    if nsdict.HasKey(new NSString( "macoslibSuperScript" )) then
-		      nsmas.Superscript()
-		    else //Cannot be both true
-		      nsmas.Subscript()
-		    end if
-		    
-		    result = nsmas
-		  end if
-		  
-		  return  result
+	#tag Method, Flags = &h21
+		Private Shared Function ResolveSymbol(name as String) As Ptr
+		  dim b as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
+		  return b.DataPointerNotRetained(name)
 		End Function
 	#tag EndMethod
 
@@ -2002,152 +1772,6 @@ Inherits NSObject
 		    #pragma unused longestEffectiveRange
 		    #pragma unused rangeLimit
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function StyleDictionaryFromTuples(baseStyles as NSDictionary = nil, paramarray styles() as Tuple) As NSMutableDictionary
-		  return StyleDictionaryFromTuples( styles, baseStyles )
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function StyleDictionaryFromTuples(styles() as Tuple, baseStyles as NSDictionary = nil) As NSMutableDictionary
-		  dim t as Tuple
-		  dim j as integer
-		  'dim nsps as NSParagraphStyle
-		  dim nsdict as NSMutableDictionary
-		  
-		  if baseStyles<>nil then
-		    nsdict = new NSMutableDictionary( baseStyles.MutableCopy, true )
-		  else
-		    nsdict = new NSMutableDictionary
-		  end if
-		  
-		  for i as integer=0 to styles.Ubound
-		    t = styles( i )
-		    
-		    select case t(0)
-		    case "font"
-		      dim fontfamily as string
-		      dim isBold as Boolean
-		      dim isItalic as Boolean
-		      dim textColor as color = &c000000
-		      dim size as double = 12.0
-		      dim nsf as NSFont
-		      dim IsSuperScript as Boolean
-		      dim IsSubscript as Boolean
-		      
-		      for j = 1 to t.Count - 1
-		        select case Vartype( t(j))
-		        case Variant.TypeString
-		          select case t(j)
-		          case "bold"
-		            isBold = true
-		          case "italic"
-		            isItalic = true
-		          case "sup", "super", "superscript"
-		            IsSuperScript = true
-		          case "sub", "subscript"
-		            IsSubscript = true
-		          else
-		            fontfamily = t(j)
-		          end select
-		        case Variant.TypeInteger, Variant.TypeDouble
-		          size = t(j)
-		        case Variant.TypeColor
-		          textColor = t(j)
-		        else
-		          
-		        end select
-		      next
-		      
-		      nsf = NSFontManager.SharedManager.GetFont( fontfamily, size, isBold, isItalic )
-		      nsdict.Value( Cocoa.StringConstant( "NSFontAttributeName" )) = nsf
-		      nsdict.Value( Cocoa.StringConstant( "NSForegroundColorAttributeName" )) = new NSColor( textColor )
-		      
-		      if IsSuperscript then
-		        nsdict.Value( "macoslibSuperScript" ) = new  NSNumber( true )
-		      else //Cannot be both true
-		        nsdict.Value( "macoslibSubScript" ) = new  NSNumber( true )
-		      end if
-		      
-		    case "underline", "strikethrough"
-		      dim underlineStyle as integer
-		      dim underlineColor as Color
-		      dim hasUnderlineColor as Boolean
-		      dim underlinePattern as integer
-		      dim underlineByWord as Boolean //Mask = 32768, i.e. &h8000
-		      dim StyleValue as integer
-		      
-		      for j = 1 to t.Count - 1
-		        select case Vartype( t(j))
-		        case Variant.TypeString
-		          select case t(j)
-		          case "single"
-		            underlineStyle = 1
-		          case "thick"
-		            underlineStyle = 2
-		          case "double"
-		            underlineStyle = 9
-		          case "solid"
-		            underlinePattern = 0
-		          case "dash"
-		            underlinePattern = &h200
-		          case "dashdot"
-		            underlinePattern = &h300
-		          case "dashdotdot"
-		            underlinePattern = &h400
-		          case "dot"
-		            underlinePattern = &h100
-		          case "byword"
-		            underlineByWord = true
-		          end select
-		          
-		        case Variant.TypeColor
-		          underlineColor = t(j)
-		          hasUnderlineColor = true
-		        else
-		          
-		        end select
-		      next
-		      
-		      StyleValue = underlineStyle OR underlinePattern
-		      if underlineByWord then
-		        StyleValue = StyleValue OR &h8000
-		      end if
-		      if t(0)="underline" then
-		        nsdict.Value( Cocoa.StringConstant( "NSUnderlineStyleAttributeName" )) = new NSNumber( StyleValue )
-		      else
-		        nsdict.Value( Cocoa.StringConstant( "NSStrikethroughStyleAttributeName" )) = new NSNumber( StyleValue )
-		      end if
-		      
-		      if hasUnderlineColor then
-		        if t(0)="underline" then
-		          nsdict.Value( Cocoa.StringConstant( "NSUnderlineColorAttributeName" )) = new NSColor( underlineColor )
-		        else
-		          nsdict.Value( Cocoa.StringConstant( "NSStrikethroughColorAttributeName" )) = new NSColor( underlineColor )
-		        end if
-		      end if
-		      
-		    case "link"
-		      nsdict.Value( Cocoa.StringConstant( "NSLinkAttributeName" )) = NSString( t(1))
-		      
-		    case "tooltip"
-		      nsdict.Value( Cocoa.StringConstant( "NSToolTipAttributeName" )) = NSString( t(1))
-		      
-		    case "spacing"
-		      
-		    else
-		      
-		    end select
-		    
-		  next
-		  
-		  nsdict.Value( Cocoa.StringConstant( "NSParagraphStyleAttributeName" )) = NSParagraphStyle.Default
-		  
-		  
-		  return  nsdict
 		End Function
 	#tag EndMethod
 
