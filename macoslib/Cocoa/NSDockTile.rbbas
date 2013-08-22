@@ -1,6 +1,14 @@
 #tag Class
 Class NSDockTile
 Inherits NSObject
+	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  #if targetMacOS
+		    super.Constructor(Initialize(Allocate(Cocoa.NSClassFromString("NSDockTile"))))
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Display()
 		  //# Redraws the dock tile’s content.
@@ -40,6 +48,24 @@ Inherits NSObject
 			End Set
 		#tag EndSetter
 		BadgeLabel As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  //# Returns the tile’s current badge value.
+			  
+			  return Val( BadgeLabel )
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  //# Sets the value to be displayed in the tile’s badging area.
+			  
+			  BadgeLabel = str( value )
+			End Set
+		#tag EndSetter
+		BadgeValue As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
