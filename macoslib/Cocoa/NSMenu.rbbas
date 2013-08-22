@@ -64,6 +64,13 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function CocoaDelegateMap() As Dictionary
+		  static d as new Dictionary
+		  return d
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub Constructor(RSMenu as MenuItem)
 		  //This method is really basic and adapted only to local menus without submenus
@@ -94,6 +101,203 @@ Inherits NSObject
 		  #else
 		    #pragma unused title
 		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function DelegateClassID() As Ptr
+		  static p as Ptr = MakeDelegateClass
+		  return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub delegate_menuDidClose(id as Ptr, sel as Ptr, menu as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSMenu = NSMenu(w.Value)
+		    if obj <> nil then
+		      obj.HandleDidClose(new NSMenu(menu))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function delegate_menuHasKeyEquivalentForEventTargetAction(id as Ptr, sel as Ptr, menu as Ptr, theEvent as Ptr, target as Ptr, action as Ptr) As Boolean
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSMenu = NSMenu(w.Value)
+		    if obj <> nil then
+		      return obj.HandleHasKeyEquivalentForEventTargetAction(new NSMenu(menu), new NSEvent(theEvent), target, action)
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub delegate_menuNeedsUpdate(id as Ptr, sel as Ptr, menu as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSMenu = NSMenu(w.Value)
+		    if obj <> nil then
+		      obj.HandleNeedsUpdate(new NSMenu(menu))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub delegate_menuWillHighlightItem(id as Ptr, sel as Ptr, menu as Ptr, menuItem as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSMenu = NSMenu(w.Value)
+		    if obj <> nil then
+		      obj.HandleWillHighlightItem(new NSMenu(menu), new NSMenuItem(menuItem))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub delegate_menuWillOpen(id as Ptr, sel as Ptr, menu as Ptr)
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSMenu = NSMenu(w.Value)
+		    if obj <> nil then
+		      obj.HandleWillOpen(new NSMenu(menu))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function delegate_numberOfItemsInMenu(id as Ptr, sel as Ptr, menu as Ptr) As Integer
+		  #pragma unused sel
+		  
+		  #pragma stackOverflowChecking false
+		  
+		  if CocoaDelegateMap.HasKey(id) then
+		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
+		    dim obj as NSMenu = NSMenu(w.Value)
+		    if obj <> nil then
+		      return obj.HandleNumberOfItemsInMenu(new NSMenu(menu))
+		    else
+		      //something might be wrong.
+		    end if
+		  else
+		    //something might be wrong.
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function FPtr(p as Ptr) As Ptr
+		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
+		  //dim v as Variant = AddressOf Foo
+		  //dim p as Ptr = v
+		  //results in a TypeMismatchException
+		  //So now I do
+		  //dim v as Variant = FPtr(AddressOf Foo)
+		  //dim p as Ptr = v
+		  
+		  return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function GetDelegate() As Ptr
+		  #if targetCocoa
+		    declare function delegate_ lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
+		    
+		    return delegate_(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleDidClose(menu as NSMenu)
+		  
+		  if SelectedMenuItem <> nil then
+		    RaiseEvent MenuAction( menu, SelectedMenuItem )
+		    SelectedMenuItem = Nil
+		  end if
+		  
+		  RaiseEvent DidClose( menu )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function HandleHasKeyEquivalentForEventTargetAction(menu as NSMenu, theEvent as NSEvent, target as Ptr, action as Ptr) As Boolean
+		  return RaiseEvent HasKeyEquivalentForEventTargetAction( menu, theEvent, target, action )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleNeedsUpdate(menu as NSMenu)
+		  
+		  RaiseEvent NeedsUpdate( menu )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function HandleNumberOfItemsInMenu(menu as NSMenu) As Integer
+		  
+		  return RaiseEvent NumberOfItemsInMenu( menu )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleWillHighlightItem(Menu as NSMenu, Item as NSMenuItem)
+		  
+		  SelectedMenuItem = item
+		  RaiseEvent WillHighlightItem( menu, item )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleWillOpen(menu as NSMenu)
+		  RaiseEvent WillOpen( menu )
 		End Sub
 	#tag EndMethod
 
@@ -340,6 +544,59 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
+		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
+		  
+		  #if targetCocoa
+		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
+		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
+		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    
+		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
+		    if newClassId = nil then
+		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      raise new ObjCException
+		      return nil
+		    end if
+		    
+		    'DReport  CurrentMethodName, "executing"
+		    
+		    objc_registerClassPair newClassId
+		    
+		    dim methodList() as Tuple
+		    methodList.Append "menuHasKeyEquivalent:forEvent:target:action:" : FPtr( AddressOf delegate_menuHasKeyEquivalentForEventTargetAction ) : "B@:@@@@"
+		    'methodList.Append "confinementRectForMenu:onScreen:" : FPtr( AddressOf delegate_confinementRectForMenuOnScreen ) : "#@:@@"
+		    methodList.Append "menu:willHighlightItem:" : FPtr( AddressOf delegate_menuWillHighlightItem ) : "v@:@@"
+		    methodList.Append "menuWillOpen:" : FPtr( AddressOf delegate_menuWillOpen ) : "v@:@"
+		    methodList.Append "menuDidClose:" : FPtr( AddressOf delegate_menuDidClose ) : "v@:@"
+		    methodList.Append "numberOfItemsInMenu:" : FPtr( AddressOf delegate_numberOfItemsInMenu ) : "i@:@"
+		    methodList.Append "menuNeedsUpdate:" : FPtr( AddressOf delegate_menuNeedsUpdate ) : "v@:@"
+		    
+		    
+		    dim methodsAdded as Boolean = true
+		    for each item as Tuple in methodList
+		      if NOT class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2)) then
+		        Raise new ObjCException
+		      end if
+		    next
+		    
+		    if methodsAdded then
+		      return newClassId
+		    else
+		      dim e as new ObjCException
+		      e.Message = CurrentMethodName + ". Couldn't create delegate"
+		      raise  e
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused className
+		    #pragma unused superClassName
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub PerformActionForItemAtIndex(index as Integer)
 		  
@@ -458,6 +715,24 @@ Inherits NSObject
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub SetDelegate()
+		  #if targetCocoa
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    declare function init lib CocoaLib selector "init" (obj_id as Ptr) as Ptr
+		    declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, del_id as Ptr)
+		    
+		    
+		    dim delegate_id as Ptr = init(alloc(DelegateClassID))
+		    if delegate_id = nil then
+		      return
+		    end if
+		    setDelegate self, delegate_id
+		    CocoaDelegateMap.Value(delegate_id) = new WeakRef(self)
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub SetSubmenu(aMenu as NSMenu, anItem as NSMenuItem)
 		  
@@ -529,6 +804,35 @@ Inherits NSObject
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event DidClose(menu as NSMenu)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event HasKeyEquivalentForEventTargetAction(menu as NSMenu, theEvent as NSEvent, target as Ptr, action as Ptr) As Boolean
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event MenuAction(menu as NSMenu, hitItem as NSMenuItem)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NeedsUpdate(menu as NSMenu)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event NumberOfItemsInMenu(menu as NSMenu) As Integer
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event WillHighlightItem(Menu as NSMenu, Item as NSMenuItem)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event WillOpen(menu as NSMenu)
+	#tag EndHook
 
 
 	#tag ComputedProperty, Flags = &h0
@@ -773,6 +1077,10 @@ Inherits NSObject
 		MinimumWidth As Single
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21
+		Private SelectedMenuItem As NSMenuItem
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -872,6 +1180,10 @@ Inherits NSObject
 		#tag EndSetter
 		Title As String
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibNSMenuItem", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior
