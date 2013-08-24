@@ -56,6 +56,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSAlert() As Boolean Handles CocoaNSAlert.Action
+			NSAlertExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSByteCountFormatter() As Boolean Handles CocoaNSByteCountFormatter.Action
 			NSByteCountFormatterExample.Show
 			Return True
@@ -117,6 +125,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSPopover() As Boolean Handles CocoaNSPopover.Action
+			NSPopoverExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSPrinter() As Boolean Handles CocoaNSPrinter.Action
 			NSPrinterExampleWindow.Show
 			return true
@@ -134,6 +150,14 @@ Inherits Application
 		Function CocoaNSSearchField() As Boolean Handles CocoaNSSearchField.Action
 			NSSearchFieldExample.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSSharingServicePicker() As Boolean Handles CocoaNSSharingServicePicker.Action
+			NSSharingServiceExample.Show
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 

@@ -148,7 +148,7 @@ Protected Module PushButtonExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Image(extends p as PushButton) As Picture
+		Function Image(extends p as PushButton) As NSImage
 		  // Returns the image that appears on the pushbutton when it’s in its normal state.
 		  
 		  #if TargetCocoa then
@@ -163,7 +163,7 @@ Protected Module PushButtonExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Image(extends p as PushButton, Assigns image as Picture)
+		Sub Image(extends p as PushButton, Assigns image as NSImage)
 		  //# Sets the button's image and redraws the button.
 		  
 		  #if TargetCocoa then
@@ -205,6 +205,13 @@ Protected Module PushButtonExtension
 		    #pragma Unused value
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NSButtonObject(extends p as PushButton) As NSButton
+		  
+		  return New NSButton( Ptr( p.Handle ) )
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

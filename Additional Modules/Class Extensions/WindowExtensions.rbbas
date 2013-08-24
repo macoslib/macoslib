@@ -601,6 +601,13 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function NSWindowObject(extends w as Window) As NSWindow
+		  
+		  return New NSWindow( w )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub OrderBack(extends w as Window)
 		  //# Moves the window to the back
 		  
@@ -853,7 +860,7 @@ Protected Module WindowExtensions
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 8 // Expand All Sides (<^v>)
+		    case 8 // Resize all sides (<^v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
@@ -862,10 +869,7 @@ Protected Module WindowExtensions
 		      
 		    end select
 		    
-		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height )
-		    if ( w.Height <> NewRect.h ) then
-		      NewRect.y = NewRect.y - ( NewRect.h - w.Height )
-		    end if
+		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height ) - ( NewRect.h - w.Height )
 		    NewRect.h = NewRect.h + 22 // Account for titlebar
 		    
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (WindowRef as WindowPtr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)

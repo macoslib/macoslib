@@ -141,6 +141,7 @@ Begin Window NSDockTileExample
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Badge Value"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -153,7 +154,7 @@ Begin Window NSDockTileExample
       Visible         =   True
       Width           =   175
    End
-   Begin PushButton btnSetText1
+   Begin PushButton btnHide
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
@@ -252,7 +253,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnSetText1
+#tag Events btnHide
 	#tag Event
 		Sub Action()
 		  'nsd.ShowsApplicationBadge = false

@@ -15,7 +15,7 @@ Inherits Canvas
 		  end if
 		  
 		  #if targetCocoa
-		    declare sub release lib CocoaFramework selector "release" (id as Ptr)
+		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
 		    if me.targetID <> nil then
 		      release me.targetID
@@ -62,9 +62,9 @@ Inherits Canvas
 		    end if
 		    
 		    
-		    declare sub addSubview lib CocoaFramework selector "addSubview:" (id as Ptr, aView as Ptr)
-		    declare sub setAutoresizingMask lib CocoaFramework selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
-		    declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
+		    declare sub addSubview lib CocoaLib selector "addSubview:" (id as Ptr, aView as Ptr)
+		    declare sub setAutoresizingMask lib CocoaLib selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
+		    declare sub setFrame lib CocoaLib selector "setFrame:" (id as Ptr, frameRect as NSRect)
 		    
 		    const NSViewWidthSizable = 2
 		    const NSViewHeightSizable = 16
@@ -86,13 +86,13 @@ Inherits Canvas
 		    
 		    
 		    //here we set up an Objective-C delegate to be the target of the NSControl action.
-		    declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
+		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
 		    
 		    self.TargetID = init(Allocate(TargetClass))
 		    
-		    declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
-		    declare sub setAction lib CocoaFramework selector "setAction:" (id as Ptr, aSelector as Ptr)
-		    declare sub setTarget lib CocoaFramework selector "setTarget:" (id as Ptr, anObject as Ptr)
+		    declare function NSSelectorFromString lib CocoaLib (aSelectorName as CFStringRef) as Ptr
+		    declare sub setAction lib CocoaLib selector "setAction:" (id as Ptr, aSelector as Ptr)
+		    declare sub setTarget lib CocoaLib selector "setTarget:" (id as Ptr, anObject as Ptr)
 		    
 		    setAction self.id, NSSelectorFromString("action:")
 		    setTarget self.id, self.TargetID
@@ -114,8 +114,8 @@ Inherits Canvas
 		  // handle enabling and disabling control
 		  
 		  #if targetCocoa
-		    declare function isEnabled Lib CocoaFramework selector "isEnabled" (id as Ptr) as Boolean
-		    declare sub setEnabled Lib CocoaFramework selector "setEnabled:" (id as Ptr, flag as Boolean)
+		    declare function isEnabled Lib CocoaLib selector "isEnabled" (id as Ptr) as Boolean
+		    declare sub setEnabled Lib CocoaLib selector "setEnabled:" (id as Ptr, flag as Boolean)
 		    
 		    if self.enabled <> isEnabled(self.id) then
 		      setEnabled(self.id, self.enabled)
@@ -138,8 +138,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Function AddInstanceMethod(class_id as Ptr, name as String, impl as Ptr, types as String) As Boolean
 		  #if targetMacOS
-		    declare function class_addMethod lib CocoaFramework (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
+		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    declare function NSSelectorFromString lib CocoaLib (aSelectorName as CFStringRef) as Ptr
 		    
 		    return class_addMethod(class_id, NSSelectorFromString(name), impl, types)
 		  #endif
@@ -153,7 +153,7 @@ Inherits Canvas
 		      return nil
 		    end if
 		    
-		    declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
+		    declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
 		    
 		    return alloc(class_id)
 		    
@@ -166,8 +166,8 @@ Inherits Canvas
 	#tag Method, Flags = &h21
 		Private Shared Function Allocate(NSClassName as String) As Ptr
 		  #if targetCocoa
-		    declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
-		    declare function alloc lib CocoaFramework selector "alloc" (classRef as Ptr) as Ptr
+		    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+		    declare function alloc lib CocoaLib selector "alloc" (classRef as Ptr) as Ptr
 		    
 		    dim class_id as Ptr = NSClassFromString(NSClassName)
 		    if class_id <> nil then
@@ -183,17 +183,68 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub CalcSize()
+		  
+		  #if TargetMacOS then
+		    declare sub calcSize lib CocoaLib selector "calcSize" (obj_id as Ptr)
+		    
+		    calcSize self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Cell() As Ptr
+		  
 		  #if targetCocoa
 		    if me.id = nil then
 		      return nil
 		    end if
 		    
-		    declare function cell lib CocoaFramework selector "cell" (id as Ptr) as Ptr
+		    declare function cell lib CocoaLib selector "cell" (id as Ptr) as Ptr
 		    
 		    return cell(me.id)
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(left as integer, top as integer, width as integer, height as integer)
+		  
+		  #if TargetMacOS then
+		    declare function initWithFrame lib CocoaLib selector "initWithFrame:" (obj_id as Ptr, frameRect as Cocoa.NSRect) as Ptr
+		    
+		    dim frameRect as Cocoa.NSRect
+		    frameRect.x = left
+		    frameRect.y = top
+		    frameRect.w = width
+		    frameRect.h = height
+		    
+		    self.m_id = initWithFrame( Allocate(Cocoa.NSClassFromString(self.NSClassName)), frameRect )
+		  #else
+		    #pragma Unused left
+		    #pragma Unused top
+		    #pragma Unused width
+		    #pragma Unused height
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false)
+		  
+		  'if checkForClass<>"" then
+		  'if NOT Cocoa.InheritsFromClass( obj_id, checkForClass ) then
+		  'raise new macoslibException( "The passed pointer does not match the wanted class """ + checkForClass + """" )
+		  'end if
+		  'end if
+		  
+		  self.m_id = obj_id
+		  
+		  if not hasOwnership then
+		    call self.Retain
+		  end if
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -220,32 +271,27 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function DoubleValue() As Double
-		  #if targetCocoa
-		    if me.id = nil then
-		      return 0.0
-		    end if
-		    
-		    declare function doubleValue lib CocoaFramework selector "doubleValue" (id as Ptr) as Double
-		    
-		    return doubleValue(me.id)
-		  #endif
+		Sub DrawCell(aCell as NSCell)
 		  
-		End Function
+		  #if TargetMacOS then
+		    declare sub drawCell lib CocoaLib selector "drawCell:" (obj_id as Ptr, aCell as Ptr)
+		    
+		    drawCell self, aCell
+		  #else
+		    #pragma Unused aCell
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub DoubleValue(assigns value as Double)
-		  #if targetCocoa
-		    if me.id = nil then
-		      return
-		    end if
+		Sub DrawCellInside(aCell as NSCell)
+		  
+		  #if TargetMacOS then
+		    declare sub drawCellInside lib CocoaLib selector "drawCellInside:" (obj_id as Ptr, aCell as Ptr)
 		    
-		    declare sub setDoubleValue lib CocoaFramework selector "setDoubleValue:"  (id as Ptr, aDouble as Double)
-		    
-		    setDoubleValue me.id, value
+		    drawCellInside self, aCell
 		  #else
-		    #pragma unused value
+		    #pragma Unused aCell
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -254,49 +300,6 @@ Inherits Canvas
 		 Shared Function FindByID(obj_id as Ptr) As NSControl
 		  return ControlMap.Lookup(obj_id, nil)
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Font() As NSFont
-		  #if TargetMacOS
-		    declare function getFont lib CocoaLib selector "font" (id as Ptr) as Ptr
-		    
-		    return  new NSFont( getFont( me.id ), false )
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Frame() As NSRect
-		  #if targetCocoa
-		    if me.id = nil then
-		      dim r as NSRect
-		      return r
-		    end if
-		    
-		    
-		    declare function frame lib CocoaFramework selector "frame" (id as Ptr) as NSRect
-		    
-		    return frame(me.id)
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Frame(assigns value as NSRect)
-		  #if targetCocoa
-		    if me.id = nil then
-		      return
-		    end if
-		    
-		    declare sub setFrame lib CocoaFramework selector "setFrame:" (id as Ptr, frameRect as NSRect)
-		    
-		    setFrame me.id, value
-		    
-		  #else
-		    #pragma unused value
-		  #endif
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -315,7 +318,7 @@ Inherits Canvas
 		    //if the Initialize event handler is unimplemented, as may often be the case, it will return nil (actually, it's not invoked).
 		    dim obj_id as Ptr = raiseEvent Initialize(newobj_id)
 		    if obj_id = nil then
-		      declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
+		      declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
 		      
 		      obj_id = init(newobj_id)
 		    end if
@@ -362,8 +365,8 @@ Inherits Canvas
 		  
 		  
 		  #if targetCocoa
-		    declare function NSClassFromString lib CocoaFramework (aClassName as CFStringRef) as Ptr
-		    declare function objc_allocateClassPair lib CocoaFramework (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
+		    declare function NSClassFromString lib CocoaLib (aClassName as CFStringRef) as Ptr
+		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
 		    
 		    dim newClassId as Ptr = objc_allocateClassPair(NSClassFromString(superclassName), className, 0)
 		    if newClassId = nil then
@@ -371,7 +374,7 @@ Inherits Canvas
 		      return nil
 		    end if
 		    
-		    declare sub objc_registerClassPair lib CocoaFramework (cls as Ptr)
+		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    
 		    objc_registerClassPair newClassId
 		    const MethodTypeEncoding = "v@:@"
@@ -387,6 +390,21 @@ Inherits Canvas
 		    #pragma unused superClassName
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub NeedsDisplay()
+		  
+		  #if TargetMacOS then
+		    if me.id = nil then
+		      return
+		    end if
+		    
+		    declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay" (obj_id as Ptr)
+		    
+		    setNeedsDisplay self
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -417,30 +435,51 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function StringValue() As String
-		  #if targetCocoa
-		    if me.id <> nil then
-		      declare function stringValue lib CocoaFramework selector "stringValue" (id as Ptr) as Ptr
-		      
-		      
-		      return new CFString(stringValue(me.id), not CFString.hasOwnership)
+		Sub Release()
+		  #if TargetMacOS
+		    declare sub release lib CocoaLib selector "release" (id as Ptr)
+		    
+		    release self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Retain() As NSControl
+		  #if TargetMacOS
+		    declare function retain lib CocoaLib selector "retain" (id as Ptr) as Ptr
+		    
+		    if self.id <> nil then
+		      dim p as Ptr = retain(self.id)
+		      #pragma unused p
+		      return self
 		    else
-		      return ""
+		      return nil
 		    end if
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub StringValue(assigns value as String)
-		  #if targetCocoa
-		    declare sub setStringValue lib CocoaLib selector "setStringValue:" (obj_id as Ptr, value as CFStringRef)
+		Sub SelectCell(aCell as NSCell)
+		  
+		  #if TargetMacOS then
+		    declare sub selectCell lib CocoaLib selector "selectCell:" (obj_id as Ptr, aCell as Ptr)
 		    
-		    setStringValue(self, value)
-		    
+		    selectCell self, aCell
 		  #else
-		    #pragma unused value
+		    #pragma Unused aCell
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SizeToFit()
+		  
+		  #if TargetMacOS then
+		    declare sub sizeToFit lib CocoaLib selector "sizeToFit" (obj_id as Ptr)
+		    
+		    sizeToFit self
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -457,6 +496,32 @@ Inherits Canvas
 		  static d as new Dictionary
 		  return d
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UpdateCell(aCell as NSCell)
+		  
+		  #if TargetMacOS then
+		    declare sub updateCell lib CocoaLib selector "updateCell:" (obj_id as Ptr, aCell as Ptr)
+		    
+		    updateCell self, aCell
+		  #else
+		    #pragma Unused aCell
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UpdateCellInside(aCell as NSCell)
+		  
+		  #if TargetMacOS then
+		    declare sub updateCellInside lib CocoaLib selector "updateCellInside:" (obj_id as Ptr, aCell as Ptr)
+		    
+		    updateCellInside self, aCell
+		  #else
+		    #pragma Unused aCell
+		  #endif
+		End Sub
 	#tag EndMethod
 
 
@@ -492,6 +557,111 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
+			  #if TargetCocoa
+			    if me.id <> nil then
+			      declare function getAlignment lib CocoaLib selector "alignment" (id as Ptr) as NSTextAlignment
+			      
+			      return getAlignment(me.id)
+			    else
+			      return NSTextAlignment.Natural
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setAlignment lib CocoaLib selector "setAlignment:" (obj_id as Ptr, value as NSTextAlignment)
+			    
+			    setAlignment self, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Alignment As NSTextAlignment
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    if me.id <> nil then
+			      declare function getAllowsExpansionToolTips lib CocoaLib selector "allowsExpansionToolTips" (id as Ptr) as Boolean
+			      
+			      return getAllowsExpansionToolTips(me.id)
+			    else
+			      return False
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setAllowsExpansionToolTips lib CocoaLib selector "setAllowsExpansionToolTips:" (obj_id as Ptr, value as Boolean)
+			    
+			    setAllowsExpansionToolTips self, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		AllowsExpansionToolTips As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    if me.id <> nil then
+			      declare function getAttributedStringValue lib CocoaLib selector "attributedStringValue" (id as Ptr) as Ptr
+			      
+			      return new NSAttributedString( getAttributedStringValue(me.id) )
+			    else
+			      return New NSAttributedString( "" )
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setAttributedStringValue lib CocoaLib selector "setAttributedStringValue:" (obj_id as Ptr, value as Ptr)
+			    
+			    setAttributedStringValue(self, value)
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		AttributedStringValue As NSAttributedString
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetCocoa
 			    declare function autoresizesSubviews lib CocoaLib selector "autoresizesSubviews" (obj_id as Ptr) as Boolean
 			    
@@ -508,6 +678,41 @@ Inherits Canvas
 		Bold As Boolean = false
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      dim r as NSRect
+			      return r
+			    end if
+			    
+			    declare function getBounds lib CocoaLib selector "bounds" (obj_id as Ptr) as Cocoa.NSRect
+			    
+			    return getBounds( me.id )
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setBounds lib CocoaLib selector "setBounds:" (id as Ptr, frameRect as Cocoa.NSRect)
+			    
+			    setBounds me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Bounds As Cocoa.NSRect
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
@@ -515,6 +720,188 @@ Inherits Canvas
 			End Get
 		#tag EndGetter
 		Private debugFrame As NSRect
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa then
+			    if self.id <> nil then
+			      declare function getDescription lib CocoaLib selector "description" (obj_id as Ptr) as CFStringRef
+			      
+			      return getDescription( self )
+			    else
+			      return ""
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		Description As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetCocoa
+			    if me.id = nil then
+			      return 0.0
+			    end if
+			    
+			    declare function doubleValue lib CocoaLib selector "doubleValue" (id as Ptr) as Double
+			    
+			    return doubleValue(me.id)
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setDoubleValue lib CocoaLib selector "setDoubleValue:"  (id as Ptr, aDouble as Double)
+			    
+			    setDoubleValue me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		DoubleValue As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    if me.id <> nil then
+			      declare function getFloatValue lib CocoaLib selector "floatValue" (id as Ptr) as Single
+			      
+			      
+			      return getFloatValue(me.id)
+			    else
+			      return 0.0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setFloatValue lib CocoaLib selector "setFloatValue:"  (id as Ptr, aFloat as Single)
+			    
+			    setFloatValue me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		FloatValue As Single
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    declare function getFont lib CocoaLib selector "font" (id as Ptr) as Ptr
+			    
+			    return new NSFont( getFont( me.id ) )
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setFont lib CocoaLib selector "setFont:" (id as Ptr, fontObject as Ptr)
+			    
+			    setFont me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Font As NSFont
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    declare function getFormatter lib CocoaLib selector "formatter" (id as Ptr) as Ptr
+			    
+			    return new NSFormatter( getFormatter( me.id ) )
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setFormatter lib CocoaLib selector "setFormatter:" (id as Ptr, newFormatter as Ptr)
+			    
+			    setFormatter me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Formatter As NSFormatter
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetCocoa
+			    if me.id <> nil then
+			      declare function frame lib CocoaLib selector "frame" (id as Ptr) as NSRect
+			      
+			      return frame(me.id)
+			    else
+			      dim r as NSRect
+			      return r
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setFrame lib CocoaLib selector "setFrame:" (id as Ptr, frameRect as NSRect)
+			    
+			    setFrame me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Frame As Cocoa.NSRect
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -529,8 +916,43 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
+			  #if TargetCocoa
+			    if me.id <> nil then
+			      declare function getIntegerValue lib CocoaLib selector "integerValue" (id as Ptr) as Integer
+			      
+			      
+			      return getIntegerValue(me.id)
+			    else
+			      return -1
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetMacOS
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setIntegerValue lib CocoaLib selector "setIntegerValue:"  (id as Ptr, anInteger as integer)
+			    
+			    setIntegerValue me.id, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		IntegerValue As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetCocoa
-			    declare function isFlipped lib CocoaFramework selector "isFlipped" (id as Ptr) as Boolean
+			    declare function isFlipped lib CocoaLib selector "isFlipped" (id as Ptr) as Boolean
 			    
 			    return isFlipped(self)
 			  #endif
@@ -546,6 +968,73 @@ Inherits Canvas
 	#tag Property, Flags = &h21
 		Attributes( Hidden = true ) Private m_id As Ptr
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetMacOS then
+			    if me.id <> Nil then
+			      return New NSObject( me.id )
+			    end if
+			  #endif
+			  
+			  '#if TargetMacOS
+			  'if me.id <> nil then
+			  'declare function getObjectValue lib CocoaLib selector "objectValue" (id as Ptr) as Ptr
+			  '
+			  '
+			  'return New NSObject( getObjectValue(me.id) )
+			  'else
+			  'return Nil
+			  'end if
+			  '#endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  if value <> nil and value.id <> nil then
+			    self.m_id = value.id
+			  end if
+			End Set
+		#tag EndSetter
+		ObjectValue As NSObject
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetCocoa
+			    if me.id <> nil then
+			      declare function stringValue lib CocoaLib selector "stringValue" (id as Ptr) as Ptr
+			      
+			      return new CFString(stringValue(me.id), not CFString.hasOwnership)
+			    else
+			      return ""
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if targetCocoa
+			    if me.id = nil then
+			      return
+			    end if
+			    
+			    declare sub setStringValue lib CocoaLib selector "setStringValue:" (obj_id as Ptr, value as CFStringRef)
+			    
+			    setStringValue self, value
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		StringValue As String
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private TargetID As Ptr
@@ -563,12 +1052,38 @@ Inherits Canvas
 		Underlined As Boolean = false
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa then
+			    if self.id <> nil then
+			      return New NSView( self )
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		View As NSView
+	#tag EndComputedProperty
 
-	#tag Constant, Name = CocoaFramework, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Private
-	#tag EndConstant
 
 	#tag Constant, Name = NSControlTarget, Type = String, Dynamic = False, Default = \"NSControlTarget", Scope = Private
 	#tag EndConstant
+
+
+	#tag Enum, Name = NSTextAlignment, Type = Integer, Flags = &h0
+		Left
+		  Right
+		  Center
+		  Justified
+		Natural
+	#tag EndEnum
+
+	#tag Enum, Name = NSWritingDirection, Type = Integer, Flags = &h0
+		Natural = -1
+		  LeftToRight = 0
+		RightToLeft = 1
+	#tag EndEnum
 
 
 	#tag ViewBehavior
@@ -584,6 +1099,11 @@ Inherits Canvas
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsExpansionToolTips"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoDeactivate"
@@ -614,10 +1134,21 @@ Inherits Canvas
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -632,6 +1163,11 @@ Inherits Canvas
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FloatValue"
+			Group="Behavior"
+			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -661,6 +1197,11 @@ Inherits Canvas
 			Name="InitialParent"
 			Group="Initial State"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
@@ -714,6 +1255,12 @@ Inherits Canvas
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

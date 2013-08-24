@@ -488,7 +488,11 @@ Inherits NSControl
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return self.GetValue(AddressOf self.DoubleValue, self.initialvalue)
+			  If self.id <> nil then
+			    return self.DoubleValue
+			  else
+			    return self.initialvalue
+			  End If
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -538,6 +542,12 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="AllowsExpansionToolTips"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AllowsTickMarkValuesOnly"
 			Visible=true
 			Group="Behavior"
@@ -579,10 +589,22 @@ Inherits NSControl
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -597,6 +619,12 @@ Inherits NSControl
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FloatValue"
+			Group="Behavior"
+			Type="Single"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -626,6 +654,12 @@ Inherits NSControl
 			Name="InitialParent"
 			Group="Initial State"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
@@ -715,6 +749,12 @@ Inherits NSControl
 				"1 - Small"
 				"2 - Mini"
 			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

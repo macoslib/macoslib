@@ -367,7 +367,7 @@ Begin Window SystemIconsExampleWindow
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      MacControlStyle =   5
+      MacControlStyle =   6
       Scope           =   0
       Segments        =   "\n\nFalse\r\n\nFalse"
       SelectionType   =   2
@@ -658,11 +658,42 @@ Begin Window SystemIconsExampleWindow
       Visible         =   True
       Width           =   400
    End
+   Begin PushButton PB1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   ""
+      Default         =   ""
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   526
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   136
+      Underline       =   ""
+      Visible         =   True
+      Width           =   30
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Constant, Name = kListboxContent, Type = String, Dynamic = False, Default = \"QuickLookTemplate:NSImageNameQuickLookTemplate:16:12\rBluetoothTemplate:NSImageNameBluetoothTemplate\rIChatTheaterTemplate:NSImageNameIChatTheaterTemplate\rSlideshowTemplate:NSImageNameSlideshowTemplate\rActionTemplate:NSImageNameActionTemplate\rSmartBadgeTemplate:NSImageNameSmartBadgeTemplate\rPathTemplate:NSImageNamePathTemplate\rInvalidDataFreestandingTemplate:NSImageNameInvalidDataFreestandingTemplate\rLockLockedTemplate:NSImageNameLockLockedTemplate\rLockUnlockedTemplate:NSImageNameLockUnlockedTemplate\rGoRightTemplate:NSImageNameGoRightTemplate\rGoLeftTemplate:NSImageNameGoLeftTemplate\rRightFacingTriangleTemplate:NSImageNameRightFacingTriangleTemplate\rLeftFacingTriangleTemplate:NSImageNameLeftFacingTriangleTemplate\rAddTemplate:NSImageNameAddTemplate\rRemoveTemplate:NSImageNameRemoveTemplate\rRevealFreestandingTemplate:NSImageNameRevealFreestandingTemplate\rFollowLinkFreestandingTemplate:NSImageNameFollowLinkFreestandingTemplate:14:14\rEnterFullScreenTemplate:NSImageNameEnterFullScreenTemplate\rExitFullScreenTemplate:NSImageNameExitFullScreenTemplate\rStopProgressTemplate:NSImageNameStopProgressTemplate\rStopProgressFreestandingTemplate:NSImageNameStopProgressFreestandingTemplate:14:14\rRefreshTemplate:NSImageNameRefreshTemplate\rRefreshFreestandingTemplate:NSImageNameRefreshFreestandingTemplate\rFolder:NSImageNameFolder\rTrashEmpty:NSImageNameTrashEmpty\rTrashFull:NSImageNameTrashFull\rHomeTemplate:NSImageNameHomeTemplate\rBookmarksTemplate:NSImageNameBookmarksTemplate:16:12\rCaution:NSImageNameCaution\rStatusAvailable:NSImageNameStatusAvailable\rStatusPartiallyAvailable:NSImageNameStatusPartiallyAvailable\rStatusUnavailable:NSImageNameStatusUnavailable\rStatusNone:NSImageNameStatusNone\rApplicationIcon:NSImageNameApplicationIcon\rMenuOnStateTemplate:NSImageNameMenuOnStateTemplate\rMenuMixedStateTemplate:NSImageNameMenuMixedStateTemplate\rUserGuest:NSImageNameUserGuest\rMobileMe:NSImageNameMobileMe\rMultipleDocuments:NSImageNameMultipleDocuments\rUser:NSImageNameUser\rUserGroup:NSImageNameUserGroup\rEveryone:NSImageNameEveryone\rBonjour:NSImageNameBonjour\rDotMac:NSImageNameDotMac\rComputer:NSImageNameComputer\rFolderBurnable:NSImageNameFolderBurnable\rFolderSmart:NSImageNameFolderSmart\rNetwork:NSImageNameNetwork\rUserAccounts:NSImageNameUserAccounts\rPreferencesGeneral:NSImageNamePreferencesGeneral\rAdvanced:NSImageNameAdvanced\rInfo:NSImageNameInfo\rFontPanel:NSImageNameFontPanel\rColorPanel:NSImageNameColorPanel\rIconViewTemplate:NSImageNameIconViewTemplate\rListViewTemplate:NSImageNameListViewTemplate\rColumnViewTemplate:NSImageNameColumnViewTemplate\rFlowViewTemplate:NSImageNameFlowViewTemplate", Scope = Public
+	#tag Constant, Name = kListboxContent, Type = String, Dynamic = False, Default = \"QuickLookTemplate:NSImageNameQuickLookTemplate:16:12\rBluetoothTemplate:NSImageNameBluetoothTemplate\rIChatTheaterTemplate:NSImageNameIChatTheaterTemplate\rSlideshowTemplate:NSImageNameSlideshowTemplate\rActionTemplate:NSImageNameActionTemplate\rSmartBadgeTemplate:NSImageNameSmartBadgeTemplate\rPathTemplate:NSImageNamePathTemplate\rInvalidDataFreestandingTemplate:NSImageNameInvalidDataFreestandingTemplate\rLockLockedTemplate:NSImageNameLockLockedTemplate\rLockUnlockedTemplate:NSImageNameLockUnlockedTemplate\rGoRightTemplate:NSImageNameGoRightTemplate\rGoLeftTemplate:NSImageNameGoLeftTemplate\rRightFacingTriangleTemplate:NSImageNameRightFacingTriangleTemplate\rLeftFacingTriangleTemplate:NSImageNameLeftFacingTriangleTemplate\rAddTemplate:NSImageNameAddTemplate\rRemoveTemplate:NSImageNameRemoveTemplate\rRevealFreestandingTemplate:NSImageNameRevealFreestandingTemplate\rFollowLinkFreestandingTemplate:NSImageNameFollowLinkFreestandingTemplate:14:14\rEnterFullScreenTemplate:NSImageNameEnterFullScreenTemplate\rExitFullScreenTemplate:NSImageNameExitFullScreenTemplate\rStopProgressTemplate:NSImageNameStopProgressTemplate\rStopProgressFreestandingTemplate:NSImageNameStopProgressFreestandingTemplate:14:14\rRefreshTemplate:NSImageNameRefreshTemplate\rRefreshFreestandingTemplate:NSImageNameRefreshFreestandingTemplate\rFolder:NSImageNameFolder\rTrashEmpty:NSImageNameTrashEmpty\rTrashFull:NSImageNameTrashFull\rHomeTemplate:NSImageNameHomeTemplate\rBookmarksTemplate:NSImageNameBookmarksTemplate:16:12\rCaution:NSImageNameCaution\rStatusAvailable:NSImageNameStatusAvailable\rStatusPartiallyAvailable:NSImageNameStatusPartiallyAvailable\rStatusUnavailable:NSImageNameStatusUnavailable\rStatusNone:NSImageNameStatusNone\rApplicationIcon:NSImageNameApplicationIcon\rMenuOnStateTemplate:NSImageNameMenuOnStateTemplate\rMenuMixedStateTemplate:NSImageNameMenuMixedStateTemplate\rUserGuest:NSImageNameUserGuest\rMobileMe:NSImageNameMobileMe\rMultipleDocuments:NSImageNameMultipleDocuments\rUser:NSImageNameUser\rUserGroup:NSImageNameUserGroup\rEveryone:NSImageNameEveryone\rBonjour:NSImageNameBonjour\rDotMac:NSImageNameDotMac\rComputer:NSImageNameComputer\rFolderBurnable:NSImageNameFolderBurnable\rFolderSmart:NSImageNameFolderSmart\rNetwork:NSImageNameNetwork\rUserAccounts:NSImageNameUserAccounts\rPreferencesGeneral:NSImageNamePreferencesGeneral\rAdvanced:NSImageNameAdvanced\rInfo:NSImageNameInfo\rFontPanel:NSImageNameFontPanel\rColorPanel:NSImageNameColorPanel\rIconViewTemplate:NSImageNameIconViewTemplate\rListViewTemplate:NSImageNameListViewTemplate\rColumnViewTemplate:NSImageNameColumnViewTemplate\rFlowViewTemplate:NSImageNameFlowViewTemplate\rShareTemplate:NSImageNameShareTemplate", Scope = Public
 	#tag EndConstant
 
 
@@ -733,6 +764,10 @@ End
 		    
 		    BB1.Icon = pict
 		    BB1.Invalidate
+		    
+		    PB1.Image = Pict
+		    PB1.Image.Template = me.Cell( me.ListIndex, 0 ).Contains( "Template" )
+		    PB1.Invalidate
 		  end if
 		  
 		  CVS1.Invalidate
@@ -849,8 +884,9 @@ End
 	#tag Event
 		Sub Open()
 		  me.Items( 0 ).Icon = SystemIcons.AddTemplate
+		  me.ImageForSegment( 0 ).Template = True
 		  me.Items( 1 ).Icon = SystemIcons.RemoveTemplate
-		  
+		  me.ImageForSegment( 1 ).Template = True
 		  
 		End Sub
 	#tag EndEvent
@@ -866,6 +902,13 @@ End
 		    #pragma unused areas
 		  #endif
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PB1
+	#tag Event
+		Sub Open()
+		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -606,6 +606,18 @@ Protected Module SystemIcons
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function ShareTemplate(proposedWidth as double = 0.0, proposedHeight as double = 0.0) As Picture
+		  //# Returns a Picture corresponding to the Cocoa name NSImageNameRemoveTemplate. As icons are stored with different sizes/resolutions, the result depends on the proposed dimensions.
+		  
+		  //@ If you pass two null dimensions, the full size icon is returned.
+		  //@ If you pass one non-null dimension, the other dimension is be computed to respect aspect ratio
+		  //@ If you pass two non-null dimensions, the resulting icon may be stretched horizontally or vertically
+		  
+		  return  GetPictureFromName( "NSImageNameShareTemplate", proposedWidth, proposedHeight )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function SlideshowTemplate(proposedWidth as double = 0.0, proposedHeight as double = 0.0) As Picture
 		  //# Returns a Picture corresponding to the Cocoa name NSImageNameSlideshowTemplate. As icons are stored with different sizes/resolutions, the result depends on the proposed dimensions.
 		  
