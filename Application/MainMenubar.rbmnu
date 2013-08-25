@@ -1062,6 +1062,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSStatusItem
+            SpecialMenu = 0
+            Text = "NSStatusItem"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSUserNotifications
             SpecialMenu = 0
             Text = "NSUserNotifications"
@@ -1119,12 +1125,6 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaNSRunningApplication
             SpecialMenu = 0
             Text = "NSRunningApplication"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSStatusItem
-            SpecialMenu = 0
-            Text = "NSStatusItem"
             Index = -2147483648
             AutoEnable = True
          End
