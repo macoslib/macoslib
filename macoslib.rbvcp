@@ -608,6 +608,7 @@ Class=CustomAlert;Examples/CustomAlert.rbbas;&h4E6B46C2;&h4BD59C08;false
 Window=NSSharingServiceExample;Examples/NSSharingServiceExample.rbfrm;&h3D136FA1;&h4BD59C08;false
 Window=NSPopoverExample;Examples/NSPopoverExample.rbfrm;&h1EDD4C6A;&h4BD59C08;false
 Window=NSPopoverDetachedWindow;Examples/NSPopoverDetachedWindow.rbfrm;&h199C6AB8;&h4BD59C08;false
+Window=NSStatusItemWindow;Examples/NSStatusItemWindow.rbfrm;&h3412F0A2;&h4BD59C08;false
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0

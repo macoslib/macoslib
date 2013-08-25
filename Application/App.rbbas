@@ -162,6 +162,16 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSStatusItem() As Boolean Handles CocoaNSStatusItem.Action
+			
+			NSStatusItemWindow.show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSTableView() As Boolean Handles CocoaNSTableView.Action
 			NSTableViewExample.Show
 			return true
