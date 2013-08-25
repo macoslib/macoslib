@@ -234,21 +234,21 @@ Protected Module SegmentedControlExtension
 
 
 	#tag Enum, Name = NSImageScaling, Flags = &h0
-		NSImageScaleProportionallyDown
-		  NSImageScaleAxesIndependently
-		  NSImageScaleNone
-		NSImageScaleProportionallyUpOrDown
+		ProportionallyDown
+		  AxesIndependently
+		  None
+		ProportionallyUpOrDown
 	#tag EndEnum
 
 	#tag Enum, Name = NSSegmentStyle, Flags = &h0
-		NSSegmentStyleAutomatic = 0
-		  NSSegmentStyleRounded
-		  NSSegmentStyleTexturedRounded
-		  NSSegmentStyleRoundRect
-		  NSSegmentStyleTexturedSquare
-		  NSSegmentStyleCapsule
-		  NSSegmentStyleSmallSquare
-		NSSegmentStyleSlider
+		Automatic = 0
+		  Rounded
+		  TexturedRounded
+		  RoundRect
+		  TexturedSquare
+		  Capsule
+		  SmallSquare
+		Slider
 	#tag EndEnum
 
 

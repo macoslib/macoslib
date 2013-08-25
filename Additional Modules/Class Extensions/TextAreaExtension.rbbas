@@ -968,7 +968,7 @@ Protected Module TextAreaExtension
 		    
 		    // Reset the color when typing in the field
 		    dim dict as new NSMutableDictionary( tv.TypingAttributes.MutableCopy, NSObject.hasOwnership )
-		    dict.Value( "NSBackgroundColor" ) = NSColor.TextBackgroundColor
+		    dict.Value(new NSString("NSBackgroundColor")) = NSColor.TextBackgroundColor
 		    tv.TypingAttributes = dict
 		    
 		  #else
