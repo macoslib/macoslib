@@ -1074,6 +1074,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSStatusItem
+            SpecialMenu = 0
+            Text = "NSStatusItem"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSTask
             SpecialMenu = 0
             Text = "NSTask"
