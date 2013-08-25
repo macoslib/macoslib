@@ -583,11 +583,11 @@ Inherits ICDevice
 		    
 		    dim dict as new NSMutableDictionary
 		    if options<>nil then
-		      dict.AppendDictionary   options
+		      dict.AddEntries options
 		    end if
-		    dict.Value( "ICDownloadsDirectoryURL" ) = new NSURL( targetFolder )
+		    dict.Value(new NSString("ICDownloadsDirectoryURL")) = new NSURL( targetFolder )
 		    
-		    requestDownloadFile( me.id, file.id, dict.id, me.GetDelegate, Cocoa.NSSelectorFromString( "didDownloadFile:error:options:contextInfo:" ), nil )
+		    requestDownloadFile(self, file, dict, self.GetDelegate, Cocoa.NSSelectorFromString( "didDownloadFile:error:options:contextInfo:" ), nil )
 		    
 		  #endif
 		End Sub

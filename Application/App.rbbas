@@ -78,6 +78,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSDockTile() As Boolean Handles CocoaNSDockTile.Action
+			NSDockTileExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSHost() As Boolean Handles CocoaNSHost.Action
 			NSHostExampleWindow.Show
 			return true
@@ -130,6 +138,16 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSStatusItem() As Boolean Handles CocoaNSStatusItem.Action
+			
+			NSStatusItemWindow.show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSTableView() As Boolean Handles CocoaNSTableView.Action
 			NSTableViewExample.Show
 			return true
@@ -154,6 +172,14 @@ Inherits Application
 	#tag MenuHandler
 		Function CocoaNSToolbar() As Boolean Handles CocoaNSToolbar.Action
 			NSToolbarWindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSUserNotifications() As Boolean Handles CocoaNSUserNotifications.Action
+			NSUserNotificationExample.Show
 			Return True
 			
 		End Function

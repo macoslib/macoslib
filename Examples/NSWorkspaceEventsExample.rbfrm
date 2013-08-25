@@ -167,10 +167,10 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub NSWorkspaceDidMountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+		Sub NSWorkspaceDidMountNotification(notification as NSNotification, url as NSURL, localizedName as String)
 		  
 		  AppendTextBold notification.Name + EndOfLine
-		  AppendText   "New volume “" + localizedName + "” has been mounted at URL " + url.StringValue + EndOfLine + EndOfLine
+		  AppendText   "New volume “" + localizedName + "” has been mounted at URL " + url.AbsoluteString + EndOfLine + EndOfLine
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -195,17 +195,17 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub NSWorkspaceWillUnmountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+		Sub NSWorkspaceWillUnmountNotification(notification as NSNotification, url as NSURL, localizedName as String)
 		  
 		  AppendTextBold notification.Name + EndOfLine
-		  AppendText   "Volume “" + localizedName + "” at URL " + url.StringValue + " is unmounting" + EndOfLine + EndOfLine
+		  AppendText   "Volume “" + localizedName + "” at URL " + url.AbsoluteString + " is unmounting" + EndOfLine + EndOfLine
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub NSWorkspaceDidUnmountNotification(notification as NSNotification, url as CoreFoundation.CFURL, localizedName as String)
+		Sub NSWorkspaceDidUnmountNotification(notification as NSNotification, url as NSURL, localizedName as String)
 		  
 		  AppendTextBold notification.Name + EndOfLine
-		  AppendText   "Volume “" + localizedName + "” previously at URL " + url.StringValue + " is no longer mounted" + EndOfLine + EndOfLine
+		  AppendText   "Volume “" + localizedName + "” previously at URL " + url.AbsoluteString + " is no longer mounted" + EndOfLine + EndOfLine
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -293,11 +293,11 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub NSWorkspaceDidRenameVolumeNotification(notification as NSNotification, oldURL as CoreFoundation.CFURL, oldLocalizedName as string, newURL as CoreFoundation.CFURL, newLocalizedName as string)
+		Sub NSWorkspaceDidRenameVolumeNotification(notification as NSNotification, oldURL as NSURL, oldLocalizedName as string, newURL as NSURL, newLocalizedName as string)
 		  
 		  AppendTextBold notification.Name + EndOfLine
-		  AppendText   "Volume “" + oldLocalizedName + "” previously at URL " + oldURL.StringValue + " has been renamed to “"_
-		  + newLocalizedName + "” and mounted at URL " + newURL.StringValue + EndOfLine + EndOfLine
+		  AppendText   "Volume “" + oldLocalizedName + "” previously at URL " + oldURL.AbsoluteString + " has been renamed to “"_
+		  + newLocalizedName + "” and mounted at URL " + newURL.AbsoluteString + EndOfLine + EndOfLine
 		End Sub
 	#tag EndEvent
 #tag EndEvents
