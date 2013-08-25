@@ -594,6 +594,7 @@ Module=XMLExtensions;Additional Modules/Class Extensions/XMLExtensions.rbbas;&h6
 Window=NSUserNotificationExample;Examples/NSUserNotificationExample.rbfrm;&h19AAD82;&h4BD59C08;false
 Class=MyNotificationCenter;Examples/MyNotificationCenter.rbbas;&h51F57446;&h4BD59C08;false
 Window=NSDockTileExample;Examples/NSDockTileExample.rbfrm;&h3E29A125;&h4BD59C08;false
+Window=NSStatusItemWindow;Examples/NSStatusItemWindow.rbfrm;&h3412F0A2;&h4BD59C08;false
 AppMenuBar=MainMenubar
 MajorVersion=1
 MinorVersion=0
