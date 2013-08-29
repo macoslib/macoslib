@@ -28,12 +28,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(useDelegate as Boolean = True)
+		Sub Constructor()
 		  #if targetMacOS
 		    super.Constructor(Initialize(Allocate(Cocoa.NSClassFromString("NSPopover"))))
-		    if useDelegate then
-		      SetDelegate
-		    end if
+		    SetDelegate
 		  #endif
 		End Sub
 	#tag EndMethod
