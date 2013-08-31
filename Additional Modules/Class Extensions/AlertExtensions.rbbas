@@ -32,15 +32,15 @@ Protected Module AlertExtensions
 		    nsa.ShowsSuppressionButton = True
 		    
 		    dim b as boolean
-		    if App.Prefs.Value( SuppressedPrefName, Nil ) = Nil then // First time running, or not set to suppress.
+		    if Prefs.Value( SuppressedPrefName, Nil ) = Nil then // First time running, or not set to suppress.
 		      b = nsa.RunModal = 1
 		      
 		      if nsa.SuppressionButton.BooleanValue then // If the user wants to suppress this dialog
-		        App.Prefs.Value( SuppressedPrefName ) = b // Store the chosen value as the default value.
+		        Prefs.Value( SuppressedPrefName ) = b // Store the chosen value as the default value.
 		      end if
 		      
 		    else // If the dialog is suppressed, get the stored 'default' value from preferences.
-		      b = App.Prefs.Value( SuppressedPrefName, False )
+		      b = Prefs.Value( SuppressedPrefName, False )
 		    end if
 		    
 		    return b
@@ -73,21 +73,35 @@ Protected Module AlertExtensions
 		    nsa.ShowsSuppressionButton = True
 		    
 		    dim i as integer
-		    if App.Prefs.Value( SuppressedPrefName, Nil ) = Nil then // First time running, or not set to suppress.
+		    if Prefs.Value( SuppressedPrefName, Nil ) = Nil then // First time running, or not set to suppress.
 		      i = nsa.RunModal
 		      
 		      if i <> 0 and nsa.SuppressionButton.BooleanValue then // If the user wants to suppress this dialog
-		        App.Prefs.Value( SuppressedPrefName ) = i // Store the chosen value as the default value.
+		        Prefs.Value( SuppressedPrefName ) = i // Store the chosen value as the default value.
 		      end if
 		      
 		    else // If the dialog is suppressed, get the stored 'default' value from preferences.
-		      i = App.Prefs.Value( SuppressedPrefName, 1 )
+		      i = Prefs.Value( SuppressedPrefName, 1 )
 		    end if
 		    
 		    return i
 		  end if
 		End Function
 	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  static gPrefs as TTsSmartPreferences
+			  if gPrefs = nil then
+			    gPrefs = new TTsSmartPreferences ("") // <- enter your app's name here, it's necessary for Windows and Linux
+			  end
+			  return gPrefs
+			End Get
+		#tag EndGetter
+		Prefs As TTsSmartPreferences
+	#tag EndComputedProperty
 
 
 	#tag ViewBehavior
