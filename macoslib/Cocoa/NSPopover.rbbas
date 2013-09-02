@@ -53,7 +53,10 @@ Inherits NSResponder
 		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
 		    dim obj as NSPopover = NSPopover(w.Value)
 		    if obj <> nil then
-		      return obj.HandleDetachableWindowForPopover( new NSPopover(popover) )
+		      dim nswnd as variant = obj.HandleDetachableWindowForPopover( new NSPopover(popover) )
+		      if nswnd <> nil then
+		        return nswnd
+		      end if
 		    else
 		      //something might be wrong.
 		    end if
