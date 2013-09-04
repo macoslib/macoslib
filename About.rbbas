@@ -5,7 +5,10 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
+		Requires REALbasic 2011r1(1) or later and MacOS X 10.5 or later.
+		
+		
+		(1) Tests are in progress.
 	#tag EndNote
 
 	#tag Note, Name = Contributors
@@ -54,6 +57,17 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		146: 2013-09-04 by SM
+		- Added documentation files (in both .docx and .pdf formats) to provide a quick start guide to users (only the
+		    PDF file is displayed by macoslib. The docx documents are provided to modify the documentation).
+		- The way PDF documents are displayed should be improved.
+		- Added a default window to welcome users when they run macoslib. It offers links to the basic documentation
+		    but also to documents for beginners, advanced users and experts.
+		- Added a splash window to show the capabilities of macoslib but it should be improved.
+		- Modified the minimum requirements in the About module.
+		- Modified PropertyList inside DebugReportModule so it can handle binary PropertyLists.
+		
+		
 		146: 2013-08-24 by VVB
 		- Added NSAlert, NSButton NSControl, NSSharingService/Picker, NSPopover, NSViewController, NSWindowController, NSPanel, filled out NSView, NSControl, NSApplication.
 		- Added constructor from Ptr and WithFrame to NSControl, and added convienience methods to get the NSObject and NSView.
@@ -90,7 +104,7 @@ Protected Module About
 		
 		142: 2013-07-29 by VVB
 		- Better NSWindow fullscreen methods.
-		- Added convienience methods for NSWindow CollectionBehaviors.
+		- Added convenience methods for NSWindow CollectionBehaviors.
 		- Added more examples to the NSWindow example.
 		- Added more colors to the colorbrowser example.
 		
