@@ -46,7 +46,6 @@ Begin Window macoslibSplashWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "macoslib"
       TextAlign       =   1
       TextColor       =   &h00800000
@@ -81,7 +80,6 @@ Begin Window macoslibSplashWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "unleash the power of OS X"
       TextAlign       =   1
       TextColor       =   &h00AB4905
@@ -115,7 +113,10 @@ End
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
-		  self.Close
+		  //# On clicking, close the splash window and immediately open the default window
+		  
+		  App.SplashTimer.Mode = 0 //Stop timing
+		  App.HandleTimerAction( nil )
 		  
 		  #pragma unused X
 		  #pragma unused Y

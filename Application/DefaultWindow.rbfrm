@@ -2,14 +2,14 @@
 Begin Window DefaultWindow
    BackColor       =   16777215
    Backdrop        =   ""
-   CloseButton     =   True
+   CloseButton     =   False
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   425
+   Height          =   3.99e+2
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   False
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -20,10 +20,10 @@ Begin Window DefaultWindow
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   0
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "Welcome to macoslib"
    Visible         =   True
-   Width           =   713
+   Width           =   7.13e+2
    Begin Label Label1
       AutoDeactivate  =   True
       Bold            =   True
@@ -46,7 +46,6 @@ Begin Window DefaultWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Welcome to macoslib"
       TextAlign       =   1
       TextColor       =   0
@@ -58,41 +57,6 @@ Begin Window DefaultWindow
       Underline       =   ""
       Visible         =   True
       Width           =   699
-   End
-   Begin Label Label6
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   9
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Multiline       =   ""
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "At any time, you can use the Help menu to display this window."
-      TextAlign       =   0
-      TextColor       =   0
-      TextFont        =   "SmallSystem"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   398
-      Transparent     =   False
-      Underline       =   ""
-      Visible         =   True
-      Width           =   700
    End
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
@@ -113,7 +77,6 @@ Begin Window DefaultWindow
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -236,7 +199,6 @@ Begin Window DefaultWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "If you do not know anything about CFObjects and NSObjects, consider yourself as a newbie to macoslib."
          TextAlign       =   0
          TextColor       =   0
@@ -271,7 +233,6 @@ Begin Window DefaultWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "If you are quite familiar with CFObjects and NSObjects, consider yourself as an advanced user."
          TextAlign       =   0
          TextColor       =   0
@@ -306,7 +267,6 @@ Begin Window DefaultWindow
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "CFObjects and NSObjects are a second nature for you, consider yourself as an expert."
          TextAlign       =   0
          TextColor       =   0
@@ -404,7 +364,6 @@ Begin Window DefaultWindow
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You are running the macoslib project for the first time. We guess that you want to learn a bit more about what macoslib can do for you. If so, click on the [Learn more] button."
       TextAlign       =   0
       TextColor       =   0
@@ -439,7 +398,6 @@ Begin Window DefaultWindow
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You may also want to go directly to a QuickStart document, depending on your knowledge of OS X guts."
       TextAlign       =   0
       TextColor       =   0
@@ -493,7 +451,7 @@ End
 #tag EndEvents
 #tag Events QuickStartBTN
 	#tag Event
-		Sub Action()
+		Sub Action(index as Integer)
 		  //# Opens the corresponding QuickStart PDF file
 		  
 		  dim f as FolderItem
@@ -554,7 +512,7 @@ End
 		  f = GetFolderItem( "About.rbbas" )
 		  
 		  if f<>nil and f.Exists then
-		    data = f.ReadAll
+		    data = f.ReadAll( Encodings.UTF8 )
 		    data = Trim( data.StringBetween( "#tag Note, Name = Release Notes", "#tag EndNote" ))
 		    lines = Split( data, EndOfLine )
 		    

@@ -298,6 +298,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "File"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -332,6 +333,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Memory"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -366,6 +368,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Decimal"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -400,6 +403,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Binary"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -434,6 +438,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Default"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -510,6 +515,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Binary"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -544,6 +550,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Mac OS 10.8+ only:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -578,6 +585,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Decimal"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -760,6 +768,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   23
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Using StringExtensions.FormatSize:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -794,6 +803,7 @@ Begin Window NSByteCountFormatterExample
       Selectable      =   False
       TabIndex        =   24
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Count Style:"
       TextAlign       =   0
       TextColor       =   &h000000
