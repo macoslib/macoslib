@@ -865,10 +865,15 @@ Inherits NSObject
 			Get
 			  //# Returns the number of objects currently in the array.
 			  
-			  #if Target32Bit
+			  #if RBVersion <= 2012.02
+			    #if Target32Bit
+			      declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
+			    #else
+			      declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt64
+			    #endif
+			    
+			  #else //Previous versions are 32 bits only
 			    declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
-			  #else
-			    declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt64
 			  #endif
 			  
 			  dim cnt as integer = m_count( me.id )

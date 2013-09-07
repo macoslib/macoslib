@@ -43,6 +43,7 @@ Begin Window NSWindowHUDExample
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -72,6 +73,7 @@ Begin Window NSWindowHUDExample
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "This is one of those fancy HUD windows."
          TextAlign       =   0
          TextColor       =   "&cFFFFFF"

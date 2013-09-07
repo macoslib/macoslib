@@ -206,6 +206,7 @@ Begin Window NSToolbarWindow
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Enable/Disable item:"
       TextAlign       =   2
       TextColor       =   0

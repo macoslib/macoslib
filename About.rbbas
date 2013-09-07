@@ -57,6 +57,13 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		147: 2013-09-07 by SM
+		- Fixed a potential bug reported by KT.
+		- Users can now click on the splash window to go immediately to the default window.
+		- Improved compatibility with REAL Studio before 2012r2 (Str with 2 parameters & use of Target32Bit).
+		- Expanded the "macoslib Overview" document.
+		- Sorted the Examples windows by alphabetical order.
+		
 		146: 2013-09-04 by SM
 		- Added documentation files (in both .docx and .pdf formats) to provide a quick start guide to users (only the
 		    PDF file is displayed by macoslib. The docx documents are provided to modify the documentation).
@@ -66,7 +73,6 @@ Protected Module About
 		- Added a splash window to show the capabilities of macoslib but it should be improved.
 		- Modified the minimum requirements in the About module.
 		- Modified PropertyList inside DebugReportModule so it can handle binary PropertyLists.
-		
 		
 		145: 2013-08-11 by VVB
 		- Added NSUserNotification/Center and example.
@@ -325,7 +331,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"146", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"147", Scope = Protected
 	#tag EndConstant
 
 
