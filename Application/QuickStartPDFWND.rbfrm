@@ -195,7 +195,7 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		Sub Paint(g As Graphics)
 		  'if self.Document is nil then
 		  'return
 		  'end if
@@ -236,7 +236,9 @@ End
 		  
 		  CreatePict
 		  
-		  SB1.Maximum = Pict.Height - Canvas1.Height
+		  if pict<>nil then
+		    SB1.Maximum = Pict.Height - Canvas1.Height
+		  end if
 		  
 		End Sub
 	#tag EndEvent
@@ -393,7 +395,7 @@ End
 #tag EndEvents
 #tag Events Canvas1
 	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		Sub Paint(g As Graphics)
 		  if self.Document is nil then
 		    return
 		  end if
