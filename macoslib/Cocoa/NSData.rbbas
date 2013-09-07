@@ -356,7 +356,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    #if RBVersion <= 2012.02
+			    #if RBVersion >= 2012.02
 			      #if Target32Bit
 			        declare sub getBytes lib CocoaLib selector "getBytes:length:" ( id as Ptr, buffer as Ptr, length as UInt32 )
 			      #else

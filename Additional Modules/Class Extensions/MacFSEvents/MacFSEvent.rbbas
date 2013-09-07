@@ -23,7 +23,7 @@ Class MacFSEvent
 		  #if TargetMacOS
 		    dim textFlags() as string = FSEventModule.TextConstantsFromFlags( me.Flags )
 		    
-		    return   "<MacFSEvent: { path: “" + me.Path + "”" + EndOfLine + "eventID: " + Format( eventID, "#####################" ) + EndOfLine + "Flags: " + Hex( Flags, 8 ) + _
+		    return   "<MacFSEvent: { path: “" + me.Path + "”" + EndOfLine + "eventID: " + Format( eventID, "#" ) + EndOfLine + "Flags: " + Hex( Flags, 8 ) + _
 		    " ( " + Join( textFlags, ", " ) + " ) } >" + EndOfLine
 		  #endif
 		  

@@ -865,7 +865,7 @@ Inherits NSObject
 			Get
 			  //# Returns the number of objects currently in the array.
 			  
-			  #if RBVersion <= 2012.02
+			  #if RBVersion >= 2012.02
 			    #if Target32Bit
 			      declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
 			    #else
