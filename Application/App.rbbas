@@ -543,8 +543,8 @@ Inherits Application
 	#tag EndMenuHandler
 
 
-	#tag Method, Flags = &h21
-		Private Sub HandleTimerAction(theTimer as Timer)
+	#tag Method, Flags = &h0
+		Sub HandleTimerAction(theTimer as Timer)
 		  
 		  macoslibSplashWindow.Close
 		  DefaultWindow.Show

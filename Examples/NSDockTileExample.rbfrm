@@ -141,6 +141,7 @@ Begin Window NSDockTileExample
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Badge Value"
       TextAlign       =   0
       TextColor       =   &h000000
