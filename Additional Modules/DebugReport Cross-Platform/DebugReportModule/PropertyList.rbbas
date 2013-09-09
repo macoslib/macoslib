@@ -67,10 +67,12 @@ Inherits Dictionary
 		    dim i as integer
 		    dim XMLD as XmlDocument
 		    dim dict as Dictionary
+		    dim result as String
+		    dim CFPL as CFDictionary
 		    
-		    XMLD = new XMLDocument(FromFile)
+		    CFPL = CFDictionary.CreateFromPListFile( FromFile )
 		    
-		    dict = PListGetDictionary(XMLD.DocumentElement.Child(0))
+		    dict = CFPL.VariantValue
 		    
 		    for i=0 to dict.Count-1
 		      me.Value(dict.key(i)) = dict.Value(dict.key(i))
