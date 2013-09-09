@@ -5,7 +5,26 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
+		Requires REALbasic 2011r1(1) or later and MacOS X 10.5 or later.
+		
+		
+		(1) Tests are in progress.
+	#tag EndNote
+
+	#tag Note, Name = Compatibility
+		COMPATIBILITY WITH REAL STUDIO AND XOJO
+		
+		macoslib.rbvcp v147 (i.e. running the full project):
+		    REAL Studio 2010r5 and below   NOT COMPATIBLE
+		    REAL Studio 2011r1 to 2011r3   COMPATIBLE with limitations (you will see it immediately as the splash window is not transparent as it should)
+		    REAL Studio 2011r4 and later     COMPATIBLE
+		    Xojo 2013r1 and later                 COMPATIBLE
+		
+		macoslib library v147 (i.e. a project containing the "macoslib" & the "Additional Modules" folders and running it):
+		    REAL Studio 2010r5 and below   DOES NOT COMPILE
+		    REAL Studio 2011r1 to 2011r3   RUNS but some limitations are to be expected
+		    REAL Studio 2011r4 and later     RUNS
+		    Xojo 2013r1 and later                 RUNS
 	#tag EndNote
 
 	#tag Note, Name = Contributors
@@ -54,6 +73,27 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		147: 2013-09-07 by SM
+		- Fixed a potential bug reported by KT.
+		- Users can now click on the splash window to go immediately to the default window.
+		- Improved compatibility with REAL Studio before 2012r2 (Str with 2 parameters & use of Target32Bit).
+		- Expanded the "macoslib Overview" document.
+		- Sorted the Examples windows by alphabetical order.
+		Amended:
+		- Small fixes to make the project compatible with RS 2011.x.
+		- Tested the current version with every RS version and added the result into About.Compatibility Note.
+		- Removed some unnecessary stuff, thanks to TT.
+		
+		146: 2013-09-04 by SM
+		- Added documentation files (in both .docx and .pdf formats) to provide a quick start guide to users (only the
+		    PDF file is displayed by macoslib. The docx documents are provided to modify the documentation).
+		- The way PDF documents are displayed should be improved.
+		- Added a default window to welcome users when they run macoslib. It offers links to the basic documentation
+		    but also to documents for beginners, advanced users and experts.
+		- Added a splash window to show the capabilities of macoslib but it should be improved.
+		- Modified the minimum requirements in the About module.
+		- Modified PropertyList inside DebugReportModule so it can handle binary PropertyLists.
+		
 		145: 2013-08-11 by VVB
 		- Added NSUserNotification/Center and example.
 		- Added NSMenu Delegates.
@@ -83,7 +123,7 @@ Protected Module About
 		
 		142: 2013-07-29 by VVB
 		- Better NSWindow fullscreen methods.
-		- Added convienience methods for NSWindow CollectionBehaviors.
+		- Added convenience methods for NSWindow CollectionBehaviors.
 		- Added more examples to the NSWindow example.
 		- Added more colors to the colorbrowser example.
 		
@@ -311,7 +351,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"145", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"147", Scope = Protected
 	#tag EndConstant
 
 

@@ -42,6 +42,7 @@ Begin Window NSWindowExample
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   2
       Visible         =   True
@@ -161,6 +162,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "(Will put or remove the grey dot from the close button. If you've specified a file above, will also dim the icon.)"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -195,6 +197,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "No file specified"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -644,6 +647,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   14
          TabPanelIndex   =   2
+         TabStop         =   True
          Text            =   "(Move by background doesn't seem to work in REALStudio, but does in Xojo)"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -678,6 +682,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   16
          TabPanelIndex   =   2
+         TabStop         =   True
          Text            =   "Behavior:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -712,6 +717,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   17
          TabPanelIndex   =   2
+         TabStop         =   True
          Text            =   0
          TextAlign       =   2
          TextColor       =   &h000000
@@ -746,6 +752,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   18
          TabPanelIndex   =   2
+         TabStop         =   True
          Text            =   "BackingScaleFactor:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -780,6 +787,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   19
          TabPanelIndex   =   2
+         TabStop         =   True
          Text            =   0
          TextAlign       =   2
          TextColor       =   &h000000
@@ -1062,6 +1070,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   3
+         TabStop         =   True
          Text            =   "Alpha Value:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -1188,6 +1197,7 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   10
          TabPanelIndex   =   3
+         TabStop         =   True
          Text            =   "Transparency:"
          TextAlign       =   0
          TextColor       =   &h000000

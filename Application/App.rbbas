@@ -26,6 +26,37 @@ Inherits Application
 		  
 		  Cocoa.Initialize
 		  
+		  //Initialize the Timer which will close the Splash window and open the default window.
+		  SplashTimer = new Timer
+		  AddHandler  SplashTimer.Action, AddressOf HandleTimerAction
+		  SplashTimer.Period = 2500
+		  SplashTimer.Mode = 1
+		  
+		  //Read prefs
+		  dim f as FolderItem
+		  
+		  f = SpecialFolder.Preferences.Child( "com.declaresub.macoslib.plist" )
+		  if f.Exists then
+		    PrefsPL = new DebugReportModule.PropertyList( f )
+		    
+		  else
+		    PrefsPL = new DebugReportModule.PropertyList
+		    PrefsPL.file = f
+		    
+		  end if
+		  
+		  dim LV as integer = PrefsPL.Lookup( "LastVersionChecked", 0 ) //Last version checked
+		  if LV=0 then //Very first launching
+		    
+		    
+		    
+		  else //User has already launched the app
+		    if LV<About.Version then //User is seeing a new version of macoslib
+		      
+		      
+		      
+		    end if
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -512,6 +543,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h0
+		Sub HandleTimerAction(theTimer as Timer)
+		  
+		  macoslibSplashWindow.Close
+		  DefaultWindow.Show
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub TestBundleLookup()
 		  dim f as FolderItem
@@ -572,6 +611,14 @@ Inherits Application
 		#tag EndGetter
 		Prefs As TTsSmartPreferences
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		PrefsPL As DebugReportModule.PropertyList
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SplashTimer As Timer
+	#tag EndProperty
 
 
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
