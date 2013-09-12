@@ -42,6 +42,7 @@ Inherits Timer
 			Name="Left"
 			Visible=true
 			Group="Position"
+			Type="Integer"
 			InheritedFrom="Timer"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -82,6 +83,7 @@ Inherits Timer
 			Name="Top"
 			Visible=true
 			Group="Position"
+			Type="Integer"
 			InheritedFrom="Timer"
 		#tag EndViewProperty
 	#tag EndViewBehavior

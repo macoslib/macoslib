@@ -57,6 +57,7 @@ Inherits Application
 		      
 		    end if
 		  end if
+		  
 		End Sub
 	#tag EndEvent
 
@@ -548,6 +549,9 @@ Inherits Application
 		  
 		  macoslibSplashWindow.Close
 		  DefaultWindow.Show
+		  
+		  #pragma unused theTimer
+		  
 		End Sub
 	#tag EndMethod
 

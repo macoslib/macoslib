@@ -581,6 +581,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AcceptTabs"
+			Visible=true
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
@@ -615,7 +616,9 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
+			Visible=true
 			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -629,7 +632,9 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="EraseBackground"
+			Visible=true
 			Group="Behavior"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -653,13 +658,11 @@ Inherits Canvas
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
-			Group="Initial State"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -678,8 +681,8 @@ Inherits Canvas
 			Name="Left"
 			Visible=true
 			Group="Position"
-			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockBottom"
@@ -713,17 +716,20 @@ Inherits Canvas
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
+			Visible=true
 			Group="Position"
+			InitialValue="0"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -738,6 +744,7 @@ Inherits Canvas
 			Name="TabStop"
 			Visible=true
 			Group="Position"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -760,8 +767,8 @@ Inherits Canvas
 			Name="Top"
 			Visible=true
 			Group="Position"
-			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Underlined"
@@ -772,7 +779,9 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseFocusRing"
+			Visible=true
 			Group="Appearance"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty

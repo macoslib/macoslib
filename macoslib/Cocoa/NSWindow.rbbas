@@ -995,7 +995,11 @@ Inherits NSResponder
 		  Dim tmpStyleMask as UInt32 = NSHUDWindowMask or NSTitledWindowMask or NSUtilityWindowMask
 		  dim w as window = self
 		  if w.Resizeable then tmpStyleMask = tmpStyleMask or NSResizableWindowMask
-		  if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  #if RBVersion > 2013.02
+		    if w.CloseButton   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  #else
+		    if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  #endif
 		  
 		  StyleMask = tmpStyleMask
 		End Sub

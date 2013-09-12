@@ -39,6 +39,7 @@ Inherits NSObject
 			Name="Description"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
