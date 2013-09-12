@@ -549,6 +549,9 @@ Inherits Application
 		  
 		  macoslibSplashWindow.Close
 		  DefaultWindow.Show
+		  
+		  #pragma unused theTimer
+		  
 		End Sub
 	#tag EndMethod
 

@@ -222,10 +222,11 @@ End
 		  'end if
 		  '
 		  'c.DrawPDFPage page
-		  '
-		  '#if RBVersion >= 2012.02
-		  '#pragma unused areas
-		  '#endif
+		  
+		  #pragma unused g
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -427,10 +428,10 @@ End
 		  'end if
 		  '
 		  'c.DrawPDFPage page
-		  '
-		  '#if RBVersion >= 2012.02
-		  '#pragma unused areas
-		  '#endif
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -440,6 +441,11 @@ End
 		  SB1.Value = SB1.Value + deltaY
 		  
 		  return  true
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  #pragma unused deltaX
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -449,6 +455,10 @@ End
 		  base.Append   new MenuItem( "Reveal in Finder", "REVEAL" )
 		  
 		  return  true
+		  
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event

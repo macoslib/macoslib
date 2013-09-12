@@ -78,6 +78,7 @@ Protected Module About
 		- Added Cocoa.NSIntegerMax and Cocoa.NSNotFound methods as pseudo-constants.
 		- Replaced some deprecated calls in case they are removed by a newer version of Xojo.
 		- Added NSError.Operator_Convert to a MacOSError so you can raise new NSError( id, true ).
+		- Removed or added pragmas for unused variables and parameters.
 		
 		147: 2013-09-07 by SM
 		- Fixed a potential bug reported by KT.
