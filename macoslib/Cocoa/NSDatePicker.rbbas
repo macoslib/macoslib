@@ -415,13 +415,11 @@ Inherits NSControl
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
-			Group="Initial State"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -442,8 +440,8 @@ Inherits NSControl
 			Name="Left"
 			Visible=true
 			Group="Position"
-			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockBottom"
@@ -477,7 +475,8 @@ Inherits NSControl
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Style"
@@ -488,11 +487,13 @@ Inherits NSControl
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
+			Visible=true
 			Group="Position"
+			InitialValue="0"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -505,7 +506,9 @@ Inherits NSControl
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
+			Visible=true
 			Group="Position"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -522,16 +525,16 @@ Inherits NSControl
 			Name="TextSize"
 			Visible=true
 			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
+			InitialValue="0.0"
+			Type="double"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
-			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Underlined"

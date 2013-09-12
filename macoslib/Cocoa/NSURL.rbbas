@@ -1952,7 +1952,8 @@ Inherits NSObject
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Fragment"

@@ -91,10 +91,6 @@ Inherits NSObject
 		you should never need to invoke it directly, but you might want to override it. If you want to replace the 
 		NSTextStorage object for an established group of text-system objects containing the receiver, 
 		use replaceTextStorage:.
-		
-		
-		
-		
 	#tag EndNote
 
 	#tag Note, Name = To be implemented
@@ -231,33 +227,48 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShowsControlCharacters"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShowsInvisibleCharacters"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

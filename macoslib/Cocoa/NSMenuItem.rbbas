@@ -848,7 +848,8 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="KeyEquivalent"
@@ -866,13 +867,15 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Separator"
@@ -883,7 +886,8 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Tag"
@@ -907,7 +911,8 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

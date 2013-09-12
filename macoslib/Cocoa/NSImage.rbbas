@@ -2249,14 +2249,16 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MatchesOnMultipleResolution"
@@ -2267,7 +2269,8 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PrefersColorMatch"
@@ -2278,7 +2281,8 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Template"
@@ -2290,7 +2294,8 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UsesEPSOnResolutionMismatch"

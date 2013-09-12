@@ -236,6 +236,27 @@ Protected Module Cocoa
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h1
+		Protected Function NSIntegerMax() As Integer
+		  // This is a method and not a constant because it will be a different value under 32-bit and 64-bit.
+		  
+		  #if RBVersion >= 2013.01 // No 64-bit versions before this anyway
+		    
+		    #if Target64Bit then
+		      return &h7FFFFFFFFFFFFFFF
+		    #else
+		      return &h7FFFFFFF
+		    #endif
+		    
+		  #else // Older version of Real Studio that may not have had Target64Bit
+		    
+		    return &h7FFFFFFF
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function NSMakePoint(x as Single, y as Single) As NSPoint
 		  dim p as NSPoint
 		  p.x = x
@@ -270,6 +291,15 @@ Protected Module Cocoa
 		  s.width = width
 		  s.height = Height
 		  return s
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function NSNotFound() As Integer
+		  static r as Integer = NSIntegerMax
+		  return r
+		  
+		  // See notes in NSIntegerMax
 		End Function
 	#tag EndMethod
 
@@ -783,7 +813,7 @@ Protected Module Cocoa
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="2147483648"
+			InitialValue="-2147483648"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
