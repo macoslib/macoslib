@@ -113,7 +113,7 @@ Inherits NSObject
 		    
 		    super.Constructor(initWithContentsOfFile(Allocate("NSDictionary"), path), NSDictionary.hasOwnership)
 		  #else
-		    #pragma unused file
+		    #pragma unused path
 		  #endif
 		End Sub
 	#tag EndMethod
