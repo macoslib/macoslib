@@ -73,6 +73,10 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		148: 2013-09-13 by SM
+		- Fixed serious bugs in ImageKit (which was completely broken).
+		- Expanded the "macoslib Overview" document.
+		
 		147: 2013-09-07 by SM
 		- Fixed a potential bug reported by KT.
 		- Users can now click on the splash window to go immediately to the default window.
@@ -351,7 +355,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"147", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"148", Scope = Protected
 	#tag EndConstant
 
 

@@ -195,7 +195,7 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  'if self.Document is nil then
 		  'return
 		  'end if
@@ -395,7 +395,7 @@ End
 #tag EndEvents
 #tag Events Canvas1
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  if self.Document is nil then
 		    return
 		  end if
