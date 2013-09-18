@@ -154,7 +154,7 @@ Begin Window NSDockTileExample
       Visible         =   True
       Width           =   175
    End
-   Begin PushButton btnSetText1
+   Begin PushButton btnHide
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
@@ -253,7 +253,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnSetText1
+#tag Events btnHide
 	#tag Event
 		Sub Action()
 		  'nsd.ShowsApplicationBadge = false

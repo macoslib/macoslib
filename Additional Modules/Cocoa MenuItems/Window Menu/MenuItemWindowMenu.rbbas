@@ -15,6 +15,7 @@ Inherits MenuItem
 		    declare function submenu lib CocoaLib selector "submenu" (id as Ptr) as Ptr
 		    declare sub setState lib CocoaLib selector "setState:" (obj_id as Ptr, value as Integer)
 		    declare function isMainWindow lib CocoaLib selector "isMainWindow" (obj_id as Ptr) as Boolean
+		    declare function viewsNeedDisplay lib CocoaLib selector "viewsNeedDisplay" (obj_id as Ptr) as Boolean
 		    
 		    dim windowsMenu as Ptr = submenu(itemWithTitle(mainMenu, self.Text.Replace("&","")))
 		    if windowsMenu = nil then
@@ -34,7 +35,7 @@ Inherits MenuItem
 		    for each w as Ptr in windowList
 		      //Apple recommends not to display Panels in the Window menu.
 		      //We must also block Cocoa autocompletion windows (in fact, any non-RBNSWindow should be blocked)
-		      if not (d.HasKey(w) OR isExcludedFromWindowsMenu(w) OR Cocoa.InheritsFromClass( w, "NSPanel" ) OR Cocoa.InheritsFromClass( w, "NSTextViewCompletionWindow" )) then
+		      if not (d.HasKey(w) OR isExcludedFromWindowsMenu(w) OR Cocoa.InheritsFromClass( w, "NSPanel" ) OR Cocoa.InheritsFromClass( w, "NSTextViewCompletionWindow" ) OR viewsNeedDisplay(w)) then
 		        //make new item
 		        dim newItem as Ptr = addItem(windowsMenu, title(w), Cocoa.NSSelectorFromString("makeKeyAndOrderFront:"), "")
 		        setTarget(newItem, w)
