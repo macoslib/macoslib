@@ -4,7 +4,7 @@ Class ATSFont
 		Function File() As FolderItem
 		  #if targetMacOS
 		    
-		    // Added a check the availability of ATSFontGetFileSpecification because 
+		    // Added a check the availability of ATSFontGetFileSpecification because
 		    // Apple's docs say this is all deprecated in 10.6 in favor of Core Text.
 		    
 		    static functionsNeedCheck as boolean = true
@@ -186,20 +186,20 @@ Class ATSFont
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PostScriptName"
@@ -211,14 +211,14 @@ Class ATSFont
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -131,7 +131,7 @@ Class FSIterator
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="2147483648"
+			InitialValue="-2147483648"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

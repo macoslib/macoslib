@@ -1,7 +1,7 @@
 #tag Window
 Begin Window QuickStartPDFWND
-   BackColor       =   16777215
-   Backdrop        =   ""
+   BackColor       =   "&cFFFFFF00"
+   Backdrop        =   0
    CloseButton     =   True
    Composite       =   True
    Frame           =   0
@@ -14,7 +14,7 @@ Begin Window QuickStartPDFWND
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -35,9 +35,9 @@ Begin Window QuickStartPDFWND
       Left            =   165
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   ""
-      LockRight       =   ""
-      LockTop         =   ""
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -57,9 +57,9 @@ Begin Window QuickStartPDFWND
       Left            =   125
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   ""
-      LockRight       =   ""
-      LockTop         =   ""
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -70,7 +70,7 @@ Begin Window QuickStartPDFWND
    End
    Begin Label PageNumberText
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -78,14 +78,14 @@ Begin Window QuickStartPDFWND
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   135
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   ""
-      LockRight       =   ""
-      LockTop         =   ""
-      Multiline       =   ""
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      Multiline       =   False
       Scope           =   0
       Selectable      =   False
       TabIndex        =   2
@@ -93,21 +93,20 @@ Begin Window QuickStartPDFWND
       TabStop         =   True
       Text            =   000
       TextAlign       =   1
-      TextColor       =   0
       TextFont        =   "System"
-      TextSize        =   11
+      TextSize        =   11.0
       TextUnit        =   0
       Top             =   707
       Transparent     =   False
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   30
    End
    Begin Canvas Canvas1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
+      AcceptFocus     =   False
+      AcceptTabs      =   False
       AutoDeactivate  =   True
-      Backdrop        =   ""
+      Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
@@ -126,6 +125,7 @@ Begin Window QuickStartPDFWND
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   2
+      Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
       Width           =   605
@@ -195,7 +195,7 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  'if self.Document is nil then
 		  'return
 		  'end if
@@ -222,10 +222,11 @@ End
 		  'end if
 		  '
 		  'c.DrawPDFPage page
-		  '
-		  '#if RBVersion >= 2012.02
-		  '#pragma unused areas
-		  '#endif
+		  
+		  #pragma unused g
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -395,7 +396,7 @@ End
 #tag EndEvents
 #tag Events Canvas1
 	#tag Event
-		Sub Paint(g As Graphics)
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  if self.Document is nil then
 		    return
 		  end if
@@ -427,10 +428,10 @@ End
 		  'end if
 		  '
 		  'c.DrawPDFPage page
-		  '
-		  '#if RBVersion >= 2012.02
-		  '#pragma unused areas
-		  '#endif
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -440,6 +441,11 @@ End
 		  SB1.Value = SB1.Value + deltaY
 		  
 		  return  true
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  #pragma unused deltaX
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -449,6 +455,10 @@ End
 		  base.Append   new MenuItem( "Reveal in Finder", "REVEAL" )
 		  
 		  return  true
+		  
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
