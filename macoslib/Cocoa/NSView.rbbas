@@ -276,7 +276,10 @@ Inherits NSResponder
 		    
 		    self.Constructor( frameRect )
 		  #else
-		    #pragma Unused frameRect
+		    #pragma unused x
+		    #pragma unused y
+		    #pragma unused width
+		    #pragma unused height
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -643,10 +646,10 @@ Inherits NSResponder
 		      optionsRef = options
 		    end if
 		    
-		    return getEnterFullScreenModeWithOptions( self, screen, optionsRef )
+		    return getEnterFullScreenModeWithOptions(self, screen, optionsRef)
 		  #else
 		    #pragma Unused screen
-		    #pragma Unused option
+		    #pragma Unused options
 		  #endif
 		End Function
 	#tag EndMethod
@@ -707,7 +710,7 @@ Inherits NSResponder
 		    
 		    getRectsExposedDuringLiveResizeCount self, exposedRects, count
 		  #else
-		    #pragma Unused exposedRef
+		    #pragma Unused exposedRects
 		    #pragma Unused count
 		  #endif
 		End Sub
@@ -1259,9 +1262,14 @@ Inherits NSResponder
 		  #if TargetMacOS then
 		    declare sub viewWillMoveToWindow lib CocoaLib selector "viewWillMoveToWindow:" (obj_id as Ptr, newWindow as Ptr)
 		    
-		    viewWillMoveToWindow self, newWindow
+		    dim p as Ptr
+		    if newWindow <> nil then
+		      p = newWindow
+		    end if
+		    
+		    viewWillMoveToWindow self, p
 		  #else
-		    #pragma Unused newSuperview
+		    #pragma Unused newWindow
 		  #endif
 		End Sub
 	#tag EndMethod

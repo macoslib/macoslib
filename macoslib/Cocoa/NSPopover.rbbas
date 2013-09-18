@@ -9,13 +9,10 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub Close()
-		  
 		  #if TargetMacOS then
 		    declare sub close lib CocoaLib selector "close" (obj_id as Ptr)
 		    
 		    close self
-		  #else
-		    #pragma Unused sender
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -332,9 +329,9 @@ Inherits NSResponder
 		    
 		    showRelativeToRect( self, positioningRect, positioningView, preferredEdge )
 		  #else
-		    #pragma Unused Rect
-		    #pragma Unused View
-		    #pragma Unused RectEdge
+		    #pragma Unused positioningRect
+		    #pragma Unused positioningView
+		    #pragma Unused preferredEdge
 		  #endif
 		End Sub
 	#tag EndMethod
