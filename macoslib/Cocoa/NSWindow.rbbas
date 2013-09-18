@@ -4362,7 +4362,7 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    declare function windowController lib CocoaLib selector "windowController" (obj_id as Ptr) as Ptr
 			    
-			    return windowController(self)
+			    return New NSWindowController( windowController(self) )
 			    
 			  #endif
 			  
@@ -4382,7 +4382,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		WindowController As Ptr
+		WindowController As NSWindowController
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

@@ -102,6 +102,14 @@ Protected Module About
 		- Modified the minimum requirements in the About module.
 		- Modified PropertyList inside DebugReportModule so it can handle binary PropertyLists.
 		
+		
+		146: 2013-08-24 by VVB
+		- Added NSAlert, NSButton NSControl, NSSharingService/Picker, NSPopover, NSViewController, NSWindowController, NSPanel, filled out NSView, NSControl, NSApplication.
+		- Added constructor from Ptr and WithFrame to NSControl, and added convienience methods to get the NSObject and NSView.
+		- Added convienience extensions for window to return NSWindow, for control to return NSControl and return NSView.
+		- Added ShareTemplate to SystemIcons and NSImage.
+		- Added missing images to system images example.
+		
 		145: 2013-08-11 by VVB
 		- Added NSUserNotification/Center and example.
 		- Added NSMenu Delegates.
