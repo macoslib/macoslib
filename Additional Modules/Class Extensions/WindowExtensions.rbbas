@@ -795,7 +795,11 @@ Protected Module WindowExtensions
 		    if w.Frame = 3 or w.Frame = 7 then
 		      Dim tmpStyleMask as UInt32 = kWindowMaskHUD or kWindowMaskTitled or kWindowMaskUtility
 		      if w.Resizeable then tmpStyleMask = tmpStyleMask or kWindowMaskResizable
-		      if w.CloseBox   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      #if RBVersion > 2013.02
+		        if w.CloseButton   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      #else
+		        if w.CloseBox   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      #endif
 		      
 		      declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (WindowRef as WindowPtr, Mask as UInt32)
 		      setStyleMask w, tmpStyleMask
@@ -1007,33 +1011,33 @@ Protected Module WindowExtensions
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

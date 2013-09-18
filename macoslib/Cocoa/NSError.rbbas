@@ -194,6 +194,30 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As MacOSError
+		  // Added by Kem Tekinay.
+		  // Allows you to call:
+		  //   raise new NSError( NSErrorRef, HasOwnership )
+		  
+		  #if TargetMacOS
+		    
+		    dim domain as string = self.Domain.Trim
+		    dim desc as string = self.Description.Trim
+		    dim code as integer = self.Code
+		    
+		    dim msgList() as string
+		    if domain <> "" then msgList.Append domain
+		    if desc <> "" then msgList.Append desc
+		    dim msg as string = join( msgList, ": " )
+		    
+		    return new MacOSError( code, msg )
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -372,14 +396,16 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LocalizedDescription"
@@ -403,20 +429,23 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

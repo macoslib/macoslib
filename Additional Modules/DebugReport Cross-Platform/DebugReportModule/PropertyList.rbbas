@@ -65,9 +65,7 @@ Inherits Dictionary
 		    Super.Constructor
 		    
 		    dim i as integer
-		    dim XMLD as XmlDocument
 		    dim dict as Dictionary
-		    dim result as String
 		    dim CFPL as CFDictionary
 		    
 		    CFPL = CFDictionary.CreateFromPListFile( FromFile )

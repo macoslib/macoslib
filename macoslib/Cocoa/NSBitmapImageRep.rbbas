@@ -1533,7 +1533,7 @@ Inherits NSImageRep
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasAlpha"
@@ -1546,7 +1546,8 @@ Inherits NSImageRep
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOpaque"
@@ -1564,13 +1565,15 @@ Inherits NSImageRep
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NumberOfPlanes"
@@ -1598,14 +1601,16 @@ Inherits NSImageRep
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
