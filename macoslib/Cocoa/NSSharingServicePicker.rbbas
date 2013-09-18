@@ -20,7 +20,7 @@ Inherits NSObject
 		  #if TargetMacOS then
 		    self.Constructor( New NSArray( Array( item ) ) )
 		  #else
-		    #pragma Unused items
+		    #pragma Unused item
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -33,9 +33,7 @@ Inherits NSObject
 		    
 		    showRelativeToRect( self, c.Bounds, c.View, Cocoa.NSRectEdge.NSMinYEdge )
 		  #else
-		    #pragma Unused Rect
-		    #pragma Unused View
-		    #pragma Unused RectEdge
+		    #pragma Unused c
 		  #endif
 		End Sub
 	#tag EndMethod

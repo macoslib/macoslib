@@ -148,7 +148,7 @@ Inherits NSResponder
 		    
 		    changeWindowsItem self, windowRef, title, isFilename
 		  #else
-		    #pragma unused aWindowRef
+		    #pragma unused aWindow
 		    #pragma unused title
 		    #pragma unused isFilename
 		  #endif
@@ -460,7 +460,7 @@ Inherits NSResponder
 		    #pragma Unused mask
 		    #pragma Unused expiration
 		    #pragma Unused mode
-		    #pragma Unused flag
+		    #pragma Unused dequeue
 		  #endif
 		End Function
 	#tag EndMethod
@@ -650,7 +650,7 @@ Inherits NSResponder
 		    
 		    removeWindowsItem self, WindowRef
 		  #else
-		    #pragma unused aWindowRef
+		    #pragma unused aWindow
 		  #endif
 		End Sub
 	#tag EndMethod

@@ -278,10 +278,12 @@ Inherits NSObject
 		    dim urlRef as Ptr = URLFromPasteboard(ClassRef, pboard)
 		    if urlRef <> nil then
 		      return new NSURL(urlRef)
+		    else
+		      return nil
 		    end if
 		    
 		  #else
-		    #pragma unused URLString
+		    #pragma unused pboard
 		  #endif
 		  
 		End Function
