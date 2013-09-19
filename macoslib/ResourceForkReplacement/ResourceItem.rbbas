@@ -20,7 +20,7 @@ Inherits ResourceForkReplacement.ResourceAccessor
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub Constructor(resFileRef as Integer, type as String, id as Integer, idx_0 as Integer = -1, name as String = "")
+		Protected Sub Constructor(resFileRef as Integer, type as String, id as Integer, idx_0 as Integer = - 1, name as String = "")
 		  declare function Get1Resource lib CarbonLib (t as OSType, id as Integer) as Ptr
 		  declare function Get1IndResource lib CarbonLib (t as OSType, idx as Integer) as Ptr
 		  declare function Get1NamedResource lib CarbonLib (t as OSType, name as PString) as Ptr
@@ -71,33 +71,33 @@ Inherits ResourceForkReplacement.ResourceAccessor
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

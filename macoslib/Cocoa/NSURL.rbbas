@@ -270,6 +270,26 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		 Shared Function CreateFromPasteboard(pboard as NSPasteboard) As NSURL
+		  
+		  #if targetMacOS
+		    declare function URLFromPasteboard lib CocoaLib selector "URLFromPasteboard:" (class_id as Ptr, pboard as Ptr) as Ptr
+		    
+		    dim urlRef as Ptr = URLFromPasteboard(ClassRef, pboard)
+		    if urlRef <> nil then
+		      return new NSURL(urlRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused pboard
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		 Shared Function CreateWithBookmark(bookmarkData as NSData, options as UInt32, relativeURL as NSURL, isStale as Boolean, byRef error as CFError) As NSURL
 		  
 		  #if targetMacOS
@@ -1974,7 +1994,8 @@ Inherits NSObject
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Fragment"

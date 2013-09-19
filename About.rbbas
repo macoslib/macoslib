@@ -73,9 +73,13 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
-		148: 2013-09-13 by SM
-		- Fixed serious bugs in ImageKit (which was completely broken).
-		- Expanded the "macoslib Overview" document.
+		148: 2013-09-11 by KT
+		- Added NSRegularExpression and NSTextCheckingResult classes.
+		- Added Cocoa.NSIntegerMax and Cocoa.NSNotFound methods as pseudo-constants.
+		- Replaced some deprecated calls in case they are removed by a newer version of Xojo.
+		- Added NSError.Operator_Convert to a MacOSError so you can raise new NSError( id, true ).
+		- Removed or added pragmas for unused variables and parameters.
+		- Corrected Windows/Linux compile issue.
 		
 		147: 2013-09-07 by SM
 		- Fixed a potential bug reported by KT.
@@ -97,6 +101,14 @@ Protected Module About
 		- Added a splash window to show the capabilities of macoslib but it should be improved.
 		- Modified the minimum requirements in the About module.
 		- Modified PropertyList inside DebugReportModule so it can handle binary PropertyLists.
+		
+		
+		146: 2013-08-24 by VVB
+		- Added NSAlert, NSButton NSControl, NSSharingService/Picker, NSPopover, NSViewController, NSWindowController, NSPanel, filled out NSView, NSControl, NSApplication.
+		- Added constructor from Ptr and WithFrame to NSControl, and added convienience methods to get the NSObject and NSView.
+		- Added convienience extensions for window to return NSWindow, for control to return NSControl and return NSView.
+		- Added ShareTemplate to SystemIcons and NSImage.
+		- Added missing images to system images example.
 		
 		145: 2013-08-11 by VVB
 		- Added NSUserNotification/Center and example.

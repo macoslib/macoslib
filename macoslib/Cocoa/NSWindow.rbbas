@@ -995,7 +995,11 @@ Inherits NSResponder
 		  Dim tmpStyleMask as UInt32 = NSHUDWindowMask or NSTitledWindowMask or NSUtilityWindowMask
 		  dim w as window = self
 		  if w.Resizeable then tmpStyleMask = tmpStyleMask or NSResizableWindowMask
-		  if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  #if RBVersion > 2013.02
+		    if w.CloseButton   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  #else
+		    if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		  #endif
 		  
 		  StyleMask = tmpStyleMask
 		End Sub
@@ -4358,7 +4362,7 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    declare function windowController lib CocoaLib selector "windowController" (obj_id as Ptr) as Ptr
 			    
-			    return windowController(self)
+			    return New NSWindowController( windowController(self) )
 			    
 			  #endif
 			  
@@ -4378,7 +4382,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		WindowController As Ptr
+		WindowController As NSWindowController
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

@@ -1008,33 +1008,6 @@ Protected Module TextAreaExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function RichText1(extends t as TextArea) As Boolean
-		  #if targetCocoa
-		    declare function isRichText lib CocoaLib selector "isRichText" (obj_id as Ptr) as Boolean
-		    
-		    return isRichText(t.TextViewRef)
-		    
-		  #else
-		    #pragma unused t
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RichText1(extends t as TextArea, assigns value as Boolean)
-		  #if targetCocoa
-		    declare sub setRichText lib CocoaLib selector "setRichText:" (obj_id as Ptr, value as Boolean)
-		    
-		    setRichText t.TextViewRef, value
-		    
-		  #else
-		    #pragma unused t
-		    #pragma unused value
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function RTFValue(extends t as TextArea) As String
 		  #if targetCocoa
 		    declare function RTFFromRange lib CocoaLib selector "RTFFromRange:" (obj_id as Ptr, range as Cocoa.NSRange) as Ptr
