@@ -1,11 +1,13 @@
 #tag Window
 Begin Window MacOSFolderBrowser
-   BackColor       =   16777215
+   BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
    Height          =   380
    ImplicitInstance=   True
@@ -46,7 +48,7 @@ Begin Window MacOSFolderBrowser
       Height          =   331
       HelpTag         =   ""
       Hierarchical    =   False
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "Folder Type	 Absolute Path	 Shell Path"
       Italic          =   False
@@ -56,8 +58,8 @@ Begin Window MacOSFolderBrowser
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      RequiresSelection=   ""
-      Scope           =   0
+      RequiresSelection=   False
+      Scope           =   "0"
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
@@ -65,7 +67,8 @@ Begin Window MacOSFolderBrowser
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
-      TextSize        =   12
+      TextSize        =   12.0
+      TextUnit        =   0
       Top             =   0
       Underline       =   False
       UseFocusRing    =   True
@@ -83,7 +86,7 @@ Begin Window MacOSFolderBrowser
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
@@ -94,12 +97,13 @@ Begin Window MacOSFolderBrowser
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      Scope           =   0
+      Scope           =   "0"
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
-      TextSize        =   12
+      TextSize        =   12.0
+      TextUnit        =   0
       Top             =   343
       Underline       =   False
       Visible         =   True
@@ -114,7 +118,7 @@ Begin Window MacOSFolderBrowser
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
@@ -124,16 +128,19 @@ Begin Window MacOSFolderBrowser
       LockRight       =   False
       LockTop         =   False
       Multiline       =   False
-      Scope           =   0
+      Scope           =   "0"
+      Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Disk/Domain:"
       TextAlign       =   0
-      TextColor       =   0
+      TextColor       =   
       TextFont        =   "System"
-      TextSize        =   12
+      TextSize        =   12.0
+      TextUnit        =   0
       Top             =   343
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   86

@@ -28,20 +28,27 @@ Begin Window NSTableViewExample
       AcceptFocus     =   ""
       AcceptTabs      =   ""
       AllowColumnReordering=   ""
+      AllowsExpansionToolTips=   ""
       AlternatingRowBackground=   ""
       AutoDeactivate  =   True
+      AutohideScrollbars=   ""
       autoresizesSubviews=   ""
       Backdrop        =   ""
+      Bold            =   false
       ColumnCount     =   ""
       DoubleBuffer    =   ""
+      DoubleValue     =   ""
       Enabled         =   True
       EraseBackground =   ""
+      FloatValue      =   ""
       Height          =   400
       HelpTag         =   ""
       HorizontalGrid  =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      IntegerValue    =   ""
       IsFlipped       =   ""
+      Italic          =   false
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -53,8 +60,11 @@ Begin Window NSTableViewExample
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   ""
+      TextFont        =   "System"
+      TextSize        =   0
       Top             =   0
       TypeSelect      =   ""
+      Underlined      =   false
       UseFocusRing    =   ""
       VerticalGrid    =   ""
       VerticalScrollbar=   ""
@@ -125,6 +135,38 @@ Begin Window NSTableViewExample
       Visible         =   True
       Width           =   156
    End
+   Begin CheckBox AlternatingRows
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Alternating Row Colors"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   388
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   2
+      State           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   86
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   192
+   End
 End
 #tag EndWindow
 
@@ -183,6 +225,18 @@ End
 	#tag Event
 		Sub Action()
 		  NSTableView1.VerticalGrid = me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events AlternatingRows
+	#tag Event
+		Sub Open()
+		  me.Value = NSTableView1.VerticalGrid
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  NSTableView1.AlternatingRowBackground = me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents

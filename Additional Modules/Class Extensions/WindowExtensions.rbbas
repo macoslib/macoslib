@@ -601,6 +601,13 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function NSWindowObject(extends w as Window) As NSWindow
+		  
+		  return New NSWindow( w )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub OrderBack(extends w as Window)
 		  //# Moves the window to the back
 		  
@@ -795,7 +802,11 @@ Protected Module WindowExtensions
 		    if w.Frame = 3 or w.Frame = 7 then
 		      Dim tmpStyleMask as UInt32 = kWindowMaskHUD or kWindowMaskTitled or kWindowMaskUtility
 		      if w.Resizeable then tmpStyleMask = tmpStyleMask or kWindowMaskResizable
-		      if w.CloseBox   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      #if RBVersion > 2013.02
+		        if w.CloseButton   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      #else
+		        if w.CloseBox   then tmpStyleMask = tmpStyleMask or kWindowMaskClosable
+		      #endif
 		      
 		      declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (WindowRef as WindowPtr, Mask as UInt32)
 		      setStyleMask w, tmpStyleMask
@@ -853,7 +864,7 @@ Protected Module WindowExtensions
 		      NewRect.x = OrigRect.x - ( Width - w.Width )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
-		    case 8 // Expand All Sides (<^v>)
+		    case 8 // Resize all sides (<^v>)
 		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
 		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
 		      
@@ -862,10 +873,7 @@ Protected Module WindowExtensions
 		      
 		    end select
 		    
-		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height )
-		    if ( w.Height <> NewRect.h ) then
-		      NewRect.y = NewRect.y - ( NewRect.h - w.Height )
-		    end if
+		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height ) - ( NewRect.h - w.Height )
 		    NewRect.h = NewRect.h + 22 // Account for titlebar
 		    
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (WindowRef as WindowPtr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
@@ -1007,33 +1015,33 @@ Protected Module WindowExtensions
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

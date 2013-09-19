@@ -215,6 +215,15 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function NSControlObject(extends c as Control) As NSControl
+		  
+		  #if TargetMacOS then
+		    return New NSControl( Ptr( c.Handle ) )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RotateByAngle(extends c as Control, angle as Single)
 		  //# Rotates the control’s bounds rectangle by a specified degree value around the origin of the coordinate system, (0.0, 0.0).
 		  
@@ -231,6 +240,15 @@ Protected Module ControlExtension
 		  #endif
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function View(extends c as Control) As NSView
+		  
+		  #if TargetMacOS then
+		    return New NSView( Ptr( c.Handle ) )
+		  #endif
+		End Function
 	#tag EndMethod
 
 
