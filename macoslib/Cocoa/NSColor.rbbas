@@ -2120,33 +2120,6 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="AlphaComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="BlackComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="BrightnessComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CatalogNameComponent"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ColorNameComponent"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="ColorspaceName"
 			Group="Behavior"
 			Type="String"
@@ -2159,26 +2132,11 @@ Inherits NSObject
 			Type="Color"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="CyanComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="GreenComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HueComponent"
-			Group="Behavior"
-			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -2195,42 +2153,10 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="LocalizedCatalogNameComponent"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LocalizedColorNameComponent"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MagentaComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="NumberOfComponents"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RedComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SaturationComponent"
-			Group="Behavior"
-			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
@@ -2244,16 +2170,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="WhiteComponent"
-			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="YellowComponent"
-			Group="Behavior"
-			Type="Single"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -663,7 +663,7 @@ Inherits NSObject
 		    dim urlRef as Ptr
 		    if urlRef <> nil then
 		      urlRef = aURL
-		    else 
+		    else
 		      urlRef = nil
 		    end if
 		    

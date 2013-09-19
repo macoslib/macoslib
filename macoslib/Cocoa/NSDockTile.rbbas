@@ -163,6 +163,11 @@ Inherits NSObject
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="BadgeValue"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"

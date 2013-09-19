@@ -218,6 +218,18 @@ Inherits NSObject
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="CharactersHex"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CharactersIgnoringModifiers"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
@@ -230,6 +242,11 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsARepeat"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -256,6 +273,11 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WindowNumber"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

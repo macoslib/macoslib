@@ -129,6 +129,11 @@ Inherits NSMutableAttributedString
 			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FixesAttributesLazily"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"

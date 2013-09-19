@@ -445,8 +445,26 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function NSFileManagerExampleMenu() As Boolean Handles NSFileManagerExampleMenu.Action
+			NSFileManagerExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function NSImageViewMenu() As Boolean Handles NSImageViewMenu.Action
 			NSImageViewExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function NSSliderKnobCellMeniu() As Boolean Handles NSSliderKnobCellMeniu.Action
+			NSSliderExampleWindow.Show
 			
 			Return True
 			

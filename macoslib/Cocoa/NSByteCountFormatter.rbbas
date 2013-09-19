@@ -285,6 +285,13 @@ Inherits NSFormatter
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="includesActualByteCount"
 			Group="Behavior"
 			Type="Boolean"

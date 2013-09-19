@@ -3,6 +3,13 @@ Class NSFormatter
 Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"

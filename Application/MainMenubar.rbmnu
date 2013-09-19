@@ -1050,6 +1050,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem NSFileManagerExampleMenu
+            SpecialMenu = 0
+            Text = "NSFileManager"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSHost
             SpecialMenu = 0
             Text = "NSHost"
@@ -1071,6 +1077,12 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaNSRunningApplication
             SpecialMenu = 0
             Text = "NSRunningApplication"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem NSSliderKnobCellMeniu
+            SpecialMenu = 0
+            Text = "NSSliders"
             Index = -2147483648
             AutoEnable = True
          End

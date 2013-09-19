@@ -31,7 +31,7 @@ Inherits NSDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(capacity as Integer =20)
+		Sub Constructor(capacity as Integer = 20)
 		  #if TargetMacOS
 		    declare function dictionaryWithCapacity lib CocoaLib selector "dictionaryWithCapacity:" ( cls as Ptr, capacity as UInt32 ) as Ptr
 		    
@@ -96,7 +96,7 @@ Inherits NSDictionary
 		    if otherDictionary <> nil then
 		      setDictionary self, otherDictionary
 		    else
-		      //was this intended to be a no-op?  
+		      //was this intended to be a no-op?
 		    end if
 		    
 		  #else
