@@ -2,6 +2,17 @@
 Class NSApplication
 Inherits NSResponder
 	#tag Method, Flags = &h0
+		Sub AbortModal()
+		  
+		  #if TargetMacOS then
+		    declare sub abortModal lib CocoaLib selector "abortModal" (obj_id as Ptr)
+		    
+		    abortModal self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Activate(ignoreOtherApps as Boolean)
 		  //# Makes the application the active application.
 		  
@@ -77,6 +88,39 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub BeginSheet(sheet as NSWindow, docWindow as NSWindow, modalDelegate as Ptr = Nil, didEndSelector as Ptr = Nil, contextInfo as Ptr = Nil)
+		  
+		  #if TargetMacOS then
+		    declare sub beginSheetModalForWindowModalDelegateDidEndSelectorContextInfo lib CocoaLib selector "beginSheet:modalForWindow:modalDelegate:didEndSelector:contextInfo:" _
+		    (obj_id as Ptr, sheet as Ptr, docWindow as Ptr, modalDelegate as Ptr, didEndSelector as Ptr, contextInfo as Ptr)
+		    
+		    dim modalDelegateRef as Ptr
+		    if modalDelegate <> Nil then
+		      modalDelegateRef = modalDelegate
+		    end if
+		    
+		    dim didEndSelectorRef as Ptr
+		    if didEndSelector <> Nil then
+		      didEndSelectorRef = didEndSelector
+		    end if
+		    
+		    dim contextInfoRef as Ptr
+		    if contextInfo <> Nil then
+		      contextInfoRef = contextInfo
+		    end if
+		    
+		    beginSheetModalForWindowModalDelegateDidEndSelectorContextInfo self, sheet, docWindow, modalDelegateRef, didEndSelectorRef, contextInfoRef
+		  #else
+		    #pragma Unused sheet
+		    #pragma Unused docWindow
+		    #pragma Unused modalDelegate
+		    #pragma Unused didEndSelector
+		    #pragma Unused contextInfo
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub CancelUserAttentionRequest(request as Integer)
 		  //# Cancels a previous user attention request.
 		  
@@ -92,37 +136,43 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub ChangeWindowsItem(aWindow as NSWindow, title as String, isFilename as Boolean)
-		  
-		  dim windowRef as Ptr
-		  if aWindow <> nil then
-		    windowRef = aWindow
-		  end if
-		  
-		  self.ChangeWindowsItem windowRef, title, isFilename
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub ChangeWindowsItem(aWindowRef as Ptr, title as String, isFilename as Boolean)
 		  //# Changes the item for a given window in the Window menu to a given string.
 		  
 		  #if TargetMacOS
 		    declare sub changeWindowsItem lib CocoaLib selector "changeWindowsItem:title:filename:" (obj_id as Ptr, aWindow as Ptr, title as CFStringRef, isFilename as Boolean)
 		    
-		    changeWindowsItem self, aWindowRef, title, isFilename
+		    dim windowRef as Ptr
+		    if aWindow <> nil then
+		      windowRef = aWindow
+		    end if
+		    
+		    changeWindowsItem self, windowRef, title, isFilename
 		  #else
-		    #pragma unused aWindowRef
+		    #pragma unused aWindow
 		    #pragma unused title
 		    #pragma unused isFilename
 		  #endif
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		 Shared Function ClassRef() As Ptr
+	#tag Method, Flags = &h21
+		Private Shared Function ClassRef() As Ptr
 		  static ref as Ptr = Cocoa.NSClassFromString(NSClassName)
 		  return ref
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CompleteStateRestoration()
+		  
+		  #if TargetMacOS then
+		    if IsLion then
+		      declare sub completeStateRestoration lib CocoaLib selector "completeStateRestoration" (obj_id as Ptr)
+		      
+		      completeStateRestoration self
+		    end if
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -136,6 +186,17 @@ Inherits NSResponder
 		      return new NSGraphicsContext(contextRef)
 		    end if
 		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CurrentEvent() As NSEvent
+		  
+		  #if TargetMacOS then
+		    declare function getCurrentEvent lib CocoaLib selector "currentEvent" (obj_id as Ptr) as Ptr
+		    
+		    return New NSEvent( getCurrentEvent( self ) )
 		  #endif
 		End Function
 	#tag EndMethod
@@ -181,6 +242,20 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DiscardEventsBeforeEvents(mask as Integer, lastEvent as NSEvent)
+		  
+		  #if TargetMacOS then
+		    declare sub discardEventsMatchingMaskBeforeEvent lib CocoaLib selector "discardEventsMatchingMask:beforeEvent:" (obj_id as Ptr, mask as Integer, lastEvent as Ptr)
+		    
+		    discardEventsMatchingMaskBeforeEvent self, mask, lastEvent
+		  #else
+		    #pragma Unused mask
+		    #pragma Unused lastEvent
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DockTile() As NSDockTile
 		  //# Returns the application’s Dock tile.
 		  
@@ -207,6 +282,46 @@ Inherits NSResponder
 		      declare sub enableRelaunchOnLogin lib CocoaLib selector "enableRelaunchOnLogin" (obj_id as Ptr)
 		      
 		      enableRelaunchOnLogin self
+		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EndSheet(sheet as NSWindow)
+		  
+		  #if TargetMacOS then
+		    declare sub endSheet lib CocoaLib selector "endSheet:" (obj_id as Ptr, sheet as Ptr)
+		    
+		    endSheet self, sheet
+		  #else
+		    #pragma Unused sheet
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EndSheet(sheet as NSWindow, returnCode as Integer)
+		  
+		  #if TargetMacOS then
+		    declare sub endSheetReturnCode lib CocoaLib selector "endSheet:returnCode:" (obj_id as Ptr, sheet as Ptr, returnCode as Integer)
+		    
+		    endSheetReturnCode self, sheet, returnCode
+		  #else
+		    #pragma Unused sheet
+		    #pragma Unused returnCode
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ExtendStateRestoration()
+		  
+		  #if TargetMacOS then
+		    if IsLion then
+		      declare sub extendStateRestoration lib CocoaLib selector "extendStateRestoration" (obj_id as Ptr)
+		      
+		      extendStateRestoration self
 		    end if
 		  #endif
 		End Sub
@@ -324,6 +439,33 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ModalWindow() As NSWindow
+		  
+		  #if TargetMacOS then
+		    declare function getModalWindow lib CocoaLib selector "modalWindow" (obj_id as Ptr) as Ptr
+		    
+		    return New NSWindow( getModalWindow( self ) )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function NextEvent(mask as Integer, expiration as NSDate, mode as NSString, dequeue as Boolean) As NSEvent
+		  
+		  #if TargetMacOS then
+		    declare function getNextEvent lib CocoaLib selector "nextEventMatchingMask:untilDate:inMode:dequeue:" (obj_id as Ptr, mask as Integer, expiration as Ptr, mode as CFStringRef, dequeue as Boolean) as Ptr
+		    
+		    return New NSEvent( getNextEvent( self, mask, expiration, mode, dequeue ) )
+		  #else
+		    #pragma Unused mask
+		    #pragma Unused expiration
+		    #pragma Unused mode
+		    #pragma Unused dequeue
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function NSEventTrackingRunLoopMode() As String
 		  
 		  return Cocoa.StringConstant("NSEventTrackingRunLoopMode")
@@ -336,6 +478,28 @@ Inherits NSResponder
 		  
 		  return Cocoa.StringConstant("NSModalPanelRunLoopMode")
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function OrderedDocuments() As NSArray
+		  
+		  #if TargetMacOS then
+		    declare function getOrderedDocuments lib CocoaLib selector "orderedDocuments" (obj_id as Ptr) as Ptr
+		    
+		    return New NSArray( getOrderedDocuments( self ) )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function OrderedWindows() As NSArray
+		  
+		  #if TargetMacOS then
+		    declare function getOrderedWindows lib CocoaLib selector "orderedWindows" (obj_id as Ptr) as Ptr
+		    
+		    return New NSArray( getOrderedWindows( self ) )
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -404,6 +568,20 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub PostEvent(anEvent as NSEvent, atStart as Boolean)
+		  
+		  #if TargetMacOS then
+		    declare sub postEvent lib CocoaLib selector "postEvent:atStart:" (obj_id as Ptr, anEvent as Ptr, atStart as Boolean)
+		    
+		    postEvent self, anEvent, atStart
+		  #else
+		    #pragma Unused anEvent
+		    #pragma Unused atStart
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub PreventWindowOrdering()
 		  //# Suppresses the usual window ordering in handling the most recent mouse-down event.
 		  
@@ -460,26 +638,32 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Sub RemoveWindowsItem(aWindow as NSWindow)
-		  
-		  dim windowRef as Ptr
-		  if aWindow <> nil then
-		    windowRef = aWindow
-		  end if
-		  
-		  self.RemoveWindowsItem windowRef
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RemoveWindowsItem(aWindowRef as Ptr)
 		  //# Removes the Window menu item for a given window.
 		  
 		  #if TargetMacOS
 		    declare sub removeWindowsItem lib CocoaLib selector "removeWindowsItem:" (obj_id as Ptr, aWindow as Ptr)
 		    
-		    removeWindowsItem self, aWindowRef
+		    dim windowRef as Ptr
+		    if aWindow <> nil then
+		      windowRef = aWindow
+		    end if
+		    
+		    removeWindowsItem self, WindowRef
 		  #else
-		    #pragma unused aWindowRef
+		    #pragma unused aWindow
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReplyToApplicationShouldTerminate(ShouldTerminate as Boolean)
+		  
+		  #if TargetMacOS then
+		    declare sub replyToApplicationShouldTerminate lib CocoaLib selector "replyToApplicationShouldTerminate:" (obj_id as Ptr, ShouldTerminate as Boolean)
+		    
+		    replyToApplicationShouldTerminate self, ShouldTerminate
+		  #else
+		    #pragma Unused shouldTerminate
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -507,6 +691,19 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function RunModalForWindow(aWindow as NSWindow) As Integer
+		  
+		  #if TargetMacOS then
+		    declare function runModalForWindow lib CocoaLib selector "runModalForWindow:" (obj_id as Ptr, aWindow as Ptr) as Integer
+		    
+		    return runModalForWindow( self, aWindow )
+		  #else
+		    #pragma Unused aWindow
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RunPageLayout()
 		  //# Displays the application's page layout panel, an instance of NSPageLayout.
 		  
@@ -517,6 +714,19 @@ Inherits NSResponder
 		    declare sub runPageLayout lib CocoaLib selector "runPageLayout:" (obj_id as Ptr, sender as Ptr)
 		    
 		    runPageLayout self, self.id
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SendEvent(anEvent as NSEvent)
+		  
+		  #if TargetMacOS then
+		    declare sub sendEvent lib CocoaLib selector "sendEvent:" (obj_id as Ptr, anEvent as Ptr)
+		    
+		    sendEvent self, anEvent
+		  #else
+		    #pragma Unused anEvent
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -550,6 +760,42 @@ Inherits NSResponder
 		    declare sub showHelp lib CocoaLib selector "showHelp:" (obj_id as Ptr, sender as Ptr)
 		    
 		    showHelp self, self.id
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub StopModal()
+		  
+		  #if TargetMacOS then
+		    declare sub stopModal lib CocoaLib selector "stopModal" (obj_id as Ptr)
+		    
+		    stopModal self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub StopModal(returnCode as Integer)
+		  
+		  #if TargetMacOS then
+		    declare sub stopModalWithCode lib CocoaLib selector "stopModalWithCode:" (obj_id as Ptr, returnCode as integer)
+		    
+		    stopModalWithCode self, returnCode
+		  #else
+		    #pragma Unused returnCode
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Terminate()
+		  //sends a SIGTERM to the process and its subprocesses.
+		  
+		  #if targetMacOS
+		    declare sub terminate lib CocoaLib selector "terminate" (obj_id as Ptr)
+		    
+		    terminate(self)
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -625,6 +871,17 @@ Inherits NSResponder
 		    declare sub updateWindows lib CocoaLib selector "updateWindows" (obj_id as Ptr)
 		    
 		    updateWindows self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UpdateWindowsItem(aWindow as NSWindow)
+		  
+		  #if TargetMacOS then
+		    declare sub updateWindowsItem lib CocoaLib selector "updateWindowsItem:" (obj_id as Ptr, aWindow as Ptr)
+		    
+		    updateWindowsItem self, aWindow
 		  #endif
 		End Sub
 	#tag EndMethod

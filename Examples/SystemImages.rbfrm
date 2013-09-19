@@ -139,7 +139,42 @@ End
 		  "NSImageNameUser" : AddressOf NSImage.User, _
 		  "NSImageNameUserAccounts" : AddressOf NSImage.UserAccounts, _
 		  "NSImageNameUserGroup" : AddressOf NSImage.UserGroup, _
-		  "NSImageNameUserGuest" : AddressOf NSImage.UserGuest)
+		  "NSImageNameUserGuest" : AddressOf NSImage.UserGuest, _
+		  "-" : Nil, _
+		  "NSImageNameHomeTemplate" : AddressOf NSImage.HomeTemplate, _
+		  "NSImageNameBookmarksTemplate" : AddressOf NSImage.BookmarksTemplate, _
+		  "NSImageNameMenuOnStateTemplate" : AddressOf NSImage.MenuOnStateTemplate, _
+		  "NSImageNameMenuMixedStateTemplate" : AddressOf NSImage.MenuMixedStateTemplate, _
+		  "NSImageNameIconViewTemplate" : AddressOf NSImage.IconViewTemplate, _
+		  "NSImageNameListViewTemplate" : AddressOf NSImage.ListViewTemplate, _
+		  "NSImageNameColumnViewTemplate" : AddressOf NSImage.ColumnViewTemplate, _
+		  "NSImageNameFlowViewTemplate" : AddressOf NSImage.FlowViewTemplate, _
+		  "NSImageNameQuickLookTemplate" : AddressOf NSImage.QuickLookTemplate, _
+		  "NSImageNameBluetoothTemplate" : AddressOf NSImage.BluetoothTemplate, _
+		  "NSImageNameIChatTheaterTemplate" : AddressOf NSImage.IChatTheaterTemplate, _
+		  "NSImageNameSlideshowTemplate" : AddressOf NSImage.SlideshowTemplate, _
+		  "NSImageNameActionTemplate" : AddressOf NSImage.ActionTemplate, _
+		  "NSImageNameSmartBadgeTemplate" : AddressOf NSImage.SmartBadgeTemplate, _
+		  "NSImageNamePathTemplate" : AddressOf NSImage.PathTemplate, _
+		  "NSImageNameInvalidDataFreestandingTemplate" : AddressOf NSImage.InvalidDataFreestandingTemplate, _
+		  "NSImageNameLockLockedTemplate" : AddressOf NSImage.LockLockedTemplate, _
+		  "NSImageNameLockUnlockedTemplate" : AddressOf NSImage.LockUnlockedTemplate, _
+		  "NSImageNameGoRightTemplate" : AddressOf NSImage.GoRightTemplate, _
+		  "NSImageNameGoLeftTemplate" : AddressOf NSImage.GoLeftTemplate, _
+		  "NSImageNameRightFacingTriangleTemplate" : AddressOf NSImage.RightFacingTriangleTemplate, _
+		  "NSImageNameLeftFacingTriangleTemplate" : AddressOf NSImage.LeftFacingTriangleTemplate, _
+		  "NSImageNameAddTemplate" : AddressOf NSImage.AddTemplate, _
+		  "NSImageNameRemoveTemplate" : AddressOf NSImage.RemoveTemplate, _
+		  "NSImageNameRevealFreestandingTemplate" : AddressOf NSImage.RevealFreestandingTemplate, _
+		  "NSImageNameFollowLinkFreestandingTemplate" : AddressOf NSImage.FollowLinkFreestandingTemplate, _
+		  "NSImageNameEnterFullScreenTemplate" : AddressOf NSImage.EnterFullScreenTemplate, _
+		  "NSImageNameExitFullScreenTemplate" : AddressOf NSImage.ExitFullScreenTemplate, _
+		  "NSImageNameStopProgressTemplate" : AddressOf NSImage.StopProgressTemplate, _
+		  "NSImageNameStopProgressFreestandingTemplate" : AddressOf NSImage.StopProgressFreestandingTemplate, _
+		  "NSImageNameRefreshTemplate" : AddressOf NSImage.RefreshTemplate, _
+		  "NSImageNameRefreshFreestandingTemplate" : AddressOf NSImage.RefreshFreestandingTemplate, _
+		  "NSImageNameShareTemplate" : AddressOf NSImage.ShareTemplate _
+		  )
 		  
 		  for each item as Pair in images
 		    me.AddRow item.Left.StringValue

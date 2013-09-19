@@ -978,6 +978,12 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Begin MenuItem CocoaNSDatePicker
+            SpecialMenu = 0
+            Text = "NSDatePicker"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSLevelIndicator
             SpecialMenu = 0
             Text = "NSLevelIndicator"
@@ -1008,9 +1014,21 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem CocoaNSToolbar
+            SpecialMenu = 0
+            Text = "NSToolbar"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem NSImageViewMenu
             SpecialMenu = 0
             Text = "NSImageView (incl. ImageWell)"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaTextArea
+            SpecialMenu = 0
+            Text = "Text Area"
             Index = -2147483648
             AutoEnable = True
          End
@@ -1018,6 +1036,54 @@ Begin Menu MainMenubar
             SpecialMenu = 0
             Text = "-"
             Index = 18
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSAlert
+            SpecialMenu = 0
+            Text = "NSAlert"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSDockTile
+            SpecialMenu = 0
+            Text = "NSDockTile"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSPopover
+            SpecialMenu = 0
+            Text = "NSPopover"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSSharingServicePicker
+            SpecialMenu = 0
+            Text = "NSSharingServicePicker"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSStatusItem
+            SpecialMenu = 0
+            Text = "NSStatusItem"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSUserNotifications
+            SpecialMenu = 0
+            Text = "NSUserNotifications"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem CocoaNSWindow
+            SpecialMenu = 0
+            Text = "NSWindow"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem MenuSeparator
+            SpecialMenu = 0
+            Text = "-"
+            Index = 21
             AutoEnable = True
          End
          Begin MenuItem CocoaApplicationIcon
@@ -1035,18 +1101,6 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaNSColorBrowser
             SpecialMenu = 0
             Text = "NSColor Browser"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSDatePicker
-            SpecialMenu = 0
-            Text = "NSDatePicker"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSDockTile
-            SpecialMenu = 0
-            Text = "NSDockTile"
             Index = -2147483648
             AutoEnable = True
          End
@@ -1074,12 +1128,6 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaNSStatusItem
-            SpecialMenu = 0
-            Text = "NSStatusItem"
-            Index = -2147483648
-            AutoEnable = True
-         End
          Begin MenuItem CocoaNSTask
             SpecialMenu = 0
             Text = "NSTask"
@@ -1092,24 +1140,6 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
-         Begin MenuItem CocoaNSToolbar
-            SpecialMenu = 0
-            Text = "NSToolbar"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSUserNotifications
-            SpecialMenu = 0
-            Text = "NSUserNotifications"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaNSWindow
-            SpecialMenu = 0
-            Text = "NSWindow"
-            Index = -2147483648
-            AutoEnable = True
-         End
          Begin MenuItem CocoaNSWorkspaceNotifications
             SpecialMenu = 0
             Text = "NSWorkspace notifications"
@@ -1119,12 +1149,6 @@ Begin Menu MainMenubar
          Begin MenuItem CocoaSystemImages
             SpecialMenu = 0
             Text = "System Images"
-            Index = -2147483648
-            AutoEnable = True
-         End
-         Begin MenuItem CocoaTextArea
-            SpecialMenu = 0
-            Text = "Text Area"
             Index = -2147483648
             AutoEnable = True
          End

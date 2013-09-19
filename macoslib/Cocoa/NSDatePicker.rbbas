@@ -124,6 +124,46 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
+			    declare function getCalendar lib CocoaLib selector "calendar" (id as Ptr) as Ptr
+			    
+			    if self.id <> nil then
+			      dim p as Ptr = getCalendar(self.id)
+			      if p <> nil then
+			        return new NSCalendar(p)
+			      else
+			        return nil
+			      end if
+			    else
+			      return nil
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setCalendar lib CocoaLib selector "setCalendar:" (id as Ptr, newCalendar as Ptr)
+			    
+			    if self.id <> nil then
+			      if value <> nil then
+			        setCalendar self.id, value
+			      else
+			        setCalendar self.id, nil
+			      end if
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Calendar As NSCalendar
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
 			    declare function drawsBackground lib CocoaLib selector "drawsBackground" (id as Ptr) as Boolean
 			    
 			    if self.id <> nil then
@@ -146,6 +186,46 @@ Inherits NSControl
 			End Set
 		#tag EndSetter
 		DrawsBackground As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function getLocale lib CocoaLib selector "locale" (id as Ptr) as Ptr
+			    
+			    if self.id <> nil then
+			      dim p as Ptr = getLocale(self.id)
+			      if p <> nil then
+			        return new NSLocale(p)
+			      else
+			        return nil
+			      end if
+			    else
+			      return nil
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setLocale lib CocoaLib selector "setLocale:" (id as Ptr, newLocale as Ptr)
+			    
+			    if self.id <> nil then
+			      if value <> nil then
+			        setLocale self.id, value
+			      else
+			        setLocale self.id, nil
+			      end if
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Locale As NSLocale
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -291,6 +371,46 @@ Inherits NSControl
 		Style As Integer
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function getTimeZone lib CocoaLib selector "timeZone" (id as Ptr) as Ptr
+			    
+			    if self.id <> nil then
+			      dim p as Ptr = getTimeZone(self.id)
+			      if p <> nil then
+			        return new NSTimeZone(p)
+			      else
+			        return nil
+			      end if
+			    else
+			      return nil
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setTimeZone lib CocoaLib selector "setTimeZone:" (id as Ptr, newTimeZone as Ptr)
+			    
+			    if self.id <> nil then
+			      if value <> nil then
+			        setTimeZone self.id, value
+			      else
+			        setTimeZone self.id, nil
+			      end if
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		TimeZone As NSTimeZone
+	#tag EndComputedProperty
+
 
 	#tag Constant, Name = Cocoa, Type = String, Dynamic = False, Default = \"Cocoa.framework", Scope = Private
 	#tag EndConstant
@@ -325,6 +445,12 @@ Inherits NSControl
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsExpansionToolTips"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoDeactivate"
@@ -367,12 +493,24 @@ Inherits NSControl
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DrawsBackground"
@@ -394,6 +532,12 @@ Inherits NSControl
 			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FloatValue"
+			Group="Behavior"
+			Type="Single"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -421,6 +565,12 @@ Inherits NSControl
 		#tag ViewProperty
 			Name="InitialParent"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
@@ -477,6 +627,12 @@ Inherits NSControl
 			Group="ID"
 			Type="String"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Style"

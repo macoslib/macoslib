@@ -353,7 +353,11 @@ Inherits NSControl
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return self.GetValue(AddressOf self.DoubleValue, self.initialvalue)
+			  if self.id <> Nil then
+			    return self.DoubleValue
+			  else
+			    return self.initialvalue
+			  end if
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -429,6 +433,12 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="AllowsExpansionToolTips"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AutoDeactivate"
 			Visible=true
 			Group="Appearance"
@@ -465,12 +475,24 @@ Inherits NSControl
 			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -487,6 +509,12 @@ Inherits NSControl
 			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FloatValue"
+			Group="Behavior"
+			Type="Single"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -514,6 +542,12 @@ Inherits NSControl
 		#tag ViewProperty
 			Name="InitialParent"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
@@ -587,6 +621,12 @@ Inherits NSControl
 			Group="ID"
 			Type="String"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Style"

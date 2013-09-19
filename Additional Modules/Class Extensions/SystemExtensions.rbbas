@@ -25,7 +25,7 @@ Protected Module SystemExtensions
 
 	#tag Method, Flags = &h0
 		Function SystemFinderLabelColors() As Color()
-		  //#Returns the Finder labels as an array of strings
+		  //#Returns the Finder labels as an array of colors
 		  
 		  #if TargetMacOS
 		    dim colors() as Variant
