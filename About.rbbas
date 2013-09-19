@@ -73,6 +73,14 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		149: 2013-09-19 by SM
+		- Fixed serious bugs in ImageKit (which was completely broken).
+		- Expanded the "macoslib Overview" document.
+		- Process.psn is now gettable
+		- Started implementing the NSFileManager and NSDirectoryEnumerator
+		- Added NSKnobSlider as subclass of NSSlider
+		- Added an example window for NSSliders
+		
 		148: 2013-09-11 by KT
 		- Added NSRegularExpression and NSTextCheckingResult classes.
 		- Added Cocoa.NSIntegerMax and Cocoa.NSNotFound methods as pseudo-constants.
@@ -367,7 +375,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"148", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"149", Scope = Protected
 	#tag EndConstant
 
 

@@ -1,13 +1,13 @@
 #tag Window
 Begin Window NSSliderExampleWindow
-   BackColor       =   &hFFFFFF
+   BackColor       =   16777215
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   1.32e+2
+   Height          =   132
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,7 +23,7 @@ Begin Window NSSliderExampleWindow
    Resizeable      =   False
    Title           =   "NSSliders"
    Visible         =   True
-   Width           =   5.88e+2
+   Width           =   588
    Begin Cocoa.NSSlider NSS1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
@@ -72,7 +72,7 @@ Begin Window NSSliderExampleWindow
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &hFFFFFF
+      BackColor       =   16777215
       Bold            =   ""
       Border          =   True
       CueText         =   ""
@@ -99,7 +99,7 @@ Begin Window NSSliderExampleWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   5
-      TextColor       =   &h000000
+      TextColor       =   0
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -131,9 +131,10 @@ Begin Window NSSliderExampleWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Ticks"
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   0
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -165,9 +166,10 @@ Begin Window NSSliderExampleWindow
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Value:"
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   0
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -199,9 +201,10 @@ Begin Window NSSliderExampleWindow
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "-"
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   0
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -240,7 +243,7 @@ Begin Window NSSliderExampleWindow
       NumberOfTickMarks=   5
       Scope           =   0
       Size            =   0
-      TabIndex        =   ""
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   ""
       TextFont        =   "System"

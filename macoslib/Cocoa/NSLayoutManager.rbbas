@@ -251,12 +251,12 @@ Inherits NSObject
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ShowsInvisibleCharacters"
+			Name="ShowsControlCharacters"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ShowsControlCharacters"
+			Name="ShowsInvisibleCharacters"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

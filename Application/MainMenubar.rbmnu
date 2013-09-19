@@ -1020,6 +1020,12 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem NSSlidersExampleMenu
+            SpecialMenu = 0
+            Text = "NSSliders"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem NSImageViewMenu
             SpecialMenu = 0
             Text = "NSImageView (incl. ImageWell)"
