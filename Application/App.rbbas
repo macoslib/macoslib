@@ -58,6 +58,15 @@ Inherits Application
 		    end if
 		  end if
 		  
+		  #pragma warning "DELETE THIS CODE!!"
+		  
+		  dim rx as new NSRegEx
+		  rx.SearchPattern = "(z)?(t)(z)?(h)"
+		  rx.ReplacementPattern = "a"
+		  dim match as NSRegExMatch = rx.Search( "that tzhat" )
+		  dim s as string = match.Replace()
+		  s = match.Replace( "u" )
+		  
 		End Sub
 	#tag EndEvent
 
