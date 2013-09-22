@@ -1516,82 +1516,6 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SmoothResize(Width as Integer, Height as Integer, Align as Integer = 4)
-		  //# Easy to use animated window resizing with the ability to customize the animation origin.
-		  
-		  dim w as window = self
-		  
-		  #if TargetCocoa then
-		    
-		    Dim OrigRect, NewRect as Cocoa.NSRect
-		    OrigRect.x = w.Left
-		    OrigRect.y = w.Top
-		    OrigRect.w = w.Width
-		    OrigRect.h = w.Height
-		    
-		    // Re-calculate the co-ordinates
-		    NewRect = OrigRect
-		    
-		    NewRect.w = Width
-		    NewRect.h = Height
-		    
-		    select case Align // Use deltas in measurements, not absolutes
-		      
-		    case 0 // Lock top left (v>)
-		      // Just change the Width & Height
-		      
-		    case 1 // Lock top right (<v)
-		      NewRect.x = OrigRect.x - ( Width - w.Width )
-		      
-		    case 2 // Lock bottom left (^>)
-		      NewRect.y = OrigRect.y - ( Height - w.Height )
-		      
-		    case 3 // Lock bottom right (<^)
-		      NewRect.y = OrigRect.y - ( Height - w.Height )
-		      NewRect.x = OrigRect.x - ( Width  - w.Width )
-		      
-		    case 4 // Lock center top (<v>)
-		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
-		      
-		    case 5 // Lock center left (^v>)
-		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
-		      
-		    case 6 // Lock center bottom (<^>)
-		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
-		      NewRect.y = OrigRect.y - ( Height - w.Height )
-		      
-		    case 7 // Lock center right (<^v)
-		      NewRect.x = OrigRect.x - ( Width - w.Width )
-		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
-		      
-		    case 8 // Resize all sides (<^v>)
-		      NewRect.x = OrigRect.x - ( ( Width - w.Width ) / 2 )
-		      NewRect.y = OrigRect.y - ( ( Height - w.Height ) / 2 )
-		      
-		    else
-		      return
-		      
-		    end select
-		    
-		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height ) - ( NewRect.h - w.Height )
-		    if self.WindowToolbar <> Nil then
-		      NewRect.h = NewRect.h + ToolbarAdjustment
-		    else
-		      NewRect.h = NewRect.h + TitlebarAdjustment
-		    end if
-		    
-		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (obj_id as Ptr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
-		    setFrameDisplayAnimate self, NewRect, true, true
-		    
-		  #else
-		    #pragma Unused Align
-		    w.Width = Width
-		    w.Height = Height
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function StandardWindowButton(windowButtonKind as NSWindowButton) As Ptr
 		  
 		  #if TargetCocoa
@@ -4575,12 +4499,6 @@ Inherits NSResponder
 	#tag EndConstant
 
 	#tag Constant, Name = NSWindowNumberListAllSpaces, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = TitlebarAdjustment, Type = Double, Dynamic = False, Default = \"22", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = ToolbarAdjustment, Type = Double, Dynamic = False, Default = \"78", Scope = Protected
 	#tag EndConstant
 
 

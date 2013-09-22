@@ -875,9 +875,9 @@ Protected Module WindowExtensions
 		    
 		    NewRect.y = Screen(0).Height - ( NewRect.y + w.Height ) - ( NewRect.h - w.Height )
 		    if w.NSWindowObject.WindowToolbar <> Nil then
-		      NewRect.h = NewRect.h + 78 // Account for toolbar
+		      NewRect.h = NewRect.h + ToolbarAdjustment // Account for toolbar
 		    else
-		      NewRect.h = NewRect.h + 22 // Account for titlebar
+		      NewRect.h = NewRect.h + TitlebarAdjustment // Account for titlebar
 		    end if
 		    
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (WindowRef as WindowPtr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
@@ -1011,6 +1011,13 @@ Protected Module WindowExtensions
 		  #endif
 		End Sub
 	#tag EndMethod
+
+
+	#tag Constant, Name = TitlebarAdjustment, Type = Double, Dynamic = False, Default = \"22", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = ToolbarAdjustment, Type = Double, Dynamic = False, Default = \"78", Scope = Protected
+	#tag EndConstant
 
 
 	#tag ViewBehavior
