@@ -250,6 +250,11 @@ Inherits NSObject
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="IsARepeat"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
@@ -278,6 +283,11 @@ Inherits NSObject
 			InitialValue="0"
 			Type="Integer"
 			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WindowNumber"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WindowNumber"

@@ -64,7 +64,6 @@ End
 	#tag Event
 		Sub Close()
 		  
-		  IKScannerDeviceView1.ScannerDevice = nil
 		  
 		End Sub
 	#tag EndEvent
