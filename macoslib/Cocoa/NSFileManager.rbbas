@@ -13,6 +13,8 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      return  new NSData( p, false )
+		    else
+		      return  nil
 		    end if
 		  #endif
 		End Function
@@ -77,6 +79,9 @@ Inherits NSObject
 		      declare function defaultManager lib FoundationLib selector "defaultManager" (class_id as Ptr) as Ptr
 		      
 		      return   new NSFileManager( defaultManager( p ))
+		      
+		    else
+		      return  nil
 		    end if
 		  #endif
 		End Function
@@ -93,6 +98,8 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      return  new NSDirectoryEnumerator( p, false )
+		    else
+		      return  nil
 		    end if
 		    
 		  #endif
@@ -111,6 +118,8 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      return  new NSDirectoryEnumerator( p, false )
+		    else
+		      return nil
 		    end if
 		    
 		  #endif
@@ -166,6 +175,8 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      return  new NSArray( p, false )
+		    else
+		      return nil
 		    end if
 		  #endif
 		End Function
@@ -192,6 +203,8 @@ Inherits NSObject
 		    
 		    if p<>nil then
 		      return  new NSArray( p, false )
+		    else
+		      return nil
 		    end if
 		  #endif
 		End Function

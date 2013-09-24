@@ -269,7 +269,7 @@ Inherits NSControl
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="27"
 			Type="Integer"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
@@ -443,7 +443,7 @@ Inherits NSControl
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="48"
 			Type="Integer"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
