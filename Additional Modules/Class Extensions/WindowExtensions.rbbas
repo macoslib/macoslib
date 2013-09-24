@@ -879,6 +879,85 @@ Protected Module WindowExtensions
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (WindowRef as WindowPtr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
 		    setFrameDisplayAnimate w, NewRect, true, true
 		    
+		  #elseif TargetCarbon or TargetWin32 then
+		    
+		    dim err, t, l as integer
+		    dim rect as MemoryBlock
+		    
+		    #if TargetCarbon then
+		      Declare Function TransitionWindow Lib CarbonLib (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
+		      Declare Function GetWindowBounds  Lib CarbonLib (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
+		    #else
+		      Declare Function TransitionWindow Lib "WindowsLib" (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
+		      Declare Function GetWindowBounds  Lib "WindowsLib" (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
+		    #endif
+		    
+		    // we get the old window region
+		    rect = NewMemoryBlock(8)
+		    err = GetWindowBounds(w, 32, rect)
+		    
+		    t = w.Top // Need to know where the top and left of the window go
+		    l = w.Left
+		    Select Case align // Use deltas in measurements, not absolutes
+		    Case 0 // Lock upper left
+		      rect.Short(4) = rect.Short(4) + (height - w.height)
+		      rect.Short(6) = rect.Short(6) + (width - w.width)
+		    Case 1 // Lock upper right
+		      rect.Short(2) = rect.Short(2) - (width - w.width)
+		      rect.Short(4) = rect.Short(4) + (height - w.height)
+		      l = l - (width - w.width) // Left side moves
+		    Case 2 // Lock lower left
+		      rect.Short(0) = rect.Short(0) - (height - w.height)
+		      rect.Short(6) = rect.Short(6) + (width - w.width)
+		      t = t - (height - w.height) // Top side moves
+		    Case 3 // Lock lower right
+		      rect.Short(0) = rect.Short(0) - (height - w.height)
+		      rect.Short(2) = rect.Short(2) - (width - w.width)
+		      t = t - (height - w.height) // Top side moves
+		      l = l - (width - w.width) // Left side moves
+		    Case 4 // Lock top center
+		      rect.Short(2) = rect.Short(2) - (width - w.width) / 2
+		      rect.Short(4) = rect.Short(4) + (height - w.height)
+		      rect.Short(6) = rect.Short(6) + (width - w.width) / 2
+		      l = l - (width - w.width)/2 // Both sides move
+		    Case 5 // Lock left center
+		      rect.Short(0) = rect.Short(0) - (height - w.height) / 2
+		      rect.Short(4) = rect.Short(4) + (height - w.height) / 2
+		      rect.Short(6) = rect.Short(6) + (width - w.width)
+		      t = t - (height - w.height) / 2 // Top moves
+		    Case 6 // Lock bottom center
+		      rect.Short(0) = rect.Short(0) - (height - w.height)
+		      rect.Short(2) = rect.Short(2) - (width - w.width) / 2
+		      rect.Short(6) = rect.Short(6) + (width - w.width) / 2
+		      t = t - (height - w.height) // Top moves
+		      l = l - (width - w.width) / 2 // Left moves
+		    Case 7 // Lock right center
+		      rect.Short(0) = rect.Short(0) - (height - w.height) / 2
+		      rect.Short(2) = rect.Short(2) - (width - w.width)
+		      rect.Short(4) = rect.Short(4) + (height - w.height) / 2
+		      t = t - (height - w.height) / 2// Top moves
+		      l = l - (width - w.width) // Left moves
+		    case 8 // Lock center center
+		      rect.Short(0) = rect.Short(0) - (height - w.height) / 2
+		      rect.Short(2) = rect.Short(2) - (width - w.width) / 2
+		      rect.Short(4) = rect.Short(4) + (height - w.height) / 2
+		      rect.Short(6) = rect.Short(6) + (width - w.width) / 2
+		      t = t - (height - w.height) / 2// Top moves
+		      l = l - (width - w.width) / 2// Left moves
+		      
+		    End Select // If none of these, don't change
+		    
+		    // transition
+		    err = TransitionWindow(w, 3, 4, rect)
+		    
+		    // have to manually set the window's new height after resizing the window
+		    w.Top = t
+		    w.Left = l
+		    w.Width = width
+		    w.Height = height
+		    
+		    w.refresh
+		    
 		  #else
 		    #pragma Unused Align
 		    w.Width = Width
