@@ -3,6 +3,8 @@ Class NSFileHandle
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function AvailableData() As NSData
+		  //# Returns the data currently available in the NSFileHandle.
+		  
 		  #if targetMacOS
 		    declare function availableData lib CocoaLib selector "availableData" (obj_id as Ptr) as Ptr
 		    
@@ -26,12 +28,12 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(fd as Integer, takeOwnership as Boolean)
+		  //# Initializes and returns a file handle object associated with the specified file descriptor and deallocation policy.
+		  
 		  #if targetMacOS
-		    
 		    declare function initWithFileDescriptor lib CocoaLib selector "initWithFileDescriptor:closeOnDealloc:" (obj_id as Ptr, fileDescriptor as Integer,flag as Boolean) as Ptr
 		    
 		    super.Constructor(initWithFileDescriptor(Allocate("NSFileHandle"), fd, takeOwnership), hasOwnership)
-		    
 		  #else
 		    #pragma unused fd
 		  #endif
@@ -97,17 +99,20 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Read(byteLength as Integer) As NSData
+		  //# Synchronously reads data up to the specified number of bytes.
+		  
 		  #if targetMacOS
 		    declare function readDataOfLength lib CocoaLib selector "readDataOfLength:" (obj_id as Ptr, length as Integer) as Ptr
 		    
 		    return new NSData(readDataOfLength(self, byteLength))
-		    
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ReadAll() As NSData
+		  //# Synchronously reads the available data up to the end of file or maximum number of bytes.
+		  
 		  #if targetMacOS
 		    declare function readDataToEndOfFile lib CocoaLib selector "readDataToEndOfFile" (obj_id as Ptr) as Ptr
 		    
@@ -118,7 +123,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function SeekToEndofFile() As UInt64
-		  //Puts the file pointer at the end of the file referenced by the receiver and returns the new file offset.
+		  //Puts the file pointer at the end of the file referenced by the NSFileHandle and returns the new file offset.
 		  
 		  #if targetMacOS
 		    declare function seekToFileOffset lib CocoaLib (obj_id as Ptr) as UInt64
@@ -160,7 +165,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Synchronize()
-		  //Causes all in-memory data and attributes of the file represented by the receiver to be written to permanent storage.
+		  //Causes all in-memory data and attributes of the file represented by the NSFileHandle to be written to permanent storage.
 		  
 		  #if targetMacOS
 		    declare sub synchronizeFile lib CocoaLib selector "synchronizeFile" (obj_id as Ptr)
@@ -172,7 +177,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Truncate(offset as UInt64)
-		  'Truncates or extends the file represented by the receiver to a specified offset within the file and puts the file pointer at that position.
+		  'Truncates or extends the file represented by the NSFileHandle to a specified offset within the file and puts the file pointer at that position.
 		  '
 		  '- (void)truncateFileAtOffset:(unsigned long long)offset
 		  'Parameters
@@ -192,6 +197,8 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Write(data as NSData)
+		  //# Synchronously writes the specified data to the NSFileHandle.
+		  
 		  #if targetMacOS
 		    declare sub writeData lib CocoaLib selector "writeData:" (obj_id as Ptr, data as Ptr)
 		    
@@ -263,33 +270,38 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

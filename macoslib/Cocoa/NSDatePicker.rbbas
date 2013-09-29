@@ -11,7 +11,7 @@ Inherits NSControl
 	#tag Method, Flags = &h0
 		Function BackgroundColor() As Color
 		  #if targetCocoa
-		    soft declare function backgroundColor lib Cocoa selector "backgroundColor" (id as Ptr) as Ptr
+		    declare function backgroundColor lib CocoaLib selector "backgroundColor" (id as Ptr) as Ptr
 		    
 		    return new NSColor(backgroundColor(self))
 		  #endif
@@ -21,10 +21,9 @@ Inherits NSControl
 	#tag Method, Flags = &h0
 		Sub BackgroundColor(assigns value as Color)
 		  #if targetCocoa
-		    soft declare sub setBackgroundColor lib Cocoa selector "setBackgroundColor:" (id as Ptr, c as Ptr)
+		    declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (id as Ptr, c as Ptr)
 		    
 		    setBackgroundColor self,  new NSColor(value)
-		    
 		  #else
 		    #pragma unused value
 		  #endif
@@ -52,7 +51,6 @@ Inherits NSControl
 		    declare sub setDateValue lib CocoaLib selector "setDateValue:" (id as Ptr, newStartDate as Ptr)
 		    
 		    setDateValue self.id, value
-		    
 		  #else
 		    #pragma unused value
 		  #endif
@@ -126,7 +124,47 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    soft declare function drawsBackground lib Cocoa selector "drawsBackground" (id as Ptr) as Boolean
+			    declare function getCalendar lib CocoaLib selector "calendar" (id as Ptr) as Ptr
+			    
+			    if self.id <> nil then
+			      dim p as Ptr = getCalendar(self.id)
+			      if p <> nil then
+			        return new NSCalendar(p)
+			      else
+			        return nil
+			      end if
+			    else
+			      return nil
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setCalendar lib CocoaLib selector "setCalendar:" (id as Ptr, newCalendar as Ptr)
+			    
+			    if self.id <> nil then
+			      if value <> nil then
+			        setCalendar self.id, value
+			      else
+			        setCalendar self.id, nil
+			      end if
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Calendar As NSCalendar
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function drawsBackground lib CocoaLib selector "drawsBackground" (id as Ptr) as Boolean
 			    
 			    if self.id <> nil then
 			      return drawsBackground(self)
@@ -139,16 +177,55 @@ Inherits NSControl
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    soft declare sub setDrawsBackground lib Cocoa selector "setDrawsBackground:" (id as Ptr, flag as Boolean)
+			    declare sub setDrawsBackground lib CocoaLib selector "setDrawsBackground:" (id as Ptr, flag as Boolean)
 			    
 			    setDrawsBackground self, value
-			    
 			  #else
 			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
 		DrawsBackground As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function getLocale lib CocoaLib selector "locale" (id as Ptr) as Ptr
+			    
+			    if self.id <> nil then
+			      dim p as Ptr = getLocale(self.id)
+			      if p <> nil then
+			        return new NSLocale(p)
+			      else
+			        return nil
+			      end if
+			    else
+			      return nil
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setLocale lib CocoaLib selector "setLocale:" (id as Ptr, newLocale as Ptr)
+			    
+			    if self.id <> nil then
+			      if value <> nil then
+			        setLocale self.id, value
+			      else
+			        setLocale self.id, nil
+			      end if
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		Locale As NSLocale
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -266,7 +343,7 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    soft declare function datePickerStyle lib Cocoa selector "datePickerStyle" (id as Ptr) as Integer
+			    declare function datePickerStyle lib CocoaLib selector "datePickerStyle" (id as Ptr) as Integer
 			    
 			    if self.id <> nil then
 			      return datePickerStyle(self)
@@ -279,7 +356,7 @@ Inherits NSControl
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    soft declare sub setDatePickerStyle lib Cocoa selector "setDatePickerStyle:" (id as Ptr, value as Integer)
+			    declare sub setDatePickerStyle lib CocoaLib selector "setDatePickerStyle:" (id as Ptr, value as Integer)
 			    if self.id <> nil then
 			      setDatePickerStyle self, value
 			    else
@@ -292,6 +369,46 @@ Inherits NSControl
 			End Set
 		#tag EndSetter
 		Style As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function getTimeZone lib CocoaLib selector "timeZone" (id as Ptr) as Ptr
+			    
+			    if self.id <> nil then
+			      dim p as Ptr = getTimeZone(self.id)
+			      if p <> nil then
+			        return new NSTimeZone(p)
+			      else
+			        return nil
+			      end if
+			    else
+			      return nil
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setTimeZone lib CocoaLib selector "setTimeZone:" (id as Ptr, newTimeZone as Ptr)
+			    
+			    if self.id <> nil then
+			      if value <> nil then
+			        setTimeZone self.id, value
+			      else
+			        setTimeZone self.id, nil
+			      end if
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		TimeZone As NSTimeZone
 	#tag EndComputedProperty
 
 
@@ -328,6 +445,12 @@ Inherits NSControl
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsExpansionToolTips"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoDeactivate"
@@ -370,12 +493,24 @@ Inherits NSControl
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DrawsBackground"
@@ -399,6 +534,12 @@ Inherits NSControl
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FloatValue"
+			Group="Behavior"
+			Type="Single"
+			InheritedFrom="NSControl"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Height"
 			Visible=true
 			Group="Position"
@@ -418,14 +559,18 @@ Inherits NSControl
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
-			Group="Initial State"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
@@ -445,8 +590,8 @@ Inherits NSControl
 			Name="Left"
 			Visible=true
 			Group="Position"
-			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockBottom"
@@ -480,7 +625,14 @@ Inherits NSControl
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Style"
@@ -491,11 +643,13 @@ Inherits NSControl
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
+			Visible=true
 			Group="Position"
+			InitialValue="0"
 			Type="Integer"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -508,7 +662,9 @@ Inherits NSControl
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
+			Visible=true
 			Group="Position"
+			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
@@ -525,16 +681,16 @@ Inherits NSControl
 			Name="TextSize"
 			Visible=true
 			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
+			InitialValue="0.0"
+			Type="double"
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
-			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Underlined"

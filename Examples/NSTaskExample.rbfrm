@@ -108,6 +108,7 @@ Begin Window NSTaskExample
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Run ls and redirect output to a file via an NSFileHandle"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -142,6 +143,7 @@ Begin Window NSTaskExample
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Run ls and grab output for display"
       TextAlign       =   0
       TextColor       =   &h000000

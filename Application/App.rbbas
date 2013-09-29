@@ -26,6 +26,38 @@ Inherits Application
 		  
 		  Cocoa.Initialize
 		  
+		  //Initialize the Timer which will close the Splash window and open the default window.
+		  SplashTimer = new Timer
+		  AddHandler  SplashTimer.Action, AddressOf HandleTimerAction
+		  SplashTimer.Period = 2500
+		  SplashTimer.Mode = 1
+		  
+		  //Read prefs
+		  dim f as FolderItem
+		  
+		  f = SpecialFolder.Preferences.Child( "com.declaresub.macoslib.plist" )
+		  if f.Exists then
+		    PrefsPL = new DebugReportModule.PropertyList( f )
+		    
+		  else
+		    PrefsPL = new DebugReportModule.PropertyList
+		    PrefsPL.file = f
+		    
+		  end if
+		  
+		  dim LV as integer = PrefsPL.Lookup( "LastVersionChecked", 0 ) //Last version checked
+		  if LV=0 then //Very first launching
+		    
+		    
+		    
+		  else //User has already launched the app
+		    if LV<About.Version then //User is seeing a new version of macoslib
+		      
+		      
+		      
+		    end if
+		  end if
+		  
 		End Sub
 	#tag EndEvent
 
@@ -56,6 +88,22 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSAlert() As Boolean Handles CocoaNSAlert.Action
+			NSAlertExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSByteCountFormatter() As Boolean Handles CocoaNSByteCountFormatter.Action
+			NSByteCountFormatterExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSColorBrowser() As Boolean Handles CocoaNSColorBrowser.Action
 			NSColorWindow.Show
 			return true
@@ -66,6 +114,14 @@ Inherits Application
 		Function CocoaNSDatePicker() As Boolean Handles CocoaNSDatePicker.Action
 			NSDatePickerWindow.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSDockTile() As Boolean Handles CocoaNSDockTile.Action
+			NSDockTileExample.Show
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -101,6 +157,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSPopover() As Boolean Handles CocoaNSPopover.Action
+			NSPopoverExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSPrinter() As Boolean Handles CocoaNSPrinter.Action
 			NSPrinterExampleWindow.Show
 			return true
@@ -118,6 +182,24 @@ Inherits Application
 		Function CocoaNSSearchField() As Boolean Handles CocoaNSSearchField.Action
 			NSSearchFieldExample.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSSharingServicePicker() As Boolean Handles CocoaNSSharingServicePicker.Action
+			NSSharingServiceExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSStatusItem() As Boolean Handles CocoaNSStatusItem.Action
+			
+			NSStatusItemWindow.show
+			
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -140,6 +222,22 @@ Inherits Application
 		Function CocoaNSTimeZone() As Boolean Handles CocoaNSTimeZone.Action
 			NSTimeZoneWindow.Show
 			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSToolbar() As Boolean Handles CocoaNSToolbar.Action
+			NSToolbarWindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function CocoaNSUserNotifications() As Boolean Handles CocoaNSUserNotifications.Action
+			NSUserNotificationExample.Show
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -169,7 +267,8 @@ Inherits Application
 
 	#tag MenuHandler
 		Function CocoaTextArea() As Boolean Handles CocoaTextArea.Action
-			TextAreaExample.Show
+			'TextAreaExample.Show
+			TextAreaWindow.Show
 			return true
 		End Function
 	#tag EndMenuHandler
@@ -469,6 +568,17 @@ Inherits Application
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h0
+		Sub HandleTimerAction(theTimer as Timer)
+		  
+		  macoslibSplashWindow.Close
+		  DefaultWindow.Show
+		  
+		  #pragma unused theTimer
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub TestBundleLookup()
 		  dim f as FolderItem
@@ -483,8 +593,8 @@ Inherits Application
 		Protected Sub TestCocoa()
 		  #if targetMacOS
 		    // Test ProcessInfo.Arguments. First item should be our app's path
-		    dim args as NSArray = NSProcessInfo.ProcessInfo.Arguments
-		    dim pathFromPI as String = CFString(args.CFValue(0))
+		    dim args() as String = NSProcessInfo.ProcessInfo.Arguments
+		    dim pathFromPI as String = args(0)
 		    dim pathFromRB as String = App.ExecutableFile.POSIXPath
 		    if pathFromPI <> pathFromRB then break // they should be equal, usually
 		    
@@ -529,6 +639,14 @@ Inherits Application
 		#tag EndGetter
 		Prefs As TTsSmartPreferences
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		PrefsPL As DebugReportModule.PropertyList
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SplashTimer As Timer
+	#tag EndProperty
 
 
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public

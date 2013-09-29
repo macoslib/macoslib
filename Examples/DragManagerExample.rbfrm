@@ -1,20 +1,22 @@
 #tag Window
 Begin Window DragManagerExample
-   BackColor       =   16777215
-   Backdrop        =   ""
+   BackColor       =   &cFFFFFF00
+   Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   2.55e+2
+   Height          =   255
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -23,10 +25,10 @@ Begin Window DragManagerExample
    Resizeable      =   True
    Title           =   "Drag Manager"
    Visible         =   True
-   Width           =   4.09e+2
+   Width           =   409
    Begin Label InfoText
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -34,34 +36,34 @@ Begin Window DragManagerExample
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      Multiline       =   ""
-      Scope           =   0
+      Multiline       =   False
+      Scope           =   "0"
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   &c000000
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
       TextUnit        =   0
       Top             =   222
       Transparent     =   False
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   369
    End
    Begin Label Label1
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -69,63 +71,63 @@ Begin Window DragManagerExample
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   20
-      LockBottom      =   ""
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Multiline       =   True
-      Scope           =   0
+      Scope           =   "0"
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "This demonstrates dragging of files to the Finder.\rDrag either of the images below to a Finder folder to see where they got dragged."
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   &c000000
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
       TextUnit        =   0
       Top             =   14
       Transparent     =   False
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   369
    End
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       Caption         =   "Using RB's DragItem"
       Enabled         =   True
       Height          =   104
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   17
-      LockBottom      =   ""
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   ""
+      LockRight       =   False
       LockTop         =   True
-      Scope           =   0
+      Scope           =   "0"
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
       TextUnit        =   0
       Top             =   84
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   175
       Begin Canvas DragRBCode
-         AcceptFocus     =   ""
-         AcceptTabs      =   ""
+         AcceptFocus     =   False
+         AcceptTabs      =   False
          AutoDeactivate  =   True
-         Backdrop        =   ""
+         Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -139,18 +141,19 @@ Begin Window DragManagerExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   False
-         Scope           =   0
+         Scope           =   "0"
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   118
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   50
       End
       Begin Label Label2
          AutoDeactivate  =   True
-         Bold            =   ""
+         Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -158,64 +161,64 @@ Begin Window DragManagerExample
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
-         Italic          =   ""
+         Italic          =   False
          Left            =   91
-         LockBottom      =   ""
+         LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   ""
+         LockRight       =   False
          LockTop         =   True
          Multiline       =   True
-         Scope           =   0
+         Scope           =   "0"
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Doesn't work in Cocoa builds (as of June 2013)"
          TextAlign       =   0
-         TextColor       =   &h000000
+         TextColor       =   &c000000
          TextFont        =   "System"
-         TextSize        =   11
+         TextSize        =   11.0
          TextUnit        =   0
          Top             =   118
          Transparent     =   False
-         Underline       =   ""
+         Underline       =   False
          Visible         =   True
          Width           =   91
       End
    End
    Begin GroupBox GroupBox2
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       Caption         =   "Using MacOSLib"
       Enabled         =   True
       Height          =   104
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   214
-      LockBottom      =   ""
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   ""
+      LockRight       =   False
       LockTop         =   True
-      Scope           =   0
+      Scope           =   "0"
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
       TextUnit        =   0
       Top             =   84
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   175
       Begin Canvas DragCustomCode
-         AcceptFocus     =   ""
-         AcceptTabs      =   ""
+         AcceptFocus     =   False
+         AcceptTabs      =   False
          AutoDeactivate  =   True
-         Backdrop        =   ""
+         Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -229,18 +232,19 @@ Begin Window DragManagerExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   False
-         Scope           =   0
+         Scope           =   "0"
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   118
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   50
       End
       Begin Label Label3
          AutoDeactivate  =   True
-         Bold            =   ""
+         Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -248,35 +252,35 @@ Begin Window DragManagerExample
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
-         Italic          =   ""
+         Italic          =   False
          Left            =   290
-         LockBottom      =   ""
+         LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   ""
+         LockRight       =   False
          LockTop         =   True
          Multiline       =   True
-         Scope           =   0
+         Scope           =   "0"
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Should work even in Cocoa builds"
          TextAlign       =   0
-         TextColor       =   &h000000
+         TextColor       =   &c000000
          TextFont        =   "System"
-         TextSize        =   11
+         TextSize        =   11.0
          TextUnit        =   0
          Top             =   118
          Transparent     =   False
-         Underline       =   ""
+         Underline       =   False
          Visible         =   True
          Width           =   91
       End
    End
    Begin Label InfoText2
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -284,28 +288,28 @@ Begin Window DragManagerExample
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      Multiline       =   ""
-      Scope           =   0
+      Multiline       =   False
+      Scope           =   "0"
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Drag Result:"
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   &c000000
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
       TextUnit        =   0
       Top             =   200
       Transparent     =   False
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   369
    End
@@ -344,7 +348,7 @@ End
 #tag Events DragRBCode
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  g.ForeColor = &c00FF0000
+		  g.ForeColor = &c00FF00
 		  g.FillRoundRect 2, 2, g.Width - 4, g.Height - 4, 8, 8
 		  
 		  #if RBVersion >= 2012.02 then
@@ -376,7 +380,7 @@ End
 #tag Events DragCustomCode
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  g.ForeColor = &c0000FF00
+		  g.ForeColor = &c0000FF
 		  g.FillRoundRect 2, 2, g.Width - 4, g.Height - 4, 8, 8
 		  
 		  #if RBVersion >= 2012.02

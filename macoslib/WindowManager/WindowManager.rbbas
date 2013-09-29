@@ -196,6 +196,44 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FullScreenAllowed(extends w as Window) As Boolean
+		  //# Indicates whether the window can enter full screen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      
+		      return Bitwise.BitAnd( getCollectionBehavior(w), Integer(WindowCollectionBehavior.FullScreenPrimary) ) = Integer(WindowCollectionBehavior.FullScreenPrimary)
+		    end if
+		  #else
+		    #pragma Unused w
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FullScreenAllowed(extends w as Window, assigns Value as Boolean)
+		  //# Allows the window to enter full screen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then // the CollectionBehavior selector is available since 10.5, but the behavior FullScreenPrimary is first introduced in 10.7
+		      declare function getCollectionBehavior lib CocoaLib Selector "collectionBehavior" (WindowRef as WindowPtr) as Integer
+		      declare sub setCollectionBehavior lib CocoaLib Selector "setCollectionBehavior:" (WindowRef as WindowPtr, inFlag as Integer)
+		      
+		      if Value then
+		        setCollectionBehavior( w, getCollectionBehavior(w) or Integer(WindowCollectionBehavior.FullScreenPrimary) )
+		      else
+		        setCollectionBehavior( w, getCollectionBehavior(w) Xor Integer(WindowCollectionBehavior.FullScreenPrimary) )
+		      end if
+		    end if
+		  #else
+		    #pragma Unused w
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsCollapsed(extends w as Window) As Boolean
 		  #if TargetMacOS
 		    declare function IsWindowCollapsed lib CarbonLib (window as WindowPtr) as Boolean
@@ -224,6 +262,24 @@ Module WindowManager
 		    declare function IsWindowCollapsable lib CarbonLib (window as WindowPtr) as Boolean
 		    
 		    return IsWindowCollapsable(w)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsFullScreen(extends w as Window) As Boolean
+		  //# Returns a boolean indicating the window's fullscreen status.
+		  
+		  #if TargetCocoa then
+		    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is introduced in 10.7
+		      declare function GetStyleMask lib CocoaLib selector "styleMask" (window as WindowPtr) as Integer
+		      
+		      if w <> nil then
+		        return ( GetStyleMask(w) and NSFullScreenWindowMask ) = NSFullScreenWindowMask
+		      end if
+		    end if
+		  #else
+		    #pragma Unused w
 		  #endif
 		End Function
 	#tag EndMethod
@@ -390,6 +446,22 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ToggleFullScreen(extends w as Window)
+		  //# Takes the window into or out of fullscreen mode
+		  
+		  #if TargetCocoa then
+		    if IsLion then
+		      declare sub toggleFullScreen lib CocoaLib selector "toggleFullScreen:" (WindowRef as WindowPtr, sender As Ptr)
+		      
+		      toggleFullScreen(w,nil)
+		    end if
+		  #else
+		    #pragma Unused w
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub UpdateDockTile(extends w as Window)
 		  #if targetMacOS
 		    declare function UpdateCollapsedWindowDockTile lib CarbonLib (inWindow as WindowPtr) as Integer
@@ -533,6 +605,12 @@ Module WindowManager
 	#tag Constant, Name = kWindowZoomTransitionEffect, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = NSApplicationPresentationFullScreen, Type = Double, Dynamic = False, Default = \"1024", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
+	#tag EndConstant
+
 
 	#tag Structure, Name = MacPoint, Flags = &h0
 		v as Int16
@@ -553,39 +631,53 @@ Module WindowManager
 	#tag EndStructure
 
 
+	#tag Enum, Name = WindowCollectionBehavior, Type = Integer, Flags = &h0
+		Default=0
+		  CanJoinAllSpaces=1
+		  MoveToActiveSpace=2
+		  Managed=4
+		  Transient=8
+		  Stationary=16
+		  ParticipatesInCycle=32
+		  IgnoresCycle=64
+		  FullScreenPrimary=128
+		FullScreenAuxiliary=256
+	#tag EndEnum
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

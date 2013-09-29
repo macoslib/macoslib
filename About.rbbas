@@ -5,7 +5,26 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2007r4 or later and MacOS X 10.5 or later.
+		Requires REALbasic 2011r1(1) or later and MacOS X 10.5 or later.
+		
+		
+		(1) Tests are in progress.
+	#tag EndNote
+
+	#tag Note, Name = Compatibility
+		COMPATIBILITY WITH REAL STUDIO AND XOJO
+		
+		macoslib.rbvcp v147 (i.e. running the full project):
+		    REAL Studio 2010r5 and below   NOT COMPATIBLE
+		    REAL Studio 2011r1 to 2011r3   COMPATIBLE with limitations (you will see it immediately as the splash window is not transparent as it should)
+		    REAL Studio 2011r4 and later     COMPATIBLE
+		    Xojo 2013r1 and later                 COMPATIBLE
+		
+		macoslib library v147 (i.e. a project containing the "macoslib" & the "Additional Modules" folders and running it):
+		    REAL Studio 2010r5 and below   DOES NOT COMPILE
+		    REAL Studio 2011r1 to 2011r3   RUNS but some limitations are to be expected
+		    REAL Studio 2011r4 and later     RUNS
+		    Xojo 2013r1 and later                 RUNS
 	#tag EndNote
 
 	#tag Note, Name = Contributors
@@ -54,6 +73,80 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		148: 2013-09-11 by KT
+		- Added NSRegularExpression and NSTextCheckingResult classes.
+		- Added Cocoa.NSIntegerMax and Cocoa.NSNotFound methods as pseudo-constants.
+		- Replaced some deprecated calls in case they are removed by a newer version of Xojo.
+		- Added NSError.Operator_Convert to a MacOSError so you can raise new NSError( id, true ).
+		- Removed or added pragmas for unused variables and parameters.
+		- Corrected Windows/Linux compile issue.
+		
+		147: 2013-09-07 by SM
+		- Fixed a potential bug reported by KT.
+		- Users can now click on the splash window to go immediately to the default window.
+		- Improved compatibility with REAL Studio before 2012r2 (Str with 2 parameters & use of Target32Bit).
+		- Expanded the "macoslib Overview" document.
+		- Sorted the Examples windows by alphabetical order.
+		Amended:
+		- Small fixes to make the project compatible with RS 2011.x.
+		- Tested the current version with every RS version and added the result into About.Compatibility Note.
+		- Removed some unnecessary stuff, thanks to TT.
+		
+		146: 2013-09-04 by SM
+		- Added documentation files (in both .docx and .pdf formats) to provide a quick start guide to users (only the
+		    PDF file is displayed by macoslib. The docx documents are provided to modify the documentation).
+		- The way PDF documents are displayed should be improved.
+		- Added a default window to welcome users when they run macoslib. It offers links to the basic documentation
+		    but also to documents for beginners, advanced users and experts.
+		- Added a splash window to show the capabilities of macoslib but it should be improved.
+		- Modified the minimum requirements in the About module.
+		- Modified PropertyList inside DebugReportModule so it can handle binary PropertyLists.
+		
+		
+		146: 2013-08-24 by VVB
+		- Added NSAlert, NSButton NSControl, NSSharingService/Picker, NSPopover, NSViewController, NSWindowController, NSPanel, filled out NSView, NSControl, NSApplication.
+		- Added constructor from Ptr and WithFrame to NSControl, and added convienience methods to get the NSObject and NSView.
+		- Added convienience extensions for window to return NSWindow, for control to return NSControl and return NSView.
+		- Added ShareTemplate to SystemIcons and NSImage.
+		- Added missing images to system images example.
+		
+		145: 2013-08-11 by VVB
+		- Added NSUserNotification/Center and example.
+		- Added NSMenu Delegates.
+		- Made it slightly easier to call on NSDockTile.
+		- Filled out NSEvent a bit.
+		- SegmentedControlExtension enumerations shortened.
+		
+		144: 2013-08-01 by KT
+		- Fixed bug when setting NSWindow.RepresentedFile to nil.
+		- Fixed bug when setting NSWindow.RepresentedURL to nil.
+		- Fixed bug in NSArray.CreateFromObjectsArray.
+		- Added methods to NSLayoutManager and NSTextStorage.
+		
+		143: 2013-07-31 by SM & VVB & CY
+		- Added NSByteCountFormatter.
+		- Now using NSByteCountFormatter in StringExtension.FormatSize if you're on Mac OS X 10.8+ and using a postive value.
+		- StringExtension.FormatSize now mimics Apple's NSByteCountFormatter if on Mac OS X 10.7 and below.
+		
+		143: 2013-07-29 by KT
+		- Added functions/properties to NSTextView.
+		- Added NSTextStorage class.
+		- Changed some methods into properties to allow access during debugging.
+		- Added convenience functions to TextAreaExtension to set and remove font
+		background color.
+		- Added pragmas for unused variables/parameters.
+		- Fixed some code for compiling in Carbon/Windows.
+		
+		142: 2013-07-29 by VVB
+		- Better NSWindow fullscreen methods.
+		- Added convenience methods for NSWindow CollectionBehaviors.
+		- Added more examples to the NSWindow example.
+		- Added more colors to the colorbrowser example.
+		
+		141: 2013-07-22 by VVB
+		- Merged the vallebox project back into the most recent version of macoslib with a few slight modifications here and there.
+		  (http://code.google.com/r/vallebox--macoslib/)
+		
 		140: 2013-07-18 by KT
 		- Added properties to NSWindow for BackingScaleFactor, DocumentEdited, MovableByWindowBackgound, 
 		  RepresentedFile, RepresentedFilename, and RepresentedURL.
@@ -64,6 +157,15 @@ Protected Module About
 		
 		139: 2013-07-17 by KT
 		- Minor changes to WindowExtensions.ScalingFactor. 
+		139: 2013-07-09 by VVB
+		- Added dutch translation.
+		- Added window lion fullscreen methods and menu item.
+		- Added help menu to get the auto search menu item.
+		- Added some new constructors to NSImage.
+		- Added Operator_Convert from Picture to NSImage.
+		- Added isTemplate option to NSImage.
+		- Set NSIMage size using with/height double values.
+		- Made the NSObject.allocate method a little more flexible.
 		
 		138: 2013-07-08 by KT
 		- Added pragmas for unused variables in various methods.
@@ -265,7 +367,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"140", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"148", Scope = Protected
 	#tag EndConstant
 
 

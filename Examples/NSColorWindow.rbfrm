@@ -34,7 +34,7 @@ Begin Window NSColorWindow
       ColumnWidths    =   "*, 120"
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   -1
+      DefaultRowHeight=   20
       Enabled         =   True
       EnableDrag      =   ""
       EnableDragReorder=   ""
@@ -42,12 +42,12 @@ Begin Window NSColorWindow
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   353
+      Height          =   400
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Color	 "
+      InitialValue    =   "Color Name	Color"
       Italic          =   ""
       Left            =   0
       LockBottom      =   True
@@ -68,7 +68,7 @@ Begin Window NSColorWindow
       TextUnit        =   0
       Top             =   0
       Underline       =   ""
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   600
       _ScrollWidth    =   -1
@@ -124,13 +124,45 @@ End
 		  "ControlTintBlue" : NSColor.ControlTintBlue, _
 		  "ControlTintClear" : NSColor.ControlTintClear, _
 		  "ControlTintDefault" : NSColor.ControlTintDefault, _
-		  "ControlTintGraphite" : NSColor.ControlTintGraphite)
+		  "ControlTintGraphite" : NSColor.ControlTintGraphite, _
+		  "ControlTextColor" : NSColor.ControlTextColor, _
+		  "ControlTextColorDisabled" : NSColor.ControlTextColorDisabled, _
+		  "ControlHighlightColor" : NSColor.ControlHighlightColor, _
+		  "ControlLightHighlightColor" : NSColor.ControlLightHighlightColor, _
+		  "ControlShadowColor" : NSColor.ControlShadowColor, _
+		  "ControlBackgroundColor" : NSColor.ControlBackgroundColor, _
+		  "GridColor" : NSColor.GridColor, _
+		  "HeaderColor" : NSColor.HeaderColor, _
+		  "HeaderTextColor" : NSColor.HeaderTextColor, _
+		  "HighlightColor" : NSColor.HighlightColor, _
+		  "KeyboardFocusIndicatorColor" : NSColor.KeyboardFocusIndicatorColor, _
+		  "KnobColor" : NSColor.KnobColor, _
+		  "ScrollBarColor" : NSColor.ScrollBarColor, _
+		  "SecondarySelectedControlColor" : NSColor.SecondarySelectedControlColor, _
+		  "SelectedControlColor" : NSColor.SelectedControlColor, _
+		  "SelectedControlTextColor" : NSColor.SelectedControlTextColor, _
+		  "SelectedKnobColor" : NSColor.SelectedKnobColor, _
+		  "SelectedMenuItemColor" : NSColor.SelectedMenuItemColor, _
+		  "SelectedMenuItemTextColor" : NSColor.SelectedMenuItemTextColor, _
+		  "SelectedTextBackgroundColor" : NSColor.SelectedTextBackgroundColor, _
+		  "SelectedTextColor" : NSColor.SelectedTextColor, _
+		  "ShadowColor" : NSColor.ShadowColor, _
+		  "TextBackgroundColor" : NSColor.TextBackgroundColor, _
+		  "TextColor" : NSColor.TextColor, _
+		  "WindowFrameColor" : NSColor.WindowFrameColor, _
+		  "WindowFrameTextColor" : NSColor.WindowFrameTextColor)
+		  
+		  
+		  dim t() as NSColor = NSColor.ControlAlternatingRowBackgroundColors
+		  For i as Integer = 0 to t.Ubound
+		    colors.Append "ControlAlternatingRowBackgroundColors(" + str(i) + ")" : t(i)
+		  Next
+		  
 		  
 		  for each item as Pair in colors
 		    me.AddRow item.Left.StringValue
 		    me.CellTag(me.LastIndex, 1) = item.Right
 		  next
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

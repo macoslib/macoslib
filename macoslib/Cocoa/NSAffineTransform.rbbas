@@ -11,6 +11,8 @@ Inherits NSObject
 		    declare sub appendTransform lib CocoaLib selector "appendTransform:" (obj_id as Ptr, aTransform as Ptr)
 		    
 		    appendTransform(self, t)
+		  #else
+		    #pragma Unused t
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -34,6 +36,49 @@ Inherits NSObject
 		    super.Constructor(transform(Cocoa.NSClassFromString("NSAffineTransform")))
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Create() As NSAffineTransform
+		  
+		  #if TargetMacOS
+		    declare function transform lib CocoaLib selector "transform" (obj_id as Ptr) as Ptr
+		    
+		    dim transformRef as Ptr = transform(Cocoa.NSClassFromString("NSAffineTransform"))
+		    
+		    if transformRef <> nil then
+		      return new NSAffineTransform(transformRef)
+		    end if
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function InitWithTransform(aTransform as NSAffineTransform) As NSAffineTransform
+		  
+		  #if TargetMacOS
+		    declare function initWithTransform lib CocoaLib selector "initWithTransform:" (obj_id as Ptr, aTransform as Ptr) as Ptr
+		    
+		    dim objectRef as Ptr
+		    if aTransform <> nil then
+		      objectRef = initWithTransform(self, aTransform)
+		    else
+		      objectRef = initWithTransform(self, nil)
+		    end if
+		    
+		    if objectRef <> nil then
+		      return new NSAffineTransform(objectRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused aTransform
+		  #endif
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -62,6 +107,8 @@ Inherits NSObject
 		    declare sub setTransformStruct lib CocoaLib selector "setTransformStruct:" (obj_id as Ptr, aTransformStruct as TransformMatrix)
 		    
 		    setTransformStruct(self, value)
+		  #else
+		    #pragma Unused value
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -76,6 +123,8 @@ Inherits NSObject
 		    declare sub prependTransform lib CocoaLib selector "prependTransform:" (obj_id as Ptr, aTransform as Ptr)
 		    
 		    prependTransform(self, t)
+		  #else
+		    #pragma Unused t
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -86,6 +135,8 @@ Inherits NSObject
 		    declare sub rotateByDegrees lib CocoaLib selector "rotateByDegrees:" (obj_id as Ptr, angle as Single)
 		    
 		    rotateByDegrees(self, CType(angle, Single))
+		  #else
+		    #pragma Unused angle
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -96,6 +147,8 @@ Inherits NSObject
 		    declare sub rotateByRadians lib CocoaLib selector "rotateByRadians:" (obj_id as Ptr, angle as Single)
 		    
 		    rotateByRadians(self, CType(angle, Single))
+		  #else
+		    #pragma Unused angle
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -106,6 +159,8 @@ Inherits NSObject
 		    declare sub scaleBy lib CocoaLib selector "scaleBy:" (obj_id as Ptr, scale as Single)
 		    
 		    scaleBy(self, CType(scaleFactor, Single))
+		  #else
+		    #pragma Unused scaleFactor
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -116,6 +171,9 @@ Inherits NSObject
 		    declare sub scaleXBy lib CocoaLib selector "scaleXBy:yBy:" (obj_id as Ptr, scaleX as Single, scaleY as Single)
 		    
 		    scaleXBy(self, CType(scaleX, Single), CType(scaleY, Single))
+		  #else
+		    #pragma Unused scaleX
+		    #pragma Unused scaleY
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -137,6 +195,8 @@ Inherits NSObject
 		    declare function transformPoint lib CocoaLib selector "transformPoint:" (obj_id as Ptr, aPoint as Cocoa.NSPoint) as Cocoa.NSPoint
 		    
 		    return transformPoint(self, point)
+		  #else
+		    #pragma Unused point
 		  #endif
 		End Function
 	#tag EndMethod
@@ -147,7 +207,33 @@ Inherits NSObject
 		    declare function transformSize lib CocoaLib selector "transformSize:" (obj_id as Ptr, aSize as Cocoa.NSSize) as Cocoa.NSSize
 		    
 		    return transformSize(self, size)
+		  #else
+		    #pragma Unused size
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Transform(Bezier as NSBezierPath) As NSBezierPath
+		  
+		  #if TargetMacOS
+		    declare function transformBezierPath lib CocoaLib selector "transformBezierPath:" (obj_id as Ptr, Bezier as Ptr) as Ptr
+		    
+		    dim BezierRef as Ptr
+		    if Bezier <> nil then
+		      BezierRef = Bezier
+		    end if
+		    
+		    dim returnPathRef as Ptr = transformBezierPath(self, BezierRef)
+		    
+		    if returnPathRef <> nil then
+		      return new NSBezierPath(returnPathRef)
+		    end if
+		    
+		  #else
+		    #pragma Unused Bezier
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -157,6 +243,9 @@ Inherits NSObject
 		    declare sub translateXBy lib CocoaLib selector "translateXBy:yBy:" (obj_id as Ptr, deltaX as Single, deltaY as Single)
 		    
 		    translateXBy(self, deltaX, deltaY)
+		  #else
+		    #pragma Unused deltaX
+		    #pragma Unused deltaY
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -185,33 +274,38 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

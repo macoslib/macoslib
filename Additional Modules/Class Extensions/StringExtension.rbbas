@@ -1,6 +1,16 @@
 #tag Module
 Protected Module StringExtension
 	#tag Method, Flags = &h0
+		Sub Append(extends s() as string, t() as string)
+		  //# Appends an array of strings to another array of strings
+		  
+		  for i as integer = 0 to UBound(t)
+		    s.Append t(i)
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Contains(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
@@ -9,35 +19,112 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FormatSize(size as Int64) As String
-		  //# Format a file size as a 2-decimal number with appropriate unit (K, M, G, T). It is up to you to add the proper localized abbreviation for "byte".
+		Function ContainsB(extends s as string, substring as String) As Boolean
+		  //# Return true if 's' contains the 'substring'.
 		  
-		  //@ [Cross-platform]
+		  //@ By 'contains' we mean binary containment, as with InStrB.
 		  
+		  return  ( s.InStrB( substring ) > 0 )
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring. (case-insensitive)
 		  
-		  static KB as Int64 = 1024
-		  static MB as Int64 = KB * KB
-		  static GB as Int64 = MB * KB
-		  static TB as Int64 = GB * KB
-		  static EB as Int64 = TB * KB
+		  return Right(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function EndsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string ends with the substring, doing a binary comparison.
 		  
-		  if size<1024 then
-		    return  Str( size )
+		  return StrComp(RightB(s, substring.LenB), substring, 0) = 0
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FormatSize(size as UInt64, binary as Boolean = True) As String
+		  //# Format a file size to its shortest form and unit, like 17.32 GB.
+		  
+		  //@param size
+		  //    The size to format.
+		  //@param/
+		  //@param binary=true
+		  //    If true, use 1024 bytes as the basic unit. Otherwise, uses 1000 bytes (like Apple). Default is 1024 bytes.
+		  //@param/
+		  
+		  //@result
+		  //    A string containing the formatted size value.
+		  //@result/
+		  
+		  if IsMountainLion and size >= 0 then
+		    // Use Apple's official NSByteCountFormatter.
+		    if binary then
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Binary ) // 1k = 1024 bytes
+		    else
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Decimal ) // 1k = 1000 bytes
+		    end if
 		    
 		  else
-		    if size < MB then
-		      return   Str( size / KB, "#########.##" ) + " K"
-		      
-		    elseif size < GB then
-		      return   Str( size / MB, "#########.##" ) + " M"
-		      
-		    elseif size < TB then
-		      return   Str( size / GB, "#########.##" ) + " G"
-		      
-		    elseif size < EB then
-		      return   Str( size / EB, "#########.##" ) + " T"
-		      
+		    // Mimic Apple's results manually, and allow for negative numbers.
+		    if size = 0 then
+		      return "Zero KB"
 		    end if
+		    
+		    dim KB as UInt64 = 1024
+		    
+		    if not binary then
+		      KB = 1000 // Apple decimal format: 1K=1000 bytes
+		    end if
+		    
+		    dim usize as UInt64 = Abs( size ) // Comparing with absolute values is easier then dealing with negative sizes.
+		    
+		    if usize < KB then
+		      if usize = 1 then
+		        return  Str( size ) + " byte"
+		      else
+		        return  Str( size ) + " bytes"
+		      end if
+		    end if
+		    
+		    if Round( usize / KB ) < KB then
+		      return   Format( size / KB, "-#" ) + " KB"
+		    end if
+		    
+		    dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
+		    if Round( usize / MB ) < KB then
+		      return   Format( size / MB, "-#.0" ) + " MB"
+		    end if
+		    
+		    dim GB as Int64 = MB * KB
+		    if Round( usize / GB ) < KB then
+		      return   Format( size / GB, "-#.00" ) + " GB"
+		    end if
+		    
+		    dim TB as Int64 = GB * KB
+		    if Round( usize / TB ) < KB then
+		      return   Format( size / TB, "-#.00" ) + " TB"
+		    end if
+		    
+		    dim PB as Int64 = TB * KB
+		    if Round( usize / PB ) < KB then
+		      return   Format( size / PB, "-#.00" ) + " PB"
+		    end if
+		    
+		    dim EB as Int64 = PB * KB
+		    if Round( usize / EB ) < KB then
+		      return   Format( size / EB, "-#.00" ) + " EB"
+		    end if
+		    
+		    dim ZB as Int64 = EB * KB
+		    if Round( usize / ZB ) < KB then
+		      return   Format( size / ZB, "-#.00" ) + " ZB"
+		    end if
+		    
+		    dim YB as Int64 = ZB * KB // I'm not currently aware of a format larger than the yottabyte, and Apple doesn't seem to return anything larger than 16 or 18.45 exabyte.
+		    return    Format( size / YB, "-#.00" ) + " YB"
 		    
 		  end if
 		End Function
@@ -206,6 +293,22 @@ Protected Module StringExtension
 		  //@ [Cross-platform]
 		  
 		  return L.IndexOf(s) = -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWith(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring. (case-insensitive)
+		  
+		  return Left(s, substring.Len) = substring
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StartsWithB(extends s as string, substring as string) As Boolean
+		  //# Return true if the string starts with the substring, doing a binary comparison.
+		  
+		  return StrComp(LeftB(s, substring.LenB), substring, 0) = 0
 		End Function
 	#tag EndMethod
 

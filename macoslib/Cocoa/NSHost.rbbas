@@ -3,6 +3,7 @@ Class NSHost
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Addresses() As String()
+		  // Deprecated in favor of NSArray Property.
 		  #if targetMacOS
 		    declare function addresses lib CocoaLib selector "addresses" (obj_id as Ptr) as Ptr
 		    
@@ -18,12 +19,57 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function ClassRef() As Ptr
+		  
+		  static ref as Ptr = Cocoa.NSClassFromString("NSHost")
+		  return ref
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateWithAddress(address as String) As NSHost
+		  
+		  #if targetMacOS
+		    declare function hostWithAddress lib CocoaLib selector "hostWithAddress:" (class_id as Ptr, address as CFStringRef) as Ptr
+		    
+		    dim hostRef as Ptr = hostWithAddress(ClassRef, address)
+		    if hostRef <> nil then
+		      return new NSHost(hostRef)
+		    end if
+		    
+		  #else
+		    #pragma unused address
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function CreateWithName(name as String) As NSHost
+		  
+		  #if targetMacOS
+		    declare function hostWithName lib CocoaLib selector "hostWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
+		    
+		    dim hostRef as Ptr = hostWithName(ClassRef, name)
+		    if hostRef <> nil then
+		      return new NSHost(hostRef)
+		    end if
+		    
+		  #else
+		    #pragma unused name
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		 Shared Function CurrentHost() As NSHost
 		  #if targetMacOS
 		    declare function currentHost lib CocoaLib selector "currentHost" (class_id as Ptr) as Ptr
 		    
-		    dim p as Ptr = currentHost(Cocoa.NSClassFromString("NSHost"))
+		    dim p as Ptr = currentHost(ClassRef)
 		    return new NSHost(p)
 		  #endif
 		End Function
@@ -34,7 +80,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function hostWithAddress lib CocoaLib selector "hostWithAddress:" (class_id as Ptr, address as CFStringRef) as Ptr
 		    
-		    dim p as Ptr = hostWithAddress(Cocoa.NSClassFromString("NSHost"), address)
+		    dim p as Ptr = hostWithAddress(ClassRef, address)
 		    if p <> nil then
 		      return new NSHost(p)
 		    else
@@ -49,7 +95,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function hostWithName lib CocoaLib selector "hostWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    
-		    dim p as Ptr = hostWithName(Cocoa.NSClassFromString("NSHost"), name)
+		    dim p as Ptr = hostWithName(ClassRef, name)
 		    if p <> nil then
 		      return new NSHost(p)
 		    else
@@ -61,6 +107,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Names() As String()
+		  // Deprecated in favor of NSArray Property.
 		  #if targetMacOS
 		    declare function names lib CocoaLib selector "names" (obj_id as Ptr) as Ptr
 		    
@@ -90,6 +137,22 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As String
+		  
+		  return self.Address
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VariantValue() As Variant
+		  
+		  return self.Address
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -102,6 +165,25 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		Address As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function addresses lib CocoaLib selector "addresses" (obj_id as Ptr) as Ptr
+			    
+			    dim arrayRef as Ptr = addresses(self)
+			    if arrayRef <> nil then
+			      return new NSArray(arrayRef)
+			    end if
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Addresses As NSArray
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -137,6 +219,25 @@ Inherits NSObject
 		Name As String
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function names lib CocoaLib selector "names" (obj_id as Ptr) as Ptr
+			    
+			    dim arrayRef as Ptr = names(self)
+			    if arrayRef <> nil then
+			      return new NSArray(arrayRef)
+			    end if
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Names As NSArray
+	#tag EndComputedProperty
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
@@ -157,14 +258,16 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LocalizedName"
@@ -176,20 +279,23 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

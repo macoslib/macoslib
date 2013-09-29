@@ -212,7 +212,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  self.pboard = NSPasteboard.GeneralPboard
+		  self.pboard = NSPasteboard.GeneralPasteboard
 		  
 		  reload
 		End Sub
@@ -241,7 +241,7 @@ End
 		Private Sub reload()
 		  // rebuilds the types list
 		  
-		  dim types as NSArray = pboard.Types
+		  dim types() as String = pboard.Types
 		  
 		  'if types.Count mod 2 <> 0 then
 		  '// we expect to always see pairs of equal values with different types
@@ -253,8 +253,8 @@ End
 		  TypesList.DeleteAllRows
 		  
 		  dim prevType as String
-		  for i as integer = 0 to types.Count-1
-		    dim origType as String = types.CFStringRefValue(i)
+		  for i as integer = 0 to types.Ubound '-1
+		    dim origType as String = types(i) 'types.CFStringRefValue(i)
 		    dim type as String = origType
 		    if type.InStr("CorePasteboardFlavorType") = 1 then
 		      // get the hex code past this word
