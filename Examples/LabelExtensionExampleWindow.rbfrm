@@ -76,7 +76,6 @@ Begin Window LabelExtensionExampleWindow
          Selectable      =   True
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "In Cocoa, a Label object is just a TextField without background or editing capabilities.\rAs TextFields support AttributedString (i.e. a more advanced equivalent of the RB's StyledText), so can Labels, e.g:\r\r1. Styled text, including subscript and superscript\r2. Different underlining styles and colors (also strike-through)\r3. Multiple help tags for different parts of the text\r4. Automatic handling of hypertext links\r\r... and many more features"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -111,7 +110,6 @@ Begin Window LabelExtensionExampleWindow
          Selectable      =   True
          TabIndex        =   0
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &h000000
@@ -147,7 +145,6 @@ Begin Window LabelExtensionExampleWindow
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You can also select how a string will be truncated if it is too long for the Label"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -182,7 +179,6 @@ Begin Window LabelExtensionExampleWindow
       Selectable      =   True
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You can also select how a string will be truncated if it is too long for the Label"
       TextAlign       =   0
       TextColor       =   &h00800040

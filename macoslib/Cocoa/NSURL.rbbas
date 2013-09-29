@@ -1621,6 +1621,28 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  //# Optimized method to determine if the NSURL corresponds to a directory, e.g. with NSDirectoryEnumerator
+			  
+			  #if TargetMacOS
+			    declare function getResourceValue lib CocoaLib selector "getResourceValue:forKey:error:" (id as Ptr, byref value as Ptr, forKey as CFStringRef, err as Ptr) as Boolean
+			    declare function boolValue lib CocoaLib selector "boolValue" (id as Ptr) as Boolean
+			    
+			    assertOSVersion  100600 //Snow Leopard
+			    
+			    dim value as Ptr
+			    
+			    if getResourceValue( self, value, Cocoa.StringConstant( "NSURLIsDirectoryKey" ), nil ) then
+			      return   boolValue( value )
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		IsDirectory As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if targetMacOS
 			    declare function isFileURL lib CocoaLib selector "isFileURL" (obj_id as Ptr) as Boolean
@@ -1993,6 +2015,11 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsDirectory"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFile"

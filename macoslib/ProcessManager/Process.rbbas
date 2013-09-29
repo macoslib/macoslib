@@ -8,7 +8,8 @@ Protected Class Process
 		    soft declare function GetProcessBundleLocation lib CarbonLib (ByRef PSN as ProcessSerialNumber, location as Ptr) as Integer
 		    
 		    dim theFile as new FSRef
-		    dim OSError as Integer = GetProcessBundleLocation(psn, theFile)
+		    
+		    dim OSError as Integer = GetProcessBundleLocation( mPSN, theFile)
 		    if OSError = 0 then
 		      return FileManager.GetFolderItemFromFSRef(theFile)
 		    else
@@ -32,7 +33,7 @@ Protected Class Process
 		    end if
 		    
 		    dim p as new Process
-		    p.psn = thePSN
+		    p.mPSN = thePSN
 		    return p
 		  #endif
 		End Function
@@ -49,7 +50,7 @@ Protected Class Process
 		    
 		    dim theOtherPSN as ProcessSerialNumber = p.psn
 		    dim theResult as Boolean
-		    dim OSError as Int16 = SameProcess(psn, theOtherPSN, theResult)
+		    dim OSError as Int16 = SameProcess( mPSN, theOtherPSN, theResult)
 		    return theResult
 		    
 		    // Keep the compiler from complaining
@@ -66,7 +67,7 @@ Protected Class Process
 		    dim thePSN as ProcessSerialNumber
 		    dim OSError as Int16 = GetFrontProcess(thePSN)
 		    dim p as new Process
-		    p.psn = thePSN
+		    p.mPSN = thePSN
 		    return p
 		    
 		    // Keep the compiler from complaining
@@ -103,7 +104,7 @@ Protected Class Process
 		  
 		  dim running as boolean
 		  dim p as new Process
-		  p.psn.LowLongOfPSN = kNoProcess
+		  p.mpsn.LowLongOfPSN = kNoProcess
 		  
 		  do
 		    p = p.NextProcess
@@ -124,7 +125,7 @@ Protected Class Process
 		  #if targetMacOS
 		    soft declare function KillProcess lib CarbonLib (ByRef inProcess as ProcessSerialNumber) as Int16
 		    
-		    dim OSError as Int16 = KillProcess(psn)
+		    dim OSError as Int16 = KillProcess( mPSN )
 		    
 		    // Keep the compiler from complaining
 		    #pragma unused OSError
@@ -142,7 +143,7 @@ Protected Class Process
 		    dim OSError as Int16 = GetNextProcess(ioPSN)
 		    if OSError = 0 then
 		      dim p as new Process
-		      p.psn = ioPSN
+		      p.mPSN = ioPSN
 		      return p
 		      
 		    elseIf OSError = procNotFound then
@@ -175,7 +176,7 @@ Protected Class Process
 		      
 		      if thePSN.lowLongOfPSN <> kNoProcess then
 		        p = new Process
-		        p.psn = thePSN
+		        p.mPSN = thePSN
 		      end if
 		    end if
 		    
@@ -189,7 +190,7 @@ Protected Class Process
 		  dim theList() as Process
 		  
 		  dim p as new Process
-		  p.psn.LowLongOfPSN = kNoProcess
+		  p.mpsn.LowLongOfPSN = kNoProcess
 		  
 		  do
 		    p = p.NextProcess
@@ -299,6 +300,10 @@ Protected Class Process
 		Private mprocInformation As CFDictionary
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private mPSN As ProcessSerialNumber
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -306,7 +311,7 @@ Protected Class Process
 			    soft declare function CopyProcessName lib CarbonLib (ByRef thePSN as ProcessSerialNumber, ByRef name as CFStringRef) as Int32
 			    
 			    dim theName as CFStringRef
-			    dim OSError as Int32 = CopyProcessName(psn, theName)
+			    dim OSError as Int32 = CopyProcessName( mPSN, theName)
 			    return theName
 			    
 			    // Keep the compiler from complaining
@@ -325,7 +330,7 @@ Protected Class Process
 			    soft declare function  GetProcessPID lib CarbonLib (ByRef psn as ProcessSerialNumber, ByRef pid as Int32) as Integer
 			    
 			    dim thePID as Int32
-			    dim OSError as Integer = GetProcessPID(psn, thePID)
+			    dim OSError as Integer = GetProcessPID( mPSN, thePID)
 			    if OSError = 0 then
 			      return thePID
 			    else
@@ -348,7 +353,7 @@ Protected Class Process
 			    
 			    if mProcInformation is nil then
 			      
-			      dim p as Ptr = ProcessInformationCopyDictionary(psn, kProcessDictionaryIncludeAllInformationMask)
+			      dim p as Ptr = ProcessInformationCopyDictionary( mPSN, kProcessDictionaryIncludeAllInformationMask)
 			      
 			      if p <> nil then
 			        mProcInformation = new CFDictionary(p, CFType.hasOwnership)
@@ -363,9 +368,16 @@ Protected Class Process
 		Private procInformation As CFDictionary
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
-		Private psn As ProcessSerialNumber
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  //# Gets the ProcessSerialNumber of the Process object
+			  
+			  return mPSN
+			End Get
+		#tag EndGetter
+		PSN As ProcessSerialNumber
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -388,7 +400,7 @@ Protected Class Process
 			  #if targetMacOS
 			    soft declare function IsProcessVisible lib CarbonLib (ByRef psn as ProcessSerialNumber) as Boolean
 			    
-			    return IsProcessVisible(psn)
+			    return IsProcessVisible( mPSN )
 			  #endif
 			End Get
 		#tag EndGetter
@@ -397,7 +409,7 @@ Protected Class Process
 			  #if targetMacOS
 			    soft declare function ShowHideProcess lib CarbonLib (ByRef psn as ProcessSerialNumber, visible as Boolean) as Int16
 			    
-			    dim OSError as Int16 = ShowHideProcess(psn, value)
+			    dim OSError as Int16 = ShowHideProcess( mPSN, value )
 			    
 			    // Keep the compiler from complaining
 			    #pragma unused OSError
@@ -443,6 +455,21 @@ Protected Class Process
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsBackgroundProcess"
+			Group="Behavior"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsHidden"
+			Group="Behavior"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsUIElement"
+			Group="Behavior"
+			Type="boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsBackgroundProcess"

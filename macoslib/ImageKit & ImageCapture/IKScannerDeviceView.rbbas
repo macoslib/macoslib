@@ -3,11 +3,8 @@ Protected Class IKScannerDeviceView
 Inherits Canvas
 	#tag Event
 		Sub Close()
-		  me.ScannerDevice = nil
 		  
-		  RaiseEvent   Close
-		  
-		  me.Release
+		  RaiseEvent  Close
 		End Sub
 	#tag EndEvent
 
@@ -15,9 +12,6 @@ Inherits Canvas
 		Sub Open()
 		  RequireFramework   IKLib
 		  RequireFramework   ICLib
-		  'RequireFramework   "QuartzCore"
-		  
-		  'self.AcceptFocus = false
 		  
 		  #if targetMacOS
 		    AssertOSVersion  100600
@@ -44,32 +38,10 @@ Inherits Canvas
 		    const NSViewHeightSizable = 16
 		    const NSViewMinYMargin = 8
 		    
-		    'dim subview as Ptr = CreateSubview(frame)
-		    'if subview = nil then
-		    'subview = self.id
-		    'else
-		    '
-		    'end if
-		    
 		    addSubview Ptr(self.Handle), self.id
 		    
 		    //here we lock the control to the canvas superview so that resizing is handled by the canvas.
-		    'setAutoresizingMask subview, NSViewWidthSizable or NSViewHeightSizable
 		    setAutoresizingMask self.id, NSViewWidthSizable or NSViewHeightSizable
-		    
-		    
-		    //here we set up an Objective-C delegate to be the target of the NSControl action.
-		    'soft declare function init lib CocoaFramework selector "init" (id as Ptr) as Ptr
-		    '
-		    'self.TargetID = init(Allocate(TargetClass))
-		    '
-		    'soft declare function NSSelectorFromString lib CocoaFramework (aSelectorName as CFStringRef) as Ptr
-		    'soft declare sub setAction lib CocoaFramework selector "setAction:" (id as Ptr, aSelector as Ptr)
-		    'soft declare sub setTarget lib CocoaFramework selector "setTarget:" (id as Ptr, anObject as Ptr)
-		    '
-		    'setAction self.id, NSSelectorFromString("action:")
-		    'setTarget self.id, self.TargetID
-		    'TargetMap.Value(self.TargetID) = AddressOf self.HandleAction
 		    
 		  #endif
 		  
@@ -469,17 +441,19 @@ Inherits Canvas
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
+		Private mScannerDevice As ICScannerDevice
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private m_id As Ptr
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  '#if TargetMacOS
-			  'declare function displaysLocalCameras lib IKLib selector "displaysLocalCameras" (id as Ptr) as Boolean
-			  '
-			  'return  displaysLocalCameras( me.id )
-			  '#endif
+			  #if TargetMacOS
+			    return  mScannerDevice
+			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -489,8 +463,10 @@ Inherits Canvas
 			    
 			    AssertOSVersion 100600
 			    
+			    mScannerDevice = value
+			    
 			    if value = nil then
-			      setScannerDevice( me.id, nil )
+			      'setScannerDevice( me.id, nil )
 			    else
 			      setScannerDevice( me.id, value.id )
 			    end if
@@ -499,6 +475,10 @@ Inherits Canvas
 		#tag EndSetter
 		ScannerDevice As ICScannerDevice
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private ScannerDeviceID As Ptr
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

@@ -479,6 +479,24 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function NSSliderKnobCellMeniu() As Boolean Handles NSSliderKnobCellMeniu.Action
+			NSSliderExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function NSSlidersExampleMenu() As Boolean Handles NSSlidersExampleMenu.Action
+			NSSliderExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function NSTokenFieldMenuItem() As Boolean Handles NSTokenFieldMenuItem.Action
 			TokenFieldExampleWindow.Show
 			Return True
