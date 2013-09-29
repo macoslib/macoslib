@@ -1,28 +1,6 @@
 #tag Class
 Class MacResourceFork
 	#tag Method, Flags = &h0
-		Sub AddResource(data as String, type as String, id as Integer, name as String)
-		  declare sub AddResource lib CarbonLib (dataHdl as Ptr, type as OSType, id as Integer, name as PString)
-		  declare function NewHandle Lib CarbonLib (size as Integer) as Ptr
-		  declare sub WriteResource Lib CarbonLib (hdl as Ptr)
-		  declare sub ReleaseResource Lib CarbonLib (hdl as Ptr)
-		  
-		  dim res as new ResourceAccessor (mResHandle)
-		  
-		  dim dhdl as Ptr = NewHandle (data.LenB)
-		  dim mb as MemoryBlock = dhdl.Ptr(0)
-		  mb.StringValue(0, data.LenB) = data
-		  
-		  AddResource (dhdl, type, id, name)
-		  WriteResource (dhdl)
-		  ReleaseResource (dhdl)
-		  
-		  res = nil // Keeps the compiler from complaining
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Close()
 		  declare sub CloseResFile lib CarbonLib (refnum as Integer)
 		  
@@ -40,6 +18,8 @@ Class MacResourceFork
 		  
 		  declare function FSOpenResFile lib CarbonLib (fsRef as Ptr, permission as Integer) as Integer
 		  declare function FSCreateResourceFile lib CarbonLib (parRef as Ptr, nameLen as Integer, name as Ptr, whichinfo as Integer, catinfo as Ptr, forkNameLen as Integer, forkName as Ptr, ByRef outRef as Ptr, outSpec as Ptr) as Integer
+		  
+		  mFileHandle = -1 // "not valid"
 		  
 		  dim saver as new ResourceChainSaver ' saves the current res file and restore it again when leaving this method
 		  
@@ -85,39 +65,30 @@ Class MacResourceFork
 	#tag Method, Flags = &h0
 		Function GetNamedResource(type as String, name as String) As String
 		  dim item as ResourceItem = ResourceItem.ByName(mResHandle, type, name)
+		  if item = nil then return ""
 		  
 		  declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
 		  dim size as Integer = GetHandleSize (item.Handle)
 		  
-		  if size > 0 then
-		    dim mb as MemoryBlock = item.Handle.Ptr(0)
-		    return mb.StringValue(0, size)
-		  end if
+		  dim mb as MemoryBlock = item.Handle.Ptr(0)
+		  return mb.StringValue(0, size)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function GetResource(type as String, id as Integer) As String
 		  dim item as ResourceItem = ResourceItem.ByID(mResHandle, type, id)
+		  if item = nil then return ""
+		  
+		  dim hdl as Ptr = item.Handle
+		  if hdl = nil then return ""
 		  
 		  declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
 		  dim size as Integer = GetHandleSize (item.Handle)
 		  
-		  if size > 0 then
-		    dim mb as MemoryBlock = item.Handle.Ptr(0)
-		    return mb.StringValue(0, size)
-		  end if
+		  dim mb as MemoryBlock = item.Handle.Ptr(0)
+		  return mb.StringValue(0, size)
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RemoveResource(type as String, id as Integer)
-		  declare sub RemoveResource lib CarbonLib (hdl as Ptr)
-		  dim res as new ResourceAccessor (mResHandle)
-		  RemoveResource (ResourceItem.ByID(mResHandle, type, id).Handle)
-		  res = nil // Keeps the compiler from complaining
-		  
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -223,9 +194,15 @@ Class MacResourceFork
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Valid() As Boolean
+		  return mFileHandle <> -1
+		End Function
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h21
-		Private mFileHandle As Integer
+		Private mFileHandle As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -256,6 +233,7 @@ Class MacResourceFork
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -263,18 +241,21 @@ Class MacResourceFork
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -282,6 +263,7 @@ Class MacResourceFork
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

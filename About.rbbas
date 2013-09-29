@@ -73,6 +73,9 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		150: 2013-09-30 by TT
+		- ResourceForkReplacement: Fixes potential crashes in GetResource etc. by properly detecting unavailable resources.
+		
 		149: 2013-09-19 by SM
 		- Fixed serious bugs in ImageKit (which was completely broken).
 		- Expanded the "macoslib Overview" document.
@@ -375,7 +378,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"149", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"150", Scope = Protected
 	#tag EndConstant
 
 
