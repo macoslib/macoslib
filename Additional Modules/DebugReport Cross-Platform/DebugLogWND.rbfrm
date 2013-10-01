@@ -107,6 +107,8 @@ Begin Window DebugLogWND
       Italic          =   ""
       Left            =   1
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -236,7 +238,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -271,7 +272,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -306,7 +306,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   0
       TextAlign       =   0
       TextColor       =   &h000000
@@ -341,7 +340,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F18"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -351,7 +349,7 @@ Begin Window DebugLogWND
       Top             =   426
       Transparent     =   False
       Underline       =   ""
-      Visible         =   True
+      Visible         =   False
       Width           =   26
    End
    Begin Label Label2
@@ -376,7 +374,6 @@ Begin Window DebugLogWND
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "F19"
       TextAlign       =   0
       TextColor       =   &h00666666
@@ -386,7 +383,7 @@ Begin Window DebugLogWND
       Top             =   426
       Transparent     =   False
       Underline       =   ""
-      Visible         =   True
+      Visible         =   False
       Width           =   26
    End
    Begin PopupArrow PopupArrow1
@@ -408,7 +405,7 @@ Begin Window DebugLogWND
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   430
-      Visible         =   True
+      Visible         =   False
       Width           =   10
    End
    Begin CheckBox SyslogCB
@@ -496,6 +493,10 @@ End
 		      me.Left = Screen( 0 ).AvailableWidth - me.Width
 		      
 		    end if
+		    
+		    'DebugReportModule.debugNotificationObserver = new NotificationObserver( "" ) //Register for all notifications
+		    'AddHandler   DebugReportModule.debugNotificationObserver.HandleNotification, AddressOf  DebugReportModule.HandleReceivedNotification
+		    
 		  #endif
 		End Sub
 	#tag EndEvent
