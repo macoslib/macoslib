@@ -13,12 +13,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = allBundles(ClassRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBundle(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSBundle(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -39,12 +39,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = allFrameworks(ClassRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBundle(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSBundle(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -303,12 +303,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = executableArchitectures(self)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSNumber(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSNumber(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1297,12 +1297,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = URLsForResourcesWithExtension(self, extension, subpath)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSURL(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSURL(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1331,12 +1331,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = URLsForResources(ClassRef, extension, subpath, bundleURLRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSURL(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSURL(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1361,12 +1361,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = URLsForResourcesWithExtension(self, extension, subpath, localizationName)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSURL(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSURL(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
