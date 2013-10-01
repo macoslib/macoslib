@@ -5,10 +5,7 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2011r1(1) or later and MacOS X 10.5 or later.
-		
-		
-		(1) Tests are in progress.
+		Requires REALbasic 2011r1 or later and MacOS X 10.5 or later. See Compatibility".
 	#tag EndNote
 
 	#tag Note, Name = Compatibility
@@ -41,7 +38,7 @@ Protected Module About
 		
 		Eventually, Docgen (1) will be able to export the full documentation of macoslib
 		
-		
+		Some documentation is accessible from macoslib. Run the project and choose one document.
 		
 		
 		
@@ -72,6 +69,14 @@ Protected Module About
 		These release notes were added as of version 100. Check the git history for previous release notes.
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
+		
+		151: 2013-09-28 by SM
+		- Implemented most of the ImageKit IKImageBrowserView with all the necessary IK classes: IKImageBrowserCell, IKImageBrowserItem, IKImageBrowserDataSource.
+		- Set SizeOfInteger as a global method in Cocoa
+		- Fixed NSEvent.MouseLocation which was incorrectly implemented as an instance method
+		- Overloaded NSEvent.locationRelativeToNSView so it can work with something else than a NSControl
+		- Fixed NSIndexSet.Operator_Convert
+		- Slight modifications to DebugReport
 		
 		150: 2013-09-30 by TT
 		- ResourceForkReplacement: Fixes potential crashes in GetResource etc. by properly detecting unavailable resources.
@@ -378,7 +383,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"150", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"151", Scope = Protected
 	#tag EndConstant
 
 

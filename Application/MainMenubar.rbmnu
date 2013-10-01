@@ -1255,7 +1255,13 @@ Begin Menu MainMenubar
          End
          Begin MenuItem ImageCaptureMenu
             SpecialMenu = 0
-            Text = "ImaceCapture example"
+            Text = "ImageCapture example"
+            Index = -2147483648
+            AutoEnable = True
+         End
+         Begin MenuItem IKImageBrowserMenu
+            SpecialMenu = 0
+            Text = "IKImageBrowser example"
             Index = -2147483648
             AutoEnable = True
          End
