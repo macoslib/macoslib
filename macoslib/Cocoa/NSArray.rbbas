@@ -145,15 +145,13 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    const sizeOfPtr = 4
-		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
 		      
-		      dim m as new MemoryBlock(sizeOfPtr*(objectCount))
+		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*sizeOfPtr) = UInt32(objects(i).id)
+		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
 		      next
 		      
 		      super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
@@ -406,15 +404,13 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    const sizeOfPtr = 4
-		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
 		      
-		      dim m as new MemoryBlock(sizeOfPtr*(objectCount))
+		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*sizeOfPtr) = UInt32(objects(i).id)
+		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
 		      next
 		      
 		      dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
@@ -633,12 +629,11 @@ Inherits NSObject
 		  
 		  dim retArray() as String
 		  
-		  const sizeOfPtr = 4
 		  dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
 		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
 		  dim n as UInt32 = arrayRange.length-1
 		  for i as integer = 0 to n
-		    retArray.append new NSString(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		    retArray.append new NSString(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		  next
 		  
 		  return retArray
@@ -734,15 +729,13 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Function Values(aRange as Cocoa.NSRange) As NSObject()
 		  
-		  const sizeOfPtr = 4
-		  
 		  dim rb_array() as NSObject
 		  
 		  dim m as MemoryBlock = self.ValuesArray(aRange)
 		  
 		  dim n as UInt32 = aRange.length-1
 		  for i as integer = 0 to n
-		    rb_array.append new NSObject(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		    rb_array.append new NSObject(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		  next
 		  
 		  return rb_array
@@ -781,9 +774,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare sub getObjects lib CocoaLib selector "getObjects:range:" (obj_id as Ptr, aBuffer as Ptr, aRange as Cocoa.NSRange)
 		    
-		    const sizeOfPtr = 4
-		    
-		    dim m as new MemoryBlock(sizeOfPtr*aRange.length)
+		    dim m as new MemoryBlock(SizeOfPointer*aRange.length)
 		    
 		    getObjects self, m, aRange
 		    

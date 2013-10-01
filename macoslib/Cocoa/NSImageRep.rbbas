@@ -158,12 +158,12 @@ Inherits NSObject
 		      dim arrayRef as Ptr = imageRepsWithContentsOfFile(ClassRef, file.POSIXPath)
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
-		        const sizeOfPtr = 4
+		        
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		        dim n as UInt32 = arrayRange.length-1
 		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		          retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		        next
 		      end if
 		    end if
@@ -193,12 +193,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = imageRepsWithPasteboard(ClassRef, pasteboardRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -227,12 +227,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = imageRepsWithContentsOfURL(ClassRef, urlRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -511,12 +511,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = registeredImageRepClasses(ClassRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append Ptr(m.UInt32Value(i*sizeOfPtr))
+		        retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
 		      next
 		    end if
 		    

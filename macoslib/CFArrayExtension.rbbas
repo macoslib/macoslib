@@ -41,18 +41,17 @@ Protected Module CFArrayExtension
 		    declare function CFStringGetTypeID lib CarbonLib () as UInt32
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
 		    
-		    const sizeOfPtr = 4
 		    static StringTypeID as UInt32 = CFStringGetTypeID
 		    
 		    dim p as Ptr
 		    dim mb as MemoryBlock
 		    dim L() as String
 		    
-		    mb = new MemoryBlock( sizeOfPtr * theArray.Count )
+		    mb = new MemoryBlock( SizeOfPointer * theArray.Count )
 		    CFArrayGetValues   theArray.Reference, CFRangeMake( 0, theArray.Count ), mb
 		    
-		    dim lastIndex as Integer = ( theArray.Count - 1 ) * sizeOfPtr
-		    for index as Integer = 0 to lastIndex step sizeOfPtr
+		    dim lastIndex as Integer = ( theArray.Count - 1 ) * SizeOfPointer
+		    for index as Integer = 0 to lastIndex step SizeOfPointer
 		      p = mb.Ptr( index )
 		      if CFGetTypeID( p )=StringTypeID then
 		        L.Append   CFRetain( p )
