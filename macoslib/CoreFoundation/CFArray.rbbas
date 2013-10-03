@@ -184,11 +184,12 @@ Implements CFPropertyList
 		    return nil
 		  end if
 		  
-		  dim theValues as new MemoryBlock(SizeOfPointer*(1 + UBound(theList)))
+		  const sizeOfPtr = 4
+		  dim theValues as new MemoryBlock(sizeOfPtr*(1 + UBound(theList)))
 		  dim offset as Integer = 0
 		  for index as Integer = 0 to UBound(theList)
 		    theValues.Ptr(offset) = theList(index).Reference
-		    offset = offset + SizeOfPointer
+		    offset = offset + sizeOfPtr
 		  next
 		  return theValues
 		End Function

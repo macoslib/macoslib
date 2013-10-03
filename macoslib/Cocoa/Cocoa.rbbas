@@ -686,24 +686,6 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function SizeOfPointer() As integer
-		  //# Returns the size of a Ptr (the same code as SizeOfInteger)
-		  
-		  #if RBVersion >= 2013
-		    #if Target64Bit
-		      return  8
-		    #else
-		      return  4
-		    #endif
-		    
-		  #else
-		    return  4
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h1
 		Protected Function StringConstant(symbolName as String) As String
 		  //NSBundle doesn't support loading of data pointers; for this we must use a CFBundle.

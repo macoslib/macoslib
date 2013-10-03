@@ -99,12 +99,12 @@ Inherits NSObject
 		    dim arrayRef as Ptr = screens(ClassRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      
+		      const sizeOfPtr = 4
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSScreen(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSScreen(Ptr(m.UInt32Value(i*sizeOfPtr)))
 		      next
 		    end if
 		    
@@ -121,6 +121,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function supportedWindowDepths lib CocoaLib selector "supportedWindowDepths" (obj_id as Ptr) as Ptr
 		    
+		    const sizeOfInteger = 4
 		    dim m as MemoryBlock = supportedWindowDepths(self)
 		    
 		    dim retValue() as Integer

@@ -121,13 +121,15 @@ Inherits NSArray
 		  #if targetMacOS
 		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
+		    const sizeOfPtr = 4
+		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
 		      
-		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		      dim m as new MemoryBlock(sizeOfPtr*(objectCount))
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        m.UInt32Value(i*sizeOfPtr) = UInt32(objects(i).id)
 		      next
 		      
 		      super.Constructor(initWithObjects(Allocate("NSMutableArray"), m, objectCount), NSMutableArray.hasOwnership)
@@ -296,13 +298,15 @@ Inherits NSArray
 		  #if TargetMacOS
 		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
+		    const sizeOfPtr = 4
+		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
 		      
-		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		      dim m as new MemoryBlock(sizeOfPtr*(objectCount))
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        m.UInt32Value(i*sizeOfPtr) = UInt32(objects(i).id)
 		      next
 		      
 		      dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)

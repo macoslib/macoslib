@@ -176,12 +176,12 @@ Inherits NSResponder
 		    dim arrayRef as Ptr = childWindows(self)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      
+		      const sizeOfPtr = 4
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSWindow(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSWindow(Ptr(m.UInt32Value(i*sizeOfPtr)))
 		      next
 		    end if
 		    
@@ -683,12 +683,12 @@ Inherits NSResponder
 		    dim arrayRef as Ptr = drawers(self)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      
+		      const sizeOfPtr = 4
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSDrawer(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSDrawer(Ptr(m.UInt32Value(i*sizeOfPtr)))
 		      next
 		    end if
 		    
@@ -1710,12 +1710,12 @@ Inherits NSResponder
 		    dim arrayRef as Ptr = windowNumbersWithOptions(ClassRef, options)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      
+		      const sizeOfPtr = 4
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        dim temp as new NSNumber(Ptr(m.Int32Value(i*SizeOfPointer)))
+		        dim temp as new NSNumber(Ptr(m.Int32Value(i*sizeOfPtr)))
 		        retArray.append temp.IntegerValue
 		      next
 		    end if

@@ -204,13 +204,14 @@ Implements CFPropertyList
 		      if dictCount > 0 then
 		        declare sub CFDictionaryGetKeysAndValues lib CarbonLib (theDict as Ptr, keys as Ptr, values as Ptr)
 		        
-		        dim keyList as new MemoryBlock(SizeOfPointer*dictCount)
+		        const sizeOfCFTypeRef = 4
+		        dim keyList as new MemoryBlock(sizeOfCFTypeRef*dictCount)
 		        CFDictionaryGetKeysAndValues me.Reference, keyList, nil
 		        
 		        dim offset as Integer = 0
 		        for i as Integer = 1 to dictCount
 		          theList.Append CFType.NewObject(keyList.Ptr(offset), false, kCFPropertyListImmutable)
-		          offset = offset + SizeOfPointer
+		          offset = offset + sizeOfCFTypeRef
 		        next
 		      end if
 		    end if
