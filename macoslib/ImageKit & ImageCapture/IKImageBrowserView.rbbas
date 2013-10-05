@@ -98,6 +98,11 @@ Inherits Canvas
 		    
 		    RaiseEvent   Open
 		    
+		    NObserver = new NotificationObserver
+		    AddHandler  NObserver.HandleNotification, AddressOf HandleNotification
+		    
+		    NObserver.Register  "NSViewFrameDidChangeNotification", me.id
+		    
 		    me.Invalidate
 		  #endif
 		  
@@ -145,12 +150,6 @@ Inherits Canvas
 		  
 		  ObjectList.Append self
 		  
-		  'NObserver = new NotificationObserver
-		  'AddHandler  NObserver.HandleNotification, AddressOf HandleNotification
-		  '
-		  'NObserver.Register  "NSViewFrameDidChangeNotification", me.id
-		  '
-		  'DReport  "Notification registered"
 		  
 		End Sub
 	#tag EndMethod
@@ -375,12 +374,18 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub HandleNotification(observer as NotificationObserver, theNotification as NSNotification)
-		  '#if TargetMacOS
-		  '
-		  'DReport   "Received notification:", theNotification
-		  'ReportObjCDetailsForNSObjectPtr  theNotification.id
-		  '
-		  '#endif
+		  #if TargetMacOS
+		    
+		    DReport   "Received notification:", theNotification
+		    'ReportObjCDetailsForNSObjectPtr  theNotification.id
+		    
+		    select case theNotification.Name
+		    case "NSViewFrameDidChangeNotification"
+		      RaiseEvent   Resized
+		      
+		    end select
+		    
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -759,6 +764,10 @@ Inherits Canvas
 
 	#tag Hook, Flags = &h0
 		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Resized()
 	#tag EndHook
 
 	#tag Hook, Flags = &h0

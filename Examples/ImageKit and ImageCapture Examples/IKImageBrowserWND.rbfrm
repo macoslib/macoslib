@@ -187,40 +187,6 @@ Begin Window IKImageBrowserWND
       Visible         =   True
       Width           =   134
    End
-   Begin Label Label1
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   150
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   872
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   True
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      Text            =   "The IKImageBrowser is not fully implemented yet though this example window will give you a good idea of all the possible features. For example, you can:\r    • Select multiple items\r    • Reorder pictures\r    • Invoke QuickLook by pressing the space bar"
-      TextAlign       =   0
-      TextColor       =   &h000000
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   202
-      Transparent     =   False
-      Underline       =   ""
-      Visible         =   True
-      Width           =   811
-   End
 End
 #tag EndWindow
 
@@ -246,7 +212,7 @@ End
 		  myself.ControlSize = NSSlider.NSControlSize.NSMiniControlSize
 		  
 		  //Update ColsRowsLBL
-		  ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
+		  'ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		  
 		  
 		End Sub
@@ -320,6 +286,12 @@ End
 		  'DebugReportModule.RegisterNotification  "", me.id
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Resized()
+		  ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton2
 	#tag Event
@@ -329,8 +301,6 @@ End
 		  f = SelectFolder
 		  
 		  if f<>nil then
-		    Label1.Visible = false
-		    
 		    ikf = new IKFolderItemDataSource( f )
 		    
 		    IKIView.SetDataSource   ikf
@@ -339,7 +309,7 @@ End
 		    IKIView.AllowsReordering = true
 		    IKIView.AllowsMultipleSelection = true
 		    
-		    ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
+		    'ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		    
 		  end if
 		  
@@ -352,7 +322,7 @@ End
 		  
 		  IKIView.CellSize = Cocoa.NSMakeSize( me.value, me.value )
 		  
-		  ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
+		  'ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		  
 		End Sub
 	#tag EndEvent

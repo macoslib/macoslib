@@ -70,6 +70,13 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		152: 2013-10-05 by SM
+		- Added PDFView and PDFThumbnailView which work together to display, edit and print a PDFDocument.
+		- Display of built-in PDFs are now using the "single-page continuous" option and has a thumbnail view. The documents can also be printed.
+		- Documented PDFView and PDFThumbnailView in the Macoslib Overview docs.
+		- Created a CanvasForNSView object to serve as a parent class for all NSView subclasses using a Canvas at the Xojo level.
+		- Applied the new CanvasForNSView object to PDFThumbnailView, as a test.
+		
 		151: 2013-09-28 by SM
 		- Implemented most of the ImageKit IKImageBrowserView with all the necessary IK classes: IKImageBrowserCell, IKImageBrowserItem, IKImageBrowserDataSource.
 		- Set SizeOfInteger as a global method in Cocoa
@@ -383,7 +390,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"151", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"152", Scope = Protected
 	#tag EndConstant
 
 
