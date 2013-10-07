@@ -321,12 +321,6 @@ Inherits NSObject
 		    
 		    objc_registerClassPair newClassId
 		    
-		    'if class_addProtocol( newClassId, objc_getProtocol( "NSSpeechSynthesizerDelegate" )) then
-		    'DReport  "Protocol OK"
-		    'else
-		    'DReportWarning   "Protocol NOT OK"
-		    'end if
-		    
 		    dim methodList() as Tuple
 		    methodList.Append  "speechSynthesizer:didEncounterErrorAtIndex:ofString:message:" : FPtr( AddressOf  delegate_Error ) : "v@:@I@@"
 		    methodList.Append  "speechSynthesizer:didEncounterSyncMessage:" : FPtr( AddressOf  delegate_SyncMessage ) : "v@:@@"

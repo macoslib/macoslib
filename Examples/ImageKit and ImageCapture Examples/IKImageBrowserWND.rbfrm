@@ -211,10 +211,6 @@ End
 		  
 		  myself.ControlSize = NSSlider.NSControlSize.NSMiniControlSize
 		  
-		  //Update ColsRowsLBL
-		  'ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
-		  
-		  
 		End Sub
 	#tag EndEvent
 
@@ -242,26 +238,10 @@ End
 		  
 		  DReport   "Double clicked on item", itemIndex
 		  
-		  
-		  'if Keyboard.AsyncShiftKey then
-		  'me.CollapseGroupAtIndex( itemIndex )
-		  '
-		  'else
-		  'me.ExpandGroupAtIndex( itemIndex )
-		  '
-		  'end if
-		  
-		  'IKImageViewWND.Show
-		  
-		  'dim item as IKImageBrowserItem = me.ItemAtIndex( itemIndex )
-		  'dim url as NSURL = NSURL( item.GetImageRepresentation )
-		  'IKImageViewWND.IKI.SetImageFromURL   url
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as integer, y as integer) As boolean
-		  
-		  'DReport   "RIGHT CLICKED", x, y
 		  
 		  base.Append   new MenuItem( "Copy" )
 		  
@@ -269,21 +249,9 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  
-		  'DReport  "Event KeyDown with key:", key
-		End Function
-	#tag EndEvent
-	#tag Event
 		Sub BackgroundRightClicked(x as integer, y as integer)
 		  
 		  DReport  "Background clicked at", x, y
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  
-		  'DebugReportModule.RegisterNotification  "", me.id
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -309,8 +277,6 @@ End
 		    IKIView.AllowsReordering = true
 		    IKIView.AllowsMultipleSelection = true
 		    
-		    'ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
-		    
 		  end if
 		  
 		End Sub
@@ -321,8 +287,6 @@ End
 		Sub ValueChanged()
 		  
 		  IKIView.CellSize = Cocoa.NSMakeSize( me.value, me.value )
-		  
-		  'ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		  
 		End Sub
 	#tag EndEvent

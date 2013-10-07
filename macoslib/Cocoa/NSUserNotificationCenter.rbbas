@@ -192,8 +192,6 @@ Inherits NSObject
 		      return nil
 		    end if
 		    
-		    'DReport  CurrentMethodName, "executing"
-		    
 		    objc_registerClassPair newClassId
 		    
 		    dim methodList() as Tuple

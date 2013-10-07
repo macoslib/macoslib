@@ -10,12 +10,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
-		  
 		  dim p as Ptr = DelegateClassID
 		  
 		  Super.Constructor   Initialize( Allocate( p )), hasOwnership
@@ -23,13 +17,6 @@ Inherits NSObject
 		  CocoaDelegateMap.Value( self.id ) = new WeakRef( self )
 		  
 		  'SetDelegate
-		  
-		  if self.id<>nil then
-		    'DReport  "Initialized IKImageBrowserDataSource"
-		  else
-		    DReportError   "Couldn't create an instance of IKImageBrowserDataSource"
-		  end if
-		  
 		  
 		End Sub
 	#tag EndMethod
@@ -54,8 +41,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
-		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		      dim obj as IKImageBrowserDataSource = IKImageBrowserDataSource( w.Value )
@@ -78,7 +63,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -102,7 +86,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -126,7 +109,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -150,7 +132,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -174,7 +155,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -198,7 +178,6 @@ Inherits NSObject
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -252,7 +231,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_GroupAtIndex(index as integer) As Ptr
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    return  RaiseEvent GroupAtIndex( index )
 		    
 		  #endif
@@ -272,7 +250,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_MoveItems(indexes as NSIndexSet, toIndex as integer) As Boolean
 		  #if TargetMacOS
-		    'DReport    CurrentMethodName, index
 		    return  RaiseEvent MoveItems( indexes, toIndex )
 		    
 		  #endif
@@ -283,7 +260,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_NumberOfGroups() As integer
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    return  RaiseEvent CountGroups
 		    
 		  #endif
@@ -293,7 +269,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_NumberOfItems() As integer
 		  #if TargetMacOS
-		    'DReport    CurrentMethodName
 		    return  RaiseEvent CountItems
 		    
 		  #endif
@@ -303,7 +278,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Sub Handle_RemoveItems(indexes as NSIndexSet)
 		  #if TargetMacOS
-		    'DReport    CurrentMethodName
 		    RaiseEvent  RemoveItems( indexes )
 		    
 		  #endif

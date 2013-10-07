@@ -174,7 +174,6 @@ Inherits Canvas
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -198,7 +197,6 @@ Inherits Canvas
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -222,7 +220,6 @@ Inherits Canvas
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -246,20 +243,22 @@ Inherits Canvas
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
-		    
-		    'if CocoaDelegateMap.HasKey( id ) then
-		    'dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
-		    'dim obj as IKImageBrowserDataSource = IKImageBrowserDataSource( w.Value )
-		    'if obj <> nil then
-		    'return  obj.Handle_ItemAtIndex( index )
-		    '
-		    'else
-		    '//something might be wrong.
-		    'end if
-		    'else
-		    '//something might be wrong.
-		    'end if
+		    #if false //Unimplemented yet
+		      'DReport   CurrentMethodName
+		      
+		      'if CocoaDelegateMap.HasKey( id ) then
+		      'dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
+		      'dim obj as IKImageBrowserDataSource = IKImageBrowserDataSource( w.Value )
+		      'if obj <> nil then
+		      'return  obj.Handle_ItemAtIndex( index )
+		      '
+		      'else
+		      '//something might be wrong.
+		      'end if
+		      'else
+		      '//something might be wrong.
+		      'end if
+		    #endif
 		  #endif
 		End Function
 	#tag EndMethod
@@ -270,20 +269,22 @@ Inherits Canvas
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
-		    
-		    'if CocoaDelegateMap.HasKey( id ) then
-		    'dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
-		    'dim obj as IKImageBrowserDataSource = IKImageBrowserDataSource( w.Value )
-		    'if obj <> nil then
-		    'return  obj.Handle_NumberOfItems
-		    '
-		    'else
-		    '//something might be wrong.
-		    'end if
-		    'else
-		    '//something might be wrong.
-		    'end if
+		    #if false //Unimplemented yet
+		      'DReport   CurrentMethodName
+		      
+		      'if CocoaDelegateMap.HasKey( id ) then
+		      'dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
+		      'dim obj as IKImageBrowserDataSource = IKImageBrowserDataSource( w.Value )
+		      'if obj <> nil then
+		      'return  obj.Handle_NumberOfItems
+		      '
+		      'else
+		      '//something might be wrong.
+		      'end if
+		      'else
+		      '//something might be wrong.
+		      'end if
+		    #endif
 		  #endif
 		End Function
 	#tag EndMethod
@@ -294,7 +295,6 @@ Inherits Canvas
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -376,9 +376,6 @@ Inherits Canvas
 		Sub HandleNotification(observer as NotificationObserver, theNotification as NSNotification)
 		  #if TargetMacOS
 		    
-		    DReport   "Received notification:", theNotification
-		    'ReportObjCDetailsForNSObjectPtr  theNotification.id
-		    
 		    select case theNotification.Name
 		    case "NSViewFrameDidChangeNotification"
 		      RaiseEvent   Resized
@@ -393,9 +390,6 @@ Inherits Canvas
 		Private Sub Handle_BackgroundRightClicked(evt as NSEvent)
 		  
 		  #if TargetMacOS
-		    
-		    'DReport  evt
-		    
 		    dim pt as Cocoa.NSPoint = evt.LocationLocalToNSView( self.id, self )
 		    
 		    RaiseEvent   BackgroundRightClicked( pt.x, pt.y )
@@ -620,8 +614,6 @@ Inherits Canvas
 		  #if TargetMacOS
 		    declare sub setDataSource lib IKLib selector "setDataSource:" (id as Ptr, source as Ptr)
 		    
-		    'DReport  "Data source set"
-		    
 		    dsource = ikf
 		    
 		    setDataSource   self.id, dsource.id
@@ -668,21 +660,20 @@ Inherits Canvas
 		    dim p as Ptr
 		    dim IKItem as IKImageBrowserItem
 		    
-		    'DReport  "New cell"
-		    
-		    
-		    //!!!!!!!! Does not work as expected
-		    
-		    
-		    'if obj<>nil then
-		    //To override the method, create a custom IKImageBrowserCell inside the event "NewCellForItem"
-		    'IKItem = new IKImageBrowserItem( anItem )
-		    'if IKItem<>nil then
-		    'p = obj.Handle_NewCell( IKItem )
-		    'else
-		    'return  new IKImageBrowserCell
-		    'end if
-		    'end if
+		    #if false
+		      //!!!!!!!! Does not work as expected. Why ?
+		      
+		      
+		      'if obj<>nil then
+		      //To override the method, create a custom IKImageBrowserCell inside the event "NewCellForItem"
+		      'IKItem = new IKImageBrowserItem( anItem )
+		      'if IKItem<>nil then
+		      'p = obj.Handle_NewCell( IKItem )
+		      'else
+		      'return  new IKImageBrowserCell
+		      'end if
+		      'end if
+		    #endif
 		    
 		    if p<>nil then
 		      return  p

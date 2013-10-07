@@ -11,12 +11,7 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if TargetMacOS
-		    'RequireFramework  IKLib
 		    RequireFramework  ICLib
-		    
-		    'declare sub m_ICInitialize lib ICLib ()
-		    '
-		    '_ICInitialize
 		    
 		    self.Constructor(Initialize(Allocate( "ICDeviceBrowser")), hasOwnership)
 		    self.SetDelegate

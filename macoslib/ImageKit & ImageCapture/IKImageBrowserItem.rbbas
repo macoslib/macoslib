@@ -10,11 +10,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(f as FolderItem)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
 		  
 		  dim p as Ptr = DelegateClassID
 		  
@@ -22,22 +17,7 @@ Inherits NSObject
 		  
 		  CocoaDelegateMap.Value( self.id ) = new WeakRef( self )
 		  
-		  'Super.Constructor   Initialize( Allocate( NSClassName )), true
-		  
 		  url = new NSURL( f )
-		  
-		  'if NOT f.Directory then
-		  'nsi = new NSImage( url )
-		  'else
-		  'nsi = NSImage.Folder
-		  'nsi.SetMaxSize( 512 )
-		  'end if
-		  '
-		  'if nsi=nil OR nsi.id = nil then
-		  'DReportWarning   "Couldn't load image", url.VariantValue
-		  'end if
-		  
-		  'SetDelegate
 		  
 		End Sub
 	#tag EndMethod

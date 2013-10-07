@@ -199,11 +199,9 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Shared Function impl_CanBecomeKeyView(id as Ptr, sel as Ptr) As Boolean
 		  #if targetCocoa
-		    'DReport "impl_CanBecomeKeyView called"
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return false
 		    end if
 		    
@@ -227,7 +225,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -253,7 +250,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -280,7 +276,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -310,7 +305,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    

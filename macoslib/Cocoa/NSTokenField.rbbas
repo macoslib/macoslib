@@ -643,10 +643,9 @@ Inherits NSControl
 		    dim p as Ptr = m_attributedStringValue( me.id )
 		    
 		    if p<>nil then
-		      'DReport   CurrentMethodName, "pointer corresponds to object", Cocoa.ClassNameTreeForObjectPointer( p )
 		      return   Cocoa.NSObjectFromNSPtr( p )
 		    else
-		      'DReportError   CurrentMethodName, "pointer if nil"
+		      return nil
 		    end if
 		  #endif
 		End Function

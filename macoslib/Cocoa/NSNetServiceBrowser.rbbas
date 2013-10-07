@@ -226,15 +226,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Sub HandleDidNotSearch(errDict as Dictionary)
-		  'dim bc as BonjourControl = me.AttachedPropertyLookup( "ParentBonjourControl", nil )
-		  '
-		  'if bc<>nil then
-		  'bc.Private_HandleCallbacks( me, "DidNotSearch", errDict )
-		  'end if
 		  
-		  RaiseEvent   SearchError( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
+		  #if TargetMacOS
+		    RaiseEvent   SearchError( errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 ))
+		  #endif
 		  
-		  'DReportError   "DidNotResolved", errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorCode" ), 0 ), errDict.Lookup( Cocoa.StringConstant( "NSNetServicesErrorDomain" ), 0 )
 		End Sub
 	#tag EndMethod
 

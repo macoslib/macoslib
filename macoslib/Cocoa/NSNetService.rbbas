@@ -12,14 +12,10 @@ Inherits NSObject
 		    dim nsd as NSData
 		    dim result() as string
 		    
-		    'DReportTitled  "Adresses:"
-		    
 		    for i as integer=0 to nsa.Count - 1
 		      nsd = new NSData( nsa.Value( i ))
 		      result.Append  sockaddrToString( nsd.Data )
 		    next
-		    
-		    'DReport result
 		    
 		    return   result
 		  #endif
@@ -82,7 +78,6 @@ Inherits NSObject
 		      dim dict as Dictionary = NSDict.VariantValue
 		      
 		      obj.HandleDidNotPublish   dict
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -108,7 +103,6 @@ Inherits NSObject
 		      dim dict as Dictionary = NSDict.VariantValue
 		      
 		      obj.HandleDidNotResolve  dict
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -131,7 +125,6 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidPublish
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      //something might be wrong.
@@ -154,7 +147,6 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidResolve
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -177,7 +169,6 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleDidStop
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -199,9 +190,7 @@ Inherits NSObject
 		    dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
-		      'dim data as NSData = new NSData( dataPtr, false )
 		      obj.HandleDidUpdateTXTRecord( dataPtr )
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      //something might be wrong.
@@ -224,7 +213,6 @@ Inherits NSObject
 		    dim obj as NSNetService = NSNetService( w.Value )
 		    if obj <> nil then
 		      obj.HandleWillPublish
-		      'DReport CurrentMethodName, Hex( id ), "fired"
 		      
 		    else
 		      Raise new macoslibException( "Target object no longer exists." )
@@ -464,8 +452,6 @@ Inherits NSObject
 		      return nil
 		    end if
 		    
-		    'DReport  CurrentMethodName, "executing"
-		    
 		    objc_registerClassPair newClassId
 		    
 		    dim methodList() as Tuple
@@ -561,7 +547,6 @@ Inherits NSObject
 		    mState = kStateIsResolving
 		    resolveWithTimeout   me.id, timeoutInSeconds
 		    
-		    'DReport  CurrentMethodName, "fired"
 		  #endif
 		End Sub
 	#tag EndMethod
