@@ -70,8 +70,6 @@ Inherits IKImageBrowserDataSource
 		    dim IndexesToMove() as integer = indexes
 		    dim realTargetIndex as integer = toIndex
 		    
-		    DReport  "MoveItems invoked", indexes, toIndex
-		    
 		    //Temporary store objects to be moved
 		    for each idx as integer in IndexesToMove
 		      ItemsToMove.Append  IKItems( idx )

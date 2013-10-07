@@ -76,6 +76,15 @@ Protected Module About
 		- Documented PDFView and PDFThumbnailView in the Macoslib Overview docs.
 		- Created a CanvasForNSView object to serve as a parent class for all NSView subclasses using a Canvas at the Xojo level.
 		- Applied the new CanvasForNSView object to PDFThumbnailView, as a test.
+		Amended:
+		- Created module macoslib_32_64bits_savviness in Misc. folder to hold 64bits compatibility functions:
+		    - SizeOfInteger and SizeOfPointer return the size of an Integer or a Pointer.
+		    - bsPtrValueFromCArray, bsIntegerValueFromCArray return a Ptr or Integer in 32/64 bits given a C-Array index.
+		    - bsPtrValue, bsIntegerValue return a Ptr or Integer in 32/64 bits given the offset.
+		- Methods using SizeOfPointer now raise a warning at compilation time. This could be improved later.
+		- Stripped off most of my dead code. For work in progress, made clearer why some code is commented out, per TT's recommendation.
+		- Set "FPtr" function as a global function in the new macoslibModule and removed multiple definitions of it as Shared Methods.
+		- For CanvasForNSView, created a LoadRequiredFrameworks which will ask for and load all the required frameworks. It can be called several times and returns more quickly than RequireFramework.
 		
 		151: 2013-09-28 by SM
 		- Implemented most of the ImageKit IKImageBrowserView with all the necessary IK classes: IKImageBrowserCell, IKImageBrowserItem, IKImageBrowserDataSource.

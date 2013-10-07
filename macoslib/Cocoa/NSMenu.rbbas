@@ -232,20 +232,6 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
-		  
-		  return p
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Function GetDelegate() As Ptr
 		  #if targetCocoa
 		    declare function delegate_ lib CocoaLib selector "delegate" (obj_id as Ptr) as Ptr
@@ -488,12 +474,14 @@ Inherits NSObject
 		    dim arrayRef as Ptr = itemArray(self)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
+		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSMenuItem(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSMenuItem(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    

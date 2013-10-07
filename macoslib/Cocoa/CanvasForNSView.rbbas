@@ -333,11 +333,7 @@ Implements objHasVariantValue
 		  Super.Constructor
 		  
 		  //Loading the frameworks here avoids having to load them in instance methods/properties
-		  dim frameworks() as string = RaiseEvent RequiredFrameworks
-		  
-		  for each s as string in frameworks
-		    RequireFramework   s
-		  next
+		  LoadRequiredFrameworks
 		  
 		End Sub
 	#tag EndMethod
@@ -859,6 +855,25 @@ Implements objHasVariantValue
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub LoadRequiredFrameworks()
+		  //# Loads the required frameworks for the subclass.
+		  
+		  if RequiredFrameworksLoaded then  //Already loaded. Return immediately.
+		    return
+		    
+		  else //Get the required frameworks and load them.
+		    dim frameworks() as string = RaiseEvent  RequiredFrameworks
+		    
+		    for each fwork as string in frameworks
+		      RequireFramework  fwork
+		    next
+		    
+		    RequiredFrameworksLoaded = true
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function LocationOfPrintRect(aRect as Cocoa.NSRect) As Cocoa.NSPoint
 		  
@@ -1096,9 +1111,9 @@ Implements objHasVariantValue
 		  #if TargetMacOS
 		    if observer=nil then //Create the NotificationObserver if necessary
 		      observer = new NotificationObserver
+		      AddHandler  observer.HandleNotification, AddressOf HandleReceivedNotification
 		    end if
 		    
-		    AddHandler  observer.HandleNotification, AddressOf HandleReceivedNotification
 		    observer.Register   NotificationName, self.id
 		  #endif
 		End Sub
@@ -2082,6 +2097,10 @@ Implements objHasVariantValue
 		#tag EndGetter
 		PreviousKeyView As NSView
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private RequiredFrameworksLoaded As Boolean
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

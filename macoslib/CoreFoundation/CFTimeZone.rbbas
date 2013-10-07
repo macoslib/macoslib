@@ -69,7 +69,7 @@ Inherits CFType
 		  #if TargetMacOS
 		    soft declare function CFTimeZoneCopyKnownNames lib CarbonLib () as Ptr
 		    
-		    dim nameArray as new CFArray(CFTimeZoneCopyKnownNames, CFType.HasOwnership)
+		    dim nameArray as new CFArray(CFTimeZoneCopyKnownNames, NOT CFType.HasOwnership)
 		    return nameArray.StringValues
 		  #endif
 		End Function
