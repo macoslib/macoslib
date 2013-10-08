@@ -60,12 +60,20 @@ Inherits Application
 		  
 		  #pragma warning "DELETE THIS CODE!!"
 		  
-		  dim rx as new NSRegEx
-		  rx.SearchPattern = "(z)?(t)(z)?(h)"
-		  rx.ReplacementPattern = "a"
-		  dim match as NSRegExMatch = rx.Search( "that tzhat" )
-		  dim s as string = match.Replace()
-		  s = match.Replace( "u" )
+		  'dim rx as new NSRegEx
+		  'rx.SearchPattern = "(z)?(t)(z)?(h)"
+		  'rx.ReplacementPattern = "a"
+		  'dim match as NSRegExMatch = rx.Search( "that tzhat" )
+		  'dim s as string = match.Replace()
+		  's = match.Replace( "u" )
+		  
+		  dim p as new Picture( 1000, 1000, 32 )
+		  p.Graphics.ForeColor = RGB( 255, 0, 0 )
+		  p.Graphics.FillRect( 10, 10, 900, 900 )
+		  
+		  dim cgi as CGImage = CGImage.NewCGImage( p )
+		  dim m as MemoryBlock = cgi.DataProvider.CopyData.Data
+		  break
 		  
 		End Sub
 	#tag EndEvent
