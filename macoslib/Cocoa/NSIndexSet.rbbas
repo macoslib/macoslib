@@ -231,24 +231,27 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As Integer()
-		  #if targetCocoa
-		    declare function getIndexes lib CocoaLib selector "getIndexes:indexBuffer:inIndexRange" (obj_id as Ptr, indexBuffer as Ptr, bufferSize as Integer, indexRangePointer as Ptr) as Integer
+		  #if targetMacOS
+		    declare function getIndexes lib CocoaLib selector "getIndexes:maxCount:inIndexRange:" (obj_id as Ptr, indexBuffer as Ptr, bufferSize as Integer, indexRangePointer as Ptr) as Integer
 		    
 		    if self.id <> nil then
-		      const sizeOfNSUInteger = 4
-		      dim indexBuffer as new MemoryBlock(sizeOfNSUInteger*self.Count)
-		      dim indexCount as Integer = getIndexes(self, indexBuffer, self.Count, nil)
-		      #pragma unused indexCount
+		      dim cnt as integer = self.Count
+		      dim indexBuffer as new MemoryBlock(sizeOfInteger * cnt)
+		      dim indexCount as Integer = getIndexes(self, indexBuffer, cnt, nil)
 		      dim L() as Integer
 		      dim offset as Integer = 0
+		      
 		      while offset < indexBuffer.Size
-		        L.Append indexBuffer.Long(0)
-		        offset = offset + sizeOfNSUInteger
+		        L.Append  indexBuffer.Long( offset )
+		        offset = offset + sizeOfInteger
 		      wend
+		      
 		      return L
+		      
 		    else
 		      dim L(-1) as Integer
 		      return L
+		      
 		    end if
 		  #endif
 		End Function

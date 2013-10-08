@@ -267,8 +267,9 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function StringValue() As String
+		  //# Returns the data as a string
 		  
-		  return self.Data
+		  return  self.Data
 		End Function
 	#tag EndMethod
 

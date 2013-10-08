@@ -95,6 +95,8 @@ Class NotificationObserver
 
 	#tag Method, Flags = &h21
 		Private Sub HandleNotification(notification as NSNotification)
+		  #pragma stackOverflowChecking false
+		  
 		  raiseEvent HandleNotification notification
 		End Sub
 	#tag EndMethod
@@ -227,6 +229,7 @@ Class NotificationObserver
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
+			Type="Integer"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

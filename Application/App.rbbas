@@ -421,6 +421,15 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function IKImageBrowserMenu() As Boolean Handles IKImageBrowserMenu.Action
+			IKImageBrowserWND.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ImageCaptureMenu() As Boolean Handles ImageCaptureMenu.Action
 			ICCameraExampleWND.show
 			
@@ -489,6 +498,24 @@ Inherits Application
 	#tag MenuHandler
 		Function NSImageViewMenu() As Boolean Handles NSImageViewMenu.Action
 			NSImageViewExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function NSSliderKnobCellMeniu() As Boolean Handles NSSliderKnobCellMeniu.Action
+			NSSliderExampleWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function NSSlidersExampleMenu() As Boolean Handles NSSlidersExampleMenu.Action
+			NSSliderExampleWindow.Show
 			
 			Return True
 			
