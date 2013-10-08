@@ -69,6 +69,9 @@ Protected Module DebugReportModule
 		    'end if
 		    'end if
 		    'end if
+		    
+		exception exc
+		  return
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -499,6 +502,26 @@ Protected Module DebugReportModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Sub HandleReceivedNotification(obs as NotificationObserver, theNotification as NSNotification)
+		  //# Processes received notification
+		  
+		  '#pragma stackOverflowChecking false
+		  
+		  'DReportTitled   "NOTIFICATION:", theNotification
+		  
+		  'if NOT theNotification.Name.StartsWith( "NS" ) then
+		  QReportTitled  "NOTIFICATION:", theNotification.Name, theNotification.AssociatedObject, theNotification.UserInfo
+		  'end if
+		  
+		  'if theNotification.Name.Contains( "resiz" ) then
+		  'DReportTitled  "NOTIFICATION:", theNotification.Name
+		  'end if
+		  
+		  'System.Log  System.LogLevelError, theNotification.Name
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub Init()
 		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
 		    if inited then return
@@ -517,6 +540,11 @@ Protected Module DebugReportModule
 		      Prefs.file = GetFolderItem( "DebugReport.prefs.plist" )
 		    end try
 		    #pragma BreakOnExceptions default
+		    
+		    myObserver = new NotificationObserver
+		    AddHandler  myObserver.HandleNotification, AddressOf  HandleReceivedNotification
+		    'myObserver.Register   "IKAnimationsDidFinish"
+		    'myObserver.Register   "NSWindowDidResizeNotification"
 		    
 		    inited = true
 		  #endif
@@ -584,6 +612,18 @@ Protected Module DebugReportModule
 		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
 		    XReport   kLevelWarning, false, 0, values
 		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub RegisterNotification(NotificationName as string, sender as Ptr = Nil)
+		  #if TargetMacOS
+		    if not inited then
+		      init
+		    end if
+		    
+		    myObserver.Register   NotificationName, sender
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -921,7 +961,7 @@ Protected Module DebugReportModule
 		    else
 		      //Else report immediately
 		      
-		      //If some reports are queued, we must display it first.
+		      //If some reports are queued, we must display them first.
 		      if Queue.Ubound>-1 then
 		        TimerAction( nil )
 		      end if
@@ -1003,6 +1043,10 @@ Protected Module DebugReportModule
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
+		Protected myObserver As NotificationObserver
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
 		Protected Prefs As PropertyList
 	#tag EndProperty
 
@@ -1030,7 +1074,7 @@ Protected Module DebugReportModule
 	#tag Constant, Name = DRSeparation, Type = String, Dynamic = False, Default = \"_.$separation$._", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"102", Scope = Private
+	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"103", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kLevelDebug, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
@@ -1055,33 +1099,33 @@ Protected Module DebugReportModule
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

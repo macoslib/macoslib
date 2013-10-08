@@ -185,12 +185,12 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function RangeOfFirstMatch(source As NSString, options As UInt32 = 0, Optional range As NSRange) As NSRange
-		  dim r as NSRange 
+		  dim r as NSRange
 		  
 		  #if TargetCocoa
 		    
 		    declare function rangeOfFirstMatchInString lib CocoaLib selector "rangeOfFirstMatchInString:options:range:" _
-		    ( obj_id As Ptr, source As Ptr, options As UInt32, rng As NSRange ) As NSRange 
+		    ( obj_id As Ptr, source As Ptr, options As UInt32, rng As NSRange ) As NSRange
 		    
 		    dim trueRange as NSRange
 		    if range.Length = 0 then
@@ -216,7 +216,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function ReplaceMatches(ByRef source As NSMutableString, template As NSString, options As UInt32 = 0, Optional range As NSRange) As UInt32
-		  // The first param is ByRef to ensure that an actual NSMutableString object was given. 
+		  // The first param is ByRef to ensure that an actual NSMutableString object was given.
 		  // Without it, you could call ReplaceMatches( "this" ) and then wonder why nothing happened.
 		  
 		  dim r as UInt32

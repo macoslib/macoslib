@@ -3,18 +3,21 @@ Protected Class ResourceItem
 Inherits ResourceForkReplacement.ResourceAccessor
 	#tag Method, Flags = &h0
 		 Shared Function ByID(resFileRef as Integer, type as String, id as Integer) As ResourceItem
+		  if resFileRef = 0 then return nil
 		  return new ResourceItem (resFileRef, type, id)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function ByIndex(resFileRef as Integer, type as String, idx_0 as Integer) As ResourceItem
+		  if resFileRef = 0 then return nil
 		  return new ResourceItem (resFileRef, type, 0, idx_0)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		 Shared Function ByName(resFileRef as Integer, type as String, name as String) As ResourceItem
+		  if resFileRef = 0 then return nil
 		  return new ResourceItem (resFileRef, type, 0, -1, name)
 		End Function
 	#tag EndMethod
@@ -25,11 +28,11 @@ Inherits ResourceForkReplacement.ResourceAccessor
 		  declare function Get1IndResource lib CarbonLib (t as OSType, idx as Integer) as Ptr
 		  declare function Get1NamedResource lib CarbonLib (t as OSType, name as PString) as Ptr
 		  
-		  super.Constructor (resFileRef) // saves the current res file and activates the given res file
-		  
 		  if resFileRef = 0 then
 		    return
 		  end
+		  
+		  super.Constructor (resFileRef) // saves the current res file and activates the given res file
 		  
 		  if name <> "" then
 		    mHdl = Get1NamedResource (type, name)
@@ -72,6 +75,7 @@ Inherits ResourceForkReplacement.ResourceAccessor
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -79,18 +83,21 @@ Inherits ResourceForkReplacement.ResourceAccessor
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -98,6 +105,7 @@ Inherits ResourceForkReplacement.ResourceAccessor
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

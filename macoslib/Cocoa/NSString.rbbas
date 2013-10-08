@@ -479,7 +479,7 @@ Inherits NSObject
 		Function ExpandedPath() As String
 		  
 		  #if targetMacOS
-		    declare function stringByExpandingTildeInPath lib CocoaLib selector "stringByExpandingTildeInPath" (obj_id as Ptr) as CFStringRef
+		    declare function stringByExpandingTildeInPath lib CocoaLib selector "stringByExpandingTildeInPath" (path as CFStringRef) as CFStringRef
 		    
 		    return stringByExpandingTildeInPath(self)
 		    

@@ -46,6 +46,7 @@ Begin Window NSPopoverExample
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Popover Type:"
       TextAlign       =   2
       TextColor       =   0
@@ -80,6 +81,7 @@ Begin Window NSPopoverExample
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Position:"
       TextAlign       =   2
       TextColor       =   0
@@ -358,14 +360,18 @@ Begin Window NSPopoverExample
    End
    Begin NSPopover myPopover
       Animates        =   ""
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   20
       LockedInPosition=   False
       Scope           =   0
       Shown           =   ""
+      TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   200
+      Visible         =   True
       Width           =   32
    End
    Begin Canvas groupingbox
@@ -447,6 +453,7 @@ Begin Window NSPopoverExample
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Popover!"
          TextAlign       =   1
          TextColor       =   0

@@ -54,6 +54,22 @@ Inherits Canvas
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h0
+		Function AttributeKeys() As NSArray
+		  
+		  #if TargetMacOS
+		    dim nsa as NSArray
+		    
+		    declare function attributeKeys lib CocoaLib selector "attributeKeys" (id as Ptr) as Ptr
+		    
+		    nsa = new NSArray( attributeKeys( self.id ))
+		    
+		    return  nsa
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function CocoaDelegateMap() As Dictionary
 		  static d as new Dictionary
@@ -223,6 +239,7 @@ Inherits Canvas
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString( superclassName ), className, 0)
 		    if newClassId = nil then
 		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
+		      break
 		      return nil
 		    end if
 		    
@@ -320,11 +337,9 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  '#if TargetMacOS
-			  'declare function displaysLocalCameras lib IKLib selector "displaysLocalCameras" (id as Ptr) as Boolean
-			  '
-			  'return  displaysLocalCameras( me.id )
-			  '#endif
+			  #if TargetMacOS
+			    return  mCameraDevice
+			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -334,10 +349,12 @@ Inherits Canvas
 			    
 			    AssertOSVersion 100600
 			    
-			    if value=nil then
+			    mCameraDevice = value
+			    
+			    if mCameraDevice=nil then
 			      setCameraDevice( me.id, nil )
 			    else
-			      setCameraDevice( me.id, value.id )
+			      setCameraDevice( me.id, mCameraDevice )
 			    end if
 			  #endif
 			End Set
@@ -419,6 +436,10 @@ Inherits Canvas
 		#tag EndGetter
 		id As Ptr
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private mCameraDevice As ICCameraDevice
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

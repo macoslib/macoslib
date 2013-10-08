@@ -301,10 +301,22 @@ Inherits NSString
 			InheritedFrom="NSString"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleValue"
+			Group="Behavior"
+			Type="Double"
+			InheritedFrom="NSString"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
+			Type="Integer"
+			InheritedFrom="NSString"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IntegerValue"
+			Group="Behavior"
 			Type="Integer"
 			InheritedFrom="NSString"
 		#tag EndViewProperty
@@ -333,6 +345,12 @@ Inherits NSString
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="NSString"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SingleValue"
+			Group="Behavior"
+			Type="Single"
 			InheritedFrom="NSString"
 		#tag EndViewProperty
 		#tag ViewProperty
