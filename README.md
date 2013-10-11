@@ -1,7 +1,7 @@
 ###About
-This is the MacOSLib project for Real Studio (http://www.realsoftware.com)
+This is the MacOSLib project for Xojo (formerly Real Studio) (http://www.xojo.com)
 
-It provides a lot of OS X specific functionality that the standard framework doesn't offer.
+It provides additional OS X specific functionality that Xojo's own framework doesn't offer.
 
 It even has some cross-platform functionality in order to access Mac specific data on Windows and Linux (e.g. plist files).
 
