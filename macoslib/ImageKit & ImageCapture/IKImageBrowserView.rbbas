@@ -172,6 +172,7 @@ Inherits Canvas
 		Private Shared Sub delegate_BackgroundRightClicked(id as Ptr, sel as Ptr, sender as Ptr, evt as Ptr)
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -195,6 +196,7 @@ Inherits Canvas
 		Private Shared Sub delegate_CellDoubleClicked(id as Ptr, sel as Ptr, sender as Ptr, index as integer)
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -218,6 +220,7 @@ Inherits Canvas
 		Private Shared Sub delegate_CellRightClicked(id as Ptr, sel as Ptr, sender as Ptr, index as integer, evt as Ptr)
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -293,6 +296,7 @@ Inherits Canvas
 		Private Shared Sub delegate_SelectionChanged(id as Ptr, sel as Ptr, sender as Ptr)
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -361,6 +365,7 @@ Inherits Canvas
 	#tag Method, Flags = &h0
 		Sub HandleNotification(observer as NotificationObserver, theNotification as NSNotification)
 		  #if TargetMacOS
+		    #pragma unused observer
 		    
 		    select case theNotification.Name
 		    case "NSViewFrameDidChangeNotification"
@@ -404,6 +409,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Sub Handle_RightClick(index as integer, evt as NSEvent)
+		  #pragma unused index
 		  
 		  #if TargetMacOS
 		    
@@ -535,8 +541,11 @@ Inherits Canvas
 		      end if
 		    next
 		    
-		    
-		    return  newClassId
+		    if methodsAdded then
+		      return  newClassId
+		    else
+		      return  nil
+		    end if
 		    
 		  #else
 		    #pragma unused className

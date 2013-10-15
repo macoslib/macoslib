@@ -1,13 +1,13 @@
 #tag Window
 Begin Window QuickStartPDFWND
-   BackColor       =   &hFFFFFF
+   BackColor       =   16777215
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   7.36e+2
+   Height          =   736
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,7 +23,7 @@ Begin Window QuickStartPDFWND
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   True
-   Width           =   7.17e+2
+   Width           =   717
    Begin PDFView PV1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
@@ -46,7 +46,7 @@ Begin Window QuickStartPDFWND
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      mode            =   ""
+      mode            =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -105,9 +105,10 @@ Begin Window QuickStartPDFWND
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "To print the PDF document, press Cmd-P or choose Print from the File menu."
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   0
       TextFont        =   "System"
       TextSize        =   12
       TextUnit        =   0
@@ -144,6 +145,10 @@ End
 		  self.Title = docfile.Name
 		  
 		  dim pdoc as PDFDocument = PDFDocument.CreateFromFolderItem( docfile )
+		  
+		  if pdoc=nil then
+		    DReportError   "Couldn't open PDF document", docfile
+		  end if
 		  
 		  PV1.Document = pdoc
 		  PV1.AutoScales = true

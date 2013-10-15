@@ -598,20 +598,30 @@ End
 	#tag Event
 		Sub PopoverWillShow(notification as NSNotification)
 		  
-		  // Close the DetachedWindow so as not to leave behind an 'empty' window when TheView switches back to myPopover.
-		  DetachedWindow.Close
+		  #pragma unused notification
 		  
-		  // If the popover's appearance is HUD, color the text white.
-		  if myPopover.Appearance = NSPopover.NSPopoverAppearance.HUD then
-		    label1.TextColor = &cFFFFFF
-		  else
-		    Label1.TextColor = &c000000
-		  end if
+		  #if TargetMacOS
+		    // Close the DetachedWindow so as not to leave behind an 'empty' window when TheView switches back to myPopover.
+		    DetachedWindow.Close
+		    
+		    // If the popover's appearance is HUD, color the text white.
+		    if myPopover.Appearance = NSPopover.NSPopoverAppearance.HUD then
+		      label1.TextColor = &cFFFFFF
+		    else
+		      Label1.TextColor = &c000000
+		    end if
+		    
+		  #endif
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function PopoverShouldClose(popover as NSPopover) As Boolean
-		  return True // Return true if popover should close on lost focus, escape key press, performClose and other events.
+		  #pragma unused popover
+		  
+		  #if TargetMacOS
+		    return True // Return true if popover should close on lost focus, escape key press, performClose and other events.
+		    
+		  #endif
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -655,9 +665,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Function DetachableWindowForPopover(popover as NSPopover) As NSWindow
+		  #pragma unused popover
 		  
-		  me.Animates = false // Using animation when detaching the window moves the DetachedWindow to the background upon mouseUp.
-		  return DetachedWindow
+		  #if TargetMacOS
+		    me.Animates = false // Using animation when detaching the window moves the DetachedWindow to the background upon mouseUp.
+		    return DetachedWindow
+		  #endif
 		End Function
 	#tag EndEvent
 #tag EndEvents

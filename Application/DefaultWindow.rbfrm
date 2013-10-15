@@ -2,7 +2,7 @@
 Begin Window DefaultWindow
    BackColor       =   16777215
    Backdrop        =   ""
-   CloseButton     =   False
+   CloseButton     =   True
    Composite       =   False
    Frame           =   0
    FullScreen      =   False

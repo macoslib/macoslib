@@ -70,6 +70,12 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		153: 2013-10-15 by SM
+		- Rebased PDFView on CanvasForNSView.
+		- Implemented events to PDFView from NSNotifications: DocumentChanged, PageChanged, ScaleChanged, SelectionChanged, HistoryChanged, DisplayModeChanged.
+		- NSObject: added Superclass and PerformSelectorOnMainThread (untested).
+		- Enabled the close widget of the Welcome to macoslib window. Window can be opened from the Help menu.
+		
 		152: 2013-10-05 by SM
 		- Added PDFView and PDFThumbnailView which work together to display, edit and print a PDFDocument.
 		- Display of built-in PDFs are now using the "single-page continuous" option and has a thumbnail view. The documents can also be printed.
@@ -399,7 +405,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"152", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"153", Scope = Protected
 	#tag EndConstant
 
 

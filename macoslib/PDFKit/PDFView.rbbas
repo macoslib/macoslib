@@ -1,54 +1,58 @@
 #tag Class
 Protected Class PDFView
-Inherits Canvas
+Inherits Cocoa.CanvasForNSView
+	#tag Event
+		Function NSClassName() As String
+		  return  "PDFView"
+		End Function
+	#tag EndEvent
+
 	#tag Event
 		Sub Open()
 		  #if targetMacOS
-		    RequireFramework  "Quartz.framework"
-		    
-		    dim frame as Cocoa.NSRect
-		    frame.x = 0.0
-		    frame.y = 0.0
-		    frame.w = self.Width
-		    frame.h = self.Height
-		    
-		    declare function initWithFrame lib CocoaLib selector "initWithFrame:" (obj_id as Ptr, frameRect as Cocoa.NSRect) as Ptr
-		    
-		    self.m_id = initWithFrame( NSObject.Allocate( self.NSClassName ), frame )
-		    if self.id = nil then
-		      raise new macoslibException( "Unable to instantiate class " + NSClassName )
-		    end if
-		    
-		    soft declare sub addSubview lib CocoaLib selector "addSubview:" (id as Ptr, aView as Ptr)
-		    soft declare sub setAutoresizingMask lib CocoaLib selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
-		    soft declare sub setFrame lib CocoaLib selector "setFrame:" (id as Ptr, frameRect as Cocoa.NSRect)
-		    
-		    const NSViewWidthSizable = 2
-		    const NSViewHeightSizable = 16
-		    const NSViewMinYMargin = 8
-		    
-		    addSubview Ptr(self.Handle), self.id
-		    
-		    //here we lock the control to the canvas superview so that resizing is handled by the canvas.
-		    setAutoresizingMask self.id, NSViewWidthSizable or NSViewHeightSizable
-		    
-		  #endif
-		  
-		  #if false   //Implementation in progress
-		    'SetDelegate
-		    
-		    '#if NOT DisableUndocumentedFeatures
-		    'SetHidesExtrasContainer   true
-		    '#endif
-		    '
-		    'dim icdb as ICDeviceBrowser
-		    '
-		    'icdb = me.DeviceBrowser
-		    'icdb.start
+		    me.RegisterForNotification   ""
 		  #endif
 		  
 		  RaiseEvent   Open
 		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub ReceivedNotification(notification as NSNotification)
+		  
+		  #if TargetMacOS
+		    select case notification.Name
+		    case "PDFViewChangedHistoryNotification"
+		      RaiseEvent  HistoryChanged
+		      
+		    case "PDFViewDocumentChangedNotification"
+		      RaiseEvent  DocumentChanged
+		      
+		    case "PDFViewPageChangedNotification"
+		      RaiseEvent  PageChanged
+		      
+		    case "PDFViewScaleChangedNotification"
+		      RaiseEvent  ScaleChanged
+		      
+		    case "PDFViewSelectionChangedNotification"
+		      RaiseEvent  SelectionChanged
+		      
+		    case "PDFViewDisplayModeChangedNotification"
+		      RaiseEvent  DisplayModeChanged
+		      
+		    else
+		      RaiseEvent  ReceivedNotification( notification )
+		      
+		    end select
+		  #endif
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function RequiredFrameworks() As String()
+		  
+		  return  Array( "Quartz.framework" )
+		End Function
 	#tag EndEvent
 
 
@@ -171,7 +175,35 @@ Inherits Canvas
 
 
 	#tag Hook, Flags = &h0
+		Event DisplayModeChanged()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event DocumentChanged()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event HistoryChanged()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
 		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event PageChanged()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ReceivedNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ScaleChanged()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event SelectionChanged()
 	#tag EndHook
 
 
@@ -247,24 +279,8 @@ Inherits Canvas
 		Document As PDFDocument
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  return  m_id
-			End Get
-		#tag EndGetter
-		id As Ptr
-	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private m_id As Ptr
-	#tag EndProperty
-
 
 	#tag Constant, Name = DelegateClassName, Type = String, Dynamic = False, Default = \"macoslibPDFViewDelegate", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = NSClassName, Type = String, Dynamic = False, Default = \"PDFView", Scope = Private
 	#tag EndConstant
 
 

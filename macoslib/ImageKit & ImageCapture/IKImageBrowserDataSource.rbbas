@@ -38,6 +38,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_GroupAtIndex(id as Ptr, sel as Ptr, sender as Ptr, index as integer) As Ptr
 		  #pragma unused sel
+		  #pragma unused sender
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -53,6 +54,9 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		  #else
+		    #pragma unused id
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -61,6 +65,7 @@ Inherits NSObject
 		Private Shared Function delegate_ItemAtIndex(id as Ptr, sel as Ptr, sender as Ptr, index as UInt32) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -76,6 +81,10 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -84,6 +93,7 @@ Inherits NSObject
 		Private Shared Function delegate_MoveItems(id as Ptr, sel as Ptr, sender as Ptr, indexes as Ptr, toIndex as integer) As Boolean
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -99,6 +109,11 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused indexes
+		    #pragma unused toIndex
 		  #endif
 		End Function
 	#tag EndMethod
@@ -107,6 +122,7 @@ Inherits NSObject
 		Private Shared Function delegate_NumberOfGroups(id as Ptr, sel as Ptr, sender as Ptr) As integer
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -122,6 +138,8 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		  #else
+		    #pragma unused id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -130,6 +148,7 @@ Inherits NSObject
 		Private Shared Function delegate_NumberOfItems(id as Ptr, sel as Ptr, sender as Ptr) As integer
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -153,6 +172,7 @@ Inherits NSObject
 		Private Shared Sub delegate_RemoveItems(id as Ptr, sel as Ptr, sender as Ptr, indexSet as Ptr)
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -176,6 +196,7 @@ Inherits NSObject
 		Private Shared Function delegate_WriteToPasteboard(id as Ptr, sel as Ptr, sender as Ptr, indexSet as Ptr, pboard as Ptr) As integer
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    

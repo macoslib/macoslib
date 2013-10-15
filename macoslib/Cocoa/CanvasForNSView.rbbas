@@ -338,33 +338,6 @@ Implements objHasVariantValue
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1000
-		Sub Constructor__(frameRect as Cocoa.NSRect)
-		  
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
-		Sub Constructor__(x as integer, y as integer, width as integer, height as integer)
-		  
-		  #if TargetMacOS then
-		    dim frameRect as Cocoa.NSRect
-		    frameRect.x = x
-		    frameRect.y = y
-		    frameRect.w = width
-		    frameRect.h = height
-		    
-		    'self.Constructor( frameRect )
-		  #else
-		    #pragma unused x
-		    #pragma unused y
-		    #pragma unused width
-		    #pragma unused height
-		  #endif
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function ConvertPointFromBacking(aPoint as Cocoa.NSPoint) As NSPoint
 		  
@@ -799,8 +772,12 @@ Implements objHasVariantValue
 
 	#tag Method, Flags = &h21
 		Private Sub HandleReceivedNotification(obs as NotificationObserver, notification as NSNotification)
+		  #pragma unused obs
+		  
 		  #if TargetMacOS
 		    RaiseEvent  ReceivedNotification( notification )
+		  #else
+		    pragma unused notification
 		  #endif
 		End Sub
 	#tag EndMethod

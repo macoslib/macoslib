@@ -40,6 +40,7 @@ Inherits NSObject
 		Private Shared Function delegate_imageRepresentation(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -62,6 +63,7 @@ Inherits NSObject
 		Private Shared Function delegate_imageRepresentationType(id as Ptr, sel as Ptr, sender as Ptr, index as integer) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -85,6 +87,7 @@ Inherits NSObject
 		Private Shared Function delegate_ImageSubtitle(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -108,6 +111,7 @@ Inherits NSObject
 		Private Shared Function delegate_ImageTitle(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -131,6 +135,7 @@ Inherits NSObject
 		Private Shared Function delegate_ImageUID(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
