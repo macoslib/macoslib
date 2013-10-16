@@ -70,6 +70,9 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		152: 2013-10-16 by CY
+		-Fix a bug in LaunchServices.SendURLToApplication.
+		
 		151: 2013-09-28 by SM
 		- Implemented most of the ImageKit IKImageBrowserView with all the necessary IK classes: IKImageBrowserCell, IKImageBrowserItem, IKImageBrowserDataSource.
 		- Set SizeOfInteger as a global method in Cocoa
@@ -383,7 +386,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"151", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"152", Scope = Protected
 	#tag EndConstant
 
 
