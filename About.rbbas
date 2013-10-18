@@ -70,13 +70,15 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
-		153: 2013-10-15 by SM
+		154: 2013-10-15 by SM
 		- Rebased PDFView on CanvasForNSView.
 		- Implemented events to PDFView from NSNotifications: DocumentChanged, PageChanged, ScaleChanged, SelectionChanged, HistoryChanged, DisplayModeChanged.
 		- NSObject: added Superclass and PerformSelectorOnMainThread (untested).
 		- Enabled the close widget of the Welcome to macoslib window. Window can be opened from the Help menu.
+		Amended:
+		- Removed dependency of some macoslib methods on StringExtensions or DebugReport.
 		
-		152: 2013-10-05 by SM
+		153: 2013-10-05 by SM
 		- Added PDFView and PDFThumbnailView which work together to display, edit and print a PDFDocument.
 		- Display of built-in PDFs are now using the "single-page continuous" option and has a thumbnail view. The documents can also be printed.
 		- Documented PDFView and PDFThumbnailView in the Macoslib Overview docs.
@@ -91,6 +93,9 @@ Protected Module About
 		- Stripped off most of my dead code. For work in progress, made clearer why some code is commented out, per TT's recommendation.
 		- Set "FPtr" function as a global function in the new macoslibModule and removed multiple definitions of it as Shared Methods.
 		- For CanvasForNSView, created a LoadRequiredFrameworks which will ask for and load all the required frameworks. It can be called several times and returns more quickly than RequireFramework.
+		
+		152: 2013-10-16 by CY
+		-Fix a bug in LaunchServices.SendURLToApplication.
 		
 		151: 2013-09-28 by SM
 		- Implemented most of the ImageKit IKImageBrowserView with all the necessary IK classes: IKImageBrowserCell, IKImageBrowserItem, IKImageBrowserDataSource.
@@ -405,7 +410,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"153", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"154", Scope = Protected
 	#tag EndConstant
 
 
