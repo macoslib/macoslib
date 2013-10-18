@@ -185,7 +185,7 @@ Implements CFPropertyList
 		  end if
 		  
 		  #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
-		    
+		  
 		  dim theValues as new MemoryBlock(SizeOfPointer*(1 + UBound(theList)))
 		  dim offset as Integer = 0
 		  for index as Integer = 0 to UBound(theList)

@@ -141,6 +141,7 @@ Begin Window IKImageBrowserWND
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Icon size"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -175,6 +176,7 @@ Begin Window IKImageBrowserWND
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Columns:\rRows:"
       TextAlign       =   0
       TextColor       =   &h000000

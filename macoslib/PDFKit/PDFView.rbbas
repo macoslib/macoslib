@@ -308,6 +308,23 @@ Inherits Cocoa.CanvasForNSView
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="AutoresizesSubviews"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutoresizingMask"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutoScales"
+			Group="Behavior"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Backdrop"
 			Visible=true
 			Group="Appearance"
@@ -316,24 +333,39 @@ Inherits Cocoa.CanvasForNSView
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="displaysLocalCameras"
+			Name="BoundsRotation"
 			Group="Behavior"
-			Type="Boolean"
+			Type="Single"
+			InheritedFrom="Cocoa.CanvasForNSView"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="displaysLocalScanners"
+			Name="CanBecomeKeyView"
 			Group="Behavior"
 			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="displaysNetworkCameras"
+			Name="CanDraw"
 			Group="Behavior"
 			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="displaysNetworkScanners"
+			Name="CanDrawConcurrently"
 			Group="Behavior"
 			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DisplayMode"
+			Group="Behavior"
+			Type="integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
@@ -360,6 +392,12 @@ Inherits Cocoa.CanvasForNSView
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FrameRotation"
+			Group="Behavior"
+			Type="Single"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Height"
 			Visible=true
 			Group="Position"
@@ -376,6 +414,18 @@ Inherits Cocoa.CanvasForNSView
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Hidden"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HiddenOrHasHiddenAncestor"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -385,6 +435,42 @@ Inherits Cocoa.CanvasForNSView
 		#tag ViewProperty
 			Name="InitialParent"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="InLiveResize"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsFlipped"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsInFullScreenMode"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsOpague"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsRotatedFromBase"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsRotatedOrScaledFromBase"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -422,16 +508,41 @@ Inherits Cocoa.CanvasForNSView
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="mode"
-			Group="Behavior"
-			Type="integer"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="NeedsDisplay"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PostsBoundsChangedNotifications"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PostsFrameChangedNotifications"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PreservesContentDuringLiveResize"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShouldDrawColor"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
@@ -463,6 +574,12 @@ Inherits Cocoa.CanvasForNSView
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Tag"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="Cocoa.CanvasForNSView"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
@@ -484,6 +601,12 @@ Inherits Cocoa.CanvasForNSView
 			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WantsDefaultClipping"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Cocoa.CanvasForNSView"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"

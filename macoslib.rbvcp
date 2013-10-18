@@ -641,7 +641,6 @@ Class=PDFView;macoslib/PDFKit/PDFView.rbbas;&h13F34A52;&h7A7EB268;false
 Class=PDFThumbnailView;macoslib/PDFKit/PDFThumbnailView.rbbas;&h2F91DCDD;&h7A7EB268;false
 Class=PDFDocument;macoslib/PDFKit/PDFDocument.rbbas;&h3AE1935C;&h7A7EB268;false
 Module=macoslib_32_64bits_savviness;macoslib/Misc./macoslib_32_64bits_savviness.rbbas;&h4F4F67C3;&h6440B750;false
->>>>>>> macoslib-master
 DefaultWindow=macoslibSplashWindow
 AppMenuBar=MainMenubar
 MajorVersion=1
