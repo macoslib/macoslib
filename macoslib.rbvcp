@@ -634,11 +634,9 @@ RawData=macoslibforAdvancedUsers;Application/BuiltInDocuments/macoslib for Advan
 RawData=macoslibforExperts;Application/BuiltInDocuments/macoslib for Experts.pdf;&h622D670E;&h555E12BA;false
 RawData=macoslibforNewbies;Application/BuiltInDocuments/macoslib for Newbies.pdf;&h12C93C23;&h555E12BA;false
 RawData=MacoslibOverview;Application/BuiltInDocuments/Macoslib Overview.pdf;&h598B691D;&h555E12BA;false
-<<<<<<< HEAD
 Class=NSRegEx;Additional Modules/KT's NSRegEx/NSRegEx.rbbas;&h2D9B814D;&h28986723;false
 Class=NSRegExOptions;Additional Modules/KT's NSRegEx/NSRegExOptions.rbbas;&h3C463F45;&h28986723;false
 Class=NSRegExMatch;Additional Modules/KT's NSRegEx/NSRegExMatch.rbbas;&h27E42B93;&h28986723;false
-=======
 Class=PDFView;macoslib/PDFKit/PDFView.rbbas;&h13F34A52;&h7A7EB268;false
 Class=PDFThumbnailView;macoslib/PDFKit/PDFThumbnailView.rbbas;&h2F91DCDD;&h7A7EB268;false
 Class=PDFDocument;macoslib/PDFKit/PDFDocument.rbbas;&h3AE1935C;&h7A7EB268;false
