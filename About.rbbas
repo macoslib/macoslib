@@ -70,6 +70,9 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		154: 2013-10-18 by KT
+		- Added NSRegEx classes to Additional Modules.
+		
 		153: 2013-10-05 by SM
 		- Removed dependency of some macoslib methods on StringExtensions or DebugReport.
 		- Rebased PDFView on CanvasForNSView.
@@ -406,7 +409,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"153", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"154", Scope = Protected
 	#tag EndConstant
 
 

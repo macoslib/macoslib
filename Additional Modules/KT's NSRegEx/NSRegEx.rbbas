@@ -114,7 +114,7 @@ Protected Class NSRegEx
 		  #if TargetCocoa
 		    
 		    zLastMatch = nil // Starting anew
-		    zLastTarget = target 
+		    zLastTarget = target
 		    zLastTargetLen = target.Len // So we don't have to recalculate it on each pass
 		    if target = "" then return nil
 		    if zSearchPattern = "" then return nil
@@ -134,6 +134,13 @@ Protected Class NSRegEx
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		
+		Simplifies the MacOS RegEx classes through methods similar to the native RegEx classes.
+		
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0
