@@ -1437,6 +1437,12 @@ Begin Menu MainMenubar
       Text = "#MenuItemHelpMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Begin MenuItem WelcomeWindowMenu
+         SpecialMenu = 0
+         Text = "Welcome Window"
+         Index = -2147483648
+         AutoEnable = True
+      End
    End
 End
 #tag EndMenu

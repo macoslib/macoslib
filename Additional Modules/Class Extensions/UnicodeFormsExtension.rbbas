@@ -6,6 +6,7 @@ Protected Module UnicodeFormsExtension
 		  
 		  //@ If one of the two strings is not Unicode, result in undefined
 		  
+		  #pragma warning "MACOSLIB: AppendUnicodeNormalized is not implemented yet"
 		  
 		  'dim form as integer
 		  '

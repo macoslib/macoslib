@@ -10,12 +10,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
-		  
 		  dim p as Ptr = DelegateClassID
 		  
 		  Super.Constructor   Initialize( Allocate( p )), hasOwnership
@@ -23,13 +17,6 @@ Inherits NSObject
 		  CocoaDelegateMap.Value( self.id ) = new WeakRef( self )
 		  
 		  'SetDelegate
-		  
-		  if self.id<>nil then
-		    'DReport  "Initialized IKImageBrowserDataSource"
-		  else
-		    DReportError   "Couldn't create an instance of IKImageBrowserDataSource"
-		  end if
-		  
 		  
 		End Sub
 	#tag EndMethod
@@ -51,11 +38,10 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_GroupAtIndex(id as Ptr, sel as Ptr, sender as Ptr, index as integer) As Ptr
 		  #pragma unused sel
+		  #pragma unused sender
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
-		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
 		      dim obj as IKImageBrowserDataSource = IKImageBrowserDataSource( w.Value )
@@ -68,6 +54,9 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		  #else
+		    #pragma unused id
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -76,9 +65,9 @@ Inherits NSObject
 		Private Shared Function delegate_ItemAtIndex(id as Ptr, sel as Ptr, sender as Ptr, index as UInt32) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -92,6 +81,10 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -100,9 +93,9 @@ Inherits NSObject
 		Private Shared Function delegate_MoveItems(id as Ptr, sel as Ptr, sender as Ptr, indexes as Ptr, toIndex as integer) As Boolean
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -116,6 +109,11 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
+		    #pragma unused indexes
+		    #pragma unused toIndex
 		  #endif
 		End Function
 	#tag EndMethod
@@ -124,9 +122,9 @@ Inherits NSObject
 		Private Shared Function delegate_NumberOfGroups(id as Ptr, sel as Ptr, sender as Ptr) As integer
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -140,6 +138,8 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		  #else
+		    #pragma unused id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -148,9 +148,9 @@ Inherits NSObject
 		Private Shared Function delegate_NumberOfItems(id as Ptr, sel as Ptr, sender as Ptr) As integer
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -172,9 +172,9 @@ Inherits NSObject
 		Private Shared Sub delegate_RemoveItems(id as Ptr, sel as Ptr, sender as Ptr, indexSet as Ptr)
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -196,9 +196,9 @@ Inherits NSObject
 		Private Shared Function delegate_WriteToPasteboard(id as Ptr, sel as Ptr, sender as Ptr, indexSet as Ptr, pboard as Ptr) As integer
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    
 		    if CocoaDelegateMap.HasKey( id ) then
 		      dim w as WeakRef = CocoaDelegateMap.Lookup( id, new WeakRef( nil ))
@@ -225,20 +225,6 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
-		  
-		  return p
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function GetDelegate() As Ptr
 		  #if targetCocoa
@@ -252,7 +238,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_GroupAtIndex(index as integer) As Ptr
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    return  RaiseEvent GroupAtIndex( index )
 		    
 		  #endif
@@ -272,7 +257,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_MoveItems(indexes as NSIndexSet, toIndex as integer) As Boolean
 		  #if TargetMacOS
-		    'DReport    CurrentMethodName, index
 		    return  RaiseEvent MoveItems( indexes, toIndex )
 		    
 		  #endif
@@ -283,7 +267,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_NumberOfGroups() As integer
 		  #if TargetMacOS
-		    'DReport   CurrentMethodName
 		    return  RaiseEvent CountGroups
 		    
 		  #endif
@@ -293,7 +276,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_NumberOfItems() As integer
 		  #if TargetMacOS
-		    'DReport    CurrentMethodName
 		    return  RaiseEvent CountItems
 		    
 		  #endif
@@ -303,7 +285,6 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Sub Handle_RemoveItems(indexes as NSIndexSet)
 		  #if TargetMacOS
-		    'DReport    CurrentMethodName
 		    RaiseEvent  RemoveItems( indexes )
 		    
 		  #endif

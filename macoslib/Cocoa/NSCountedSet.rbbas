@@ -36,15 +36,15 @@ Inherits NSMutableSet
 		  #if targetMacOS
 		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    const sizeOfPtr = 4
+		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
 		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
 		      
-		      dim m as new MemoryBlock(sizeOfPtr*objectCount)
+		      dim m as new MemoryBlock(SizeOfPointer*objectCount)
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*sizeOfPtr) = UInt32(objects(i).id)
+		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
 		      next
 		      
 		      super.Constructor(initWithObjects(Allocate("NSCountedSet"), m, objectCount), NSCountedSet.hasOwnership)
@@ -219,15 +219,15 @@ Inherits NSMutableSet
 		  #if TargetMacOS
 		    declare function setWithObjects lib CocoaLib selector "setWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    const sizeOfPtr = 4
+		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
 		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
 		      
-		      dim m as new MemoryBlock(sizeOfPtr*objectCount)
+		      dim m as new MemoryBlock(SizeOfPointer*objectCount)
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*sizeOfPtr) = UInt32(objects(i).id)
+		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
 		      next
 		      
 		      dim setRef as Ptr = setWithObjects(ClassRef, m, objectCount)

@@ -2,7 +2,7 @@
 Begin Window DefaultWindow
    BackColor       =   16777215
    Backdrop        =   ""
-   CloseButton     =   False
+   CloseButton     =   True
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -419,7 +419,7 @@ End
 		  nsw = New NSWindow(self)
 		  
 		  nsw.Center
-		  nsw.AnimationBehavior = NSWindow.NSWindowAnimationBehavior.NSWindowAnimationBehaviorDocumentWindow // Zoom in slowely as if opening a document
+		  nsw.AnimationBehavior = NSWindow.NSWindowAnimationBehavior.NSWindowAnimationBehaviorDocumentWindow // Zoom in slowly as if opening a document
 		  
 		  nsw.MovableByBackground = true
 		  

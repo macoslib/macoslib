@@ -187,40 +187,6 @@ Begin Window IKImageBrowserWND
       Visible         =   True
       Width           =   134
    End
-   Begin Label Label1
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   150
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   872
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   True
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      Text            =   "The IKImageBrowser is not fully implemented yet though this example window will give you a good idea of all the possible features. For example, you can:\r    • Select multiple items\r    • Reorder pictures\r    • Invoke QuickLook by pressing the space bar"
-      TextAlign       =   0
-      TextColor       =   &h000000
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   202
-      Transparent     =   False
-      Underline       =   ""
-      Visible         =   True
-      Width           =   811
-   End
 End
 #tag EndWindow
 
@@ -244,10 +210,6 @@ End
 		  dim myself as NSSlider = new NSSlider( Ptr( Slider1.Handle ))
 		  
 		  myself.ControlSize = NSSlider.NSControlSize.NSMiniControlSize
-		  
-		  //Update ColsRowsLBL
-		  ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
-		  
 		  
 		End Sub
 	#tag EndEvent
@@ -276,36 +238,14 @@ End
 		  
 		  DReport   "Double clicked on item", itemIndex
 		  
-		  
-		  'if Keyboard.AsyncShiftKey then
-		  'me.CollapseGroupAtIndex( itemIndex )
-		  '
-		  'else
-		  'me.ExpandGroupAtIndex( itemIndex )
-		  '
-		  'end if
-		  
-		  'IKImageViewWND.Show
-		  
-		  'dim item as IKImageBrowserItem = me.ItemAtIndex( itemIndex )
-		  'dim url as NSURL = NSURL( item.GetImageRepresentation )
-		  'IKImageViewWND.IKI.SetImageFromURL   url
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as integer, y as integer) As boolean
 		  
-		  'DReport   "RIGHT CLICKED", x, y
-		  
 		  base.Append   new MenuItem( "Copy" )
 		  
 		  return  true
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  
-		  'DReport  "Event KeyDown with key:", key
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -315,9 +255,9 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub Open()
+		Sub Resized()
+		  ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		  
-		  'DebugReportModule.RegisterNotification  "", me.id
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -329,8 +269,6 @@ End
 		  f = SelectFolder
 		  
 		  if f<>nil then
-		    Label1.Visible = false
-		    
 		    ikf = new IKFolderItemDataSource( f )
 		    
 		    IKIView.SetDataSource   ikf
@@ -338,8 +276,6 @@ End
 		    IKIView.CanControlQuickLookPanel = true
 		    IKIView.AllowsReordering = true
 		    IKIView.AllowsMultipleSelection = true
-		    
-		    ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		    
 		  end if
 		  
@@ -351,8 +287,6 @@ End
 		Sub ValueChanged()
 		  
 		  IKIView.CellSize = Cocoa.NSMakeSize( me.value, me.value )
-		  
-		  ColsRowsLBL.Text = "Columns: " + Str( IKIView.NumberOfColumns )  + EndOfLine + "Rows:    " + Str( IKIView.NumberOfRows )
 		  
 		End Sub
 	#tag EndEvent

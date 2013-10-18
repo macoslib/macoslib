@@ -208,20 +208,6 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
-		  
-		  return p
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function GetDelegate() As Ptr
 		  #if targetCocoa
@@ -320,12 +306,6 @@ Inherits NSObject
 		    end if
 		    
 		    objc_registerClassPair newClassId
-		    
-		    'if class_addProtocol( newClassId, objc_getProtocol( "NSSpeechSynthesizerDelegate" )) then
-		    'DReport  "Protocol OK"
-		    'else
-		    'DReportWarning   "Protocol NOT OK"
-		    'end if
 		    
 		    dim methodList() as Tuple
 		    methodList.Append  "speechSynthesizer:didEncounterErrorAtIndex:ofString:message:" : FPtr( AddressOf  delegate_Error ) : "v@:@I@@"

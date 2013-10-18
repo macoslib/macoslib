@@ -25,12 +25,14 @@ Inherits NSObject
 		    dim arrayRef as Ptr = availableColorSpacesWithModel(ClassRef, model)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
+		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSColorspace(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSColorspace(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    

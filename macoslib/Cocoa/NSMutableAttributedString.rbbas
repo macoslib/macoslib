@@ -8,14 +8,9 @@ Inherits NSAttributedString
 		  #if TargetMacOS
 		    declare sub addAttribute lib CocoaLib selector "addAttribute:value:range:" (id as Ptr, name as CFStringRef, value as Ptr, aRange as NSRange)
 		    
-		    'dim mgr as NSFontManager = NSFontManager.SharedManager
 		    dim nsf as NSFont
 		    dim range, realrange as NSRange
 		    dim realvalue as NSObject
-		    
-		    'if NOT value isa NSObject then
-		    'raise  new MacOSError( -50, "Invalid value. Must be a subclass of NSObject." )
-		    'end if
 		    
 		    if forRange.length=0 then
 		      realrange = Cocoa.NSMakeRange( 0, me.Length )
