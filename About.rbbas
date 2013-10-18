@@ -70,21 +70,17 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
-		154: 2013-10-15 by SM
+		153: 2013-10-05 by SM
+		- Removed dependency of some macoslib methods on StringExtensions or DebugReport.
 		- Rebased PDFView on CanvasForNSView.
 		- Implemented events to PDFView from NSNotifications: DocumentChanged, PageChanged, ScaleChanged, SelectionChanged, HistoryChanged, DisplayModeChanged.
 		- NSObject: added Superclass and PerformSelectorOnMainThread (untested).
 		- Enabled the close widget of the Welcome to macoslib window. Window can be opened from the Help menu.
-		Amended:
-		- Removed dependency of some macoslib methods on StringExtensions or DebugReport.
-		
-		153: 2013-10-05 by SM
 		- Added PDFView and PDFThumbnailView which work together to display, edit and print a PDFDocument.
 		- Display of built-in PDFs are now using the "single-page continuous" option and has a thumbnail view. The documents can also be printed.
 		- Documented PDFView and PDFThumbnailView in the Macoslib Overview docs.
 		- Created a CanvasForNSView object to serve as a parent class for all NSView subclasses using a Canvas at the Xojo level.
 		- Applied the new CanvasForNSView object to PDFThumbnailView, as a test.
-		Amended:
 		- Created module macoslib_32_64bits_savviness in Misc. folder to hold 64bits compatibility functions:
 		    - SizeOfInteger and SizeOfPointer return the size of an Integer or a Pointer.
 		    - bsPtrValueFromCArray, bsIntegerValueFromCArray return a Ptr or Integer in 32/64 bits given a C-Array index.
@@ -410,7 +406,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"154", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"153", Scope = Protected
 	#tag EndConstant
 
 
