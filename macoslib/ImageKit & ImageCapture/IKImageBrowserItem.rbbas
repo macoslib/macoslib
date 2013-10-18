@@ -163,6 +163,83 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function FormatSize(size as UInt64, binary as Boolean = True) As String
+		  //Copied from StringExtensions to remove dependency.
+		  
+		  //This is only a transient copy and will be removed later. DO NOT USE for development.
+		  
+		  if IsMountainLion and size >= 0 then
+		    // Use Apple's official NSByteCountFormatter.
+		    if binary then
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Binary ) // 1k = 1024 bytes
+		    else
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Decimal ) // 1k = 1000 bytes
+		    end if
+		    
+		  else
+		    // Mimic Apple's results manually, and allow for negative numbers.
+		    if size = 0 then
+		      return "Zero KB"
+		    end if
+		    
+		    dim KB as UInt64 = 1024
+		    
+		    if not binary then
+		      KB = 1000 // Apple decimal format: 1K=1000 bytes
+		    end if
+		    
+		    dim usize as UInt64 = Abs( size ) // Comparing with absolute values is easier then dealing with negative sizes.
+		    
+		    if usize < KB then
+		      if usize = 1 then
+		        return  Str( size ) + " byte"
+		      else
+		        return  Str( size ) + " bytes"
+		      end if
+		    end if
+		    
+		    if Round( usize / KB ) < KB then
+		      return   Format( size / KB, "-#" ) + " KB"
+		    end if
+		    
+		    dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
+		    if Round( usize / MB ) < KB then
+		      return   Format( size / MB, "-#.0" ) + " MB"
+		    end if
+		    
+		    dim GB as Int64 = MB * KB
+		    if Round( usize / GB ) < KB then
+		      return   Format( size / GB, "-#.00" ) + " GB"
+		    end if
+		    
+		    dim TB as Int64 = GB * KB
+		    if Round( usize / TB ) < KB then
+		      return   Format( size / TB, "-#.00" ) + " TB"
+		    end if
+		    
+		    dim PB as Int64 = TB * KB
+		    if Round( usize / PB ) < KB then
+		      return   Format( size / PB, "-#.00" ) + " PB"
+		    end if
+		    
+		    dim EB as Int64 = PB * KB
+		    if Round( usize / EB ) < KB then
+		      return   Format( size / EB, "-#.00" ) + " EB"
+		    end if
+		    
+		    dim ZB as Int64 = EB * KB
+		    if Round( usize / ZB ) < KB then
+		      return   Format( size / ZB, "-#.00" ) + " ZB"
+		    end if
+		    
+		    dim YB as Int64 = ZB * KB // I'm not currently aware of a format larger than the yottabyte, and Apple doesn't seem to return anything larger than 16 or 18.45 exabyte.
+		    return    Format( size / YB, "-#.00" ) + " YB"
+		    
+		  end if
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function GetDelegate() As Ptr
 		  #if targetCocoa
@@ -212,7 +289,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_imageSubtitle() As string
 		  #if TargetMacOS
-		    return  FormatSize( url.Item.Length )
+		    return  me.FormatSize( url.Item.Length )
 		    
 		  #endif
 		  
@@ -222,7 +299,9 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_imageTitle() As String
 		  #if TargetMacOS
-		    return  url.LastPathComponent.StringBefore( "." )
+		    dim s as string
+		    s = url.LastPathComponent
+		    return  NthField( s, ".", 1 )
 		    
 		  #endif
 		  

@@ -51,10 +51,6 @@ Inherits IKImageBrowserDataSource
 		      
 		      item = IKItems( index )
 		      
-		      if item.id=nil then
-		        DReportWarning  "Invalid item"
-		      end if
-		      
 		      return  item
 		      
 		    end if

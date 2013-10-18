@@ -516,8 +516,22 @@ End
 	#tag EndEvent
 
 
+	#tag Property, Flags = &h21
+		Private nsma As NSAttributedString
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
+#tag Events LogTA
+	#tag Event
+		Sub Open()
+		  #if TargetMacOS
+		    nsma = me.AttributedString
+		  #endif
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events Canvas1
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)

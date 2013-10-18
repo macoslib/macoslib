@@ -31,6 +31,24 @@ Inherits NSAttributedString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CreateFromHTML(HTMLdata as String, baseFolder as FolderItem = nil) As AttributedString
+		  
+		  #if TargetMacOS
+		    dim nsd as NSData = NSData.CreateWithString( HTMLdata )
+		    dim url as NSURL
+		    if baseFolder<>nil then
+		      url = new NSURL( baseFolder.URLPath )
+		    end if
+		    dim nsas as NSAttributedString = NSAttributedString.CreateFromHTML( HTMLData, url )
+		    
+		    if nsas<>nil then
+		      return   new AttributedString( nsas )
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function CreateFromRTF(RTFdata as NSData) As AttributedString
 		  #if TargetMacOS
 		    dim nsas as NSAttributedString = NSAttributedString.CreateFromRTF( RTFData )
@@ -225,6 +243,13 @@ Inherits NSAttributedString
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="NSAttributedString"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
