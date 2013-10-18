@@ -573,7 +573,6 @@ Protected Module MacOSFolderItemExtension
 		    err = LSCopyItemAttribute( theFSRef, kLSRoleAll, attributeConstant, ref )
 		    
 		    if err<>0 then
-		      'DReportError  "ItemAttribute error", err
 		      return  nil
 		    end if
 		    
@@ -603,9 +602,9 @@ Protected Module MacOSFolderItemExtension
 		    
 		    err = LSSetItemAttribute( file.FSRef, &hFFFFFFFF, CFConstant( attributeConstant ), CFTypeFromVariant( value ).Reference )
 		    
-		    if err<>0 then
-		      'DReportError  "ItemAttribute error", err
-		    end if
+		    'if err<>0 then  //Maybe we should do something on error
+		    '
+		    'end if
 		    
 		  #else
 		    #pragma unused file

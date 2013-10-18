@@ -428,12 +428,14 @@ Inherits NSImageRep
 		    dim arrayRef as Ptr = imageRepsWithData(ClassRef, dataRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
+		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -458,12 +460,14 @@ Inherits NSImageRep
 		      dim arrayRef as Ptr = imageRepsWithContentsOfFile(ClassRef, file.POSIXPath)
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
-		        const sizeOfPtr = 4
+		        
+		        #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		          
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		        dim n as UInt32 = arrayRange.length-1
 		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		        next
 		      end if
 		    end if
@@ -493,12 +497,14 @@ Inherits NSImageRep
 		    dim arrayRef as Ptr = imageRepsWithPasteboard(ClassRef, pasteboardRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
+		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -527,12 +533,14 @@ Inherits NSImageRep
 		    dim arrayRef as Ptr = imageRepsWithContentsOfURL(ClassRef, urlRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
+		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*sizeOfPtr)))
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -984,12 +992,14 @@ Inherits NSImageRep
 		    dim arrayRef as Ptr = registeredImageRepClasses(ClassRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
-		      const sizeOfPtr = 4
+		      
+		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
 		      dim n as UInt32 = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append Ptr(m.UInt32Value(i*sizeOfPtr))
+		        retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
 		      next
 		    end if
 		    

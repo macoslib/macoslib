@@ -11,12 +11,7 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  #if TargetMacOS
-		    'RequireFramework  IKLib
 		    RequireFramework  ICLib
-		    
-		    'declare sub m_ICInitialize lib ICLib ()
-		    '
-		    '_ICInitialize
 		    
 		    self.Constructor(Initialize(Allocate( "ICDeviceBrowser")), hasOwnership)
 		    self.SetDelegate
@@ -147,20 +142,6 @@ Inherits NSObject
 		  dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
 		  return NSSearchField(w.Value)
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
-		  
-		  return p
 		End Function
 	#tag EndMethod
 

@@ -108,6 +108,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function EnumeratorAtURL(url as NSURL, attrKeys as NSArray, options as integer) As NSDirectoryEnumerator
+		  #pragma unused attrKeys
 		  
 		  #if TargetMacOS
 		    declare function enumeratorAtURL lib FoundationLib selector "enumeratorAtURL:includingPropertiesForKeys:options:errorHandler:" (id as Ptr, url as Ptr, ppties as Ptr, opt as Integer, errBlock as Ptr) as Ptr
@@ -122,6 +123,9 @@ Inherits NSObject
 		      return nil
 		    end if
 		    
+		  #else
+		    #pragma unused url
+		    #pragma unused options
 		  #endif
 		End Function
 	#tag EndMethod

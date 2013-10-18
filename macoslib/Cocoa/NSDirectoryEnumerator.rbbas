@@ -78,7 +78,6 @@ Inherits NSEnumerator
 		
 		Compared to a simple recursive method, the __NSDirectoryEnumerator__ performs 15-25 times faster !
 		@overview/
-		
 	#tag EndNote
 
 

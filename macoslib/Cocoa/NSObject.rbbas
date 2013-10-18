@@ -126,6 +126,19 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub PerformSelectorOnMainThread(selectorName as string, withObject as NSObject, waitUntilDone as Boolean)
+		  #if TargetMacOS
+		    declare sub performSelectorOnMainThread_ lib CocoaLib selector "performSelectorOnMainThread:withObject:waitUntilDone:" (id as Ptr, aSelector as Ptr, withObj as Ptr, wait as Boolean)
+		    
+		    dim SEL as Ptr = Cocoa.NSSelectorFromString( selectorName )
+		    
+		    PerformSelectorOnMainThread_   self, SEL, withObject, waitUntilDone
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Release()
 		  #if TargetMacOS
 		    declare sub release lib CocoaLib selector "release" (id as Ptr)
@@ -157,6 +170,18 @@ Implements objHasVariantValue
 		    else
 		      return nil
 		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Superclass() As Ptr
+		  //# Returns the superclass object (not the instance)
+		  
+		  #if TargetMacOS
+		    declare function superclass_ lib CocoaLib selector "superclass" (id as Ptr) as Ptr
+		    
+		    return superclass_( self )
 		  #endif
 		End Function
 	#tag EndMethod

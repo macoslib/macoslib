@@ -10,11 +10,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(f as FolderItem)
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From NSObject
-		  // Constructor(obj_id as Ptr, hasOwnership as Boolean = false, checkForClass as string = "") -- From NSObject
 		  
 		  dim p as Ptr = DelegateClassID
 		  
@@ -22,22 +17,7 @@ Inherits NSObject
 		  
 		  CocoaDelegateMap.Value( self.id ) = new WeakRef( self )
 		  
-		  'Super.Constructor   Initialize( Allocate( NSClassName )), true
-		  
 		  url = new NSURL( f )
-		  
-		  'if NOT f.Directory then
-		  'nsi = new NSImage( url )
-		  'else
-		  'nsi = NSImage.Folder
-		  'nsi.SetMaxSize( 512 )
-		  'end if
-		  '
-		  'if nsi=nil OR nsi.id = nil then
-		  'DReportWarning   "Couldn't load image", url.VariantValue
-		  'end if
-		  
-		  'SetDelegate
 		  
 		End Sub
 	#tag EndMethod
@@ -60,6 +40,7 @@ Inherits NSObject
 		Private Shared Function delegate_imageRepresentation(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -82,6 +63,7 @@ Inherits NSObject
 		Private Shared Function delegate_imageRepresentationType(id as Ptr, sel as Ptr, sender as Ptr, index as integer) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -105,6 +87,7 @@ Inherits NSObject
 		Private Shared Function delegate_ImageSubtitle(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -128,6 +111,7 @@ Inherits NSObject
 		Private Shared Function delegate_ImageTitle(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -151,6 +135,7 @@ Inherits NSObject
 		Private Shared Function delegate_ImageUID(id as Ptr, sel as Ptr, sender as Ptr) As Ptr
 		  #pragma unused sel
 		  #pragma stackOverflowChecking false
+		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -179,16 +164,79 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
+		Private Function FormatSize(size as UInt64, binary as Boolean = True) As String
+		  //Copied from StringExtensions to remove dependency.
 		  
-		  return p
+		  //This is only a transient copy and will be removed later. DO NOT USE for development.
+		  
+		  if IsMountainLion and size >= 0 then
+		    // Use Apple's official NSByteCountFormatter.
+		    if binary then
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Binary ) // 1k = 1024 bytes
+		    else
+		      return NSByteCountFormatter.ByteCountWithStyle( size, NSByteCountFormatter.CountStyle.Decimal ) // 1k = 1000 bytes
+		    end if
+		    
+		  else
+		    // Mimic Apple's results manually, and allow for negative numbers.
+		    if size = 0 then
+		      return "Zero KB"
+		    end if
+		    
+		    dim KB as UInt64 = 1024
+		    
+		    if not binary then
+		      KB = 1000 // Apple decimal format: 1K=1000 bytes
+		    end if
+		    
+		    dim usize as UInt64 = Abs( size ) // Comparing with absolute values is easier then dealing with negative sizes.
+		    
+		    if usize < KB then
+		      if usize = 1 then
+		        return  Str( size ) + " byte"
+		      else
+		        return  Str( size ) + " bytes"
+		      end if
+		    end if
+		    
+		    if Round( usize / KB ) < KB then
+		      return   Format( size / KB, "-#" ) + " KB"
+		    end if
+		    
+		    dim MB as Int64 = KB * KB //A "Bitwise.ShiftLeft( KB, 10 )" is a little more efficient (6% speed increase) but it only works for 1024-multiples.
+		    if Round( usize / MB ) < KB then
+		      return   Format( size / MB, "-#.0" ) + " MB"
+		    end if
+		    
+		    dim GB as Int64 = MB * KB
+		    if Round( usize / GB ) < KB then
+		      return   Format( size / GB, "-#.00" ) + " GB"
+		    end if
+		    
+		    dim TB as Int64 = GB * KB
+		    if Round( usize / TB ) < KB then
+		      return   Format( size / TB, "-#.00" ) + " TB"
+		    end if
+		    
+		    dim PB as Int64 = TB * KB
+		    if Round( usize / PB ) < KB then
+		      return   Format( size / PB, "-#.00" ) + " PB"
+		    end if
+		    
+		    dim EB as Int64 = PB * KB
+		    if Round( usize / EB ) < KB then
+		      return   Format( size / EB, "-#.00" ) + " EB"
+		    end if
+		    
+		    dim ZB as Int64 = EB * KB
+		    if Round( usize / ZB ) < KB then
+		      return   Format( size / ZB, "-#.00" ) + " ZB"
+		    end if
+		    
+		    dim YB as Int64 = ZB * KB // I'm not currently aware of a format larger than the yottabyte, and Apple doesn't seem to return anything larger than 16 or 18.45 exabyte.
+		    return    Format( size / YB, "-#.00" ) + " YB"
+		    
+		  end if
 		End Function
 	#tag EndMethod
 
@@ -241,7 +289,7 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_imageSubtitle() As string
 		  #if TargetMacOS
-		    return  FormatSize( url.Item.Length )
+		    return  me.FormatSize( url.Item.Length )
 		    
 		  #endif
 		  
@@ -251,7 +299,9 @@ Inherits NSObject
 	#tag Method, Flags = &h21
 		Private Function Handle_imageTitle() As String
 		  #if TargetMacOS
-		    return  url.LastPathComponent.StringBefore( "." )
+		    dim s as string
+		    s = url.LastPathComponent
+		    return  NthField( s, ".", 1 )
 		    
 		  #endif
 		  

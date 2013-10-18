@@ -47,17 +47,14 @@ Inherits CFType
 		  if current<>nil then
 		    dim currentDict as NSDictionary = new NSDictionary( current, false )
 		    #pragma unused currentDict
-		    'DReport  "Current:", currentDict
 		  end if
 		  if active<>nil then
 		    dim activeDict as NSDictionary = new NSDictionary( active, false )
 		    #pragma unused activeDict
-		    'DReport  "Active:", activeDict
 		  end if
 		  if available<>nil then
 		    dim availableArray as NSArray = new NSArray( available, false )
 		    #pragma unused availableArray
-		    'DReport  "Available:", availableArray
 		  end if
 		  
 		  
@@ -153,6 +150,7 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisplayName"
@@ -171,33 +169,33 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Type"
