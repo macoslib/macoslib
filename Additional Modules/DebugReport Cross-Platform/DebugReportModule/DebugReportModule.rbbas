@@ -187,6 +187,20 @@ Protected Module DebugReportModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DReportNotification(ParamArray values() as variant)
+		  //# Make a Debug Report as a warning
+		  
+		  //@ You can pass any number of any variant. They will be formatted as text and separated by a space.
+		  
+		  
+		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		    XReport   kLevelNotification, true, 0, values
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub DReportTitled(ParamArray values() as variant)
 		  //# Make a Debug Report as a notice, the first item being displayed in boldface
 		  
@@ -505,19 +519,10 @@ Protected Module DebugReportModule
 		Protected Sub HandleReceivedNotification(obs as NotificationObserver, theNotification as NSNotification)
 		  //# Processes received notification
 		  
-		  '#pragma stackOverflowChecking false
+		  #pragma unused obs
 		  
-		  'DReportTitled   "NOTIFICATION:", theNotification
+		  DReportNotification  theNotification, "Associated object:", theNotification.AssociatedObject, "UserInfo dictionary:", theNotification.UserInfo
 		  
-		  'if NOT theNotification.Name.StartsWith( "NS" ) then
-		  QReportTitled  "NOTIFICATION:", theNotification.Name, theNotification.AssociatedObject, theNotification.UserInfo
-		  'end if
-		  
-		  'if theNotification.Name.Contains( "resiz" ) then
-		  'DReportTitled  "NOTIFICATION:", theNotification.Name
-		  'end if
-		  
-		  'System.Log  System.LogLevelError, theNotification.Name
 		End Sub
 	#tag EndMethod
 
@@ -618,9 +623,22 @@ Protected Module DebugReportModule
 
 	#tag Method, Flags = &h1
 		Protected Sub RegisterNotification(NotificationName as string, sender as Ptr = Nil)
+		  //# Registers notifications to be automatically reported.
+		  
+		  //@abstract
+		  //    At least one of ''NotificationName'' or ''sender'' must be specified. The corresponding notifications are displayed in the Debug Report window.
+		  //@abstract/
+		  
 		  #if TargetMacOS
 		    if not inited then
 		      init
+		    end if
+		    
+		    if NotificationName="" AND sender=nil then
+		      dim e as new RuntimeException
+		      e.Message = CurrentMethodName +  ": Cannot register all notifications (NotificationName="""") for all targets (sender=nil). Please specify NotificationName, sender object or both."
+		      raise  e
+		      return
 		    end if
 		    
 		    myObserver.Register   NotificationName, sender
@@ -934,6 +952,17 @@ Protected Module DebugReportModule
 		      next
 		      sr2.Font = "SmallSystem"
 		      
+		    case kLevelNotification //Notification
+		      sr1.Font = "SmallSystem"
+		      sr1.Text = "NOTIFICATION: "
+		      sr1.TextColor = &cFFCC6600
+		      sr1.Bold = true
+		      
+		      for each v as variant in values
+		        results2.Append  FormatVariant( v )
+		      next
+		      sr2.Font = "SmallSystem"
+		      
 		    end select
 		    
 		    if results1.Ubound>-1 then
@@ -1084,6 +1113,9 @@ Protected Module DebugReportModule
 	#tag EndConstant
 
 	#tag Constant, Name = kLevelNotice, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kLevelNotification, Type = Double, Dynamic = False, Default = \"5", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = kLevelTitled, Type = Double, Dynamic = False, Default = \"2", Scope = Protected

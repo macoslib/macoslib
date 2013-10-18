@@ -516,8 +516,22 @@ End
 	#tag EndEvent
 
 
+	#tag Property, Flags = &h21
+		Private nsma As NSAttributedString
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
+#tag Events LogTA
+	#tag Event
+		Sub Open()
+		  #if TargetMacOS
+		    nsma = me.AttributedString
+		  #endif
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events Canvas1
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
@@ -529,34 +543,6 @@ End
 		  #endif
 		  
 		End Sub
-	#tag EndEvent
-	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  
-		  'static offset as integer
-		  'dim startPos as integer
-		  'dim doc as Ptr
-		  '
-		  'startPos = LogTA.Text.Instr( offset, "ERROR" )
-		  'offset = startPos + 5
-		  '
-		  'if startPos = 0 then
-		  'beep
-		  'Return  false
-		  'end if
-		  '
-		  'declare function documentView lib CocoaLib selector "documentView" (id as Ptr) as Ptr
-		  'declare sub scrollRangeToVisible lib CocoaLib selector "scrollRangeToVisible:" (id as Ptr, range as Cocoa.NSRange)
-		  'declare sub setSelectedRange lib CocoaLib selector "setSelectedRange:" (id as ptr, range as Cocoa.NSRange)
-		  '
-		  'doc = documentView( Ptr( LogTA.Handle ))
-		  'setSelectedRange( doc, Cocoa.NSMakeRange( StartPos - 1, 5 ))
-		  'scrollRangeToVisible( doc, Cocoa.NSMakeRange( StartPos - 1, 5 ))
-		  
-		  #pragma unused X
-		  #pragma unused Y
-		  
-		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events Canvas2
@@ -593,13 +579,12 @@ End
 		  
 		  dim base as new MenuItem( "MENU" )
 		  dim mi as MenuItem
-		  'dim obj as Object
 		  
 		  base.Append   new Menuitem( "Copy", "_COPY_" )
 		  base.Append   new Menuitem( "Clear", "_CLEAR_" )
 		  base.Append   new Menuitem( "-" )
-		  base.Append   new Menuitem( "Save log to Desktop", "_SAVE_" )
-		  base.Append   new Menuitem( "-" )
+		  'base.Append   new Menuitem( "Save log to Desktop", "_SAVE_" )  //Not implemented yet
+		  'base.Append   new Menuitem( "-" )
 		  base.Append   new MenuItem( "List objects in memory", "_OBJECTS_" )
 		  
 		  mi = base.PopUp
@@ -615,13 +600,10 @@ End
 		    LogTA.Text = ""
 		    LogTA.ScrollPosition = 0
 		    
-		  case "_SAVE_"
-		    beep
-		    'dim f as FolderItem
-		    'f = SpecialFolder.Desktop.Child( "Debug Log " + Date( new date).AbbreviatedDate
+		  case "_SAVE_"  //Unimplemented yet
+		    'beep
 		    
 		  case "_OBJECTS_"
-		    'dim iterator as Runtime.ObjectIterator = Runtime.IterateObjects
 		    dim imax as integer = Runtime.ObjectCount - 1
 		    
 		    DReportTitled   "Objects in memory"
@@ -633,12 +615,6 @@ End
 		        QReport   s + " (" + Str( Runtime.ObjectRefs( i )) + ")"
 		      end if
 		    next
-		    'while  iterator.MoveNext
-		    'obj = iterator.Current
-		    'if NOT obj isa MenuItem then
-		    'QReport   Introspection.GetType( obj ).Name
-		    'end if
-		    'wend
 		    
 		  end select
 		End Function

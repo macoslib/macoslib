@@ -237,9 +237,10 @@ Inherits NSObject
 		    if self.id <> nil then
 		      dim cnt as integer = self.Count
 		      dim indexBuffer as new MemoryBlock(sizeOfInteger * cnt)
-		      dim indexCount as Integer = getIndexes(self, indexBuffer, cnt, nil)
 		      dim L() as Integer
 		      dim offset as Integer = 0
+		      
+		      call getIndexes(self, indexBuffer, cnt, nil)
 		      
 		      while offset < indexBuffer.Size
 		        L.Append  indexBuffer.Long( offset )

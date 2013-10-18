@@ -581,6 +581,16 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function WelcomeWindowMenu() As Boolean Handles WelcomeWindowMenu.Action
+			
+			DefaultWindow.Show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function WindowManagerAlpha() As Boolean Handles WindowManagerAlpha.Action
 			AlphaWindow.Show
 			return true

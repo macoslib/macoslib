@@ -1,6 +1,38 @@
 #tag Class
-Class NSView
-Inherits NSResponder
+Class CanvasForNSView
+Inherits Canvas
+Implements objHasVariantValue
+	#tag Event
+		Sub Open()
+		  
+		  #if TargetMacOS
+		    
+		    dim frame as Cocoa.NSRect
+		    frame.x = 0.0
+		    frame.y = 0.0
+		    frame.w = self.Width
+		    frame.h = self.Height
+		    
+		    declare function initWithFrame lib CocoaLib selector "initWithFrame:" (obj_id as Ptr, frameRect as Cocoa.NSRect) as Ptr
+		    
+		    self.m_id = initWithFrame( Allocate( RaiseEvent NSClassName ), frame )
+		    if self.id = nil then
+		      raise new macoslibException( "Unable to instantiate class " + NSClassName )
+		    end if
+		    
+		    soft declare sub addSubview lib CocoaLib selector "addSubview:" (id as Ptr, aView as Ptr)
+		    
+		    addSubview Ptr( self.Handle ), self.id
+		    
+		    //here we lock the control to the canvas superview so that resizing is handled by the canvas.
+		    AutoresizingMask = NSViewWidthSizable OR NSViewHeightSizable
+		    
+		    RaiseEvent   Open
+		  #endif
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub AddSubview(aView as NSView)
 		  
@@ -116,6 +148,26 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function Allocate(class_id as Ptr) As Ptr
+		  
+		  #if TargetMacOS
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    
+		    return alloc(class_id)
+		  #else
+		    #pragma unused class_id
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Allocate(NSClassName as String) As Ptr
+		  
+		  return NSObject.Allocate( Cocoa.NSClassFromString(NSClassName))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function AncestorSharedWithView(aView as NSView) As NSView
 		  
 		  #if TargetMacOS then
@@ -126,6 +178,16 @@ Inherits NSResponder
 		    #pragma Unused aView
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Autorelease()
+		  #if TargetMacOS
+		    declare sub autorelease lib CocoaLib selector "autorelease" (id as Ptr)
+		    
+		    autorelease(self)
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -242,6 +304,20 @@ Inherits NSResponder
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function ClassObjectID() As Ptr
+		  //this method returns the id of the class object.  Typically it would be used in subclasses in the implementation
+		  //of Cocoa class methods in Rb.
+		  
+		  
+		  #if TargetMacOS
+		    declare function klass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		    
+		    return klass(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function ClassRef() As Ptr
 		  
@@ -252,35 +328,13 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(frameRect as Cocoa.NSRect)
+		Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  Super.Constructor
 		  
-		  #if TargetMacOS then
-		    declare function initWithFrame lib CocoaLib selector "initWithFrame:" (obj_id as Ptr, frameRect as Cocoa.NSRect) as Ptr
-		    
-		    super.Constructor( initWithFrame( Initialize(Allocate(Cocoa.NSClassFromString("NSView"))), frameRect ), not hasOwnership )
-		  #else
-		    #pragma Unused frameRect
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
-		Sub Constructor(x as integer, y as integer, width as integer, height as integer)
+		  //Loading the frameworks here avoids having to load them in instance methods/properties
+		  LoadRequiredFrameworks
 		  
-		  #if TargetMacOS then
-		    dim frameRect as Cocoa.NSRect
-		    frameRect.x = x
-		    frameRect.y = y
-		    frameRect.w = width
-		    frameRect.h = height
-		    
-		    self.Constructor( frameRect )
-		  #else
-		    #pragma unused x
-		    #pragma unused y
-		    #pragma unused width
-		    #pragma unused height
-		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -716,6 +770,18 @@ Inherits NSResponder
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub HandleReceivedNotification(obs as NotificationObserver, notification as NSNotification)
+		  #pragma unused obs
+		  
+		  #if TargetMacOS
+		    RaiseEvent  ReceivedNotification( notification )
+		  #else
+		    pragma unused notification
+		  #endif
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function HeightAdjustLimit() As Single
 		  
@@ -723,6 +789,19 @@ Inherits NSResponder
 		    declare function getHeightAdjustLimit lib CocoaLib selector "heightAdjustLimit" (obj_id as Ptr) as Single
 		    
 		    return getHeightAdjustLimit( self )
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function Initialize(obj_id as Ptr) As Ptr
+		  #if TargetMacOS
+		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
+		    
+		    return init(obj_id)
+		    
+		  #else
+		    #pragma unused obj_id
 		  #endif
 		End Function
 	#tag EndMethod
@@ -751,6 +830,25 @@ Inherits NSResponder
 		    #pragma Unused aRange
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub LoadRequiredFrameworks()
+		  //# Loads the required frameworks for the subclass.
+		  
+		  if RequiredFrameworksLoaded then  //Already loaded. Return immediately.
+		    return
+		    
+		  else //Get the required frameworks and load them.
+		    dim frameworks() as string = RaiseEvent  RequiredFrameworks
+		    
+		    for each fwork as string in frameworks
+		      RequireFramework  fwork
+		    next
+		    
+		    RequiredFrameworksLoaded = true
+		  end if
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -868,6 +966,12 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Operator_Convert() As Ptr
+		  return self.id
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PageFooter() As NSAttributedString
 		  #if TargetMacOS then
 		    declare function getPageFooter lib CocoaLib selector "pageFooter" (obj_id as Ptr) as Ptr
@@ -974,6 +1078,35 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RegisterForNotification(NotificationName as String)
+		  //# Registers for a notification
+		  
+		  //@abstract
+		  //With this method, the received notifications will be sent to the ReceivedNotification event. Registration is made for the current object only.
+		  //@abstract/
+		  
+		  #if TargetMacOS
+		    if observer=nil then //Create the NotificationObserver if necessary
+		      observer = new NotificationObserver
+		      AddHandler  observer.HandleNotification, AddressOf HandleReceivedNotification
+		    end if
+		    
+		    observer.Register   NotificationName, self.id
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Release()
+		  #if TargetMacOS
+		    declare sub release lib CocoaLib selector "release" (id as Ptr)
+		    
+		    release self
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RemoveAllToolTips()
 		  
 		  #if TargetMacOS then
@@ -1068,6 +1201,16 @@ Inherits NSResponder
 		    #pragma Unused OldBoundsSize
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RespondsToSelector(selectorName As CFStringRef) As Boolean
+		  declare function instanceRespondsToSelector lib CocoaLib selector "respondsToSelector:" ( obj_id as Ptr, aSelector as Ptr ) as Boolean
+		  
+		  dim selectorPtr as Ptr = Cocoa.NSSelectorFromString( selectorName )
+		  return instanceRespondsToSelector( m_id, selectorPtr )
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1222,6 +1365,14 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function VariantValue() As variant
+		  
+		  return self
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function WidthAdjustLimit() As Single
 		  
 		  #if TargetMacOS then
@@ -1328,6 +1479,38 @@ Inherits NSResponder
 		End Sub
 	#tag EndMethod
 
+
+	#tag Hook, Flags = &h0
+		Event NSClassName() As String
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ReceivedNotification(notification as NSNotification)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event RequiredFrameworks() As String()
+	#tag EndHook
+
+
+	#tag Note, Name = @doc
+		@overview
+		@summary
+		__CanvasForNSView__ is a helper subclass of Canvas which makes easier to implement NSView subclasses.
+		@summary/
+		
+		@abstract
+		[[NSView]] based classes should be implemented as a Canvas in Xojo in order to get the control frame and its events. As such, this breaks the Cocoa inheritance between _
+		the new class and _NSView__. __CanvasForNSView__ is a subclass of Canvas but it also implements (most of) the features of __NSView__ and its parents (__NSResponder__ _
+		and __NSObject__) plus some events to make easier to create an [[NSView]] subclass in '''macoslib'''.
+		@abstract/
+		@overview/
+		
+	#tag EndNote
 
 	#tag Note, Name = TODO
 		
@@ -1483,6 +1666,23 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #if TargetMacOS
+			    declare function description lib CocoaLib selector "description" (id as Ptr) as CFStringRef
+			    
+			    if self.id <> nil then
+			      return description(self.id)
+			    else
+			      return ""
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		Description As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if TargetMacOS then
 			    declare function getEnclosingMenuItem lib CocoaLib selector "enclosingMenuItem" (obj_id as Ptr) as Ptr
@@ -1631,6 +1831,15 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  return  m_id
+			End Get
+		#tag EndGetter
+		id As Ptr
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if TargetMacOS then
 			    declare function getInLiveResize lib CocoaLib selector "inLiveResize" (obj_id as Ptr) as Boolean
@@ -1712,6 +1921,10 @@ Inherits NSResponder
 		IsRotatedOrScaledFromBase As Boolean
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h1
+		Protected m_id As Ptr
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -1763,6 +1976,10 @@ Inherits NSResponder
 		#tag EndSetter
 		NextKeyView As NSView
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private observer As NotificationObserver
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -1857,6 +2074,10 @@ Inherits NSResponder
 		#tag EndGetter
 		PreviousKeyView As NSView
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private RequiredFrameworksLoaded As Boolean
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -1994,6 +2215,9 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 
+	#tag Constant, Name = hasOwnership, Type = Boolean, Dynamic = False, Default = \"true", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = NSFullScreenModeAllScreens, Type = String, Dynamic = False, Default = \"NSFullScreenModeAllScreens", Scope = Public
 	#tag EndConstant
 
@@ -2099,7 +2323,6 @@ Inherits NSResponder
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

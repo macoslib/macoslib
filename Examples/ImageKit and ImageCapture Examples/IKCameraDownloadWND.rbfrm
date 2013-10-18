@@ -81,12 +81,9 @@ End
 		  
 		  me.mode = 1 //View by icons
 		  me.displaysDownloadsDirectoryControl = true
-		  'me.displaysPostProcessApplicationControl = true
 		  me.hasDisplayModeIcon = true
 		  me.hasDisplayModeTable = true
 		  me.TransferMode = 0
-		  
-		  'ReportObjCDetailsForNSObjectPtr   me.id
 		  
 		  
 		End Sub

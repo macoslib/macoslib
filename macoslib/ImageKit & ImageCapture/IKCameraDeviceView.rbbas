@@ -173,20 +173,6 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
-		  
-		  return p
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Sub Handle_DownloadFinished(url as Ptr, data as Ptr, err as Ptr)
 		  #if TargetMacOS
 		    if err<>nil then

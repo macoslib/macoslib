@@ -244,13 +244,6 @@ End
 		End Sub
 	#tag EndEvent
 
-	#tag Event
-		Sub Open()
-		  'browser.DeviceTypes = &h1 OR &h2 OR &h100 //OR &h200 OR &h400 OR &h800 OR &hFE00
-		  'browser.Start
-		End Sub
-	#tag EndEvent
-
 
 	#tag Method, Flags = &h0
 		Sub Handle_DownloadError(camDev as ICCameraDevice, file as ICCameraFile, error as String)
@@ -303,8 +296,6 @@ End
 		  
 		  dim pict as Picture
 		  
-		  'dim maxScale as double
-		  
 		  //Create and scale picture
 		  pict = new Picture( toWidth, toHeight, 32 )
 		  pict.Graphics.DrawPicture   original, 0, 0, toWidth, toHeight, 0, 0, original.width, original.Height
@@ -326,7 +317,6 @@ End
 #tag Events browser
 	#tag Event
 		Sub DeviceAdded(device as ICDevice, moreComing as Boolean)
-		  'DReport   "Adding device"
 		  
 		  LB1.AddRow   device.Name
 		  LB1.RowTag( LB1.LastIndex ) = device
@@ -347,9 +337,6 @@ End
 	#tag Event
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
-		  'dim p as Picture = me.RowPicture( row )
-		  '
-		  'g.DrawPicture   p, 2, 2, 32, 32, 0, 0, p.Width, p.Height
 		  g.DrawString   me.Cell( row, column ), x + 8, y
 		  
 		  return  true
@@ -404,9 +391,6 @@ End
 	#tag Event
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
-		  'dim p as Picture = me.RowPicture( row )
-		  '
-		  'g.DrawPicture   p, 2, 2, 32, 32, 0, 0, p.Width, p.Height
 		  g.DrawString   me.Cell( row, column ), x + 8, y
 		  
 		  return  true

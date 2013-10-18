@@ -150,20 +150,6 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function FPtr(p as Ptr) As Ptr
-		  //This function is a workaround for the inability to convert a Variant containing a delegate to Ptr:
-		  //dim v as Variant = AddressOf Foo
-		  //dim p as Ptr = v
-		  //results in a TypeMismatchException
-		  //So now I do
-		  //dim v as Variant = FPtr(AddressOf Foo)
-		  //dim p as Ptr = v
-		  
-		  return p
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Function Handle_ConstructContextualMenu(base as MenuItem, x as integer, y as integer) As Boolean
 		  return  RaiseEvent  ConstructContextualMenu( base, x, y )
 		End Function
@@ -199,11 +185,9 @@ Inherits NSControl
 	#tag Method, Flags = &h21
 		Private Shared Function impl_CanBecomeKeyView(id as Ptr, sel as Ptr) As Boolean
 		  #if targetCocoa
-		    'DReport "impl_CanBecomeKeyView called"
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return false
 		    end if
 		    
@@ -227,7 +211,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -253,7 +236,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -280,7 +262,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
@@ -310,7 +291,6 @@ Inherits NSControl
 		    
 		    dim theSource as NSImageView = FindObjectByID( id )
 		    if theSource is nil then
-		      'DReportWarning   "Couldn't find source object"
 		      return
 		    end if
 		    
