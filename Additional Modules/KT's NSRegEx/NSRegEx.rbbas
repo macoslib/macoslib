@@ -103,6 +103,8 @@ Protected Class NSRegEx
 		      end if
 		    end if
 		    
+		  #else
+		    #pragma unused startCharPos
 		  #endif
 		  
 		  return r
@@ -139,7 +141,6 @@ Protected Class NSRegEx
 	#tag Note, Name = About
 		
 		Simplifies the MacOS RegEx classes through methods similar to the native RegEx classes.
-		
 	#tag EndNote
 
 

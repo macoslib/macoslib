@@ -159,7 +159,11 @@ Inherits NSObject
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
 		        
-		        #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		        #if RBVersion > 2013.01
+		          #if Target64Bit
+		            #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		          #endif
+		        #endif
 		        
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
@@ -196,7 +200,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		      #if RBVersion > 2013.01
+		        #if Target64Bit
+		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		        #endif
+		      #endif
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
@@ -232,7 +240,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		      #if RBVersion > 2013.01
+		        #if Target64Bit
+		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		        #endif
+		      #endif
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
@@ -518,7 +530,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		      #if RBVersion > 2013.01
+		        #if Target64Bit
+		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		        #endif
+		      #endif
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)

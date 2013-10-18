@@ -38,6 +38,9 @@ Inherits IKImageBrowserDataSource
 		    'return  group.id
 		    '
 		    'end if
+		    
+		  #else
+		    #pragma unused index
 		  #endif
 		End Function
 	#tag EndEvent

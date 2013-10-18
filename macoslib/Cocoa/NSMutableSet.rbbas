@@ -76,7 +76,11 @@ Inherits NSSet
 		  #if targetMacOS
 		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		    #if RBVersion > 2013.01
+		      #if Target64Bit
+		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		      #endif
+		    #endif
 		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
@@ -239,7 +243,11 @@ Inherits NSSet
 		  #if TargetMacOS
 		    declare function setWithObjects lib CocoaLib selector "setWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		    #if RBVersion > 2013.01
+		      #if Target64Bit
+		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		      #endif
+		    #endif
 		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1

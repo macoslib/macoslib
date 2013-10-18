@@ -248,6 +248,10 @@ End
 		  base.Append   new MenuItem( "Copy" )
 		  
 		  return  true
+		  
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 	#tag Event

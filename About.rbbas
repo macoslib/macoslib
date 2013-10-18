@@ -70,6 +70,13 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		155: 2013-10-18 by KT
+		- Added pragmas for unused variables and parameters.
+		- Corrected bug that prevented non-Mac compiles.
+		- Changed remaining NewMemoryBlock to new MemoryBlock.
+		- Coached warning about 64-bit compatibility to prevent it from showing up when not compiling for 64-bit.
+		- Confirmed ability to compile in Windows, Carbon, and Cocoa in Xojo and Real Studio 2012.
+		
 		154: 2013-10-18 by KT
 		- Added NSRegEx classes to Additional Modules.
 		
@@ -409,7 +416,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"154", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"155", Scope = Protected
 	#tag EndConstant
 
 
