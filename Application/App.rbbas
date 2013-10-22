@@ -58,6 +58,11 @@ Inherits Application
 		    end if
 		  end if
 		  
+		  
+		  #pragma warning "DELETE THIS CODE!"
+		  
+		  dim ssid as string = MacSystemProfiler.SSID
+		  
 		End Sub
 	#tag EndEvent
 
