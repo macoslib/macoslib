@@ -893,7 +893,7 @@ Protected Module WindowExtensions
 		    #endif
 		    
 		    // we get the old window region
-		    rect = NewMemoryBlock(8)
+		    rect = New MemoryBlock(8)
 		    err = GetWindowBounds(w, 32, rect)
 		    
 		    t = w.Top // Need to know where the top and left of the window go

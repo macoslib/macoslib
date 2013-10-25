@@ -61,9 +61,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_imageRepresentationType(id as Ptr, sel as Ptr, sender as Ptr, index as integer) As Ptr
-		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    if CocoaDelegateMap.HasKey( id ) then
@@ -79,7 +77,15 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else 
+		    #pragma unused id
 		  #endif
+		  
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused index
+		  
 		End Function
 	#tag EndMethod
 

@@ -4,24 +4,42 @@ Inherits Canvas
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
 		  //
+		  
+		  #pragma unused base
+		  #pragma unused x
+		  #pragma unused y
+		  
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
 		  //
+		  
+		  #pragma unused hitItem
+		  
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub DoubleClick(X As Integer, Y As Integer)
 		  //
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Function MouseWheel(X As Integer, Y As Integer, deltaX as Integer, deltaY as Integer) As Boolean
 		  //
+		  
+		  #pragma unused X
+		  #pragma unused Y
+		  #pragma unused deltaX
+		  #pragma unused deltaY
+		  
 		End Function
 	#tag EndEvent
 
@@ -242,7 +260,6 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_ItemAtIndex(id as Ptr, sel as Ptr, sender as Ptr, index as integer) As Ptr
-		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -261,14 +278,23 @@ Inherits Canvas
 		      'else
 		      '//something might be wrong.
 		      'end if
+		      
+		    #else
+		      
+		      #pragma unused id
+		      #pragma unused sender
+		      #pragma unused index
+		      
 		    #endif
 		  #endif
+		  
+		  #pragma unused sel
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_NumberOfItems(id as Ptr, sel as Ptr, sender as Ptr) As integer
-		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
@@ -287,8 +313,23 @@ Inherits Canvas
 		      'else
 		      '//something might be wrong.
 		      'end if
+		      
+		    #else
+		      
+		      #pragma unused id
+		      #pragma unused sender
+		      
 		    #endif
+		    
+		  #else
+		    
+		    #pragma unused id
+		    #pragma unused sender
+		    
 		  #endif
+		  
+		  #pragma unused sel
+		  
 		End Function
 	#tag EndMethod
 
@@ -647,17 +688,16 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Shared Function subclass_NewCell(id as Ptr, sel as Ptr, anItem as Ptr) As Ptr
-		  #pragma unused sel
 		  #pragma stackOverflowChecking false
 		  
 		  #if TargetMacOS
-		    dim obj as IKImageBrowserView = FindObjectByID( id )
 		    dim p as Ptr
-		    dim IKItem as IKImageBrowserItem
 		    
 		    #if false
 		      //!!!!!!!! Does not work as expected. Why ?
 		      
+		      dim obj as IKImageBrowserView = FindObjectByID( id )
+		      dim IKItem as IKImageBrowserItem
 		      
 		      'if obj<>nil then
 		      //To override the method, create a custom IKImageBrowserCell inside the event "NewCellForItem"
@@ -668,6 +708,11 @@ Inherits Canvas
 		      'return  new IKImageBrowserCell
 		      'end if
 		      'end if
+		    #else
+		      
+		      #pragma unused id
+		      #pragma unused anItem
+		      
 		    #endif
 		    
 		    if p<>nil then
@@ -680,7 +725,16 @@ Inherits Canvas
 		    
 		exception exc
 		  return  new IKImageBrowserCell
+		  
+		  #else
+		    
+		    #pragma unused id
+		    #pragma unused anItem
+		    
 		  #endif
+		  
+		  #pragma unused sel
+		  
 		End Function
 	#tag EndMethod
 

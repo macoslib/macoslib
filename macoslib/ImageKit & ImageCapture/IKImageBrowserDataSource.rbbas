@@ -194,9 +194,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function delegate_WriteToPasteboard(id as Ptr, sel as Ptr, sender as Ptr, indexSet as Ptr, pboard as Ptr) As integer
-		  #pragma unused sel
 		  #pragma stackOverflowChecking false
-		  #pragma unused sender
 		  
 		  #if TargetMacOS
 		    
@@ -213,7 +211,16 @@ Inherits NSObject
 		    else
 		      //something might be wrong.
 		    end if
+		    
+		  #else
+		    #pragma unused id
 		  #endif
+		  
+		  #pragma unused sel
+		  #pragma unused sender
+		  #pragma unused indexSet
+		  #pragma unused pboard
+		  
 		End Function
 	#tag EndMethod
 
