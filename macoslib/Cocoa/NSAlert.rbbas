@@ -50,6 +50,9 @@ Inherits NSObject
 		    
 		    Super.Constructor( alertWithError( Cocoa.NSClassFromString("NSAlert"), errorRef ), not hasOwnership )
 		    SetDelegate
+		    
+		  #else
+		    #pragma unused error
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -95,6 +98,15 @@ Inherits NSObject
 		    
 		    Super.Constructor( alertWithMessage( Cocoa.NSClassFromString("NSAlert"), messageTitleRef, defaultButtonTitleRef, alternateButtonTitleRef, otherButtonTitleRef, informativeTextRef ), not hasOwnership )
 		    SetDelegate
+		    
+		  #else
+		    
+		    #pragma unused messageTitle
+		    #pragma unused informativeText
+		    #pragma unused defaultButtonTitle
+		    #pragma unused alternateButtonTitle
+		    #pragma unused otherButtonTitle
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -252,6 +264,12 @@ Inherits NSObject
 		    end if
 		    
 		    runSheet self, windowRef, self.GetDelegate, Cocoa.NSSelectorFromString( "alertDidEnd:returnCode:contextInfo:" ), contextInfo
+		    
+		  #else
+		    
+		    #pragma unused w
+		    #pragma unused contextInfo
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -334,6 +352,9 @@ Inherits NSObject
 			    declare sub setAlertStyle lib cocoalib selector "setAlertStyle:" (obj_id as Ptr, value as Style)
 			    
 			    setAlertStyle self, value
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -476,6 +497,9 @@ Inherits NSObject
 			    declare sub setShowsHelp lib CocoaLib selector "setShowsHelp:" (obj_id as Ptr, value as Boolean)
 			    
 			    setShowsHelp self, value
+			    
+			  #else
+			    #pragma unused value
 			  #endif
 			End Set
 		#tag EndSetter

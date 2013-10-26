@@ -35,6 +35,9 @@ Inherits NSControl
 		    declare sub highlight lib CocoaLib selector "highlight:" (obj_id as Ptr, value as Boolean)
 		    
 		    highlight self, value
+		    
+		  #else
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod

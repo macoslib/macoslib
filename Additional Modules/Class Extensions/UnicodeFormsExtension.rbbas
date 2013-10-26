@@ -6,7 +6,11 @@ Protected Module UnicodeFormsExtension
 		  
 		  //@ If one of the two strings is not Unicode, result in undefined
 		  
-		  #pragma warning "MACOSLIB: AppendUnicodeNormalized is not implemented yet"
+		  #if RBVersion > 2013.01
+		    #if Target64Bit
+		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		    #endif
+		  #endif
 		  
 		  'dim form as integer
 		  '

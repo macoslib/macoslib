@@ -145,8 +145,12 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
-		      
+		    #if RBVersion > 2013.01
+		      #if Target64Bit
+		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		      #endif
+		    #endif
+		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
 		    if uboundObject > -1 then
@@ -406,7 +410,11 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		    #if RBVersion > 2013.01
+		      #if Target64Bit
+		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		      #endif
+		    #endif
 		    
 		    dim uboundObject as UInt32 = objects.ubound
 		    dim objectCount as UInt32 = uboundObject+1
@@ -633,8 +641,12 @@ Inherits NSObject
 		  
 		  dim retArray() as String
 		  
-		  #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
-		   
+		  #if RBVersion > 2013.01
+		    #if Target64Bit
+		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		    #endif
+		  #endif
+		  
 		  dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
 		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
 		  dim n as UInt32 = arrayRange.length-1
@@ -734,7 +746,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function Values(aRange as Cocoa.NSRange) As NSObject()
-		  #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		  #if RBVersion > 2013.01
+		    #if Target64Bit
+		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		    #endif
+		  #endif
 		  
 		  dim rb_array() as NSObject
 		  
@@ -781,8 +797,12 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare sub getObjects lib CocoaLib selector "getObjects:range:" (obj_id as Ptr, aBuffer as Ptr, aRange as Cocoa.NSRange)
 		    
-		    #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
-		      
+		    #if RBVersion > 2013.01
+		      #if Target64Bit
+		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		      #endif
+		    #endif
+		    
 		    dim m as new MemoryBlock(SizeOfPointer*aRange.length)
 		    
 		    getObjects self, m, aRange
