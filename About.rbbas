@@ -70,6 +70,10 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		156: 2013-10-26 by KT
+		- Changed name of convenience classes from NSRegEx to MacRegEx.
+		- Added MacSystemProfiler.CurrentSSID shared method as convenience.
+		
 		155: 2013-10-18 by KT
 		- Added pragmas for unused variables and parameters.
 		- Corrected bug that prevented non-Mac compiles.
@@ -416,7 +420,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"155", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"156", Scope = Protected
 	#tag EndConstant
 
 

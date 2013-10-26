@@ -1,8 +1,8 @@
 #tag Class
-Protected Class NSRegEx
+Protected Class MacRegEx
 	#tag Method, Flags = &h0
 		Sub Constructor()
-		  zOptions = new NSRegExOptions
+		  zOptions = new MacRegExOptions
 		  
 		End Sub
 	#tag EndMethod
@@ -68,8 +68,8 @@ Protected Class NSRegEx
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Search(startCharPos As Integer = - 1) As NSRegExMatch
-		  dim r as NSRegExMatch
+		Function Search(startCharPos As Integer = - 1) As MacRegExMatch
+		  dim r as MacRegExMatch
 		  
 		  #if TargetCocoa
 		    
@@ -98,7 +98,7 @@ Protected Class NSRegEx
 		        #if DebugBuild
 		          rng = match.Range
 		        #endif
-		        r = new NSRegExMatch( match, zLastTarget, zLastTargetLen, zReplacementPattern )
+		        r = new MacRegExMatch( match, zLastTarget, zLastTargetLen, zReplacementPattern )
 		        zLastMatch = match
 		      end if
 		    end if
@@ -112,7 +112,7 @@ Protected Class NSRegEx
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Search(target As String, startCharPos As Integer = 0) As NSRegExMatch
+		Function Search(target As String, startCharPos As Integer = 0) As MacRegExMatch
 		  #if TargetCocoa
 		    
 		    zLastMatch = nil // Starting anew
@@ -148,7 +148,7 @@ Protected Class NSRegEx
 		#tag Getter
 			Get
 			  if zOptions = nil then
-			    me.Options = new NSRegExOptions
+			    me.Options = new MacRegExOptions
 			  end if
 			  return zOptions
 			  
@@ -157,14 +157,14 @@ Protected Class NSRegEx
 		#tag Setter
 			Set
 			  if value is nil then
-			    value = new NSRegExOptions
+			    value = new MacRegExOptions
 			  end if
 			  zOptions = value
 			  pClearRegEx()
 			  
 			End Set
 		#tag EndSetter
-		Options As NSRegExOptions
+		Options As MacRegExOptions
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -212,7 +212,7 @@ Protected Class NSRegEx
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private zOptions As NSRegExOptions
+		Private zOptions As MacRegExOptions
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
