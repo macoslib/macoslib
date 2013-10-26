@@ -133,6 +133,30 @@ Protected Class MacSystemProfiler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CurrentSSID() As String
+		  // Convenience method to return the currently connected SSID, if any
+		  
+		  dim r as string
+		  
+		  #if TargetMacOS
+		    
+		    dim sp as new MacSystemProfiler( "AirPort" )
+		    dim profiles() as MacPListBrowser = sp.Profile.FindByKey( "spairport_current_network_information" )
+		    for each thisProfile as MacPListBrowser in profiles
+		      if thisProfile.HasKey( "_name" ) then
+		        r = thisProfile.Child( "_name" ).VariantValue
+		        exit
+		      end if
+		    next
+		    
+		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DataTypes() As String()
 		  static arr() as string
 		  
@@ -455,28 +479,6 @@ Protected Class MacSystemProfiler
 		    return false
 		    
 		  end try
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function SSID() As String
-		  dim r as string
-		  
-		  #if TargetMacOS
-		    
-		    dim sp as new MacSystemProfiler( "AirPort" )
-		    dim profiles() as MacPListBrowser = sp.Profile.FindByKey( "spairport_current_network_information" )
-		    for each thisProfile as MacPListBrowser in profiles
-		      if thisProfile.HasKey( "_name" ) then
-		        r = thisProfile.Child( "_name" ).VariantValue
-		        exit
-		      end if
-		    next
-		    
-		  #endif
-		  
-		  return r
-		  
 		End Function
 	#tag EndMethod
 
