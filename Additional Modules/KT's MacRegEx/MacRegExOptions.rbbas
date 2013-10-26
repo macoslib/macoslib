@@ -1,5 +1,5 @@
 #tag Class
-Protected Class NSRegExOptions
+Protected Class MacRegExOptions
 	#tag Method, Flags = &h1
 		Protected Function Operator_Convert() As UInt32
 		  dim r as UInt32

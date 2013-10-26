@@ -133,6 +133,30 @@ Protected Class MacSystemProfiler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function CurrentSSID() As String
+		  // Convenience method to return the currently connected SSID, if any
+		  
+		  dim r as string
+		  
+		  #if TargetMacOS
+		    
+		    dim sp as new MacSystemProfiler( "AirPort" )
+		    dim profiles() as MacPListBrowser = sp.Profile.FindByKey( "spairport_current_network_information" )
+		    for each thisProfile as MacPListBrowser in profiles
+		      if thisProfile.HasKey( "_name" ) then
+		        r = thisProfile.Child( "_name" ).VariantValue
+		        exit
+		      end if
+		    next
+		    
+		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DataTypes() As String()
 		  static arr() as string
 		  
@@ -744,6 +768,9 @@ Protected Class MacSystemProfiler
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		1.02:
+		- Added SSID shared method.
+		
 		1.01:
 		- Changed constant name to kSystemProfilerShellPath from kSystemProfiler to be more descriptive.
 		- Wrapped the Section code in an #if.
@@ -1074,13 +1101,16 @@ Protected Class MacSystemProfiler
 	#tag Constant, Name = DataTypeMemory, Type = String, Dynamic = False, Default = \"SPMemoryDataType", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = DataTypeNetwork, Type = String, Dynamic = False, Default = \"SPNetworkDataType", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = DataTypeSoftware, Type = String, Dynamic = False, Default = \"SPSoftwareDataType", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = kSystemProfilerShellPath, Type = String, Dynamic = False, Default = \"/usr/sbin/system_profiler", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.01", Scope = Public
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.02", Scope = Public
 	#tag EndConstant
 
 

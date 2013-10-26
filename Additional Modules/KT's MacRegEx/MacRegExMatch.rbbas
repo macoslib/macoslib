@@ -1,5 +1,5 @@
 #tag Class
-Protected Class NSRegExMatch
+Protected Class MacRegExMatch
 	#tag Method, Flags = &h0
 		Sub Constructor(match As Cocoa.NSTextCheckingResult, target As String, targetLen As Integer, replacementPattern As String)
 		  zTextCheckingResult = match
