@@ -116,8 +116,6 @@ Protected Module SystemExtensions
 		        
 		      next
 		      
-		    Catch exc
-		      DReportError   "Exception", exc
 		    End Try
 		    
 		    #pragma BreakOnExceptions default
@@ -164,8 +162,6 @@ Protected Module SystemExtensions
 		        result.Append   dict.Value( "n" )
 		      next
 		      
-		    Catch exc
-		      DReportError   "Exception", exc
 		    End Try
 		    
 		    #pragma BreakOnExceptions default
