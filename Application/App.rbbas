@@ -2,6 +2,18 @@
 Protected Class App
 Inherits Application
 	#tag Event
+		Sub Close()
+		  
+		  //On closing, store the version in prefs
+		  if PrefsPL<>nil then
+		    PrefsPL.Value( "LastVersionChecked" ) = About.Version
+		    PrefsPL.WriteOnDisk
+		  end if
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub NewDocument()
 		  Carbon.TestSelf
 		  CoreFoundation.TestSelf
@@ -43,19 +55,6 @@ Inherits Application
 		    PrefsPL = new DebugReportModule.PropertyList
 		    PrefsPL.file = f
 		    
-		  end if
-		  
-		  dim LV as integer = PrefsPL.Lookup( "LastVersionChecked", 0 ) //Last version checked
-		  if LV=0 then //Very first launching
-		    
-		    
-		    
-		  else //User has already launched the app
-		    if LV<About.Version then //User is seeing a new version of macoslib
-		      
-		      
-		      
-		    end if
 		  end if
 		  
 		End Sub

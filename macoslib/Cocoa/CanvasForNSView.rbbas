@@ -1509,7 +1509,6 @@ Implements objHasVariantValue
 		and __NSObject__) plus some events to make easier to create an [[NSView]] subclass in '''macoslib'''.
 		@abstract/
 		@overview/
-		
 	#tag EndNote
 
 	#tag Note, Name = TODO
@@ -2267,6 +2266,28 @@ Implements objHasVariantValue
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="AcceptFocus"
+			Visible=true
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AcceptTabs"
+			Visible=true
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutoDeactivate"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AutoresizesSubviews"
 			Group="Behavior"
 			Type="Boolean"
@@ -2275,6 +2296,14 @@ Implements objHasVariantValue
 			Name="AutoresizingMask"
 			Group="Behavior"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Backdrop"
+			Visible=true
+			Group="Appearance"
+			Type="Picture"
+			EditorType="Picture"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BoundsRotation"
@@ -2300,13 +2329,51 @@ Implements objHasVariantValue
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Enabled"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="EraseBackground"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FrameRotation"
 			Group="Behavior"
 			Type="Single"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Height"
+			Visible=true
+			Group="Position"
+			InitialValue="100"
+			Type="Integer"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HelpTag"
+			Visible=true
+			Group="Appearance"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Hidden"
@@ -2324,6 +2391,10 @@ Implements objHasVariantValue
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="InitialParent"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InLiveResize"
@@ -2363,6 +2434,34 @@ Implements objHasVariantValue
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="LockBottom"
+			Visible=true
+			Group="Position"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockLeft"
+			Visible=true
+			Group="Position"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockRight"
+			Visible=true
+			Group="Position"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockTop"
+			Visible=true
+			Group="Position"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
@@ -2400,6 +2499,29 @@ Implements objHasVariantValue
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="TabIndex"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabStop"
+			Visible=true
+			Group="Position"
+			InitialValue="True"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Tag"
 			Group="Behavior"
 			Type="Integer"
@@ -2412,9 +2534,33 @@ Implements objHasVariantValue
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="UseFocusRing"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Visible"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="WantsDefaultClipping"
 			Group="Behavior"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Width"
+			Visible=true
+			Group="Position"
+			InitialValue="100"
+			Type="Integer"
+			InheritedFrom="Canvas"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

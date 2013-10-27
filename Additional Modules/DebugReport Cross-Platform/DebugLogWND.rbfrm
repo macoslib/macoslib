@@ -147,7 +147,7 @@ Begin Window DebugLogWND
       HelpTag         =   "Number of errors reported"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   6
+      Left            =   22
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -157,7 +157,7 @@ Begin Window DebugLogWND
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   426
+      Top             =   425
       UseFocusRing    =   True
       Visible         =   True
       Width           =   12
@@ -174,7 +174,7 @@ Begin Window DebugLogWND
       HelpTag         =   "Number of warnings reported"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   75
+      Left            =   91
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -184,7 +184,7 @@ Begin Window DebugLogWND
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   426
+      Top             =   425
       UseFocusRing    =   True
       Visible         =   True
       Width           =   12
@@ -201,7 +201,7 @@ Begin Window DebugLogWND
       HelpTag         =   "Number of simple reports reported"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   148
+      Left            =   164
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -211,7 +211,7 @@ Begin Window DebugLogWND
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   426
+      Top             =   425
       UseFocusRing    =   True
       Visible         =   True
       Width           =   12
@@ -227,7 +227,7 @@ Begin Window DebugLogWND
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   22
+      Left            =   38
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -244,7 +244,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   425
+      Top             =   424
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -261,7 +261,7 @@ Begin Window DebugLogWND
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   92
+      Left            =   108
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -278,7 +278,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   425
+      Top             =   424
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -295,7 +295,7 @@ Begin Window DebugLogWND
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   165
+      Left            =   181
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -312,7 +312,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   425
+      Top             =   424
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -329,7 +329,7 @@ Begin Window DebugLogWND
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   218
+      Left            =   -22
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -346,7 +346,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   426
+      Top             =   -46
       Transparent     =   False
       Underline       =   ""
       Visible         =   False
@@ -363,7 +363,7 @@ Begin Window DebugLogWND
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   247
+      Left            =   7
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -380,7 +380,7 @@ Begin Window DebugLogWND
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   426
+      Top             =   -46
       Transparent     =   False
       Underline       =   ""
       Visible         =   False
@@ -440,6 +440,50 @@ Begin Window DebugLogWND
       Visible         =   True
       Width           =   67
    End
+   Begin UpDownArrows ErrorStepper
+      AcceptFocus     =   False
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   16
+      HelpTag         =   "Moves through the error messages"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   5
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   424
+      Visible         =   True
+      Width           =   12
+   End
+   Begin UpDownArrows WarningStepper
+      AcceptFocus     =   False
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   16
+      HelpTag         =   "Moves through the warning messages"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   75
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   424
+      Visible         =   True
+      Width           =   12
+   End
 End
 #tag EndWindow
 
@@ -494,9 +538,6 @@ End
 		      
 		    end if
 		    
-		    'DebugReportModule.debugNotificationObserver = new NotificationObserver( "" ) //Register for all notifications
-		    'AddHandler   DebugReportModule.debugNotificationObserver.HandleNotification, AddressOf  DebugReportModule.HandleReceivedNotification
-		    
 		  #endif
 		End Sub
 	#tag EndEvent
@@ -516,19 +557,26 @@ End
 	#tag EndEvent
 
 
-	#tag Property, Flags = &h21
-		Private nsma As NSAttributedString
-	#tag EndProperty
-
-
 #tag EndWindowCode
 
 #tag Events LogTA
 	#tag Event
-		Sub Open()
-		  #if TargetMacOS
-		    nsma = me.AttributedString
-		  #endif
+		Function KeyDown(Key As String) As Boolean
+		  
+		  //On pressing "End", go to the end and resume following the flow
+		  if key=Chr( 4 ) then
+		    me.SelStart = Len( me.Text )
+		    DebugReportModule.FollowAppend = true
+		  end if
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub SelChange()
+		  //When selection changes, we block automatic scrolling
+		  
+		  DebugReportModule.FollowAppend = ( me.SelStart=Len( me.Text ))
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -618,5 +666,46 @@ End
 		    
 		  end select
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events ErrorStepper
+	#tag Event
+		Sub Up()
+		  //# Moves to the previous error message
+		  
+		  DebugReportModule.FollowAppend = false
+		  
+		  DebugReportModule.MoveTo  -1, 4
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Down()
+		  //# Moves to the next error message
+		  
+		  DebugReportModule.FollowAppend = false
+		  
+		  DebugReportModule.MoveTo  1, 4
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events WarningStepper
+	#tag Event
+		Sub Up()
+		  //# Moves to the previous error message
+		  
+		  DebugReportModule.FollowAppend = false
+		  
+		  DebugReportModule.MoveTo  -1, 3
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Down()
+		  //# Moves to the next error message
+		  
+		  DebugReportModule.FollowAppend = false
+		  
+		  DebugReportModule.MoveTo  1, 3
+		End Sub
 	#tag EndEvent
 #tag EndEvents

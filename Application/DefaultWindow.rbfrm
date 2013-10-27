@@ -543,3 +543,26 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events Label2
+	#tag Event
+		Sub Open()
+		  
+		  dim LV as integer = App.PrefsPL.Lookup( "LastVersionChecked", 0 ) //Last version checked
+		  if LV=0 then //Very first launching
+		    me.Text = "You are running the macoslib project for the first time. We guess that you want to learn a bit more about what macoslib can do for you. If so, click on the [Learn more] button."
+		    
+		    LearnMoreBTN.Default = true
+		    
+		    
+		  else //User has already launched the app
+		    if LV<=About.Version then //User is seeing a new version of macoslib
+		      me.Text = "The last version of the macoslib project you ran was version " + Str( LV ) + ". You may be interested in having a look at the history change by clicking on the [Last Changes] button."
+		      
+		      LastChangesBTN.Default = true
+		      
+		    end if
+		  end if
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents

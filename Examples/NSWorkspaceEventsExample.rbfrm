@@ -25,17 +25,13 @@ Begin Window NSWorkspaceEventsExample
    Visible         =   True
    Width           =   8.37e+2
    Begin Cocoa.NSWorkspace Workspace
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   9
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   467
-      Visible         =   True
       Width           =   32
    End
    Begin Label Label1
@@ -60,7 +56,6 @@ Begin Window NSWorkspaceEventsExample
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "AVAILABLE NOTIFICATIONS\r\rNSWorkspaceWillLaunchApplicationNotification\rNSWorkspaceDidLaunchApplicationNotification\rNSWorkspaceDidTerminateApplicationNotification\rNSWorkspaceSessionDidBecomeActiveNotification\rNSWorkspaceSessionDidResignActiveNotification\rNSWorkspaceDidHideApplicationNotification\rNSWorkspaceDidUnhideApplicationNotification\rNSWorkspaceDidActivateApplicationNotification\rNSWorkspaceDidDeactivateApplicationNotification\rNSWorkspaceDidRenameVolumeNotification\rNSWorkspaceDidMountNotification\rNSWorkspaceDidUnmountNotification\rNSWorkspaceDidPerformFileOperationNotification\rNSWorkspaceDidChangeFileLabelsNotification\rNSWorkspaceActiveSpaceDidChangeNotification\rNSWorkspaceDidWakeNotification\rNSWorkspaceWillPowerOffNotification\rNSWorkspaceWillSleepNotification\rNSWorkspaceScreensDidSleepNotification\rNSWorkspaceScreensDidWakeNotification"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -92,6 +87,8 @@ Begin Window NSWorkspaceEventsExample
       Italic          =   ""
       Left            =   354
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -298,6 +295,12 @@ End
 		  AppendTextBold notification.Name + EndOfLine
 		  AppendText   "Volume “" + oldLocalizedName + "” previously at URL " + oldURL.AbsoluteString + " has been renamed to “"_
 		  + newLocalizedName + "” and mounted at URL " + newURL.AbsoluteString + EndOfLine + EndOfLine
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub NSWorkspaceOtherNotification(notification as NSNotification)
+		  AppendTextBold notification.Name + EndOfLine
+		  AppendText   EndOfLine + EndOfLine
 		End Sub
 	#tag EndEvent
 #tag EndEvents

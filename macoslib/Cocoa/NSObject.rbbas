@@ -45,6 +45,24 @@ Implements objHasVariantValue
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function ClassRespondsToSelector(selectorName As String) As Boolean
+		  //# Determines if the object's class responds to a given selector
+		  
+		  #if TargetMacOS
+		    declare function class_respondsToSelector lib CocoaLib ( class_id as Ptr, aSelector as Ptr ) as Boolean
+		    declare function object_getClass lib CocoaLib (id as Ptr) as Ptr
+		    
+		    //Determines my own class
+		    dim myClassID as Ptr = object_getClass( self.id )
+		    
+		    //Determines if my class responds to the given selector
+		    dim selectorPtr as Ptr = Cocoa.NSSelectorFromString( selectorName )
+		    return class_respondsToSelector( myClassID, selectorPtr )
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
 		  
@@ -65,6 +83,8 @@ Implements objHasVariantValue
 		  if not hasOwnership then
 		    call self.Retain
 		  end if
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -123,6 +143,19 @@ Implements objHasVariantValue
 		Function Operator_Convert() As Ptr
 		  return self.id
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub PerformSelectorAfterDelay(theSelector as string, withObject as Ptr, afterDelay as double)
+		  //# Sets up a NSTimer which will trigger the given selector after the given delay.
+		  
+		  #if TargetMacOS
+		    declare sub performSelector lib CocoaLib selector "performSelector:withObject:afterDelay:" (id as Ptr, SEL as Ptr, obj as Ptr, delay as double)
+		    
+		    performSelector  self.id, Cocoa.NSSelectorFromString( theSelector ), withObject, afterDelay
+		    
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

@@ -664,8 +664,13 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function NSStringConstant(symbolName as String) As NSString
-		  dim b as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
-		  return new NSString(b.DataPointerNotRetained(symbolName))
+		  
+		  // Crashes on Mavericks
+		  'dim b as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
+		  'dim p as Ptr = b.DataPointerNotRetained( symbolName )
+		  'return new NSString( p, false )
+		  
+		  return  new NSString( symbolName )
 		End Function
 	#tag EndMethod
 
@@ -1560,6 +1565,7 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
+			Type="Integer"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty

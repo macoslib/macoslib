@@ -938,6 +938,42 @@ Protected Module MacOSFolderItemExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Tags(extends f as FolderItem) As String()
+		  //# Returns the tags associated to the file/folder
+		  
+		  #if TargetMacOS
+		    if IsMavericks then //Get the Tags
+		      dim url as new NSURL( f )
+		      
+		      return  url.Tags
+		      
+		    else //For compatibility, returns the Finder label on previous OSes
+		      return   Array( f.LabelText )
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Tags(extends f as FolderItem, assigns newValues() as String)
+		  //# Returns the tags associated to the file/folder
+		  
+		  #if TargetMacOS
+		    if IsMavericks then //Get the Tags
+		      dim url as new NSURL( f )
+		      
+		      url.Tags = NSArray.CreateFromArrayOfStrings( newValues )
+		      
+		    else //For compatibility, returns the Finder label on previous OSes
+		      raise new BadSystemException( "Tags can only be set in OS X Mavericks or later" )
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function UniformTypeIdentifier(extends f as FolderItem) As String
 		  //# Get the Uniform Type Identifier of the given FolderItem
 		  
