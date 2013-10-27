@@ -184,7 +184,11 @@ Implements CFPropertyList
 		    return nil
 		  end if
 		  
-		  #pragma warning "MACOSLIB: this method is not 64 bits-savvy"
+		  #if RBVersion > 2013.01
+		    #if Target64Bit
+		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		    #endif
+		  #endif
 		  
 		  dim theValues as new MemoryBlock(SizeOfPointer*(1 + UBound(theList)))
 		  dim offset as Integer = 0

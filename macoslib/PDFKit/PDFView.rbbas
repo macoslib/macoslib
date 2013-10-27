@@ -141,6 +141,12 @@ Inherits Cocoa.CanvasForNSView
 		    '#pragma unused className
 		    '#pragma unused superClassName
 		    '#endif
+		    
+		  #else
+		    
+		    #pragma unused className
+		    #pragma unused superclassName
+		    
 		  #endif
 		End Function
 	#tag EndMethod

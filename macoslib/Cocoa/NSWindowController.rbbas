@@ -24,6 +24,9 @@ Inherits NSResponder
 		    declare function initWithWindow lib CocoaLib selector "initWithWindow:" (obj_id as Ptr, aWindow as Ptr) as Ptr
 		    
 		    Super.Constructor( initWithWindow( Initialize(Allocate(Cocoa.NSClassFromString("NSWindowController"))), w ), not self.hasOwnership )
+		    
+		  #else
+		    #pragma unused w
 		  #endif
 		  
 		End Sub

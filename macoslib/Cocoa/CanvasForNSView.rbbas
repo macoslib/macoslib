@@ -777,7 +777,7 @@ Implements objHasVariantValue
 		  #if TargetMacOS
 		    RaiseEvent  ReceivedNotification( notification )
 		  #else
-		    pragma unused notification
+		    #pragma unused notification
 		  #endif
 		End Sub
 	#tag EndMethod
