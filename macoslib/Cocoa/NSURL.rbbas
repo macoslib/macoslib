@@ -868,8 +868,9 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function NSURLTagNamesKey() As String
+		  static key as string = Cocoa.StringConstant("NSURLTagNamesKey")
 		  
-		  return Cocoa.StringConstant("NSURLTagNamesKey")
+		  return key
 		  
 		End Function
 	#tag EndMethod

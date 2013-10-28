@@ -8,7 +8,17 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function callStackSymbols lib CocoaLib selector "callStackSymbols" ( id as Ptr ) as Ptr
 		    
-		    return  new NSArray( callStackSymbols( Cocoa.NSClassFromString( "NSThread" )))
+		    return  new NSArray( callStackSymbols( ClassID ))
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ClassID() As Ptr
+		  #if TargetMacOS
+		    static classPtr as Ptr = Cocoa.NSClassFromString( "NSThread" )
+		    
+		    return  classPtr
 		  #endif
 		End Function
 	#tag EndMethod
