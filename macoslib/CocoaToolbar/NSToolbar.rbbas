@@ -679,49 +679,26 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetCocoa
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		    if newClassId = nil then
-		      //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append "toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:" : FPtr(AddressOf DispatchToolbarItemWillBeInserted) : "@@:@@c"
-		    methodList.Append "toolbarAllowedItemIdentifiers:" : FPtr(AddressOf DispatchToolbarAllowedItemIdentifiers) : "@@:@"
-		    methodList.Append "toolbarDefaultItemIdentifiers:" : FPtr(AddressOf DispatchToolbarDefaultItemIdentifiers) : "@@:@"
-		    methodList.Append "toolbarDidRemoveItem:" : FPtr(AddressOf DispatchToolbarDidRemoveItem) : "v@:@"
-		    methodList.Append "toolbarSelectableItemIdentifiers:" : FPtr(AddressOf DispatchToolbarSelectableItemIdentifiers) : "@@:@"
-		    methodList.Append "toolbarWillAddItem:" : FPtr(AddressOf DispatchToolbarWillAddItem) : "v@:@"
-		    methodList.Append "printDocument:" : FPtr(AddressOf DispatchPrintDocument) : "v@:@"
-		    methodList.Append "orderFrontFontPanel:" : FPtr(AddressOf DispatchShowFont) : "v@:@"
-		    methodList.Append "orderFrontColorPanel:" : FPtr(AddressOf DispatchShowColor) : "v@:@"
-		    methodList.Append "validateToolbarItem:" : FPtr(AddressOf DispatchValidateItem) : "c@:@"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
+		    methodList.Append "toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:" : CType(AddressOf DispatchToolbarItemWillBeInserted, Ptr) : "@@:@@c"
+		    methodList.Append "toolbarAllowedItemIdentifiers:" : CType(AddressOf DispatchToolbarAllowedItemIdentifiers, Ptr) : "@@:@"
+		    methodList.Append "toolbarDefaultItemIdentifiers:" : CType(AddressOf DispatchToolbarDefaultItemIdentifiers, Ptr) : "@@:@"
+		    methodList.Append "toolbarDidRemoveItem:" : CType(AddressOf DispatchToolbarDidRemoveItem, Ptr) : "v@:@"
+		    methodList.Append "toolbarSelectableItemIdentifiers:" : CType(AddressOf DispatchToolbarSelectableItemIdentifiers, Ptr) : "@@:@"
+		    methodList.Append "toolbarWillAddItem:" : CType(AddressOf DispatchToolbarWillAddItem, Ptr) : "v@:@"
+		    methodList.Append "printDocument:" : CType(AddressOf DispatchPrintDocument, Ptr) : "v@:@"
+		    methodList.Append "orderFrontFontPanel:" : CType(AddressOf DispatchShowFont, Ptr) : "v@:@"
+		    methodList.Append "orderFrontColorPanel:" : CType(AddressOf DispatchShowColor, Ptr) : "v@:@"
+		    methodList.Append "validateToolbarItem:" : CType(AddressOf DispatchValidateItem, Ptr) : "c@:@"
 		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList)
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 

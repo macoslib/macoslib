@@ -538,52 +538,23 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetCocoa
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      raise new ObjCException
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append "menuHasKeyEquivalent:forEvent:target:action:" : FPtr( AddressOf delegate_menuHasKeyEquivalentForEventTargetAction ) : "B@:@@@@"
-		    'methodList.Append "confinementRectForMenu:onScreen:" : FPtr( AddressOf delegate_confinementRectForMenuOnScreen ) : "#@:@@"
-		    methodList.Append "menu:willHighlightItem:" : FPtr( AddressOf delegate_menuWillHighlightItem ) : "v@:@@"
-		    methodList.Append "menuWillOpen:" : FPtr( AddressOf delegate_menuWillOpen ) : "v@:@"
-		    methodList.Append "menuDidClose:" : FPtr( AddressOf delegate_menuDidClose ) : "v@:@"
-		    methodList.Append "numberOfItemsInMenu:" : FPtr( AddressOf delegate_numberOfItemsInMenu ) : "i@:@"
-		    methodList.Append "menuNeedsUpdate:" : FPtr( AddressOf delegate_menuNeedsUpdate ) : "v@:@"
 		    
+		    methodList.Append "menuHasKeyEquivalent:forEvent:target:action:" : CType( AddressOf delegate_menuHasKeyEquivalentForEventTargetAction, Ptr ) : "B@:@@@@"
+		    'methodList.Append "confinementRectForMenu:onScreen:" : CType( AddressOf delegate_confinementRectForMenuOnScreen, Ptr ) : "#@:@@"
+		    methodList.Append "menu:willHighlightItem:" : CType( AddressOf delegate_menuWillHighlightItem, Ptr ) : "v@:@@"
+		    methodList.Append "menuWillOpen:" : CType( AddressOf delegate_menuWillOpen, Ptr ) : "v@:@"
+		    methodList.Append "menuDidClose:" : CType( AddressOf delegate_menuDidClose, Ptr ) : "v@:@"
+		    methodList.Append "numberOfItemsInMenu:" : CType( AddressOf delegate_numberOfItemsInMenu, Ptr ) : "i@:@"
+		    methodList.Append "menuNeedsUpdate:" : CType( AddressOf delegate_menuNeedsUpdate, Ptr ) : "v@:@"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      if NOT class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2)) then
-		        Raise new ObjCException
-		      end if
-		    next
-		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      dim e as new ObjCException
-		      e.Message = CurrentMethodName + ". Couldn't create delegate"
-		      raise  e
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList)
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 

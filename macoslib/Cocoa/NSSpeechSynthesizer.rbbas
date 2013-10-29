@@ -290,47 +290,21 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetCocoa
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
-		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append  "speechSynthesizer:didEncounterErrorAtIndex:ofString:message:" : FPtr( AddressOf  delegate_Error ) : "v@:@I@@"
-		    methodList.Append  "speechSynthesizer:didEncounterSyncMessage:" : FPtr( AddressOf  delegate_SyncMessage ) : "v@:@@"
-		    methodList.Append  "speechSynthesizer:didFinishSpeaking:" : FPtr( AddressOf  delegate_DidFinishSpeaking ) : "v@:@B"
-		    methodList.Append  "speechSynthesizer:willSpeakPhoneme:" : FPtr( AddressOf delegate_WillSpeakPhoneme ) : "v@:@s"
-		    methodList.Append  "speechSynthesizer:willSpeakWord:ofString:" : FPtr ( AddressOf delegate_WillSpeakWord ) : "v@:@{name=NSRange}@"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      if NOT class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2)) then
-		        Raise   new macoslibException( "Could not add method to class “" + className + "”" )
-		      end if
-		    next
+		    methodList.Append  "speechSynthesizer:didEncounterErrorAtIndex:ofString:message:" : CType( AddressOf  delegate_Error, Ptr ) : "v@:@I@@"
+		    methodList.Append  "speechSynthesizer:didEncounterSyncMessage:" : CType( AddressOf  delegate_SyncMessage, Ptr ) : "v@:@@"
+		    methodList.Append  "speechSynthesizer:didFinishSpeaking:" : CType( AddressOf  delegate_DidFinishSpeaking, Ptr ) : "v@:@B"
+		    methodList.Append  "speechSynthesizer:willSpeakPhoneme:" : CType( AddressOf delegate_WillSpeakPhoneme, Ptr ) : "v@:@s"
+		    methodList.Append  "speechSynthesizer:willSpeakWord:ofString:" : CType( AddressOf delegate_WillSpeakWord, Ptr ) : "v@:@{name=NSRange}@"
 		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList)
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 

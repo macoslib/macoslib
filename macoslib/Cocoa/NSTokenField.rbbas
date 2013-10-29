@@ -1009,48 +1009,26 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetCocoa
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append  "tokenField:displayStringForRepresentedObject:" : FPtr( AddressOf  delegate_displayStringForRepresentedObject ) : "@@:@@"
-		    methodList.Append  "tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:" : FPtr( AddressOf  delegate_completionsForSubstring ) : "@@:@@i^i"
-		    methodList.Append  "tokenField:representedObjectForEditingString:" : FPtr( AddressOf  delegate_representedObjectForEditingString ) : "@@:@@"
-		    methodList.Append  "tokenField:hasMenuForRepresentedObject:" : FPtr( AddressOf delegate_hasMenuForRepresentedObject ) : "B@:@@"
-		    methodList.Append  "tokenField:menuForRepresentedObject:" : FPtr ( AddressOf delegate_menuForRepresentedObject ) : "@@:@@"
-		    methodList.Append  "menuAction:" : FPtr( AddressOf delegate_menuAction ) : "v@:@"
-		    methodList.Append  "tokenField:writeRepresentedObjects:toPasteboard:" : FPtr( AddressOf delegate_writeRepresentedObjectstoPasteboard ) : "B@:@@@"
-		    methodList.Append  "tokenField:readFromPasteboard:" : FPtr( AddressOf delegate_readRepresentedObjectsFromPasteboard ) : "@@:@@"
-		    methodList.Append  "tokenField:shouldAddObjects:atIndex:" : FPtr( AddressOf delegate_shouldAddObjects ) : "@@:@@i"
-		    methodList.Append  "tokenField:editingStringForRepresentedObject:" : FPtr( AddressOf delegate_editingStringForRepresentedObject ) : "@@:@@"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
+		    methodList.Append  "tokenField:displayStringForRepresentedObject:" : CType( AddressOf  delegate_displayStringForRepresentedObject, Ptr ) : "@@:@@"
+		    methodList.Append  "tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:" : CType( AddressOf  delegate_completionsForSubstring, Ptr ) : "@@:@@i^i"
+		    methodList.Append  "tokenField:representedObjectForEditingString:" : CType( AddressOf  delegate_representedObjectForEditingString, Ptr ) : "@@:@@"
+		    methodList.Append  "tokenField:hasMenuForRepresentedObject:" : CType( AddressOf delegate_hasMenuForRepresentedObject, Ptr ) : "B@:@@"
+		    methodList.Append  "tokenField:menuForRepresentedObject:" : CType( AddressOf delegate_menuForRepresentedObject, Ptr ) : "@@:@@"
+		    methodList.Append  "menuAction:" : CType( AddressOf delegate_menuAction, Ptr ) : "v@:@"
+		    methodList.Append  "tokenField:writeRepresentedObjects:toPasteboard:" : CType( AddressOf delegate_writeRepresentedObjectstoPasteboard, Ptr ) : "B@:@@@"
+		    methodList.Append  "tokenField:readFromPasteboard:" : CType( AddressOf delegate_readRepresentedObjectsFromPasteboard, Ptr ) : "@@:@@"
+		    methodList.Append  "tokenField:shouldAddObjects:atIndex:" : CType( AddressOf delegate_shouldAddObjects, Ptr ) : "@@:@@i"
+		    methodList.Append  "tokenField:editingStringForRepresentedObject:" : CType( AddressOf delegate_editingStringForRepresentedObject, Ptr ) : "@@:@@"
 		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList)
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
