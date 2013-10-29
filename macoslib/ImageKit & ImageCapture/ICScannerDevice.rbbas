@@ -324,58 +324,33 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  #pragma unused className
-		  #pragma unused superclassName
+		  #if TargetMacOS then
+		    'dim methodList() as Tuple
+		    '
+		    'methodList.Append  "scannerDeviceDidBecomeAvailable:" : CType( AddressOf  delegate_ScannerAvailable, Ptr ) : "v@:@"
+		    'methodList.Append  "scannerDevice:didSelectFunctionalUnit:error:" : CType( AddressOf  delegate_DidOpenSessionWithError, Ptr ) : "v@:@@@"
+		    'methodList.Append  "scannerDevice:didScanToURL:" : CType( AddressOf  delegate_DidBecomeReady, Ptr ) : "v@:@@"
+		    'methodList.Append  "scannerDevice:didScanToBandData:" : CType( AddressOf  delegate_DidCloseSessionWithError, Ptr ) : "v@:@@"
+		    'methodList.Append  "scannerDevice:didCompleteOverviewScanWithError:" : CType( AddressOf delegate_DeviceDidChangeName, Ptr ) : "v@:@@"
+		    'methodList.Append  "scannerDevice:didCompleteScanWithError:" : CType( AddressOf delegate_DeviceDidChangeSharingState, Ptr ) : "v@:@@"
+		    '
+		    ''methodList.Append  "didRemoveDevice:" : CType( AddressOf  delegate_DidRemoveDevice, Ptr ) : "v@:@"
+		    ''methodList.Append  "device:didOpenSessionWithError:" : CType( AddressOf  delegate_DidOpenSessionWithError, Ptr ) : "v@:@@"
+		    ''methodList.Append  "deviceDidBecomeReady:" : CType( AddressOf  delegate_DidBecomeReady, Ptr ) : "v@:@"
+		    ''methodList.Append  "device:didCloseSessionWithError:" : CType( AddressOf  delegate_DidCloseSessionWithError, Ptr ) : "v@:@@"
+		    ''methodList.Append  "deviceDidChangeName:" : CType( AddressOf delegate_DeviceDidChangeName, Ptr ) : "v@:@"
+		    ''methodList.Append  "deviceDidChangeSharingState:" : CType( AddressOf delegate_DeviceDidChangeSharingState, Ptr ) : "v@:@"
+		    ''methodList.Append  "device:didReceiveStatusInformation:" : CType( AddressOf delegate_DeviceDidReceiveStatusInformation, Ptr ) : "v@:@@"
+		    ''methodList.Append  "device:didEncounterError:" : CType( AddressOf delegate_DeviceDidEncounterError, Ptr ) : "v@:@@"
+		    ''methodList.Append  "device:didReceiveButtonPress:" : CType( AddressOf delegate_DeviceDidReceiveButtonPress, Ptr ) : "v@:@@"
+		    ''methodList.Append  "device:didReceiveCustomNotification:data:" : CType( AddressOf delegate_DeviceDidReceiveCustomNotification, Ptr ) : "v@:@@@"
+		    '
+		    'return Cocoa.MakeDelegateClass (className, superclassName, methodList)
+		  #else
+		    #pragma unused className
+		    #pragma unused superClassName
+		  #endif
 		  
-		  '//this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  '
-		  '#if targetCocoa
-		  'declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		  'declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		  'declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		  '
-		  'dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		  'if newClassId = nil then
-		  'raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		  'return nil
-		  'end if
-		  '
-		  'objc_registerClassPair newClassId
-		  '
-		  'dim methodList() as Tuple
-		  'methodList.Append  "scannerDeviceDidBecomeAvailable:" : FPtr( AddressOf  delegate_ScannerAvailable ) : "v@:@"
-		  'methodList.Append  "scannerDevice:didSelectFunctionalUnit:error:" : FPtr( AddressOf  delegate_DidOpenSessionWithError ) : "v@:@@@"
-		  'methodList.Append  "scannerDevice:didScanToURL:" : FPtr( AddressOf  delegate_DidBecomeReady ) : "v@:@@"
-		  'methodList.Append  "scannerDevice:didScanToBandData:" : FPtr( AddressOf  delegate_DidCloseSessionWithError ) : "v@:@@"
-		  'methodList.Append  "scannerDevice:didCompleteOverviewScanWithError:" : FPtr( AddressOf delegate_DeviceDidChangeName ) : "v@:@@"
-		  'methodList.Append  "scannerDevice:didCompleteScanWithError:" : FPtr ( AddressOf delegate_DeviceDidChangeSharingState ) : "v@:@@"
-		  '
-		  ''methodList.Append  "didRemoveDevice:" : FPtr( AddressOf  delegate_DidRemoveDevice ) : "v@:@"
-		  ''methodList.Append  "device:didOpenSessionWithError:" : FPtr( AddressOf  delegate_DidOpenSessionWithError ) : "v@:@@"
-		  ''methodList.Append  "deviceDidBecomeReady:" : FPtr( AddressOf  delegate_DidBecomeReady ) : "v@:@"
-		  ''methodList.Append  "device:didCloseSessionWithError:" : FPtr( AddressOf  delegate_DidCloseSessionWithError ) : "v@:@@"
-		  ''methodList.Append  "deviceDidChangeName:" : FPtr( AddressOf delegate_DeviceDidChangeName ) : "v@:@"
-		  ''methodList.Append  "deviceDidChangeSharingState:" : FPtr ( AddressOf delegate_DeviceDidChangeSharingState ) : "v@:@"
-		  ''methodList.Append  "device:didReceiveStatusInformation:" : FPtr( AddressOf delegate_DeviceDidReceiveStatusInformation ) : "v@:@@"
-		  ''methodList.Append  "device:didEncounterError:" : FPtr( AddressOf delegate_DeviceDidEncounterError ) : "v@:@@"
-		  ''methodList.Append  "device:didReceiveButtonPress:" : FPtr( AddressOf delegate_DeviceDidReceiveButtonPress ) : "v@:@@"
-		  ''methodList.Append  "device:didReceiveCustomNotification:data:" : FPtr( AddressOf delegate_DeviceDidReceiveCustomNotification ) : "v@:@@@"
-		  '
-		  'dim methodsAdded as Boolean = true
-		  'for each item as Tuple in methodList
-		  'methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		  'next
-		  '
-		  'if methodsAdded then
-		  'return newClassId
-		  'else
-		  'return nil
-		  'end if
-		  '
-		  '#else
-		  '#pragma unused className
-		  '#pragma unused superClassName
-		  '#endif
 		End Function
 	#tag EndMethod
 

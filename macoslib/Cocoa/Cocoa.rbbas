@@ -223,6 +223,48 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function MakeDelegateClass(className as String, superclassName as String, methodList() as Tuple, ParamArray protocolNames as String) As Ptr
+		  // This is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
+		  
+		  #if TargetMacOS then
+		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
+		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
+		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
+		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
+		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
+		    
+		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
+		    if newClassId = nil then
+		      raise new macoslibException ("Could not create new class " + className)
+		      return nil
+		    end if
+		    
+		    objc_registerClassPair newClassId
+		    
+		    for each protocolName as String in protocolNames
+		      if not class_addProtocol (newClassId, objc_getProtocol(protocolName)) then
+		        raise new macoslibException ("Could not add protocol " + protocolName + " to class " + className)
+		      end if
+		    next
+		    
+		    for each item as Tuple in methodList
+		      if not class_addMethod (newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2)) then
+		        raise new macoslibException ("Could not add delegate method(s) to new class " + className)
+		        return nil
+		      end if
+		    next
+		    
+		    return newClassId
+		    
+		  #else
+		    #pragma unused className
+		    #pragma unused superClassName
+		    #pragma unused methodList
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSClassFromString Lib CocoaLib (aClassName as CFStringRef) As Ptr
 	#tag EndExternalMethod

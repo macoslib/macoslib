@@ -501,49 +501,22 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetMacOS
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
-		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString( superclassName ), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
-		    call   class_addProtocol( newClassId, objc_getProtocol( "IKImageBrowserDelegate" ))
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append  "imageBrowser:backgroundWasRightClickedWithEvent:" : FPtr( AddressOf delegate_BackgroundRightClicked ) : "v@:@@"
-		    methodList.Append  "imageBrowser:cellWasRightClickedAtIndex:withEvent:" : FPtr ( AddressOf delegate_CellRightClicked ) : "v@:@I@"
-		    methodList.Append  "imageBrowser:cellWasDoubleClickedAtIndex:" : FPtr( AddressOf delegate_CellDoubleClicked ) : "v@:@I"
-		    methodList.Append  "imageBrowserSelectionDidChange:" : FPtr ( AddressOf delegate_SelectionChanged ) : "v@:@"
-		    'methodList.Append  "numberOfItemsInImageBrowser:" : FPtr( AddressOf delegate_NumberOfItems ) : "i@:@"
-		    'methodList.Append  "imageBrowser:itemAtIndex:" : FPtr ( AddressOf delegate_ItemAtIndex ) : "@@:@i"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
+		    methodList.Append  "imageBrowser:backgroundWasRightClickedWithEvent:" : CType( AddressOf delegate_BackgroundRightClicked, Ptr ) : "v@:@@"
+		    methodList.Append  "imageBrowser:cellWasRightClickedAtIndex:withEvent:" : CType( AddressOf delegate_CellRightClicked, Ptr ) : "v@:@I@"
+		    methodList.Append  "imageBrowser:cellWasDoubleClickedAtIndex:" : CType( AddressOf delegate_CellDoubleClicked, Ptr ) : "v@:@I"
+		    methodList.Append  "imageBrowserSelectionDidChange:" : CType( AddressOf delegate_SelectionChanged, Ptr ) : "v@:@"
+		    'methodList.Append  "numberOfItemsInImageBrowser:" : CType( AddressOf delegate_NumberOfItems, Ptr ) : "i@:@"
+		    'methodList.Append  "imageBrowser:itemAtIndex:" : CType( AddressOf delegate_ItemAtIndex, Ptr ) : "@@:@i"
 		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      break
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList, "IKImageBrowserDelegate")
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -572,8 +545,8 @@ Inherits Canvas
 		    objc_registerClassPair  newClassId
 		    
 		    dim methodList() as Tuple
-		    methodList.Append "newCellForRepresentedItem:" : FPtr( AddressOf subclass_NewCell ) : "@@:@"
-		    'methodList.Append "setDropIndex:dropOperation:" : FPtr( AddressOf subclass_setDropIndex ) : "i@:ii"
+		    methodList.Append "newCellForRepresentedItem:" : CType( AddressOf subclass_NewCell, Ptr ) : "@@:@"
+		    'methodList.Append "setDropIndex:dropOperation:" : CType( AddressOf subclass_setDropIndex, Ptr ) : "i@:ii"
 		    
 		    dim methodsAdded as Boolean = true
 		    for each item as Tuple in methodList

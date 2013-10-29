@@ -38,7 +38,6 @@ Class=CFURL;macoslib/CoreFoundation/CFURL.rbbas;&hBCFDFFA1;&h72896D36;false
 Class=CFWriteStream;macoslib/CoreFoundation/CFWriteStream.rbbas;&h6242D8D9;&h72896D36;false
 Interface=CFPropertyList;macoslib/CoreFoundation/CFPropertyList.rbbas;&hBD1062BF;&h72896D36;false
 Folder=macoslib;macoslib;&h62249E78;&h0;false
-Module=macoslibModule;macoslib/macoslibModule.rbbas;&h2F89C1C2;&h62249E78;false
 Folder=Additional Modules;Additional Modules;&h171E2973;&h0;false
 Folder=Class Extensions;Additional Modules/Class Extensions;&h2AC71A61;&h171E2973;false
 Module=AlertExtensions;Additional Modules/Class Extensions/AlertExtensions.rbbas;&h64F2D46C;&h2AC71A61;false

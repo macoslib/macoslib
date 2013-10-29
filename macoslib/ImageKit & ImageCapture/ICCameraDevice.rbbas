@@ -815,72 +815,44 @@ Inherits ICDevice
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetCocoa
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
-		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    call   class_addProtocol( newClassId, objc_getProtocol( "ICDeviceDelegate" ))
-		    call   class_addProtocol( newClassId, objc_getProtocol( "ICCameraDeviceDelegate" ))
-		    call   class_addProtocol( newClassId, objc_getProtocol( "ICCameraDeviceDownloadDelegate" ))
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
+		    
 		    //ICDeviceDelegate
-		    methodList.Append  "didRemoveDevice:" : FPtr( AddressOf  delegate_DidRemoveDevice ) : "v@:@"
-		    methodList.Append  "device:didOpenSessionWithError:" : FPtr( AddressOf  delegate_DidOpenSessionWithError ) : "v@:@@"
-		    methodList.Append  "deviceDidBecomeReady:" : FPtr( AddressOf  delegate_DidBecomeReady ) : "v@:@"
-		    methodList.Append  "device:didCloseSessionWithError:" : FPtr( AddressOf  delegate_DidCloseSessionWithError ) : "v@:@@"
-		    methodList.Append  "deviceDidChangeName:" : FPtr( AddressOf delegate_DeviceDidChangeName ) : "v@:@"
-		    methodList.Append  "deviceDidChangeSharingState:" : FPtr ( AddressOf delegate_DeviceDidChangeSharingState ) : "v@:@"
-		    methodList.Append  "device:didReceiveStatusInformation:" : FPtr( AddressOf delegate_DeviceDidReceiveStatusInformation ) : "v@:@@"
-		    methodList.Append  "device:didEncounterError:" : FPtr( AddressOf delegate_DeviceDidEncounterError ) : "v@:@@"
-		    methodList.Append  "device:didReceiveButtonPress:" : FPtr( AddressOf delegate_DeviceDidReceiveButtonPress ) : "v@:@@"
-		    methodList.Append  "device:didReceiveCustomNotification:data:" : FPtr( AddressOf delegate_DeviceDidReceiveCustomNotification ) : "v@:@@@"
+		    methodList.Append  "didRemoveDevice:" : CType( AddressOf  delegate_DidRemoveDevice, Ptr ) : "v@:@"
+		    methodList.Append  "device:didOpenSessionWithError:" : CType( AddressOf  delegate_DidOpenSessionWithError, Ptr ) : "v@:@@"
+		    methodList.Append  "deviceDidBecomeReady:" : CType( AddressOf  delegate_DidBecomeReady, Ptr ) : "v@:@"
+		    methodList.Append  "device:didCloseSessionWithError:" : CType( AddressOf  delegate_DidCloseSessionWithError, Ptr ) : "v@:@@"
+		    methodList.Append  "deviceDidChangeName:" : CType( AddressOf delegate_DeviceDidChangeName, Ptr ) : "v@:@"
+		    methodList.Append  "deviceDidChangeSharingState:" : CType( AddressOf delegate_DeviceDidChangeSharingState, Ptr ) : "v@:@"
+		    methodList.Append  "device:didReceiveStatusInformation:" : CType( AddressOf delegate_DeviceDidReceiveStatusInformation, Ptr ) : "v@:@@"
+		    methodList.Append  "device:didEncounterError:" : CType( AddressOf delegate_DeviceDidEncounterError, Ptr ) : "v@:@@"
+		    methodList.Append  "device:didReceiveButtonPress:" : CType( AddressOf delegate_DeviceDidReceiveButtonPress, Ptr ) : "v@:@@"
+		    methodList.Append  "device:didReceiveCustomNotification:data:" : CType( AddressOf delegate_DeviceDidReceiveCustomNotification, Ptr ) : "v@:@@@"
 		    
 		    //ICCameraDeviceDelegate
-		    methodList.Append  "cameraDevice:didAddItem:" : FPtr( AddressOf  delegate_DidAddItem ) : "v@:@@"
-		    'methodList.Append  "cameraDevice:didAddItems:" : FPtr( AddressOf  delegate_DidAddItems ) : "v@:@@"
-		    methodList.Append  "cameraDevice:didRemoveItem:" : FPtr( AddressOf  delegate_DidRemoveItem ) : "v@:@@"
-		    'methodList.Append  "cameraDevice:didRemoveItems:" : FPtr( AddressOf  delegate_DidRemoveItems ) : "v@:@@"
-		    methodList.Append  "cameraDevice:didRenameItems:" : FPtr( AddressOf delegate_DidRenameItems ) : "v@:@@"
-		    methodList.Append  "cameraDevice:didCompleteDeleteFilesWithError:" : FPtr ( AddressOf delegate_DidDeleteFilesWithError ) : "v@:@@"
-		    methodList.Append  "cameraDeviceDidChangeCapability:" : FPtr( AddressOf delegate_DidChangeCapability ) : "v@:@"
-		    methodList.Append  "cameraDevice:didReceiveThumbnailForItem:" : FPtr( AddressOf delegate_DidReceiveThumbnail ) : "v@:@@"
-		    methodList.Append  "cameraDevice:didReceiveMetadataForItem:" : FPtr( AddressOf delegate_DidReceiveMetadata ) : "v@:@@"
-		    methodList.Append  "cameraDevice:didReceivePTPEvent:" : FPtr( AddressOf delegate_DidReceivePTPEvent ) : "v@:@@"
-		    methodList.Append  "deviceDidBecomeReadyWithCompleteContentCatalog:" : FPtr( AddressOf delegate_ReadyWithCompleteContentCatalog ) : "v@:@"
+		    methodList.Append  "cameraDevice:didAddItem:" : CType( AddressOf  delegate_DidAddItem, Ptr ) : "v@:@@"
+		    'methodList.Append  "cameraDevice:didAddItems:" : CType( AddressOf  delegate_DidAddItems, Ptr ) : "v@:@@"
+		    methodList.Append  "cameraDevice:didRemoveItem:" : CType( AddressOf  delegate_DidRemoveItem, Ptr ) : "v@:@@"
+		    'methodList.Append  "cameraDevice:didRemoveItems:" : CType( AddressOf  delegate_DidRemoveItems, Ptr ) : "v@:@@"
+		    methodList.Append  "cameraDevice:didRenameItems:" : CType( AddressOf delegate_DidRenameItems, Ptr ) : "v@:@@"
+		    methodList.Append  "cameraDevice:didCompleteDeleteFilesWithError:" : CType( AddressOf delegate_DidDeleteFilesWithError, Ptr ) : "v@:@@"
+		    methodList.Append  "cameraDeviceDidChangeCapability:" : CType( AddressOf delegate_DidChangeCapability, Ptr ) : "v@:@"
+		    methodList.Append  "cameraDevice:didReceiveThumbnailForItem:" : CType( AddressOf delegate_DidReceiveThumbnail, Ptr ) : "v@:@@"
+		    methodList.Append  "cameraDevice:didReceiveMetadataForItem:" : CType( AddressOf delegate_DidReceiveMetadata, Ptr ) : "v@:@@"
+		    methodList.Append  "cameraDevice:didReceivePTPEvent:" : CType( AddressOf delegate_DidReceivePTPEvent, Ptr ) : "v@:@@"
+		    methodList.Append  "deviceDidBecomeReadyWithCompleteContentCatalog:" : CType( AddressOf delegate_ReadyWithCompleteContentCatalog, Ptr ) : "v@:@"
 		    
 		    //ICCameraDeviceDownloadDelegate
-		    methodList.Append  "didDownloadFile:error:options:contextInfo:" : FPtr( AddressOf delegate_DidDownloadFile ) : "v@:@@@@"
-		    methodList.Append  "didReceiveDownloadProgressForFile:downloadedBytes:maxBytes:" : FPtr( AddressOf delegate_DidReceiveDownloadProgress ) : "v@:@II"
+		    methodList.Append  "didDownloadFile:error:options:contextInfo:" : CType( AddressOf delegate_DidDownloadFile, Ptr ) : "v@:@@@@"
+		    methodList.Append  "didReceiveDownloadProgressForFile:downloadedBytes:maxBytes:" : CType( AddressOf delegate_DidReceiveDownloadProgress, Ptr ) : "v@:@II"
 		    
-		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
-		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList, "ICDeviceDelegate", "ICCameraDeviceDelegate", "ICCameraDeviceDownloadDelegate")
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 

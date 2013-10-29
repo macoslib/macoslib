@@ -160,48 +160,22 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetCocoa
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
-		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
-		    call   class_addProtocol( newClassId, objc_getProtocol( "ICDeviceBrowserDelegate" ))
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append  "deviceBrowser:didAddDevice:moreComing:" : FPtr( AddressOf  delegate_DidAddDevice ) : "v@:@@B"
-		    methodList.Append  "deviceBrowser:didRemoveDevice:moreGoing:" : FPtr( AddressOf  delegate_DidRemoveDevice ) : "v@:@@B"
-		    methodList.Append  "deviceBrowser:deviceDidChangeName:" : FPtr( AddressOf  delegate_DeviceDidChangeName ) : "v@:@@"
-		    methodList.Append  "deviceBrowser:deviceDidChangeSharingState:" : FPtr( AddressOf delegate_DeviceDidChangeSharingState ) : "v@:@@"
-		    methodList.Append  "deviceBrowser:requestsSelectDevice:" : FPtr ( AddressOf delegate_RequestsSelectDevice ) : "v@:@@"
-		    methodList.Append  "deviceBrowserDidEnumerateLocalDevices:" : FPtr( AddressOf delegate_DidEnumerateLocalDevices ) : "v@:@"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
+		    methodList.Append  "deviceBrowser:didAddDevice:moreComing:" : CType( AddressOf  delegate_DidAddDevice, Ptr ) : "v@:@@B"
+		    methodList.Append  "deviceBrowser:didRemoveDevice:moreGoing:" : CType( AddressOf  delegate_DidRemoveDevice, Ptr ) : "v@:@@B"
+		    methodList.Append  "deviceBrowser:deviceDidChangeName:" : CType( AddressOf  delegate_DeviceDidChangeName, Ptr ) : "v@:@@"
+		    methodList.Append  "deviceBrowser:deviceDidChangeSharingState:" : CType( AddressOf delegate_DeviceDidChangeSharingState, Ptr ) : "v@:@@"
+		    methodList.Append  "deviceBrowser:requestsSelectDevice:" : CType( AddressOf delegate_RequestsSelectDevice, Ptr ) : "v@:@@"
+		    methodList.Append  "deviceBrowserDidEnumerateLocalDevices:" : CType( AddressOf delegate_DidEnumerateLocalDevices, Ptr ) : "v@:@"
 		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList, "ICDeviceBrowserDelegate")
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
