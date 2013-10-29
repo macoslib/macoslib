@@ -71,13 +71,14 @@ Protected Module About
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		157: 2013-10-27 by SM
-		- Added NSThread.CallStackSymbols method
+		- Added NSThread.CallStackSymbols method.
 		- Created module ObjcRuntime which will define the C-level Objective-C Runtime functions.
 		- Extended NotificationObserver so it can observe Distributed Notifications too.
 		- Added getting/setting the new Mavericks Tags in NSURL and as an extension of FolderItem.
 		- Added SystemFinderTags and SystemFinderTagColors to the SystemExtensions module as a workaround to get Finder tags and their corresponding color.
 		- Improved DebugReports to properly handle Colors and array of Colors with or without alpha channel.
 		- The QuickStart window now makes the difference between a brand new user and someone who already ran macoslib and set the default message/button accordingly.
+		- Fixed DebugReport.PropertyList so it works on Mavericks and non-Apple OSes.
 		
 		156: 2013-10-26 by KT
 		- Changed name of convenience classes from NSRegEx to MacRegEx.

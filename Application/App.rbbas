@@ -4,13 +4,11 @@ Inherits Application
 	#tag Event
 		Sub Close()
 		  
-		  //**** No longer functional in Mavericks
-		  
 		  //On closing, store the version in prefs
-		  'if PrefsPL<>nil then
-		  'PrefsPL.Value( "LastVersionChecked" ) = About.Version
-		  'PrefsPL.WriteOnDisk
-		  'end if
+		  if PrefsPL<>nil then
+		    PrefsPL.Value( "LastVersionChecked" ) = About.Version
+		    PrefsPL.WriteOnDisk
+		  end if
 		  
 		End Sub
 	#tag EndEvent

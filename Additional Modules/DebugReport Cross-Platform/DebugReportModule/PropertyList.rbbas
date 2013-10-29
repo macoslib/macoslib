@@ -66,11 +66,20 @@ Inherits Dictionary
 		    
 		    dim i as integer
 		    dim dict as Dictionary
-		    dim CFPL as CFDictionary
 		    
-		    CFPL = CFDictionary.CreateFromPListFile( FromFile )
-		    
-		    dict = CFPL.VariantValue
+		    #if TargetMacOS
+		      dim CFPL as CFDictionary
+		      
+		      CFPL = CFDictionary.CreateFromPListFile( FromFile )
+		      
+		      dict = CFPL.VariantValue
+		      
+		    #else //Other platform
+		      dim XMLD as XMLDocument = new XMLDocument(FromFile)
+		      
+		      dict = PListGetDictionary(XMLD.DocumentElement.Child(0))
+		      
+		    #endif
 		    
 		    for i=0 to dict.Count-1
 		      me.Value(dict.key(i)) = dict.Value(dict.key(i))
@@ -92,6 +101,7 @@ Inherits Dictionary
 		    dim o as object
 		    dim b as boolean
 		    dim d as double
+		    dim mb as MemoryBlock
 		    dim EOL as string
 		    
 		    if AddCR then
@@ -108,7 +118,13 @@ Inherits Dictionary
 		      
 		      data = data + "<key>"+key+"</key>"+EOL
 		      
-		      select case vartype(v)
+		      if v.IsArray then
+		        dim nsa as NSArray = NSArray.CreateFromObjectsArray( v )
+		        dim s as string = nsa.Description
+		        s = s
+		      end if
+		      
+		      select case vartype( v )
 		      case 2 //Integer
 		        j = v
 		        data = data + "<integer>"+Str(j)+"</integer>"+EOL
@@ -121,8 +137,13 @@ Inherits Dictionary
 		        o = v
 		        if o IsA Dictionary then
 		          data = data+DictAsString(Dictionary(o), AddCR)+EOL
+		          
 		        elseif o IsA PLArray then
 		          data = data+ArrayAsString(PLArray(o), AddCR)+EOL
+		          
+		        elseif o isa MemoryBlock then
+		          mb = MemoryBlock( o )
+		          data = data + "<data>" + EOL + EncodeBase64( mb.StringValue( 0, mb.Size ), 68 ) + EOL + "</data>" + EOL
 		        end if
 		      case 11 //Boolean
 		        b = v
@@ -302,13 +323,22 @@ Inherits Dictionary
 		    data = data + "<!DOCTYPE plist PUBLIC "+G+"-//Apple Computer//DTD PLIST 1.0//EN"+G+" "+G+"http://www.apple.com/DTDs/PropertyList-1.0.dtd"+G+">"+EndOfLine
 		    data = data + "<plist version="+G+"1.0"+G+">"+EndOfLine
 		    
-		    data = data + DictAsString(me, true) + EndOfLine + "</plist>"
-		    
-		    tos = TextOutputStream.Create( file )
-		    if tos<>nil then
-		      tos.Write   data
-		      tos.close
-		    end if
+		    #if TargetMacOS
+		      dim nsd as NSDictionary = NSDictionary.CreateFromDictionary( me )
+		      
+		      if NOT nsd.WriteToFile( me.file ) then
+		        System.Log  System.LogLevelError, "Failed to write preferences to file " + me.file.AbsolutePath
+		      end if
+		      
+		    #else
+		      data = data + DictAsString( me, true ) + EndOfLine + "</plist>"
+		      
+		      tos = TextOutputStream.Create( file )
+		      if tos<>nil then
+		        tos.Write   data
+		        tos.close
+		      end if
+		    #endif
 		    
 		  #endif
 		End Sub
