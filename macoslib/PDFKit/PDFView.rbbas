@@ -101,8 +101,6 @@ Inherits Cocoa.CanvasForNSView
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
 		  #if false   //Implementation in progress
 		    '#if targetCocoa
 		    'declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
@@ -122,8 +120,8 @@ Inherits Cocoa.CanvasForNSView
 		    ''call   class_addProtocol( newClassId, objc_getProtocol( "IKDeviceBrowserViewDelegate" ))
 		    '
 		    'dim methodList() as Tuple
-		    ''methodList.Append  "deviceBrowserView:didEncounterError:" : FPtr( AddressOf DelegateError ) : "v@:@@"
-		    ''methodList.Append  "deviceBrowserView:selectionDidChange:" : FPtr ( AddressOf DelegateSelectionChanged ) : "v@:@@"
+		    ''methodList.Append  "deviceBrowserView:didEncounterError:" : CType( AddressOf DelegateError, Ptr ) : "v@:@@"
+		    ''methodList.Append  "deviceBrowserView:selectionDidChange:" : CType( AddressOf DelegateSelectionChanged, Ptr ) : "v@:@@"
 		    '
 		    'dim methodsAdded as Boolean = true
 		    'for each item as Tuple in methodList

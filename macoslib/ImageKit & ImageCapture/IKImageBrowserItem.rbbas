@@ -78,7 +78,7 @@ Inherits NSObject
 		      //something might be wrong.
 		    end if
 		    
-		  #else 
+		  #else
 		    #pragma unused id
 		  #endif
 		  
@@ -326,52 +326,25 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetMacOS
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
-		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString( "NSObject" ), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
-		    call   class_addProtocol( newClassId, objc_getProtocol( "IKImageBrowserItem" ))
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append  "imageUID" : FPtr( AddressOf delegate_ImageUID ) : "@@:@"
-		    methodList.Append  "imageRepresentationType" : FPtr ( AddressOf delegate_ImageRepresentationType ) : "@@:@"
-		    methodList.Append  "imageRepresentation" : FPtr ( AddressOf delegate_ImageRepresentation ) : "@@:@"
-		    methodList.Append  "imageTitle" : FPtr ( AddressOf delegate_ImageTitle ) : "@@:@"
-		    methodList.Append  "imageSubtitle" : FPtr ( AddressOf delegate_ImageSubtitle ) : "@@:@"
+		    
+		    methodList.Append  "imageUID" : CType( AddressOf delegate_ImageUID, Ptr ) : "@@:@"
+		    methodList.Append  "imageRepresentationType" : CType( AddressOf delegate_ImageRepresentationType, Ptr ) : "@@:@"
+		    methodList.Append  "imageRepresentation" : CType( AddressOf delegate_ImageRepresentation, Ptr ) : "@@:@"
+		    methodList.Append  "imageTitle" : CType( AddressOf delegate_ImageTitle, Ptr ) : "@@:@"
+		    methodList.Append  "imageSubtitle" : CType( AddressOf delegate_ImageSubtitle, Ptr ) : "@@:@"
 		    
 		    'Providing Optional Information for an Image
 		    '– imageVersion
 		    '– isSelectable
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
-		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      break
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList, "IKImageBrowserItem")
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
