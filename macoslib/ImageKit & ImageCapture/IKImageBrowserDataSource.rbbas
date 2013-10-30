@@ -308,50 +308,23 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function MakeDelegateClass(className as String = DelegateClassName, superclassName as String = "NSObject") As Ptr
-		  //this is Objective-C 2.0 code (available in Leopard).  For 1.0, we'd need to do it differently.
-		  
-		  #if targetMacOS
-		    declare function objc_allocateClassPair lib CocoaLib (superclass as Ptr, name as CString, extraBytes as Integer) as Ptr
-		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
-		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
-		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
-		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
-		    
-		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString( superclassName ), className, 0)
-		    if newClassId = nil then
-		      raise new macoslibException( "Unable to create ObjC subclass " + className + " from " + superclassName ) //perhaps the class already exists.  We could check for this, and raise an exception for other errors.
-		      return nil
-		    end if
-		    
-		    objc_registerClassPair newClassId
-		    
-		    call   class_addProtocol( newClassId, objc_getProtocol( "IKImageBrowserDataSource" ))
-		    
+		  #if TargetMacOS then
 		    dim methodList() as Tuple
-		    methodList.Append  "numberOfItemsInImageBrowser:" : FPtr( AddressOf delegate_NumberOfItems ) : "i@:@"
-		    methodList.Append  "imageBrowser:itemAtIndex:" : FPtr ( AddressOf delegate_ItemAtIndex ) : "@@:@i"
-		    methodList.Append  "imageBrowser:removeItemsAtIndexes:" : FPtr( AddressOf delegate_RemoveItems ) : "v@:@@"
-		    methodList.Append  "imageBrowser:moveItemsAtIndexes:toIndex:" : FPtr ( AddressOf delegate_MoveItems ) : "B@:@@I"
-		    'methodList.Append  "imageBrowser:writeItemsAtIndexes:toPasteboard:" : FPtr( AddressOf delegate_WriteToPasteboard ) : "v@:@@@"
-		    methodList.Append  "numberOfGroupsInImageBrowser:" : FPtr ( AddressOf delegate_NumberOfGroups ) : "I@:@"
-		    methodList.Append  "imageBrowser:groupAtIndex:" : FPtr( AddressOf delegate_GroupAtIndex ) : "@@:@I"
 		    
-		    dim methodsAdded as Boolean = true
-		    for each item as Tuple in methodList
-		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
-		    next
+		    methodList.Append  "numberOfItemsInImageBrowser:" : CType( AddressOf delegate_NumberOfItems, Ptr ) : "i@:@"
+		    methodList.Append  "imageBrowser:itemAtIndex:" : CType( AddressOf delegate_ItemAtIndex, Ptr ) : "@@:@i"
+		    methodList.Append  "imageBrowser:removeItemsAtIndexes:" : CType( AddressOf delegate_RemoveItems, Ptr ) : "v@:@@"
+		    methodList.Append  "imageBrowser:moveItemsAtIndexes:toIndex:" : CType( AddressOf delegate_MoveItems, Ptr ) : "B@:@@I"
+		    'methodList.Append  "imageBrowser:writeItemsAtIndexes:toPasteboard:" : CType( AddressOf delegate_WriteToPasteboard, Ptr ) : "v@:@@@"
+		    methodList.Append  "numberOfGroupsInImageBrowser:" : CType( AddressOf delegate_NumberOfGroups, Ptr ) : "I@:@"
+		    methodList.Append  "imageBrowser:groupAtIndex:" : CType( AddressOf delegate_GroupAtIndex, Ptr ) : "@@:@I"
 		    
-		    if methodsAdded then
-		      return newClassId
-		    else
-		      break
-		      return nil
-		    end if
-		    
+		    return Cocoa.MakeDelegateClass (className, superclassName, methodList, "IKImageBrowserDataSource")
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
