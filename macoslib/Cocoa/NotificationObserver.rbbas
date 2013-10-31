@@ -162,6 +162,27 @@ Class NotificationObserver
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RegisterDistributed(notificationName as String, notificationSender as Ptr = nil)
+		  //Register a notification. Pass empty string to register all notifications
+		  
+		  #if targetMacOS
+		    declare sub addObserver lib CocoaLib selector "addObserver:selector:name:object:" (obj_id as Ptr, notificationObserver as Ptr, notificationSelector as Ptr, notificationName as CFStringRef, notificationSender as Ptr)
+		    
+		    dim s as String = Cocoa.StringConstant(notificationName)
+		    if s <> "" then
+		      notificationName = s
+		    end if
+		    
+		    if notificationName<>"" then
+		      addObserver(pDistributedNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), notificationName, notificationSender)
+		    else
+		      addObserver(pDistributedNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), nil, notificationSender)
+		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Unregister()
 		  #if targetMacOS
 		    declare sub removeObserver lib CocoaLib selector "removeObserver:" (obj_id as Ptr, notificationObserver as Ptr)
@@ -185,12 +206,39 @@ Class NotificationObserver
 
 
 	#tag Property, Flags = &h21
+		Private mpDistributedNotificationCenter As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private mpNotificationCenter As Ptr
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private Observer As Ptr
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
+			    
+			    if mpDistributedNotificationCenter = nil then  //Use default center if none defined
+			      mpDistributedNotificationCenter = defaultCenter(Cocoa.NSClassFromString("NSDistributedNotificationCenter"))
+			    end if
+			    
+			    return mpDistributedNotificationCenter
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mpDistributedNotificationCenter = value
+			End Set
+		#tag EndSetter
+		pDistributedNotificationCenter As Ptr
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

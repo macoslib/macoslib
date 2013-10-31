@@ -558,6 +558,9 @@ Protected Module Cocoa
 		  case Variant.TypeInteger
 		    return new NSNumber( v.IntegerValue )
 		    
+		  case Variant.TypeLong
+		    return new NSNumber( v.Int64Value )
+		    
 		  case Variant.TypeString
 		    dim s as NSString = v.StringValue
 		    return s
@@ -582,7 +585,9 @@ Protected Module Cocoa
 		    
 		  case Variant.TypeColor
 		    return new NSColor( v.ColorValue )
+		    
 		  else
+		    dim TypeForDebug as integer = v.Type
 		    raise new TypeMismatchException
 		  end select
 		End Function

@@ -291,6 +291,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromObjectsArray(theArray as variant) As NSArray
+		  //# Creates a new NSArray by converting an array of Xojo-typed values.
+		  
+		  //@param theArray  A Xojo array of values to convert to a NSArray
+		  //@param/
+		  
 		  dim nsma as new NSMutableArray
 		  
 		  select case theArray.ArrayElementType
@@ -329,7 +334,7 @@ Inherits NSObject
 		    dim arv() as variant = theArray
 		    for each v as variant in arv
 		      dim obj as NSObject = Cocoa.NSObjectFromVariant( v )
-		      nsma.Append obj
+		      nsma.Append  obj
 		    next
 		  end select
 		  
@@ -455,6 +460,18 @@ Inherits NSObject
 		    
 		  #else
 		    #pragma unused aURL
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Description() As String
+		  //# Outputs the NSArray as a property list-style string.
+		  
+		  #if TargetMacOS
+		    declare function description lib CocoaLib selector "description" (id as Ptr) as Ptr
+		    
+		    return  new NSString( description( self.id ))
 		  #endif
 		End Function
 	#tag EndMethod

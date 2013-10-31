@@ -29,8 +29,9 @@ Protected Module DebugReportModule
 		        
 		        if sr2<>nil then
 		          DebugLogWND.LogTA.StyledText.AppendStyleRun   sr2
-		          LogText = LogText + sr2.Text
+		          'LogText = LogText + sr2.Text
 		        end if
+		        
 		      end if
 		    #else
 		      Print   sr1.Text
@@ -61,14 +62,6 @@ Protected Module DebugReportModule
 		    #if TargetHasGUI
 		      end if
 		    #endif
-		    
-		    'if not Dequeueing then
-		    'if DebugLogWND.ImmediateReportCB.Value AND NOT (Keyboard.AsyncKeyDown( 79 )) then
-		    'DebugLogWND.LogTA.ScrollPosition = 1e+6
-		    'DebugLogWND.LogTA.Refresh
-		    'end if
-		    'end if
-		    'end if
 		    
 		exception exc
 		  return
@@ -414,6 +407,18 @@ Protected Module DebugReportModule
 		        next
 		        results.Append ")"
 		        
+		      case Variant.TypeColor
+		        dim arc() as Color = v
+		        results.Append   "Array of colors: ("
+		        for i as integer = 0 to arc.Ubound
+		          #if RBVersion>=2011.04 //First version to support alpha channel
+		            results.Append  Str( i ) + ": " + "&c" + Hex( arc( i ).Red, 2 ) + Hex( arc( i ).Green, 2 ) + Hex( arc( i ).Blue, 2 ) + Hex( arc( i ).Alpha, 2 )
+		          #else
+		            results.Append  Str( i ) + ": " + "&c" + Hex( arc( i ).Red, 2 ) + Hex( arc( i ).Green, 2 ) + Hex( arc( i ).Blue, 2 )
+		          #endif
+		        next
+		        results.Append ")"
+		        
 		      case 9
 		        dim arv() as variant = v
 		        if formatSpec<>"-" then
@@ -429,6 +434,8 @@ Protected Module DebugReportModule
 		        end if
 		        
 		      else
+		        DReportError   "Internal error: could not format the passed array."
+		        return  ""
 		        
 		      end Select
 		      
@@ -503,6 +510,15 @@ Protected Module DebugReportModule
 		          return  v.StringValue
 		        end if
 		        
+		      case Variant.TypeColor  //Format color specification
+		        dim c as Color = v
+		        
+		        #if RBVersion>=2011.04 //First version to support alpha channel
+		          results.Append  "&c" + Hex( c.Red, 2 ) + Hex( c.Green, 2 ) + Hex( c.Blue, 2 ) + Hex( c.Alpha, 2 )
+		        #else
+		          results.Append  "&c" + Hex( c.Red, 2 ) + Hex( c.Green, 2 ) + Hex( c.Blue, 2 )
+		        #endif
+		        
 		      else
 		        obj = v
 		        
@@ -548,11 +564,51 @@ Protected Module DebugReportModule
 		    
 		    myObserver = new NotificationObserver
 		    AddHandler  myObserver.HandleNotification, AddressOf  HandleReceivedNotification
-		    'myObserver.Register   "IKAnimationsDidFinish"
+		    'myObserver.Register   "NSApplicationWillFinishLaunchingNotification"
 		    'myObserver.Register   "NSWindowDidResizeNotification"
 		    
 		    inited = true
 		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub MoveTo(Direction as integer, searchLevel as integer)
+		  //# Moves to the next/previous message at the Warning or Error level
+		  
+		  dim idxs() as integer
+		  dim myInsertionPoint as integer = DebugLogWND.LogTA.SelStart
+		  
+		  select case searchLevel
+		  case kLevelError
+		    idxs = ErrorPos
+		    
+		  case kLevelWarning
+		    idxs = WarningPos
+		    
+		  end select
+		  
+		  if Direction=-1 then //Previous
+		    for i as integer = UBound( idxs ) downto 0
+		      if idxs( i )<myInsertionPoint then
+		        DebugLogWND.LogTA.SelStart = idxs( i )
+		        DebugLogWND.LogTA.ScrollPosition = DebugLogWND.LogTA.LineNumAtCharPos( idxs( i ))
+		        return
+		      end if
+		    next
+		    beep //Not found
+		    
+		  elseif Direction=1 then //Next
+		    for i as integer = 0 to UBound( idxs )
+		      if idxs( i )>myInsertionPoint then
+		        DebugLogWND.LogTA.SelStart = idxs( i )
+		        DebugLogWND.LogTA.ScrollPosition = DebugLogWND.LogTA.LineNumAtCharPos( idxs( i ))
+		        return
+		      end if
+		    next
+		    beep //Not found
+		    
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -838,14 +894,17 @@ Protected Module DebugReportModule
 		    if App.CurrentThread = nil then
 		      if Queue.Ubound>-1 then
 		        Dequeueing = true
+		        
 		        for each re as DebugReportModule.ReportEvent in Queue
-		          if re.sr2<>nil then
-		            AppendToWindow  re.type, re.sr1, re.sr2
-		          else
-		            AppendToWindow   re.type, re.sr1
-		          end if
+		          
+		          'if re.sr2<>nil then
+		          AppendToWindow  re.type, re.sr1, re.sr2
+		          'else
+		          'AppendToWindow   re.type, re.sr1
+		          'end if
 		          
 		        next
+		        
 		        Dequeueing = false
 		      end if
 		      
@@ -877,12 +936,7 @@ Protected Module DebugReportModule
 		    dim result1, result2 as string
 		    dim sr1 as new StyleRun
 		    dim sr2 as new StyleRun
-		    'dim srs() as StyleRun
 		    dim usesr2 as boolean
-		    'dim pendingSpecs() as string
-		    'dim spec as string
-		    'dim sresult as StyledText
-		    'dim formats() as string
 		    
 		    declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay:" (id as Ptr, flags as Boolean)
 		    
@@ -894,31 +948,15 @@ Protected Module DebugReportModule
 		      for each v as variant in values
 		        results1.Append  FormatVariant( v )
 		      next
+		      
 		      sr1.Font = "SmallSystem"
 		      
 		    case kLevelNotice //Normal text
 		      sr1.Font = "SmallSystem"
 		      
-		      'Formats = DecomposeFormatString( FormatVariant( values( 0 ))
-		      '
-		      'if UBound( Formats )>0 then //There is a format spec
-		      '
-		      '
-		      'if Values.Ubound>0 then
-		      'result1 = FormatVariant( v )
-		      'end if
-		      'for i as integer=0 to Ubound( values )
-		      'if i=0 then
-		      'if VarType( values( 0 )) = Variant.TypeString then //There may be some format specs
-		      'spec = DetectFormatIndicator( values( 0 ))
-		      'if spec<>"" then
-		      'next
-		      
-		      
 		      for each v as variant in values
 		        results1.Append  FormatVariant( v )
 		      next
-		      'sr1.Font = "SmallSystem"
 		      
 		    case kLevelTitled //Titled
 		      sr1.Font = "SmallSystem"
@@ -982,7 +1020,8 @@ Protected Module DebugReportModule
 		    
 		    
 		    //Enqueue reports if we are not in the main thread or user wants to queue notification
-		    if App.CurrentThread<>nil OR NOT immediate then
+		    //Do not force refresh when Ctrl-Alt are pressed
+		    if App.CurrentThread<>nil OR NOT immediate OR (Keyboard.AsyncControlKey AND Keyboard.AsyncOptionKey) then
 		      Queue.Append   new ReportEvent( type, sr1, IFTE( usesr2, sr2, nil ))
 		      LogTimer.mode = 1
 		      return
@@ -1001,8 +1040,11 @@ Protected Module DebugReportModule
 		        AppendToWindow   type, sr1
 		      end if
 		      
-		      DebugLogWND.LogTA.ScrollPosition = 1e+6
-		      DebugLogWND.LogTA.Refresh
+		      if FollowAppend then
+		        DebugLogWND.LogTA.SelStart = Len( DebugLogWND.LogTA.Text )
+		        DebugLogWND.LogTA.ScrollPosition = 1e+6
+		        DebugLogWND.LogTA.Refresh
+		      end if
 		    end if
 		  #endif
 		End Sub
@@ -1030,8 +1072,8 @@ Protected Module DebugReportModule
 		
 		THREADS note: as the UI cannot be modified from a Thread, reports will be queued and displayed ASAP from the main thread.
 		
-		WARNING: by default, the Log Window is forced to refresh each time a DReport is encountered. This is useful but also extremely time-consuming. For that reason,
-		   you can use the different CheckBoxes but also press F18 (continuously) to reverse that behavior or F19 (once) to block that behavior from now on (DOES NOT WORK YET).
+		NOTE: by default, the Log Window is forced to refresh each time a DReport is encountered. This is useful but also extremely time-consuming. For that reason,
+		   you can use the different CheckBoxes to disallow immediate reporting. You can also press both Ctrl-Alt to temporarily disable immediate reporting.
 		
 		
 		EXTENDING the module: if you create a class and want it to be displayable in the Debug Log window, make it adopt the DebugReportFormatter interface which
@@ -1054,6 +1096,15 @@ Protected Module DebugReportModule
 
 	#tag Property, Flags = &h1
 		Protected ErrorPos() As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		#tag Note
+			# True if the TextArea should scroll whenever a new report is added.
+			
+			@abstract When the user is scrolling through the TextArea, he/she should not be disturbed by the scrolling position to be moved all the time.
+		#tag EndNote
+		Protected FollowAppend As Boolean = true
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -1103,7 +1154,7 @@ Protected Module DebugReportModule
 	#tag Constant, Name = DRSeparation, Type = String, Dynamic = False, Default = \"_.$separation$._", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"103", Scope = Private
+	#tag Constant, Name = kDebugReportModuleVersion, Type = Double, Dynamic = False, Default = \"104", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kLevelDebug, Type = Double, Dynamic = False, Default = \"0", Scope = Protected

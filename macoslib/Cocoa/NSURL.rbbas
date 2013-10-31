@@ -867,6 +867,15 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function NSURLTagNamesKey() As String
+		  static key as string = Cocoa.StringConstant("NSURLTagNamesKey")
+		  
+		  return key
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function NSURLTotalFileAllocatedSizeKey() As String
 		  
 		  return Cocoa.StringConstant("NSURLTotalFileAllocatedSizeKey")
@@ -1936,6 +1945,34 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		StandardizedURL As NSURL
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  //# Gets the tags
+			  
+			  #if TargetMacOS
+			    if IsMavericks then
+			      dim nsa as NSArray
+			      
+			      nsa = NSArray( me.ResourceValue( NSURLTagNamesKey ))
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  //# Gets the tags
+			  
+			  #if TargetMacOS
+			    if IsMavericks then
+			      call me.ResourceValue( NSURLTagNamesKey, value )
+			    end if
+			  #endif
+			End Set
+		#tag EndSetter
+		Tags As NSArray
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
