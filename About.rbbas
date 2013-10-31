@@ -70,6 +70,14 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		157: 2013-10-31 by KT
+		- Added pragmas for unused method parameters.
+		- Changed NSDictionary to accept and return NativeSubclass.DictionaryCaseSensitive instead of the native Dictionary.
+		- In NSDictionary/CFDictionary, swapped VariantValue and Operator_Convert code to avoid unnecessary conversion to Variant.
+		- Added #if TargetMacOS to CFDictionary.Operator_Convert.
+		- Added optimization to NSDictionary.Operator_Convert.
+		- Verified ability to compile for Windows, Cocoa, and Carbon in Real Studio 2012.
+		 
 		156: 2013-10-26 by KT
 		- Changed name of convenience classes from NSRegEx to MacRegEx.
 		- Added MacSystemProfiler.CurrentSSID shared method as convenience.
@@ -420,7 +428,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"156", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"157", Scope = Protected
 	#tag EndConstant
 
 
