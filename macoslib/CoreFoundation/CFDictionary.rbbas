@@ -10,20 +10,10 @@ Implements CFPropertyList
 
 	#tag Event
 		Function VariantValue() As Variant
-		  // Convert to a NativeSubclass.DictionaryCaseSensitive.
-		  // This is a Dictionary subclass that can be assigned to a variable defined
-		  // as a Dictionary.
+		  // Uses Operator_Convert
 		  
-		  dim outDict as new NativeSubclass.DictionaryCaseSensitive
-		  
-		  dim k() as CFType = me.Keys
-		  dim key as CFType
-		  for i as integer = 0 to k.Ubound // Switched from For Each to ensure that order is preserved
-		    key = k( i )
-		    outDict.Value(key.VariantValue) = me.Value(key).VariantValue
-		  next
-		  
-		  return outDict
+		  dim r as NativeSubclass.DictionaryCaseSensitive = me.Operator_Convert
+		  return r
 		  
 		End Function
 	#tag EndEvent
@@ -240,17 +230,24 @@ Implements CFPropertyList
 
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As NativeSubclass.DictionaryCaseSensitive
-		  // Added by Kem Tekinay.
-		  
-		  dim d as NativeSubclass.DictionaryCaseSensitive
+		  // Convert to a NativeSubclass.DictionaryCaseSensitive.
+		  // This is a Dictionary subclass that can be assigned to a variable defined
+		  // as a Dictionary. Preserves the case-sensitivity of the CFDictionary.
 		  
 		  #if TargetMacOS
 		    
-		    d = me.VariantValue
+		    dim outDict as new NativeSubclass.DictionaryCaseSensitive
+		    
+		    dim k() as CFType = me.Keys
+		    dim key as CFType
+		    for i as integer = 0 to k.Ubound // Switched from For Each to ensure that order is preserved
+		      key = k( i )
+		      outDict.Value(key.VariantValue) = me.Value(key).VariantValue
+		    next
+		    
+		    return outDict
 		    
 		  #endif
-		  
-		  return d
 		  
 		End Function
 	#tag EndMethod

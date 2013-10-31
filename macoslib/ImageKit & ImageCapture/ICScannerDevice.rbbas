@@ -346,6 +346,11 @@ Inherits ICDevice
 		    ''methodList.Append  "device:didReceiveCustomNotification:data:" : CType( AddressOf delegate_DeviceDidReceiveCustomNotification, Ptr ) : "v@:@@@"
 		    '
 		    'return Cocoa.MakeDelegateClass (className, superclassName, methodList)
+		    
+		    // REMOVE THESE PRAGMAS AFTER THE METHOD IS COMPLETE
+		    #pragma unused className
+		    #pragma unused superClassName
+		    
 		  #else
 		    #pragma unused className
 		    #pragma unused superClassName

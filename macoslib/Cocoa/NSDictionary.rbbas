@@ -176,7 +176,13 @@ Inherits NSObject
 		    next
 		    
 		    return   md.Copy
+		    
+		  #else
+		    
+		    #pragma unused dict
+		    
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -573,9 +579,28 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Operator_Convert() As Dictionary
+		Function Operator_Convert() As NativeSubclass.DictionaryCaseSensitive
+		  // Convert to a NativeSubclass.DictionaryCaseSensitive.
+		  // This is a Dictionary subclass that can be assigned to a variable defined
+		  // as a Dictionary. Preserves the case-sensitivity of the NSDictionary.
 		  
-		  return self.VariantValue
+		  #if TargetMacOS
+		    dim dict as new NativeSubclass.DictionaryCaseSensitive
+		    
+		    dim keys as NSArray = me.AllKeys
+		    dim values as NSArray = me.AllValues
+		    dim oneKey, oneValue as objHasVariantValue
+		    
+		    dim lastIndex as integer = keys.Count - 1 // Optimization
+		    for i as integer = 0 to lastIndex
+		      oneKey = Cocoa.NSObjectFromNSPtr( keys.Value( i ))
+		      oneValue = Cocoa.NSObjectFromNSPtr( values.Value( i ))
+		      
+		      dict.Value( oneKey.VariantValue ) = oneValue.VariantValue
+		    next
+		    
+		    return  dict
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -617,25 +642,12 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function VariantValue() As variant
-		  // Create a RS Dictionary
+		Function VariantValue() As Variant
+		  // Uses Operator_Convert
 		  
-		  #if TargetMacOS
-		    dim dict as new Dictionary
-		    
-		    dim keys as NSArray = me.AllKeys
-		    dim values as NSArray = me.AllValues
-		    dim oneKey, oneValue as objHasVariantValue
-		    
-		    for i as integer = 0 to keys.Count - 1
-		      oneKey = Cocoa.NSObjectFromNSPtr( keys.Value( i ))
-		      oneValue = Cocoa.NSObjectFromNSPtr( values.Value( i ))
-		      
-		      dict.Value( oneKey.VariantValue ) = oneValue.VariantValue
-		    next
-		    
-		    return  dict
-		  #endif
+		  dim r as NativeSubclass.DictionaryCaseSensitive = me.Operator_Convert
+		  return r
+		  
 		End Function
 	#tag EndMethod
 
