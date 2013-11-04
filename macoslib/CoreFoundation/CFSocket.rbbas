@@ -110,13 +110,18 @@ Inherits CFType
 
 	#tag Method, Flags = &h21
 		Private Sub installRunLoopHandler()
-		  declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
-		  declare function CFSocketCreateRunLoopSource lib CarbonLib (allocator as Ptr, socketRef as Ptr, order as Integer) as Ptr
-		  declare sub CFRunLoopAddSource lib CarbonLib (runLoopRef as Ptr, source as Ptr, mode as CFStringRef)
+		  #if TargetMacOS
+		    
+		    declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
+		    declare function CFSocketCreateRunLoopSource lib CarbonLib (allocator as Ptr, socketRef as Ptr, order as Integer) as Ptr
+		    declare sub CFRunLoopAddSource lib CarbonLib (runLoopRef as Ptr, source as Ptr, mode as CFStringRef)
+		    
+		    me.theRunLoop = CFRunLoopGetCurrent()
+		    me.theRLSrc = CFSocketCreateRunLoopSource (nil, me.Reference, 0)
+		    CFRunLoopAddSource (me.theRunLoop, me.theRLSrc, CFConstant("kCFRunLoopCommonModes"))
+		    
+		  #endif
 		  
-		  me.theRunLoop = CFRunLoopGetCurrent()
-		  me.theRLSrc = CFSocketCreateRunLoopSource (nil, me.Reference, 0)
-		  CFRunLoopAddSource (me.theRunLoop, me.theRLSrc, CFConstant("kCFRunLoopCommonModes"))
 		End Sub
 	#tag EndMethod
 

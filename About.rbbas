@@ -70,6 +70,10 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		158: 2013-11-04 by KT
+		- Added #if Target... pragmas for methods that had been missing them.
+		- Checked compilation for Carbon, Cocoa, Windows, and Linux.
+		
 		157: 2013-10-31 by KT
 		- Added pragmas for unused method parameters.
 		- Changed NSDictionary to accept and return NativeSubclass.DictionaryCaseSensitive instead of the native Dictionary.
@@ -428,7 +432,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"157", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"158", Scope = Protected
 	#tag EndConstant
 
 

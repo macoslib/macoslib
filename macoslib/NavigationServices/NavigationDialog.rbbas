@@ -797,26 +797,40 @@ Class NavigationDialog
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  if me.DialogRef = nil then
-			    return me.pSaveFileName
-			  else
-			    soft declare function NavDialogGetSaveFileName lib CarbonLib (inPutFileDialog as Ptr) as Ptr
+			  #if TargetMacOS
 			    
-			    return RetainedStringValue(NavDialogGetSaveFileName(self.DialogRef))
-			  end if
+			    if me.DialogRef = nil then
+			      return me.pSaveFileName
+			    else
+			      soft declare function NavDialogGetSaveFileName lib CarbonLib (inPutFileDialog as Ptr) as Ptr
+			      
+			      return RetainedStringValue(NavDialogGetSaveFileName(self.DialogRef))
+			    end if
+			    
+			  #endif
+			  
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  me.pSaveFileName = value
-			  if me.DialogRef <> nil then
-			    soft declare function NavDialogSetSaveFileName lib CarbonLib (inPutFileDialog as Ptr, inFileName as CFStringRef) as Integer
+			  #if TargetMacOS
 			    
-			    dim OSError as Integer = NavDialogSetSaveFileName(me.DialogRef, value)
+			    me.pSaveFileName = value
+			    if me.DialogRef <> nil then
+			      soft declare function NavDialogSetSaveFileName lib CarbonLib (inPutFileDialog as Ptr, inFileName as CFStringRef) as Integer
+			      
+			      dim OSError as Integer = NavDialogSetSaveFileName(me.DialogRef, value)
+			      
+			      // Keep the compiler from complaining
+			      #pragma unused OSError
+			    end if
 			    
-			    // Keep the compiler from complaining
-			    #pragma unused OSError
-			  end if
+			  #else
+			    
+			    #pragma unused value
+			    
+			  #endif
+			  
 			End Set
 		#tag EndSetter
 		SaveFileName As String

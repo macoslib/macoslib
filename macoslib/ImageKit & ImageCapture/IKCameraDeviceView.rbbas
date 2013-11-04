@@ -241,10 +241,14 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function RetainCount() As integer
+		  #if TargetMacOS
+		    
+		    declare function retainCount lib CocoaLib Selector "retainCount" (id as Ptr) as integer
+		    
+		    return   retainCount( me.id )
+		    
+		  #endif
 		  
-		  declare function retainCount lib CocoaLib Selector "retainCount" (id as Ptr) as integer
-		  
-		  return   retainCount( me.id )
 		End Function
 	#tag EndMethod
 

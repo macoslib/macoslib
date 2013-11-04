@@ -123,23 +123,34 @@ Class NSTableViewDataSource
 
 	#tag Method, Flags = &h21
 		Private Shared Function impl_GetValue(id as Ptr, sel as Ptr, tableView as Ptr, columnView as Ptr, row as Integer) As Ptr
-		  dim theSource as NSTableViewDataSource = FindObjectByImpl_obj(id)
-		  if theSource is nil then
-		    return nil
-		  end if
-		  
-		  //that the declared return value is CFStringRef is an assumption built into my code.
-		  declare function identifier lib CocoaLib selector "identifier" (obj_id as Ptr) as CFStringRef
-		  dim columnID as String = identifier(columnView)
-		  
-		  dim value as String = theSource.GetValue(row, columnID)
-		  dim v as CFStringRef = value
-		  declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
-		  return  CFRetain(v)
+		  #if TargetCocoa
+		    
+		    dim theSource as NSTableViewDataSource = FindObjectByImpl_obj(id)
+		    if theSource is nil then
+		      return nil
+		    end if
+		    
+		    //that the declared return value is CFStringRef is an assumption built into my code.
+		    declare function identifier lib CocoaLib selector "identifier" (obj_id as Ptr) as CFStringRef
+		    dim columnID as String = identifier(columnView)
+		    
+		    dim value as String = theSource.GetValue(row, columnID)
+		    dim v as CFStringRef = value
+		    declare function CFRetain lib CarbonLib (cf as CFStringRef) as Ptr
+		    return  CFRetain(v)
+		    
+		  #else
+		    
+		    #pragma unused id
+		    #pragma unused columnView
+		    #pragma unused row
+		    
+		  #endif
 		  
 		  // Keep the compiler from complaining
 		  #pragma unused sel
 		  #pragma unused tableView
+		  
 		End Function
 	#tag EndMethod
 
@@ -159,24 +170,37 @@ Class NSTableViewDataSource
 
 	#tag Method, Flags = &h21
 		Private Shared Sub impl_SetValue(id as Ptr, sel as Ptr, aTableView as Ptr, value as Ptr, aTableColumn as Ptr, row as Integer)
-		  dim theSource as NSTableViewDataSource = FindObjectByImpl_obj(id)
-		  if theSource is nil then
-		    return
-		  end if
-		  
-		  dim tableView as NSTableView = NSTableView.FindByID(aTableView)
-		  if tableView = nil then
-		    //something's wrong, or perhaps a control was somehow closed.
-		    return
-		  end if
-		  dim tableColumn as new NSTableColumn(aTableColumn)
-		  
-		  declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-		  dim stringValue as String = CFRetain(value)
-		  
-		  theSource.SetValue tableView, row, tableColumn, stringValue
+		  #if TargetCocoa
+		    
+		    dim theSource as NSTableViewDataSource = FindObjectByImpl_obj(id)
+		    if theSource is nil then
+		      return
+		    end if
+		    
+		    dim tableView as NSTableView = NSTableView.FindByID(aTableView)
+		    if tableView = nil then
+		      //something's wrong, or perhaps a control was somehow closed.
+		      return
+		    end if
+		    dim tableColumn as new NSTableColumn(aTableColumn)
+		    
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    dim stringValue as String = CFRetain(value)
+		    
+		    theSource.SetValue tableView, row, tableColumn, stringValue
+		    
+		  #else
+		    
+		    #pragma unused id
+		    #pragma unused aTableView
+		    #pragma unused value
+		    #pragma unused aTableColumn
+		    #pragma unused row
+		    
+		  #endif
 		  
 		  #pragma unused sel
+		  
 		End Sub
 	#tag EndMethod
 

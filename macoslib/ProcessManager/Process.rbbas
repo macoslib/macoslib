@@ -82,19 +82,23 @@ Protected Class Process
 		    return
 		  end if
 		  
-		  soft declare function SetFrontProcessWithOptions lib CarbonLib (ByRef psn as ProcessSerialNumber, inOptions as UInt32) as Int32
-		  
-		  dim thePSN as ProcessSerialNumber = p.psn
-		  dim OSError as Int32
-		  if frontWindowOnly then
-		    const kSetFrontProcessFrontWindowOnly = 1
-		    OSError = SetFrontProcessWithOptions(thePSN, kSetFrontProcessFrontWindowOnly)
-		  else
-		    OSError = SetFrontProcessWithOptions(thePSN, 0)
-		  end if
-		  
-		  // Keep the compiler from complaining
-		  #pragma unused OSError
+		  #if TargetMacOS
+		    
+		    soft declare function SetFrontProcessWithOptions lib CarbonLib (ByRef psn as ProcessSerialNumber, inOptions as UInt32) as Int32
+		    
+		    dim thePSN as ProcessSerialNumber = p.psn
+		    dim OSError as Int32
+		    if frontWindowOnly then
+		      const kSetFrontProcessFrontWindowOnly = 1
+		      OSError = SetFrontProcessWithOptions(thePSN, kSetFrontProcessFrontWindowOnly)
+		    else
+		      OSError = SetFrontProcessWithOptions(thePSN, 0)
+		    end if
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
@@ -438,26 +442,39 @@ Protected Class Process
 			Name="BundleID"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FileCreator"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FileType"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsBackgroundProcess"
+			Group="Behavior"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsBackgroundProcess"
+			Group="Behavior"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsHidden"
 			Group="Behavior"
 			Type="boolean"
 		#tag EndViewProperty
@@ -468,16 +485,6 @@ Protected Class Process
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsUIElement"
-			Group="Behavior"
-			Type="boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsBackgroundProcess"
-			Group="Behavior"
-			Type="boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsHidden"
 			Group="Behavior"
 			Type="boolean"
 		#tag EndViewProperty
@@ -491,13 +498,14 @@ Protected Class Process
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PID"
@@ -514,14 +522,14 @@ Protected Class Process
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Visible"

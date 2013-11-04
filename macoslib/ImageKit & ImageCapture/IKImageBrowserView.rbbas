@@ -130,12 +130,22 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Shared Function AddInstanceMethod(class_id as Ptr, name as String, impl as Ptr, types as String) As Boolean
-		  #if targetMacOS
+		  #if TargetMacOS
+		    
 		    soft declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
 		    soft declare function NSSelectorFromString lib CocoaLib (aSelectorName as CFStringRef) as Ptr
 		    
 		    return class_addMethod(class_id, NSSelectorFromString(name), impl, types)
+		    
+		  #else
+		    
+		    #pragma unused class_id
+		    #pragma unused name
+		    #pragma unused impl
+		    #pragma unused types
+		    
 		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -160,14 +170,16 @@ Inherits Canvas
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
-		  declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
-		  declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
-		  
-		  _id = init( alloc( SubClassID ))
-		  
-		  ObjectList.Append self
-		  
+		  #if TargetMacOS
+		    
+		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    
+		    _id = init( alloc( SubClassID ))
+		    
+		    ObjectList.Append self
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod

@@ -46,23 +46,30 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromMenuItem(mi as MenuItem) As NSMenuItem
-		  
-		  dim nsm as NSMenuItem
-		  
-		  declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
-		  
-		  if mi=nil then
-		    return  nil
-		  end if
-		  
-		  if mi.Text = "-" then //A separator
-		    nsm = NSMenuItem.CreateSeparatorItem
-		    nsm.fromRBMenuItem = mi
-		  else
-		    nsm = new NSMenuItem( mi )
-		  end if
-		  
-		  return  nsm
+		  #if TargetMacOS
+		    
+		    dim nsm as NSMenuItem
+		    
+		    declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
+		    
+		    if mi=nil then
+		      return  nil
+		    end if
+		    
+		    if mi.Text = "-" then //A separator
+		      nsm = NSMenuItem.CreateSeparatorItem
+		      nsm.fromRBMenuItem = mi
+		    else
+		      nsm = new NSMenuItem( mi )
+		    end if
+		    
+		    return  nsm
+		    
+		  #else
+		    
+		    #pragma unused mi
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod

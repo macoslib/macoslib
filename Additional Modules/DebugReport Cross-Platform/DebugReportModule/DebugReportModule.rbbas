@@ -642,6 +642,12 @@ Protected Module DebugReportModule
 		    end if
 		    
 		    myObserver.Register   NotificationName, sender
+		    
+		  #else
+		    
+		    #pragma unused NotificationName
+		    #pragma unused sender
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -809,11 +815,20 @@ Protected Module DebugReportModule
 		Sub ReportObjCDetailsForNSObject(obj as NSObject)
 		  //Report ObjC implementation details for a Cocoa object class and its parents
 		  
-		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
-		    declare function getClass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		  #if TargetMacOS
 		    
-		    ReportObjCDetailsForClassPtr  getClass( obj.id )
+		    #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		      declare function getClass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		      
+		      ReportObjCDetailsForClassPtr  getClass( obj.id )
+		    #endif
+		    
+		  #else
+		    
+		    #pragma unused obj
+		    
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
@@ -821,11 +836,20 @@ Protected Module DebugReportModule
 		Sub ReportObjCDetailsForNSObjectPtr(pointer as Ptr)
 		  //Report ObjC implementation details for a Cocoa object class and its parents
 		  
-		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
-		    declare function getClass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		  #if TargetMacOS
 		    
-		    ReportObjCDetailsForClassPtr  getClass( pointer )
+		    #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		      declare function getClass lib CocoaLib selector "class" (id as Ptr) as Ptr
+		      
+		      ReportObjCDetailsForClassPtr  getClass( pointer )
+		    #endif
+		    
+		  #else
+		    
+		    #pragma unused pointer
+		    
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
@@ -869,142 +893,151 @@ Protected Module DebugReportModule
 		  
 		  #pragma unused immediate
 		  #pragma unused FormatType
-		  #pragma DisableBackgroundTasks
 		  
-		  #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
-		    dim results1() as string
-		    dim results2() as string
-		    dim result1, result2 as string
-		    dim sr1 as new StyleRun
-		    dim sr2 as new StyleRun
-		    'dim srs() as StyleRun
-		    dim usesr2 as boolean
-		    'dim pendingSpecs() as string
-		    'dim spec as string
-		    'dim sresult as StyledText
-		    'dim formats() as string
+		  #if TargetMacOS
 		    
-		    declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay:" (id as Ptr, flags as Boolean)
+		    #pragma DisableBackgroundTasks
 		    
-		    if not inited then   init
-		    
-		    //Format according to parameters
-		    select case Abs( type )
-		    case kLevelDebug //Debug
-		      for each v as variant in values
-		        results1.Append  FormatVariant( v )
-		      next
-		      sr1.Font = "SmallSystem"
+		    #if DebugReportOptions.AllowDebugReport AND NOT (DebugReportOptions.AutomaticallyDisableInFinalBuilds AND NOT DebugBuild)
+		      dim results1() as string
+		      dim results2() as string
+		      dim result1, result2 as string
+		      dim sr1 as new StyleRun
+		      dim sr2 as new StyleRun
+		      'dim srs() as StyleRun
+		      dim usesr2 as boolean
+		      'dim pendingSpecs() as string
+		      'dim spec as string
+		      'dim sresult as StyledText
+		      'dim formats() as string
 		      
-		    case kLevelNotice //Normal text
-		      sr1.Font = "SmallSystem"
+		      declare sub setNeedsDisplay lib CocoaLib selector "setNeedsDisplay:" (id as Ptr, flags as Boolean)
 		      
-		      'Formats = DecomposeFormatString( FormatVariant( values( 0 ))
-		      '
-		      'if UBound( Formats )>0 then //There is a format spec
-		      '
-		      '
-		      'if Values.Ubound>0 then
-		      'result1 = FormatVariant( v )
-		      'end if
-		      'for i as integer=0 to Ubound( values )
-		      'if i=0 then
-		      'if VarType( values( 0 )) = Variant.TypeString then //There may be some format specs
-		      'spec = DetectFormatIndicator( values( 0 ))
-		      'if spec<>"" then
-		      'next
+		      if not inited then   init
 		      
+		      //Format according to parameters
+		      select case Abs( type )
+		      case kLevelDebug //Debug
+		        for each v as variant in values
+		          results1.Append  FormatVariant( v )
+		        next
+		        sr1.Font = "SmallSystem"
+		        
+		      case kLevelNotice //Normal text
+		        sr1.Font = "SmallSystem"
+		        
+		        'Formats = DecomposeFormatString( FormatVariant( values( 0 ))
+		        '
+		        'if UBound( Formats )>0 then //There is a format spec
+		        '
+		        '
+		        'if Values.Ubound>0 then
+		        'result1 = FormatVariant( v )
+		        'end if
+		        'for i as integer=0 to Ubound( values )
+		        'if i=0 then
+		        'if VarType( values( 0 )) = Variant.TypeString then //There may be some format specs
+		        'spec = DetectFormatIndicator( values( 0 ))
+		        'if spec<>"" then
+		        'next
+		        
+		        
+		        for each v as variant in values
+		          results1.Append  FormatVariant( v )
+		        next
+		        'sr1.Font = "SmallSystem"
+		        
+		      case kLevelTitled //Titled
+		        sr1.Font = "SmallSystem"
+		        sr1.Bold = true
+		        results1.Append  FormatVariant( values( 0 ))
+		        
+		        sr2.Font = "SmallSystem"
+		        for i as integer = 1 to values.Ubound
+		          results2.Append   FormatVariant( values( i ))
+		        next
+		        
+		      case kLevelWarning //Warning
+		        sr1.Font = "SmallSystem"
+		        sr1.Text = "WARNING: "
+		        sr1.TextColor = &c0000FF
+		        sr1.Bold = true
+		        
+		        for each v as variant in values
+		          results2.Append  FormatVariant( v )
+		        next
+		        sr2.Font = "SmallSystem"
+		        
+		      case kLevelError //Error
+		        sr1.Font = "SmallSystem"
+		        sr1.Text = "ERROR: "
+		        sr1.TextColor = &c9C3120
+		        sr1.Bold = true
+		        
+		        for each v as variant in values
+		          results2.Append  FormatVariant( v )
+		        next
+		        sr2.Font = "SmallSystem"
+		        
+		      case kLevelNotification //Notification
+		        sr1.Font = "SmallSystem"
+		        sr1.Text = "NOTIFICATION: "
+		        sr1.TextColor = &cFFCC6600
+		        sr1.Bold = true
+		        
+		        for each v as variant in values
+		          results2.Append  FormatVariant( v )
+		        next
+		        sr2.Font = "SmallSystem"
+		        
+		      end select
 		      
-		      for each v as variant in values
-		        results1.Append  FormatVariant( v )
-		      next
-		      'sr1.Font = "SmallSystem"
-		      
-		    case kLevelTitled //Titled
-		      sr1.Font = "SmallSystem"
-		      sr1.Bold = true
-		      results1.Append  FormatVariant( values( 0 ))
-		      
-		      sr2.Font = "SmallSystem"
-		      for i as integer = 1 to values.Ubound
-		        results2.Append   FormatVariant( values( i ))
-		      next
-		      
-		    case kLevelWarning //Warning
-		      sr1.Font = "SmallSystem"
-		      sr1.Text = "WARNING: "
-		      sr1.TextColor = &c0000FF
-		      sr1.Bold = true
-		      
-		      for each v as variant in values
-		        results2.Append  FormatVariant( v )
-		      next
-		      sr2.Font = "SmallSystem"
-		      
-		    case kLevelError //Error
-		      sr1.Font = "SmallSystem"
-		      sr1.Text = "ERROR: "
-		      sr1.TextColor = &c9C3120
-		      sr1.Bold = true
-		      
-		      for each v as variant in values
-		        results2.Append  FormatVariant( v )
-		      next
-		      sr2.Font = "SmallSystem"
-		      
-		    case kLevelNotification //Notification
-		      sr1.Font = "SmallSystem"
-		      sr1.Text = "NOTIFICATION: "
-		      sr1.TextColor = &cFFCC6600
-		      sr1.Bold = true
-		      
-		      for each v as variant in values
-		        results2.Append  FormatVariant( v )
-		      next
-		      sr2.Font = "SmallSystem"
-		      
-		    end select
-		    
-		    if results1.Ubound>-1 then
-		      result1 = Join( results1, " " )
-		      if result1<>"" then
-		        sr1.Text = result1 + EndOfLine
-		      end if
-		    end if
-		    
-		    if results2.Ubound>-1 then
-		      result2 = Join( results2, " " )
-		      if result2<>"" then
-		        sr2.Text = result2 + EndOfLine
-		        usesr2 = true
-		      end if
-		    end if
-		    
-		    
-		    //Enqueue reports if we are not in the main thread or user wants to queue notification
-		    if App.CurrentThread<>nil OR NOT immediate then
-		      Queue.Append   new ReportEvent( type, sr1, IFTE( usesr2, sr2, nil ))
-		      LogTimer.mode = 1
-		      return
-		      
-		    else
-		      //Else report immediately
-		      
-		      //If some reports are queued, we must display them first.
-		      if Queue.Ubound>-1 then
-		        TimerAction( nil )
+		      if results1.Ubound>-1 then
+		        result1 = Join( results1, " " )
+		        if result1<>"" then
+		          sr1.Text = result1 + EndOfLine
+		        end if
 		      end if
 		      
-		      if usesr2 then
-		        AppendToWindow  type, sr1, sr2
+		      if results2.Ubound>-1 then
+		        result2 = Join( results2, " " )
+		        if result2<>"" then
+		          sr2.Text = result2 + EndOfLine
+		          usesr2 = true
+		        end if
+		      end if
+		      
+		      
+		      //Enqueue reports if we are not in the main thread or user wants to queue notification
+		      if App.CurrentThread<>nil OR NOT immediate then
+		        Queue.Append   new ReportEvent( type, sr1, IFTE( usesr2, sr2, nil ))
+		        LogTimer.mode = 1
+		        return
+		        
 		      else
-		        AppendToWindow   type, sr1
+		        //Else report immediately
+		        
+		        //If some reports are queued, we must display them first.
+		        if Queue.Ubound>-1 then
+		          TimerAction( nil )
+		        end if
+		        
+		        if usesr2 then
+		          AppendToWindow  type, sr1, sr2
+		        else
+		          AppendToWindow   type, sr1
+		        end if
+		        
+		        DebugLogWND.LogTA.ScrollPosition = 1e+6
+		        DebugLogWND.LogTA.Refresh
 		      end if
-		      
-		      DebugLogWND.LogTA.ScrollPosition = 1e+6
-		      DebugLogWND.LogTA.Refresh
-		    end if
-		  #endif
+		    #endif
+		    
+		  #else
+		    
+		    #pragma unused type
+		    
+		  #endif //  TargetMacOS
 		End Sub
 	#tag EndMethod
 

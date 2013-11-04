@@ -68,10 +68,15 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		 Shared Function App() As NSApplication
-		  declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
+		  #if TargetMacOS
+		    
+		    declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
+		    
+		    static c as new NSApplication(sharedApplication_(Cocoa.NSClassFromString(NSClassName)))
+		    return c
+		    
+		  #endif
 		  
-		  static c as new NSApplication(sharedApplication_(Cocoa.NSClassFromString(NSClassName)))
-		  return c
 		End Function
 	#tag EndMethod
 

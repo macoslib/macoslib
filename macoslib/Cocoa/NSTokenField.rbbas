@@ -649,20 +649,24 @@ Inherits NSControl
 
 	#tag Method, Flags = &h0
 		Function GetSelectionRange() As NSRange
+		  #if TargetMacOS
+		    
+		    declare function selectedRange lib CocoaLib selector "selectedRange" ( id as Ptr ) as NSRange
+		    
+		    dim p as Ptr = myNSText
+		    
+		    if p=nil then
+		      'reportWarning   "NSText instance not found in window"
+		    end if
+		    
+		    dim nsr as NSRange = selectedRange( p )
+		    
+		    'report  "selectedRange:", nsr.location, nsr.length
+		    
+		    return  nsr
+		    
+		  #endif
 		  
-		  declare function selectedRange lib CocoaLib selector "selectedRange" ( id as Ptr ) as NSRange
-		  
-		  dim p as Ptr = myNSText
-		  
-		  if p=nil then
-		    'reportWarning   "NSText instance not found in window"
-		  end if
-		  
-		  dim nsr as NSRange = selectedRange( p )
-		  
-		  'report  "selectedRange:", nsr.location, nsr.length
-		  
-		  return  nsr
 		End Function
 	#tag EndMethod
 
@@ -1034,11 +1038,15 @@ Inherits NSControl
 
 	#tag Method, Flags = &h21
 		Private Function myNSText() As Ptr
-		  declare function currentEditor lib CocoaLib selector "currentEditor" ( id as Ptr ) as Ptr
-		  
-		  dim p as Ptr = currentEditor( me.id )
-		  
-		  return   p
+		  #if TargetMacOS
+		    
+		    declare function currentEditor lib CocoaLib selector "currentEditor" ( id as Ptr ) as Ptr
+		    
+		    dim p as Ptr = currentEditor( me.id )
+		    
+		    return   p
+		    
+		  #endif
 		End Function
 	#tag EndMethod
 

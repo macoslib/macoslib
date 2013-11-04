@@ -2,85 +2,112 @@
 Private Class NavDialogCreationOptions
 	#tag Method, Flags = &h0
 		Sub Constructor()
-		  soft declare function NavGetDefaultDialogCreationOptions lib CarbonLib (outOptions as Ptr) as Integer
+		  #if TargetMacOS
+		    
+		    soft declare function NavGetDefaultDialogCreationOptions lib CarbonLib (outOptions as Ptr) as Integer
+		    
+		    const sizeOfNavDialogCreationOptions = 66
+		    me.struct =  new MemoryBlock(sizeOfNavDialogCreationOptions)
+		    dim OSStatus as Integer = NavGetDefaultDialogCreationOptions(me.struct)
+		    if OSStatus <> 0 then
+		      System.Log System.LogLevelError, "NavDialogCreationOptions.Operator_Convert: NavGetDefaultDialogCreationOptions returned error " + Str(OSStatus) + "."
+		    end if
+		    
+		  #endif
 		  
-		  const sizeOfNavDialogCreationOptions = 66
-		  me.struct =  new MemoryBlock(sizeOfNavDialogCreationOptions)
-		  dim OSStatus as Integer = NavGetDefaultDialogCreationOptions(me.struct)
-		  if OSStatus <> 0 then
-		    System.Log System.LogLevelError, "NavDialogCreationOptions.Operator_Convert: NavGetDefaultDialogCreationOptions returned error " + Str(OSStatus) + "."
-		  end if
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
-		  if me.struct.Ptr(offsetClientName) <> nil then
-		    soft declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    CFRelease me.struct.Ptr(offsetClientName)
-		  end if
-		  if me.struct.Ptr(offsetActionButtonLabel) <> nil then
-		    soft declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    CFRelease me.struct.Ptr(offsetActionButtonLabel)
-		  end if
-		  if me.struct.Ptr(offsetCancelButtonLabel) <> nil then
-		    soft declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    CFRelease me.struct.Ptr(offsetCancelButtonLabel)
-		  end if
+		  #if TargetMacOS
+		    
+		    if me.struct.Ptr(offsetClientName) <> nil then
+		      soft declare sub CFRelease lib CarbonLib (cf as Ptr)
+		      CFRelease me.struct.Ptr(offsetClientName)
+		    end if
+		    if me.struct.Ptr(offsetActionButtonLabel) <> nil then
+		      soft declare sub CFRelease lib CarbonLib (cf as Ptr)
+		      CFRelease me.struct.Ptr(offsetActionButtonLabel)
+		    end if
+		    if me.struct.Ptr(offsetCancelButtonLabel) <> nil then
+		      soft declare sub CFRelease lib CarbonLib (cf as Ptr)
+		      CFRelease me.struct.Ptr(offsetCancelButtonLabel)
+		    end if
+		    
+		    if me.struct.Ptr(offsetMessage) <> nil then
+		      soft declare sub CFRelease lib CarbonLib (cf as Ptr)
+		      CFRelease me.struct.Ptr(offsetMessage)
+		    end if
+		    
+		  #endif
 		  
-		  if me.struct.Ptr(offsetMessage) <> nil then
-		    soft declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    CFRelease me.struct.Ptr(offsetMessage)
-		  end if
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function GetStringFromCFStringRef(p as Ptr) As String
-		  if p = nil then
-		    return ""
-		  end if
+		  #if TargetMacOS
+		    
+		    if p = nil then
+		      return ""
+		    end if
+		    
+		    soft declare function CFStringGetLength lib CarbonLib (theString as Ptr) as Integer
+		    
+		    dim stringLength as Integer = CFStringGetLength(p)
+		    
+		    if stringLength = 0 then
+		      return ""
+		    end if
+		    
+		    soft declare function CFStringGetMaximumSizeForEncoding lib CarbonLib (length as Integer, enc as Integer) as Integer
+		    
+		    const kCFStringEncodingUTF8 = &h08000100
+		    
+		    dim maxSize as Integer = CFStringGetMaximumSizeForEncoding(stringLength, kCFStringEncodingUTF8)
+		    if maxSize < 0 then
+		      return ""
+		    end if
+		    
+		    soft declare function CFStringGetCString lib CarbonLib (theString as Ptr, buffer as Ptr, bufferSize as Integer, enc as Integer) as Boolean
+		    
+		    dim buffer as new MemoryBlock(1 + maxSize)
+		    
+		    if CFStringGetCString(p, buffer, buffer.Size, kCFStringEncodingUTF8) then
+		      return DefineEncoding(buffer.CString(0), Encodings.UTF8)
+		    else
+		      return ""
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused p
+		    
+		  #endif
 		  
-		  soft declare function CFStringGetLength lib CarbonLib (theString as Ptr) as Integer
-		  
-		  dim stringLength as Integer = CFStringGetLength(p)
-		  
-		  if stringLength = 0 then
-		    return ""
-		  end if
-		  
-		  soft declare function CFStringGetMaximumSizeForEncoding lib CarbonLib (length as Integer, enc as Integer) as Integer
-		  
-		  const kCFStringEncodingUTF8 = &h08000100
-		  
-		  dim maxSize as Integer = CFStringGetMaximumSizeForEncoding(stringLength, kCFStringEncodingUTF8)
-		  if maxSize < 0 then
-		    return ""
-		  end if
-		  
-		  soft declare function CFStringGetCString lib CarbonLib (theString as Ptr, buffer as Ptr, bufferSize as Integer, enc as Integer) as Boolean
-		  
-		  dim buffer as new MemoryBlock(1 + maxSize)
-		  
-		  if CFStringGetCString(p, buffer, buffer.Size, kCFStringEncodingUTF8) then
-		    return DefineEncoding(buffer.CString(0), Encodings.UTF8)
-		  else
-		    return ""
-		  end if
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function NewCFStringRef(s as String) As Ptr
-		  soft declare function CFStringCreateWithCString lib CarbonLib (alloc as Ptr, cStr as CString, encoding as Integer) as Ptr
-		  
-		  if Encoding(s) <> nil then
-		    return CFStringCreateWithCString(nil, s, Encoding(s).code)
-		  else
-		    const kCFStringEncodingInvalidId = &hffffffff
+		  #if TargetMacOS
 		    
-		    return CFStringCreateWithCString(nil, s, kCFStringEncodingInvalidId)
-		  end if
+		    soft declare function CFStringCreateWithCString lib CarbonLib (alloc as Ptr, cStr as CString, encoding as Integer) as Ptr
+		    
+		    if Encoding(s) <> nil then
+		      return CFStringCreateWithCString(nil, s, Encoding(s).code)
+		    else
+		      const kCFStringEncodingInvalidId = &hffffffff
+		      
+		      return CFStringCreateWithCString(nil, s, kCFStringEncodingInvalidId)
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused s
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -93,17 +120,28 @@ Private Class NavDialogCreationOptions
 
 	#tag Method, Flags = &h21
 		Private Sub SetCFStringField(value as String, offset as Integer)
-		  //release existing value, I think
-		  if me.struct.Ptr(offset) <> nil then
-		    soft declare sub CFRelease lib CarbonLib (cf as Ptr)
-		    CFRelease me.struct.Ptr(offset)
-		  end if
+		  #if TargetMacOS
+		    
+		    //release existing value, I think
+		    if me.struct.Ptr(offset) <> nil then
+		      soft declare sub CFRelease lib CarbonLib (cf as Ptr)
+		      CFRelease me.struct.Ptr(offset)
+		    end if
+		    
+		    if value <> "" then
+		      me.struct.Ptr(offset) = NewCFStringRef(value)
+		    else
+		      me.struct.Ptr(offset) = nil
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused value
+		    #pragma unused offset
+		    
+		  #endif
 		  
-		  if value <> "" then
-		    me.struct.Ptr(offset) = NewCFStringRef(value)
-		  else
-		    me.struct.Ptr(offset) = nil
-		  end if
+		  
 		End Sub
 	#tag EndMethod
 
