@@ -44,9 +44,14 @@ Protected Module NavigationServices
 		Protected Function Version() As UInt32
 		  //returns a BCD coded version string
 		  
-		  soft declare function NavLibraryVersion lib "Carbon.framework" () as UInt32
+		  #if TargetMacOS
+		    
+		    soft declare function NavLibraryVersion lib "Carbon.framework" () as UInt32
+		    
+		    return NavLibraryVersion
+		    
+		  #endif
 		  
-		  return NavLibraryVersion
 		End Function
 	#tag EndMethod
 

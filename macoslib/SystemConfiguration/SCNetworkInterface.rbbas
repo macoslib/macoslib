@@ -35,36 +35,40 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Sub MediaOptions()
+		  #if TargetMacOS
+		    
+		    soft declare Function SCNetworkInterfaceCopyMediaOptions lib SystemConfiguration.framework (intf as Ptr, Byref current as Ptr, byref active as Ptr, byref available as Ptr, filter as Boolean) as boolean
+		    
+		    dim current, active, available as Ptr
+		    dim OK as Boolean
+		    
+		    OK = SCNetworkInterfaceCopyMediaOptions( self, current, active, available, false )
+		    
+		    'if OK then
+		    if current<>nil then
+		      dim currentDict as NSDictionary = new NSDictionary( current, false )
+		      #pragma unused currentDict
+		    end if
+		    if active<>nil then
+		      dim activeDict as NSDictionary = new NSDictionary( active, false )
+		      #pragma unused activeDict
+		    end if
+		    if available<>nil then
+		      dim availableArray as NSArray = new NSArray( available, false )
+		      #pragma unused availableArray
+		    end if
+		    
+		    
+		    'Boolean SCNetworkInterfaceCopyMediaOptions (
+		    'SCNetworkInterfaceRef interface,
+		    'CFDictionaryRef *current,
+		    'CFDictionaryRef *active,
+		    'CFArrayRef *available,
+		    'Boolean filter
+		    ');
+		    
+		  #endif
 		  
-		  soft declare Function SCNetworkInterfaceCopyMediaOptions lib SystemConfiguration.framework (intf as Ptr, Byref current as Ptr, byref active as Ptr, byref available as Ptr, filter as Boolean) as boolean
-		  
-		  dim current, active, available as Ptr
-		  dim OK as Boolean
-		  
-		  OK = SCNetworkInterfaceCopyMediaOptions( self, current, active, available, false )
-		  
-		  'if OK then
-		  if current<>nil then
-		    dim currentDict as NSDictionary = new NSDictionary( current, false )
-		    #pragma unused currentDict
-		  end if
-		  if active<>nil then
-		    dim activeDict as NSDictionary = new NSDictionary( active, false )
-		    #pragma unused activeDict
-		  end if
-		  if available<>nil then
-		    dim availableArray as NSArray = new NSArray( available, false )
-		    #pragma unused availableArray
-		  end if
-		  
-		  
-		  'Boolean SCNetworkInterfaceCopyMediaOptions (
-		  'SCNetworkInterfaceRef interface,
-		  'CFDictionaryRef *current,
-		  'CFDictionaryRef *active,
-		  'CFArrayRef *available,
-		  'Boolean filter
-		  ');
 		End Sub
 	#tag EndMethod
 

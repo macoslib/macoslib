@@ -141,26 +141,34 @@ Implements NSToolbarItemInterface
 		  #pragma unused sel
 		  #pragma unused sender
 		  
-		  #pragma stackOverflowChecking false
-		  
-		  if CocoaClassMap.HasKey(id) then// get the target
-		    dim w as WeakRef = CocoaClassMap.Lookup(id, new WeakRef(nil))
-		    dim obj as NSToolbarDropMenuItem = NSToolbarDropMenuItem(w.Value) // get the sender instance
-		    if obj <> nil then
-		      if obj._menuActionHandler <> nil then
-		        declare function frame lib CocoaLib selector "frame" (obj_id as Ptr) as Cocoa.NSRect
-		        dim f as Cocoa.NSRect = frame(obj.view) // get the button size
-		        dim p as Cocoa.NSPoint // setup an NSPoint for positioning the menu
-		        p.x = 0
-		        p.y = f.h
-		        call obj._myMenu.PopUpMenuPositioningItem(nil, p, obj.view) // pop down the menu
+		  #if TargetCocoa
+		    
+		    #pragma stackOverflowChecking false
+		    
+		    if CocoaClassMap.HasKey(id) then// get the target
+		      dim w as WeakRef = CocoaClassMap.Lookup(id, new WeakRef(nil))
+		      dim obj as NSToolbarDropMenuItem = NSToolbarDropMenuItem(w.Value) // get the sender instance
+		      if obj <> nil then
+		        if obj._menuActionHandler <> nil then
+		          declare function frame lib CocoaLib selector "frame" (obj_id as Ptr) as Cocoa.NSRect
+		          dim f as Cocoa.NSRect = frame(obj.view) // get the button size
+		          dim p as Cocoa.NSPoint // setup an NSPoint for positioning the menu
+		          p.x = 0
+		          p.y = f.h
+		          call obj._myMenu.PopUpMenuPositioningItem(nil, p, obj.view) // pop down the menu
+		        end if
+		      else
+		        //something might be wrong.
 		      end if
 		    else
 		      //something might be wrong.
 		    end if
-		  else
-		    //something might be wrong.
-		  end if
+		    
+		  #else
+		    
+		    #pragma unused id
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod

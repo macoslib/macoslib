@@ -26,51 +26,66 @@ Inherits Canvas
 
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  declare function HandleControlClick Lib CarbonLib (inControl as Integer, inWhere as Integer, inModifiers as Integer, inAction as Integer) as Int16
+		  #if TargetCarbon
+		    
+		    declare function HandleControlClick Lib CarbonLib (inControl as Integer, inWhere as Integer, inModifiers as Integer, inAction as Integer) as Int16
+		    
+		    dim click as new MemoryBlock(4)
+		    click.Short(0) = Y
+		    click.Short(2) = X
+		    dim OSErr as Int16 = HandleControlClick(me.HISearchFieldRef, click.Long(0), 0, 0)
+		    #pragma unused OSErr
+		    return true
+		    
+		  #else
+		    
+		    #pragma unused X
+		    #pragma unused Y
+		    
+		  #endif
 		  
-		  dim click as new MemoryBlock(4)
-		  click.Short(0) = Y
-		  click.Short(2) = X
-		  dim OSErr as Int16 = HandleControlClick(me.HISearchFieldRef, click.Long(0), 0, 0)
-		  #pragma unused OSErr
-		  return true
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub Open()
-		  dim v as Variant = me
-		  ObjectMap.Value(v.Hash) = me
+		  #if TargetCarbon
+		    
+		    dim v as Variant = me
+		    ObjectMap.Value(v.Hash) = me
+		    
+		    me.HISearchFieldRef = CreateSearchField
+		    me.Text = mPresetText
+		    me.CancelButton = mPresetCancelButton
+		    me.EraseBackground = false
+		    
+		    me.RegisterCarbonEventHandler
+		    
+		    Declare Function HIViewAddSubview Lib CarbonLib (inParent as Integer, inNewChild as Integer) as Integer
+		    
+		    dim OSError as Integer = HIViewAddSubview(me.ContentViewRef, me.HISearchFieldRef)
+		    
+		    Declare Function HIViewSetFrame Lib CarbonLib (inView as Integer, inRect as Ptr) as Integer
+		    
+		    dim theBounds as new MemoryBlock(sizeOfHIRect)
+		    theBounds.SingleValue(0) = me.Left
+		    theBounds.SingleValue(4) = me.Top
+		    theBounds.SingleValue(8) = me.Width
+		    theBounds.SingleValue(12) = me.Height
+		    
+		    OSError = HIViewSetFrame(me.HISearchFieldRef, theBounds)
+		    
+		    
+		    declare function HIViewSetVisible Lib CarbonLib (inView as Integer, inVisible as Boolean) as Integer
+		    
+		    
+		    OSError = HIViewSetVisible(me.HISearchFieldRef, true)
+		    
+		    
+		    Open
+		    
+		  #endif
 		  
-		  me.HISearchFieldRef = CreateSearchField
-		  me.Text = mPresetText
-		  me.CancelButton = mPresetCancelButton
-		  me.EraseBackground = false
-		  
-		  me.RegisterCarbonEventHandler
-		  
-		  Declare Function HIViewAddSubview Lib CarbonLib (inParent as Integer, inNewChild as Integer) as Integer
-		  
-		  dim OSError as Integer = HIViewAddSubview(me.ContentViewRef, me.HISearchFieldRef)
-		  
-		  Declare Function HIViewSetFrame Lib CarbonLib (inView as Integer, inRect as Ptr) as Integer
-		  
-		  dim theBounds as new MemoryBlock(sizeOfHIRect)
-		  theBounds.SingleValue(0) = me.Left
-		  theBounds.SingleValue(4) = me.Top
-		  theBounds.SingleValue(8) = me.Width
-		  theBounds.SingleValue(12) = me.Height
-		  
-		  OSError = HIViewSetFrame(me.HISearchFieldRef, theBounds)
-		  
-		  
-		  declare function HIViewSetVisible Lib CarbonLib (inView as Integer, inVisible as Boolean) as Integer
-		  
-		  
-		  OSError = HIViewSetVisible(me.HISearchFieldRef, true)
-		  
-		  
-		  Open
 		End Sub
 	#tag EndEvent
 
@@ -108,38 +123,43 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Function ContentViewRef() As Integer
-		  'OSStatus HIViewFindByID (
-		  'HIViewRef inStartView,
-		  'HIViewID inID,
-		  'HIViewRef * outControl
-		  ');
-		  '
-		  'struct ControlID {
-		  'OSType signature;
-		  'SInt32 id;
-		  '};
-		  'typedef struct ControlID ControlID;
-		  'typedef ControlID HIViewID;
+		  #if TargetCarbon
+		    
+		    'OSStatus HIViewFindByID (
+		    'HIViewRef inStartView,
+		    'HIViewID inID,
+		    'HIViewRef * outControl
+		    ');
+		    '
+		    'struct ControlID {
+		    'OSType signature;
+		    'SInt32 id;
+		    '};
+		    'typedef struct ControlID ControlID;
+		    'typedef ControlID HIViewID;
+		    
+		    declare Function CFBundleGetBundleWithIdentifier Lib CarbonLib (bundleID as CFStringRef) as Integer
+		    
+		    dim CarbonBundle as Integer = CFBundleGetBundleWithIdentifier("com.apple.Carbon")
+		    
+		    declare Function CFBundleGetDataPointerForName Lib CarbonLib (bundle as Integer, symbolName as CFStringRef) as Ptr
+		    dim contentViewID as Ptr = CFBundleGetDataPointerForName(CarbonBundle, "kHIViewWindowContentID")
+		    if contentViewID = nil then
+		      return 0
+		    end if
+		    
+		    declare Function HIViewFindByID Lib CarbonLib (inStartView as Integer, signature as Integer, id as Integer, byRef outControl as Integer) as Integer
+		    
+		    dim theViewRef as Integer
+		    dim OSError as Integer = HIViewFindByID(me.RootView, contentViewID.Integer(0), contentViewID.Integer(4), theViewRef)
+		    If OSError <> 0 then
+		      break
+		      theViewRef = 0
+		    End if
+		    Return theViewRef
+		    
+		  #endif
 		  
-		  declare Function CFBundleGetBundleWithIdentifier Lib CarbonLib (bundleID as CFStringRef) as Integer
-		  
-		  dim CarbonBundle as Integer = CFBundleGetBundleWithIdentifier("com.apple.Carbon")
-		  
-		  declare Function CFBundleGetDataPointerForName Lib CarbonLib (bundle as Integer, symbolName as CFStringRef) as Ptr
-		  dim contentViewID as Ptr = CFBundleGetDataPointerForName(CarbonBundle, "kHIViewWindowContentID")
-		  if contentViewID = nil then
-		    return 0
-		  end if
-		  
-		  declare Function HIViewFindByID Lib CarbonLib (inStartView as Integer, signature as Integer, id as Integer, byRef outControl as Integer) as Integer
-		  
-		  dim theViewRef as Integer
-		  dim OSError as Integer = HIViewFindByID(me.RootView, contentViewID.Integer(0), contentViewID.Integer(4), theViewRef)
-		  If OSError <> 0 then
-		    break
-		    theViewRef = 0
-		  End if
-		  Return theViewRef
 		End Function
 	#tag EndMethod
 
@@ -313,15 +333,20 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function HasFocus() As Boolean
-		  declare function GetKeyboardFocus lib CarbonLib (inWindow as WindowPtr, ByRef outControl as Integer) as Short
+		  #if TargetCarbon
+		    
+		    declare function GetKeyboardFocus lib CarbonLib (inWindow as WindowPtr, ByRef outControl as Integer) as Short
+		    
+		    dim controlRef as Integer
+		    dim OSErr as Short = GetKeyboardFocus(me.Window, controlRef)
+		    if OSErr <> 0 then
+		      return false
+		    end if
+		    
+		    return controlRef = me.HISearchFieldRef
+		    
+		  #endif
 		  
-		  dim controlRef as Integer
-		  dim OSErr as Short = GetKeyboardFocus(me.Window, controlRef)
-		  if OSErr <> 0 then
-		    return false
-		  end if
-		  
-		  return controlRef = me.HISearchFieldRef
 		End Function
 	#tag EndMethod
 
@@ -377,61 +402,65 @@ Inherits Canvas
 
 	#tag Method, Flags = &h21
 		Private Sub RegisterCarbonEventHandler()
-		  If me.HISearchFieldRef = 0 then
-		    Return
-		  End if
-		  
-		  #Pragma StackOverflowChecking False
-		  
-		  declare Function InstallEventHandler Lib CarbonLib (inTarget as Integer, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
-		  
-		  //inTarget
-		  declare Function HIObjectGetEventTarget Lib CarbonLib (inObject as Integer) as Integer
-		  
-		  dim eventTarget as Integer = HIObjectGetEventTarget(me.HISearchFieldRef)
-		  If eventTarget = 0 then
-		    Return
-		  End if
-		  
-		  //inHandler
-		  declare Function NewEventHandlerUPP Lib CarbonLib (userRoutine as Ptr) as Integer
-		  
-		  Static CallbackUPP as Integer = 0
-		  If CallbackUPP = 0 then
-		    dim m as MemoryBlock =  AddressOf ForwardCarbonEventToObject
-		    If m is nil then
+		  #if TargetCarbon
+		    
+		    If me.HISearchFieldRef = 0 then
 		      Return
 		    End if
-		    CallbackUPP = NewEventHandlerUPP(m)
-		  End if
-		  
-		  //events
-		  Const sizeOfEventTypeSpec = 8
-		  Const EventCount  = 6
-		  dim eventList as new MemoryBlock(EventCount*sizeOfEventTypeSpec)
-		  eventList.UInt32Value(0) = OSTypeToUInt(kEventClassControl)
-		  eventList.UInt32Value(4) = kEventControlGetSizeConstraints
-		  eventList.UInt32Value(8) = OSTypeToUInt(kEventClassSearchField)
-		  eventList.UInt32Value(12) = kEventSearchFieldCancelClicked
-		  eventList.UInt32Value(16) = OSTypeToUInt(kEventClassTextField)
-		  eventList.UInt32Value(20) = kEventTextAccepted
-		  eventList.UInt32Value(24) = OSTypeToUInt(kEventClassControl)
-		  eventList.UInt32Value(28) = kEventControlSetFocusPart
-		  eventList.UInt32Value(32) = OSTypeToUInt(kEventClassControl)
-		  eventList.UInt32Value(36) = kEventControlSetData
-		  eventList.UInt32Value(40) = OSTypeToUInt(kEventClassTextField) //only good in OS 10.4
-		  eventList.UInt32Value(44) = kEventTextDidChange
-		  
-		  //inUserData
-		  dim v as Variant = me
-		  
-		  //handlerRef
-		  //I don't want it returned
-		  
-		  dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, eventList.Size\sizeOfEventTypeSpec, eventList, v.Hash, Nil)
-		  
-		  // Keep the compiler from complaining
-		  #pragma unused OSError
+		    
+		    #Pragma StackOverflowChecking False
+		    
+		    declare Function InstallEventHandler Lib CarbonLib (inTarget as Integer, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
+		    
+		    //inTarget
+		    declare Function HIObjectGetEventTarget Lib CarbonLib (inObject as Integer) as Integer
+		    
+		    dim eventTarget as Integer = HIObjectGetEventTarget(me.HISearchFieldRef)
+		    If eventTarget = 0 then
+		      Return
+		    End if
+		    
+		    //inHandler
+		    declare Function NewEventHandlerUPP Lib CarbonLib (userRoutine as Ptr) as Integer
+		    
+		    Static CallbackUPP as Integer = 0
+		    If CallbackUPP = 0 then
+		      dim m as MemoryBlock =  AddressOf ForwardCarbonEventToObject
+		      If m is nil then
+		        Return
+		      End if
+		      CallbackUPP = NewEventHandlerUPP(m)
+		    End if
+		    
+		    //events
+		    Const sizeOfEventTypeSpec = 8
+		    Const EventCount  = 6
+		    dim eventList as new MemoryBlock(EventCount*sizeOfEventTypeSpec)
+		    eventList.UInt32Value(0) = OSTypeToUInt(kEventClassControl)
+		    eventList.UInt32Value(4) = kEventControlGetSizeConstraints
+		    eventList.UInt32Value(8) = OSTypeToUInt(kEventClassSearchField)
+		    eventList.UInt32Value(12) = kEventSearchFieldCancelClicked
+		    eventList.UInt32Value(16) = OSTypeToUInt(kEventClassTextField)
+		    eventList.UInt32Value(20) = kEventTextAccepted
+		    eventList.UInt32Value(24) = OSTypeToUInt(kEventClassControl)
+		    eventList.UInt32Value(28) = kEventControlSetFocusPart
+		    eventList.UInt32Value(32) = OSTypeToUInt(kEventClassControl)
+		    eventList.UInt32Value(36) = kEventControlSetData
+		    eventList.UInt32Value(40) = OSTypeToUInt(kEventClassTextField) //only good in OS 10.4
+		    eventList.UInt32Value(44) = kEventTextDidChange
+		    
+		    //inUserData
+		    dim v as Variant = me
+		    
+		    //handlerRef
+		    //I don't want it returned
+		    
+		    dim OSError as Integer = InstallEventHandler(eventTarget, CallbackUPP, eventList.Size\sizeOfEventTypeSpec, eventList, v.Hash, Nil)
+		    
+		    // Keep the compiler from complaining
+		    #pragma unused OSError
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
@@ -845,21 +874,26 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
-			  declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer,ByRef inBuffer as CFStringRef, outActualSize as Ptr) as Short
+			  #if TargetCarbon
+			    
+			    declare Function GetControlDataSize Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, ByRef outMaxSize as Integer) as Short
+			    declare Function GetControlData Lib CarbonLib (inControl as Integer, inPart as Short, inTagName as OSType, inBufferSize as Integer,ByRef inBuffer as CFStringRef, outActualSize as Ptr) as Short
+			    
+			    dim bufferSize as Integer
+			    dim OSError as Integer = GetControlDataSize(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, bufferSize)
+			    If bufferSize < 1 then
+			      Return ""
+			    End if
+			    dim buffer as CFStringRef
+			    OSError = GetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, bufferSize, buffer, Nil)
+			    If OSError <> 0 then
+			      Return ""
+			    End if
+			    
+			    Return buffer
+			    
+			  #endif
 			  
-			  dim bufferSize as Integer
-			  dim OSError as Integer = GetControlDataSize(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, bufferSize)
-			  If bufferSize < 1 then
-			    Return ""
-			  End if
-			  dim buffer as CFStringRef
-			  OSError = GetControlData(me.HISearchFieldRef, kControlEditTextPart, kControlEditTextCFStringTag, bufferSize, buffer, Nil)
-			  If OSError <> 0 then
-			    Return ""
-			  End if
-			  
-			  Return buffer
 			End Get
 		#tag EndGetter
 		#tag Setter

@@ -3,29 +3,39 @@ Class ChooseFileDialog
 Inherits NavigationDialog
 	#tag Event
 		Function CreateDialog(CreationOptions as NavDialogCreationOptions, eventHandler as Ptr, UserData as Ptr) As Ptr
-		  dim OSStatus as Integer
-		  dim navListHandle as MemoryBlock
-		  dim NavList as MemoryBlock
-		  dim theRef as Ptr
-		  
-		  Const kNavGenericSignature = "****"
-		  Const Null = 0
-		  
-		  soft declare function NavCreateChooseFileDialog lib CarbonLib (inOptions as Ptr, inTypeList as Ptr, inEventProc as Ptr, inPreviewProc as Ptr, inFilterProc as Ptr, inClientData as Ptr, ByRef outDialog as Ptr) as Integer
-		  
-		  NavList = new MemoryBlock(12) //actually 8 + type list count
-		  NavList.StringValue(0, 4) = kNavGenericSignature
-		  NavList.Short(6) = 1
-		  NavList.StringValue(8, 4) = "TEXT" //osTypeList
-		  NavListHandle = new MemoryBlock(4)
-		  NavListHandle.Ptr(0) = NavList
-		  
-		  OSStatus = NavCreateChooseFileDialog(CreationOptions, navListHandle, eventHandler, nil, nil, UserData, theRef)
-		  If OSStatus <> 0 then
-		    theRef = nil
-		    System.Log System.LogLevelError, "NavigationDialog.Show: NavCreateChooseFileDialog returned error " + Str(OSStatus) + "."
-		  End if
-		  Return theRef
+		  #if TargetMacOS
+		    
+		    dim OSStatus as Integer
+		    dim navListHandle as MemoryBlock
+		    dim NavList as MemoryBlock
+		    dim theRef as Ptr
+		    
+		    Const kNavGenericSignature = "****"
+		    Const Null = 0
+		    
+		    soft declare function NavCreateChooseFileDialog lib CarbonLib (inOptions as Ptr, inTypeList as Ptr, inEventProc as Ptr, inPreviewProc as Ptr, inFilterProc as Ptr, inClientData as Ptr, ByRef outDialog as Ptr) as Integer
+		    
+		    NavList = new MemoryBlock(12) //actually 8 + type list count
+		    NavList.StringValue(0, 4) = kNavGenericSignature
+		    NavList.Short(6) = 1
+		    NavList.StringValue(8, 4) = "TEXT" //osTypeList
+		    NavListHandle = new MemoryBlock(4)
+		    NavListHandle.Ptr(0) = NavList
+		    
+		    OSStatus = NavCreateChooseFileDialog(CreationOptions, navListHandle, eventHandler, nil, nil, UserData, theRef)
+		    If OSStatus <> 0 then
+		      theRef = nil
+		      System.Log System.LogLevelError, "NavigationDialog.Show: NavCreateChooseFileDialog returned error " + Str(OSStatus) + "."
+		    End if
+		    Return theRef
+		    
+		  #else
+		    
+		    #pragma unused CreationOptions
+		    #pragma unused eventHandler
+		    #pragma unused UserData
+		    
+		  #endif
 		  
 		End Function
 	#tag EndEvent

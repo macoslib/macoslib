@@ -24,35 +24,53 @@ Inherits ResourceForkReplacement.ResourceAccessor
 
 	#tag Method, Flags = &h1
 		Protected Sub Constructor(resFileRef as Integer, type as String, id as Integer, idx_0 as Integer = - 1, name as String = "")
-		  declare function Get1Resource lib CarbonLib (t as OSType, id as Integer) as Ptr
-		  declare function Get1IndResource lib CarbonLib (t as OSType, idx as Integer) as Ptr
-		  declare function Get1NamedResource lib CarbonLib (t as OSType, name as PString) as Ptr
+		  #if TargetMacOS
+		    
+		    declare function Get1Resource lib CarbonLib (t as OSType, id as Integer) as Ptr
+		    declare function Get1IndResource lib CarbonLib (t as OSType, idx as Integer) as Ptr
+		    declare function Get1NamedResource lib CarbonLib (t as OSType, name as PString) as Ptr
+		    
+		    if resFileRef = 0 then
+		      return
+		    end
+		    
+		    super.Constructor (resFileRef) // saves the current res file and activates the given res file
+		    
+		    if name <> "" then
+		      mHdl = Get1NamedResource (type, name)
+		    elseif idx_0 >= 0 then
+		      mHdl = Get1IndResource (type, idx_0+1)
+		    else
+		      mHdl = Get1Resource (type, id)
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused resFileRef
+		    #pragma unused type
+		    #pragma unused id
+		    #pragma unused idx_0
+		    #pragma unused name
+		    
+		  #endif
 		  
-		  if resFileRef = 0 then
-		    return
-		  end
-		  
-		  super.Constructor (resFileRef) // saves the current res file and activates the given res file
-		  
-		  if name <> "" then
-		    mHdl = Get1NamedResource (type, name)
-		  elseif idx_0 >= 0 then
-		    mHdl = Get1IndResource (type, idx_0+1)
-		  else
-		    mHdl = Get1Resource (type, id)
-		  end if
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
-		  declare sub ReleaseResource lib CarbonLib (hdl as Ptr)
+		  #if TargetMacOS
+		    
+		    declare sub ReleaseResource lib CarbonLib (hdl as Ptr)
+		    
+		    if mHdl = nil then
+		      return
+		    end
+		    
+		    ReleaseResource mHdl
+		    
+		  #endif
 		  
-		  if mHdl = nil then
-		    return
-		  end
-		  
-		  ReleaseResource mHdl
 		End Sub
 	#tag EndMethod
 

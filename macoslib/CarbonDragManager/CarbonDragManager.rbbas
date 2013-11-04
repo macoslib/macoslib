@@ -6,14 +6,23 @@ Protected Module CarbonDragManager
 
 	#tag Method, Flags = &h0
 		Function NewDragRefWithPasteboard(pb as CarbonPasteboard) As DragRef
-		  declare function NewDragWithPasteboard lib CarbonLib (pbRef as Integer, ByRef dragRef as Integer) as Integer
-		  
-		  dim r as Integer
-		  if NewDragWithPasteboard (pb.Handle, r) = 0 then
-		    if r <> 0 then
-		      return new DragRef (r)
+		  #if TargetMacOS
+		    
+		    declare function NewDragWithPasteboard lib CarbonLib (pbRef as Integer, ByRef dragRef as Integer) as Integer
+		    
+		    dim r as Integer
+		    if NewDragWithPasteboard (pb.Handle, r) = 0 then
+		      if r <> 0 then
+		        return new DragRef (r)
+		      end
 		    end
-		  end
+		    
+		  #else
+		    
+		    #pragma unused pb
+		    
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
