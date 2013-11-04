@@ -2,13 +2,18 @@
 Class MacResourceFork
 	#tag Method, Flags = &h0
 		Sub Close()
-		  declare sub CloseResFile lib CarbonLib (refnum as Integer)
+		  #if TargetMacOS
+		    
+		    declare sub CloseResFile lib CarbonLib (refnum as Integer)
+		    
+		    if mFileHandle <> 0 then
+		      CloseResFile (mFileHandle)
+		      mFileHandle = 0
+		      mResHandle = 0
+		    end if
+		    
+		  #endif
 		  
-		  if mFileHandle <> 0 then
-		    CloseResFile (mFileHandle)
-		    mFileHandle = 0
-		    mResHandle = 0
-		  end if
 		End Sub
 	#tag EndMethod
 
@@ -16,42 +21,51 @@ Class MacResourceFork
 		Sub Constructor(f as FolderItem, create as Boolean = false)
 		  // Opens or creates the Mac Resource of the given file
 		  
-		  declare function FSOpenResFile lib CarbonLib (fsRef as Ptr, permission as Integer) as Integer
-		  declare function FSCreateResourceFile lib CarbonLib (parRef as Ptr, nameLen as Integer, name as Ptr, whichinfo as Integer, catinfo as Ptr, forkNameLen as Integer, forkName as Ptr, ByRef outRef as Ptr, outSpec as Ptr) as Integer
-		  
-		  mFileHandle = -1 // "not valid"
-		  
-		  dim saver as new ResourceChainSaver ' saves the current res file and restore it again when leaving this method
-		  
-		  dim ref as MemoryBlock = f.MacFSRef
-		  
-		  if create then
-		    // create a new rsrc fork
-		    if ref = nil then
-		      break ' file not accessible
-		      return
-		    end if
+		  #if TargetMacOS
 		    
-		  else
-		    // open an existing rsrc fork
-		    if ref = nil then
-		      break ' file not accessible
-		      return
-		    end if
-		    const fsCurPerm = 0
-		    const fsRdPerm = 1
-		    const fsRdWrPerm = 3
-		    dim hdl as Integer = FSOpenResFile (ref, fsCurPerm)
-		    if hdl = -1 then
-		      break ' cannot open it
-		      return
-		    end if
-		    ' successfully opened the rsrc fork
-		    mFileHandle = hdl
-		    mResHandle = ResourceChainSaver.CurResFile
-		  end
-		  
-		  saver = nil // Keeps the compiler from complaining
+		    declare function FSOpenResFile lib CarbonLib (fsRef as Ptr, permission as Integer) as Integer
+		    declare function FSCreateResourceFile lib CarbonLib (parRef as Ptr, nameLen as Integer, name as Ptr, whichinfo as Integer, catinfo as Ptr, forkNameLen as Integer, forkName as Ptr, ByRef outRef as Ptr, outSpec as Ptr) as Integer
+		    
+		    mFileHandle = -1 // "not valid"
+		    
+		    dim saver as new ResourceChainSaver ' saves the current res file and restore it again when leaving this method
+		    
+		    dim ref as MemoryBlock = f.MacFSRef
+		    
+		    if create then
+		      // create a new rsrc fork
+		      if ref = nil then
+		        break ' file not accessible
+		        return
+		      end if
+		      
+		    else
+		      // open an existing rsrc fork
+		      if ref = nil then
+		        break ' file not accessible
+		        return
+		      end if
+		      const fsCurPerm = 0
+		      const fsRdPerm = 1
+		      const fsRdWrPerm = 3
+		      dim hdl as Integer = FSOpenResFile (ref, fsCurPerm)
+		      if hdl = -1 then
+		        break ' cannot open it
+		        return
+		      end if
+		      ' successfully opened the rsrc fork
+		      mFileHandle = hdl
+		      mResHandle = ResourceChainSaver.CurResFile
+		    end
+		    
+		    saver = nil // Keeps the compiler from complaining
+		    
+		  #else
+		    
+		    #pragma unused f
+		    #pragma unused create
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
@@ -64,66 +78,114 @@ Class MacResourceFork
 
 	#tag Method, Flags = &h0
 		Function GetNamedResource(type as String, name as String) As String
-		  dim item as ResourceItem = ResourceItem.ByName(mResHandle, type, name)
-		  if item = nil then return ""
+		  #if TargetMacOS
+		    
+		    dim item as ResourceItem = ResourceItem.ByName(mResHandle, type, name)
+		    if item = nil then return ""
+		    
+		    declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
+		    dim size as Integer = GetHandleSize (item.Handle)
+		    
+		    dim mb as MemoryBlock = item.Handle.Ptr(0)
+		    return mb.StringValue(0, size)
+		    
+		  #else
+		    
+		    #pragma unused type
+		    #pragma unused name
+		    
+		  #endif
 		  
-		  declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
-		  dim size as Integer = GetHandleSize (item.Handle)
-		  
-		  dim mb as MemoryBlock = item.Handle.Ptr(0)
-		  return mb.StringValue(0, size)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function GetResource(type as String, id as Integer) As String
-		  dim item as ResourceItem = ResourceItem.ByID(mResHandle, type, id)
-		  if item = nil then return ""
+		  #if TargetMacOS
+		    
+		    dim item as ResourceItem = ResourceItem.ByID(mResHandle, type, id)
+		    if item = nil then return ""
+		    
+		    dim hdl as Ptr = item.Handle
+		    if hdl = nil then return ""
+		    
+		    declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
+		    dim size as Integer = GetHandleSize (item.Handle)
+		    
+		    dim mb as MemoryBlock = item.Handle.Ptr(0)
+		    return mb.StringValue(0, size)
+		    
+		  #else
+		    
+		    #pragma unused type
+		    #pragma unused id
+		    
+		  #endif
 		  
-		  dim hdl as Ptr = item.Handle
-		  if hdl = nil then return ""
-		  
-		  declare function GetHandleSize lib CarbonLib (h as Ptr) as Integer
-		  dim size as Integer = GetHandleSize (item.Handle)
-		  
-		  dim mb as MemoryBlock = item.Handle.Ptr(0)
-		  return mb.StringValue(0, size)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ResourceAttributes(type as String, id as Integer) As Integer
-		  declare function GetResAttrs lib CarbonLib (hdl as Ptr) as Integer
-		  dim res as new ResourceAccessor (mResHandle)
-		  return GetResAttrs (ResourceItem.ByID(mResHandle, type, id).Handle)
-		  
-		  res = nil // Keeps the compiler from complaining
+		  #if TargetMacOS
+		    
+		    declare function GetResAttrs lib CarbonLib (hdl as Ptr) as Integer
+		    dim res as new ResourceAccessor (mResHandle)
+		    return GetResAttrs (ResourceItem.ByID(mResHandle, type, id).Handle)
+		    
+		    res = nil // Keeps the compiler from complaining
+		    
+		  #else
+		    
+		    #pragma unused type
+		    #pragma unused id
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ResourceCount(type as String) As Integer
-		  declare function Count1Resources lib CarbonLib (type as OSType) as Integer
+		  #if TargetMacOS
+		    
+		    declare function Count1Resources lib CarbonLib (type as OSType) as Integer
+		    
+		    dim res as new ResourceAccessor (mResHandle)
+		    
+		    return Count1Resources (type)
+		    
+		    res = nil // Keeps the compiler from complaining
+		    
+		  #else
+		    
+		    #pragma unused type
+		    
+		  #endif
 		  
-		  dim res as new ResourceAccessor (mResHandle)
-		  
-		  return Count1Resources (type)
-		  
-		  res = nil // Keeps the compiler from complaining
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ResourceID(type as String, index_0 as Integer) As Integer
-		  declare sub GetResInfo lib CarbonLib (hdl as Ptr, ByRef id as Integer, ByRef t as OSType, name as Ptr)
+		  #if TargetMacOS
+		    
+		    declare sub GetResInfo lib CarbonLib (hdl as Ptr, ByRef id as Integer, ByRef t as OSType, name as Ptr)
+		    
+		    dim id as Integer, t as OSType
+		    dim name as new MemoryBlock(256)
+		    
+		    GetResInfo ResourceItem.ByIndex(mResHandle, type, index_0).Handle, id, t, name
+		    
+		    return id
+		    
+		  #else
+		    
+		    #pragma unused type
+		    #pragma unused index_0
+		    
+		  #endif
 		  
-		  dim id as Integer, t as OSType
-		  dim name as new MemoryBlock(256)
-		  
-		  GetResInfo ResourceItem.ByIndex(mResHandle, type, index_0).Handle, id, t, name
-		  
-		  return id
 		End Function
 	#tag EndMethod
 
@@ -135,14 +197,24 @@ Class MacResourceFork
 
 	#tag Method, Flags = &h0
 		Function ResourceName(type as String, index_0 as Integer) As String
-		  declare sub GetResInfo lib CarbonLib (hdl as Ptr, ByRef id as Integer, ByRef t as OSType, name as Ptr)
+		  #if TargetMacOS
+		    
+		    declare sub GetResInfo lib CarbonLib (hdl as Ptr, ByRef id as Integer, ByRef t as OSType, name as Ptr)
+		    
+		    dim id as Integer, t as OSType
+		    dim name as new MemoryBlock(256)
+		    
+		    GetResInfo ResourceItem.ByIndex(mResHandle, type, index_0).Handle, id, t, name
+		    
+		    return name.PString(0)
+		    
+		  #else
+		    
+		    #pragma unused type
+		    #pragma unused index_0
+		    
+		  #endif
 		  
-		  dim id as Integer, t as OSType
-		  dim name as new MemoryBlock(256)
-		  
-		  GetResInfo ResourceItem.ByIndex(mResHandle, type, index_0).Handle, id, t, name
-		  
-		  return name.PString(0)
 		End Function
 	#tag EndMethod
 
@@ -172,24 +244,37 @@ Class MacResourceFork
 
 	#tag Method, Flags = &h0
 		Function ResourceType(index_0 as Integer) As String
-		  declare sub Get1IndType lib CarbonLib (ByRef t as OSType, idx as Integer)
+		  #if TargetMacOS
+		    
+		    declare sub Get1IndType lib CarbonLib (ByRef t as OSType, idx as Integer)
+		    
+		    dim res as new ResourceAccessor (mResHandle)
+		    dim t as OSType
+		    Get1IndType t, index_0+1
+		    return t
+		    
+		    res = nil // Keeps the compiler from complaining
+		    
+		  #else
+		    
+		    #pragma unused index_0
+		    
+		  #endif
 		  
-		  dim res as new ResourceAccessor (mResHandle)
-		  dim t as OSType
-		  Get1IndType t, index_0+1
-		  return t
-		  
-		  res = nil // Keeps the compiler from complaining
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function TypeCount() As Integer
-		  declare function Count1Types lib CarbonLib () as Integer
-		  dim res as new ResourceAccessor (mResHandle)
-		  return Count1Types
-		  
-		  res = nil // Keeps the compiler from complaining
+		  #if TargetMacOS
+		    
+		    declare function Count1Types lib CarbonLib () as Integer
+		    dim res as new ResourceAccessor (mResHandle)
+		    return Count1Types
+		    
+		    res = nil // Keeps the compiler from complaining
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod

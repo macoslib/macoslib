@@ -37,11 +37,19 @@ Inherits CFString
 		Sub Constructor(s as string)
 		  //15% faster than previous implementation (running Cocoa)
 		  
-		  declare function CFStringCreateMutableCopy Lib CarbonLib (alloc as Ptr, maxLength as Integer, theString as CFStringRef ) as Ptr
-		  
-		  dim theRef as Ptr
-		  theRef = CFStringCreateMutableCopy( nil, 0, s )
-		  super.Constructor   theRef, true
+		  #if TargetMacOS
+		    
+		    declare function CFStringCreateMutableCopy Lib CarbonLib (alloc as Ptr, maxLength as Integer, theString as CFStringRef ) as Ptr
+		    
+		    dim theRef as Ptr
+		    theRef = CFStringCreateMutableCopy( nil, 0, s )
+		    super.Constructor   theRef, true
+		    
+		  #else
+		    
+		    #pragma unused s
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod

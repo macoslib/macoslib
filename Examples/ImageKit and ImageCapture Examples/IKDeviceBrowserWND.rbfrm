@@ -172,6 +172,7 @@ Begin Window IKDeviceBrowserWND
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Search:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -302,6 +303,7 @@ Begin Window IKDeviceBrowserWND
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Show as:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -336,6 +338,7 @@ Begin Window IKDeviceBrowserWND
       Selectable      =   False
       TabIndex        =   14
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "The following uses ImageKit (Mac OS X 10.6+) to find the connected scanners, multifunction devices, cameras, iPod or iPhones connected to your computer just like ImageCapture.app does.\r\rWhen opening a device, you can transfer pictures and/or movies to the computer.\r\rNOTE that ImageKit is easy to use and provides a localized UI for most operations. It is based on ImageCaptureCore (IC... objects) which is more powerful but much more difficult to use and does not provide any UI."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -401,6 +404,7 @@ Begin Window IKDeviceBrowserWND
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Scan/download as:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -519,6 +523,7 @@ Begin Window IKDeviceBrowserWND
       Selectable      =   False
       TabIndex        =   22
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "UNDOCUMENTED FEATURES:\r\rA control bar can be displayed at the bottom of the control, as in the ImageCapture.app application. Its main feature here would be to show/hide the settings for the selected item.\r\rNote that, as it is not documented, such feature might cause your application to be rejected by the MAS. If you want that feature to be completely disabled, set the constant IKDeviceBrowserView.DisableUndocumentedFeatures to true."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -533,17 +538,16 @@ Begin Window IKDeviceBrowserWND
    End
    Begin Line Line1
       BorderWidth     =   1
-      Height          =   50
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   ""
       LineColor       =   ""
       LockedInPosition=   False
       Scope           =   0
+      TabIndex        =   16
       TabPanelIndex   =   0
-      Top             =   ""
+      TabStop         =   True
       Visible         =   True
-      Width           =   100
       X1              =   19
       X2              =   19
       Y1              =   412

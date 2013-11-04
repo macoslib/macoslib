@@ -208,48 +208,60 @@ Class FSEventStream
 
 	#tag Method, Flags = &h21
 		Private Sub HandleEvent(numEvents as integer, eventPaths as Ptr, eventFlags as Ptr, eventIDs as Ptr)
-		  #pragma DisableBackgroundTasks
-		  #pragma StackOverflowChecking false
-		  
-		  declare function CFArrayGetStringAtIndex lib CarbonLib alias "CFArrayGetValueAtIndex" (theArray as Ptr, idx as Integer) as CFStringRef
-		  declare function CFArrayGetValueAtIndex lib CarbonLib alias "CFArrayGetValueAtIndex" (theArray as Ptr, idx as Integer) as Ptr
-		  declare function CFNumberGetValue lib CarbonLib (nbr as Ptr, theType as integer, outValue as Ptr) as Boolean
-		  
-		  const kCFNumberIntType = 9
-		  const kCFNumberLongType = 10
-		  
-		  dim id as UInt64
-		  dim path as String
-		  dim flags as UInt32
-		  'dim mb as new MemoryBlock( 8 )
-		  dim mb2, mb3 as MemoryBlock
-		  'dim p as Ptr
-		  dim arp() as string
-		  dim arf() as int32
-		  dim arid() as UInt64
-		  dim f as FolderItem
-		  
-		  mb2 = eventFlags
-		  mb3 = eventIDs
-		  
-		  for i as integer=0 to numEvents - 1
-		    path = CFArrayGetStringAtIndex( eventPaths, i )
-		    arp.Append   path
+		  #if TargetMacOS
 		    
-		    if RelativeTo<>nil then
-		      f = GetFolderItemFromPOSIXPath( RelativeTo.POSIXPath + "/" + path )
-		    else
-		      f = GetFolderItemFromPOSIXPath( path )
-		    end if
+		    #pragma DisableBackgroundTasks
+		    #pragma StackOverflowChecking false
 		    
-		    flags = mb2.UInt32Value( i * 4 )
-		    arf.Append   flags
+		    declare function CFArrayGetStringAtIndex lib CarbonLib alias "CFArrayGetValueAtIndex" (theArray as Ptr, idx as Integer) as CFStringRef
+		    declare function CFArrayGetValueAtIndex lib CarbonLib alias "CFArrayGetValueAtIndex" (theArray as Ptr, idx as Integer) as Ptr
+		    declare function CFNumberGetValue lib CarbonLib (nbr as Ptr, theType as integer, outValue as Ptr) as Boolean
 		    
-		    id = mb3.UInt64Value( i * 8 )
-		    arid.Append   id
-		  next
+		    const kCFNumberIntType = 9
+		    const kCFNumberLongType = 10
+		    
+		    dim id as UInt64
+		    dim path as String
+		    dim flags as UInt32
+		    'dim mb as new MemoryBlock( 8 )
+		    dim mb2, mb3 as MemoryBlock
+		    'dim p as Ptr
+		    dim arp() as string
+		    dim arf() as int32
+		    dim arid() as UInt64
+		    dim f as FolderItem
+		    
+		    mb2 = eventFlags
+		    mb3 = eventIDs
+		    
+		    for i as integer=0 to numEvents - 1
+		      path = CFArrayGetStringAtIndex( eventPaths, i )
+		      arp.Append   path
+		      
+		      if RelativeTo<>nil then
+		        f = GetFolderItemFromPOSIXPath( RelativeTo.POSIXPath + "/" + path )
+		      else
+		        f = GetFolderItemFromPOSIXPath( path )
+		      end if
+		      
+		      flags = mb2.UInt32Value( i * 4 )
+		      arf.Append   flags
+		      
+		      id = mb3.UInt64Value( i * 8 )
+		      arid.Append   id
+		    next
+		    
+		    RaiseEvent  FilesystemModified( arp, arf, arid )
+		    
+		  #else
+		    
+		    #pragma unused numEvents
+		    #pragma unused eventPaths
+		    #pragma unused eventFlags
+		    #pragma unused eventIDs
+		    
+		  #endif
 		  
-		  RaiseEvent  FilesystemModified( arp, arf, arid )
 		End Sub
 	#tag EndMethod
 
@@ -410,20 +422,20 @@ Class FSEventStream
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="State"
@@ -434,14 +446,14 @@ Class FSEventStream
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

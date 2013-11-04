@@ -8,17 +8,27 @@ Protected Class ResourceChainSaver
 
 	#tag Method, Flags = &h0
 		 Shared Function CurResFile() As Integer
-		  declare function CurResFile lib CarbonLib () as Integer
+		  #if TargetMacOS
+		    
+		    declare function CurResFile lib CarbonLib () as Integer
+		    
+		    return CurResFile()
+		    
+		  #endif
 		  
-		  return CurResFile()
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
-		  declare sub UseResFile lib CarbonLib (refNum as Integer)
+		  #if TargetMacOS
+		    
+		    declare sub UseResFile lib CarbonLib (refNum as Integer)
+		    
+		    UseResFile mPrevResFile
+		    
+		  #endif
 		  
-		  UseResFile mPrevResFile
 		End Sub
 	#tag EndMethod
 
@@ -34,33 +44,33 @@ Protected Class ResourceChainSaver
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

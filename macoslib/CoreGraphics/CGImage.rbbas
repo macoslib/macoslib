@@ -25,9 +25,14 @@ Inherits CFType
 		    return nil
 		  end if
 		  
-		  soft declare function CGImageGetColorSpace lib CarbonLib (image as Ptr) as Ptr
+		  #if TargetMacOS
+		    
+		    soft declare function CGImageGetColorSpace lib CarbonLib (image as Ptr) as Ptr
+		    
+		    return new CGColorSpace(CGImageGetColorSpace(me), false)
+		    
+		  #endif
 		  
-		  return new CGColorSpace(CGImageGetColorSpace(me), false)
 		End Function
 	#tag EndMethod
 
@@ -155,10 +160,13 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function GetAlphaInfo() As integer
-		  
-		  soft declare function CGImageGetAlphaInfo lib CarbonLib ( image as Ptr ) as integer
-		  
-		  return  CGImageGetAlphaInfo( me )
+		  #if TargetMacOS
+		    
+		    soft declare function CGImageGetAlphaInfo lib CarbonLib ( image as Ptr ) as integer
+		    
+		    return  CGImageGetAlphaInfo( me )
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -204,56 +212,58 @@ Inherits CFType
 		    return nil
 		  end if
 		  
-		  #if RBVersion < 2011.01
-		    dim g as Graphics = p.Graphics
+		  #if TargetMacOS
 		    
-		    if g is nil then //copy into new picture
-		      dim pCopy as new Picture(p.Width, p.Height, 32)
-		      dim gCopy as Graphics = pCopy.Graphics
-		      if gCopy is nil then
-		        return nil
+		    #if RBVersion < 2011.01
+		      dim g as Graphics = p.Graphics
+		      
+		      if g is nil then //copy into new picture
+		        dim pCopy as new Picture(p.Width, p.Height, 32)
+		        dim gCopy as Graphics = pCopy.Graphics
+		        if gCopy is nil then
+		          return nil
+		        end if
+		        gCopy.DrawPicture p, 0, 0
+		        p = pCopy
+		        g = gCopy
 		      end if
-		      gCopy.DrawPicture p, 0, 0
-		      p = pCopy
-		      g = gCopy
-		    end if
-		    if g is nil then //I give up
-		      return nil
-		    end if
-		    
-		    soft declare function QDBeginCGContext lib CarbonLib (port as Ptr, ByRef contextPtr as Ptr) as Integer
-		    soft declare function CGBitmapContextCreateImage lib CarbonLib (c as Ptr) as Ptr
-		    soft declare function QDEndCGContext lib CarbonLib (port as Ptr, ByRef context as Ptr) as Integer
-		    
-		    
-		    #if targetCarbon
-		      dim gworldData as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGrafPtr))
-		      if gworldData = nil then
+		      if g is nil then //I give up
 		        return nil
 		      end if
 		      
-		      dim c as Ptr
-		      dim OSError as Integer = QDBeginCGContext(gworldData, c)
-		      if OSError <> 0 or c = nil then
-		        return nil
-		      end if
-		      dim image as new CGImage(CGBitmapContextCreateImage(c), CFType.hasOwnership)
-		      OSError = QDEndCGContext(gworldData, c)
+		      soft declare function QDBeginCGContext lib CarbonLib (port as Ptr, ByRef contextPtr as Ptr) as Integer
+		      soft declare function CGBitmapContextCreateImage lib CarbonLib (c as Ptr) as Ptr
+		      soft declare function QDEndCGContext lib CarbonLib (port as Ptr, ByRef context as Ptr) as Integer
 		      
-		      return image
+		      
+		      #if targetCarbon
+		        dim gworldData as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGrafPtr))
+		        if gworldData = nil then
+		          return nil
+		        end if
+		        
+		        dim c as Ptr
+		        dim OSError as Integer = QDBeginCGContext(gworldData, c)
+		        if OSError <> 0 or c = nil then
+		          return nil
+		        end if
+		        dim image as new CGImage(CGBitmapContextCreateImage(c), CFType.hasOwnership)
+		        OSError = QDEndCGContext(gworldData, c)
+		        
+		        return image
+		      #endif
+		      
+		      #if targetCocoa
+		        dim context as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGContextRef))
+		        dim image as new CGImage(CGBitmapContextCreateImage(context), CFType.hasOwnership)
+		        return image
+		      #endif
+		      
+		    #else
+		      return new CGImage(p.CopyOSHandle( Picture.HandleType.MacCGImage ), hasOwnership)
 		    #endif
 		    
-		    #if targetCocoa
-		      dim context as Ptr = Ptr(g.Handle(Graphics.HandleTypeCGContextRef))
-		      dim image as new CGImage(CGBitmapContextCreateImage(context), CFType.hasOwnership)
-		      return image
-		    #endif
-		    
-		  #else
-		    return new CGImage(p.CopyOSHandle( Picture.HandleType.MacCGImage ), hasOwnership)
 		  #endif
-		  
-		  
 		  
 		  
 		End Function
@@ -274,6 +284,11 @@ Inherits CFType
 		    else
 		      return nil
 		    end if
+		    
+		  #else
+		    
+		    #pragma unused transformType
+		    
 		  #endif
 		End Function
 	#tag EndMethod

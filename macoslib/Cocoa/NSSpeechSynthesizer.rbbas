@@ -192,10 +192,13 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Destructor()
-		  
-		  declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, del_id as Ptr)
-		  declare sub release lib CocoaLib
-		  setDelegate   me.id, nil
+		  #if TargetMacOS
+		    
+		    declare sub setDelegate lib CocoaLib selector "setDelegate:" (obj_id as Ptr, del_id as Ptr)
+		    declare sub release lib CocoaLib
+		    setDelegate   me.id, nil
+		    
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
