@@ -52,7 +52,7 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = false)
+		Sub Constructor(obj_id as Ptr, hasOwnership as Boolean = False)
 		  
 		  'if checkForClass<>"" then
 		  'if NOT Cocoa.InheritsFromClass( obj_id, checkForClass ) then
