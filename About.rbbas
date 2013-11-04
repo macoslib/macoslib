@@ -70,6 +70,10 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		159: 2013-11-04 by TT
+		- Made NSURL more efficient by eliminating several superfluous calls to Cocoa.StringConstant and
+		   Cocoa.NSObjectFromNSPtr.
+		
 		158: 2013-11-04 by KT
 		- Added #if Target... pragmas for methods that had been missing them.
 		- Checked compilation for Carbon, Cocoa, Windows, and Linux.
@@ -432,7 +436,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"158", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"159", Scope = Protected
 	#tag EndConstant
 
 
