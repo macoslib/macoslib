@@ -660,6 +660,11 @@ Inherits Application
 		  if ref.FolderItem.AbsolutePath <> f.AbsolutePath then
 		    break // test failed!
 		  end
+		  
+		  dim space as Int64 = f.FreeSpaceOnVolume
+		  if space <= 0 then
+		    break // test failed!
+		  end if
 		End Sub
 	#tag EndMethod
 

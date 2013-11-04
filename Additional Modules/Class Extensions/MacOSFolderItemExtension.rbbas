@@ -213,7 +213,7 @@ Protected Module MacOSFolderItemExtension
 		Function FreeSpaceOnVolume(extends theVolume as FolderItem) As UInt64
 		  #if targetMacOS
 		    if SystemVersionAsInt < 100700 then //Before Lion
-		      soft declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
+		      declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
 		      
 		      dim theInfo as FSVolumeInfo
 		      dim OSErr as Int16 = FSGetVolumeInfo(theVolume.MacVRefNum, 0, nil, FileManager.kFSVolInfoSizes, theInfo, nil, nil)
@@ -226,10 +226,11 @@ Protected Module MacOSFolderItemExtension
 		      
 		    else //Lion and later
 		      dim url as new NSURL( theVolume )
-		      dim nso as NSObject = url.ResourceValue( "NSURLVolumeAvailableCapacityKey" )
+		      dim result as Ptr = url.ResourceValuePtr( url.NSURLVolumeAvailableCapacityKey )
 		      
-		      if nso<>nil then
-		        return  nso.VariantValue
+		      if result <> nil then
+		        dim num as new NSNumber(result)
+		        return num.Int64Value
 		      end if
 		      
 		    end if
@@ -480,7 +481,7 @@ Protected Module MacOSFolderItemExtension
 		  
 		  #if TargetMacOS
 		    if SystemVersionAsInt < 100600 then //Before Snow Leopard
-		      soft declare function LSCopyItemInfoForRef lib CarbonLib (fsRef as Ptr, inWhichInfo as Integer, ByRef outItemInfo as LSItemInfoRecord) as Integer
+		      declare function LSCopyItemInfoForRef lib CarbonLib (fsRef as Ptr, inWhichInfo as Integer, ByRef outItemInfo as LSItemInfoRecord) as Integer
 		      
 		      const kLSRequestBasicFlagsOnly = &h00000004
 		      const kLSItemInfoIsPackage = &h00000002
@@ -495,39 +496,38 @@ Protected Module MacOSFolderItemExtension
 		      
 		    else  //Snow Leopard+
 		      dim url as new NSURL( f )
-		      dim nsn as NSNumber = NSNumber( URL.ResourceValue( "NSURLIsPackageKey" ))
+		      dim nsn as new NSNumber( url.ResourceValuePtr( url.NSURLIsPackageKey ))
 		      
-		      return  nsn.BooleanValue
+		      return nsn.BooleanValue
 		    end if
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IsPackage(extends f as FolderItem, YesNo as Boolean) As Boolean
+		Function IsPackage(extends f as FolderItem, enable as Boolean) As Boolean
 		  //# Set the IsPackage bit of a folder. If set, the folder is displayed as a single file.
 		  
 		  //@ If the folder is a package because of its extension, it has no effect.
 		  
 		  #if TargetMacOS
 		    if SystemVersionAsInt < 100800 then
-		      soft declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
-		      soft declare function FSSetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr ) as Int16
+		      declare function FSGetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr, outName as Ptr, fsSpec as Ptr, parentRef as Ptr ) as Int16
+		      declare function FSSetCatalogInfo lib CarbonLib ( ref as Ptr, whichInfo as integer, catalogInfo as Ptr ) as Int16
 		      
 		      const kFSCatInfoFinderInfo = &h00000800
 		      const PackageMask = &h2000
 		      
 		      dim theRef as FSRef = f.FSRef
 		      dim itemInfo as new MemoryBlock( 144 )
-		      dim finfo as UInt16
 		      
 		      dim OSError as Int16 = FSGetCatalogInfo(theRef, kFSCatInfoFinderInfo, itemInfo, nil, nil, nil)
 		      if OSError <> 0 then
-		        raise   new MacOSError( OSError )
+		        raise new MacOSError( OSError )
 		      end if
 		      
-		      finfo = itemInfo.UInt16Value( 80 ) //Finder info
-		      if YesNo then
+		      dim finfo as UInt16 = itemInfo.UInt16Value( 80 ) //Finder info flags
+		      if enable then
 		        finfo = finfo OR PackageMask
 		      else
 		        finfo = finfo AND (NOT PackageMask)
@@ -538,17 +538,17 @@ Protected Module MacOSFolderItemExtension
 		      OSError = FSSetCatalogInfo( theRef, kFSCatInfoFinderInfo, iteminfo )
 		      
 		      if OSError <> 0 then
-		        raise   new MacOSError( OSError )
+		        raise new MacOSError( OSError )
 		      end if
 		      
-		      return   true
+		      return true
 		      
 		    else //Mountain Lion+
-		      //The function is actually available from 10.6 but NSURLIsPachageKey was read-only until 10.8
+		      //The function is actually available from 10.6 but NSURLIsPackageKey was read-only until 10.8
 		      
 		      dim url as new NSURL( f )
-		      dim nsn as new NSNumber( YesNo )
-		      return  URL.ResourceValue( "NSURLIsPackageKey", nsn )
+		      dim nsn as new NSNumber( enable )
+		      return url.ResourceValue( url.NSURLIsPackageKey, nsn )
 		    end if
 		  #endif
 		End Function
