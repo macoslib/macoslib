@@ -412,804 +412,6 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Shared Function KeyList() As String()
-		  return kKeyList.Split(EndOfLine)
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSFTPPropertyActiveTransferModeKey() As String
-		  
-		  return Cocoa.StringConstant("NSFTPPropertyActiveTransferModeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSFTPPropertyFileOffsetKey() As String
-		  
-		  return Cocoa.StringConstant("NSFTPPropertyFileOffsetKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSFTPPropertyFTPProxy() As String
-		  
-		  return Cocoa.StringConstant("NSFTPPropertyFTPProxy")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSFTPPropertyUserLoginKey() As String
-		  
-		  return Cocoa.StringConstant("NSFTPPropertyUserLoginKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSFTPPropertyUserPasswordKey() As String
-		  
-		  return Cocoa.StringConstant("NSFTPPropertyUserPasswordKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSHTTPPropertyErrorPageDataKey() As String
-		  
-		  return Cocoa.StringConstant("NSHTTPPropertyErrorPageDataKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSHTTPPropertyHTTPProxy() As String
-		  
-		  return Cocoa.StringConstant("NSHTTPPropertyHTTPProxy")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSHTTPPropertyRedirectionHeadersKey() As String
-		  
-		  return Cocoa.StringConstant("NSHTTPPropertyRedirectionHeadersKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSHTTPPropertyServerHTTPVersionKey() As String
-		  
-		  return Cocoa.StringConstant("NSHTTPPropertyServerHTTPVersionKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSHTTPPropertyStatusCodeKey() As String
-		  
-		  return Cocoa.StringConstant("NSHTTPPropertyStatusCodeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSHTTPPropertyStatusReasonKey() As String
-		  
-		  return Cocoa.StringConstant("NSHTTPPropertyStatusReasonKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLAttributeModificationDateKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLAttributeModificationDateKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLContentAccessDateKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLContentAccessDateKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLContentModificationDateKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLContentModificationDateKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLCreationDateKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLCreationDateKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLCustomIconKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLCustomIconKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLEffectiveIconKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLEffectiveIconKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileAllocatedSizeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileAllocatedSizeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceIdentifierKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceIdentifierKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeBlockSpecial() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeBlockSpecial")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeCharacterSpecial() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeCharacterSpecial")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeDirectory() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeDirectory")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeNamedPipe() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeNamedPipe")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeRegular() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeRegular")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeSocket() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeSocket")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeSymbolicLink() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeSymbolicLink")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileResourceTypeUnknown() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileResourceTypeUnknown")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileScheme() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileScheme")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileSecurityKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileSecurityKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLFileSizeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLFileSizeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLHasHiddenExtensionKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLHasHiddenExtensionKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsAliasFileKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsAliasFileKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsDirectoryKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsDirectoryKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsExecutableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsExecutableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsHiddenKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsHiddenKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsMountTriggerKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsMountTriggerKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsPackageKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsPackageKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsReadableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsReadableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsRegularFileKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsRegularFileKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsSymbolicLinkKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsSymbolicLinkKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsSystemImmutableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsSystemImmutableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsUbiquitousItemKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsUbiquitousItemKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsUserImmutableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsUserImmutableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsVolumeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsVolumeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLIsWritableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLIsWritableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLKeysOfUnsetValuesKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLKeysOfUnsetValuesKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLLabelColorKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLLabelColorKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLLabelNumberKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLLabelNumberKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLLinkCountKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLLinkCountKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLLocalizedLabelKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLLocalizedLabelKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLLocalizedNameKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLLocalizedNameKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLLocalizedTypeDescriptionKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLLocalizedTypeDescriptionKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLNameKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLNameKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLParentDirectoryURLKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLParentDirectoryURLKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLPreferredIOBlockSizeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLPreferredIOBlockSizeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLTotalFileAllocatedSizeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLTotalFileAllocatedSizeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLTotalFileSizeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLTotalFileSizeKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLTypeIdentifierKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLTypeIdentifierKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemHasUnresolvedConflictsKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemHasUnresolvedConflictsKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemIsDownloadedKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemIsDownloadedKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemIsDownloadingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemIsDownloadingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemIsUploadedKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemIsUploadedKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemIsUploadingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemIsUploadingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemPercentDownloadedKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemPercentDownloadedKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLUbiquitousItemPercentUploadedKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLUbiquitousItemPercentUploadedKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeAvailableCapacityKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeAvailableCapacityKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeCreationDateKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeCreationDateKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIdentifierKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIdentifierKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsAutomountedKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsAutomountedKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsBrowsableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsBrowsableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsEjectableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsEjectableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsInternalKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsInternalKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsJournalingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsJournalingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsLocalKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsLocalKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsReadOnlyKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsReadOnlyKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeIsRemovableKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsRemovableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeLocalizedFormatDescriptionKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeLocalizedFormatDescriptionKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeLocalizedNameKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeLocalizedNameKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeMaximumFileSizeKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeIsBrowsableKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeNameKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeNameKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeResourceCountKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeResourceCountKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsAdvisoryFileLockingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsAdvisoryFileLockingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsCasePreservedNamesKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsCasePreservedNamesKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsCaseSensitiveNamesKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsCaseSensitiveNamesKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsExtendedSecurityKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsExtendedSecurityKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsHardLinksKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsHardLinksKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsJournalingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsJournalingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsPersistentIDsKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsPersistentIDsKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsRenamingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsRenamingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsRootDirectoryDatesKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsRootDirectoryDatesKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsSparseFilesKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsSparseFilesKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsSymbolicLinksKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsSymbolicLinksKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsVolumeSizesKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsVolumeSizesKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeSupportsZeroRunsKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeSupportsZeroRunsKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeTotalCapacityKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeTotalCapacityKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeURLForRemountingKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeURLForRemountingKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeURLKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeURLKey")
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function NSURLVolumeUUIDStringKey() As String
-		  
-		  return Cocoa.StringConstant("NSURLVolumeUUIDStringKey")
-		  
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As String
 		  
@@ -1273,27 +475,44 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ResourceValue(forKey as string) As NSObject
-		  //Get information about file/volume
+		Function ResourceValue(forKey as string, newValue as NSObject) As boolean
+		  //Set information about file/volume
 		  
-		  //If there is no value for the given key, nil is returned.
+		  #if TargetMacOS
+		    declare function setResourceValue lib CocoaLib selector "setResourceValue:forKey:error:" (id as Ptr, value as Ptr, forKey as CFStringRef, byref err as Ptr) as Boolean
+		    
+		    assertOSVersion  100600 //Snow Leopard
+		    
+		    dim err as Ptr
+		    dim OK as Boolean = setResourceValue(newValue.id, newValue, forKey, err )
+		    
+		    if err <> nil then
+		      raise new NSException( err )
+		    end if
+		    
+		    return  OK
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ResourceValuePtr(forKey as string) As Ptr
+		  // Get information about file/volume
+		  //
+		  // The returned value is a Handle of a NS type. Caller needs to convert that
+		  // into the expected type using 'new NSString(p)' or 'new NSNumber(p)' etc.
+		  //
+		  // If there is no value for the given key, nil is returned.
 		  
 		  #if TargetMacOS
 		    declare function getResourceValue lib CocoaLib selector "getResourceValue:forKey:error:" (id as Ptr, byref value as Ptr, forKey as CFStringRef, byref err as Ptr) as Boolean
 		    
-		    assertOSVersion  100600 //Snow Leopard
+		    assertOSVersion 100600 //Snow Leopard
 		    
 		    dim value as Ptr
-		    dim key as CFStringRef
-		    if KeyList.IndexOf(forKey) > -1 then
-		      key = Cocoa.StringConstant(forKey)
-		    else
-		      key = forKey
-		    end if
 		    dim err as Ptr
-		    
-		    dim OK as Boolean = getResourceValue( self.id, value, key, err )
-		    
+		    dim OK as Boolean = getResourceValue( self.id, value, forKey, err )
 		    
 		    if OK then
 		      if value = nil then
@@ -1305,35 +524,6 @@ Inherits NSObject
 		      raise new NSException(err)
 		    end if
 		    
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function ResourceValue(forKey as string, newValue as NSObject) As boolean
-		  //Set information about file/volume
-		  
-		  #if TargetMacOS
-		    declare function setResourceValue lib CocoaLib selector "setResourceValue:forKey:error:" (id as Ptr, value as Ptr, forKey as CFStringRef, byref err as Ptr) as Boolean
-		    
-		    assertOSVersion  100600 //Snow Leopard
-		    
-		    dim key as CFStringRef
-		    if KeyList.IndexOf(forKey) > -1 then
-		      key = Cocoa.StringConstant(forKey)
-		    else
-		      key = forKey
-		    end if
-		    dim err as Ptr
-		    
-		    dim OK as Boolean = setResourceValue(newValue.id, newValue, key, err )
-		    
-		    if err <> nil then
-		      raise new NSException( err )
-		    end if
-		    
-		    return  OK
 		  #endif
 		  
 		End Function
@@ -1955,7 +1145,40 @@ Inherits NSObject
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = kKeyList, Type = String, Dynamic = False, Default = \"NSURLNameKey\rNSURLLocalizedNameKey\rNSURLIsRegularFileKey\rNSURLIsDirectoryKey\rNSURLIsSymbolicLinkKey\rNSURLIsVolumeKey\rNSURLIsPackageKey\rNSURLIsSystemImmutableKey\rNSURLIsUserImmutableKey\rNSURLIsHiddenKey\rNSURLHasHiddenExtensionKey\rNSURLCreationDateKey\rNSURLContentAccessDateKey\rNSURLContentModificationDateKey\rNSURLAttributeModificationDateKey\rNSURLLinkCountKey\rNSURLParentDirectoryURLKey\rNSURLVolumeURLKey\rNSURLTypeIdentifierKey\rNSURLLocalizedTypeDescriptionKey\rNSURLLabelNumberKey\rNSURLLabelColorKey\rNSURLLocalizedLabelKey\rNSURLEffectiveIconKey\rNSURLCustomIconKey\rNSURLFileSizeKey\rNSURLFileAllocatedSizeKey\rNSURLIsAliasFileKey\rNSURLVolumeLocalizedFormatDescriptionKey\rNSURLVolumeTotalCapacityKey\rNSURLVolumeAvailableCapacityKey\rNSURLVolumeResourceCountKey\rNSURLVolumeSupportsPersistentIDsKey\rNSURLVolumeSupportsSymbolicLinksKey\rNSURLVolumeSupportsHardLinksKey\rNSURLVolumeSupportsJournalingKey\rNSURLVolumeIsJournalingKey\rNSURLVolumeSupportsSparseFilesKey\rNSURLVolumeSupportsZeroRunsKey\rNSURLVolumeSupportsCaseSensitiveNamesKey\rNSURLVolumeSupportsCasePreservedNamesKey", Scope = Private
+	#tag Constant, Name = NSFTPPropertyActiveTransferModeKey, Type = String, Dynamic = False, Default = \"NSFTPPropertyActiveTransferModeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSFTPPropertyFileOffsetKey, Type = String, Dynamic = False, Default = \"NSFTPPropertyFileOffsetKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSFTPPropertyFTPProxy, Type = String, Dynamic = False, Default = \"NSFTPPropertyFTPProxy", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSFTPPropertyUserLoginKey, Type = String, Dynamic = False, Default = \"NSFTPPropertyUserLoginKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSFTPPropertyUserPasswordKey, Type = String, Dynamic = False, Default = \"NSFTPPropertyUserPasswordKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSHTTPPropertyErrorPageDataKey, Type = String, Dynamic = False, Default = \"NSHTTPPropertyErrorPageDataKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSHTTPPropertyHTTPProxy, Type = String, Dynamic = False, Default = \"NSHTTPPropertyHTTPProxy", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSHTTPPropertyRedirectionHeadersKey, Type = String, Dynamic = False, Default = \"NSHTTPPropertyRedirectionHeadersKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSHTTPPropertyServerHTTPVersionKey, Type = String, Dynamic = False, Default = \"NSHTTPPropertyServerHTTPVersionKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSHTTPPropertyStatusCodeKey, Type = String, Dynamic = False, Default = \"NSHTTPPropertyStatusCodeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSHTTPPropertyStatusReasonKey, Type = String, Dynamic = False, Default = \"NSHTTPPropertyStatusReasonKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLAttributeModificationDateKey, Type = String, Dynamic = False, Default = \"NSURLAttributeModificationDateKey", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSURLBookmarkCreationMinimalBookmark, Type = Double, Dynamic = False, Default = \"512", Scope = Public
@@ -1980,6 +1203,267 @@ Inherits NSObject
 	#tag EndConstant
 
 	#tag Constant, Name = NSURLBookmarkResolutionWithSecurityScope, Type = Double, Dynamic = False, Default = \"1024", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLContentAccessDateKey, Type = String, Dynamic = False, Default = \"NSURLContentAccessDateKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLContentModificationDateKey, Type = String, Dynamic = False, Default = \"NSURLContentModificationDateKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLCreationDateKey, Type = String, Dynamic = False, Default = \"NSURLCreationDateKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLCustomIconKey, Type = String, Dynamic = False, Default = \"NSURLCustomIconKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLEffectiveIconKey, Type = String, Dynamic = False, Default = \"NSURLEffectiveIconKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileAllocatedSizeKey, Type = String, Dynamic = False, Default = \"NSURLFileAllocatedSizeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceIdentifierKey, Type = String, Dynamic = False, Default = \"NSURLFileResourceIdentifierKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeBlockSpecial, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeBlockSpecial", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeCharacterSpecial, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeCharacterSpecial", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeDirectory, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeDirectory", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeKey, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeNamedPipe, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeNamedPipe", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeRegular, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeRegular", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeSocket, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeSocket", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeSymbolicLink, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeSymbolicLink", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileResourceTypeUnknown, Type = String, Dynamic = False, Default = \"NSURLFileResourceTypeUnknown", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileScheme, Type = String, Dynamic = False, Default = \"NSURLFileScheme", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileSecurityKey, Type = String, Dynamic = False, Default = \"NSURLFileSecurityKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLFileSizeKey, Type = String, Dynamic = False, Default = \"NSURLFileSizeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLHasHiddenExtensionKey, Type = String, Dynamic = False, Default = \"NSURLHasHiddenExtensionKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsAliasFileKey, Type = String, Dynamic = False, Default = \"NSURLIsAliasFileKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsDirectoryKey, Type = String, Dynamic = False, Default = \"NSURLIsDirectoryKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsExecutableKey, Type = String, Dynamic = False, Default = \"NSURLIsExecutableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsHiddenKey, Type = String, Dynamic = False, Default = \"NSURLIsHiddenKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsMountTriggerKey, Type = String, Dynamic = False, Default = \"NSURLIsMountTriggerKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsPackageKey, Type = String, Dynamic = False, Default = \"NSURLIsPackageKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsReadableKey, Type = String, Dynamic = False, Default = \"NSURLIsReadableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsRegularFileKey, Type = String, Dynamic = False, Default = \"NSURLIsRegularFileKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsSymbolicLinkKey, Type = String, Dynamic = False, Default = \"NSURLIsSymbolicLinkKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsSystemImmutableKey, Type = String, Dynamic = False, Default = \"NSURLIsSystemImmutableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsUbiquitousItemKey, Type = String, Dynamic = False, Default = \"NSURLIsUbiquitousItemKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsUserImmutableKey, Type = String, Dynamic = False, Default = \"NSURLIsUserImmutableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsVolumeKey, Type = String, Dynamic = False, Default = \"NSURLIsVolumeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLIsWritableKey, Type = String, Dynamic = False, Default = \"NSURLIsWritableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLKeysOfUnsetValuesKey, Type = String, Dynamic = False, Default = \"NSURLKeysOfUnsetValuesKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLLabelColorKey, Type = String, Dynamic = False, Default = \"NSURLLabelColorKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLLabelNumberKey, Type = String, Dynamic = False, Default = \"NSURLLabelNumberKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLLinkCountKey, Type = String, Dynamic = False, Default = \"NSURLLinkCountKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLLocalizedLabelKey, Type = String, Dynamic = False, Default = \"NSURLLocalizedLabelKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLLocalizedNameKey, Type = String, Dynamic = False, Default = \"NSURLLocalizedNameKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLLocalizedTypeDescriptionKey, Type = String, Dynamic = False, Default = \"NSURLLocalizedTypeDescriptionKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLNameKey, Type = String, Dynamic = False, Default = \"NSURLNameKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLParentDirectoryURLKey, Type = String, Dynamic = False, Default = \"NSURLParentDirectoryURLKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLPreferredIOBlockSizeKey, Type = String, Dynamic = False, Default = \"NSURLPreferredIOBlockSizeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLTotalFileAllocatedSizeKey, Type = String, Dynamic = False, Default = \"NSURLTotalFileAllocatedSizeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLTotalFileSizeKey, Type = String, Dynamic = False, Default = \"NSURLTotalFileSizeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLTypeIdentifierKey, Type = String, Dynamic = False, Default = \"NSURLTypeIdentifierKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemHasUnresolvedConflictsKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemHasUnresolvedConflictsKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemIsDownloadedKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemIsDownloadedKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemIsDownloadingKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemIsDownloadingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemIsUploadedKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemIsUploadedKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemIsUploadingKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemIsUploadingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemPercentDownloadedKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemPercentDownloadedKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLUbiquitousItemPercentUploadedKey, Type = String, Dynamic = False, Default = \"NSURLUbiquitousItemPercentUploadedKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeAvailableCapacityKey, Type = String, Dynamic = False, Default = \"NSURLVolumeAvailableCapacityKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeCreationDateKey, Type = String, Dynamic = False, Default = \"NSURLVolumeCreationDateKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIdentifierKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIdentifierKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsAutomountedKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsAutomountedKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsBrowsableKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsBrowsableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsEjectableKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsEjectableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsInternalKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsInternalKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsJournalingKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsJournalingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsLocalKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsLocalKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsReadOnlyKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsReadOnlyKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeIsRemovableKey, Type = String, Dynamic = False, Default = \"NSURLVolumeIsRemovableKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeLocalizedFormatDescriptionKey, Type = String, Dynamic = False, Default = \"NSURLVolumeLocalizedFormatDescriptionKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeLocalizedNameKey, Type = String, Dynamic = False, Default = \"NSURLVolumeLocalizedNameKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeMaximumFileSizeKey, Type = String, Dynamic = False, Default = \"NSURLVolumeMaximumFileSizeKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeNameKey, Type = String, Dynamic = False, Default = \"NSURLVolumeNameKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeResourceCountKey, Type = String, Dynamic = False, Default = \"NSURLVolumeResourceCountKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsAdvisoryFileLockingKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsAdvisoryFileLockingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsCasePreservedNamesKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsCasePreservedNamesKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsCaseSensitiveNamesKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsCaseSensitiveNamesKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsExtendedSecurityKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsExtendedSecurityKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsHardLinksKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsHardLinksKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsJournalingKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsJournalingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsPersistentIDsKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsPersistentIDsKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsRenamingKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsRenamingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsRootDirectoryDatesKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsRootDirectoryDatesKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsSparseFilesKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsSparseFilesKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsSymbolicLinksKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsSymbolicLinksKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsVolumeSizesKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsVolumeSizesKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeSupportsZeroRunsKey, Type = String, Dynamic = False, Default = \"NSURLVolumeSupportsZeroRunsKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeTotalCapacityKey, Type = String, Dynamic = False, Default = \"NSURLVolumeTotalCapacityKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeURLForRemountingKey, Type = String, Dynamic = False, Default = \"NSURLVolumeURLForRemountingKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeURLKey, Type = String, Dynamic = False, Default = \"NSURLVolumeURLKey", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSURLVolumeUUIDStringKey, Type = String, Dynamic = False, Default = \"NSURLVolumeUUIDStringKey", Scope = Public
 	#tag EndConstant
 
 
