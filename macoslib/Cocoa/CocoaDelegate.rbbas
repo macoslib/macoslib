@@ -18,9 +18,13 @@ Inherits NSObject
 		  // A subclass MUST implement the events to provide a name for the Cocoa class and delegate methods
 		  
 		  mClassName = raiseEvent DelegateClassName // get the Class name and store it
+		  const superClassName = "NSObject"
+		  dim protocols() as String = raiseEvent DelegateProtocols
+		  
+		  declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		  
 		  // allocate the instance
-		  dim delegate_id as Ptr = Initialize(Allocate(RegisterClass(ClassName)))
+		  dim delegate_id as Ptr = Initialize(alloc(RegisterClass(ClassName, superClassName, protocols)))
 		  super.Constructor(delegate_id, NSObject.hasOwnership) // construct the super object (NSObject)
 		  
 		  // store the instance in a static map
@@ -42,7 +46,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function RegisterClass(className as String, superclassName as String = "NSObject") As Ptr
+		Private Function RegisterClass(className as String, superclassName as String, protocolNames() as String) As Ptr
 		  
 		  // Register a new Cocoa class
 		  
@@ -51,6 +55,8 @@ Inherits NSObject
 		    declare sub objc_registerClassPair lib CocoaLib (cls as Ptr)
 		    declare function class_addMethod lib CocoaLib (cls as Ptr, name as Ptr, imp as Ptr, types as CString) as Boolean
 		    declare function objc_lookUpClass lib CocoaLib (name as CString) as Ptr
+		    declare function objc_getProtocol lib CocoaLib (name as CString) as Ptr
+		    declare function class_addProtocol lib CocoaLib (Cls as Ptr, protocol as Ptr) as Boolean
 		    
 		    // allocate the new class
 		    dim newClassId as Ptr = objc_allocateClassPair(Cocoa.NSClassFromString(superclassName), className, 0)
@@ -71,6 +77,13 @@ Inherits NSObject
 		    dim methodsAdded as Boolean = true
 		    for each item as Tuple in methodList
 		      methodsAdded = methodsAdded and class_addMethod(newClassId, Cocoa.NSSelectorFromString(item(0)), item(1), item(2))
+		    next
+		    
+		    // add optional protocols
+		    for each protocolName as String in protocolNames
+		      if not class_addProtocol (newClassId, objc_getProtocol(protocolName)) then
+		        break
+		      end if
 		    next
 		    
 		    // if no errors adding the methods register the class
@@ -96,6 +109,10 @@ Inherits NSObject
 
 	#tag Hook, Flags = &h0
 		Event DelegateMethods() As Tuple()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event DelegateProtocols() As String()
 	#tag EndHook
 
 
