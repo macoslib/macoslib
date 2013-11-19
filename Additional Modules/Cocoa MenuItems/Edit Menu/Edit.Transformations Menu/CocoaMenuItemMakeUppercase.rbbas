@@ -12,7 +12,7 @@ Inherits CocoaMenuItem
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Make Upper Case"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Gro\xC3\x9Fschreibung"
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE5\xA4\xA7\xE6\x96\x87\xE5\xAD\x97\xE3\x81\xAB\xE3\x81\x99\xE3\x82\x8B"
-		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Mettre en Lettre majuscules"
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Mettre en lettres majuscules"
 		#Tag Instance, Platform = Any, Language = it, Definition  = \"Scrivi in lettere maiuscole"
 		#Tag Instance, Platform = Any, Language = nl, Definition  = \"Zet om in hoofdletters"
 	#tag EndConstant

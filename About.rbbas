@@ -70,6 +70,9 @@ Protected Module About
 		Add new notes above existing ones, and remember to increment the Version constant.
 		Contributors are identified by initials. See the "Contributors" note for full names.
 		
+		160: 2013-11-19 by VVB
+		- Some typo corrections for the French localization of macoslib by Eric de La Rochette.
+		
 		159: 2013-11-04 by TT
 		- Made NSURL more efficient by eliminating several superfluous calls to Cocoa.StringConstant and
 		   Cocoa.NSObjectFromNSPtr.
@@ -436,7 +439,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"159", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"160", Scope = Protected
 	#tag EndConstant
 
 
