@@ -10,10 +10,10 @@ Protected Module QTKit
 	#tag EndMethod
 
 
-	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.QTKit", Scope = Public
+	#tag Constant, Name = BundleID, Type = String, Dynamic = False, Default = \"com.apple.QTKit", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = Framework, Type = String, Dynamic = False, Default = \"QTKit.framework", Scope = Public
+	#tag Constant, Name = Framework, Type = String, Dynamic = False, Default = \"QTKit.framework", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = kQTTimeIsIndefinite, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
@@ -38,33 +38,33 @@ Protected Module QTKit
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

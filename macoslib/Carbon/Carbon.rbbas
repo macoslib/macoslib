@@ -6,8 +6,8 @@ Protected Module Carbon
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function GetSystemVersionFromGestalt() As String
+	#tag Method, Flags = &h1
+		Protected Function GetSystemVersionFromGestalt() As String
 		  dim sys1, sys2, sys3 as Integer
 		  dim OK as Boolean = true
 		  OK = OK AND System.Gestalt("sys1", sys1)
@@ -101,21 +101,6 @@ Protected Module Carbon
 		  
 		  return theList
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub pTestAssert(b as Boolean, msg as String = "")
-		  #if DebugBuild
-		    if not b then
-		      break
-		      #if TargetHasGUI
-		        MsgBox "Test in Carbon module failed: "+EndOfLine+EndOfLine+msg
-		      #else
-		        Print "Test in Carbon module failed: "+msg
-		      #endif
-		    end
-		  #endif
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -231,32 +216,6 @@ Protected Module Carbon
 		  static version as String = GetSystemVersionFromGestalt
 		  return version
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Attributes( hidden ) Protected Sub TestSelf()
-		  select case GetSystemVersionFromGestalt.Left(4)
-		  case "10.3"
-		    pTestAssert IsPanther
-		    pTestAssert not IsTiger
-		  case "10.4"
-		    pTestAssert IsPanther
-		    pTestAssert IsTiger
-		    pTestAssert not IsLeopard
-		  case "10.5"
-		    pTestAssert IsTiger
-		    pTestAssert IsLeopard
-		    pTestAssert not IsSnowLeopard
-		  case "10.6"
-		    pTestAssert IsLeopard
-		    pTestAssert IsSnowLeopard
-		    pTestAssert not IsLion
-		  else
-		    pTestAssert IsSnowLeopard
-		    pTestAssert IsLion
-		  end select
-		  
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -410,33 +369,33 @@ Protected Module Carbon
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
