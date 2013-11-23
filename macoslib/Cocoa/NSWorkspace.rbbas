@@ -89,8 +89,8 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1001
-		Protected Sub Constructor()
+	#tag Method, Flags = &h1000
+		Sub Constructor()
 		  // Use this constructor to receive notifications via its events.
 		  // You need to subclass this class for this and call "super.Constructor" from its constructor.
 		  me.RegisterNotifications
