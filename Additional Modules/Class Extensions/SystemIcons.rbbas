@@ -254,7 +254,7 @@ Protected Module SystemIcons
 
 	#tag Method, Flags = &h1
 		Protected Function GetPictureFromName(name as string, wantedWidth as double = 0.0, wantedHeight as double = 0.0) As Picture
-		  //# Build a Picture given the picture name ( see Apple docs ) and an optional size (0 for full size)
+		  //# Build a Picture given the picture name (see Apple docs) and an optional size (0 for full size)
 		  
 		  #if TargetMacOS
 		    dim nsi as NSImage

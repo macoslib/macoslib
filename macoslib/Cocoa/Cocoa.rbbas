@@ -633,21 +633,6 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub pTestAssert(b as Boolean, msg as String = "")
-		  #if DebugBuild
-		    if not b then
-		      break
-		      #if TargetHasGUI
-		        MsgBox "Test in Cocoa module failed: "+EndOfLine+EndOfLine+msg
-		      #else
-		        Print "Test in Cocoa module failed: "+msg
-		      #endif
-		    end
-		  #endif
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h1
 		Protected Sub Release(id as Ptr)
 		  #if TargetMacOS
@@ -736,28 +721,6 @@ Protected Module Cocoa
 		    
 		  #endif
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Attributes( hidden ) Protected Sub TestSelf()
-		  // This is an incomplete set of tests to make sure nothing got screwed up too much
-		  
-		  #if DebugBuild
-		    dim f, dir as FolderItem
-		    dim mainBundle as NSBundle = NSBundle.MainBundle
-		    
-		    // Test NSBundle.AppStoreReceiptDirectory
-		    //   For this to work, the path to the receipt file
-		    //   must exist, or we'll get nil from the function.
-		    //   Therefore, we'll add that folder here first.
-		    dir = mainBundle.BundleDirectory.Child("Contents").Child("_MASReceipt")
-		    dir.CreateAsFolder()
-		    f = mainBundle.AppStoreReceiptDirectory()
-		    pTestAssert (f <> nil and f.Name = "receipt") ' In case this fails: Did the receipt URL move somewhere else? At least until OSX 10.8 it shouldn't have
-		    
-		  #endif
-		  
-		End Sub
 	#tag EndMethod
 
 

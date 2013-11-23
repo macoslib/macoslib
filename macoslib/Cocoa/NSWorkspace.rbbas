@@ -91,7 +91,8 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  
+		  // Use this constructor to receive notifications via its events.
+		  // You need to subclass this class for this and call "super.Constructor" from its constructor.
 		  me.RegisterNotifications
 		End Sub
 	#tag EndMethod
@@ -252,7 +253,7 @@ Inherits NSObject
 		  #pragma unused observer
 		  
 		  #if TargetMacOS
-		    RaiseEvent   globalNSWorkspaceNotification( notification )
+		    RaiseEvent globalNSWorkspaceNotification( notification )
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -319,7 +320,8 @@ Inherits NSObject
 		    case "NSWorkspaceDidUnhideApplicationNotification"
 		      userinfo = notification.UserInfo
 		      if IsSnowLeopard then
-		        appl = new NSRunningApplication(objectForKey(userinfo, NSWorkspaceApplicationKey))
+		        dim o as Ptr = objectForKey(userinfo, NSWorkspaceApplicationKey)
+		        appl = new NSRunningApplication(o)
 		      end if
 		      
 		      RaiseEvent NSWorkspaceDidUnhideApplicationNotification( notification, appl )
@@ -664,8 +666,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function NSStringConstant(symbolName as String) As NSString
-		  dim b as CFBundle = CFBundle.NewCFBundleFromID("com.apple.Cocoa")
-		  return new NSString(b.DataPointerNotRetained(symbolName))
+		  return symbolName
 		End Function
 	#tag EndMethod
 
@@ -1073,17 +1074,23 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function notificationCenter lib CocoaLib selector "notificationCenter" (id as Ptr) as Ptr
 		    
-		    observer_NSWorkspaceNotification = new NotificationObserver
+		    dim nc as Ptr = notificationCenter(SharedWorkspace.SharedWorkspace)
+		    if nc = nil then
+		      // something went wrong
+		      break
+		      return
+		    end
+		    
+		    observer_NSWorkspaceNotification = new NotificationObserver (nc)
 		    
 		    select case options
 		    case 0  //Register an event for each notification
-		      AddHandler  observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_NSWorkspaceNotification
+		      AddHandler observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_NSWorkspaceNotification
 		    case 1  //All notifications are sent to globalNSWorkspaceNotification
-		      AddHandler  observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_globalNSWorkspaceNotification
+		      AddHandler observer_NSWorkspaceNotification.HandleNotification, WeakAddressOf handle_globalNSWorkspaceNotification
 		    end select
 		    
-		    observer_NSWorkspaceNotification.pNotificationCenter = notificationCenter( SharedWorkspace.SharedWorkspace )
-		    observer_NSWorkspaceNotification.Register   ""  //Register all notifications
+		    observer_NSWorkspaceNotification.Register ""  //Register all notifications
 		    
 		  #endif
 		  
@@ -1492,8 +1499,8 @@ Inherits NSObject
 		NSWorkspace methods are shared methods, so you do not need to create an instance to use them.
 		
 		If you want to get the Workspace events, however, create a single subclass of NSWorkspace and add the code you need in the different
-		  declared events you are interested in.
-		
+		declared events you are interested in. Also remember to invoke super.Constructor from the constructor of the subclass.
+		See NSWorkspaceEventsExample for an example.
 		
 		** For the description of all the events, see
 		https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html
@@ -1560,6 +1567,7 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
+			Type="Integer"
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
