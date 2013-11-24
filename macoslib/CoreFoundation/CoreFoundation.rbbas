@@ -61,7 +61,7 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h21
-		Private Declare Function CFGetTypeID Lib CarbonLib (cf as Ptr) As UInt32
+		Private Declare Function CFGetTypeID Lib framework (cf as CFTypeRef) As UInt32
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
@@ -329,9 +329,12 @@ Module CoreFoundation
 		      return ""
 		    end if
 		    
-		    if CFGetTypeID(p) <> CFStringGetTypeID then
+		    dim ref as CFTypeRef
+		    ref.value = p
+		    
+		    if CFGetTypeID(ref) <> CFStringGetTypeID then
 		      dim e as new TypeMismatchException
-		      e.Message = "CFTypeRef &h" + Hex(Integer(p)) + " has unexpected type " + CFCopyTypeIDDescription(CFGetTypeID(p)) + "."
+		      e.Message = "CFTypeRef &h" + Hex(Integer(p)) + " has unexpected type " + CFCopyTypeIDDescription(CFGetTypeID(ref)) + "."
 		      raise e
 		    end if
 		    
