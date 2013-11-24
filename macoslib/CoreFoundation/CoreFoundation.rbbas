@@ -159,6 +159,14 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CFTypeRefMake(p as Ptr) As CFTypeRef
+		  dim ref as CFTypeRef
+		  ref.value = p
+		  return ref
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CFURL(f as FolderItem) As CFURL
 		  return new CFURL(f)
 		End Function
@@ -640,6 +648,10 @@ Module CoreFoundation
 
 	#tag Structure, Name = CFSocketNativeHandle, Flags = &h0
 		handle As Int32
+	#tag EndStructure
+
+	#tag Structure, Name = CFTypeRef, Flags = &h0
+		value as Ptr
 	#tag EndStructure
 
 	#tag Structure, Name = UInt32, Flags = &h0
