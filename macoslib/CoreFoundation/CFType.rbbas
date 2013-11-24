@@ -113,10 +113,6 @@ Class CFType
 
 	#tag Method, Flags = &h0
 		Function Equals(theObj as CFType) As Boolean
-		  if theObj is nil then
-		    return (self.mRef.value = nil)
-		  end if
-		  
 		  #if TargetMacOS
 		    soft declare function CFEqual lib CarbonLib (cf1 as CFTypeRef, cf2 as CFTypeRef) as Boolean
 		    
