@@ -58,6 +58,11 @@ Inherits Application
 		    end if
 		  end if
 		  
+		  
+		  #pragma warning "DELETE THIS CODE!!"
+		  
+		  MacDiskUtil.SelfTest
+		  
 		End Sub
 	#tag EndEvent
 
