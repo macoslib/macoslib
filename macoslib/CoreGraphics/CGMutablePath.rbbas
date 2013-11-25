@@ -375,6 +375,7 @@ Inherits CGPath
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -382,12 +383,14 @@ Inherits CGPath
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsEmpty"
 			Group="Behavior"
 			InitialValue="0"
 			Type="Boolean"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -395,18 +398,21 @@ Inherits CGPath
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -414,6 +420,7 @@ Inherits CGPath
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="CGPath"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

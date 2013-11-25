@@ -100,20 +100,6 @@ Class ATSFont
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub SelfTest()
-		  #if TargetMacOS
-		    'dim s as String
-		    dim f as ATSFont
-		    f = FindFromName("Lucida Grande")
-		    if f = nil then
-		      // oops?
-		      break
-		    end if
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function VerticalMetrics() As ATSFontMetrics
 		  #if targetMacOS
 		    soft declare function ATSFontGetVerticalMetrics lib CarbonLib (iFont as UInt32, iOptions as UInt32, ByRef oMetrics as ATSFontMetrics) as Integer
@@ -186,20 +172,21 @@ Class ATSFont
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PostScriptName"
@@ -211,14 +198,14 @@ Class ATSFont
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

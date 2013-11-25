@@ -188,16 +188,26 @@ Inherits CFType
 
 	#tag Method, Flags = &h0
 		Function MakePicture() As Picture
-		  
 		  dim p as Picture
 		  
-		  #if RBVersion >= 2011.04  //Keep alpha channel
-		    p = new Picture( self.Width, self.Height )
-		    
-		  #else  //No alpha channel in previous versions
-		    p = new Picture( self.Width, self.Height, 32 )
+		  #if RBVersion >= 2011.04
+		    // Keep alpha channel
+		    try
+		      #pragma BreakOnExceptions off
+		      p = new Picture( self.Width, self.Height )
+		      #pragma BreakOnExceptions default
+		    exception PlatformNotSupportedException
+		      // In Carbon, we have no alpha channel support,
+		      // so let's use the fallback code below then.
+		    end
+		  #else
 		    #pragma warning "CGImage.MakePicture does not handle alpha channel in your version of Real Studio. You'd need Real Studio 2011r4 or higher."
 		  #endif
+		  
+		  if p = nil then
+		    // No alpha channel support
+		    p = new Picture( self.Width, self.Height, 32 )
+		  end if
 		  
 		  dim context as new CGContextGraphicsPort( p.Graphics )
 		  

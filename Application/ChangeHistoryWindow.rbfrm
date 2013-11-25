@@ -79,15 +79,12 @@ End
 		Sub Open()
 		  
 		  nsw = New NSWindow(self)
-		  
 		  nsw.AnimationBehavior = NSWindow.NSWindowAnimationBehavior.NSWindowAnimationBehaviorDocumentWindow
 		  
 		  if NOT self.RestoreFrameFromWindowName( "ChangeHistoryWindow" ) then
 		    self.Center
 		  end if
-		  
-		  call   self.FrameAutoSaveName( "ChangeHistoryWindow" )
-		  
+		  call self.FrameAutoSaveName( "ChangeHistoryWindow" )
 		  
 		End Sub
 	#tag EndEvent
