@@ -194,12 +194,7 @@ Class CFType
 		      end
 		      
 		    case CFBoolean.ClassID
-		      static b as CFTypeRef = CFBoolean.GetTrue.Handle
-		      if ref.value = b.value then
-		        return CFBoolean.GetTrue
-		      else
-		        return CFBoolean.GetFalse
-		      end if
+		      return CFBoolean.Get(ref)
 		      
 		    case CFBundle.ClassID
 		      dim b as new CFBundle(ref, hasOwnership)
