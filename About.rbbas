@@ -62,6 +62,13 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		162: 2013-11-24 by CY
+		
+		- Introduce a CFTypeRef structure to Core Foundation.  This is intended to replace the use of Ptr in Core Foundation
+		  external functions.
+		- Add corresponding CFType methods (i.e. Constructor, NewObject, Operator_Convert) and deprecate those that use Ptr.
+		- Delete CFType shared methods Retain, Release, RefCount.
+		
 		161: 2013-11-04 by TT
 		- Makes NSUserDefaults.StandardUserDefaults actually work.
 		- Makes App run in Carbon again without raising an exception in CGImage.MakePicture.
@@ -440,7 +447,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"161", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"162", Scope = Protected
 	#tag EndConstant
 
 
