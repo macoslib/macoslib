@@ -62,6 +62,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		164: 2013-11-25 by CY
+		- Rewrite CFUUID; fix a bug in CFType.RefCount introduced in refactoring.
+		
 		163: 2013-11-24 by CY
 		
 		- Refactor CFBoolean; deprecate CFBoolean.Constructor and CoreFoundation.CFBoolean; 
@@ -452,7 +455,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"163", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"164", Scope = Protected
 	#tag EndConstant
 
 

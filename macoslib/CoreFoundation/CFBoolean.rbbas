@@ -183,7 +183,7 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    //Here we check the value explicitly because Operator_Compare calls this handler, so using 
+			    //Here we check the value explicitly because Operator_Compare calls this handler, so using
 			    //self <> nil would result in a StackOverflowException.
 			    return self.Handle.value <> nil and CFBooleanGetValue(self)
 			  #endif
