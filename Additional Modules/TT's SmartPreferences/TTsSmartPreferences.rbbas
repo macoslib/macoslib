@@ -216,7 +216,7 @@ Protected Class TTsSmartPreferences
 		  select case v.Type
 		    
 		  case v.TypeBoolean
-		    newv = CFBoolean(v.BooleanValue)
+		    newv = CFBoolean.Get(v.BooleanValue)
 		  case v.TypeInteger
 		    newv = CFNumber(v.Int64Value)
 		  case v.TypeDouble, v.TypeSingle
@@ -464,7 +464,7 @@ Protected Class TTsSmartPreferences
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDirty"
@@ -476,26 +476,26 @@ Protected Class TTsSmartPreferences
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
