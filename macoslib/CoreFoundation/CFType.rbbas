@@ -194,12 +194,7 @@ Class CFType
 		      end
 		      
 		    case CFBoolean.ClassID
-		      static b as CFTypeRef = CFBoolean.GetTrue.Handle
-		      if ref.value = b.value then
-		        return CFBoolean.GetTrue
-		      else
-		        return CFBoolean.GetFalse
-		      end if
+		      return CFBoolean.Get(ref)
 		      
 		    case CFBundle.ClassID
 		      dim b as new CFBundle(ref, hasOwnership)
@@ -346,7 +341,7 @@ Class CFType
 		  #if targetMacOS
 		    soft declare function CFGetRetainCount lib CoreFoundation.framework (cf as CFTypeRef) as Integer
 		    
-		    if self.mRef.value = nil then
+		    if self.mRef.value <> nil then
 		      return CFGetRetainCount(self.mRef)
 		    else
 		      return 0
@@ -356,7 +351,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Attributes( deprecated = true )  Function Reference() As Ptr
+		Attributes( deprecated = "CFType.Handle" )  Function Reference() As Ptr
 		  return self.mRef.value
 		End Function
 	#tag EndMethod

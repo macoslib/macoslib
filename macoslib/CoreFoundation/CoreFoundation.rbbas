@@ -34,7 +34,7 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CFBoolean(b as Boolean) As CFBoolean
+		Attributes( deprecated = "CFBoolean.Get" )  Function CFBoolean(b as Boolean) As CFBoolean
 		  if b then
 		    return CFBoolean.GetTrue
 		  end if
