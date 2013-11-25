@@ -341,7 +341,7 @@ Class CFType
 		  #if targetMacOS
 		    soft declare function CFGetRetainCount lib CoreFoundation.framework (cf as CFTypeRef) as Integer
 		    
-		    if self.mRef.value = nil then
+		    if self.mRef.value <> nil then
 		      return CFGetRetainCount(self.mRef)
 		    else
 		      return 0
