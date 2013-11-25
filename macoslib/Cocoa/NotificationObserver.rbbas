@@ -19,18 +19,44 @@ Class NotificationObserver
 
 	#tag Method, Flags = &h0
 		Sub Constructor()
+		  // Creates from [NSNotificationCenter defaultCenter]
+		  
 		  #if targetMacOS
-		    soft declare function alloc lib CocoaLIb selector "alloc" (classRef as Ptr) as Ptr
-		    soft declare function init lib CocoaLIb selector "init" (id as Ptr) as Ptr
+		    declare function alloc lib CocoaLIb selector "alloc" (classRef as Ptr) as Ptr
+		    declare function init lib CocoaLIb selector "init" (id as Ptr) as Ptr
+		    declare function retain lib CocoaLib selector "retain" (id as Ptr) as Ptr
+		    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
 		    
 		    self.Observer = init(alloc(ClassRef))
 		    ObjectMap.Value(self.Observer) = new WeakRef(self)
+		    
+		    mNotificationCenter = retain (defaultCenter(Cocoa.NSClassFromString("NSNotificationCenter")))
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(forCenter as Ptr)
+		  // Creates from passed notification center
+		  
+		  #if targetMacOS
+		    declare function alloc lib CocoaLIb selector "alloc" (classRef as Ptr) as Ptr
+		    declare function init lib CocoaLIb selector "init" (id as Ptr) as Ptr
+		    declare function retain lib CocoaLib selector "retain" (id as Ptr) as Ptr
+		    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
+		    
+		    self.Observer = init(alloc(ClassRef))
+		    ObjectMap.Value(self.Observer) = new WeakRef(self)
+		    
+		    mNotificationCenter = retain (forCenter)
 		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Constructor(notificationName as String, notificationSender as Ptr = nil)
+		  // Creates from [NSNotificationCenter defaultCenter]
+		  
 		  #if targetMacOS
 		    self.Constructor()
 		    self.Register notificationName, notificationSender
@@ -51,16 +77,20 @@ Class NotificationObserver
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  #if TargetMacOS
+		    declare sub release lib CocoaLib selector "release" (id as Ptr)
 		    
 		    self.Unregister
+		    
+		    if mNotificationCenter <> nil then
+		      release (mNotificationCenter)
+		      mNotificationCenter = nil
+		    end if
 		    
 		    if ObjectMap.HasKey(self.Observer) then
 		      ObjectMap.Remove self.Observer
 		    end if
 		    
 		    if self.Observer <> nil then
-		      declare sub release lib CocoaLib selector "release" (obj_id as Ptr)
-		      
 		      release(self.Observer)
 		      self.Observer = nil
 		    end if
@@ -153,9 +183,9 @@ Class NotificationObserver
 		    end if
 		    
 		    if notificationName<>"" then
-		      addObserver(pNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), notificationName, notificationSender)
+		      addObserver(mNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), notificationName, notificationSender)
 		    else
-		      addObserver(pNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), nil, notificationSender)
+		      addObserver(mNotificationCenter, self.Observer, Cocoa.NSSelectorFromString(NotificationSelector), nil, notificationSender)
 		    end if
 		  #endif
 		End Sub
@@ -166,7 +196,10 @@ Class NotificationObserver
 		  #if targetMacOS
 		    declare sub removeObserver lib CocoaLib selector "removeObserver:" (obj_id as Ptr, notificationObserver as Ptr)
 		    
-		    removeObserver(pNotificationCenter, self.Observer)
+		    if mNotificationCenter <> nil then
+		      removeObserver (mNotificationCenter, self.Observer)
+		    end if
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -185,35 +218,12 @@ Class NotificationObserver
 
 
 	#tag Property, Flags = &h21
-		Private mpNotificationCenter As Ptr
+		Private mNotificationCenter As Ptr
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private Observer As Ptr
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  #if targetMacOS
-			    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
-			    
-			    if mpNotificationCenter = nil then  //Use default center if none defined
-			      mpNotificationCenter = defaultCenter(Cocoa.NSClassFromString("NSNotificationCenter"))
-			    end if
-			    
-			    return mpNotificationCenter
-			  #endif
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  mpNotificationCenter = value
-			End Set
-		#tag EndSetter
-		pNotificationCenter As Ptr
-	#tag EndComputedProperty
 
 
 	#tag Constant, Name = NotificationSelector, Type = String, Dynamic = False, Default = \"macoslibDispatchNotification:", Scope = Private

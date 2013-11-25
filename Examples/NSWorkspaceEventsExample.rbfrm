@@ -25,17 +25,13 @@ Begin Window NSWorkspaceEventsExample
    Visible         =   True
    Width           =   8.37e+2
    Begin Cocoa.NSWorkspace Workspace
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   9
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   467
-      Visible         =   True
       Width           =   32
    End
    Begin Label Label1
@@ -60,7 +56,6 @@ Begin Window NSWorkspaceEventsExample
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "AVAILABLE NOTIFICATIONS\r\rNSWorkspaceWillLaunchApplicationNotification\rNSWorkspaceDidLaunchApplicationNotification\rNSWorkspaceDidTerminateApplicationNotification\rNSWorkspaceSessionDidBecomeActiveNotification\rNSWorkspaceSessionDidResignActiveNotification\rNSWorkspaceDidHideApplicationNotification\rNSWorkspaceDidUnhideApplicationNotification\rNSWorkspaceDidActivateApplicationNotification\rNSWorkspaceDidDeactivateApplicationNotification\rNSWorkspaceDidRenameVolumeNotification\rNSWorkspaceDidMountNotification\rNSWorkspaceDidUnmountNotification\rNSWorkspaceDidPerformFileOperationNotification\rNSWorkspaceDidChangeFileLabelsNotification\rNSWorkspaceActiveSpaceDidChangeNotification\rNSWorkspaceDidWakeNotification\rNSWorkspaceWillPowerOffNotification\rNSWorkspaceWillSleepNotification\rNSWorkspaceScreensDidSleepNotification\rNSWorkspaceScreensDidWakeNotification"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -92,6 +87,8 @@ Begin Window NSWorkspaceEventsExample
       Italic          =   ""
       Left            =   354
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -124,26 +121,18 @@ End
 #tag WindowCode
 	#tag Method, Flags = &h0
 		Sub AppendText(theText as String)
-		  
 		  dim sr as new StyleRun( theText )
-		  
 		  sr.Bold = false
-		  
-		  TA1.StyledText.AppendStyleRun   sr
-		  
+		  TA1.StyledText.AppendStyleRun sr
 		  TA1.ScrollPosition = 10000
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub AppendTextBold(theText as String)
-		  
 		  dim sr as new StyleRun( theText )
-		  
 		  sr.Bold = true
-		  
-		  TA1.StyledText.AppendStyleRun   sr
-		  
+		  TA1.StyledText.AppendStyleRun sr
 		  TA1.ScrollPosition = 10000
 		End Sub
 	#tag EndMethod

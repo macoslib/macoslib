@@ -5,7 +5,7 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2011r1 or later and MacOS X 10.5 or later. See Compatibility".
+		Requires REALbasic 2011r1 or later and MacOS X 10.5 or later. See Compatibility.
 	#tag EndNote
 
 	#tag Note, Name = Compatibility
@@ -25,7 +25,6 @@ Protected Module About
 	#tag EndNote
 
 	#tag Note, Name = Contributors
-		
 		Charles Yeomans (CY)
 		Thomas Tempelmann (TT)
 		Stéphane Mons (SM)
@@ -34,15 +33,8 @@ Protected Module About
 	#tag EndNote
 
 	#tag Note, Name = Documentation
-		The macoslib documentation is provided inside macoslib itself as described at http://ufos-software.com/docgen/
-		
-		Eventually, Docgen (1) will be able to export the full documentation of macoslib
-		
 		Some documentation is accessible from macoslib. Run the project and choose one document.
-		
-		
-		
-		(1) "Docgen" is a codename. The final software name has not been chosen yet.
+		The macoslib documentation is provided inside macoslib itself.
 	#tag EndNote
 
 	#tag Note, Name = How To Use
@@ -65,10 +57,29 @@ Protected Module About
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
+		These release notes were added as of version 100. Check the git history at https://github.com/macoslib/macoslib
+		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
-		These release notes were added as of version 100. Check the git history for previous release notes.
-		Add new notes above existing ones, and remember to increment the Version constant.
-		Contributors are identified by initials. See the "Contributors" note for full names.
+		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		162: 2013-11-24 by CY
+		
+		- Introduce a CFTypeRef structure to Core Foundation.  This is intended to replace the use of Ptr in Core Foundation
+		  external functions.
+		- Add corresponding CFType methods (i.e. Constructor, NewObject, Operator_Convert) and deprecate those that use Ptr.
+		- Delete CFType shared methods Retain, Release, RefCount.
+		
+		161: 2013-11-04 by TT
+		- Makes NSUserDefaults.StandardUserDefaults actually work.
+		- Makes App run in Carbon again without raising an exception in CGImage.MakePicture.
+		- Fixes NotificationObserver and NSWorkspace.RegisterNotifications to retain the notification center properly.
+		- Fixes NSWorkspace.NSStringConstant to not crash any more. This also fixes the crashes in NSWorkspaceEventsExample.
+		- CFBundle.NewCFBundleFromID now returns nil for invalid IDs.
+		- Makes QTKit.BundleID and QTKit.Framework protected to prevent them accidentally used globally.
+		- Moves all TestSelf methods into the App class.
+		
+		160: 2013-11-19 by VVB
+		- Some typo corrections for the French localization of macoslib by Eric de La Rochette.
 		
 		159: 2013-11-04 by TT
 		- Made NSURL more efficient by eliminating several superfluous calls to Cocoa.StringConstant and
@@ -436,7 +447,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"159", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"162", Scope = Protected
 	#tag EndConstant
 
 

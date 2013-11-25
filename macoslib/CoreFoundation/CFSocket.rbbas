@@ -34,14 +34,14 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub Close()
 		  #if TargetMacOS
-		    declare sub CFSocketInvalidate lib CarbonLib (socketRef as Ptr)
+		    declare sub CFSocketInvalidate lib CarbonLib (socketRef as CFTypeRef)
 		    declare sub CFRunLoopRemoveSource lib CarbonLib (runLoopRef as Ptr, source as Ptr, mode as CFStringRef)
 		    
-		    CFSocketInvalidate (me.Reference)
+		    CFSocketInvalidate(self)
 		    
 		    if me.theRLSrc <> nil then
 		      CFRunLoopRemoveSource (me.theRunLoop, me.theRLSrc, CFConstant("kCFRunLoopCommonModes"))
-		      CFType.Release (me.theRLSrc)
+		      CoreFoundation.Release(me.theRLSrc)
 		      me.theRLSrc = nil
 		    end if
 		  #endif

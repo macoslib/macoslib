@@ -32,7 +32,7 @@ Inherits CFType
 		  // This default constructor creates the application's CFBundle
 		  
 		  #if TargetMacOS
-		    soft declare function CFBundleGetMainBundle lib CarbonLib () as Ptr
+		    declare function CFBundleGetMainBundle lib CarbonLib () as Ptr
 		    
 		    dim p as Ptr = CFBundleGetMainBundle
 		    if p <> nil then
@@ -48,7 +48,7 @@ Inherits CFType
 		  #if TargetMacOS
 		    declare function CFBundleGetDataPointerForName lib CarbonLib (bundle as Ptr, symbolName as CFStringRef) as Ptr
 		    
-		    if not (self = nil) then
+		    if self <> nil then
 		      return CFBundleGetDataPointerForName(self, symbolName)
 		    end if
 		    
@@ -61,9 +61,9 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function ExecutableFile() As CFURL
 		  #if TargetMacOS
-		    soft declare function CFBundleCopyExecutableURL lib CarbonLib (theBundle as Ptr) as Ptr
+		    declare function CFBundleCopyExecutableURL lib CarbonLib (theBundle as Ptr) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      return MakeCFURL(CFBundleCopyExecutableURL(self))
 		    else
 		      return nil
@@ -78,9 +78,9 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function FrameworksDirectory() As CFURL
 		  #if TargetMacOS
-		    soft declare function CFBundleCopyPrivateFrameworksURL lib CarbonLib (theBundle as Ptr) as Ptr
+		    declare function CFBundleCopyPrivateFrameworksURL lib CarbonLib (theBundle as Ptr) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      return MakeCFURL(CFBundleCopyPrivateFrameworksURL(self))
 		    else
 		      return nil
@@ -95,7 +95,7 @@ Inherits CFType
 		  #if TargetMacOS
 		    declare function CFBundleGetFunctionPointerForName lib CarbonLib (bundle as Ptr, functionName as CFStringRef) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      return CFBundleGetFunctionPointerForName(me.Reference, symbolName)
 		    else
 		      return nil
@@ -109,9 +109,9 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function InfoDictionary() As CFDictionary
 		  #if targetMacOS
-		    soft declare function CFBundleGetInfoDictionary lib CarbonLib (bundle as Ptr) as Ptr
+		    declare function CFBundleGetInfoDictionary lib CarbonLib (bundle as Ptr) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      return new CFDictionary(CFBundleGetInfoDictionary(me.Reference), not CFType.hasOwnership)
 		    else
 		      return nil
@@ -125,7 +125,7 @@ Inherits CFType
 		  #if targetMacOS
 		    declare function CFBundleGetValueForInfoDictionaryKey lib CarbonLib (bundle as Ptr, key as CFStringRef) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      dim valueRef as Ptr = CFBundleGetValueForInfoDictionaryKey(self, key)
 		      if valueRef <> nil then
 		        return CFType.NewObject(valueRef, not CFType.hasOwnership, kCFPropertyListImmutable)
@@ -149,7 +149,7 @@ Inherits CFType
 		  // Will now raise an error to keep consistent with other function calls that return a CFError.
 		  
 		  #if TargetMacOS
-		    if (self <> nil) then
+		    if self <> nil then
 		      dim ok as Boolean
 		      
 		      'if System.IsFunctionAvailable( "CFBundleLoadExecutableAndReturnError", CarbonLib ) then
@@ -198,9 +198,12 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		 Shared Function NewCFBundleFromID(bundleIdentifier as String) As CFBundle
 		  #if targetMacOS
-		    soft declare function CFBundleGetBundleWithIdentifier lib CarbonLib (bundleID as CFStringRef) as Ptr
+		    declare function CFBundleGetBundleWithIdentifier lib CarbonLib (bundleID as CFStringRef) as Ptr
 		    
-		    return new CFBundle(CFBundleGetBundleWithIdentifier(bundleIdentifier), false)
+		    dim p as Ptr = CFBundleGetBundleWithIdentifier(bundleIdentifier)
+		    if p <>nil then
+		      return new CFBundle(p, false)
+		    end if
 		    
 		  #else
 		    #pragma unused bundleIdentifier
@@ -293,9 +296,9 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function ResourcesDirectory() As CFURL
 		  #if TargetMacOS
-		    soft declare function CFBundleCopyResourcesDirectoryURL lib CarbonLib (theBundle as Ptr) as Ptr
+		    declare function CFBundleCopyResourcesDirectoryURL lib CarbonLib (theBundle as Ptr) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      return MakeCFURL(CFBundleCopyResourcesDirectoryURL(self))
 		    else
 		      return nil
@@ -308,10 +311,10 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Function StringPointerRetained(symbolName as String) As CFStringRef
 		  #if TargetMacOS
-		    soft declare function CFBundleGetDataPointerForName lib CarbonLib (bundle as Ptr, symbolName as CFStringRef) as Ptr
+		    declare function CFBundleGetDataPointerForName lib CarbonLib (bundle as Ptr, symbolName as CFStringRef) as Ptr
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      dim p as Ptr = CFBundleGetDataPointerForName(me.Reference, symbolName)
 		      if p <> nil then
 		        return CFRetain (p.Ptr(0))
@@ -333,7 +336,7 @@ Inherits CFType
 		  #if targetMacOS
 		    declare function CFBundleCopySupportFilesDirectoryURL lib CarbonLib (bundle as Ptr) as Ptr
 		    
-		    if (self <> nil) then
+		    if self <> nil then
 		      return MakeCFURL(CFBundleCopySupportFilesDirectoryURL(self))
 		    else
 		      return nil
@@ -347,9 +350,8 @@ Inherits CFType
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  
 			  #if TargetMacOS
-			    return   URL.Item
+			    return URL.Item
 			  #endif
 			End Get
 		#tag EndGetter
@@ -366,7 +368,9 @@ Inherits CFType
 			  #if targetMacOS
 			    declare function CFBundleGetIdentifier lib CarbonLib (bundle as Ptr) as CFStringRef
 			    
-			    return CFBundleGetIdentifier(self)
+			    if self <> nil then
+			      return CFBundleGetIdentifier(self)
+			    end if
 			  #endif
 			End Get
 		#tag EndGetter
@@ -377,9 +381,9 @@ Inherits CFType
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    soft declare function CFBundleCopyBundleURL lib CarbonLib (bundle as Ptr) as Ptr
+			    declare function CFBundleCopyBundleURL lib CarbonLib (bundle as Ptr) as Ptr
 			    
-			    if (self <> nil) then
+			    if self <> nil then
 			      dim theURL as new CFURL(CFBundleCopyBundleURL(me.Reference), true)
 			      if not theURL.Equals(nil) then
 			        return theURL

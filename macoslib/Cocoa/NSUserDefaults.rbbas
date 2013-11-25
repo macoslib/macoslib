@@ -198,7 +198,9 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function standardUserDefaults lib CocoaLib selector "standardUserDefaults" (Cls as Ptr) as Ptr
 		    
-		    return new NSUserDefaults(Cocoa.NSClassFromString( "NSUserDefaults" ), hasOwnership)
+		    static defaults as NSUserDefaults = new NSUserDefaults (standardUserDefaults(Cocoa.NSClassFromString("NSUserDefaults")), not hasOwnership)
+		    
+		    return defaults
 		  #endif
 		End Function
 	#tag EndMethod

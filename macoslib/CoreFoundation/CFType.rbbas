@@ -1,18 +1,20 @@
 #tag Class
 Class CFType
 	#tag Method, Flags = &h21
-		Private Sub AdoptNoVerify(ref as Ptr, hasOwnership as Boolean)
-		  // This method must remain private so that only NewObject may call it,
-		  // in order to create a direct CFType object (not subclassed) that doesn't
-		  // call VerifyType.
-		  // No outside function or subclass should be able to skip the verification,
-		  // so don't mess with this.
-		  
-		  if not hasOwnership and ref <> nil then
-		    Retain (ref)
-		  end if
-		  
-		  me.mRef = ref
+		Private Sub AdoptNoVerify(ref as CFTypeRef, hasOwnership as Boolean)
+		  #if targetMacOS
+		    // This method must remain private so that only NewObject may call it,
+		    // in order to create a direct CFType object (not subclassed) that doesn't
+		    // call VerifyType.
+		    // No outside function or subclass should be able to skip the verification,
+		    // so don't mess with this.
+		    
+		    self.mRef = ref
+		    
+		    if not hasOwnership then
+		      self.Retain()
+		    end if
+		  #endif
 		  
 		End Sub
 	#tag EndMethod
@@ -24,22 +26,34 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(ref as Ptr, hasOwnership as Boolean)
-		  // This is the mandatory constructor for all CFType subclasses.
-		  //
-		  // Use it when you have declared a CF function from the Carbon framework
-		  // (CarbonCore) and retrieved any CF... type. Pass the retrieved CF object
-		  // as the 'ref' parameter.
-		  //
-		  // If the object ref was retrieved by a CF...Copy... or CF...Create... function,
-		  // pass 'true' to the 'hasOwnership' parameter. Otherwise, pass 'false'.
-		  //
-		  // The 'hasOwnership' parameter tells this object whether to balance the
-		  // release call in its destructor with a retain call.
-		  
-		  
-		  
-		  self.AdoptNoVerify(VerifyType(ref), hasOwnership)
+		Sub Constructor(ref as CFTypeRef, hasOwnership as Boolean)
+		  #if targetMacOS
+		    // This is the mandatory constructor for all CFType subclasses.
+		    //
+		    // Use it when you have declared a CF function from the Carbon framework
+		    // (CarbonCore) and retrieved any CF... type. Pass the retrieved CF object
+		    // as the 'ref' parameter.
+		    //
+		    // If the object ref was retrieved by a CF...Copy... or CF...Create... function,
+		    // pass 'true' to the 'hasOwnership' parameter. Otherwise, pass 'false'.
+		    //
+		    // The 'hasOwnership' parameter tells this object whether to balance the
+		    // release call in its destructor with a retain call.
+		    
+		    
+		    
+		    self.AdoptNoVerify(VerifyType(ref), hasOwnership)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Attributes( deprecated = true )  Sub Constructor(p as Ptr, hasOwnership as Boolean)
+		  #if targetMacOS
+		    dim ref as CFTypeRef
+		    ref.value = p
+		    self.Constructor(ref, hasOwnership)
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -91,22 +105,22 @@ Class CFType
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Destructor()
-		  Release me.mRef
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  self.Release
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function Equals(theObj as CFType) As Boolean
-		  if theObj is nil then
-		    return (me.mRef = nil)
-		  end if
-		  
 		  #if TargetMacOS
-		    soft declare function CFEqual lib CarbonLib (cf1 as Ptr, cf2 as Ptr) as Boolean
+		    soft declare function CFEqual lib CarbonLib (cf1 as CFTypeRef, cf2 as CFTypeRef) as Boolean
 		    
-		    return CFEqual(me.mRef, theObj.Reference)
+		    if self = nil then
+		      return theObj = nil
+		    else
+		      return (theObj <> nil) and CFEqual(self, theObj)
+		    end if
 		  #endif
 		  
 		End Function
@@ -119,17 +133,27 @@ Class CFType
 		  // It can be used to access existing CFType objects, e.g. those from MBS plugins,
 		  // by passing their Handle property to this constructor
 		  
-		  return NewObject(Ptr(handle), not hasOwnership)
+		  dim ref as CFTypeRef
+		  ref.value = Ptr(handle)
+		  return NewObject(ref, not hasOwnership)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Handle() As CFTypeRef
+		  return self.mRef
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function Hash() As UInt32
 		  #if TargetMacOS
-		    soft declare function CFHash lib CarbonLib (cf as Ptr) as UInt32
+		    soft declare function CFHash lib CarbonLib (cf as CFTypeRef) as UInt32
 		    
-		    if me.mRef <> nil then
-		      return CFHash(me.mRef)
+		    if self.mRef.value <> nil then
+		      return CFHash(self.mRef)
+		    else
+		      return 0
 		    end if
 		  #endif
 		End Function
@@ -137,12 +161,12 @@ Class CFType
 
 	#tag Method, Flags = &h0
 		Attributes( Deprecated = "=nil" )  Function IsNULL() As Boolean
-		  return (me = nil)
+		  return (self = nil)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewObject(ref as Ptr, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
+		 Shared Function NewObject(ref as CFTypeRef, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
 		  // This function never returns nil on Mac OS X (but always nil on other platforms)
 		  //
 		  // hasOwnership: pass true if ref comes from a OS's CF... call and has just been retained. The constructor will release it then.
@@ -153,14 +177,10 @@ Class CFType
 		  
 		  #if TargetMacOS
 		    
-		    if ref = nil then
+		    if ref.value = nil then
 		      return new CFType() // this gives a CFType object whose "IsNULL()" function returns true
 		    end if
 		    
-		    if not hasOwnership then
-		      Retain(ref)
-		      hasOwnership = true
-		    end if
 		    
 		    dim theTypeID as UInt32 = CFGetTypeID(ref)
 		    
@@ -174,8 +194,8 @@ Class CFType
 		      end
 		      
 		    case CFBoolean.ClassID
-		      static b as CFType = CFBoolean.GetTrue //needed to get the compiler to see the private mRef property
-		      if ref = b.mRef then
+		      static b as CFTypeRef = CFBoolean.GetTrue.Handle
+		      if ref.value = b.value then
 		        return CFBoolean.GetTrue
 		      else
 		        return CFBoolean.GetFalse
@@ -264,101 +284,108 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Attributes( deprecated = true )  Shared Function NewObject(p as Ptr, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
+		  #if TargetMacOS
+		    dim ref as CFTypeRef
+		    ref.value = p
+		    return NewObject(ref, hasOwnership, mutability)
+		  #else
+		    
+		    #pragma unused p
+		    #pragma unused hasOwnership
+		    #pragma unused mutability
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Operator_Compare(t as CFType) As Integer
 		  // Tells whether the two CF objects are the same CF instance but not necessarily the
 		  //   same value (for equality check, use the Equals() function)
 		  
 		  //A CFType object with mRef = nil is treated as a nil object.
 		  
+		  //This method should be overloaded in classes for which comparison makes sense.
+		  
 		  
 		  if t is nil then
-		    if me.Reference = nil then
+		    if self.Handle.value = nil then
 		      return 0
 		    else
 		      return 1
 		    end if
 		    
 		  else
-		    return Integer(me.Reference) - Integer(t.Reference)
+		    return Integer(self.Handle.value) - Integer(t.Handle.value)
 		  end if
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Operator_Convert() As Ptr
+		Function Operator_Convert() As CFTypeRef
 		  // This is a convenience function to get the reference to the OS object,
 		  // for passing to CoreFoundation functions.
 		  
-		  return me.Reference // Call this function (not return mRef directly) because it might be overridden
+		  return self.Handle // Call this function (not return mRef directly) because it might be overridden
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Attributes( deprecated = true )  Function Operator_Convert() As Ptr
+		  // This is a convenience function to get the reference to the OS object,
+		  // for passing to CoreFoundation functions.
+		  
+		  return self.Handle().value // Call this function (not return mRef directly) because it might be overridden
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function RefCount() As Integer
-		  return RefCount(me.mRef)
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function RefCount(ref as Ptr) As Integer
-		  #if TargetMacOS
-		    soft declare function CFGetRetainCount lib CarbonLib (cf as Ptr) as Integer
-		    if ref <> nil then
-		      return CFGetRetainCount(ref)
+		  #if targetMacOS
+		    soft declare function CFGetRetainCount lib CoreFoundation.framework (cf as CFTypeRef) as Integer
+		    
+		    if self.mRef.value = nil then
+		      return CFGetRetainCount(self.mRef)
+		    else
+		      return 0
 		    end if
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Reference() As Ptr
-		  return me.mRef
+		Attributes( deprecated = true )  Function Reference() As Ptr
+		  return self.mRef.value
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Release()
-		  Release me.mRef
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Sub Release(ref as Ptr)
-		  #if TargetMacOS
-		    soft declare sub CFRelease lib CarbonLib (cf as Ptr)
+		  #if targetMacOS
+		    soft declare sub CFRelease lib CoreFoundation.framework (cf as CFTypeRef)
 		    
-		    '#if DebugBuild
-		    'dim cnt as Integer = RefCount(ref)
-		    'System.DebugLog "release "+Hex(Integer(ref))+" ("+Str(cnt)+"->"+Str(cnt-1)+")"
-		    '#endif
-		    
-		    if ref <> nil then
-		      CFRelease ref
+		    dim ref as CFTypeRef = self.Handle
+		    if ref.value <> nil then
+		      CFRelease(ref)
 		    end if
 		  #endif
+		  
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Retain()
-		  Retain me.mRef
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Sub Retain(ref as Ptr)
-		  #if TargetMacOS
-		    soft declare function CFRetain lib CarbonLib (cf as Ptr) as Integer
+		  #if targetMacOS
+		    soft declare function CFRetain lib CoreFoundation.framework (cf as CFTypeRef) as CFTypeRef
 		    
-		    '#if DebugBuild
-		    'dim cnt as Integer = RefCount(ref)
-		    'System.DebugLog "retain  "+Hex(Integer(ref))+" ("+Str(cnt)+"->"+Str(cnt+1)+")"
-		    '#endif
-		    
-		    if ref <> nil then
-		      call CFRetain(ref)
+		    dim ref as CFTypeRef = self.Handle
+		    if ref.value <> nil then
+		      //CFRetain returns the input value on success.  I chose to write the return value to ref
+		      //instead of using Call.  CCY 2013-11-24.
+		      ref = CFRetain(ref)
 		    end if
 		  #endif
 		  
@@ -368,10 +395,10 @@ Class CFType
 	#tag Method, Flags = &h0
 		Sub Show()
 		  #if TargetMacOS
-		    soft declare sub CFShow lib CarbonLib (obj as Ptr)
+		    soft declare sub CFShow lib CoreFoundation.framework (obj as CFTypeRef)
 		    
-		    if me.mRef <> nil then
-		      CFShow me.mRef
+		    if self.mRef.value <> nil then
+		      CFShow self.mRef
 		    end if
 		  #endif
 		End Sub
@@ -394,7 +421,7 @@ Class CFType
 	#tag Method, Flags = &h0
 		Function TypeID() As UInt32
 		  #if TargetMacOS
-		    if me.mRef <> nil then
+		    if self.mRef.value <> nil then
 		      return CFGetTypeID(self.mRef)
 		    else
 		      return 0
@@ -415,15 +442,21 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function VerifyType(ref as Ptr) As Ptr
+		Private Function VerifyType(ref as CFTypeRef) As CFTypeRef
 		  #if targetMacOS
-		    if ref = nil or (RaiseEvent ClassID()) = CFGetTypeID(ref) then
+		    if ref.value = nil then
 		      return ref
 		    else
-		      declare function CFCopyTypeIDDescription lib CarbonLib (id as Integer) as CFStringRef
-		      dim e as new TypeMismatchException
-		      e.Message = "CFTypeRef &h" + Hex(ref) + " has ID " + CFCopyTypeIDDescription(CFGetTypeID(ref)) + " but " + CFCopyTypeIDDescription(RaiseEvent ClassID()) + " was expected."
-		      raise e
+		      dim expectedTypeID as UInt32 = RaiseEvent ClassID()
+		      dim actualTypeID as UInt32 = CFGetTypeID(ref)
+		      if (expectedTypeID = actualTypeID) then
+		        return ref
+		      else
+		        declare function CFCopyTypeIDDescription lib CarbonLib (id as Integer) as CFStringRef
+		        dim e as new TypeMismatchException
+		        e.Message = "CFTypeRef &h" + Hex(ref.value) + " has ID " + CFCopyTypeIDDescription(actualTypeID) + " but " + CFCopyTypeIDDescription(expectedTypeID) + " was expected."
+		        raise e
+		      end if
 		    end if
 		  #endif
 		End Function
@@ -489,7 +522,7 @@ Class CFType
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
-			  return me.RefCount
+			  return self.RefCount
 			End Get
 		#tag EndGetter
 		Private debugRefCount As Integer
@@ -504,12 +537,12 @@ Class CFType
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    soft declare function CFCopyDescription lib CarbonLib (cf as Ptr) as Ptr
+			    soft declare function CFCopyDescription lib CoreFoundation.framework (cf as CFTypeRef) as CFTypeRef
 			    // Caution: If this would return a CFStringRef, we'd have to Retain its value!
 			    // Instead, "new CFString()" takes care of that below
 			    
 			    if not ( self = nil ) then
-			      return new CFString(CFCopyDescription(me.mRef), true)
+			      return new CFString(CFCopyDescription(self), hasOwnership)
 			    end if
 			  #endif
 			End Get
@@ -518,7 +551,7 @@ Class CFType
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
-		Private mRef As Ptr
+		Private mRef As CFTypeRef
 	#tag EndProperty
 
 
