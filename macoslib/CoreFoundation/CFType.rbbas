@@ -356,7 +356,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Attributes( deprecated = true )  Function Reference() As Ptr
+		Attributes( deprecated = "CFType.Handle" )  Function Reference() As Ptr
 		  return self.mRef.value
 		End Function
 	#tag EndMethod
