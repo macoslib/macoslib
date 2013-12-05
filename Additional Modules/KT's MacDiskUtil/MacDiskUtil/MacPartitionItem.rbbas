@@ -1,6 +1,20 @@
 #tag Class
 Protected Class MacPartitionItem
 Inherits MacDiskUtil.MacDeviceItem
+	#tag Event
+		Sub RefreshFromDict(dict As Dictionary)
+		  me.zFileSystemName = dict.Lookup( "FileSystemName", "" )
+		  me.zFileSystemType = dict.Lookup( "FileSystemType", "" )
+		  me.zJournalOffset = dict.Lookup( "JournalOffset", false )
+		  me.zJournalSize = dict.Lookup( "JournalSize", false )
+		  me.zVolumeUUID = dict.Lookup( "VolumeUUID", "" )
+		  me.zRecoveryIdentifier = dict.Lookup( "RecoveryDeviceIdentifier", "" )
+		  
+		  
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPList(plist As MacPListBrowser) As MacDeviceItem
 		  if plist is nil then return nil
@@ -13,7 +27,7 @@ Inherits MacDiskUtil.MacDeviceItem
 		  
 		  dim dict as Dictionary = plist.VariantValue // Get it as a Dictionary all at once
 		  
-		  dim device as MacDeviceItem 
+		  dim device as MacDeviceItem
 		  dim isPartition as boolean = not dict.Lookup( "WholeDisk", false )
 		  if isPartition then
 		    device = new MacPartitionItem
@@ -32,7 +46,6 @@ Inherits MacDiskUtil.MacDeviceItem
 		  device.zNode = dict.Lookup( "DeviceNode", "" )
 		  device.zTreePath = dict.Lookup( "DeviceTreePath", "" )
 		  device.zEjectable = dict.Lookup( "Ejectable", false )
-		  device.zFreeSpace = dict.Lookup( "FreeSpace", false )
 		  device.zGlobalPermissionsEnabled = dict.Lookup( "GlobalPermissionsEnabled", false )
 		  device.zIOKitSize = dict.Lookup( "IOKitSize", false )
 		  device.zInternal = dict.Lookup( "Internal", false )
@@ -45,7 +58,6 @@ Inherits MacDiskUtil.MacDeviceItem
 		  device.zParentIdentifier = dict.Lookup( "ParentWholeDisk", "" )
 		  device.zRAIDMaster = dict.Lookup( "RAIDMaster", false )
 		  device.zRAIDSlice = dict.Lookup( "RAIDSlice", false )
-		  device.zSMARTStatus = dict.Lookup( "SMARTStatus", "" )
 		  device.zSupportsGlobalPermissionsDisable = dict.Lookup( "SupportsGlobalPermissionsDisable", false )
 		  device.zSystemImage = dict.Lookup( "SystemImage", false )
 		  device.zTotalSize = dict.Lookup( "TotalSize", false )
@@ -103,6 +115,20 @@ Inherits MacDiskUtil.MacDeviceItem
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Mount(readOnly As Boolean = False) As Boolean
+		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "mount "
+		  if readOnly then
+		    cmd = cmd + "readOnly "
+		  end if
+		  cmd = cmd + me.Identifier
+		  
+		  dim r as shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  return r.ErrorCode = 0
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Attributes( Hidden ) Private Function Partitions() As MacPartitionItem()
 		  // Overrides the super. Meaningless for a partition
@@ -118,11 +144,46 @@ Inherits MacDiskUtil.MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Unmount(force As Boolean = False) As Boolean
+		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "unmount "
+		  if force then
+		    cmd = cmd + "force "
+		  end if
+		  cmd = cmd + me.Identifier
+		  
+		  dim r as shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  return r.ErrorCode = 0
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function VolumeUUID() As String
 		  return zVolumeUUID
 		End Function
 	#tag EndMethod
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as boolean
+			  
+			  try
+			    dim text as string = pGrepInfo( "Mounted" )
+			    if text.InStr( "yes" ) <> 0 then
+			      r = true
+			    end if
+			    
+			  catch
+			  end
+			  
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		Mounted As Boolean
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h1
 		Protected zFileSystemName As String
@@ -165,10 +226,21 @@ Inherits MacDiskUtil.MacDeviceItem
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Mounted"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SMARTStatus"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

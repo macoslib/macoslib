@@ -41,15 +41,17 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Ejectable() As Boolean
-		  return zEjectable
+		Function Eject() As Boolean
+		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "eject " + me.Identifier
+		  dim r as Shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  return r.ErrorCode = 0
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FreeSpace() As UInt64
-		  return zFreeSpace
+		Function Ejectable() As Boolean
+		  return zEjectable
 		  
 		End Function
 	#tag EndMethod
@@ -99,6 +101,17 @@ Protected Class MacDeviceItem
 	#tag Method, Flags = &h0
 		Function MediaType() As String
 		  return zMediaType
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MountDisk() As Boolean
+		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "mountDisk "
+		  cmd = cmd + me.ParentIdentifier
+		  
+		  dim r as shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  return r.ErrorCode = 0
 		  
 		End Function
 	#tag EndMethod
@@ -160,6 +173,79 @@ Protected Class MacDeviceItem
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function pGrepInfo(term As String) As String
+		  dim r as string
+		  
+		  term = " " + term + ": "
+		  dim quotedTerm as string = "'" + term + "'"
+		  
+		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "info " + me.Identifier + " | grep " + quotedTerm
+		  dim sh as Shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  if sh.ErrorCode = 0 then
+		    r = sh.Result
+		    dim parts() as string = r.Split( term )
+		    r = parts( parts.Ubound )
+		  end if
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub pRefresh(dict As Dictionary)
+		  if dict = nil then return
+		  
+		  me.zBootable = dict.Lookup( "Bootable", false )
+		  me.zBusProtocol = dict.Lookup( "BusProtocol", "" )
+		  me.zCanBeMadeBootable = dict.Lookup( "CanBeMadeBootable", false )
+		  me.zCanBeMadeBootableRequiresDestroy = dict.Lookup( "CanBeMadeBootableRequiresDestroy", false )
+		  me.zType = dict.Lookup( "Content", "" )
+		  me.zBlockSize = dict.Lookup( "DeviceBlockSize", false )
+		  me.zIdentifier = dict.Lookup( "DeviceIdentifier", "" )
+		  me.zNode = dict.Lookup( "DeviceNode", "" )
+		  me.zTreePath = dict.Lookup( "DeviceTreePath", "" )
+		  me.zEjectable = dict.Lookup( "Ejectable", false )
+		  me.zGlobalPermissionsEnabled = dict.Lookup( "GlobalPermissionsEnabled", false )
+		  me.zIOKitSize = dict.Lookup( "IOKitSize", false )
+		  me.zInternal = dict.Lookup( "Internal", false )
+		  if not zIsPartition then
+		    me.zLowLevelFormatSupported = dict.Lookup( "LowLevelFormatSupported", false )
+		  end if
+		  me.zMediaName = dict.Lookup( "MediaName", "" )
+		  me.zMediaType = dict.Lookup( "MediaType", "" )
+		  me.zMountPoint = dict.Lookup( "MountPoint", "" )
+		  me.zParentIdentifier = dict.Lookup( "ParentWholeDisk", "" )
+		  me.zRAIDMaster = dict.Lookup( "RAIDMaster", false )
+		  me.zRAIDSlice = dict.Lookup( "RAIDSlice", false )
+		  me.zSupportsGlobalPermissionsDisable = dict.Lookup( "SupportsGlobalPermissionsDisable", false )
+		  me.zSystemImage = dict.Lookup( "SystemImage", false )
+		  me.zTotalSize = dict.Lookup( "TotalSize", false )
+		  me.zVolumeName = dict.Lookup( "VolumeName", "" )
+		  me.zWritable = dict.Lookup( "Writable", false )
+		  me.zWritableMedia = dict.Lookup( "WritableMedia", false )
+		  me.zWritableVolume = dict.Lookup( "WritableVolume", false )
+		  
+		  RaiseEvent RefreshFromDict( dict )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function pValueFromKey(key As String) As Variant
+		  dim r as Variant = nil
+		  
+		  dim plist as MacPListBrowser = MacDiskUtil.pGetDiskUtilInfo( me.Identifier )
+		  if plist.HasKey( key ) then
+		    r = plist.Child( key ).VariantValue
+		  end if
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function RAIDMaster() As Boolean
 		  return zRAIDMaster
@@ -175,10 +261,16 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SMARTStatus() As String
-		  return zSMARTStatus
+		Sub Refresh()
+		  // Updates all the properties
 		  
-		End Function
+		  dim plist as MacPListBrowser = MacDiskUtil.pGetDiskUtilInfo( me.Identifier )
+		  if plist <> nil and plist.IsDictionary then
+		    dim dict as Dictionary = plist.VariantValue
+		    me.pRefresh( dict )
+		  end if
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -218,6 +310,20 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function UnmountDisk(force As Boolean = False) As Boolean
+		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "unmountDisk "
+		  if force then
+		    cmd = cmd + "force "
+		  end if
+		  cmd = cmd + me.ParentIdentifier
+		  
+		  dim r as shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  return r.ErrorCode = 0
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function VolumeName() As String
 		  return zVolumeName
 		  
@@ -246,25 +352,66 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0
+		Event RefreshFromDict(dict As Dictionary)
+	#tag EndHook
+
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  if not zIsPartition then return nil
+			  if not zIsPartition then return me
+			  
+			  dim r as MacDeviceItem
 			  
 			  dim id as string = zParentIdentifier
 			  if id <> "" then
 			    try
-			      return Device( id )
+			      r = Device( id )
 			    catch
-			      return nil
+			      r = nil
 			    end try
 			  else
-			    return nil
+			    r = nil
 			  end if
+			  
+			  return r
 			  
 			End Get
 		#tag EndGetter
-		Parent As MacDeviceItem
+		Device As MacDeviceItem
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as UInt64
+			  dim v as Variant = pValueFromKey( "FreeSpace" )
+			  if v <> nil then
+			    r = v.UInt64Value
+			  end if
+			  
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		FreeSpace As UInt64
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as string
+			  dim v as Variant = pValueFromKey( "SMARTStatus" )
+			  if v <> nil then
+			    r = v.StringValue
+			  end if
+			  
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		SMARTStatus As String
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h1
@@ -289,10 +436,6 @@ Protected Class MacDeviceItem
 
 	#tag Property, Flags = &h1
 		Protected zEjectable As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zFreeSpace As UInt64
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -345,10 +488,6 @@ Protected Class MacDeviceItem
 
 	#tag Property, Flags = &h1
 		Protected zRAIDSlice As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zSMARTStatus As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -408,6 +547,11 @@ Protected Class MacDeviceItem
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SMARTStatus"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

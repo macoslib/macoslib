@@ -27,20 +27,47 @@ Protected Module MacDiskUtil
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function pExecuteShellCommand(cmd As String) As String
-		  dim sh as new shell
-		  sh.Execute cmd
-		  return sh.Result
+	#tag Method, Flags = &h1
+		Protected Function Mount(item As MacDeviceItem, force As Boolean = false) As Boolean
+		  dim cmd as string
+		  if item IsA MacPartitionItem then
+		    cmd = "mount "
+		  else
+		    cmd = "mountDisk "
+		  end if
+		  if force then
+		    cmd = cmd + "force "
+		  end if
+		  cmd = kDiskUtilCmd + cmd + item.Identifier
+		  
+		  dim r as shell = pExecuteShellCommand( cmd )
+		  return r.ErrorCode = 0
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function pGetDiskUtilInfo(device As String = "") As MacPListBrowser
+	#tag Method, Flags = &h1
+		Protected Function Partition(identifier As String) As MacPartitionItem
+		  return MacPartitionItem( Device( identifier ) )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function pExecuteShellCommand(cmd As String) As Shell
+		  dim sh as new shell
+		  sh.Execute cmd
+		  return sh
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function pGetDiskUtilInfo(device As String = "") As MacPListBrowser
 		  dim cmd as string = kDiskUtilCmd + "info -plist " + device
-		  dim r as string = pExecuteShellCommand( cmd )
-		  return MacPListBrowser.CreateFromPListString( r )
+		  dim r as shell = pExecuteShellCommand( cmd )
+		  dim plist as CoreFoundation.CFPropertyList = CFTYpe.CreateFromPListString( r.Result, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		  return MacPListBrowser.CreateFromPListString( r.Result )
 		  
 		End Function
 	#tag EndMethod
@@ -48,9 +75,8 @@ Protected Module MacDiskUtil
 	#tag Method, Flags = &h21
 		Private Function pGetDiskUtilList(deviceIdentifier As String = "") As MacPListBrowser
 		  dim cmd as string = kDiskUtilCmd + "list -plist " + deviceIdentifier
-		  dim r as string = pExecuteShellCommand( cmd )
-		  return MacPlistBrowser.CreateFromPListString( r )
-		  
+		  dim r as shell = pExecuteShellCommand( cmd )
+		  return MacPlistBrowser.CreateFromPListString( r.Result )
 		  
 		End Function
 	#tag EndMethod
@@ -68,7 +94,7 @@ Protected Module MacDiskUtil
 	#tag EndMethod
 
 
-	#tag Constant, Name = kDiskUtilCmd, Type = String, Dynamic = False, Default = \"/usr/sbin/diskutil ", Scope = Private
+	#tag Constant, Name = kDiskUtilCmd, Type = String, Dynamic = False, Default = \"/usr/sbin/diskutil ", Scope = Protected
 	#tag EndConstant
 
 
