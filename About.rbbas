@@ -50,6 +50,12 @@ Protected Module About
 		but please start with the entire macoslib folder to save you trouble initially.
 	#tag EndNote
 
+	#tag Note, Name = Kem's Temp Notes
+		
+		- Added MacDiskUtil module and classes.
+		- Added DebugKeys as private computed property to NativeSubclass.DictionaryCaseSensitive.
+	#tag EndNote
+
 	#tag Note, Name = License
 		The present library is distributed under the terms of the MIT License.
 		

@@ -3,6 +3,8 @@ Protected Class MacPartitionItem
 Inherits MacDiskUtil.MacDeviceItem
 	#tag Event
 		Sub RefreshFromDict(dict As Dictionary)
+		  if dict is nil then return
+		  
 		  me.zFileSystemName = dict.Lookup( "FileSystemName", "" )
 		  me.zFileSystemType = dict.Lookup( "FileSystemType", "" )
 		  me.zJournalOffset = dict.Lookup( "JournalOffset", false )
@@ -36,7 +38,7 @@ Inherits MacDiskUtil.MacDeviceItem
 		  end if
 		  device.zIsPartition = isPartition
 		  
-		  device.zBootable = dict.Lookup( "Bootable", false )
+		  'device.zBootable = dict.Lookup( "Bootable", false )
 		  device.zBusProtocol = dict.Lookup( "BusProtocol", "" )
 		  device.zCanBeMadeBootable = dict.Lookup( "CanBeMadeBootable", false )
 		  device.zCanBeMadeBootableRequiresDestroy = dict.Lookup( "CanBeMadeBootableRequiresDestroy", false )
@@ -163,27 +165,6 @@ Inherits MacDiskUtil.MacDeviceItem
 		End Function
 	#tag EndMethod
 
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  dim r as boolean
-			  
-			  try
-			    dim text as string = pGrepInfo( "Mounted" )
-			    if text.InStr( "yes" ) <> 0 then
-			      r = true
-			    end if
-			    
-			  catch
-			  end
-			  
-			  return r
-			  
-			End Get
-		#tag EndGetter
-		Mounted As Boolean
-	#tag EndComputedProperty
 
 	#tag Property, Flags = &h1
 		Protected zFileSystemName As String

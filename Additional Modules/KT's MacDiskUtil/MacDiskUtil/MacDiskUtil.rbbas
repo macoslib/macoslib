@@ -2,8 +2,8 @@
 Protected Module MacDiskUtil
 	#tag Method, Flags = &h1
 		Protected Function Device(identifier As String) As MacDeviceItem
-		  dim plist as MacPListBrowser = pGetDiskUtilInfo( identifier )
-		  dim r as MacDeviceItem = MacDeviceItem.CreateFromPList( plist )
+		  dim dict as Dictionary = pGetDiskUtilInfo( identifier )
+		  dim r as MacDeviceItem = MacDeviceItem.CreateFromDictionary( dict )
 		  return r
 		  
 		End Function
@@ -11,15 +11,16 @@ Protected Module MacDiskUtil
 
 	#tag Method, Flags = &h1
 		Protected Function Devices() As MacDeviceItem()
-		  dim info as MacPListBrowser = pGetDiskUtilList( )
-		  dim disksArr() as MacPListBrowser = info.FindByKey( "WholeDisks" )
 		  dim r() as MacDeviceItem
-		  if disksArr.Ubound <> -1 then
-		    dim disks as MacPListBrowser = disksArr( 0 )
-		    dim lastIndex as integer = disks.Count - 1
-		    for i as integer = 0 to lastIndex
-		      dim thisDisk as MacPListBrowser = disks.Child( i )
-		      r.Append Device( thisDisk.StringValue )
+		  
+		  dim info as Dictionary = pGetDiskUtilList( )
+		  if info is nil then return r
+		  
+		  dim disksArr() as Variant = info.Lookup( "WholeDisks", nil )
+		  if disksArr <> nil then
+		    for i as integer = 0 to disksArr.Ubound
+		      dim thisDisk as string = disksArr( i )
+		      r.Append Device( thisDisk )
 		    next
 		  end if
 		  return r
@@ -63,20 +64,45 @@ Protected Module MacDiskUtil
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function pGetDiskUtilInfo(device As String = "") As MacPListBrowser
-		  dim cmd as string = kDiskUtilCmd + "info -plist " + device
-		  dim r as shell = pExecuteShellCommand( cmd )
-		  dim plist as CoreFoundation.CFPropertyList = CFTYpe.CreateFromPListString( r.Result, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
-		  return MacPListBrowser.CreateFromPListString( r.Result )
+		Protected Function pGetDiskUtilInfo(device As String = "") As Dictionary
+		  #if TargetMacOS
+		    
+		    dim cmd as string = kDiskUtilCmd + "info -plist " + device
+		    dim r as shell = pExecuteShellCommand( cmd )
+		    dim plist as CoreFoundation.CFPropertyList = CFTYpe.CreateFromPListString( r.Result, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    if plist <> nil then
+		      return plist.VariantValue
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused device
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function pGetDiskUtilList(deviceIdentifier As String = "") As MacPListBrowser
-		  dim cmd as string = kDiskUtilCmd + "list -plist " + deviceIdentifier
-		  dim r as shell = pExecuteShellCommand( cmd )
-		  return MacPlistBrowser.CreateFromPListString( r.Result )
+	#tag Method, Flags = &h1
+		Protected Function pGetDiskUtilList(deviceIdentifier As String = "") As Dictionary
+		  #if TargetMacOS
+		    
+		    dim cmd as string = kDiskUtilCmd + "list -plist " + deviceIdentifier
+		    dim r as shell = pExecuteShellCommand( cmd )
+		    dim plist as CoreFoundation.CFPropertyList = CFType.CreateFromPListString( r.Result, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		    if plist <> nil then
+		      return plist.VariantValue
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused deviceIdentifier
+		    
+		  #endif
 		  
 		End Function
 	#tag EndMethod
@@ -85,9 +111,20 @@ Protected Module MacDiskUtil
 		Attributes( Hidden ) Protected Sub SelfTest()
 		  dim devicesArr() as MacDeviceItem = Devices
 		  dim partitionArr() as MacPartitionItem
-		  for each d as MacDeviceItem in devicesArr
+		  for each d as MacDiskUtil.MacDeviceItem in devicesArr
 		    partitionArr = d.Partitions
-		    partitionArr = partitionArr // A Place to break
+		    partitionArr = partitionArr // A place to break
+		    
+		    dim id as string = d
+		    dim b as boolean = d.Mounted
+		    dim status as MacDiskUtil.MacDeviceItem.MountType = d.MountStatus
+		    dim f as UInt64 = d.FreeSpace
+		    
+		    for each p as MacDiskUtil.MacPartitionItem in partitionArr
+		      f = p.FreeSpace
+		      
+		      f = f // A place to break
+		    next
 		  next d
 		  
 		End Sub

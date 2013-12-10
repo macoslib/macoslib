@@ -8,13 +8,6 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Bootable() As Boolean
-		  return zBootable
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function BusProtocol() As String
 		  return zBusProtocol
 		  
@@ -35,8 +28,22 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPList(plist As MacPListBrowser) As MacDeviceItem
-		  return MacPartitionItem.CreateFromPList( plist ) // The subclass can access all of the properties
+		 Shared Function CreateFromDictionary(dict As Dictionary) As MacDeviceItem
+		  if dict is nil then return nil
+		  
+		  dim isPartition as boolean = not dict.Lookup( "WholeDisk", false )
+		  
+		  dim r as MacDiskUtil.MacDeviceItem
+		  if isPartition then
+		    r = new MacPartitionItem
+		  else
+		    r = new MacDeviceItem
+		  end if
+		  
+		  r.zIsPartition = isPartition
+		  r.pRefresh( dict )
+		  return r
+		  
 		End Function
 	#tag EndMethod
 
@@ -148,24 +155,35 @@ Protected Class MacDeviceItem
 		Function Partitions() As MacPartitionItem()
 		  dim r() as MacPartitionItem
 		  
-		  dim info as MacPListBrowser = pGetDiskUtilList( me.Identifier )
-		  dim disksArr() as MacPListBrowser = info.FindByKey( "AllDisksAndPartitions" )
-		  if disksArr.Ubound = -1 then return r
+		  dim info as Dictionary = pGetDiskUtilList( me.Identifier )
+		  if info is nil then return r
 		  
-		  dim thisDisk as MacPListBrowser = disksArr( 0 )
-		  if thisDisk.Type <> MacPListBrowser.ValueType.IsArray or thisDisk.Count = 0 then return r
+		  dim disksArr() as Variant = info.Lookup( "AllDisksAndPartitions", nil )
+		  if disksArr is nil or disksArr.Ubound = -1 then return r
 		  
-		  dim partitionsListArr() as MacPListBrowser = thisDisk.FindByKey( "Partitions" )
+		  dim thisDisk as Dictionary = disksArr( 0 )
+		  if thisDisk.Count = 0 then return r
+		  
+		  dim partitionsListArr() as Variant 
+		  dim v as Variant = thisDisk.Lookup( "Partitions", nil )
+		  #if DebugBuild
+		    dim thisType as integer = v.Type
+		    #pragma unused thisType
+		  #endif
+		  if v is nil or v.Type < Variant.TypeArray then
+		    return r
+		  end if
+		  
+		  partitionsListArr = v
 		  if partitionsListArr.Ubound = -1 then return r
 		  
-		  dim partitionsArr as MacPListBrowser = partitionsListArr( 0 )
-		  if partitionsArr.Count = 0 then return r
-		  
-		  dim idArr() as MacPlistBrowser = partitionsArr.FindByKey( "DeviceIdentifier" )
-		  for i as integer = 0 to idArr.Ubound
-		    dim id as string = idArr( i ).StringValue
-		    dim partition as MacPartitionItem = MacPartitionItem( Device( id ) )
-		    r.Append partition
+		  for i as integer = 0 to partitionsListArr.Ubound
+		    dim partitionDict as Dictionary = partitionsListArr( i )
+		    dim id as string = partitionDict.Lookup( "DeviceIdentifier", "" )
+		    if id <> "" then
+		      dim partition as MacDiskUtil.MacPartitionItem = MacDiskUtil.MacPartitionItem( Device( id ) )
+		      r.Append partition
+		    end if
 		  next
 		  
 		  return r
@@ -195,9 +213,13 @@ Protected Class MacDeviceItem
 
 	#tag Method, Flags = &h1
 		Protected Sub pRefresh(dict As Dictionary)
+		  #pragma warning "Don't think I need this"
+		  
 		  if dict = nil then return
 		  
-		  me.zBootable = dict.Lookup( "Bootable", false )
+		  zDict = dict
+		  
+		  'me.zBootable = dict.Lookup( "Bootable", false )
 		  me.zBusProtocol = dict.Lookup( "BusProtocol", "" )
 		  me.zCanBeMadeBootable = dict.Lookup( "CanBeMadeBootable", false )
 		  me.zCanBeMadeBootableRequiresDestroy = dict.Lookup( "CanBeMadeBootableRequiresDestroy", false )
@@ -234,13 +256,10 @@ Protected Class MacDeviceItem
 
 	#tag Method, Flags = &h1
 		Protected Function pValueFromKey(key As String) As Variant
-		  dim r as Variant = nil
+		  dim r as Variant = ""
 		  
-		  dim plist as MacPListBrowser = MacDiskUtil.pGetDiskUtilInfo( me.Identifier )
-		  if plist.HasKey( key ) then
-		    r = plist.Child( key ).VariantValue
-		  end if
-		  
+		  if zDict is nil then return r
+		  r = zDict.Lookup( key, "" )
 		  return r
 		  
 		End Function
@@ -264,9 +283,9 @@ Protected Class MacDeviceItem
 		Sub Refresh()
 		  // Updates all the properties
 		  
-		  dim plist as MacPListBrowser = MacDiskUtil.pGetDiskUtilInfo( me.Identifier )
-		  if plist <> nil and plist.IsDictionary then
-		    dim dict as Dictionary = plist.VariantValue
+		  dim dict as Dictionary = MacDiskUtil.pGetDiskUtilInfo( me.Identifier )
+		  zDict = dict
+		  if dict <> nil then
 		    me.pRefresh( dict )
 		  end if
 		  
@@ -360,6 +379,16 @@ Protected Class MacDeviceItem
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  return pValueFromKey( "Bootable" )
+			  
+			End Get
+		#tag EndGetter
+		Bootable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  if not zIsPartition then return me
 			  
 			  dim r as MacDeviceItem
@@ -385,13 +414,8 @@ Protected Class MacDeviceItem
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  dim r as UInt64
-			  dim v as Variant = pValueFromKey( "FreeSpace" )
-			  if v <> nil then
-			    r = v.UInt64Value
-			  end if
-			  
-			  return r
+			  me.Refresh
+			  return pValueFromKey( "FreeSpace" ).UInt64Value
 			  
 			End Get
 		#tag EndGetter
@@ -399,15 +423,47 @@ Protected Class MacDeviceItem
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			i
+		#tag EndNote
 		#tag Getter
 			Get
-			  dim r as string
-			  dim v as Variant = pValueFromKey( "SMARTStatus" )
-			  if v <> nil then
-			    r = v.StringValue
-			  end if
+			  return me.MountStatus = MountType.Mounted
+			End Get
+		#tag EndGetter
+		Mounted As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  dim r as MountType = MountType.Unknown
+			  
+			  try
+			    dim text as string = pGrepInfo( "Mounted" )
+			    if text.InStr( "not applicable" ) <> 0 then
+			      r = MountType.NotApplicable
+			    elseif text.InStr( "yes" ) <> 0 then
+			      r = MountType.Mounted
+			    elseif text.InStr( "no" ) <> 0 then
+			      r = MountType.Unmounted
+			    end if
+			    
+			  catch
+			  end
 			  
 			  return r
+			  
+			End Get
+		#tag EndGetter
+		MountStatus As MountType
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  me.Refresh
+			  return pValueFromKey( "SMARTStatus" ).StringValue
 			  
 			End Get
 		#tag EndGetter
@@ -416,10 +472,6 @@ Protected Class MacDeviceItem
 
 	#tag Property, Flags = &h1
 		Protected zBlockSize As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zBootable As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -432,6 +484,10 @@ Protected Class MacDeviceItem
 
 	#tag Property, Flags = &h1
 		Protected zCanBeMadeBootableRequiresDestroy As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected zDict As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -527,6 +583,14 @@ Protected Class MacDeviceItem
 	#tag EndProperty
 
 
+	#tag Enum, Name = MountType, Type = Integer, Flags = &h0
+		Unknown = -2
+		  NotApplicable = -1
+		  Unmounted = 0
+		Mounted = 1
+	#tag EndEnum
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Index"
@@ -552,6 +616,7 @@ Protected Class MacDeviceItem
 			Name="SMARTStatus"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
