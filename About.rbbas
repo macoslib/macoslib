@@ -62,6 +62,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		165: 2013-12-04 by CY
+		-Refactor CFArray, CFMutableArray, CFAttributedString, CFBundle to use CFTypeRef.
+		
 		164: 2013-11-25 by CY
 		- Rewrite CFUUID; fix a bug in CFType.RefCount introduced in refactoring.
 		
@@ -455,7 +458,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"164", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"165", Scope = Protected
 	#tag EndConstant
 
 
