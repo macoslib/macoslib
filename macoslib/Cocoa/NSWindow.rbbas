@@ -1888,10 +1888,15 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function animationBehavior lib CocoaLib selector "animationBehavior" (obj_id as Ptr) as NSWindowAnimationBehavior
+			    //animationBehavior was added in MacOS 10.7.
 			    
-			    return animationBehavior(self)
-			    
+			    static msgAccepted as Boolean = self.respondsToSelector("animationBehavior")
+			    if msgAccepted then
+			      declare function animationBehavior lib CocoaLib selector "animationBehavior" (obj_id as Ptr) as NSWindowAnimationBehavior
+			      return animationBehavior(self)
+			    else
+			      return NSWindowAnimationBehavior.NSWindowAnimationBehaviorDefault
+			    end if
 			  #endif
 			  
 			End Get
@@ -1900,9 +1905,15 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetCocoa
-			    declare sub setAnimationBehavior lib CocoaLib selector "setAnimationBehavior:" (obj_id as Ptr, behavior as NSWindowAnimationBehavior)
+			    //setAnimationBehavior: was added in Mac OS 10.7.
 			    
-			    setAnimationBehavior self, value
+			    static msgAccepted as Boolean = self.respondsToSelector("setAnimationBehavior:")
+			    if msgAccepted then
+			      declare sub setAnimationBehavior lib CocoaLib selector "setAnimationBehavior:" (obj_id as Ptr, behavior as NSWindowAnimationBehavior)
+			      setAnimationBehavior(self, value)
+			    else
+			      //no-op
+			    end if
 			    
 			  #else
 			    #pragma unused value
