@@ -4,18 +4,17 @@ Inherits CFType
 Implements CFPropertyList
 	#tag Event
 		Function ClassID() As UInt32
-		  return me.ClassID
+		  return self.ClassID
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Function VariantValue() As Variant
-		  dim up as Integer = me.Count - 1
-		  
 		  dim result() as Variant
+		  dim lastOffset as Integer = self.Count - 1
 		  
-		  for i as Integer = 0 to up
-		    result.Append   me.CFValue(i).VariantValue
+		  for i as Integer = 0 to lastOffset
+		    result.Append self.CFValue(i).VariantValue
 		  next
 		  
 		  return result
@@ -26,7 +25,7 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		 Shared Function ClassID() As UInt32
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFArrayGetTypeID" () as UInt32
+		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
 		    return id
 		  #endif
@@ -36,7 +35,7 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Function Clone() As CFArray
 		  #if TargetMacOS
-		    declare function CFArrayCreateCopy lib CarbonLib (allocator as Ptr, theArray as Ptr) as Ptr
+		    declare function CFArrayCreateCopy lib CoreFoundation.framework (allocator as Ptr, theArray as CFTypeRef) as CFTypeRef
 		    
 		    if self <> nil then
 		      return new CFArray(CFArrayCreateCopy(nil, self), CFType.hasOwnership)
@@ -50,15 +49,9 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Sub Constructor(theList() as CFType)
 		  #if targetMacOS
-		    declare function CFArrayCreate lib CarbonLib (allocator as Ptr, values as Ptr, numValues as Integer, callbacks as Ptr) as Ptr
+		    declare function CFArrayCreate lib CoreFoundation.framework (allocator as Ptr, values as Ptr, numValues as Integer, callbacks as Ptr) as CFTypeRef
 		    
-		    if theList.Ubound >= 0 then
-		      super.Constructor CFArrayCreate(nil, me.GetValuesAsCArray(theList), UBound(theList) + 1, me.DefaultCallbacks), true
-		    else
-		      // create empty array
-		      super.Constructor CFArrayCreate(nil, nil, 0, me.DefaultCallbacks), true
-		    end if
-		    
+		    self.Constructor(CFArrayCreate(nil, GetValuesAsCArray(theList), UBound(theList) + 1, DefaultCallbacks), hasOwnership)
 		  #else
 		    #pragma unused theList
 		  #endif
@@ -66,13 +59,13 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(strings() as String)
+		Attributes( deprecated )  Sub Constructor(strings() as String)
 		  #if TargetMacOS
 		    dim cfstr() as CFString
 		    for each str as String in strings
 		      cfstr.Append str
 		    next
-		    self.Constructor (cfstr)
+		    self.Constructor(cfstr)
 		    
 		  #else
 		    #pragma unused strings
@@ -140,15 +133,9 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListFile(file as FolderItem) As CFArray
 		  #if TargetMacOS
-		    
-		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
-		    dim r as CFArray = CFArray( plist )
-		    return r
-		    
+		    return MakeFromPList(CFType.CreateFromPListFile(file, CoreFoundation.kCFPropertyListImmutable))
 		  #else
-		    
 		    #pragma unused file
-		    
 		  #endif
 		  
 		End Function
@@ -157,46 +144,42 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		 Shared Function CreateFromPListString(plistString as String) As CFArray
 		  #if TargetMacOS
-		    
-		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
-		    dim r as CFArray = CFArray( plist )
-		    return r
-		    
+		    return MakeFromPList(CFType.CreateFromPListString(plistString, CoreFoundation.kCFPropertyListImmutable))
 		  #else
-		    
 		    #pragma unused plistString
-		    
 		  #endif
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function DefaultCallbacks() As Ptr
+		Protected Shared Function DefaultCallbacks() As Ptr
 		  const kCFTypeArrayCallBacks = "kCFTypeArrayCallBacks"
 		  return CFBundle.NewCFBundleFromID(CoreFoundation.BundleID).DataPointerNotRetained(kCFTypeArrayCallBacks)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function GetValuesAsCArray(theList() as CFType) As MemoryBlock
-		  if UBound(theList) = -1 then
+		Private Shared Function GetValuesAsCArray(theList() as CFType) As MemoryBlock
+		  #if targetMacOS
+		    dim theValues as new MemoryBlock(CFTypeRef.Size * (1 + UBound(theList)))
+		    dim offset as Integer = 0
+		    for index as Integer = 0 to UBound(theList)
+		      theValues.Ptr(offset) = theList(index).Handle.value
+		      offset = offset + CFTypeRef.Size
+		    next
+		    return theValues
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function MakeFromPList(plist as CFPropertyList) As CFArray
+		  if plist isA CFArray then
+		    return CFArray(plist)
+		  else
 		    return nil
 		  end if
-		  
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		    #endif
-		  #endif
-		  
-		  dim theValues as new MemoryBlock(SizeOfPointer*(1 + UBound(theList)))
-		  dim offset as Integer = 0
-		  for index as Integer = 0 to UBound(theList)
-		    theValues.Ptr(offset) = theList(index).Reference
-		    offset = offset + SizeOfPointer
-		  next
-		  return theValues
 		End Function
 	#tag EndMethod
 
@@ -204,24 +187,22 @@ Implements CFPropertyList
 		Function Operator_Convert() As Variant()
 		  // Added by Kem Tekinay.
 		  
-		  dim r() as variant = me.VariantValue
-		  return r
-		  
+		  return self.VariantValue
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function Value(index as Integer) As Ptr
 		  #if TargetMacOS
-		    declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
-		    declare function CFArrayGetValueAtIndex lib CarbonLib (theArray as Ptr, idx as Integer) as Ptr
+		    declare function CFArrayGetCount lib CoreFoundation.framework (theArray as CFTypeRef) as Integer
+		    declare function CFArrayGetValueAtIndex lib CoreFoundation.framework (theArray as CFTypeRef, idx as Integer) as Ptr
 		    
 		    if self <> nil then
 		      if index < 0 or index >= CFArrayGetCount(self) then
 		        raise new OutOfBoundsException
 		      end if
 		      
-		      return CFArrayGetValueAtIndex(me.Reference, index)
+		      return CFArrayGetValueAtIndex(self, index)
 		    else
 		      return nil
 		    end if
@@ -237,11 +218,12 @@ Implements CFPropertyList
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function CFArrayGetCount lib CarbonLib (theArray as Ptr) as Integer
+			    declare function CFArrayGetCount lib CoreFoundation.framework (theArray as CFTypeRef) as Integer
 			    
-			    dim p as Ptr = me.Reference
-			    if p <> nil then
-			      return CFArrayGetCount(p)
+			    if self <> nil then
+			      return CFArrayGetCount(self)
+			    else
+			      return 0
 			    end if
 			  #endif
 			End Get
