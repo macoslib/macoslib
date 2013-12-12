@@ -1,29 +1,9 @@
 #tag Class
 Protected Class MacDeviceItem
 	#tag Method, Flags = &h0
-		Function BlockSize() As Integer
-		  return zBlockSize
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function BusProtocol() As String
 		  return zBusProtocol
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function CanBeMadeBootable() As Boolean
-		  return zCanBeMadeBootable
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function CanBeMadeBootableRequiresDestroy() As Boolean
-		  return zCanBeMadeBootableRequiresDestroy
 		End Function
 	#tag EndMethod
 
@@ -49,23 +29,14 @@ Protected Class MacDeviceItem
 
 	#tag Method, Flags = &h0
 		Function Eject() As Boolean
+		  dim r as boolean
 		  dim cmd as string = MacDiskUtil.kDiskUtilCmd + "eject " + me.Identifier
-		  dim r as Shell = MacDiskUtil.pExecuteShellCommand( cmd )
-		  return r.ErrorCode = 0
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Ejectable() As Boolean
-		  return zEjectable
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function GlobalPermissionsEnabled() As Boolean
-		  return zGlobalPermissionsEnabled
+		  dim sh as Shell = MacDiskUtil.pExecuteShellCommand( cmd )
+		  r = ( sh.ErrorCode = 0 )
+		  if r then
+		    me.Refresh
+		  end if
+		  return r
 		  
 		End Function
 	#tag EndMethod
@@ -85,22 +56,8 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function IOKitSize() As UInt64
-		  return zIOKitSize
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function LowLevelFormatSupported() As Boolean
 		  return zLowLevelFormatSupported
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function MediaName() As String
-		  return zMediaName
 		  
 		End Function
 	#tag EndMethod
@@ -164,7 +121,7 @@ Protected Class MacDeviceItem
 		  dim thisDisk as Dictionary = disksArr( 0 )
 		  if thisDisk.Count = 0 then return r
 		  
-		  dim partitionsListArr() as Variant 
+		  dim partitionsListArr() as Variant
 		  dim v as Variant = thisDisk.Lookup( "Partitions", nil )
 		  #if DebugBuild
 		    dim thisType as integer = v.Type
@@ -213,43 +170,44 @@ Protected Class MacDeviceItem
 
 	#tag Method, Flags = &h1
 		Protected Sub pRefresh(dict As Dictionary)
-		  #pragma warning "Don't think I need this"
-		  
 		  if dict = nil then return
 		  
 		  zDict = dict
 		  
 		  'me.zBootable = dict.Lookup( "Bootable", false )
 		  me.zBusProtocol = dict.Lookup( "BusProtocol", "" )
-		  me.zCanBeMadeBootable = dict.Lookup( "CanBeMadeBootable", false )
-		  me.zCanBeMadeBootableRequiresDestroy = dict.Lookup( "CanBeMadeBootableRequiresDestroy", false )
-		  me.zType = dict.Lookup( "Content", "" )
-		  me.zBlockSize = dict.Lookup( "DeviceBlockSize", false )
+		  
+		  'me.zCanBeMadeBootable = dict.Lookup( "CanBeMadeBootable", false )
+		  'me.zCanBeMadeBootableRequiresDestroy = dict.Lookup( "CanBeMadeBootableRequiresDestroy", false )
+		  'me.zType = dict.Lookup( "Content", "" )
+		  'me.zBlockSize = dict.Lookup( "DeviceBlockSize", false )
 		  me.zIdentifier = dict.Lookup( "DeviceIdentifier", "" )
 		  me.zNode = dict.Lookup( "DeviceNode", "" )
 		  me.zTreePath = dict.Lookup( "DeviceTreePath", "" )
-		  me.zEjectable = dict.Lookup( "Ejectable", false )
-		  me.zGlobalPermissionsEnabled = dict.Lookup( "GlobalPermissionsEnabled", false )
-		  me.zIOKitSize = dict.Lookup( "IOKitSize", false )
+		  'me.zEjectable = dict.Lookup( "Ejectable", false )
+		  'me.zGlobalPermissionsEnabled = dict.Lookup( "GlobalPermissionsEnabled", false )
+		  'me.zIOKitSize = dict.Lookup( "IOKitSize", false )
 		  me.zInternal = dict.Lookup( "Internal", false )
 		  if not zIsPartition then
 		    me.zLowLevelFormatSupported = dict.Lookup( "LowLevelFormatSupported", false )
 		  end if
-		  me.zMediaName = dict.Lookup( "MediaName", "" )
+		  'me.zMediaName = dict.Lookup( "MediaName", "" )
 		  me.zMediaType = dict.Lookup( "MediaType", "" )
 		  me.zMountPoint = dict.Lookup( "MountPoint", "" )
 		  me.zParentIdentifier = dict.Lookup( "ParentWholeDisk", "" )
-		  me.zRAIDMaster = dict.Lookup( "RAIDMaster", false )
-		  me.zRAIDSlice = dict.Lookup( "RAIDSlice", false )
-		  me.zSupportsGlobalPermissionsDisable = dict.Lookup( "SupportsGlobalPermissionsDisable", false )
-		  me.zSystemImage = dict.Lookup( "SystemImage", false )
+		  'me.zRAIDMaster = dict.Lookup( "RAIDMaster", false )
+		  'me.zRAIDSlice = dict.Lookup( "RAIDSlice", false )
+		  'me.zSupportsGlobalPermissionsDisable = dict.Lookup( "SupportsGlobalPermissionsDisable", false )
+		  'me.zSystemImage = dict.Lookup( "SystemImage", false )
 		  me.zTotalSize = dict.Lookup( "TotalSize", false )
-		  me.zVolumeName = dict.Lookup( "VolumeName", "" )
-		  me.zWritable = dict.Lookup( "Writable", false )
-		  me.zWritableMedia = dict.Lookup( "WritableMedia", false )
-		  me.zWritableVolume = dict.Lookup( "WritableVolume", false )
+		  'me.zVolumeName = dict.Lookup( "VolumeName", "" )
+		  'me.zWritable = dict.Lookup( "Writable", false )
+		  'me.zWritableMedia = dict.Lookup( "WritableMedia", false )
+		  'me.zWritableVolume = dict.Lookup( "WritableVolume", false )
 		  
 		  RaiseEvent RefreshFromDict( dict )
+		  
+		  zLastRefreshMicroseconds = Microseconds
 		  
 		End Sub
 	#tag EndMethod
@@ -258,23 +216,14 @@ Protected Class MacDeviceItem
 		Protected Function pValueFromKey(key As String) As Variant
 		  dim r as Variant = ""
 		  
+		  dim elapsed as Double = Microseconds - zLastRefreshMicroseconds
+		  if elapsed > kRefreshIntervalMicroseconds then
+		    me.Refresh
+		  end if
+		  
 		  if zDict is nil then return r
 		  r = zDict.Lookup( key, "" )
 		  return r
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function RAIDMaster() As Boolean
-		  return zRAIDMaster
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function RAIDSlice() As Boolean
-		  return zRAIDSlice
 		  
 		End Function
 	#tag EndMethod
@@ -293,21 +242,6 @@ Protected Class MacDeviceItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SupportsGlobalPermissionsDisable() As Boolean
-		  return zSupportsGlobalPermissionsDisable
-		  
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function SystemImage() As Boolean
-		  return zSystemImage
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function TotalSize() As UInt64
 		  return zTotalSize
 		  
@@ -317,13 +251,6 @@ Protected Class MacDeviceItem
 	#tag Method, Flags = &h0
 		Function TreePath() As String
 		  return zTreePath
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Type() As String
-		  return zType
 		  
 		End Function
 	#tag EndMethod
@@ -342,34 +269,6 @@ Protected Class MacDeviceItem
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function VolumeName() As String
-		  return zVolumeName
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Writable() As Boolean
-		  return zWritable
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WritableMedia() As Boolean
-		  return zWritableMedia
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WritableVolume() As Boolean
-		  return zWritableVolume
-		  
-		End Function
-	#tag EndMethod
-
 
 	#tag Hook, Flags = &h0
 		Event RefreshFromDict(dict As Dictionary)
@@ -379,11 +278,41 @@ Protected Class MacDeviceItem
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  return pValueFromKey( "DeviceBlockSize" )
+			  
+			End Get
+		#tag EndGetter
+		BlockSize As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  return pValueFromKey( "Bootable" )
 			  
 			End Get
 		#tag EndGetter
 		Bootable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "CanBeMadeBootable" )
+			  
+			End Get
+		#tag EndGetter
+		CanBeMadeBootable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "CanBeMadeBootableRequiresDestroy" )
+			  
+			End Get
+		#tag EndGetter
+		CanBeMadeBootableRequiresDestroy As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -414,12 +343,61 @@ Protected Class MacDeviceItem
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  me.Refresh
-			  return pValueFromKey( "FreeSpace" ).UInt64Value
+			  return pValueFromKey( "Ejectable" )
+			  
+			End Get
+		#tag EndGetter
+		Ejectable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "FreeSpace" )
 			  
 			End Get
 		#tag EndGetter
 		FreeSpace As UInt64
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "GlobalPermissionsEnabled" )
+			  
+			End Get
+		#tag EndGetter
+		GlobalPermissionsEnabled As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "Content" )
+			  
+			End Get
+		#tag EndGetter
+		IOContent As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "IOKitSize" )
+			  
+			End Get
+		#tag EndGetter
+		IOKitSize As UInt64
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "MediaName" )
+			  
+			End Get
+		#tag EndGetter
+		MediaName As String
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -462,7 +440,26 @@ Protected Class MacDeviceItem
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  me.Refresh
+			  return pValueFromKey( "RAIDMaster" )
+			  
+			End Get
+		#tag EndGetter
+		RAIDMaster As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "RAIDSlice" )
+			  
+			End Get
+		#tag EndGetter
+		RAIDSlice As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  return pValueFromKey( "SMARTStatus" ).StringValue
 			  
 			End Get
@@ -470,32 +467,72 @@ Protected Class MacDeviceItem
 		SMARTStatus As String
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h1
-		Protected zBlockSize As Integer
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "SupportsGlobalPermissionsDisable" )
+			  
+			End Get
+		#tag EndGetter
+		SupportsGlobalPermissionsDisable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "SystemImage" )
+			  
+			End Get
+		#tag EndGetter
+		SystemImage As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "VolumeName" )
+			  
+			End Get
+		#tag EndGetter
+		VolumeName As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "Writable" )
+			  
+			End Get
+		#tag EndGetter
+		Writable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "WritableMedia" )
+			  
+			End Get
+		#tag EndGetter
+		WritableMedia As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "WritableVolume" )
+			  
+			End Get
+		#tag EndGetter
+		WritableVolume As Boolean
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h1
 		Protected zBusProtocol As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected zCanBeMadeBootable As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zCanBeMadeBootableRequiresDestroy As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
 		Protected zDict As Dictionary
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zEjectable As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zGlobalPermissionsEnabled As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -507,19 +544,15 @@ Protected Class MacDeviceItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected zIOKitSize As UInt64
+		Protected zIsPartition As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected zIsPartition As Boolean
+	#tag Property, Flags = &h21
+		Private zLastRefreshMicroseconds As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
 		Protected zLowLevelFormatSupported As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zMediaName As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -539,22 +572,6 @@ Protected Class MacDeviceItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected zRAIDMaster As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zRAIDSlice As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zSupportsGlobalPermissionsDisable As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zSystemImage As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
 		Protected zTotalSize As UInt64
 	#tag EndProperty
 
@@ -562,25 +579,9 @@ Protected Class MacDeviceItem
 		Protected zTreePath As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected zType As String
-	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected zVolumeName As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zWritable As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zWritableMedia As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected zWritableVolume As Boolean
-	#tag EndProperty
+	#tag Constant, Name = kRefreshIntervalMicroseconds, Type = Double, Dynamic = False, Default = \"100000.", Scope = Protected
+	#tag EndConstant
 
 
 	#tag Enum, Name = MountType, Type = Integer, Flags = &h0
@@ -592,6 +593,11 @@ Protected Class MacDeviceItem
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Bootable"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
@@ -605,6 +611,11 @@ Protected Class MacDeviceItem
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Mounted"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
