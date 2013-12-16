@@ -157,7 +157,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function MakeCFURL(urlRef as CFTypeRef, hasOwnership as Boolean=true) As CFURL
+		Private Shared Function MakeCFURL(urlRef as CFTypeRef, hasOwnership as Boolean = true) As CFURL
 		  #if TargetMacOS
 		    if urlRef.value <> nil then
 		      return new CFURL(urlRef, hasOwnership)
@@ -174,7 +174,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Function NewCFBundle(ref as CFTypeRef, hasOwnership as Boolean=true) As CFBundle
+		Private Shared Function NewCFBundle(ref as CFTypeRef, hasOwnership as Boolean = true) As CFBundle
 		  #if targetMacOS
 		    if ref.value <> nil then
 		      return new CFBundle(ref, hasOwnership)
