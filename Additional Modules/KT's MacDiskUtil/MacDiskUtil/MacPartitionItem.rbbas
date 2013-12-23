@@ -1,5 +1,5 @@
 #tag Class
-Protected Class MacPartitionItem
+Class MacPartitionItem
 Inherits MacDiskUtil.MacDeviceItem
 	#tag Event
 		Sub RefreshFromDict(dict As Dictionary)
@@ -117,7 +117,47 @@ Inherits MacDiskUtil.MacDeviceItem
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BlockSize"
+			Group="Behavior"
+			Type="Integer"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Bootable"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CanBeMadeBootable"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CanBeMadeBootableRequiresDestroy"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Ejectable"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FileSystemName"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FileSystemType"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="GlobalPermissionsEnabled"
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="MacDiskUtil.MacDeviceItem"
@@ -130,11 +170,23 @@ Inherits MacDiskUtil.MacDeviceItem
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="IOContent"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MediaName"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Mounted"
@@ -149,6 +201,18 @@ Inherits MacDiskUtil.MacDeviceItem
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="RAIDMaster"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RAIDSlice"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="SMARTStatus"
 			Group="Behavior"
 			Type="String"
@@ -161,11 +225,52 @@ Inherits MacDiskUtil.MacDeviceItem
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="SupportsGlobalPermissionsDisable"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SystemImage"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="VolumeName"
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="VolumeUUID"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Writable"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WritableMedia"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WritableVolume"
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="MacDiskUtil.MacDeviceItem"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

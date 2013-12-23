@@ -55,7 +55,35 @@ Protected Module MacDiskUtil
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function pExecuteShellCommand(cmd As String) As Shell
+		Protected Function Personalities() As MacFormatPersonality()
+		  dim r() as MacFormatPersonality
+		  
+		  #if TargetMacOS
+		    
+		    dim sh as shell = pExecuteShellCommand( kDiskUtilCmd + "listFileSystems -plist" )
+		    dim s as string
+		    if sh <> nil then
+		      s = sh.Result
+		      dim plist as CoreFoundation.CFPropertyList = CFType.CreateFromPListString( s, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
+		      if plist <> nil then
+		        dim arr() as Variant = plist.VariantValue
+		        for each d As Dictionary in arr
+		          dim p as MacFormatPersonality = MacFormatPersonality.CreateFromDictionary( d )
+		          r.Append p
+		        next
+		      end if
+		      
+		    end if
+		    
+		  #endif
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function pExecuteShellCommand(cmd As String) As Shell
 		  dim sh as new shell
 		  sh.Execute cmd
 		  return sh
@@ -63,8 +91,8 @@ Protected Module MacDiskUtil
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function pGetDiskUtilInfo(device As String = "") As Dictionary
+	#tag Method, Flags = &h21
+		Private Function pGetDiskUtilInfo(device As String = "") As Dictionary
 		  #if TargetMacOS
 		    
 		    dim cmd as string = kDiskUtilCmd + "info -plist " + device
@@ -85,8 +113,8 @@ Protected Module MacDiskUtil
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function pGetDiskUtilList(deviceIdentifier As String = "") As Dictionary
+	#tag Method, Flags = &h21
+		Private Function pGetDiskUtilList(deviceIdentifier As String = "") As Dictionary
 		  #if TargetMacOS
 		    
 		    dim cmd as string = kDiskUtilCmd + "list -plist " + deviceIdentifier
@@ -126,6 +154,8 @@ Protected Module MacDiskUtil
 		      f = f // A place to break
 		    next
 		  next d
+		  
+		  dim arr() as MacDiskUtil.MacFormatPersonality = Personalities
 		  
 		End Sub
 	#tag EndMethod
