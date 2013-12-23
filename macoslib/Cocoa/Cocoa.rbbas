@@ -799,6 +799,12 @@ Protected Module Cocoa
 	#tag EndStructure
 
 
+	#tag Enum, Name = NSCellStateValue, Flags = &h0
+		Mixed = -1
+		  Off = 0
+		On = 1
+	#tag EndEnum
+
 	#tag Enum, Name = NSComparisonResult, Flags = &h0
 		NSOrderedAscending = -1
 		  NSOrderedSame = 0

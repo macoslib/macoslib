@@ -517,6 +517,7 @@ Module=IntrospectionExtensions;Additional Modules/Class Extensions/Introspection
 Module=HTMLViewerExtension;Additional Modules/Class Extensions/HTMLViewerExtension.rbbas;&h35ABBE2C;&h2AC71A61;false
 Module=LabelExtensions;Additional Modules/Class Extensions/LabelExtensions.rbbas;&h48554AFB;&h2AC71A61;false
 Module=MacOSFolderItemExtension;Additional Modules/Class Extensions/MacOSFolderItemExtension.rbbas;&hC042684;&h2AC71A61;false
+Module=MixedStateCheckboxExtension;Additional Modules/Class Extensions/MixedStateCheckboxExtension.rbbas;&h20841075;&h2AC71A61;false
 Folder=Pasteboard reading and writing;Additional Modules/Class Extensions/Pasteboard reading and writing;&h543CE490;&h2AC71A61;false
 Module=PopupMenuExtension;Additional Modules/Class Extensions/PopupMenuExtension.rbbas;&h37A21C43;&h2AC71A61;false
 Module=ProgressBarExtension;Additional Modules/Class Extensions/ProgressBarExtension.rbbas;&h490FEEF0;&h2AC71A61;false
