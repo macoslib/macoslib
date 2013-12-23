@@ -68,6 +68,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		167: 2013-12-16 by CY
+		-Add MixedStateCheckboxExtension; add enumeration NSCellStateValue to Cocoa module.
+		
 		166: 2013-12-11 by CY
 		-NSWIndow.AnimationBehavior no longer raises an ObjCException in MacOS 10.6; instead the Set handler is a no-op and the Get handler returns NSWindowAnimationBehaviorDefault.
 		
@@ -467,7 +470,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"166", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"167", Scope = Protected
 	#tag EndConstant
 
 
