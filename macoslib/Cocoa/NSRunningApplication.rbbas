@@ -11,6 +11,15 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Shared Function ClassRef() As Ptr
+		  
+		  static ref as Ptr = Cocoa.NSClassFromString("NSRunningApplication")
+		  return ref
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		 Shared Function CurrentApplication() As NSRunningApplication
 		  #if targetMacOS
@@ -27,6 +36,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ForceTerminate() As Boolean
+		  
+		  #if targetMacOS
+		    declare function forceTerminate lib CocoaLib selector "forceTerminate" (obj_id as Ptr) as Boolean
+		    
+		    return forceTerminate(self)
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Hide()
 		  
 		  #if targetMacOS
@@ -35,21 +56,6 @@ Inherits NSObject
 		    hide(self)
 		  #endif
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Icon() As NSImage
-		  #if targetMacOS
-		    declare function icon lib CocoaLib selector "icon" (obj_id as Ptr) as Ptr
-		    
-		    dim p as Ptr = icon(self)
-		    if p <> nil then
-		      return new NSImage(p)
-		    else
-		      return nil
-		    end if
-		  #endif
-		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -65,6 +71,73 @@ Inherits NSObject
 		  return  dict
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RunningApplication(pid as Integer) As NSRunningApplication
+		  
+		  #if targetMacOS
+		    declare function runningApplicationWithProcessIdentifier lib CocoaLib selector "runningApplicationWithProcessIdentifier:" _
+		    (class_id as Ptr, pid as Integer) as Ptr
+		    
+		    dim p as Ptr = runningApplicationWithProcessIdentifier(ClassRef, pid)
+		    if p <> nil then
+		      return new NSRunningApplication(p)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused pid
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function RunningApplication(bundleIdentifier as String) As NSRunningApplication
+		  
+		  #if targetMacOS
+		    declare function runningApplicationsWithBundleIdentifier lib CocoaLib selector "runningApplicationsWithBundleIdentifier:" _
+		    (class_id as Ptr, bundleIdentifier as CFStringRef) as Ptr
+		    
+		    dim p as Ptr = runningApplicationsWithBundleIdentifier(ClassRef, bundleIdentifier)
+		    if p <> nil then
+		      return new NSRunningApplication(p)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused bundleIdentifier
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Terminate() As Boolean
+		  
+		  #if targetMacOS
+		    declare function terminate lib CocoaLib selector "terminate" (obj_id as Ptr) as Boolean
+		    
+		    return terminate(self)
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Sub TerminateAutomaticallyTerminableApplications()
+		  
+		  #if targetMacOS
+		    declare sub terminateAutomaticallyTerminableApplications lib CocoaLib selector "terminateAutomaticallyTerminableApplications" (class_id as Ptr)
+		    
+		    terminateAutomaticallyTerminableApplications(ClassRef)
+		    
+		  #endif
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -97,10 +170,25 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
 			  #if targetMacOS
-			    declare function CFBundleIdentifier lib CocoaLib selector "CFBundleIdentifier" (obj_id as Ptr) as Ptr
+			    declare function isActive lib CocoaLib selector "isActive" (obj_id as Ptr) as Boolean
 			    
-			    return RetainedStringValue( CFBundleIdentifier(self) )
+			    return isActive(self)
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		Active As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetMacOS
+			    declare function getBundleIdentifier lib CocoaLib selector "bundleIdentifier" (obj_id as Ptr) as Ptr
+			    
+			    return New NSString( getBundleIdentifier(self) )
 			  #endif
 			End Get
 		#tag EndGetter
@@ -113,11 +201,121 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function bundleURL lib CocoaLib selector "bundleURL" (obj_id as Ptr) as Ptr
 			    
-			    return New NSURL( bundleURL ) 'RetainedStringValue(localizedName(self))
+			    return New NSURL( bundleURL(self) )
 			  #endif
 			End Get
 		#tag EndGetter
-		bundleURL As NSURL
+		BundleURL As NSURL
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function executableArchitecture lib CocoaLib selector "executableArchitecture" (obj_id as Ptr) as NSBundle.NSBundleExecutableArchitecture
+			    
+			    return executableArchitecture(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		ExecutableArchitecture As NSBundle.NSBundleExecutableArchitecture
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function executableURL lib CocoaLib selector "executableURL" (obj_id as Ptr) as Ptr
+			    
+			    dim p as Ptr = executableURL(self)
+			    if p <> nil then
+			      return new NSURL(p)
+			    else
+			      return nil
+			    end if
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		ExecutableURL As NSURL
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function isFinishedLaunching lib CocoaLib selector "isFinishedLaunching" (obj_id as Ptr) as Boolean
+			    
+			    return isFinishedLaunching(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		FinishedLaunching As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function isHidden lib CocoaLib selector "isHidden" (obj_id as Ptr) as Boolean
+			    
+			    return isHidden(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Hidden As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function icon lib CocoaLib selector "icon" (obj_id as Ptr) as Ptr
+			    
+			    dim p as Ptr = icon(self)
+			    if p <> nil then
+			      return new NSImage(p)
+			    else
+			      return nil
+			    end if
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		Icon As NSImage
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function launchDate lib CocoaLib selector "launchDate" (obj_id as Ptr) as Ptr
+			    
+			    dim p as Ptr = launchDate(self)
+			    if p <> nil then
+			      return new NSDate(p)
+			    else
+			      return nil
+			    end if
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		LaunchDate As NSDate
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -131,6 +329,54 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		LocalizedName As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function ownsMenuBar lib CocoaLib selector "ownsMenuBar" (obj_id as Ptr) as Boolean
+			    
+			    return ownsMenuBar(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		OwnsMenuBar As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function processIdentifier lib CocoaLib selector "processIdentifier" (obj_id as Ptr) as Integer
+			    
+			    return processIdentifier(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		ProcessIdentifier As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if targetMacOS
+			    declare function isTerminated lib CocoaLib selector "isTerminated" (obj_id as Ptr) as Boolean
+			    
+			    return isTerminated(self)
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Terminated As Boolean
 	#tag EndComputedProperty
 
 
@@ -150,6 +396,11 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Active"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BundleIdentifier"
 			Group="Behavior"
 			Type="String"
@@ -161,6 +412,16 @@ Inherits NSObject
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FinishedLaunching"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Hidden"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -189,10 +450,25 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="OwnsMenuBar"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProcessIdentifier"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Terminated"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"

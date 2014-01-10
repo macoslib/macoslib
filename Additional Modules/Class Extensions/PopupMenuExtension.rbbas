@@ -369,6 +369,20 @@ Protected Module PopupMenuExtension
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub SynchronizeTitleAndSelectedItem(Extends p as PopupMenu)
+		  //# Synchronizes the the pop-up button’s displayed item with the currently selected menu item.
+		  
+		  #if TargetCocoa
+		    declare sub synchronizeTitleAndSelectedItem lib CocoaLib selector "synchronizeTitleAndSelectedItem" (obj_id as Integer)
+		    
+		    synchronizeTitleAndSelectedItem(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		End Sub
+	#tag EndMethod
+
 
 	#tag Enum, Name = NSBezelStyle, Flags = &h0
 		NSRoundedBezelStyle = 1
