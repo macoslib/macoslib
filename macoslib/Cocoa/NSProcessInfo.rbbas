@@ -102,6 +102,8 @@ Inherits NSObject
 			    dim ns_arrayRef as Ptr = arguments(self)
 			    if ns_arrayRef <> nil then
 			      return new NSArray(ns_arrayRef)
+			    else
+			      return Nil
 			    end if
 			    
 			  #endif
@@ -377,11 +379,13 @@ Inherits NSObject
 			Name="GloballyUniqueString"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HostName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -407,11 +411,13 @@ Inherits NSObject
 			Name="OperatingSystemName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="OperatingSystemVersionString"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProcessIdentifier"
@@ -422,6 +428,7 @@ Inherits NSObject
 			Name="ProcessName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
