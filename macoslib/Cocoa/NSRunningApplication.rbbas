@@ -98,9 +98,9 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function CFBundleIdentifier lib CocoaLib selector "CFBundleIdentifier" (obj_id as Ptr) as Ptr
+			    declare function bundleIdentifier lib CocoaLib selector "bundleIdentifier" (obj_id as Ptr) as Ptr
 			    
-			    return RetainedStringValue( CFBundleIdentifier(self) )
+			    return RetainedStringValue( bundleIdentifier(self) )
 			  #endif
 			End Get
 		#tag EndGetter
