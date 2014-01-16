@@ -188,7 +188,7 @@ Inherits NSObject
 			  #if targetMacOS
 			    declare function getBundleIdentifier lib CocoaLib selector "bundleIdentifier" (obj_id as Ptr) as Ptr
 			    
-			    return New NSString( getBundleIdentifier(self) )
+			    return RetainedStringValue( getBundleIdentifier(self) )
 			  #endif
 			End Get
 		#tag EndGetter
