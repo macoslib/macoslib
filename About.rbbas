@@ -65,6 +65,7 @@ Protected Module About
 		168: 2014-01-10 by VVB
 		- Added a few missed vallebox methods back into macoslib from the following classes: NSRunningApplication, NSProcessInfo, NSMutableDictionary, NSString.
 		- Prevented a crash in the NSRunningApplication example where background apps without an icon might cause trouble.
+		- Fixed a typo that erroneously set the NSToolbar's default items to the alloweditems array.
 		
 		167: 2013-12-16 by CY
 		- Add MixedStateCheckboxExtension; add enumeration NSCellStateValue to Cocoa module.
