@@ -301,13 +301,13 @@ Begin Window NSToolbarWindow
       LockTop         =   True
       MacControlStyle =   0
       Scope           =   0
-      Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse"
+      Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse\r\n\nFalse"
       SelectionType   =   0
       TabIndex        =   8
       TabPanelIndex   =   0
       Top             =   -66
       Visible         =   True
-      Width           =   104
+      Width           =   120
    End
 End
 #tag EndWindow
@@ -415,9 +415,9 @@ End
 		  
 		  // a custom toolbar item which uses a control subclass
 		  tc = new NSToolbarCustomItem(SegmentedControl1)
-		  tc.ItemLabel = "Navigation"
-		  tc.PaletteLabel = "Navigation"
-		  tc.ToolTip = "Navigate"
+		  tc.ItemLabel = "View"
+		  tc.PaletteLabel = "View"
+		  tc.ToolTip = "View"
 		  tc.MaxSize = Cocoa.NSMakeSize( SegmentedControl1.Width, SegmentedControl1.Height )
 		  tc.MinSize = Cocoa.NSMakeSize( SegmentedControl1.Width, SegmentedControl1.Height + 8 )
 		  t.AddItem tc
@@ -569,11 +569,12 @@ End
 		  
 		  dim Scale as Integer = self.ScalingFactor
 		  
-		  me.ImageForSegment(0) = SystemIcons.User( 0, 16 )
-		  me.ImageForSegment(1) = SystemIcons.UserGroup( 0, 16 )
-		  me.ImageForSegment(2) = SystemIcons.HomeTemplate( 0, 16 )
+		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
+		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
+		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
+		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate( 0, 10 )
 		  
-		  for i as Integer = 0 to 2
+		  for i as Integer = 0 to 3
 		    me.ImageForSegment(i).Template = true
 		  next
 		End Sub
