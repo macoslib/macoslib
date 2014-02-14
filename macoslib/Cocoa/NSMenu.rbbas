@@ -106,6 +106,8 @@ Inherits NSObject
 		    self.Constructor(menuRef, NSObject.hasOwnership)
 		    
 		    me.AutoEnablesItems = false
+		    
+		    SetDelegate
 		  #else
 		    #pragma unused title
 		  #endif
