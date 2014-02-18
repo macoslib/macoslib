@@ -68,6 +68,7 @@ Protected Module About
 		- Fixed a typo that erroneously set the NSToolbar's default items to the alloweditems array.
 		- NSToolbar only supported NSControls, added the ability to use both NSControls and Controls, updated the NSToolbar example.
 		- In Xojo, NSMenu needs to have a constructor with the signature Constructor() to be placed on a window.
+		- Corrected reverse title/message in NSAlert extension.
 		
 		167: 2013-12-16 by CY
 		- Add MixedStateCheckboxExtension; add enumeration NSCellStateValue to Cocoa module.
