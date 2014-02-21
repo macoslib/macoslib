@@ -46,6 +46,31 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		 Shared Function AvailableStringEncodings() As NSStringEncoding()
+		  
+		  #if TargetMacOS
+		    declare function availableStringEncodings lib CocoaLib selector "availableStringEncodings" (class_id as Ptr) as Ptr
+		    
+		    const sizeOfUInt32 = 4
+		    
+		    dim rb_array() as NSStringEncoding
+		    
+		    dim m as MemoryBlock = availableStringEncodings(ClassRef)
+		    
+		    dim offset as UInt32 = 0
+		    while m.UInt32Value(offset) <> 0
+		      rb_array.append NSStringEncoding(m.UInt32Value(offset))
+		      offset = offset + sizeOfUInt32
+		    wend
+		    
+		    return rb_array
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function BooleanValue() As Boolean
 		  
@@ -151,6 +176,15 @@ Inherits NSObject
 		  #else
 		    #pragma unused range
 		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Function ClassRef() As Ptr
+		  
+		  static ref as Ptr = Cocoa.NSClassFromString("NSString")
+		  return ref
 		  
 		End Function
 	#tag EndMethod
@@ -371,6 +405,69 @@ Inherits NSObject
 		  #endif
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function Create() As NSString
+		  
+		  #if TargetMacOS
+		    declare function string_ lib CocoaLib selector "string" (class_id as Ptr) as Ptr
+		    
+		    dim stringRef as Ptr = string_(ClassRef)
+		    if stringRef <> nil then
+		      return new NSString(stringRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithString(aString as NSString) As NSString
+		  
+		  #if TargetMacOS
+		    declare function stringWithString lib CocoaLib selector "stringWithString:" (class_id as Ptr, aString as Ptr) as Ptr
+		    
+		    dim aStringRef as Ptr
+		    if aString <> nil then
+		      aStringRef = aString
+		    end if
+		    
+		    dim stringRef as Ptr = stringWithString(ClassRef, aStringRef)
+		    if stringRef <> nil then
+		      return new NSString(stringRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused aString
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function CreateWithString(aString as String) As NSString
+		  
+		  #if TargetMacOS
+		    declare function stringWithString lib CocoaLib selector "stringWithString:" (class_id as Ptr, aString as CFStringRef) as Ptr
+		    
+		    dim stringRef as Ptr = stringWithString(ClassRef, aString)
+		    if stringRef <> nil then
+		      return new NSString(stringRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused aString
+		  #endif
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -718,6 +815,22 @@ Inherits NSObject
 		    declare function lengthOfBytesUsingEncoding lib CocoaLib selector "lengthOfBytesUsingEncoding:" (obj_id as Ptr, enc as NSStringEncoding) as UInt32
 		    
 		    return lengthOfBytesUsingEncoding(self, anEncoding)
+		    
+		  #else
+		    #pragma unused anEncoding
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		 Shared Function LocalizedNameOfStringEncoding(anEncoding as NSStringEncoding) As String
+		  
+		  #if TargetMacOS
+		    declare function localizedNameOfStringEncoding lib CocoaLib selector "localizedNameOfStringEncoding:" _
+		    (class_id as Ptr, enc as NSStringEncoding) as CFStringRef
+		    
+		    return localizedNameOfStringEncoding(ClassRef, anEncoding)
 		    
 		  #else
 		    #pragma unused anEncoding
