@@ -163,5 +163,75 @@ Class MacFormatPersonality
 	#tag EndProperty
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Bootable"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bundle"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BundlePath"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Identifier"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RequiresBooterToBoot"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RequiresWholeDiskFormat"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SupportsResize"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Class
 #tag EndClass

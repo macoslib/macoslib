@@ -4480,19 +4480,6 @@ Inherits NSResponder
 			  #endif
 			End Get
 		#tag EndGetter
-		#tag Setter
-			Set
-			  //@header Specifies whether the NSWindow receives keyboard and mouse events even when some other window is being run modally.
-			  
-			  #if TargetCocoa
-			    declare sub setWorksWhenModal lib CocoaLib selector "setWorksWhenModal:" (obj_id as Ptr, flag as Boolean)
-			    
-			    setWorksWhenModal self, value
-			  #else
-			    #pragma unused value
-			  #endif
-			End Set
-		#tag EndSetter
 		WorksWhenModal As Boolean
 	#tag EndComputedProperty
 

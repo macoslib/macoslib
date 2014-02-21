@@ -1346,10 +1346,10 @@ Protected Class MacPListBrowser
 	#tag EndNote
 
 	#tag Note, Name = Release Notes
-		1.6
+		1.6:
 		- Added StringValue property. Use this to extract the raw data that can be converted to string.
 		
-		1.5
+		1.5:
 		- Changed XMLValue to a computed property to make debugging easier.
 		- Added Try/Catch block to PLIstStringValue to prevent errors when looking at XMLValue in debugger. (Error really shouldn't happen anyway.)
 		- Added FindByKeyAndValue method.
@@ -1358,11 +1358,11 @@ Protected Class MacPListBrowser
 		- Added PrettyText property.
 		- Made CreateFromPListString more tolerant of junk data (like errors) preceding the plist.
 		
-		1.4
+		1.4:
 		- As of MacOSLib v.118, CFDictionary is converted to a NativeSubclass.DictionaryCaseSensitive. Modified this code accordingly.
 		- Changed calls to DICT_CaseSensitiveDictionary to the identical NativeSubclass.DictionaryCaseSensitive.
 		
-		1.3
+		1.3:
 		- Added XMLValue as alias for PListStringValue.
 		- Added optional parameter asBinary to SaveToFile.
 		
@@ -1836,7 +1836,7 @@ Protected Class MacPListBrowser
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Key"
@@ -1849,13 +1849,13 @@ Protected Class MacPListBrowser
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PrettyText"
@@ -1867,19 +1867,20 @@ Protected Class MacPListBrowser
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="XMLValue"

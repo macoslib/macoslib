@@ -634,6 +634,7 @@ Class MacDeviceItem
 			Name="IOContent"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -646,6 +647,7 @@ Class MacDeviceItem
 			Name="MediaName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Mounted"
@@ -701,6 +703,7 @@ Class MacDeviceItem
 			Name="VolumeName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Writable"

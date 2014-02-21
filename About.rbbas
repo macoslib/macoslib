@@ -51,9 +51,16 @@ Protected Module About
 	#tag EndNote
 
 	#tag Note, Name = Kem's Temp Notes
+		A place for KT to keep notes where it won't conflict with the Release Notes of interim releases.
 		
 		- Added MacDiskUtil module and classes.
 		- Added DebugKeys as private computed property to NativeSubclass.DictionaryCaseSensitive.
+		- Removed NSWindow.WorksWhenModal.Set (this is not implemented in NSWindow, only NSPanel).
+		- NSWindow Example: Added keystroke to turn off "Ignore Mouse Events". Otherwise, turning it on meant
+		  that you had to close the window or quit the app to continue.
+		- NSWindow Example: Locked some buttons on right instead of left to better illustrate SmoothResize.
+		- PopupMenuExtension.Icon: Tests for a nil value and handles it.
+		- NSWorkspace.RunningApplications: Checked to make sure it responds to selector, otherwise returns empty array.
 	#tag EndNote
 
 	#tag Note, Name = License

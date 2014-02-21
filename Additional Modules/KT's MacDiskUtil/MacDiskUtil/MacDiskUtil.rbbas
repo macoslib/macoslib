@@ -161,7 +161,44 @@ Protected Module MacDiskUtil
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		
+		This module is meant to make access to the diskutil CLI more convenient. It is a work in
+		progress and, while I will try to minimize them, subject to sudden changes that may break 
+		existing code.
+	#tag EndNote
+
+	#tag Note, Name = Legal
+		This module was created by Kem Tekinay, MacTechnologies Consulting (ktekinay@mactechnologies.com).
+		It is copyright ©2014, all rights reserved.
+		
+		You may use this class AS IS at your own risk for any purpose. The author does not warrant its use
+		for any particular purpose and disavows any responsibility for bad design, poor execution,
+		or any other faults.
+		
+		The author does not actively support this module, although comments and recommendations
+		are welcome.
+		
+		You may modify code in this class as long as those modifications are clearly indicated
+		via comments in the source code.
+		
+		You may distribute this class, modified or unmodified, as long as any modifications
+		are clearly indicated, as noted above, and this copyright notice is not disturbed or removed.
+		
+		This class is distributed as part of, and is dependent on, the MacOSLib project.
+	#tag EndNote
+
+	#tag Note, Name = Release Notes
+		
+		1.0:
+		- Initial release.
+	#tag EndNote
+
+
 	#tag Constant, Name = kDiskUtilCmd, Type = String, Dynamic = False, Default = \"/usr/sbin/diskutil ", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"1.0", Scope = Protected
 	#tag EndConstant
 
 

@@ -1152,16 +1152,19 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function RunningApplications() As NSRunningApplication()
 		  #if TargetMacOS
-		    declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
-		    
 		    dim theList() as NSRunningApplication
-		    dim theArray as new CFArray(runningApplications(SharedWorkspace), not CFType.hasOwnership)
-		    for i as Integer = 0 to theArray.Count - 1
-		      dim p as Ptr = theArray.Value(i)
-		      if p <> nil then
-		        theList.Append new NSRunningApplication(p)
-		      end if
-		    next
+		    if SharedWorkspace.RespondsToSelector( "runningApplications" ) then
+		      declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
+		      // Introduced in MacOS X 10.6.
+		      
+		      dim theArray as new CFArray(runningApplications(SharedWorkspace), not CFType.hasOwnership)
+		      for i as Integer = 0 to theArray.Count - 1
+		        dim p as Ptr = theArray.Value(i)
+		        if p <> nil then
+		          theList.Append new NSRunningApplication(p)
+		        end if
+		      next
+		    end if
 		    return theList
 		  #endif
 		End Function

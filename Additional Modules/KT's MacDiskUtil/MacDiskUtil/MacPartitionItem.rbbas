@@ -150,11 +150,13 @@ Inherits MacDiskUtil.MacDeviceItem
 			Name="FileSystemName"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FileSystemType"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GlobalPermissionsEnabled"
@@ -253,6 +255,7 @@ Inherits MacDiskUtil.MacDeviceItem
 			Name="VolumeUUID"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Writable"
