@@ -327,19 +327,25 @@ Protected Class MacIcon
 		      return me.icon
 		    end
 		    
-		    dim p as new Picture( me.size, me.size, 32 )
+		    #if RBVersion >= 2011.04
+		      dim p as new Picture( me.size, me.size )
+		    #else
+		      dim p as new Picture( me.size, me.size, 32 )
+		    #endif
 		    dim rect as CGRect = CGRectMake( 0, 0, p.width, p.height )
 		    
 		    dim context as new CGContextGraphicsPort( p.graphics )
 		    call PlotIconRefInContext( context, rect, kAlignNone, me.pTransform, nil, kPlotIconRefNoMask, me.IconRef )
 		    
-		    if not IsIconRefMaskEmpty( me.iconRef ) then
-		      dim maskContext as new CGContextGraphicsPort( p.mask.graphics )
-		      maskContext.setFillColor( &cFFFFFF )
-		      maskContext.fillRect( rect )
-		      
-		      call PlotIconRefInContext( maskContext, rect, kAlignNone, me.pTransform, nil, kPlotIconRefNoImage, me.IconRef )
-		    end if
+		    #if RBVersion < 2011.04
+		      if not IsIconRefMaskEmpty( me.iconRef ) then
+		        dim maskContext as new CGContextGraphicsPort( p.mask.graphics )
+		        maskContext.setFillColor( &cFFFFFF )
+		        maskContext.fillRect( rect )
+		        
+		        call PlotIconRefInContext( maskContext, rect, kAlignNone, me.pTransform, nil, kPlotIconRefNoImage, me.IconRef )
+		      end if
+		    #endif
 		    
 		    me.icon = p
 		    return me.icon
