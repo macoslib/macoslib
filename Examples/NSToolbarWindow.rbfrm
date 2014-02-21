@@ -74,6 +74,7 @@ Begin Window NSToolbarWindow
    Begin Cocoa.NSSlider NSSlider1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
+      AllowsExpansionToolTips=   ""
       AllowsTickMarkValuesOnly=   ""
       AltIncrementValue=   ""
       AutoDeactivate  =   True
@@ -81,12 +82,15 @@ Begin Window NSToolbarWindow
       Backdrop        =   ""
       Bold            =   false
       DoubleBuffer    =   ""
+      DoubleValue     =   ""
       Enabled         =   True
       EraseBackground =   ""
+      FloatValue      =   ""
       Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      IntegerValue    =   ""
       IsFlipped       =   ""
       Italic          =   false
       Left            =   103
@@ -117,17 +121,21 @@ Begin Window NSToolbarWindow
    Begin Cocoa.NSSearchField NSSearchField1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
+      AllowsExpansionToolTips=   ""
       AutoDeactivate  =   True
       autoresizesSubviews=   ""
       Backdrop        =   ""
       Bold            =   false
       DoubleBuffer    =   ""
+      DoubleValue     =   ""
       Enabled         =   True
       EraseBackground =   ""
+      FloatValue      =   ""
       Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      IntegerValue    =   ""
       IsFlipped       =   ""
       Italic          =   false
       Left            =   273
@@ -206,7 +214,6 @@ Begin Window NSToolbarWindow
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Enable/Disable item:"
       TextAlign       =   2
       TextColor       =   0
@@ -281,6 +288,27 @@ Begin Window NSToolbarWindow
       Visible         =   True
       Width           =   196
    End
+   BeginSegmented SegmentedControl SegmentedControl1
+      Enabled         =   True
+      Height          =   24
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   465
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      MacControlStyle =   0
+      Scope           =   0
+      Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse\r\n\nFalse"
+      SelectionType   =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      Top             =   -66
+      Visible         =   True
+      Width           =   120
+   End
 End
 #tag EndWindow
 
@@ -304,6 +332,7 @@ End
 		  NSToolbarPrintItemIdentifier, _
 		  NSToolbarSpaceItemIdentifier, _
 		  NSSlider1.name, _
+		  SegmentedControl1.Name, _
 		  NSToolbarCustomizeToolbarItemIdentifier, _
 		  "TemplateToolbarItem",_
 		  "HomeToolbarItem", _
@@ -322,6 +351,7 @@ End
 		  NSToolbarShowColorsItemIdentifier, _
 		  NSToolbarPrintItemIdentifier, _
 		  NSSlider1.name, _
+		  SegmentedControl1.Name, _
 		  NSToolbarCustomizeToolbarItemIdentifier, _
 		  "TemplateToolbarItem",_
 		  "HomeToolbarItem", _
@@ -382,6 +412,15 @@ End
 		  tc.maxSize = maxSize
 		  tc.minSize = minSize
 		  t.addItem tc
+		  
+		  // a custom toolbar item which uses a control subclass
+		  tc = new NSToolbarCustomItem(SegmentedControl1)
+		  tc.ItemLabel = "View"
+		  tc.PaletteLabel = "View"
+		  tc.ToolTip = "View"
+		  tc.MaxSize = Cocoa.NSMakeSize( SegmentedControl1.Width, SegmentedControl1.Height )
+		  tc.MinSize = Cocoa.NSMakeSize( SegmentedControl1.Width, SegmentedControl1.Height + 8 )
+		  t.AddItem tc
 		  
 		  // a drop menu item display a menu of choices when clicked
 		  dim td as new NSToolbarDropMenuItem("SelectToolbarItem")
@@ -520,6 +559,31 @@ End
 		Sub Action()
 		  
 		  NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled = not NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SegmentedControl1
+	#tag Event
+		Sub Open()
+		  me.SegmentStyle = SegmentedControlExtension.NSSegmentStyle.TexturedRounded
+		  
+		  dim Scale as Integer = self.ScalingFactor
+		  
+		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
+		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
+		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
+		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate( 0, 10 )
+		  
+		  for i as Integer = 0 to 3
+		    me.ImageForSegment(i).Template = true
+		  next
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action(itemIndex as integer)
+		  
+		  Log "Selected navigation button "+str(itemIndex)
+		  Log EndOfLine
 		End Sub
 	#tag EndEvent
 #tag EndEvents
