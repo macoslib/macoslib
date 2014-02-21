@@ -61,6 +61,11 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+
+		169: 2014-02-16 by TT
+		- New module CorePrinting with functions to get and set the default printer
+		- Adds DoubleClickInterval function to NSEvent
+		- Removes SystemExtensions.SystemDoubleClickIntervalInTicks function because it did not do what it said, and fixing it could lead to undetected issues with existing code.
 		
 		168: 2014-01-10 by VVB
 		- Added a few missed vallebox methods back into macoslib from the following classes: NSRunningApplication, NSProcessInfo, NSMutableDictionary, NSString.
@@ -472,7 +477,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"168", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"169", Scope = Protected
 	#tag EndConstant
 
 
