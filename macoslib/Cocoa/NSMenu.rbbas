@@ -72,6 +72,14 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  #if targetCocoa
+		    me.Constructor( "" )
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(RSMenu as MenuItem)
 		  //This method is really basic and adapted only to local menus without submenus
 		  
@@ -90,7 +98,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(title as String = "")
+		Sub Constructor(title as String)
 		  #if targetCocoa
 		    declare function initWithTitle lib CocoaLib selector "initWithTitle:" (obj_id as Ptr, title as CFStringRef) as Ptr
 		    
@@ -98,6 +106,8 @@ Inherits NSObject
 		    self.Constructor(menuRef, NSObject.hasOwnership)
 		    
 		    me.AutoEnablesItems = false
+		    
+		    SetDelegate
 		  #else
 		    #pragma unused title
 		  #endif
