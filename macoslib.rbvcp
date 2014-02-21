@@ -65,7 +65,6 @@ Module=CFArrayExtension;macoslib/CFArrayExtension.rbbas;&h299C0ED1;&h62249E78;fa
 Module=CoreFoundation;macoslib/CoreFoundation/CoreFoundation.rbbas;&h72896D36;&h62249E78;false
 Module=CoreGraphics;macoslib/CoreGraphics/CoreGraphics.rbbas;&h4983118E;&h62249E78;false
 Module=CoreText;macoslib/CoreText/CoreText.rbbas;&h61A0D18E;&h62249E78;false
-Module=CorePrinting;macoslib/CorePrinting.rbbas;&h2F6025E8;&h62249E78;false
 Class=CTFont;macoslib/CoreText/CTFont.rbbas;&h51E355B;&h61A0D18E;false
 Class=CTFramesetter;macoslib/CoreText/CTFramesetter.rbbas;&h7735B67F;&h61A0D18E;false
 Class=CTTypesetter;macoslib/CoreText/CTTypesetter.rbbas;&h6760CAA3;&h61A0D18E;false

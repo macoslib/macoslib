@@ -68,9 +68,7 @@ End
 		  for each runningApp as NSRunningApplication in  NSWorkspace.RunningApplications
 		    me.AddRow runningApp.LocalizedName
 		    me.RowTag(PopupMenu1.ListCount - 1) = runningApp
-		    if runningApp.Icon <> Nil then
-		      me.Icon(PopupMenu1.ListCount - 1) = runningApp.Icon
-		    end if
+		    me.Icon(PopupMenu1.ListCount - 1) = runningApp.Icon
 		  next
 		  return false
 		  

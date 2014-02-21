@@ -43,7 +43,7 @@ Implements NSToolbarItemInterface
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(controlInstance as Control)
+		Sub Constructor(controlInstance as NSControl)
 		  
 		  // constructor
 		  
@@ -56,14 +56,8 @@ Implements NSToolbarItemInterface
 		    if itemRef <> nil then
 		      super.Constructor(itemRef, NSObject.hasOwnership) // call the super constructor (NSObject)
 		      CocoaClassMap.Value(itemRef) = new WeakRef(self) // store a reference to this instance
-		      
-		      if controlInstance IsA NSControl then
-		        self.View = NSControl( controlInstance ) // set the toolbar item view to the NSControl's one
-		        mNSControl = NSControl( controlInstance ) // keep a reference to the NSControl for gettins some RB properties
-		      elseif controlInstance IsA Control then
-		        self.view = controlInstance.view
-		        mControl = controlInstance 
-		      end if
+		      self.View = controlInstance // set the toolbar item view to the NSControl's one
+		      mControl = controlInstance // keep a reference to the NSControl for gettins some RB properties
 		    end if
 		    
 		  #else
@@ -161,11 +155,7 @@ Implements NSToolbarItemInterface
 		  '
 		  '#endif
 		  
-		  if mNSControl <> Nil then
-		    return mNSControl.Enabled
-		  elseif mControl <> nil then
-		    return RectControl( mControl ).Enabled
-		  end if
+		  return mControl.enabled
 		  
 		End Function
 	#tag EndMethod
@@ -174,16 +164,12 @@ Implements NSToolbarItemInterface
 		Sub Enabled(assigns value as Boolean)
 		  
 		  // we override the Enabled method to set the Enabled state of the NSControl
-		  dim s as string
+		  
 		  #if targetCocoa
 		    declare sub setEnabled Lib CocoaLib selector "setEnabled:" (obj_id as Ptr, value as Boolean)
 		    
 		    setEnabled(self.view, value)
-		    if mNSControl <> nil then
-		      mNSControl.Enabled = value
-		    elseif mControl <> nil then
-		      RectControl( mControl ).Enabled = value
-		    end if
+		    mControl.enabled = value
 		    
 		  #else
 		    #pragma unused value
@@ -255,15 +241,11 @@ Implements NSToolbarItemInterface
 
 
 	#tag Property, Flags = &h21
-		Private mControl As Control
+		Private mControl As NSControl
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private mMenuActionHandler As ActionDelegate
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private mNSControl As NSControl
 	#tag EndProperty
 
 	#tag Property, Flags = &h21

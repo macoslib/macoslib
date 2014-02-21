@@ -16,6 +16,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Shared Function ClassRef() As Ptr
+		  
 		  static ref as Ptr = Cocoa.NSClassFromString("NSPrinter")
 		  return ref
 		  
@@ -220,12 +221,6 @@ Inherits NSObject
 		  #endif
 		End Function
 	#tag EndMethod
-
-
-	#tag Note, Name = Getting an setting default printer?
-		Use CorePrinting methods for that.
-		
-	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0

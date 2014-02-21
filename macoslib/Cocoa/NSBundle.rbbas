@@ -1482,14 +1482,6 @@ Inherits NSObject
 	#tag EndComputedProperty
 
 
-	#tag Enum, Name = NSBundleExecutableArchitecture, Flags = &h0
-		NSBundleExecutableArchitectureI386 = &h00000007
-		  NSBundleExecutableArchitecturePPC = &h00000012
-		  NSBundleExecutableArchitectureX86_64 = &h01000007
-		NSBundleExecutableArchitecturePPC64 = &h01000012
-	#tag EndEnum
-
-
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"

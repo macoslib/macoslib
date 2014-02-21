@@ -216,7 +216,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function FinderLabelColors() As NSArray
-		  // Returns the corresponding array of file label colors for the file labels.
+		  //Get the Finder labels
 		  
 		  #if TargetMacOS
 		    declare function fileLabelColors lib CocoaLib selector "fileLabelColors" (obj_id as Ptr) as Ptr
@@ -232,7 +232,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function FinderLabels() As NSArray
-		  // Returns the array of file labels as strings.
+		  //Get the Finder labels
 		  
 		  #if TargetMacOS
 		    declare function fileLabels lib CocoaLib selector "fileLabels" (obj_id as Ptr) as Ptr
@@ -991,10 +991,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function PerformMove(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
-		  if sourceDir = Nil or itemNames = Nil then
-		    return false
-		  end if
-		  
 		  static op as CFStringRef = Cocoa.StringConstant ("NSWorkspaceMoveOperation")
 		  return performOperation (sourceDir, destDir, itemNames, op)
 		End Function

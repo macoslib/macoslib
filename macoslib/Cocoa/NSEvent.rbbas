@@ -1,29 +1,9 @@
 #tag Class
 Class NSEvent
 Inherits NSObject
-	#tag Method, Flags = &h21
-		Private Shared Function ClassRef() As Ptr
-		  static ref as Ptr = Cocoa.NSClassFromString("NSEvent")
-		  return ref
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Function DoubleClickInterval() As Double
-		  //# Returns the system-wide double-click time interval in seconds
-		  // To convert it to Ticks, multiply the value by 60.
-		  
-		  #if TargetMacOS
-		    declare function doubleClickInterval lib CocoaLib selector "doubleClickInterval" (Cls as Ptr) as double
-		    
-		    return doubleClickInterval(ClassRef)
-		  #endif
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function LocationInWindow() As NSPoint
+		  
 		  #if TargetMacOS
 		    declare function locationInWindow lib CocoaLib selector "locationInWindow" (id as Ptr) as NSPoint
 		    
@@ -72,10 +52,11 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function MouseLocation() As NSPoint
+		  
 		  #if TargetMacOS
 		    declare function mouseLocation lib CocoaLib selector "mouseLocation" (id as Ptr) as NSPoint
 		    
-		    return mouseLocation(ClassRef)
+		    return  mouseLocation( Cocoa.NSClassFromString( "NSEvent" ))
 		  #endif
 		End Function
 	#tag EndMethod

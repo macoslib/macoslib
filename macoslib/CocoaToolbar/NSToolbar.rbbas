@@ -285,7 +285,7 @@ Inherits NSObject
 		    dim w as WeakRef = CocoaDelegateMap.Lookup(id, new WeakRef(nil))
 		    dim obj as NSToolbar = NSToolbar(w.Value) // get the sender toolbar instance
 		    if obj <> nil then
-		      return obj.HandleDefaultItemIdentifiers // dispatch the message to the right instance
+		      return obj.HandleAllowedItemIdentifiers // dispatch the message to the right instance
 		    else
 		      //something might be wrong.
 		    end if

@@ -2,10 +2,24 @@
 Protected Module SystemExtensions
 	#tag Method, Flags = &h0
 		Function SystemDoubleClickInterval() As double
-		  //# Returns the system double-click time interval in seconds
+		  //# Return the system double-click time interval in seconds
 		  
-		  return NSEvent.DoubleClickInterval
+		  #if TargetMacOS
+		    declare function doubleClickInterval lib CocoaLib selector "doubleClickInterval" (Cls as Ptr) as double
+		    dim dblClick as double = doubleClickInterval( Cocoa.NSClassFromString( "NSEvent" ))
+		    
+		    return  dblClick
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SystemDoubleClickIntervalInTicks() As integer
+		  //# Return the system double-click time interval in seconds
 		  
+		  #if TargetMacOS
+		    return   ( SystemDoubleClickInterval * 1000 / 60 )
+		  #endif
 		End Function
 	#tag EndMethod
 

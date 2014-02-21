@@ -58,7 +58,7 @@ Protected Module AlertExtensions
 		  //@return/
 		  
 		  
-		  dim nsa as New NSAlert( Title, Message, DefaultButton, AlternateButton, OtherButton )
+		  dim nsa as New NSAlert( message, title, DefaultButton, AlternateButton, OtherButton )
 		  
 		  if Warning then
 		    nsa.AlertStyle = NSAlert.Style.Critical // Warning Icon

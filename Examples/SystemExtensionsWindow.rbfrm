@@ -43,6 +43,7 @@ Begin Window SystemExtensionsWindow
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -72,6 +73,7 @@ Begin Window SystemExtensionsWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "SystemDoubleClickTime"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -104,6 +106,7 @@ Begin Window SystemExtensionsWindow
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -116,9 +119,9 @@ Begin Window SystemExtensionsWindow
          AutoHideScrollbars=   True
          Bold            =   ""
          Border          =   True
-         ColumnCount     =   3
+         ColumnCount     =   2
          ColumnsResizable=   ""
-         ColumnWidths    =   "54,35%"
+         ColumnWidths    =   "35%"
          DataField       =   ""
          DataSource      =   ""
          DefaultRowHeight=   16
@@ -134,7 +137,7 @@ Begin Window SystemExtensionsWindow
          Hierarchical    =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
-         InitialValue    =   "Default	Name	Type"
+         InitialValue    =   "Name	Type"
          Italic          =   ""
          Left            =   20
          LockBottom      =   ""
@@ -180,6 +183,7 @@ Begin Window SystemExtensionsWindow
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "SmallSystem"
       TextSize        =   0
       TextUnit        =   0
@@ -258,6 +262,7 @@ Begin Window SystemExtensionsWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Note that you can use the CustomWorkspaceEvents module to get a notification anytime the user makes changes to the Finder labels (name or color).\r\rYour application can then take the changes into account immediately."
          TextAlign       =   0
          TextColor       =   &h000000
@@ -293,6 +298,7 @@ Begin Window SystemExtensionsWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "SystemExtensions are not invoked with a ""dot notation"" (because Real Studio does not allow extending a module) but they all use System as a prefix. Use the autocompletion feature to access them easily."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -314,7 +320,8 @@ End
 #tag Events DoubleClickTimeLBL
 	#tag Event
 		Sub Open()
-		  me.Text = "• Double-click time interval is " + Str( SystemDoubleClickInterval * 1000 ) + " ms, or " + Str( 60 * SystemDoubleClickInterval ) + " Ticks"
+		  
+		  me.Text = "• Double-click time interval is " + Str( SystemDoubleClickInterval * 1000 ) + " ms, i.e. ~" + Str( SystemDoubleClickIntervalInTicks ) + " Ticks"
 		  
 		End Sub
 	#tag EndEvent
@@ -322,20 +329,13 @@ End
 #tag Events Listbox2
 	#tag Event
 		Sub Open()
+		  
 		  dim names() as string = SystemListPrinterNames
 		  dim types() as string = SystemListPrinterTypes
 		  
-		  dim default as String = CorePrinting.DefaultPrinter
-		  
-		  for i as integer = 0 to names.Ubound
-		    dim name as String = names(i)
-		    dim col0 as String
-		    if name = default then
-		      col0 = " •"
-		    end
-		    me.AddRow col0, name, types(i)
+		  for i as integer = 0 to ubound( names )
+		    me.AddRow   names( i ), types( i )
 		  next
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
