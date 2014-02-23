@@ -715,55 +715,59 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  dim pict as Picture
-		  dim lines() as string
-		  dim names() as string
-		  dim w, h as double
+  
+  dim pict as Picture
+  dim lines() as string
+  dim names() as string
+  dim q as integer
+  dim w, h as double
+  lines = Split( kListboxContent, EndOfLine )
+  
+  #pragma BreakOnExceptions false
+  
+  for each s as string in lines  // This probably is not needed anyway. It was in the original code, so I let it stand for further debugging
+    names = s.Split( ":" ) // but all the systemicons are in this property now. Removed the residing size informations as they gave false information in the kListboxContent constant
+    for q=0 to ubound(names)-1 step 2 // so instead of the former loop not looping we are looping through the names() array. The rest is unchanged.
+      
+      w = 0.0
+      h = 0.0
+      
+      LB1.AddRow   names( q )
+      LB1.RowTag( LB1.LastIndex ) = names( q+1 )
+      
+      if names.Ubound>=2 then
+        w = Val( names( 2 ))
+      end if
+      
+      if names.Ubound>=3 then
+        h = Val( names( 3 ))
+      end if
+      
+      try
+        pict = SystemIcons.GetPictureFromName( names( q+1 ), w, h )
+        if pict.width>16 OR pict.height>16 then
+          pict = SystemIcons.GetPictureFromName( names( q+1 ), 16.0, 16.0 )
+        end if
+        LB1.RowPicture( LB1.LastIndex ) = pict
+      catch exc
+        
+      End try
+    next
+  next
+  
+  #pragma BreakOnExceptions default
+  
+  LB1.ListIndex = 0
+  
+End Sub
+
+#tag EndEvent
+#tag Event
+Sub Change()
 		  
-		  lines = Split( kListboxContent, EndOfLine )
+  dim pict as Picture
 		  
-		  #pragma BreakOnExceptions false
-		  
-		  for each s as string in lines  // This probably is not needed anyway. It was in the original code, so I let it stand for further debugging
-		    names = s.Split( ":" ) // but all the systemicons are in this property now. Removed the residing size informations as they gave false information in the kListboxContent constant
-		    for q=0 to ubound(names)-1 step 2 // so instead of the former loop not looping we are looping through the names() array. The rest is unchanged.
-		    w = 0.0
-		    h = 0.0
-		    
-		    LB1.AddRow   names( 0 )
-		    LB1.RowTag( LB1.LastIndex ) = names( 1 )
-		    
-		    if names.Ubound>=2 then
-		      w = Val( names( 2 ))
-		    end if
-		    
-		    if names.Ubound>=3 then
-		      h = Val( names( 3 ))
-		    end if
-		    
-		    try
-		      pict = SystemIcons.GetPictureFromName( names( 1 ), w, h )
-		      if pict.width>16 OR pict.height>16 then
-		        pict = SystemIcons.GetPictureFromName( names( 1 ), 16.0, 16.0 )
-		      end if
-		      LB1.RowPicture( LB1.LastIndex ) = pict
-		    catch exc
-		      
-		    End try
-		    next
-		  next
-		  
-		  #pragma BreakOnExceptions default
-		  
-		  LB1.ListIndex = 0
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Change()
-		  
-		  dim pict as Picture
-		  
-		  if me.ListIndex=-1 then
+	  if me.ListIndex=-1 then
 		    TF1.Text = ""
 		    TF2.Text = ""
 		    PushButton1.Enabled = false
