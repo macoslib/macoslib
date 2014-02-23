@@ -705,7 +705,7 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Constant, Name = kListboxContent, Type = String, Dynamic = False, Default = \"QuickLookTemplate:NSImageNameQuickLookTemplate:16:12\rBluetoothTemplate:NSImageNameBluetoothTemplate\rIChatTheaterTemplate:NSImageNameIChatTheaterTemplate\rSlideshowTemplate:NSImageNameSlideshowTemplate\rActionTemplate:NSImageNameActionTemplate\rSmartBadgeTemplate:NSImageNameSmartBadgeTemplate\rPathTemplate:NSImageNamePathTemplate\rInvalidDataFreestandingTemplate:NSImageNameInvalidDataFreestandingTemplate\rLockLockedTemplate:NSImageNameLockLockedTemplate\rLockUnlockedTemplate:NSImageNameLockUnlockedTemplate\rGoRightTemplate:NSImageNameGoRightTemplate\rGoLeftTemplate:NSImageNameGoLeftTemplate\rRightFacingTriangleTemplate:NSImageNameRightFacingTriangleTemplate\rLeftFacingTriangleTemplate:NSImageNameLeftFacingTriangleTemplate\rAddTemplate:NSImageNameAddTemplate\rRemoveTemplate:NSImageNameRemoveTemplate\rRevealFreestandingTemplate:NSImageNameRevealFreestandingTemplate\rFollowLinkFreestandingTemplate:NSImageNameFollowLinkFreestandingTemplate:14:14\rEnterFullScreenTemplate:NSImageNameEnterFullScreenTemplate\rExitFullScreenTemplate:NSImageNameExitFullScreenTemplate\rStopProgressTemplate:NSImageNameStopProgressTemplate\rStopProgressFreestandingTemplate:NSImageNameStopProgressFreestandingTemplate:14:14\rRefreshTemplate:NSImageNameRefreshTemplate\rRefreshFreestandingTemplate:NSImageNameRefreshFreestandingTemplate\rFolder:NSImageNameFolder\rTrashEmpty:NSImageNameTrashEmpty\rTrashFull:NSImageNameTrashFull\rHomeTemplate:NSImageNameHomeTemplate\rBookmarksTemplate:NSImageNameBookmarksTemplate:16:12\rCaution:NSImageNameCaution\rStatusAvailable:NSImageNameStatusAvailable\rStatusPartiallyAvailable:NSImageNameStatusPartiallyAvailable\rStatusUnavailable:NSImageNameStatusUnavailable\rStatusNone:NSImageNameStatusNone\rApplicationIcon:NSImageNameApplicationIcon\rMenuOnStateTemplate:NSImageNameMenuOnStateTemplate\rMenuMixedStateTemplate:NSImageNameMenuMixedStateTemplate\rUserGuest:NSImageNameUserGuest\rMobileMe:NSImageNameMobileMe\rMultipleDocuments:NSImageNameMultipleDocuments\rUser:NSImageNameUser\rUserGroup:NSImageNameUserGroup\rEveryone:NSImageNameEveryone\rBonjour:NSImageNameBonjour\rDotMac:NSImageNameDotMac\rComputer:NSImageNameComputer\rFolderBurnable:NSImageNameFolderBurnable\rFolderSmart:NSImageNameFolderSmart\rNetwork:NSImageNameNetwork\rUserAccounts:NSImageNameUserAccounts\rPreferencesGeneral:NSImageNamePreferencesGeneral\rAdvanced:NSImageNameAdvanced\rInfo:NSImageNameInfo\rFontPanel:NSImageNameFontPanel\rColorPanel:NSImageNameColorPanel\rIconViewTemplate:NSImageNameIconViewTemplate\rListViewTemplate:NSImageNameListViewTemplate\rColumnViewTemplate:NSImageNameColumnViewTemplate\rFlowViewTemplate:NSImageNameFlowViewTemplate\rShareTemplate:NSImageNameShareTemplate", Scope = Public
+	#tag Constant, Name = kListboxContent, Type = String, Dynamic = False, Default = \"QuickLookTemplate:NSImageNameQuickLookTemplate\nBluetoothTemplate:NSImageNameBluetoothTemplate\nIChatTheaterTemplate:NSImageNameIChatTheaterTemplate\nSlideshowTemplate:NSImageNameSlideshowTemplate\nActionTemplate:NSImageNameActionTemplate\nSmartBadgeTemplate:NSImageNameSmartBadgeTemplate\nPathTemplate:NSImageNamePathTemplate\nInvalidDataFreestandingTemplate:NSImageNameInvalidDataFreestandingTemplate\nLockLockedTemplate:NSImageNameLockLockedTemplate\nLockUnlockedTemplate:NSImageNameLockUnlockedTemplate\nGoRightTemplate:NSImageNameGoRightTemplate\nGoLeftTemplate:NSImageNameGoLeftTemplate\nRightFacingTriangleTemplate:NSImageNameRightFacingTriangleTemplate\nLeftFacingTriangleTemplate:NSImageNameLeftFacingTriangleTemplate\nAddTemplate:NSImageNameAddTemplate\nRemoveTemplate:NSImageNameRemoveTemplate\nRevealFreestandingTemplate:NSImageNameRevealFreestandingTemplate\nFollowLinkFreestandingTemplate:NSImageNameFollowLinkFreestandingTemplate\nEnterFullScreenTemplate:NSImageNameEnterFullScreenTemplate\nExitFullScreenTemplate:NSImageNameExitFullScreenTemplate\nStopProgressTemplate:NSImageNameStopProgressTemplate\nStopProgressFreestandingTemplate:NSImageNameStopProgressFreestandingTemplate\nRefreshTemplate:NSImageNameRefreshTemplate\nRefreshFreestandingTemplate:NSImageNameRefreshFreestandingTemplate\nFolder:NSImageNameFolder\nTrashEmpty:NSImageNameTrashEmpty\nTrashFull:NSImageNameTrashFull\nHomeTemplate:NSImageNameHomeTemplate\nBookmarksTemplate:NSImageNameBookmarksTemplate\nCaution:NSImageNameCaution\nStatusAvailable:NSImageNameStatusAvailable\nStatusPartiallyAvailable:NSImageNameStatusPartiallyAvailable\nStatusUnavailable:NSImageNameStatusUnavailable\nStatusNone:NSImageNameStatusNone\nApplicationIcon:NSImageNameApplicationIcon\nMenuOnStateTemplate:NSImageNameMenuOnStateTemplate\nMenuMixedStateTemplate:NSImageNameMenuMixedStateTemplate\nUserGuest:NSImageNameUserGuest\nMobileMe:NSImageNameMobileMe\nMultipleDocuments:NSImageNameMultipleDocuments\nUser:NSImageNameUser\nUserGroup:NSImageNameUserGroup\nEveryone:NSImageNameEveryone\nBonjour:NSImageNameBonjour\nDotMac:NSImageNameDotMac\nComputer:NSImageNameComputer\nFolderBurnable:NSImageNameFolderBurnable\nFolderSmart:NSImageNameFolderSmart\nNetwork:NSImageNameNetwork\nUserAccounts:NSImageNameUserAccounts\nPreferencesGeneral:NSImageNamePreferencesGeneral\nAdvanced:NSImageNameAdvanced\nInfo:NSImageNameInfo\nFontPanel:NSImageNameFontPanel\nColorPanel:NSImageNameColorPanel\nIconViewTemplate:NSImageNameIconViewTemplate\nListViewTemplate:NSImageNameListViewTemplate\nColumnViewTemplate:NSImageNameColumnViewTemplate\nFlowViewTemplate:NSImageNameFlowViewTemplate\nShareTemplate:NSImageNameShareTemplate", Scope = Public
 	#tag EndConstant
 
 
@@ -715,53 +715,59 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  dim pict as Picture
-		  dim lines() as string
-		  dim names() as string
-		  dim w, h as double
+  
+  dim pict as Picture
+  dim lines() as string
+  dim names() as string
+  dim q as integer
+  dim w, h as double
+  lines = Split( kListboxContent, EndOfLine )
+  
+  #pragma BreakOnExceptions false
+  
+  for each s as string in lines  // This probably is not needed anyway. It was in the original code, so I let it stand for further debugging
+    names = s.Split( ":" ) // but all the systemicons are in this property now. Removed the residing size informations as they gave false information in the kListboxContent constant
+    for q=0 to ubound(names)-1 step 2 // so instead of the former loop not looping we are looping through the names() array. The rest is unchanged.
+      
+      w = 0.0
+      h = 0.0
+      
+      LB1.AddRow   names( q )
+      LB1.RowTag( LB1.LastIndex ) = names( q+1 )
+      
+      if names.Ubound>=2 then
+        w = Val( names( 2 ))
+      end if
+      
+      if names.Ubound>=3 then
+        h = Val( names( 3 ))
+      end if
+      
+      try
+        pict = SystemIcons.GetPictureFromName( names( q+1 ), w, h )
+        if pict.width>16 OR pict.height>16 then
+          pict = SystemIcons.GetPictureFromName( names( q+1 ), 16.0, 16.0 )
+        end if
+        LB1.RowPicture( LB1.LastIndex ) = pict
+      catch exc
+        
+      End try
+    next
+  next
+  
+  #pragma BreakOnExceptions default
+  
+  LB1.ListIndex = 0
+  
+End Sub
+
+#tag EndEvent
+#tag Event
+Sub Change()
 		  
-		  lines = Split( kListboxContent, EndOfLine )
+  dim pict as Picture
 		  
-		  #pragma BreakOnExceptions false
-		  
-		  for each s as string in lines
-		    names = s.Split( ":" )
-		    w = 0.0
-		    h = 0.0
-		    
-		    LB1.AddRow   names( 0 )
-		    LB1.RowTag( LB1.LastIndex ) = names( 1 )
-		    
-		    if names.Ubound>=2 then
-		      w = Val( names( 2 ))
-		    end if
-		    
-		    if names.Ubound>=3 then
-		      h = Val( names( 3 ))
-		    end if
-		    
-		    try
-		      pict = SystemIcons.GetPictureFromName( names( 1 ), w, h )
-		      if pict.width>16 OR pict.height>16 then
-		        pict = SystemIcons.GetPictureFromName( names( 1 ), 16.0, 16.0 )
-		      end if
-		      LB1.RowPicture( LB1.LastIndex ) = pict
-		    catch exc
-		      
-		    End try
-		  next
-		  
-		  #pragma BreakOnExceptions default
-		  
-		  LB1.ListIndex = 0
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Change()
-		  
-		  dim pict as Picture
-		  
-		  if me.ListIndex=-1 then
+	  if me.ListIndex=-1 then
 		    TF1.Text = ""
 		    TF2.Text = ""
 		    PushButton1.Enabled = false
@@ -913,7 +919,7 @@ End
 		  #if RBVersion >= 2012.02
 		    #pragma unused areas
 		  #endif
-		  
+		 
 		End Sub
 	#tag EndEvent
 #tag EndEvents
