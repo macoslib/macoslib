@@ -51,21 +51,9 @@ Inherits Application
 		  
 		  #pragma warning "DELETE THIS CODE!!"
 		  
-		  MacDiskUtil.SelfTest
-		  
-		  'dim disk as MacDiskUtil.MacPartitionItem = MacDiskUtil.Partition( "KINGSTON" )
-		  'dim parent as MacDiskUtil.MacDeviceItem = disk.Device
-		  '
-		  'dim fs as UInt64 = disk.FreeSpace
-		  'dim r as boolean
-		  '
-		  'if disk.Mounted then
-		  'r = disk.Unmount
-		  'end if
-		  'r = disk.MountDisk
-		  'r = disk.Mount ( true )
-		  'r = r
-		  
+		  dim session as new PMPrintSession
+		  dim printer as PMPrinter = session.CurrentPrinter
+		  dim printerList() as PMPrinter = CorePrinting.PrinterList
 		End Sub
 	#tag EndEvent
 

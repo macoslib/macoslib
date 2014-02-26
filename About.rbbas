@@ -61,6 +61,7 @@ Protected Module About
 		- NSWindow Example: Locked some buttons on right instead of left to better illustrate SmoothResize.
 		- PopupMenuExtension.Icon: Tests for a nil value and handles it.
 		- NSWorkspace.RunningApplications: Checked to make sure it responds to selector, otherwise returns empty array.
+		- Added structure and classes to CorePrinting module.
 	#tag EndNote
 
 	#tag Note, Name = License
