@@ -48,12 +48,6 @@ Inherits Application
 		    end if
 		  end if
 		  
-		  
-		  #pragma warning "DELETE THIS CODE!!"
-		  
-		  dim session as new PMPrintSession
-		  dim printer as PMPrinter = session.CurrentPrinter
-		  dim printerList() as PMPrinter = CorePrinting.PrinterList
 		End Sub
 	#tag EndEvent
 
@@ -348,6 +342,14 @@ Inherits Application
 	#tag MenuHandler
 		Function ExamplesCarbonPasteboard() As Boolean Handles ExamplesCarbonPasteboard.Action
 			CarbonPasteboardExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ExamplesCorePrinting() As Boolean Handles ExamplesCorePrinting.Action
+			CorePrintingWindow.Show
 			Return True
 			
 		End Function

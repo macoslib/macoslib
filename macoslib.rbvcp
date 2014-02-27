@@ -164,6 +164,7 @@ Folder=BonjourExampleFolder;Examples/BonjourExampleFolder;&h5E580CAA;&h4BD59C08;
 Window=CarbonPasteboardExample;Examples/CarbonPasteboardExample.rbfrm;&h1915007E;&h4BD59C08;false
 Window=CheckboxContainer;Examples/CheckboxContainer.rbfrm;&h3EF6E447;&h4BD59C08;false
 Window=ControlWindow;Examples/ControlWindow.rbfrm;&h27DB555B;&h4BD59C08;false
+Window=CorePrintingWindow;Examples/CorePrintingWindow.rbfrm;&h30EF7B41;&h4BD59C08;false
 Window=CoreTextExample;Examples/CoreTextExample.rbfrm;&h4F86FED2;&h4BD59C08;false
 Window=DebugLogWin;Examples/DebugLogWin.rbfrm;&h67694E84;&h4BD59C08;false
 Folder=DebugReport Example;Examples/DebugReport Example;&h2371D8D6;&h4BD59C08;false

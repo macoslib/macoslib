@@ -6,29 +6,41 @@ Protected Module CorePrinting
 		  
 		  #if TargetMacOS
 		    
-		    declare function PMServerCreatePrinterList lib framework (server as Ptr, byref printerList as Ptr) as Integer
-		    declare function PMPrinterIsDefault lib framework (printer as Ptr) as Integer
-		    declare function PMPrinterGetName lib framework (printer as Ptr) as CFStringRef
-		    declare function CFArrayGetCount lib cfframework (theArray as Ptr) as Integer
-		    declare function CFArrayGetValueAtIndex lib cfframework (theArray as Ptr, idx as Integer) as Ptr
-		    
-		    dim osErr As Integer
-		    dim pListRef As Ptr
-		    
-		    osErr = PMServerCreatePrinterList(nil, pListRef)
-		    If osErr <> 0 then
-		      raise new macoslibException ("PMServerCreatePrinterList failed: " + str(osErr))
-		      return ""
-		    end
-		    
-		    dim pCount as Integer = CFArrayGetCount(pListRef)
-		    for i as Integer = 0 to pCount-1
-		      dim pr As Ptr = CFArrayGetValueAtIndex(pListRef, i)
-		      If PMPrinterIsDefault(pr) <> 0 then
-		        dim defaultPrinterName as String = PMPrinterGetName(pr)
-		        return defaultPrinterName
-		      end
+		    dim printerName as string
+		    dim printers() as PMPrinter = PrinterList
+		    for each printer as PMPrinter in printers
+		      if printer.IsDefault then
+		        printerName = printer.Name
+		        exit
+		      end if
 		    next
+		    
+		    return printerName
+		    
+		    
+		    'declare function PMServerCreatePrinterList lib framework (server as Ptr, byref printerList as Ptr) as Integer
+		    'declare function PMPrinterIsDefault lib framework (printer as Ptr) as Integer
+		    'declare function PMPrinterGetName lib framework (printer as Ptr) as CFStringRef
+		    'declare function CFArrayGetCount lib cfframework (theArray as Ptr) as Integer
+		    'declare function CFArrayGetValueAtIndex lib cfframework (theArray as Ptr, idx as Integer) as Ptr
+		    '
+		    'dim osErr As Integer
+		    'dim pListRef As Ptr
+		    '
+		    'osErr = PMServerCreatePrinterList(nil, pListRef)
+		    'If osErr <> 0 then
+		    'raise new macoslibException ("PMServerCreatePrinterList failed: " + str(osErr))
+		    'return ""
+		    'end
+		    '
+		    'dim pCount as Integer = CFArrayGetCount(pListRef)
+		    'for i as Integer = 0 to pCount-1
+		    'dim pr As Ptr = CFArrayGetValueAtIndex(pListRef, i)
+		    'If PMPrinterIsDefault(pr) <> 0 then
+		    'dim defaultPrinterName as String = PMPrinterGetName(pr)
+		    'return defaultPrinterName
+		    'end
+		    'next
 		    
 		  #endif
 		End Function
@@ -62,6 +74,17 @@ Protected Module CorePrinting
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function PrintSession() As PMPrintSession
+		  // Returns a new value for PMPrintSession
+		  // Has to be static to retain a value like current printer.
+		  
+		  static session as new PMPrintSession
+		  return session
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function SetDefaultPrinter(printerName as String) As Boolean
 		  // Returns true if setting default printer worked.
 		  // Return false if printer isn't found.
@@ -69,44 +92,57 @@ Protected Module CorePrinting
 		  
 		  #if TargetMacOS
 		    
-		    declare function PMServerCreatePrinterList lib framework (server as Ptr, byref printerList as Ptr) as Integer
-		    declare function PMPrinterGetName lib framework (printer as Ptr) as CFStringRef
-		    declare function PMPrinterSetDefault lib framework (printer as Ptr) as Integer
-		    declare function CFArrayGetCount lib cfframework (theArray as Ptr) as Integer
-		    declare function CFArrayGetValueAtIndex lib cfframework (theArray as Ptr, idx as Integer) as Ptr
-		    
-		    dim osErr As Integer
-		    dim pListRef As Ptr
-		    
-		    osErr = PMServerCreatePrinterList(nil, pListRef)
-		    If osErr <> 0 then
-		      raise new macoslibException ("PMServerCreatePrinterList failed: " + str(osErr))
-		      return false
-		    end
-		    
-		    dim targetPrinter as Ptr = nil
-		    dim pCount as integer = CFArrayGetCount(pListRef)
-		    for i as Integer = 0 to pCount-1
-		      dim pr As Ptr = CFArrayGetValueAtIndex(pListRef, i)
-		      dim pName as string = PMPrinterGetName(pr)
-		      if pName = printerName then
-		        targetPrinter = pr
+		    dim r as boolean 
+		    dim printers() as PMPrinter = PrinterList
+		    for each printer as PMPrinter in printers
+		      if printer.Name = printerName then
+		        printer.SetDefault
+		        r = True
 		        exit
-		      end
+		      end if
 		    next
 		    
-		    if targetPrinter = nil then
-		      // Can't find printer
-		      return false
-		    end
+		    return r
 		    
-		    osErr = PMPrinterSetDefault(targetPrinter)
-		    If osErr <> 0 then
-		      raise new macoslibException ("PMPrinterSetDefault failed: " + str(osErr))
-		      return false
-		    end
 		    
-		    return true
+		    'declare function PMServerCreatePrinterList lib framework (server as Ptr, byref printerList as Ptr) as Integer
+		    'declare function PMPrinterGetName lib framework (printer as Ptr) as CFStringRef
+		    'declare function PMPrinterSetDefault lib framework (printer as Ptr) as Integer
+		    'declare function CFArrayGetCount lib cfframework (theArray as Ptr) as Integer
+		    'declare function CFArrayGetValueAtIndex lib cfframework (theArray as Ptr, idx as Integer) as Ptr
+		    '
+		    'dim osErr As Integer
+		    'dim pListRef As Ptr
+		    '
+		    'osErr = PMServerCreatePrinterList(nil, pListRef)
+		    'If osErr <> 0 then
+		    'raise new macoslibException ("PMServerCreatePrinterList failed: " + str(osErr))
+		    'return false
+		    'end
+		    '
+		    'dim targetPrinter as Ptr = nil
+		    'dim pCount as integer = CFArrayGetCount(pListRef)
+		    'for i as Integer = 0 to pCount-1
+		    'dim pr As Ptr = CFArrayGetValueAtIndex(pListRef, i)
+		    'dim pName as string = PMPrinterGetName(pr)
+		    'if pName = printerName then
+		    'targetPrinter = pr
+		    'exit
+		    'end
+		    'next
+		    '
+		    'if targetPrinter = nil then
+		    '// Can't find printer
+		    'return false
+		    'end
+		    '
+		    'osErr = PMPrinterSetDefault(targetPrinter)
+		    'If osErr <> 0 then
+		    'raise new macoslibException ("PMPrinterSetDefault failed: " + str(osErr))
+		    'return false
+		    'end
+		    '
+		    'return true
 		    
 		  #else
 		    

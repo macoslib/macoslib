@@ -1392,6 +1392,12 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
       End
+      Begin MenuItem ExamplesCorePrinting
+         SpecialMenu = 0
+         Text = "Core Printing"
+         Index = -2147483648
+         AutoEnable = True
+      End
    End
    Begin MenuItemWindowMenu WindowMenu
       SpecialMenu = 0

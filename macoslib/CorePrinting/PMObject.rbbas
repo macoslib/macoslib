@@ -21,7 +21,7 @@ Class PMObject
 		    if self.Retain is nil then
 		      dim err as new OSError
 		      err.Message = "Could not retain PMObject."
-		      raise err 
+		      raise err
 		    end if
 		  end if
 		End Sub
@@ -68,7 +68,7 @@ Class PMObject
 		      dim err as new OSError
 		      err.Message = "Could not release PMObject."
 		      err.ErrorNumber = OSErr
-		      raise err 
+		      raise err
 		    end if
 		    
 		  #endif
@@ -112,12 +112,6 @@ Class PMObject
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
