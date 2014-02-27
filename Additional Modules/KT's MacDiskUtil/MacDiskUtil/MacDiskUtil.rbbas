@@ -144,8 +144,12 @@ Protected Module MacDiskUtil
 		    partitionArr = partitionArr // A place to break
 		    
 		    dim id as string = d
+		    #pragma unused id
 		    dim b as boolean = d.Mounted
+		    #pragma unused b
 		    dim status as MacDiskUtil.MacDeviceItem.MountType = d.MountStatus
+		    #pragma unused status
+		    
 		    dim f as UInt64 = d.FreeSpace
 		    
 		    for each p as MacDiskUtil.MacPartitionItem in partitionArr
@@ -156,6 +160,7 @@ Protected Module MacDiskUtil
 		  next d
 		  
 		  dim arr() as MacDiskUtil.MacFormatPersonality = Personalities
+		  #pragma unused arr
 		  
 		End Sub
 	#tag EndMethod

@@ -65,6 +65,7 @@ Protected Module About
 		- Added CorePrintingExample menu item and window.
 		- Added AuthorizationShell to Additional Modules.
 		- Added AuthorizationShellExample.
+		- Added pragmas for unused method params and variables.
 	#tag EndNote
 
 	#tag Note, Name = License
