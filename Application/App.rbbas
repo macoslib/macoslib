@@ -340,6 +340,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ExamplesAuthorizationShell() As Boolean Handles ExamplesAuthorizationShell.Action
+			AuthorizationShellExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ExamplesCarbonPasteboard() As Boolean Handles ExamplesCarbonPasteboard.Action
 			CarbonPasteboardExample.Show
 			Return True

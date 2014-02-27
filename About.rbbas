@@ -63,7 +63,8 @@ Protected Module About
 		- NSWorkspace.RunningApplications: Checked to make sure it responds to selector, otherwise returns empty array.
 		- Added structure and classes to CorePrinting module.
 		- Added CorePrintingExample menu item and window.
-		
+		- Added AuthorizationShell to Additional Modules.
+		- Added AuthorizationShellExample.
 	#tag EndNote
 
 	#tag Note, Name = License
