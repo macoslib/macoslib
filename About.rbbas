@@ -50,9 +50,19 @@ Protected Module About
 		but please start with the entire macoslib folder to save you trouble initially.
 	#tag EndNote
 
-	#tag Note, Name = Kem's Temp Notes
-		A place for KT to keep notes where it won't conflict with the Release Notes of interim releases.
+	#tag Note, Name = License
+		The present library is distributed under the terms of the MIT License.
 		
+		See: http://opensource.org/licenses/mit-license.php
+	#tag EndNote
+
+	#tag Note, Name = Release Notes
+		These release notes were added as of version 100. Check the git history at https://github.com/macoslib/macoslib
+		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
+		
+		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		168: 2014-02-27 by KT
 		- Added MacDiskUtil module and classes.
 		- Added DebugKeys as private computed property to NativeSubclass.DictionaryCaseSensitive.
 		- Removed NSWindow.WorksWhenModal.Set (this is not implemented in NSWindow, only NSPanel).
@@ -66,19 +76,6 @@ Protected Module About
 		- Added AuthorizationShell to Additional Modules.
 		- Added AuthorizationShellExample.
 		- Added pragmas for unused method params and variables.
-	#tag EndNote
-
-	#tag Note, Name = License
-		The present library is distributed under the terms of the MIT License.
-		
-		See: http://opensource.org/licenses/mit-license.php
-	#tag EndNote
-
-	#tag Note, Name = Release Notes
-		These release notes were added as of version 100. Check the git history at https://github.com/macoslib/macoslib
-		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
-		
-		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
 		167: 2013-12-16 by CY
 		-Add MixedStateCheckboxExtension; add enumeration NSCellStateValue to Cocoa module.
@@ -482,7 +479,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"167", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"168", Scope = Protected
 	#tag EndConstant
 
 
