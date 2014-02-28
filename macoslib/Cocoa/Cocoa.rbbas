@@ -191,7 +191,8 @@ Protected Module Cocoa
 		    
 		    if searchPublicFrameworks then
 		      const expandTilde = true
-		      dim libraryPathArray as new CFArray(NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, expandTilde), not CFType.hasOwnership)
+		      dim p as Ptr = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, expandTilde)
+		      dim libraryPathArray as new CFArray(p, not CFType.hasOwnership)
 		      for i as Integer = 0 to libraryPathArray.Count - 1
 		        frameworkURLs.Append CFURL.CreateFromPOSIXPath(libraryPathArray.CFStringRefValue(i), isDirectory).AppendComponent(FrameworksDirectoryName, isDirectory).AppendComponent(frameworkName, not isDirectory)
 		      next
