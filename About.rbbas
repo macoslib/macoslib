@@ -61,30 +61,28 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+
+		169: 2014-02-16 by TT
+		- New module CorePrinting with functions to get and set the default printer
+		- Adds DoubleClickInterval function to NSEvent
+		- Removes SystemExtensions.SystemDoubleClickIntervalInTicks function because it did not do what it said, and fixing it could lead to undetected issues with existing code.
 		
-		168: 2014-02-27 by KT
-		- Added MacDiskUtil module and classes.
-		- Added DebugKeys as private computed property to NativeSubclass.DictionaryCaseSensitive.
-		- Removed NSWindow.WorksWhenModal.Set (this is not implemented in NSWindow, only NSPanel).
-		- NSWindow Example: Added keystroke to turn off "Ignore Mouse Events". Otherwise, turning it on meant
-		  that you had to close the window or quit the app to continue.
-		- NSWindow Example: Locked some buttons on right instead of left to better illustrate SmoothResize.
-		- PopupMenuExtension.Icon: Tests for a nil value and handles it.
-		- NSWorkspace.RunningApplications: Checked to make sure it responds to selector, otherwise returns empty array.
-		- Added structure and classes to CorePrinting module.
-		- Added CorePrintingExample menu item and window.
-		- Added AuthorizationShell to Additional Modules.
-		- Added AuthorizationShellExample.
-		- Added pragmas for unused method params and variables.
+		168: 2014-01-10 by VVB
+		- Added a few missed vallebox methods back into macoslib from the following classes: NSRunningApplication, NSProcessInfo, NSMutableDictionary, NSString.
+		- Prevented a crash in the NSRunningApplication example where background apps without an icon might cause trouble.
+		- Fixed a typo that erroneously set the NSToolbar's default items to the alloweditems array.
+		- NSToolbar only supported NSControls, added the ability to use both NSControls and Controls, updated the NSToolbar example.
+		- In Xojo, NSMenu needs to have a constructor with the signature Constructor() to be placed on a window.
+		- Corrected reverse title/message in NSAlert extension.
 		
 		167: 2013-12-16 by CY
-		-Add MixedStateCheckboxExtension; add enumeration NSCellStateValue to Cocoa module.
+		- Add MixedStateCheckboxExtension; add enumeration NSCellStateValue to Cocoa module.
 		
 		166: 2013-12-11 by CY
-		-NSWIndow.AnimationBehavior no longer raises an ObjCException in MacOS 10.6; instead the Set handler is a no-op and the Get handler returns NSWindowAnimationBehaviorDefault.
+		- NSWIndow.AnimationBehavior no longer raises an ObjCException in MacOS 10.6; instead the Set handler is a no-op and the Get handler returns NSWindowAnimationBehaviorDefault.
 		
 		165: 2013-12-04 by CY
-		-Refactor CFArray, CFMutableArray, CFAttributedString, CFBundle to use CFTypeRef.
+		- Refactor CFArray, CFMutableArray, CFAttributedString, CFBundle to use CFTypeRef.
 		
 		164: 2013-11-25 by CY
 		- Rewrite CFUUID; fix a bug in CFType.RefCount introduced in refactoring.
@@ -479,7 +477,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"168", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"169", Scope = Protected
 	#tag EndConstant
 
 
