@@ -50,6 +50,16 @@ Protected Module About
 		but please start with the entire macoslib folder to save you trouble initially.
 	#tag EndNote
 
+	#tag Note, Name = Kem's Temp Notes
+		A temporary place for Kem to store his notes so it won't conflict with intermediate merges.
+		
+		- Added additional Keychain instructions in AuthorizationShell note.
+		- AuthorizationShell: Fixed bug where UserCancelled error was not being properly handled.
+		- AuthorizationShell: Added Reset method.
+		- AuthorizationShell: Removed unneeded buflen property.
+		- AuthorizationShell Example: Added Username and Password field with code.
+	#tag EndNote
+
 	#tag Note, Name = License
 		The present library is distributed under the terms of the MIT License.
 		
