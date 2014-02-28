@@ -1,3 +1,4 @@
 *.rbuistate
 .DS_Store
 .obsolete
+macoslib.debug.app

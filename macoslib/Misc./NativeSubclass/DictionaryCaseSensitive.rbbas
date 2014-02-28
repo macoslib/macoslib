@@ -663,6 +663,24 @@ Inherits Dictionary
 	#tag EndNote
 
 
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  // Since the keys are encoded, this will allow the developer to see them while debugging
+			  
+			  dim k() as string = me.KeysAsStringArray
+			  for i as integer = 0 to k.Ubound
+			    k( i ) = k( i ).ReplaceAll( EndOfLine.UNIX, "\n" )
+			    k( i ) = k( i ).ReplaceAll( EndOfLine.Macintosh, "\r" )
+			  next
+			  dim r as string = join( k, EndOfLine )
+			  return r
+			  
+			End Get
+		#tag EndGetter
+		Private DebugKeys As String
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h1
 		Protected zEncoding As TextEncoding
 	#tag EndProperty
@@ -678,45 +696,47 @@ Inherits Dictionary
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="Dictionary"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Count"
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			InheritedFrom="Dictionary"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

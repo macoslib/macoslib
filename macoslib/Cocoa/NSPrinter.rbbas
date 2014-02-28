@@ -224,7 +224,6 @@ Inherits NSObject
 
 	#tag Note, Name = Getting an setting default printer?
 		Use CorePrinting methods for that.
-		
 	#tag EndNote
 
 

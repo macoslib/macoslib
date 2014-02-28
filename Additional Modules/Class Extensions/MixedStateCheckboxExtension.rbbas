@@ -3,9 +3,15 @@ Protected Module MixedStateCheckboxExtension
 	#tag Method, Flags = &h0
 		Function AllowsMixedState(extends c as CheckBox) As Boolean
 		  #if targetCocoa
+		    
 		    declare function allowsMixedState lib CocoaLib selector "allowsMixedState" (obj_id as Ptr)  as Boolean
 		    
 		    return allowsMixedState(Ptr(c.Handle))
+		    
+		  #else
+		    
+		    #pragma unused c
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -16,6 +22,12 @@ Protected Module MixedStateCheckboxExtension
 		    declare sub setAllowsMixedState lib CocoaLib selector "setAllowsMixedState:" (obj_id as Ptr, value as Boolean)
 		    
 		    setAllowsMixedState(Ptr(c.Handle), value)
+		    
+		  #else
+		    
+		    #pragma unused c
+		    #pragma unused value
+		    
 		  #endif
 		  
 		End Sub
@@ -27,6 +39,11 @@ Protected Module MixedStateCheckboxExtension
 		    declare sub setNextState lib CocoaLib selector "setNextState" (obj_id as Ptr)
 		    
 		    setNextState(Ptr(c.Handle))
+		    
+		  #else
+		    
+		    #pragma unused c
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -37,6 +54,11 @@ Protected Module MixedStateCheckboxExtension
 		    declare function state lib CocoaLib selector "state" (obj_id as Ptr) as NSCellStateValue
 		    
 		    return state(Ptr(c.Handle))
+		    
+		  #else
+		    
+		    #pragma unused c
+		    
 		  #endif
 		End Function
 	#tag EndMethod
@@ -47,6 +69,12 @@ Protected Module MixedStateCheckboxExtension
 		    declare sub setState lib CocoaLib selector "setState:" (obj_id as Ptr, value as NSCellStateValue)
 		    
 		    setState(Ptr(c.Handle), value)
+		    
+		  #else
+		    
+		    #pragma unused c
+		    #pragma unused value
+		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -54,7 +82,6 @@ Protected Module MixedStateCheckboxExtension
 
 	#tag Note, Name = Read Me
 		This module extends the framework Checkbox class to support mixed state display in Cocoa builds.
-		
 	#tag EndNote
 
 

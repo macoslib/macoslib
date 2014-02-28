@@ -120,15 +120,22 @@ Protected Module PopupMenuExtension
 		    
 		    dim m as Ptr = menu(p.Handle)
 		    dim item as Ptr = itemAtIndex(m, index)
-		    dim icon as NSImage = value.Copy
+		    dim icon as NSImage 
+		    if value <> nil then 
+		      icon = value.Copy
+		    end if
 		    
-		    dim size as Cocoa.NSSize
 		    const MenuIconSize = 16
-		    size.Width = MenuIconSize
-		    size.Height = MenuIconSize
-		    setSize(icon, size)
 		    
-		    setImage(item, icon)
+		    if icon is nil then
+		      setImage( item, nil )
+		    else
+		      dim size as Cocoa.NSSize
+		      size.Width = MenuIconSize
+		      size.Height = MenuIconSize
+		      setSize(icon, size)
+		      setImage(item, icon)
+		    end if
 		    
 		  #else
 		    

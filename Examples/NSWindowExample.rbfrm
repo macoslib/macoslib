@@ -42,7 +42,6 @@ Begin Window NSWindowExample
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   2
       Visible         =   True
@@ -162,7 +161,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "(Will put or remove the grey dot from the close button. If you've specified a file above, will also dim the icon.)"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -197,7 +195,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "No file specified"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -647,7 +644,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   14
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "(Move by background doesn't seem to work in REALStudio, but does in Xojo)"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -682,7 +678,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   16
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Behavior:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -717,7 +712,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   17
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   0
          TextAlign       =   2
          TextColor       =   &h000000
@@ -752,7 +746,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   18
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "BackingScaleFactor:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -787,7 +780,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   19
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   0
          TextAlign       =   2
          TextColor       =   &h000000
@@ -943,8 +935,8 @@ Begin Window NSWindowExample
          ListIndex       =   0
          LockBottom      =   ""
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   2
@@ -1070,7 +1062,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Alpha Value:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -1110,38 +1101,6 @@ Begin Window NSWindowExample
          TextSize        =   0
          TextUnit        =   0
          Top             =   174
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   190
-      End
-      Begin CheckBox chkWorksWhenModal
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "Works when Modal"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   "Specifies whether the receiver receives keyboard and mouse events even when some other window is being run modally."
-         Index           =   -2147483648
-         InitialParent   =   "ppExamples"
-         Italic          =   ""
-         Left            =   490
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   23
-         TabPanelIndex   =   2
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   206
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1197,7 +1156,6 @@ Begin Window NSWindowExample
          Selectable      =   False
          TabIndex        =   10
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Transparency:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -1226,8 +1184,8 @@ Begin Window NSWindowExample
          Left            =   414
          LockBottom      =   ""
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   11
@@ -1257,8 +1215,8 @@ Begin Window NSWindowExample
          Left            =   414
          LockBottom      =   ""
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   5
@@ -1268,6 +1226,40 @@ Begin Window NSWindowExample
          TextSize        =   0
          TextUnit        =   0
          Top             =   94
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin Label lblArray
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   47
+         HelpTag         =   ""
+         Index           =   5
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   490
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   23
+         TabPanelIndex   =   2
+         Text            =   "(This window will ignore clicks, so press command-G to turn ""Ignore Mouse Events"" off.)"
+         TextAlign       =   0
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   10
+         TextUnit        =   0
+         Top             =   205
+         Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   190
@@ -1330,6 +1322,17 @@ End
 		Sub Close()
 		  m_NSWindow.AnimationBehavior = NSWindow.NSWindowAnimationBehavior.NSWindowAnimationBehaviorUtilityWindow // Fade-out on closing
 		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  if chkIgnoreMouseEvents.Value then // IgnoreMouseEvents is turned on, so we have to pay attention to the keystrokes
+		    if key = "g" and Keyboard.CommandKey then
+		      chkIgnoreMouseEvents.Value = false
+		      return true
+		    end if
+		  end if
+		End Function
 	#tag EndEvent
 
 	#tag Event
@@ -1645,13 +1648,6 @@ End
 	#tag Event
 		Sub Action()
 		  m_NSWindow.IgnoresMouseEvents = me.Value
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events chkWorksWhenModal
-	#tag Event
-		Sub Action()
-		  m_NSWindow.WorksWhenModal = me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents
