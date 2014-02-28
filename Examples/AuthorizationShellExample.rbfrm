@@ -2,7 +2,6 @@
 Begin Window AuthorizationShellExample
    BackColor       =   16777215
    Backdrop        =   0
-   BalloonHelp     =   ""
    CloseButton     =   True
    Composite       =   True
    Frame           =   0
@@ -316,12 +315,12 @@ Begin Window AuthorizationShellExample
       Height          =   50
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   13
+      Left            =   ""
       LineColor       =   11842740
       LockedInPosition=   False
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   83
+      Top             =   ""
       Visible         =   True
       Width           =   100
       X1              =   13
@@ -424,15 +423,6 @@ End
 		  args = argsEdit.Text.Split (" ")
 		  
 		  runBut.Enabled = false
-		  
-		  if Keyboard.OptionKey then
-		    // If option key is held down when the Run button is pressed,
-		    // let's preset username and password (these should be read
-		    // from the Keychain, ideally).
-		    dim username as String = "user name goes here"
-		    dim password as String = "password goes here"
-		    AuthorizationShell1.SetUsernameAndPassword username, password
-		  end if
 		  
 		  if AuthorizationShell1.AuthorizeAndExecute(cmd, args) then
 		    // Shell is running now.

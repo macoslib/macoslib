@@ -61,7 +61,22 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
-
+		
+		170: 2014-02-28 by KT
+		- Added MacDiskUtil module and classes.
+		- Added DebugKeys as private computed property to NativeSubclass.DictionaryCaseSensitive.
+		- Removed NSWindow.WorksWhenModal.Set (this is not implemented in NSWindow, only NSPanel).
+		- NSWindow Example: Added keystroke to turn off "Ignore Mouse Events". Otherwise, turning it on meant
+		  that you had to close the window or quit the app to continue.
+		- NSWindow Example: Locked some buttons on right instead of left to better illustrate SmoothResize.
+		- PopupMenuExtension.Icon: Tests for a nil value and handles it.
+		- NSWorkspace.RunningApplications: Checked to make sure it responds to selector, otherwise returns empty array.
+		- Added structure and classes to CorePrinting module.
+		- Added CorePrintingExample menu item and window.
+		- Added AuthorizationShell to Additional Modules.
+		- Added AuthorizationShellExample.
+		- Added pragmas for unused method params and variables.
+		
 		169: 2014-02-16 by TT
 		- New module CorePrinting with functions to get and set the default printer
 		- Adds DoubleClickInterval function to NSEvent
@@ -477,7 +492,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"169", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"170", Scope = Protected
 	#tag EndConstant
 
 
