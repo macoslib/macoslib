@@ -216,7 +216,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function FinderLabelColors() As NSArray
-		  //Get the Finder labels
+		  // Returns the corresponding array of file label colors for the file labels.
 		  
 		  #if TargetMacOS
 		    declare function fileLabelColors lib CocoaLib selector "fileLabelColors" (obj_id as Ptr) as Ptr
@@ -232,7 +232,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function FinderLabels() As NSArray
-		  //Get the Finder labels
+		  // Returns the array of file labels as strings.
 		  
 		  #if TargetMacOS
 		    declare function fileLabels lib CocoaLib selector "fileLabels" (obj_id as Ptr) as Ptr
@@ -991,6 +991,10 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		 Shared Function PerformMove(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
+		  if sourceDir = Nil or itemNames = Nil then
+		    return false
+		  end if
+		  
 		  static op as CFStringRef = Cocoa.StringConstant ("NSWorkspaceMoveOperation")
 		  return performOperation (sourceDir, destDir, itemNames, op)
 		End Function
@@ -1152,19 +1156,16 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		 Shared Function RunningApplications() As NSRunningApplication()
 		  #if TargetMacOS
+		    declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
+		    
 		    dim theList() as NSRunningApplication
-		    if SharedWorkspace.RespondsToSelector( "runningApplications" ) then
-		      declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
-		      // Introduced in MacOS X 10.6.
-		      
-		      dim theArray as new CFArray(runningApplications(SharedWorkspace), not CFType.hasOwnership)
-		      for i as Integer = 0 to theArray.Count - 1
-		        dim p as Ptr = theArray.Value(i)
-		        if p <> nil then
-		          theList.Append new NSRunningApplication(p)
-		        end if
-		      next
-		    end if
+		    dim theArray as new CFArray(runningApplications(SharedWorkspace), not CFType.hasOwnership)
+		    for i as Integer = 0 to theArray.Count - 1
+		      dim p as Ptr = theArray.Value(i)
+		      if p <> nil then
+		        theList.Append new NSRunningApplication(p)
+		      end if
+		    next
 		    return theList
 		  #endif
 		End Function
