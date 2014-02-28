@@ -1,0 +1,121 @@
+#tag Class
+Protected Class Personality
+	#tag Method, Flags = &h1
+		Protected Function pValueFromKey(key As String) As Variant
+		  dim r as Variant = ""
+		  if zDict <> nil then
+		    r = zDict.Lookup( key, "" )
+		  end if
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "Bootable" )
+			  
+			End Get
+		#tag EndGetter
+		Bootable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "Bundle" )
+			  
+			End Get
+		#tag EndGetter
+		Bundle As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "BundlePath" )
+			  
+			End Get
+		#tag EndGetter
+		BundlePath As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "Personality" )
+			  
+			End Get
+		#tag EndGetter
+		Identifier As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "MaximumSize" )
+			  
+			End Get
+		#tag EndGetter
+		MaximumSize As UInt64
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "MinimumSize" )
+			  
+			End Get
+		#tag EndGetter
+		MinimumSize As UInt64
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "UserVisibleName" )
+			  
+			End Get
+		#tag EndGetter
+		Name As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "RequiresBooterToBoot" )
+			  
+			End Get
+		#tag EndGetter
+		RequiresBooterToBoot As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "RequiresWholeDiskFormat" )
+			  
+			End Get
+		#tag EndGetter
+		RequiresWholeDiskFormat As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return pValueFromKey( "SupportsResize" )
+			  
+			End Get
+		#tag EndGetter
+		SupportsResize As Boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h1
+		Protected zDict As Dictionary
+	#tag EndProperty
+
+
+End Class
+#tag EndClass
