@@ -19,7 +19,7 @@ Protected Class AuthorizationShell
 		    
 		    dim i, c as integer
 		    if args is nil then
-		      c = -1 
+		      c = -1
 		    else
 		      c = args.Ubound
 		    end if
@@ -84,16 +84,13 @@ Protected Class AuthorizationShell
 		      else
 		        err = AuthorizationCreate( nil, nil, 0, authRef)
 		      end
-		      
-		      if err <> 0 then
-		        errNum = err
-		        return false
-		      end if
 		    end if
 		    
 		    // Try to authorize and execute the tool
-		    file = 0
-		    err = AuthorizationExecuteWithPrivileges( authRef, pathToTool, 0, argsBlock, file )
+		    if err = 0 then
+		      file = 0
+		      err = AuthorizationExecuteWithPrivileges( authRef, pathToTool, 0, argsBlock, file )
+		    end if
 		    
 		    // Check for an error.
 		    if err <> 0 then
@@ -180,14 +177,13 @@ Protected Class AuthorizationShell
 		      zPollTimer = nil
 		    end if
 		    
-		    declare sub AuthorizationFree lib "Security" ( ref as integer, flags as Integer) 
+		    declare sub AuthorizationFree lib "Security" ( ref as integer, flags as Integer)
 		    
 		    // If we have an authRef, free it
 		    if authRef <> 0 then
 		      AuthorizationFree( authRef, 8 )
 		      authRef = 0
 		    end if
-		    
 		    
 		  #endif
 		  
@@ -217,7 +213,7 @@ Protected Class AuthorizationShell
 		  // Checks IsLive first in case the developer called Poll from outside.
 		  // Checks after polling too just to save another timer cycle.
 		  
-		  if self.IsLive then 
+		  if self.IsLive then
 		    self.Poll // Poll it
 		  end if
 		  
@@ -258,7 +254,7 @@ Protected Class AuthorizationShell
 		      err = 1024
 		      // Basically the idea is that we'll loop until it gives us
 		      // back less than the full buffer. When it retuns less than
-		      // our buffer size, either it's EOF, or an error occurred, 
+		      // our buffer size, either it's EOF, or an error occurred,
 		      // or we're just fine (EAGAIN)
 		      while err = 1024
 		        // read from the file into our buffer
@@ -281,7 +277,7 @@ Protected Class AuthorizationShell
 		        // 35 is the number for EAGAIN -- in Non-blocking mode,
 		        // it's used to signify that the file isn't ended
 		        // and we need to try, try again later
-		        if errNum = 35 then 
+		        if errNum = 35 then
 		          // just no data this time
 		          errNum = 0
 		        else
@@ -301,7 +297,7 @@ Protected Class AuthorizationShell
 		    end if
 		    
 		    // Raise Completed event if needed (added by Kem Tekinay)
-		    if not zIsLive then 
+		    if not zIsLive then
 		      RaiseEvent Completed()
 		    end if
 		    
@@ -321,6 +317,19 @@ Protected Class AuthorizationShell
 		  return s
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Reset()
+		  // Resets the authorization so you can, for example, use a different username and password
+		  
+		  me.Destructor
+		  me.Constructor // Will preserve existing username and password
+		  errNum = 0
+		  zIsLive = false
+		  buffer = ""
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -420,7 +429,6 @@ Protected Class AuthorizationShell
 		into stdout or into a disk file that you then have to read separately.
 		See ths article, for example:
 		http://www.cocoabuilder.com/archive/cocoa/38847-stderr-from-authorizationexecutewithprivileges.html#45899
-		
 	#tag EndNote
 
 	#tag Note, Name = Update Info (Tim Jones)
@@ -464,7 +472,6 @@ Protected Class AuthorizationShell
 		array of the arguments - one argument per array member.
 		
 		Aug 24, 2008 - Tim Jones, tolistim@me.com
-		
 	#tag EndNote
 
 	#tag Note, Name = Usage
@@ -489,7 +496,6 @@ Protected Class AuthorizationShell
 		elseif not AuthorizeAndExecute ("cp", Array ("-R", "/source/anotherpath", "/dest/path")) then
 		  // this cmd failed
 		end
-		
 	#tag EndNote
 
 	#tag Note, Name = Using the Keychain
@@ -518,6 +524,15 @@ Protected Class AuthorizationShell
 		  catch
 		  end
 		
+		You can save your password in your personal keychain just for your app so that you won't be asked for it every time any more. Here's how:
+		
+		• Launch the program Keychain Access.app
+		• From the File menu, choose New Password Item (Cmd+N).
+		• In the appearing dialog, enter “<keychainEntryName>" for the Keychain Item Name, then enter your Admin user name
+		  (i.e. your Mac login name) and your Admin password into the Account Name and Password fields.
+		• Save it (i.e. click the Add button). This will have added a password item of kind application password with the 
+		  name <keychainEntryName> to your default keychain.
+		
 	#tag EndNote
 
 
@@ -527,10 +542,6 @@ Protected Class AuthorizationShell
 
 	#tag Property, Flags = &h21
 		Private buffer As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private bufLen As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
