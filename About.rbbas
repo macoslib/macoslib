@@ -62,6 +62,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		172: 2014-03-03 by KT
+		- NSToolbarCustomItem relied on an extension present only in Additional Modules.
+		
 		171: 2014-02-28 by KT 
 		- Added additional Keychain instructions in AuthorizationShell note.
 		- AuthorizationShell: Fixed bug where UserCancelled error was not being properly handled.
@@ -499,7 +502,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"171", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"172", Scope = Protected
 	#tag EndConstant
 
 
