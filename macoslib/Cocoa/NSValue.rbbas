@@ -141,7 +141,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function NSPointValue() As NSPoint
 		  #if targetMacOS
-		    declare function pointValue lib CocoaLib selector "pointerValue" (obj_id as Ptr) as NSPoint
+		    declare function pointValue lib CocoaLib selector "pointValue" (obj_id as Ptr) as NSPoint
 		    
 		    return pointValue(self)
 		  #endif
