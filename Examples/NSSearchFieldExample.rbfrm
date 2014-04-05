@@ -27,17 +27,22 @@ Begin Window NSSearchFieldExample
    Begin Cocoa.NSSearchField NSSearchField1
       AcceptFocus     =   True
       AcceptTabs      =   ""
+      AllowsExpansionToolTips=   ""
       AutoDeactivate  =   True
       autoresizesSubviews=   ""
       Backdrop        =   ""
       Bold            =   false
       DoubleBuffer    =   ""
+      DoubleValue     =   ""
       Enabled         =   True
       EraseBackground =   ""
+      FloatValue      =   ""
+      FocusRing       =   True
       Height          =   29
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      IntegerValue    =   ""
       IsFlipped       =   ""
       Italic          =   false
       Left            =   30
@@ -58,7 +63,7 @@ Begin Window NSSearchFieldExample
       TextSize        =   0
       Top             =   79
       Underlined      =   false
-      UseFocusRing    =   ""
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   201
    End
@@ -241,6 +246,38 @@ Begin Window NSSearchFieldExample
       Visible         =   True
       Width           =   195
    End
+   Begin CheckBox UseFocusRing
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Use focus ring"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   300
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   112
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   220
+   End
 End
 #tag EndWindow
 
@@ -270,8 +307,6 @@ End
 		  NSSearchField1.RecentsAutosaveName = "NSSearchFieldExample.RecentSearches"
 		  
 		  NSSearchField1.ShowRecentSearches = true
-		  
-		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -309,6 +344,14 @@ End
 	#tag Event
 		Sub Action()
 		  NSSearchField1.Search
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UseFocusRing
+	#tag Event
+		Sub Action()
+		  NSSearchField1.FocusRing = me.Value
+		  NSSearchField1.SetFocus // Refresh focus ring if field is already selected.
 		End Sub
 	#tag EndEvent
 #tag EndEvents
