@@ -62,7 +62,7 @@ Implements NSToolbarItemInterface
 		        mNSControl = NSControl( controlInstance ) // keep a reference to the NSControl for gettins some RB properties
 		      elseif controlInstance IsA Control then
 		        self.view = controlInstance.view
-		        mControl = controlInstance 
+		        mControl = controlInstance
 		      end if
 		    end if
 		    
@@ -174,7 +174,6 @@ Implements NSToolbarItemInterface
 		Sub Enabled(assigns value as Boolean)
 		  
 		  // we override the Enabled method to set the Enabled state of the NSControl
-		  dim s as string
 		  #if targetCocoa
 		    declare sub setEnabled Lib CocoaLib selector "setEnabled:" (obj_id as Ptr, value as Boolean)
 		    
