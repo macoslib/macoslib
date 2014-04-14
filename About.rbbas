@@ -50,6 +50,14 @@ Protected Module About
 		but please start with the entire macoslib folder to save you trouble initially.
 	#tag EndNote
 
+	#tag Note, Name = KT Temp Notes
+		
+		- Removed reference to Timer in AuthorizationShellExample comments.
+		- Removed reference to SelfTest in CertTools.
+		- NSUserNotificationCenter: Changed event name to more descriptive ShouldPresentNotificationInForeground.
+		
+	#tag EndNote
+
 	#tag Note, Name = License
 		The present library is distributed under the terms of the MIT License.
 		
