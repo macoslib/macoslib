@@ -136,6 +136,15 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub Destructor()
+		  if StopOnDestruct then
+		    call Stop
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub HandleDidFinishPlaying(finishedPlaying As Boolean)
 		  RaiseEvent DidFinishPlaying( finishedPlaying )
@@ -430,6 +439,10 @@ Inherits NSObject
 		#tag EndSetter
 		PlaybackDeviceIdentifier As NSString
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		StopOnDestruct As Boolean
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

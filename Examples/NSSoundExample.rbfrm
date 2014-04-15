@@ -7,9 +7,9 @@ Begin Window NSSoundExample
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   3.0e+2
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   False
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -20,10 +20,10 @@ Begin Window NSSoundExample
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   0
-   Resizeable      =   True
-   Title           =   "Untitled"
+   Resizeable      =   False
+   Title           =   "NSSound"
    Visible         =   True
-   Width           =   600
+   Width           =   5.44e+2
    Begin PushButton btnSelect
       AutoDeactivate  =   True
       Bold            =   ""
@@ -37,7 +37,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   35
+      Left            =   30
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -50,7 +50,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   22
+      Top             =   58
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -64,7 +64,7 @@ Begin Window NSSoundExample
       Period          =   250
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   -12
+      Top             =   58
       Width           =   32
    End
    Begin Label lblFilePath
@@ -78,7 +78,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   148
+      Left            =   143
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -95,7 +95,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   25
+      Top             =   61
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -114,7 +114,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   35
+      Left            =   30
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -127,7 +127,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   125
+      Top             =   133
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -145,7 +145,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   148
+      Left            =   143
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -158,7 +158,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   125
+      Top             =   133
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -176,7 +176,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   35
+      Left            =   30
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -189,7 +189,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   180
+      Top             =   188
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -207,7 +207,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   148
+      Left            =   143
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -220,7 +220,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   180
+      Top             =   188
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -236,7 +236,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   379
+      Left            =   374
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -253,7 +253,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   127
+      Top             =   135
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -270,7 +270,7 @@ Begin Window NSSoundExample
       Index           =   0
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   263
+      Left            =   258
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -287,7 +287,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   127
+      Top             =   135
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -304,7 +304,7 @@ Begin Window NSSoundExample
       Index           =   1
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   263
+      Left            =   258
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -321,7 +321,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   182
+      Top             =   190
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -338,7 +338,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   379
+      Left            =   374
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -355,7 +355,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   182
+      Top             =   190
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -373,7 +373,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   45
+      Left            =   40
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -387,7 +387,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   247
+      Top             =   255
       Underline       =   ""
       Value           =   False
       Visible         =   True
@@ -400,9 +400,9 @@ Begin Window NSSoundExample
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   260
+      Left            =   255
       LineStep        =   1
-      LiveScroll      =   ""
+      LiveScroll      =   True
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -416,7 +416,7 @@ Begin Window NSSoundExample
       TabPanelIndex   =   0
       TabStop         =   True
       TickStyle       =   0
-      Top             =   249
+      Top             =   257
       Value           =   0
       Visible         =   True
       Width           =   100
@@ -432,7 +432,7 @@ Begin Window NSSoundExample
       Index           =   2
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   157
+      Left            =   152
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -449,7 +449,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   248
+      Top             =   256
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -466,7 +466,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   387
+      Left            =   382
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -483,11 +483,45 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   248
+      Top             =   256
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
       Width           =   142
+   End
+   Begin Label Label1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   25
+      HelpTag         =   ""
+      Index           =   3
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   30
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      Text            =   "Select a sound file:"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   14
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   540
    End
 End
 #tag EndWindow
@@ -495,11 +529,10 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Close()
-		  if Sound <> nil and Sound.IsPlaying then
-		    call Sound.Stop
+		  if Sound <> nil then
+		    RemoveHandler Sound.DidFinishPlaying, AddressOf HandleFinishedPlaying
+		    Sound = nil
 		  end if
-		  Sound = nil
-		  SoundFile = nil
 		  
 		End Sub
 	#tag EndEvent
@@ -535,13 +568,19 @@ End
 		  dim f as FolderItem = dlg.ShowModalWithin( self )
 		  if f is nil then return
 		  
+		  if Sound <> nil then
+		    RemoveHandler Sound.DidFinishPlaying, AddressOf HandleFinishedPlaying
+		    Sound = nil
+		  end if
+		  
 		  Sound = new NSSound( f, false )
+		  AddHandler Sound.DidFinishPlaying, AddressOf HandleFinishedPlaying
+		  Sound.StopOnDestruct = true
+		  
 		  SoundFile = f
 		  
 		  if not Sound.Play then
 		    MsgBox "Couldn't play"
-		  else
-		    AddHandler Sound.DidFinishPlaying, WeakAddressOf HandleFinishedPlaying
 		  end if
 		  
 		End Sub
@@ -564,7 +603,7 @@ End
 		    sldVolume.Value = 0
 		    lblVolume.Text = "0.000"
 		    
-		    lblCurrentTime.Text = "0"
+		    lblCurrentTime.Text = "00:00:" + format( 0, "00.00" )
 		    
 		  else
 		    dim nsName as NSString = Sound.Name
@@ -596,7 +635,12 @@ End
 		    sldVolume.Value = Round( Sound.Volume * 1000.0 )
 		    lblVolume.Text = format( Sound.Volume, "#,0.000" )
 		    
-		    lblCurrentTime.Text = format( Sound.CurrentTime, "#,0.####" )
+		    dim curTime as double = Sound.CurrentTime
+		    dim h as integer = curTime / ( 3600.0 )
+		    curTime = curTime - ( h * 3600.0 )
+		    dim m as integer = curTime / 60.0
+		    curTime = curTime - ( m * 60.0 )
+		    lblCurrentTime.Text = str( h, "00" ) + ":" + str( m, "00" ) + ":" + format( curTime, "00.00" )
 		    
 		  end if
 		  
