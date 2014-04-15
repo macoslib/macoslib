@@ -55,6 +55,8 @@ Protected Module About
 		- Removed reference to Timer in AuthorizationShellExample comments.
 		- Removed reference to SelfTest in CertTools.
 		- NSUserNotificationCenter: Changed event name to more descriptive ShouldPresentNotificationInForeground.
+		- Added Cocoa.NSSound class.
+		- Added NSSoundExample window.
 		
 	#tag EndNote
 
