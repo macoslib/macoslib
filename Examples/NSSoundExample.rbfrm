@@ -73,7 +73,7 @@ Begin Window NSSoundExample
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   29
+      Height          =   39
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -95,7 +95,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   61
+      Top             =   49
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -687,6 +687,10 @@ End
 
 
 	#tag Property, Flags = &h1
+		Protected ArtWork As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
 		Protected Sound As NSSound
 	#tag EndProperty
 
@@ -724,8 +728,7 @@ End
 		  Sound.StopOnDestruct = true
 		  
 		  SoundFile = f
-		  cvsArtwork.Backdrop = nil
-		  cvsArtwork.Invalidate
+		  ArtWork = nil
 		  
 		  if not Sound.Play then
 		    MsgBox "Couldn't play"
@@ -733,24 +736,33 @@ End
 		  
 		  lbMetadata.DeleteAllRows
 		  dim formats() as NSString = asset.AvailableMetadataFormats
-		  dim arr() as AVMetadataItem = asset.MetadataForFormat( formats( 0 ) )
-		  for each item as AVMetadataItem in arr
-		    dim key as string = item.CommonKey
-		    dim value as string = item.StringValue
-		    if key = "artwork" then
-		      dim data as NSData = item.DataValue
-		      if data <> nil then
-		        dim nsi as new NSImage( data )
-		        if nsi <> nil then
-		          dim pict as Picture = nsi.MakePicture
-		          cvsArtwork.Backdrop = pict
-		          cvsArtwork.Invalidate
-		        end if
+		  for each aFormat as NSString in formats
+		    dim arr() as AVMetadataItem = asset.MetadataForFormat( aFormat )
+		    for each item as AVMetadataItem in arr
+		      dim key as string = item.CommonKey
+		      dim value as string = item.StringValue
+		      if key = "artwork" then
+		        try // Any errors will abort the attempt
+		          dim data as NSData = item.DataValue // Need the raw data. which should be a plist 
+		          dim dataString as string = data.StringValue // Get it as a string and convert it
+		          dim plist as CoreFoundation.CFDictionary = CFDictionary.CreateFromPListString( dataString )
+		          dim dataKey as new CFString( "data" )
+		          if plist <> nil and plist.HasKey( dataKey ) then
+		            dim pictdata as string = plist.Value( dataKey ).VariantValue
+		            if pictdata <> "" then
+		              Artwork = Picture.FromData( pictdata ) // Even if it's nil, that's ok
+		            end if
+		          end if
+		        catch
+		        end try
+		      else
+		        lbMetadata.AddRow key, value
 		      end if
-		    else
-		      lbMetadata.AddRow key, value
-		    end if
-		  next
+		    next item
+		  next aFormat
+		  
+		  cvsArtwork.Invalidate
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -896,6 +908,17 @@ End
 		    Sound.CurrentTime = curValue
 		  end if
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events cvsArtwork
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  if ArtWork <> nil then
+		    g.DrawPicture( ArtWork, 0, 0, g.Width, g.Height, 0, 0, ArtWork.Width, ArtWork.Height )
+		  else
+		    g.ClearRect( 0, 0, g.Width, g.Height )
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -120,7 +120,7 @@ Protected Module Cocoa
 		    
 		    return getCMTimeAbsoluteValue( time )
 		    
-		  #else 
+		  #else
 		    #pragma unused time
 		  #endif
 		End Function

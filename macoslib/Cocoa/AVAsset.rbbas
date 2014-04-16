@@ -72,7 +72,7 @@ Inherits NSObject
 		    soft declare function metadataForFormat lib Framework selector "metadataForFormat:" ( obj_id As Ptr, theFormat As Ptr ) As Ptr
 		    // Introduced in MacOS X 10.7.
 		    
-		    dim p as Ptr 
+		    dim p as Ptr
 		    if theFormat <> nil then
 		      p = metadataForFormat( self.id, theFormat.id )
 		    else
@@ -136,6 +136,11 @@ Inherits NSObject
 			Type="String"
 			EditorType="MultiLineEditor"
 			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DurationInSeconds"
+			Group="Behavior"
+			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
