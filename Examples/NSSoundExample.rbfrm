@@ -745,12 +745,16 @@ End
 		        try // Any errors will abort the attempt
 		          dim data as NSData = item.DataValue // Need the raw data. which should be a plist 
 		          dim dataString as string = data.StringValue // Get it as a string and convert it
-		          dim plist as CoreFoundation.CFDictionary = CFDictionary.CreateFromPListString( dataString )
-		          dim dataKey as new CFString( "data" )
-		          if plist <> nil and plist.HasKey( dataKey ) then
-		            dim pictdata as string = plist.Value( dataKey ).VariantValue
-		            if pictdata <> "" then
-		              Artwork = Picture.FromData( pictdata ) // Even if it's nil, that's ok
+		          ArtWork = Picture.FromData( dataString ) // See if we can get it directly from this string
+		          if ArtWork is nil then
+		            // No, so see if it's a plist
+		            dim plist as CoreFoundation.CFDictionary = CFDictionary.CreateFromPListString( dataString )
+		            dim dataKey as new CFString( "data" )
+		            if plist <> nil and plist.HasKey( dataKey ) then
+		              dim pictdata as string = plist.Value( dataKey ).VariantValue
+		              if pictdata <> "" then
+		                Artwork = Picture.FromData( pictdata ) // Even if it's nil, that's ok
+		              end if
 		            end if
 		          end if
 		        catch
@@ -919,6 +923,11 @@ End
 		  else
 		    g.ClearRect( 0, 0, g.Width, g.Height )
 		  end if
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

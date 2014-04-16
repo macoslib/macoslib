@@ -388,6 +388,15 @@ Protected Module Cocoa
 		  
 		  for each objClassName as string in objClassNameTree  //Scan inheritance tree down to NSObject (or root class)
 		    select case objClassName
+		    case "AVAsset"
+		      return new AVAsset( id, hasOwnership )
+		      
+		    case "AVAssetTrack"
+		      return new AVAssetTrack( id, hasOwnership )
+		      
+		    case "AVMetadataItem"
+		      return new AVMetadataItem( id, hasOwnership )
+		      
 		    case "NSApplication"
 		      return  new NSApplication( id, hasOwnership )
 		      

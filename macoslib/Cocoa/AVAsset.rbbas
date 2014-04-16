@@ -7,7 +7,7 @@ Inherits NSObject
 		  
 		  #if TargetCocoa
 		    
-		    soft declare function assetWithURL lib Framework selector "assetWithURL:" ( id As Ptr, URL As Ptr ) As Ptr
+		    declare function assetWithURL lib Framework selector "assetWithURL:" ( id As Ptr, URL As Ptr ) As Ptr
 		    // Introduced in MacOS X 10.7.
 		    
 		    dim urlPtr as Ptr
@@ -36,7 +36,7 @@ Inherits NSObject
 		  
 		  #if TargetMacOS
 		    
-		    soft declare function availableMetadataFormats lib Framework selector "availableMetadataFormats" ( obj_id As Ptr ) As Ptr
+		    declare function availableMetadataFormats lib Framework selector "availableMetadataFormats" ( obj_id As Ptr ) As Ptr
 		    // Introduced in MacOS X 10.7.
 		    
 		    dim p as Ptr = availableMetadataFormats( self.id )
@@ -66,10 +66,40 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MetadataForFormat(theFormat As NSString) As AVMetadataItem()
+		Function CommonMetadata() As AVMetadataItem()
+		  dim arr() as AVMetadataItem
+		  
 		  #if TargetMacOS
 		    
-		    soft declare function metadataForFormat lib Framework selector "metadataForFormat:" ( obj_id As Ptr, theFormat As Ptr ) As Ptr
+		    declare function commonMetadata lib Framework selector "commonMetadata" ( obj_id As Ptr ) As Ptr
+		    // Introduced in MacOS X 10.7.
+		    
+		    dim p as Ptr = commonMetadata( self.id )
+		    
+		    dim nsarr as NSArray
+		    if p <> nil then
+		      nsarr = new NSArray( p, not NSObject.HasOwnership )
+		      dim cnt as integer = nsarr.Count
+		      for i as integer = 1 to cnt
+		        dim avitem as new AVMetadataItem( nsarr.Value( i - 1 ) )
+		        arr.Append avitem
+		      next i
+		    end if
+		    
+		  #endif
+		  
+		  return arr
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MetadataForFormat(theFormat As NSString) As AVMetadataItem()
+		  dim arr() as AVMetadataItem
+		  
+		  #if TargetMacOS
+		    
+		    declare function metadataForFormat lib Framework selector "metadataForFormat:" ( obj_id As Ptr, theFormat As Ptr ) As Ptr
 		    // Introduced in MacOS X 10.7.
 		    
 		    dim p as Ptr
@@ -80,7 +110,6 @@ Inherits NSObject
 		    end if
 		    
 		    dim nsarr as NSArray
-		    dim arr() as AVMetadataItem
 		    if p <> nil then
 		      nsarr = new NSArray( p, not NSObject.HasOwnership )
 		      dim cnt as integer = nsarr.Count
@@ -90,9 +119,41 @@ Inherits NSObject
 		      next i
 		    end if
 		    
-		    return arr
+		  #else
+		    
+		    #pragma unused theFormat
 		    
 		  #endif
+		  
+		  return arr
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Tracks() As AVAssetTrack()
+		  dim arr() as AVAssetTrack
+		  
+		  #if TargetMacOS
+		    
+		    declare function tracks lib Framework selector "tracks" ( obj_id As Ptr ) As Ptr
+		    // Introduced in MacOS X 10.7.
+		    
+		    dim p as Ptr = tracks( self.id )
+		    
+		    dim nsarr as NSArray
+		    if p <> nil then
+		      nsarr = new NSArray( p, not NSObject.HasOwnership )
+		      dim cnt as integer = nsarr.Count
+		      for i as integer = 1 to cnt
+		        dim t as new AVAssetTrack( nsarr.Value( i - 1 ) )
+		        arr.Append t
+		      next i
+		    end if
+		    
+		  #endif
+		  
+		  return arr
 		  
 		End Function
 	#tag EndMethod
@@ -101,9 +162,34 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  dim r as AVMetadataItem
+			  
+			  #if TargetMacOS
+			    
+			    if me.RespondsToSelector( "creationDate" ) then
+			      declare function creationDate lib Framework selector "creationDate" ( obj_id As Ptr ) As Ptr
+			      // Introduced in MacOS X 10.8.
+			      
+			      dim p as Ptr = creationDate( self.id )
+			      if p <> nil then
+			        r = new AVMetadataItem( p, not NSObject.hasOwnership )
+			      end if
+			    end if
+			    
+			  #endif
+			  
+			  return r
+			End Get
+		#tag EndGetter
+		CreationDate As AVMetadataItem
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if TargetCocoa
 			    
-			    soft declare function duration lib Framework selector "duration" ( obj_id As Ptr ) As CMTime
+			    declare function duration lib Framework selector "duration" ( obj_id As Ptr ) As CMTime
 			    // Introduced in MacOS X 10.7.
 			    
 			    dim time as CMTime = duration( me.id )
@@ -122,6 +208,29 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		DurationInSeconds As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function lyrics lib Framework selector "lyrics" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = lyrics( self.id )
+			    dim nss as NSString
+			    if p <> nil then
+			      nss = new NSString( p, not NSObject.hasOwnership )
+			    end if
+			    
+			    return nss
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Lyrics As NSString
 	#tag EndComputedProperty
 
 

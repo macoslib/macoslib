@@ -52,6 +52,7 @@ Class=Error;macoslib/BSD/Error.rbbas;&hB16BBE2;&h534FEFDF;false
 Module=CertTools;macoslib/CertTools.rbbas;&h33920710;&h62249E78;false
 Module=Cocoa;macoslib/Cocoa/Cocoa.rbbas;&h36D6C6CC;&h62249E78;false
 Class=AVAsset;macoslib/Cocoa/AVAsset.rbbas;&h6EBC088E;&h36D6C6CC;false
+Class=AVAssetTrack;macoslib/Cocoa/AVAssetTrack.rbbas;&h1584393E;&h36D6C6CC;false
 Class=AVMetadataItem;macoslib/Cocoa/AVMetadataItem.rbbas;&h456729F9;&h36D6C6CC;false
 Module=CocoaToolbar;macoslib/CocoaToolbar/CocoaToolbar.rbbas;&h2177F0B;&h62249E78;false
 Class=AutoreleaseTimer;macoslib/Cocoa/AutoreleaseTimer.rbbas;&h6F9B05FB;&h36D6C6CC;false
