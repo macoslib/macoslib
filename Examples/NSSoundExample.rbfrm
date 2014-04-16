@@ -7,7 +7,7 @@ Begin Window NSSoundExample
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   3.0e+2
+   Height          =   4.29e+2
    ImplicitInstance=   True
    LiveResize      =   False
    MacProcID       =   0
@@ -23,7 +23,7 @@ Begin Window NSSoundExample
    Resizeable      =   False
    Title           =   "NSSound"
    Visible         =   True
-   Width           =   5.44e+2
+   Width           =   5.36e+2
    Begin PushButton btnSelect
       AutoDeactivate  =   True
       Bold            =   ""
@@ -73,7 +73,7 @@ Begin Window NSSoundExample
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   60
+      Height          =   29
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -99,7 +99,7 @@ Begin Window NSSoundExample
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   432
+      Width           =   373
    End
    Begin PushButton btnStop
       AutoDeactivate  =   True
@@ -373,7 +373,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   40
+      Left            =   30
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -387,7 +387,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   255
+      Top             =   230
       Underline       =   ""
       Value           =   False
       Visible         =   True
@@ -400,7 +400,7 @@ Begin Window NSSoundExample
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   255
+      Left            =   245
       LineStep        =   1
       LiveScroll      =   True
       LockBottom      =   ""
@@ -416,7 +416,7 @@ Begin Window NSSoundExample
       TabPanelIndex   =   0
       TabStop         =   True
       TickStyle       =   0
-      Top             =   257
+      Top             =   232
       Value           =   0
       Visible         =   True
       Width           =   100
@@ -432,7 +432,7 @@ Begin Window NSSoundExample
       Index           =   2
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   152
+      Left            =   142
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -449,7 +449,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   256
+      Top             =   231
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -466,7 +466,7 @@ Begin Window NSSoundExample
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   382
+      Left            =   372
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -483,7 +483,7 @@ Begin Window NSSoundExample
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   256
+      Top             =   231
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -521,7 +521,145 @@ Begin Window NSSoundExample
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   540
+      Width           =   169
+   End
+   Begin Slider sldProgress
+      AutoDeactivate  =   True
+      Enabled         =   False
+      Height          =   23
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   20
+      LineStep        =   1
+      LiveScroll      =   True
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Maximum         =   1000
+      Minimum         =   0
+      PageStep        =   20
+      Scope           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TickStyle       =   0
+      Top             =   98
+      Value           =   0
+      Visible         =   True
+      Width           =   496
+   End
+   Begin Listbox lbMetadata
+      AutoDeactivate  =   True
+      AutoHideScrollbars=   True
+      Bold            =   ""
+      Border          =   True
+      ColumnCount     =   2
+      ColumnsResizable=   ""
+      ColumnWidths    =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      DefaultRowHeight=   -1
+      Enabled         =   True
+      EnableDrag      =   ""
+      EnableDragReorder=   ""
+      GridLinesHorizontal=   0
+      GridLinesVertical=   0
+      HasHeading      =   True
+      HeadingIndex    =   -1
+      Height          =   117
+      HelpTag         =   ""
+      Hierarchical    =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   "Key	Value"
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      RequiresSelection=   ""
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollBarVertical=   True
+      SelectionType   =   0
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   292
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   325
+      _ScrollWidth    =   -1
+   End
+   Begin Label Label1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   25
+      HelpTag         =   ""
+      Index           =   4
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      Text            =   "Metadata"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   267
+      Transparent     =   False
+      Underline       =   ""
+      Visible         =   True
+      Width           =   163
+   End
+   Begin Canvas cvsArtwork
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   100
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   393
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   298
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   100
    End
 End
 #tag EndWindow
@@ -556,6 +694,10 @@ End
 		Protected SoundFile As FolderItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private zUpdatingInterface As Boolean
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
@@ -574,15 +716,41 @@ End
 		  end if
 		  
 		  Sound = new NSSound( f, false )
+		  dim asset as AVAsset = AVAsset.AssetWithURL( new NSURL( f ) )
+		  dim duration as double = asset.DurationInSeconds
+		  sldProgress.Maximum = duration * 10.0
+		  
 		  AddHandler Sound.DidFinishPlaying, AddressOf HandleFinishedPlaying
 		  Sound.StopOnDestruct = true
 		  
 		  SoundFile = f
+		  cvsArtwork.Backdrop = nil
+		  cvsArtwork.Invalidate
 		  
 		  if not Sound.Play then
 		    MsgBox "Couldn't play"
 		  end if
 		  
+		  lbMetadata.DeleteAllRows
+		  dim formats() as NSString = asset.AvailableMetadataFormats
+		  dim arr() as AVMetadataItem = asset.MetadataForFormat( formats( 0 ) )
+		  for each item as AVMetadataItem in arr
+		    dim key as string = item.CommonKey
+		    dim value as string = item.StringValue
+		    if key = "artwork" then
+		      dim data as NSData = item.DataValue
+		      if data <> nil then
+		        dim nsi as new NSImage( data )
+		        if nsi <> nil then
+		          dim pict as Picture = nsi.MakePicture
+		          cvsArtwork.Backdrop = pict
+		          cvsArtwork.Invalidate
+		        end if
+		      end if
+		    else
+		      lbMetadata.AddRow key, value
+		    end if
+		  next
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -590,6 +758,8 @@ End
 	#tag Event
 		Sub Action()
 		  // Updates interface
+		  
+		  zUpdatingInterface = true
 		  
 		  if Sound is nil then
 		    lblStatus.Text = "no sound"
@@ -602,6 +772,9 @@ End
 		    sldVolume.Enabled = false
 		    sldVolume.Value = 0
 		    lblVolume.Text = "0.000"
+		    
+		    sldProgress.Enabled = false
+		    sldProgress.Value = 0
 		    
 		    lblCurrentTime.Text = "00:00:" + format( 0, "00.00" )
 		    
@@ -636,6 +809,14 @@ End
 		    lblVolume.Text = format( Sound.Volume, "#,0.000" )
 		    
 		    dim curTime as double = Sound.CurrentTime
+		    
+		    sldProgress.Enabled = true
+		    if curTime = 0.0 then
+		      sldProgress.Value = 1 // Seems to be a bug preventing it from being set to 0
+		    else
+		      sldProgress.Value = curTime * 10.0
+		    end if
+		    
 		    dim h as integer = curTime / ( 3600.0 )
 		    curTime = curTime - ( h * 3600.0 )
 		    dim m as integer = curTime / 60.0
@@ -649,6 +830,8 @@ End
 		  else
 		    lblFilePath.Text = SoundFile.AbsolutePath
 		  end if
+		  
+		  zUpdatingInterface = false
 		  
 		End Sub
 	#tag EndEvent
@@ -701,6 +884,18 @@ End
 		    Sound.Volume = volValue
 		    
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events sldProgress
+	#tag Event
+		Sub ValueChanged()
+		  if not zUpdatingInterface and Sound <> nil then
+		    dim curValue as double = me.Value
+		    curValue = curValue / 10.0
+		    Sound.CurrentTime = curValue
+		  end if
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

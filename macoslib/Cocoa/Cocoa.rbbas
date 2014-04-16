@@ -113,6 +113,40 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CMTimeAbsoluteValue(time As CMTime) As CMTime
+		  #if TargetMacOS
+		    soft declare function getCMTimeAbsoluteValue lib "CoreMedia.framework" alias "CMTimeAbsoluteValue" ( time As CMTime ) As CMTime
+		    // Introduced in MacOS X 10.7.
+		    
+		    return getCMTimeAbsoluteValue( time )
+		    
+		  #else 
+		    #pragma unused time
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function CMTimeGetSeconds(time As CMTime) As Double
+		  #if TargetMacOS
+		    soft declare function getCMTimeGetSeconds lib "CoreMedia.framework" alias "CMTimeGetSeconds" ( time As CMTime ) As Double
+		    // Introduced in MacOS X 10.7.
+		    
+		    return getCMTimeGetSeconds( time )
+		    
+		  #else
+		    #pragma unused time
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function CMTimeIsValid(time As CMTime) As Boolean
+		  return ( time.Flags and kCMTimeFlags_Valid ) <> 0
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Attributes( deprecated = "FileManager.GetFolderItemFromPOSIXPath" ) Protected Function GetFolderItemFromPOSIXPath(absolutePath as String) As FolderItem
 		  // THIS FUNCTION IS DEPRECATED.
 		  // Use FileManager.GetFolderItemFromPOSIXPath or just GetFolderItemFromPOSIXPath instead.
@@ -776,6 +810,31 @@ Protected Module Cocoa
 	#tag Constant, Name = FoundationLib, Type = String, Dynamic = False, Default = \"Foundation.framework", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = kCMTimeFlags_HasBeenRounded, Type = Double, Dynamic = False, Default = \"2", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kCMTimeFlags_ImpliedValueFlagsMask, Type = Double, Dynamic = False, Default = \"&b00011100", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kCMTimeFlags_Indefinite, Type = Double, Dynamic = False, Default = \"16", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kCMTimeFlags_NegativeInfinity, Type = Double, Dynamic = False, Default = \"8", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kCMTimeFlags_PositiveInfinity, Type = Double, Dynamic = False, Default = \"4", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kCMTimeFlags_Valid, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
+	#tag EndConstant
+
+
+	#tag Structure, Name = CMTime, Flags = &h1
+		value As Int64
+		  timescale As Int32
+		  flags As UInt32
+		epoch As Int64
+	#tag EndStructure
 
 	#tag Structure, Name = NSPoint, Flags = &h1
 		x as Single

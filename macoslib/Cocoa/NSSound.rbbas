@@ -235,13 +235,13 @@ Inherits NSObject
 		  
 		  #if TargetMacOS
 		    
-		    declare function getSoundNamed lib Framework selector "soundNamed:" ( soundName As Ptr ) As Ptr
+		    declare function getSoundNamed lib Framework selector "soundNamed:" ( id As Ptr, soundName As Ptr ) As Ptr
 		    
 		    dim p as Ptr
 		    if soundName <> nil then
-		      p = getSoundNamed( soundName.id )
+		      p = getSoundNamed( ClassRef, soundName.id )
 		    else
-		      p = getSoundNamed( nil )
+		      p = getSoundNamed( ClassRef, nil )
 		    end if
 		    
 		    if p <> nil then
@@ -526,6 +526,11 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StopOnDestruct"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

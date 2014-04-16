@@ -57,7 +57,8 @@ Protected Module About
 		- NSUserNotificationCenter: Changed event name to more descriptive ShouldPresentNotificationInForeground.
 		- Added Cocoa.NSSound class.
 		- Added NSSoundExample window.
-		
+		- Added AVAsset.
+		- Added AVMetadataItem.
 	#tag EndNote
 
 	#tag Note, Name = License
