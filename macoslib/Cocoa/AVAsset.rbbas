@@ -215,6 +215,23 @@ Inherits NSObject
 			Get
 			  #if TargetMacOS
 			    
+			    declare function hasProtectedContent lib Framework selector "hasProtectedContent" ( obj_id As Ptr ) As Boolean
+			    // Introduced in MacOS X 10.7.
+			    
+			    return hasProtectedContent( self.id )
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		HasProtectedContent As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
 			    declare function lyrics lib Framework selector "lyrics" ( obj_id As Ptr ) As Ptr
 			    // Introduced in MacOS X 10.7.
 			    
@@ -231,6 +248,38 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		Lyrics As NSString
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetCocoa
+			    
+			    declare function preferredRate lib Framework selector "preferredRate" ( obj_id As Ptr ) As Single
+			    // Introduced in MacOS X 10.7.
+			    
+			    return preferredRate( self.id )
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		PreferredRate As Single
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetCocoa
+			    
+			    declare function preferredVolume lib Framework selector "preferredVolume" ( obj_id As Ptr ) As Single
+			    // Introduced in MacOS X 10.7.
+			    
+			    return preferredVolume( self.id )
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		PreferredVolume As Single
 	#tag EndComputedProperty
 
 

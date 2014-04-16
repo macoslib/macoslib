@@ -386,7 +386,8 @@ Protected Module Cocoa
 		  
 		  dim objClassNameTree() as string = ClassNameTreeForObjectPointer( id )
 		  
-		  for each objClassName as string in objClassNameTree  //Scan inheritance tree down to NSObject (or root class)
+		  for i as integer = 0 to objClassNameTree.Ubound
+		    dim objClassName as string = objClassNameTree( i ) // Can't use For Each since order matters
 		    select case objClassName
 		    case "AVAsset"
 		      return new AVAsset( id, hasOwnership )

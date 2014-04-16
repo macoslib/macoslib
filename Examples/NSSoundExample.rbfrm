@@ -743,7 +743,7 @@ End
 		      dim value as string = item.StringValue
 		      if key = "artwork" then
 		        try // Any errors will abort the attempt
-		          dim data as NSData = item.DataValue // Need the raw data. which should be a plist 
+		          dim data as NSData = item.DataValue // Need the raw data. which should be a plist
 		          dim dataString as string = data.StringValue // Get it as a string and convert it
 		          ArtWork = Picture.FromData( dataString ) // See if we can get it directly from this string
 		          if ArtWork is nil then

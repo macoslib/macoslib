@@ -132,6 +132,28 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #if TargetMacOS
+			    
+			    declare function key lib Framework selector "key" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = key( self.id )
+			    dim obj as NSObject
+			    if p <> nil then
+			      obj = Cocoa.NSObjectFromNSPtr( p, not NSObject.hasOwnership )
+			    end if
+			    return obj
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Key As NSObject
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  dim r as string
 			  
 			  #if TargetMacOS
@@ -152,6 +174,50 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		KeySpace As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function locale lib Framework selector "locale" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = locale( self.id )
+			    dim nsl as NSLocale
+			    if p <> nil then
+			      nsl = new NSLocale( p, not NSObject.hasOwnership )
+			    end if
+			    return nsl
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Locale As NSLocale
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function numberValue lib Framework selector "numberValue" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = numberValue( self.id )
+			    dim nsn as NSNumber
+			    if p <> nil then
+			      nsn = new NSNumber( p, not NSObject.hasOwnership )
+			    end if
+			    return nsn
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		NumberValue As NSNumber
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -179,6 +245,45 @@ Inherits NSObject
 		StringValue As String
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function time lib Framework selector "time" ( obj_id As Ptr ) As CMTime
+			    // Introduced in MacOS X 10.7.
+			    
+			    return time( self.id )
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Time As CMTime
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function value lib Framework selector "value" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = value( self.id )
+			    dim obj as NSObject
+			    if p <> nil then
+			      obj = Cocoa.NSObjectFromNSPtr( p, not NSObject.hasOwnership )
+			    end if
+			    return obj
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Value As NSObject
+	#tag EndComputedProperty
+
 
 	#tag Constant, Name = Framework, Type = String, Dynamic = False, Default = \"AppKit.framework", Scope = Private
 	#tag EndConstant
@@ -189,6 +294,7 @@ Inherits NSObject
 			Name="CommonKey"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
@@ -213,6 +319,7 @@ Inherits NSObject
 			Name="KeySpace"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -231,6 +338,7 @@ Inherits NSObject
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

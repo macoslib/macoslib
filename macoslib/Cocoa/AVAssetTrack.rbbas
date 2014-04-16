@@ -56,6 +56,71 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function CommonMetadata() As AVMetadataItem()
+		  dim arr() as AVMetadataItem
+		  
+		  #if TargetMacOS
+		    
+		    declare function commonMetadata lib Framework selector "commonMetadata" ( obj_id As Ptr ) As Ptr
+		    // Introduced in MacOS X 10.7.
+		    
+		    dim p as Ptr = commonMetadata( self.id )
+		    
+		    dim nsarr as NSArray
+		    if p <> nil then
+		      nsarr = new NSArray( p, not NSObject.HasOwnership )
+		      dim cnt as integer = nsarr.Count
+		      for i as integer = 1 to cnt
+		        dim avitem as new AVMetadataItem( nsarr.Value( i - 1 ) )
+		        arr.Append avitem
+		      next i
+		    end if
+		    
+		  #endif
+		  
+		  return arr
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MetadataForFormat(theFormat As NSString) As AVMetadataItem()
+		  dim arr() as AVMetadataItem
+		  
+		  #if TargetMacOS
+		    
+		    declare function metadataForFormat lib Framework selector "metadataForFormat:" ( obj_id As Ptr, theFormat As Ptr ) As Ptr
+		    // Introduced in MacOS X 10.7.
+		    
+		    dim p as Ptr
+		    if theFormat <> nil then
+		      p = metadataForFormat( self.id, theFormat.id )
+		    else
+		      p = metadataForFormat( self.id, nil )
+		    end if
+		    
+		    dim nsarr as NSArray
+		    if p <> nil then
+		      nsarr = new NSArray( p, not NSObject.HasOwnership )
+		      dim cnt as integer = nsarr.Count
+		      for i as integer = 1 to cnt
+		        dim avitem as new AVMetadataItem( nsarr.Value( i - 1 ) )
+		        arr.Append avitem
+		      next i
+		    end if
+		    
+		  #else
+		    
+		    #pragma unused theFormat
+		    
+		  #endif
+		  
+		  return arr
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -79,6 +144,105 @@ Inherits NSObject
 			End Get
 		#tag EndGetter
 		Asset As AVAsset
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function enabled lib Framework selector "enabled" ( obj_id As Ptr ) As Boolean
+			    // Introduced in MacOS X 10.7.
+			    
+			    return enabled( self.id )
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		Enabled As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function extendedLanguageTag lib Framework selector "extendedLanguageTag" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = extendedLanguageTag( self.id )
+			    dim nss as NSString
+			    if p <> nil then
+			      nss = new NSString( p, not NSObject.hasOwnership )
+			    end if
+			    return nss
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		ExtendedLanguageTag As NSString
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function languageCode lib Framework selector "languageCode" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = languageCode( self.id )
+			    dim nss as NSString
+			    if p <> nil then
+			      nss = new NSString( p, not NSObject.hasOwnership )
+			    end if
+			    return nss
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		LanguageCode As NSString
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetMacOS
+			    
+			    declare function mediaType lib Framework selector "mediaType" ( obj_id As Ptr ) As Ptr
+			    // Introduced in MacOS X 10.7.
+			    
+			    dim p as Ptr = mediaType( self.id )
+			    dim nss as NSString
+			    if p <> nil then
+			      nss = new NSString( p, not NSObject.hasOwnership )
+			    end if
+			    return nss
+			    
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		MediaType As NSString
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if TargetCocoa
+			    
+			    declare function preferredVolume lib Framework selector "preferredVolume" ( obj_id As Ptr ) As Single
+			    // Introduced in MacOS X 10.7.
+			    
+			    return preferredVolume( self.id )
+			    
+			  #endif
+			End Get
+		#tag EndGetter
+		PreferredVolume As Single
 	#tag EndComputedProperty
 
 

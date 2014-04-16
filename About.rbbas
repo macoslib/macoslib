@@ -61,6 +61,7 @@ Protected Module About
 		- Added Cocoa.AVAssetTrack.
 		- Added Cocoa.AVMetadataItem.
 		- Added new classes to Cocoa.NSObjectFromNSPtr.
+		- Replaced For Each in Cocoa.NSObjectFromNSPtr since order matters.
 		
 	#tag EndNote
 
