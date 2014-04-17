@@ -1034,7 +1034,7 @@ Begin Menu MainMenubar
          End
          Begin MenuItem CocoaNSSound
             SpecialMenu = 0
-            Text = "NSSound"
+            Text = "NSSound/AVAsset/AVMetadataItem"
             Index = -2147483648
             AutoEnable = True
          End

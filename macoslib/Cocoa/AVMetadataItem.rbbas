@@ -223,6 +223,56 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  // Attempts to extract the data as a Picture. If it can't, will return nil.
+			  // If it's there, the picture will be in the DataValue either as image data or
+			  // as a plist with a data key. This will attempt both.
+			  
+			  dim p as Picture
+			  
+			  #if TargetMacOS
+			    
+			    try // First sign of error, we abort
+			      
+			      dim nsd as NSData = self.DataValue
+			      if nsd <> nil then
+			        
+			        dim rawString as string = nsd.StringValue
+			        if rawString <> "" then
+			          
+			          p = Picture.FromData( rawString )
+			          if p is nil then // Did that work?
+			            // No, so attempt to get it from a plist
+			            dim plist as CFDictionary = CFDictionary.CreateFromPListString( rawString )
+			            if plist <> nil then
+			              dim key as new CFString( "data" )
+			              if plist.HasKey( key ) then
+			                dim dataValue as string = plist.Value( key ).VariantValue
+			                if dataValue <> "" then
+			                  p = Picture.FromData( dataValue )
+			                end if
+			              end if
+			            end if
+			            
+			          end if
+			          
+			        end if
+			        
+			      end if
+			      
+			    catch
+			    end try
+			    
+			  #endif
+			  
+			  return p
+			End Get
+		#tag EndGetter
+		PictureValue As Picture
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  dim r as string
 			  
 			  #if TargetMacOS

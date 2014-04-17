@@ -21,7 +21,7 @@ Begin Window NSSoundExample
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   False
-   Title           =   "NSSound"
+   Title           =   "NSSound/AVAsset/AVMetadataItem"
    Visible         =   True
    Width           =   5.36e+2
    Begin PushButton btnSelect
@@ -742,23 +742,7 @@ End
 		      dim key as string = item.CommonKey
 		      dim value as string = item.StringValue
 		      if key = "artwork" then
-		        try // Any errors will abort the attempt
-		          dim data as NSData = item.DataValue // Need the raw data. which should be a plist
-		          dim dataString as string = data.StringValue // Get it as a string and convert it
-		          ArtWork = Picture.FromData( dataString ) // See if we can get it directly from this string
-		          if ArtWork is nil then
-		            // No, so see if it's a plist
-		            dim plist as CoreFoundation.CFDictionary = CFDictionary.CreateFromPListString( dataString )
-		            dim dataKey as new CFString( "data" )
-		            if plist <> nil and plist.HasKey( dataKey ) then
-		              dim pictdata as string = plist.Value( dataKey ).VariantValue
-		              if pictdata <> "" then
-		                Artwork = Picture.FromData( pictdata ) // Even if it's nil, that's ok
-		              end if
-		            end if
-		          end if
-		        catch
-		        end try
+		        Artwork = item.PictureValue // nil is ok 
 		      else
 		        lbMetadata.AddRow key, value
 		      end if
