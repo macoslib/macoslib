@@ -61,7 +61,7 @@ Implements NSToolbarItemInterface
 		        self.View = NSControl( controlInstance ) // set the toolbar item view to the NSControl's one
 		        mNSControl = NSControl( controlInstance ) // keep a reference to the NSControl for gettins some RB properties
 		      elseif controlInstance IsA Control then
-		        self.view = controlInstance.view
+		        self.view = Ptr( controlInstance.Handle )
 		        mControl = controlInstance
 		      end if
 		    end if
