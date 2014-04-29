@@ -87,9 +87,13 @@ Protected Module About
 		- Added AuthorizationShellExample.
 		- Added pragmas for unused method params and variables.
 		
+		
+		170: 2014-04-05 by VVB
+		- Added a property for NSSearch field's FocusRing.
+		
 		169: 2014-02-16 by TT
-		- New module CorePrinting with functions to get and set the default printer
-		- Adds DoubleClickInterval function to NSEvent
+		- New module CorePrinting with functions to get and set the default printer.
+		- Adds DoubleClickInterval function to NSEvent.
 		- Removes SystemExtensions.SystemDoubleClickIntervalInTicks function because it did not do what it said, and fixing it could lead to undetected issues with existing code.
 		
 		168: 2014-01-10 by VVB
@@ -502,7 +506,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"172", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"170", Scope = Protected
 	#tag EndConstant
 
 
