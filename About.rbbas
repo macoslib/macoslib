@@ -88,7 +88,7 @@ Protected Module About
 		- Added pragmas for unused method params and variables.
 		
 		
-		170: 2014-04-05 by VVB
+		169.5: 2014-04-05 by VVB
 		- Added a property for NSSearch field's FocusRing.
 		
 		169: 2014-02-16 by TT
@@ -506,7 +506,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"170", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"172", Scope = Protected
 	#tag EndConstant
 
 
