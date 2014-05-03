@@ -2,3 +2,10 @@
 .DS_Store
 .obsolete
 macoslib.debug.app
+*.xojo_uistate
+
+macoslib.rbvcp
+
+macoslib.rbvcp
+
+macoslib.rbvcp
