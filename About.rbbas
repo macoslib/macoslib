@@ -62,6 +62,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		173: 2014-05-11 by VVB
+		- Add NSObjectFromVariant converts variant.TypeLong to new NSNumber.
+		
 		172: 2014-03-03 by KT
 		- NSToolbarCustomItem relied on an extension present only in Additional Modules.
 		
@@ -86,7 +89,6 @@ Protected Module About
 		- Added AuthorizationShell to Additional Modules.
 		- Added AuthorizationShellExample.
 		- Added pragmas for unused method params and variables.
-		
 		
 		169.5: 2014-04-05 by VVB
 		- Added a property for NSSearch field's FocusRing.
@@ -506,7 +508,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"172", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"173", Scope = Protected
 	#tag EndConstant
 
 
