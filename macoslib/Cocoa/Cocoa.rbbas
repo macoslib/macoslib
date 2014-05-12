@@ -600,7 +600,7 @@ Protected Module Cocoa
 		  case Variant.TypeBoolean
 		    return new NSNumber( v.BooleanValue )
 		    
-		  case Variant.TypeInteger
+		  case Variant.TypeInteger, Variant.TypeLong
 		    return new NSNumber( v.IntegerValue )
 		    
 		  case Variant.TypeString

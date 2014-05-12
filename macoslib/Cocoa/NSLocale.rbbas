@@ -123,7 +123,7 @@ Inherits NSObject
 		  #if targetMacOS
 		    declare function initWithLocaleIdentifier lib CocoaLib selector "initWithLocaleIdentifier:" (obj_id as Ptr, identifier as CFStringRef) as Ptr
 		    
-		    super.Constructor(initWithLocaleIdentifier(Allocate("NSLocale"), identifier), NSString.hasOwnership)
+		    super.Constructor(initWithLocaleIdentifier(Allocate("NSLocale"), identifier), NSObject.hasOwnership)
 		    
 		  #else
 		    #pragma unused identifier

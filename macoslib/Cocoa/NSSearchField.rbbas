@@ -678,6 +678,36 @@ Inherits NSControl
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #if targetcocoa then
+			    Declare Function FocusRingType lib CocoaLib Selector "setFocusRingType:" (obj_id as ptr) as Integer
+			    
+			    Return FocusRingType(me) = 0
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetcocoa then
+			    Declare sub setFocusRingType lib CocoaLib Selector "setFocusRingType:" (obj_id as ptr, type as Integer)
+			    
+			    if value then
+			      setFocusRingType(me,0)
+			    else
+			      SetFocusRingType(me,1)
+			    end if
+			  #endif
+			End Set
+		#tag EndSetter
+		FocusRing As Boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private InitialFocusRing As Boolean
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  #if targetCocoa
 			    declare function maximumRecents lib CocoaLib selector "maximumRecents" (obj_id as Ptr) as Integer
 			    
@@ -963,6 +993,12 @@ Inherits NSControl
 			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="FocusRing"
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Height"
 			Visible=true
 			Group="Position"
@@ -987,6 +1023,7 @@ Inherits NSControl
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Group="Initial State"
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty

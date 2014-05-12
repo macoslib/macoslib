@@ -342,7 +342,7 @@ Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  
-		  super.Constructor(Initialize(Allocate("NSString")), NSString.hasOwnership)
+		  super.Constructor(Initialize(Allocate("NSString")), NSObject.hasOwnership)
 		  
 		End Sub
 	#tag EndMethod
@@ -358,7 +358,7 @@ Inherits NSObject
 		      aStringRef = aString
 		    end if
 		    
-		    super.Constructor(initWithString(Allocate("NSString"), aStringRef), NSString.hasOwnership)
+		    super.Constructor(initWithString(Allocate("NSString"), aStringRef), NSObject.hasOwnership)
 		    
 		  #else
 		    #pragma unused aString
@@ -397,7 +397,7 @@ Inherits NSObject
 		    
 		    dim m as MemoryBlock = bytes
 		    
-		    super.Constructor(initWithBytes(Allocate("NSString"), m, m.size, anEncoding), NSString.hasOwnership)
+		    super.Constructor(initWithBytes(Allocate("NSString"), m, m.size, anEncoding), NSObject.hasOwnership)
 		    
 		  #else
 		    #pragma unused bytes
