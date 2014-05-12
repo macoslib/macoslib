@@ -385,6 +385,11 @@ Inherits NSObject
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PictureValue"
+			Group="Behavior"
+			Type="Picture"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"

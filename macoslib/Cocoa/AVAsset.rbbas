@@ -301,6 +301,11 @@ Inherits NSObject
 			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="HasProtectedContent"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -319,6 +324,16 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PreferredRate"
+			Group="Behavior"
+			Type="Single"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PreferredVolume"
+			Group="Behavior"
+			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

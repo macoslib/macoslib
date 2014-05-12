@@ -742,7 +742,7 @@ End
 		      dim key as string = item.CommonKey
 		      dim value as string = item.StringValue
 		      if key = "artwork" then
-		        Artwork = item.PictureValue // nil is ok 
+		        Artwork = item.PictureValue // nil is ok
 		      else
 		        lbMetadata.AddRow key, value
 		      end if
