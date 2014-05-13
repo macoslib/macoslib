@@ -158,7 +158,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h21
 		Private Function HandleShouldPresentNotification(UserNotification as NSUserNotification) As Boolean
-		  return RaiseEvent ShouldPresentNotification( UserNotification )
+		  return RaiseEvent ShouldPresentNotificationInForeground( UserNotification )
 		End Function
 	#tag EndMethod
 
@@ -293,7 +293,7 @@ Inherits NSObject
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event ShouldPresentNotification(notification as NSUserNotification) As Boolean
+		Event ShouldPresentNotificationInForeground(notification as NSUserNotification) As Boolean
 	#tag EndHook
 
 

@@ -636,7 +636,7 @@ End
 		  
 		  if AuthorizationShell1.AuthorizeAndExecute(cmd, args) then
 		    // Shell is running now.
-		    // Let's start the poll timer and enable command input.
+		    // Let's enable command input.
 		    
 		    fldUsername.Enabled = false
 		    fldPassword.Enabled = false

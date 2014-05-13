@@ -62,6 +62,18 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		174: 2014-05-12 by KT 
+		- Removed reference to Timer in AuthorizationShellExample comments.
+		- Removed reference to SelfTest in CertTools.
+		- NSUserNotificationCenter: Changed event name to more descriptive ShouldPresentNotificationInForeground.
+		- Added Cocoa.NSSound class.
+		- Added NSSoundExample window.
+		- Added Cocoa.AVAsset.
+		- Added Cocoa.AVAssetTrack.
+		- Added Cocoa.AVMetadataItem.
+		- Added new classes to Cocoa.NSObjectFromNSPtr.
+		- Replaced For Each in Cocoa.NSObjectFromNSPtr since order matters.
+		
 		173: 2014-05-11 by VVB
 		- Add NSObjectFromVariant converts variant.TypeLong to new NSNumber.
 		
@@ -508,7 +520,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"173", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"174", Scope = Protected
 	#tag EndConstant
 
 

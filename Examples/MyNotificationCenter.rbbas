@@ -33,7 +33,7 @@ Inherits NSUserNotificationCenter
 	#tag EndEvent
 
 	#tag Event
-		Function ShouldPresentNotification(notification as NSUserNotification) As Boolean
+		Function ShouldPresentNotificationInForeground(notification as NSUserNotification) As Boolean
 		  dim description as String = notification.Title
 		  if description = "" then description = "macoslib"
 		  

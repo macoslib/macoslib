@@ -184,6 +184,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSSound() As Boolean Handles CocoaNSSound.Action
+			NSSoundExample.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSStatusItem() As Boolean Handles CocoaNSStatusItem.Action
 			
 			NSStatusItemWindow.show

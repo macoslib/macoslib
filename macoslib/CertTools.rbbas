@@ -217,11 +217,6 @@ Protected Module CertTools
 	#tag EndNote
 
 	#tag Note, Name = Usage
-		SelfTest:
-		
-		  You may call CertTools.SelfTest from your App.Open event (or anywhere
-		  else) in order to check if the code works right.
-		
 		IsValid:
 		
 		  Call CertTools.IsValid, passing the results from CertTools.DeviceGUID
