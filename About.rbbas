@@ -77,6 +77,7 @@ Protected Module About
 		173: 2014-05-11 by VVB
 		- Add NSObjectFromVariant converts variant.TypeLong to new NSNumber.
 		- Prevent NilObjectException when obj is Nil in NSPathComponentCell.
+		- Added a slightly wider range of accepted ISO8601 date formatting in NativeSubclass.DateExtended.
 		
 		172: 2014-03-03 by KT
 		- NSToolbarCustomItem relied on an extension present only in Additional Modules.

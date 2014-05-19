@@ -82,8 +82,11 @@ Inherits Date
 			      Self.Year = Val(Left(value, 4))
 			      Self.Month = Val(Right(value, 2))
 			      
-			    Case 10 'YYYY-MM-DD
-			      Self.SQLDate = value
+			    Case 8 to 10 'YYYY-MM-DD
+			      'Self.SQLDate = value
+			      Self.Year = Val(value.NthField("-",1))
+			      Self.Month = Val(value.NthField("-",2))
+			      Self.Day = Val(value.NthField("-",3))
 			      
 			    Else
 			      Raise New UnsupportedFormatException
