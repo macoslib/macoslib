@@ -59,7 +59,10 @@ Inherits Date
 			  '1986-02-12T01:19:21+02:00
 			  '2004-02-12T15:59:21Z
 			  '2010-02-12T23:19:00-03:30
-			  Return Replace(Self.SQLDateTime, " ", "T")+Format(Self.GMTOffset, "+00\:\0\0;+00\:\0\0;\Z")
+			  dim gmtHour as Integer = Floor(self.GMTOffset)
+			  dim gmtMinutes as Integer = (self.GMTOffset-gmtHour)*60
+			  
+			  Return Replace(Self.SQLDateTime, " ", "T")+Format(gmtHour, "+00\:;+00\:;\Z")+Format(gmtMinutes,"00")
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -82,8 +85,11 @@ Inherits Date
 			      Self.Year = Val(Left(value, 4))
 			      Self.Month = Val(Right(value, 2))
 			      
-			    Case 10 'YYYY-MM-DD
-			      Self.SQLDate = value
+			    Case 8 to 10 'YYYY-MM-DD
+			      'Self.SQLDate = value
+			      Self.Year = Val(value.NthField("-",1))
+			      Self.Month = Val(value.NthField("-",2))
+			      Self.Day = Val(value.NthField("-",3))
 			      
 			    Else
 			      Raise New UnsupportedFormatException
@@ -148,8 +154,11 @@ Inherits Date
 			  Day_Name = Array(" ","Sun","Mon","Tue","Wed","Thu","Fri","Sat")
 			  Month_Name = Array(" ", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
 			  
+			  dim gmtHour as Integer = Floor(self.GMTOffset)
+			  dim gmtMinutes as Integer = (self.GMTOffset-gmtHour)*60
+			  
 			  'Thu, 21 Dec 2000 16:01:07 +0200
-			  Return Day_Name(Self.DayOfWeek)+", "+str(Self.Day)+" "+Month_Name(Self.Month)+" "+str(Self.Year)+" "+Self.SQLTime+" "+Format(Self.GMTOffset, "+00")+"00"
+			  Return Day_Name(Self.DayOfWeek)+", "+str(Self.Day)+" "+Month_Name(Self.Month)+" "+str(Self.Year)+" "+Self.SQLTime+" "+Format(gmtHour, "+00")+Format(gmtMinutes,"00")
 			  
 			End Get
 		#tag EndGetter
@@ -229,5 +238,201 @@ Inherits Date
 	#tag EndComputedProperty
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="AbbreviatedDate"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Day"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DayOfWeek"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DayOfYear"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FileTimeStamp"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="GMTOffset"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Double"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Hour"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ISO8601"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LongDate"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LongTime"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Minute"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Month"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RFC2822"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Second"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShortDate"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShortTime"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SQLDate"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SQLDateTime"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SQLTime"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TotalSeconds"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Double"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UnixEpoch"
+			Group="Behavior"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WeekOfYear"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Year"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			InheritedFrom="Date"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="YMD"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="YMDHMS"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Class
 #tag EndClass

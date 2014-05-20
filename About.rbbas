@@ -62,6 +62,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		175: 2014-05-20 by VVB
+		- Added a slightly wider range of accepted ISO8601 date formatting in NativeSubclass.DateExtended.
+		- Fixed incorrect getting of 'half hour' GMTOffsets in NativeSubclass.DateExtended.
+		
 		174: 2014-05-12 by KT 
 		- Removed reference to Timer in AuthorizationShellExample comments.
 		- Removed reference to SelfTest in CertTools.
@@ -521,7 +525,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"174", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"175", Scope = Protected
 	#tag EndConstant
 
 
