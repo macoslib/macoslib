@@ -246,6 +246,23 @@ Inherits NSObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function FrontmostApplication() As NSRunningApplication
+		  // Returns the frontmost app, which is the app that receives key events.
+		  
+		  #if TargetMacOS
+		    declare function frontmostApplication lib CocoaLib selector "frontmostApplication" (obj_id as Ptr) as Ptr
+		    
+		    dim p As Ptr
+		    p = frontmostApplication(SharedWorkspace)
+		    
+		    If p <> Nil Then
+		      return New NSRunningApplication(p)
+		    End If
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub handle_globalNSWorkspaceNotification(observer as NotificationObserver, notification as NSNotification)
 		  //Handle notifications, extract interesting value(s) and dispatch them to their respective event
