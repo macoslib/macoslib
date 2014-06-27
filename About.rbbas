@@ -64,7 +64,7 @@ Protected Module About
 		
 		176: 2014-06-28 by VVB
 		- Added missing 'blueComponent' to NSColor.
-		- Changed NSWindow.Transparancy method to use the window's actual background color rather than an aproximation.
+		- Changed NSWindow.Transparency method to use the window's actual background color rather than an aproximation.
 		
 		175: 2014-05-20 by VVB
 		- Added a slightly wider range of accepted ISO8601 date formatting in NativeSubclass.DateExtended.
