@@ -94,6 +94,18 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function BlueComponent() As Single
+		  //# Returns the NSColor's Blue component.
+		  
+		  #if targetMacOS
+		    declare function blueComponent lib CocoaLib selector "blueComponent" (id as Ptr) as Single
+		    
+		    return blueComponent(self)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function BrightnessComponent() As Single
 		  //# Returns the brightness component of the HSB color equivalent to the NSColor.
 		  

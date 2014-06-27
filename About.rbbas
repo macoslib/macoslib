@@ -62,6 +62,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		176: 2014-06-28 by VVB
+		- Added missing 'blueComponent' to NSColor.
+		- Changed NSWindow.Transparency method to use the window's actual background color rather than an aproximation.
+		
 		175: 2014-05-20 by VVB
 		- Added a slightly wider range of accepted ISO8601 date formatting in NativeSubclass.DateExtended.
 		- Fixed incorrect getting of 'half hour' GMTOffsets in NativeSubclass.DateExtended.
@@ -525,7 +529,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"175", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"176", Scope = Protected
 	#tag EndConstant
 
 

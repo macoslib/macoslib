@@ -1606,7 +1606,8 @@ Inherits NSResponder
 		  
 		  #if TargetCocoa
 		    // Create the NSColor to use for the window's background with an alpha value.
-		    dim nsc as NSColor = NSColor.ColorWithRGB( 0.92, 0.92, 0.92, Value ) // Aproximately the same as window background color
+		    dim bgc as NSColor = self.BackgroundColor // Use the same color as the window background color
+		    dim nsc as NSColor = bgc.ColorWithAlpha( Value )
 		    
 		    // Set the features on the window
 		    self.AlphaValue = 1.0
