@@ -1236,7 +1236,7 @@ Begin Window NSWindowExample
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   47
+         Height          =   36
          HelpTag         =   ""
          Index           =   5
          InitialParent   =   "ppExamples"
@@ -1261,6 +1261,203 @@ Begin Window NSWindowExample
          Top             =   205
          Transparent     =   False
          Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin CheckBox chkFullSizeContentView
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "FullSizeContentView"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. (OS X 10.10+)"
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   485
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   24
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   253
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   190
+      End
+      Begin Label lblArray
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   36
+         HelpTag         =   ""
+         Index           =   6
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   485
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   25
+         TabPanelIndex   =   2
+         Text            =   "(OS X 10.10+ Makes the toolbar blurry transparent and moves it down to hover over the window content.)"
+         TextAlign       =   0
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   10
+         TextUnit        =   0
+         Top             =   285
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin Label lblArray
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   7
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   26
+         TabPanelIndex   =   2
+         Text            =   "StyleMask:"
+         TextAlign       =   0
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   332
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   138
+      End
+      Begin Label lblStyleMask
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   362
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   27
+         TabPanelIndex   =   2
+         Text            =   0
+         TextAlign       =   2
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   332
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   40
+      End
+      Begin PushButton PushButton1
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Hide Title"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   12
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   301
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin CheckBox CheckBox1
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Transparent Toolbar"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   414
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   14
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   301
+         Underline       =   ""
+         Value           =   False
          Visible         =   True
          Width           =   190
       End
@@ -1363,6 +1560,7 @@ End
 		  // Check whether the window is on a retina screen
 		  UpdateBackingScaleFactor
 		  UpdateCollectionBehavior
+		  UpdateStyleMask
 		End Sub
 	#tag EndEvent
 
@@ -1389,6 +1587,12 @@ End
 	#tag Method, Flags = &h0
 		Sub UpdateFullscreen()
 		  chkIsFullScreen.Value = m_NSWindow.IsFullscreen
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UpdateStyleMask()
+		  lblStyleMask.Text = str( m_NSWindow.StyleMask )
 		End Sub
 	#tag EndMethod
 
@@ -1672,6 +1876,46 @@ End
 		    MsgBox self.Title + " is on the currently active space"
 		  else
 		    MsgBox self.Title + " is NOT on the currently active space"
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkFullSizeContentView
+	#tag Event
+		Sub Action()
+		  m_NSWindow.FullSizeContentView = me.Value
+		  UpdateStyleMask
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton1
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    if m_NSWindow.WindowTitleVisibility = NSWindow.NSWindowTitleVisibility.Visible then
+		      m_NSWindow.WindowTitleVisibility = NSWindow.NSWindowTitleVisibility.Hidden
+		      me.Caption = "Show Title"
+		    else
+		      m_NSWindow.WindowTitleVisibility = NSWindow.NSWindowTitleVisibility.Visible
+		      me.Caption = "Hide Title"
+		    end if
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox1
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    'm_NSWindow.TitlebarAppearsTransparent = me.Value
+		    self.TitlebarAppearsTransparent = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
 		  end if
 		End Sub
 	#tag EndEvent

@@ -69,7 +69,7 @@ Begin Window NSToolbarWindow
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   806
+      Width           =   601
    End
    Begin Cocoa.NSSlider NSSlider1
       AcceptFocus     =   ""
@@ -131,6 +131,7 @@ Begin Window NSToolbarWindow
       Enabled         =   True
       EraseBackground =   ""
       FloatValue      =   ""
+      FocusRing       =   True
       Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
@@ -308,6 +309,102 @@ Begin Window NSToolbarWindow
       Top             =   -66
       Visible         =   True
       Width           =   120
+   End
+   Begin CheckBox CheckBox2
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Transparent Toolbar"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   "Makes the toolbar fully transparent (OS X 10.10+)"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   633
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   102
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   193
+   End
+   Begin CheckBox chkFullSizeContentView
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "FullSizeContentView"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. OS X 10.10+"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   633
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   71
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   190
+   End
+   Begin CheckBox CheckBox3
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Title Visibility"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   "Affects where the Close/Minimize/Zoom buttons are shown (OS X 10.10+)"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   633
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   134
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   193
    End
 End
 #tag EndWindow
@@ -584,6 +681,39 @@ End
 		  
 		  Log "Selected navigation button "+str(itemIndex)
 		  Log EndOfLine
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox2
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    self.TitlebarAppearsTransparent = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkFullSizeContentView
+	#tag Event
+		Sub Action()
+		  self.FullSizeContentView = me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox3
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    self.TitleVisible = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

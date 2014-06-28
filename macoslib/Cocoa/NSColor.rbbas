@@ -1228,6 +1228,28 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function LabelColor() As NSColor
+		  //# Returns the system color used for the flat surfaces of a control.
+		  
+		  #if targetMacOS
+		    if IsYosemite then
+		      declare function labelColor lib CocoaLib selector "labelColor" (id as Ptr) as Ptr
+		      
+		      dim colorRef as Ptr = labelColor(ClassRef)
+		      if colorRef <> nil then
+		        return new NSColor(colorRef)
+		      else
+		        return nil
+		      end if
+		      
+		    else
+		      return nil
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function LightGray() As NSColor
 		  #if TargetMacOS
 		    return MakeObjectFromClassMethod(AddressOf m_lightGrayColor)
@@ -1648,6 +1670,28 @@ Inherits NSObject
 		      return nil
 		    end if
 		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function SecondaryLabelColor() As NSColor
+		  //# Returns the system color used for the flat surfaces of a control.
+		  
+		  #if targetMacOS
+		    if IsYosemite then
+		      declare function secondaryLabelColor lib CocoaLib selector "secondaryLabelColor" (id as Ptr) as Ptr
+		      
+		      dim colorRef as Ptr = secondaryLabelColor(ClassRef)
+		      if colorRef <> nil then
+		        return new NSColor(colorRef)
+		      else
+		        return nil
+		      end if
+		      
+		    else
+		      return nil
+		    end if
 		  #endif
 		End Function
 	#tag EndMethod

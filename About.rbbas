@@ -62,6 +62,19 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		177: 2014-06-28 by VVB
+		- Added OS Check IsYosemite.
+		- Moved NSWindow.NS*WindowMask constants to an enumerator.
+		- Added NSFullSizeContentViewWindowMask to enumerator and a computed property to set NSWindow.FullSizeContentView. (Blurry transparent toolbar, OS 10.10+)
+		- Added a checkbox for FullSizeContentView to the NSWindow Example called 'Transparent Toolbar'.
+		- Added 'Seperated' style to SegmentedControlExtension.NSSegmentStyle. (OS 10.10+)
+		- Added NSWindow.NSWindowTitleVisibility enumerator and a NSWindow.WindowTitleVisibility property. (Moves close/min/zoom buttons down into the toolbar, OS 10.10+)
+		- Added NSWindow.TitlebarAppearsTransparent property. (OS 10.10+)
+		- Added buttons to NSWindow and NSToolbarWindow Examples for FullSizeContentView, TitleVisibilty and TitleAppearsTransparent.
+		- Added NSWindow.TitlebarAppearsTransparent property. (Fully transparent toolbar, OS 10.10+)
+		- Added new NSColors LabelColor and SecondaryLabelColor. (OS 10.10+)
+		- Added the new NSColors to NSColorWindow Example.
+		
 		176: 2014-06-28 by VVB
 		- Added missing 'blueComponent' to NSColor.
 		- Changed NSWindow.Transparency method to use the window's actual background color rather than an aproximation.
@@ -529,7 +542,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"176", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"177", Scope = Protected
 	#tag EndConstant
 
 

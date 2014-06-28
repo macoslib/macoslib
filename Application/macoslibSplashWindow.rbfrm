@@ -139,7 +139,7 @@ End
 
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  dim p as Picture = SystemIcons.Network( self.width, 0.0 )
+		  dim p as Picture = SystemIcons.Network( self.width / self.NSWindowObject.BackingScaleFactor, 0.0 )
 		  g.DrawPicture p, ( self.Width / 2 ) - ( p.Width / 2 ), ( self.Height / 2 ) - ( p.Height / 2 )
 		  
 		  #if RBVersion >=2012.02

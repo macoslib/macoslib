@@ -373,6 +373,44 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FullSizeContentView(extends w as Window) As Boolean
+		  #if TargetCocoa then
+		    if IsYosemite then
+		      declare function styleMask lib CocoaLib selector "styleMask" (WindowRef as WindowPtr) as UInt32
+		      
+		      return ( styleMask(w) and Integer( NSWindow.NSWindowMask.FullSizeContentView ) ) <> 0
+		    else
+		      return false
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FullSizeContentView(extends w as Window, assigns value as Boolean)
+		  
+		  #if TargetCocoa then
+		    if IsYosemite then
+		      declare function styleMask lib CocoaLib selector "styleMask" (WindowRef as WindowPtr) as UInt32
+		      declare sub setStyleMask lib CocoaLib selector "setStyleMask:" (WindowRef as WindowPtr, styleMask as UInt32)
+		      
+		      dim WindowStyleMask as UInt32
+		      
+		      if value then
+		        WindowStyleMask = StyleMask(w) or Integer( NSWindow.NSWindowMask.FullSizeContentView )
+		      else
+		        WindowStyleMask = StyleMask(w) and NOT Integer( NSWindow.NSWindowMask.FullSizeContentView )
+		      end if
+		      
+		      setStyleMask w, WindowStyleMask
+		    else
+		      #pragma Unused value
+		    end if
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HasShadow(extends w as Window) As Boolean
 		  //# Specifies whether the window has a shadow.
 		  
@@ -798,6 +836,7 @@ Protected Module WindowExtensions
 		    const kWindowNonActive      = 128
 		    const kWindowMaskHUD        = 8192
 		    const kWindowBorderlessModal = 16384
+		    const kWindowMaskFullSizeContentView = 32768
 		    
 		    if w.Frame = 3 or w.Frame = 7 then
 		      Dim tmpStyleMask as UInt32 = kWindowMaskHUD or kWindowMaskTitled or kWindowMaskUtility
@@ -963,6 +1002,82 @@ Protected Module WindowExtensions
 		    w.Width = Width
 		    w.Height = Height
 		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TitlebarAppearsTransparent(extends w as Window) As Boolean
+		  
+		  #if TargetCocoa then
+		    if IsYosemite then
+		      declare function titlebarAppearsTransparent lib CocoaLib selector "titlebarAppearsTransparent" (WindowRef as WindowPtr) as Boolean
+		      
+		      return titlebarAppearsTransparent(w)
+		    else
+		      return false
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TitlebarAppearsTransparent(extends w as Window, assigns value as Boolean)
+		  
+		  #if TargetCocoa then
+		    if IsYosemite then
+		      declare sub setTitlebarAppearsTransparent lib CocoaLib selector "setTitlebarAppearsTransparent:" (WindowRef as WindowPtr, value as Boolean)
+		      
+		      setTitlebarAppearsTransparent w, value
+		    end if
+		  #else
+		    #pragma unused value
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TitleVisible(extends w as Window) As Boolean
+		  
+		  // Visible = 0
+		  // Hidden = 1
+		  // Hidden When Active = 2
+		  
+		  #if TargetCocoa then
+		    if IsYosemite then
+		      declare function titleVisibility lib CocoaLib selector "titleVisibility" (WindowRef as WindowPtr) as Integer
+		      
+		      return titleVisibility(w) = 0
+		    else
+		      return True
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TitleVisible(extends w as Window, assigns TitleVisible as Boolean)
+		  
+		  // Visible = 0
+		  // Hidden = 1
+		  // Hidden When Active = 2
+		  
+		  #if TargetCocoa then
+		    if IsYosemite then
+		      declare sub setTitleVisibility lib CocoaLib selector "setTitleVisibility:" (WindowRef as WindowPtr, titleVisibility as Integer )
+		      
+		      if TitleVisible then
+		        setTitleVisibility w, 0
+		      else
+		        setTitleVisibility w, 1
+		      end if
+		    end if
+		  #else
+		    #pragma unused TitleVisible
+		  #endif
+		  
 		End Sub
 	#tag EndMethod
 

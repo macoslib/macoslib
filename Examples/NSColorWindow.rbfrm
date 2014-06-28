@@ -152,6 +152,11 @@ End
 		  "WindowFrameColor" : NSColor.WindowFrameColor, _
 		  "WindowFrameTextColor" : NSColor.WindowFrameTextColor)
 		  
+		  if IsYosemite then
+		    colors.Append  "LabelColor" : NSColor.LabelColor
+		    colors.Append  "SecondaryLabelColor" : NSColor.SecondaryLabelColor
+		  end if
+		  
 		  
 		  dim t() as NSColor = NSColor.ControlAlternatingRowBackgroundColors
 		  For i as Integer = 0 to t.Ubound
