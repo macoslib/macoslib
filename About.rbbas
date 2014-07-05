@@ -62,6 +62,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		177: 2014-07-05 by VVB
+		- Added WantsLayer property to NSView.
+		
 		176: 2014-06-28 by VVB
 		- Added missing 'blueComponent' to NSColor.
 		- Changed NSWindow.Transparency method to use the window's actual background color rather than an aproximation.
@@ -529,7 +532,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"176", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"177", Scope = Protected
 	#tag EndConstant
 
 
