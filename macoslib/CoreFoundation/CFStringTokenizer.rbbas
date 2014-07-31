@@ -38,8 +38,9 @@ Inherits CFType
 		  #if targetMacOS
 		    // Only available in 10.5 and later!
 		    soft declare function CFStringTokenizerCreate lib CarbonLib (alloc as Ptr, input as CFStringRef, range as CFRange, options as UInt32, locale as Ptr) as Ptr
+		    Declare Function CFStringGetLength Lib "CoreFoundation" ( obj_id As CFStringRef ) As Int32
 		    
-		    inputLength = input.Len
+		    inputLength = CFStringGetLength(input)
 		    
 		    dim lr as Ptr
 		    if locale <> nil then
