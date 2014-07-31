@@ -391,36 +391,10 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 
-	#tag Enum, Name = NSBezelStyle, Flags = &h0
-		NSRoundedBezelStyle = 1
-		  NSRegularSquareBezelStyle
-		  NSThickSquareBezelStyle
-		  NSThickerSquareBezelStyle
-		  NSDisclosureBezelStyle
-		  NSShadowlessSquareBezelStyle
-		  NSCircularBezelStyle
-		  NSTexturedSquareBezelStyle
-		  NSHelpButtonBezelStyle
-		  NSSmallSquareBezelStyle
-		  NSTexturedRoundedBezelStyle
-		  NSRoundRectBezelStyle
-		  NSRecessedBezelStyle
-		  NSRoundedDisclosureBezelStyle
-		  NSInlineBezelStyle
-		NSSmallIconButtonBezelStyle = 2
-	#tag EndEnum
-
 	#tag Enum, Name = NSPopUpArrowPosition, Flags = &h0
 		NSPopUpNoArrow
 		  NSPopUpArrowAtCenter
 		NSPopUpArrowAtBottom
-	#tag EndEnum
-
-	#tag Enum, Name = NSRectEdge, Flags = &h0
-		NSMinXEdge
-		  NSMinYEdge
-		  NSMaxXEdge
-		NSMaxYEdge
 	#tag EndEnum
 
 

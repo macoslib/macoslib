@@ -244,7 +244,7 @@ Inherits NSObject
 			Get
 			  
 			  #if targetCocoa
-			    declare function maxSize Lib CocoaLib selector "maxSize" (obj_id as Ptr) as NSSize
+			    declare function maxSize Lib CocoaLib selector "maxSize" (obj_id as Ptr) as Cocoa.NSSize
 			    
 			    return maxSize(self)
 			    
@@ -256,7 +256,7 @@ Inherits NSObject
 			Set
 			  
 			  #if targetCocoa
-			    declare sub setMaxSize Lib CocoaLib selector "setMaxSize:" (obj_id as Ptr, size as NSSize)
+			    declare sub setMaxSize Lib CocoaLib selector "setMaxSize:" (obj_id as Ptr, size as Cocoa.NSSize)
 			    
 			    setMaxSize(self, value)
 			    
@@ -266,7 +266,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		MaxSize As NSSize
+		MaxSize As Cocoa.NSSize
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
@@ -317,7 +317,7 @@ Inherits NSObject
 			Get
 			  
 			  #if targetCocoa
-			    declare function minSize Lib CocoaLib selector "minSize" (obj_id as Ptr) as NSSize
+			    declare function minSize Lib CocoaLib selector "minSize" (obj_id as Ptr) as Cocoa.NSSize
 			    
 			    return minSize(self)
 			    
@@ -329,7 +329,7 @@ Inherits NSObject
 			Set
 			  
 			  #if targetCocoa
-			    declare sub setMinSize Lib CocoaLib selector "setMinSize:" (obj_id as Ptr, size as NSSize)
+			    declare sub setMinSize Lib CocoaLib selector "setMinSize:" (obj_id as Ptr, size as Cocoa.NSSize)
 			    
 			    setMinSize(self, value)
 			    
@@ -339,7 +339,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		MinSize As NSSize
+		MinSize As Cocoa.NSSize
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

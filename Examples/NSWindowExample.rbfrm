@@ -1624,9 +1624,9 @@ End
 		  dim origWidth as Integer = self.Width
 		  dim origHeight as Integer = self.Height
 		  
-		  m_NSWindow.SmoothResize( Width + 200, Height + 200, popResizeOptions.ListIndex )
+		  self.SmoothResize( Width + 200, Height + 200, popResizeOptions.ListIndex )
 		  app.SleepCurrentThread 1000 // Pause for 1 second before sizing back to original size.
-		  m_NSWindow.SmoothResize( origWidth, origHeight, popResizeOptions.ListIndex )
+		  self.SmoothResize( origWidth, origHeight, popResizeOptions.ListIndex )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
