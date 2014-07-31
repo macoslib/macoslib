@@ -6,7 +6,7 @@ Module WindowManager
 		    return 0.0
 		  end if
 		  
-		  #if TargetMacOS
+		  #if TargetCarbon
 		    soft declare function GetWindowAlpha lib CarbonLib (inWindow as WindowPtr, ByRef inAlpha as Single) as Integer
 		    
 		    dim alphaValue as Single
@@ -615,18 +615,6 @@ Module WindowManager
 	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
 	#tag EndConstant
 
-
-	#tag Structure, Name = MacPoint, Flags = &h0
-		v as Int16
-		h as Int16
-	#tag EndStructure
-
-	#tag Structure, Name = MacRect, Flags = &h0
-		top as Int16
-		  left as Int16
-		  bottom as Int16
-		right as Int16
-	#tag EndStructure
 
 	#tag Structure, Name = RGBColor, Flags = &h0
 		red as UInt16

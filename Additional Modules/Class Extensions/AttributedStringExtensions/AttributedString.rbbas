@@ -140,7 +140,7 @@ Inherits NSAttributedString
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private selection As NSRange
+		Private selection As Cocoa.NSRange
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h21
