@@ -657,10 +657,6 @@ Module CoreFoundation
 		value as Ptr
 	#tag EndStructure
 
-	#tag Structure, Name = UInt32, Flags = &h0
-		opaque as UInt32
-	#tag EndStructure
-
 
 	#tag ViewBehavior
 		#tag ViewProperty

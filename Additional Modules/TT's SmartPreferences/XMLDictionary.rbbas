@@ -369,7 +369,7 @@ Protected Module XMLDictionary
 		          StoreValue key, Val(NodeContents(node)), storage
 		        Case "date"
 		          v = NodeContents(node)
-		          if Strcomp(v.Right(1), "Z", 0) = 0 then
+		          if Strcomp(Right(v, 1), "Z", 0) = 0 then
 		            // plist format
 		            v = v.StringValue.Left(v.StringValue.Len-1).Replace("T", " ")
 		          end
