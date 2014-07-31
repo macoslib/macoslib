@@ -244,12 +244,12 @@ Protected Module TextAreaExtension
 		Function Bold(extends t as TextArea, offset as Integer, length as Integer) As Boolean
 		  #if targetMacOS
 		    declare function textStorage lib CocoaLib selector "textStorage" (obj_id as Ptr) as Ptr
-		    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Integer
+		    declare function length_ lib CocoaLib selector "length" (obj_id as Ptr) as Integer
 		    
 		    dim attributedText as Ptr = textStorage(t.TextViewRef)
 		    dim selectionRange as Cocoa.NSRange
 		    selectionRange.location = offset
-		    selectionRange.length = Max(Min(length, length(attributedText) - offset), 0)
+		    selectionRange.length = Max(Min(length, length_(attributedText) - offset), 0)
 		    dim aRange as Cocoa.NSRange
 		    #pragma unused aRange
 		    if selectionRange.length > 0 then
@@ -265,7 +265,7 @@ Protected Module TextAreaExtension
 		Sub Bold(extends t as TextArea, offset as Integer, length as Integer, assigns value as Boolean)
 		  #if targetMacOS
 		    declare function textStorage lib CocoaLib selector "textStorage" (obj_id as Ptr) as Ptr
-		    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Integer
+		    declare function length_ lib CocoaLib selector "length" (obj_id as Ptr) as Integer
 		    declare sub applyFontTraits lib "Cocoa.framework" selector "applyFontTraits:range:" (obj_id as Ptr, mask as int32, aRange as Cocoa.NSRange)
 		    
 		    
@@ -279,7 +279,7 @@ Protected Module TextAreaExtension
 		    
 		    dim range as Cocoa.NSRange
 		    range.location = offset
-		    range.length = Max(Min(length, length(text) - offset), 0)
+		    range.length = Max(Min(length, length_(text) - offset), 0)
 		    if range.length > 0 then
 		      applyFontTraits(text, traitMask, range)
 		    else
@@ -662,12 +662,12 @@ Protected Module TextAreaExtension
 		Function Italic(extends t as TextArea, offset as Integer, length as Integer) As Boolean
 		  #if targetMacOS
 		    declare function textStorage lib CocoaLib selector "textStorage" (obj_id as Ptr) as Ptr
-		    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Integer
+		    declare function length_ lib CocoaLib selector "length" (obj_id as Ptr) as Integer
 		    
 		    dim attributedText as Ptr = textStorage(t.TextViewRef)
 		    dim selectionRange as Cocoa.NSRange
 		    selectionRange.location = offset
-		    selectionRange.length = Max(Min(length, length(attributedText) - offset), 0)
+		    selectionRange.length = Max(Min(length, length_(attributedText) - offset), 0)
 		    dim aRange as Cocoa.NSRange
 		    #pragma unused aRange
 		    if selectionRange.length > 0 then
@@ -683,7 +683,7 @@ Protected Module TextAreaExtension
 		Sub Italic(extends t as TextArea, offset as Integer, length as Integer, assigns value as Boolean)
 		  #if targetMacOS
 		    declare function textStorage lib CocoaLib selector "textStorage" (obj_id as Ptr) as Ptr
-		    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Integer
+		    declare function length_ lib CocoaLib selector "length" (obj_id as Ptr) as Integer
 		    declare sub applyFontTraits lib "Cocoa.framework" selector "applyFontTraits:range:" (obj_id as Ptr, mask as int32, aRange as Cocoa.NSRange)
 		    
 		    
@@ -697,7 +697,7 @@ Protected Module TextAreaExtension
 		    
 		    dim range as Cocoa.NSRange
 		    range.location = offset
-		    range.length = Max(Min(length, length(text) - offset), 0)
+		    range.length = Max(Min(length, length_(text) - offset), 0)
 		    if range.length > 0 then
 		      applyFontTraits(text, traitMask, range)
 		    else
