@@ -323,6 +323,28 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #If TargetMacOS Then
+			    Declare Function getAttributedTitle Lib CocoaLib Selector "attributedTitle" (obj_id As Ptr) As Ptr
+			    Return New NSAttributedString(getAttributedTitle(Self))
+			  #EndIf
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #If TargetMacOS Then
+			    Declare Sub setAttributedTitle Lib CocoaLib Selector "setAttributedTitle:" (obj_id As Ptr, value As Ptr)
+			    setAttributedTitle Self, value
+			  #Else
+			    #pragma Unused value
+			  #EndIf
+			End Set
+		#tag EndSetter
+		AttributedTitle As NSAttributedString
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if TargetMacOS
 			    declare function doubleAction Lib CocoaLib selector "doubleAction" (obj_id as Ptr) as Ptr
@@ -696,7 +718,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -713,14 +734,14 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Length"
@@ -731,13 +752,13 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Title"
@@ -756,7 +777,7 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
