@@ -5,6 +5,7 @@ Begin Menu MainMenubar
       Text = "#MenuItemFileMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin CocoaMenuItemClose FileClose
          SpecialMenu = 0
          Text = "#CocoaMenuItemClose.LocalizedText"
@@ -13,12 +14,14 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+W"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 0
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemPageSetup CocoaFilePageSetup
          SpecialMenu = 0
@@ -29,6 +32,7 @@ Begin Menu MainMenubar
          MenuModifier = True
          AltMenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemPrint CocoaFilePrint
          SpecialMenu = 0
@@ -38,12 +42,14 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+P"
          MenuModifier = True
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 1
          AutoEnable = True
+         Visible = True
       End
       Begin QuitMenuItem FileQuit
          SpecialMenu = 0
@@ -52,12 +58,14 @@ Begin Menu MainMenubar
          ShortcutKey = "#App.kFileQuitShortcut"
          Shortcut = "#App.kFileQuitShortcut"
          AutoEnable = True
+         Visible = True
       End
       Begin AppleMenuItem FileAbout
          SpecialMenu = 0
          Text = "About"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
    End
    Begin MenuItemEditMenu EditMenu
@@ -65,6 +73,7 @@ Begin Menu MainMenubar
       Text = "#MenuItemEditMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin CocoaMenuItemUndo EditUndo
          SpecialMenu = 0
          Text = "#CocoaMenuItemUndo.LocalizedText"
@@ -73,6 +82,7 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+Z"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemRedo EditRedo
          SpecialMenu = 0
@@ -83,12 +93,14 @@ Begin Menu MainMenubar
          MenuModifier = True
          AltMenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 2
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemCut EditCut
          SpecialMenu = 0
@@ -98,6 +110,7 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+X"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemCopy EditCopy
          SpecialMenu = 0
@@ -107,6 +120,7 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+C"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemPaste EditPaste
          SpecialMenu = 0
@@ -116,6 +130,7 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+V"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemPasteAndMatchStyle EditPasteAndMatchStyle
          SpecialMenu = 0
@@ -127,12 +142,14 @@ Begin Menu MainMenubar
          AltMenuModifier = True
          MacOptionKey = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemDelete EditClear
          SpecialMenu = 0
          Text = "#CocoaMenuItemDelete.LocalizedText"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemComplete EditComplete
          SpecialMenu = 0
@@ -142,6 +159,7 @@ Begin Menu MainMenubar
          Shortcut = "Option+ESC"
          MacOptionKey = True
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemSelectAll EditSelectAll
          SpecialMenu = 0
@@ -151,12 +169,14 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+A"
          MenuModifier = True
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 3
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemInsert EditInsert
          SpecialMenu = 0
@@ -164,23 +184,27 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemInsertLineBreak InsertLineBreak
             SpecialMenu = 0
             Text = "#CocoaMenuItemInsertLineBreak.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemInsertParagraphBreak InsertParagraphBreak
             SpecialMenu = 0
             Text = "#CocoaMenuItemInsertParagraphBreak.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemInsertPageBreak InsertPageBreak
             SpecialMenu = 0
             Text = "#CocoaMenuItemInsertPageBreak.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin CocoaMenuItemEditLink EditEditLink
@@ -191,12 +215,14 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+K"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 4
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemFindParent EditFind
          SpecialMenu = 0
@@ -204,6 +230,7 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemFind FindFind
             SpecialMenu = 0
             Text = "#CocoaMenuItemFind.LocalizedText"
@@ -212,6 +239,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+F"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFindNext FindFindNext
             SpecialMenu = 0
@@ -221,6 +249,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+G"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFindPrevious FindFindPrevious
             SpecialMenu = 0
@@ -231,6 +260,7 @@ Begin Menu MainMenubar
             MenuModifier = True
             AltMenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemUseSelectionForFind UntitledItem2
             SpecialMenu = 0
@@ -240,6 +270,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+E"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemJumpToSelection UntitledItem3
             SpecialMenu = 0
@@ -249,6 +280,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+J"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemSelectLine UntitledItem4
             SpecialMenu = 0
@@ -258,6 +290,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+L"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
       End
       Begin CocoaMenuItemEditSpelling EditSpellingandGrammar
@@ -266,6 +299,7 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemShowSpelling SpellingandGrammarShowSpellingandGrammar
             SpecialMenu = 0
             Text = "#CocoaMenuItemShowSpelling.LocalizedText"
@@ -274,6 +308,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+:"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemCheckDocumentNow SpellingandGrammarCheckDocumentNow
             SpecialMenu = 0
@@ -283,30 +318,35 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+;"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 5
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemCheckSpellingWhileTyping SpellingandGrammarCheckSpellingWhileTyping
             SpecialMenu = 0
             Text = "#CocoaMenuItemCheckSpellingWhileTyping.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemCheckGrammarWithSpelling SpellingandGrammarCheckGrammarWithSpelling
             SpecialMenu = 0
             Text = "#CocoaMenuItemCheckGrammarWithSpelling.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemCorrectSpelling SpellingandGrammarCorrectSpellingAutomatically
             SpecialMenu = 0
             Text = "#CocoaMenuItemCorrectSpelling.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin CocoaMenuItemEditSubstitutions EditSubstitutions
@@ -315,53 +355,62 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemShowSubstitutions SubstitutionsShowSubstitutions
             SpecialMenu = 0
             Text = "#CocoaMenuItemShowSubstitutions.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 6
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemSmartCopyPaste SubstitutionsSmartCopyPaste
             SpecialMenu = 0
             Text = "#CocoaMenuItemSmartCopyPaste.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemSmartQuotes SubstitutionsSmartQuotes
             SpecialMenu = 0
             Text = "#CocoaMenuItemSmartQuotes.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemSmartDashes SubstitutionsSmartDashes
             SpecialMenu = 0
             Text = "#CocoaMenuItemSmartDashes.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemSmartLinks SubstitutionsSmartLinks
             SpecialMenu = 0
             Text = "#CocoaMenuItemSmartLinks.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemDataDetectors SubstitutionsDataDetectors
             SpecialMenu = 0
             Text = "#CocoaMenuItemDataDetectors.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemTextReplacement SubstitutionsTextReplacement
             SpecialMenu = 0
             Text = "#CocoaMenuItemTextReplacement.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
       End
       Begin CocoaMenuItemEditTransformations EditTransformations
@@ -370,23 +419,27 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemMakeUppercase TransformationsMakeUpperCase
             SpecialMenu = 0
             Text = "#CocoaMenuItemMakeUppercase.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemMakeLowercase TransformationsMakeLowerCase
             SpecialMenu = 0
             Text = "#CocoaMenuItemMakeLowercase.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemCapitalize TransformationsCapitalize
             SpecialMenu = 0
             Text = "#CocoaMenuItemCapitalize.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin CocoaMenuItemEditSpeech EditSpeech
@@ -395,17 +448,20 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemStartSpeaking SpeechStartSpeaking
             SpecialMenu = 0
             Text = "#CocoaMenuItemStartSpeaking.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemStopSpeaking SpeechStopSpeaking
             SpecialMenu = 0
             Text = "#CocoaMenuItemStopSpeaking.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
       End
    End
@@ -414,12 +470,14 @@ Begin Menu MainMenubar
       Text = "#MenuItemFormatMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin CocoaMenuItemFormatFont FormatFonts
          SpecialMenu = 0
          Text = "#CocoaMenuItemFormatFont.LocalizedText"
          Index = -2147483648
          AutoEnable = False
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemShowFonts FontsShowFonts
             SpecialMenu = 0
             Text = "#CocoaMenuItemShowFonts.LocalizedText"
@@ -428,6 +486,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+T"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFormatBold FontsBold
             SpecialMenu = 0
@@ -437,6 +496,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+B"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFormatItalic FontsItalic
             SpecialMenu = 0
@@ -446,6 +506,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+I"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFormatUnderline FontsUnderline
             SpecialMenu = 0
@@ -455,24 +516,28 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+U"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFormatOutline FontsOutline
             SpecialMenu = 0
             Text = "#CocoaMenuItemFormatOutline.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemFontStyles FontsStyles
             SpecialMenu = 0
             Text = "#CocoaMenuItemFontStyles.LocalizedText"
             Index = -2147483648
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 9
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemBigger FontsBigger
             SpecialMenu = 0
@@ -482,6 +547,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd++"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemSmaller FontsSmaller
             SpecialMenu = 0
@@ -491,12 +557,14 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+-"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 10
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemFormatFontKern UntitledItem
             SpecialMenu = 0
@@ -504,17 +572,20 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = False
             SubMenu = True
+            Visible = True
             Begin CocoaMenuItemKernDefault KernUseDefault
                SpecialMenu = 0
                Text = "#CocoaMenuItemKernDefault.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemKernNone KernUseNone
                SpecialMenu = 0
                Text = "#CocoaMenuItemKernNone.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemKernTighten KernTighten
                SpecialMenu = 0
@@ -525,6 +596,7 @@ Begin Menu MainMenubar
                MenuModifier = True
                MacOptionKey = True
                AutoEnable = True
+               Visible = True
             End
             Begin CocoaMenuItemKernLoosen KernLoosen
                SpecialMenu = 0
@@ -535,6 +607,7 @@ Begin Menu MainMenubar
                MenuModifier = True
                MacOptionKey = True
                AutoEnable = True
+               Visible = True
             End
          End
          Begin CocoaMenuItemLigature FontsLigature
@@ -543,23 +616,27 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = False
             SubMenu = True
+            Visible = True
             Begin CocoaMenuItemLigatureDefault LigatureUseDefault
                SpecialMenu = 0
                Text = "#CocoaMenuItemLigatureDefault.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemLigatureNone LigatureUseNone
                SpecialMenu = 0
                Text = "#CocoaMenuItemLigatureNone.LocalizedText"
                Index = -2147483648
                AutoEnable = True
+               Visible = True
             End
             Begin CocoaMenuItemLIgatureAll LigatureUseAll
                SpecialMenu = 0
                Text = "#CocoaMenuItemLIgatureAll.LocalizedText"
                Index = -2147483648
                AutoEnable = True
+               Visible = True
             End
          End
          Begin CocoaMenuItemFormatFontBaseline FontsBaseline
@@ -568,35 +645,41 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = False
             SubMenu = True
+            Visible = True
             Begin CocoaMenuItemBaselineDefault BaselineUseDefault
                SpecialMenu = 0
                Text = "#CocoaMenuItemBaselineDefault.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemBaselineSuperscript BaselineSuperscript
                SpecialMenu = 0
                Text = "#CocoaMenuItemBaselineSuperscript.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemBaselineSubscript BaselineSubscript
                SpecialMenu = 0
                Text = "#CocoaMenuItemBaselineSubscript.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemBaselineRaise BaselineRaise
                SpecialMenu = 0
                Text = "#CocoaMenuItemBaselineRaise.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemBaselineLower BaselineLower
                SpecialMenu = 0
                Text = "#CocoaMenuItemBaselineLower.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
          End
          Begin CocoaMenuItemFormatFontCharacterShape FontsCharacterShape
@@ -605,11 +688,13 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = False
             SubMenu = True
+            Visible = True
             Begin CocoaMenuItemCharShapeTraditional CharacterShapeTraditionalForm
                SpecialMenu = 0
                Text = "#CocoaMenuItemCharShapeTraditional.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
          End
          Begin MenuItem MenuSeparator
@@ -617,6 +702,7 @@ Begin Menu MainMenubar
             Text = "-"
             Index = 11
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemShowColors FontsShowColors
             SpecialMenu = 0
@@ -627,12 +713,14 @@ Begin Menu MainMenubar
             MenuModifier = True
             AltMenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 12
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemCopyStyle FontsCopyStyle
             SpecialMenu = 0
@@ -643,6 +731,7 @@ Begin Menu MainMenubar
             MenuModifier = True
             MacOptionKey = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemPasteStyle FontsPasteStyle
             SpecialMenu = 0
@@ -653,6 +742,7 @@ Begin Menu MainMenubar
             MenuModifier = True
             MacOptionKey = True
             AutoEnable = False
+            Visible = True
          End
       End
       Begin MenuItem FormatText
@@ -661,6 +751,7 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin CocoaMenuItemTextAlignLeft TextAlignLeft
             SpecialMenu = 0
             Text = "#CocoaMenuItemTextAlignLeft.LocalizedText"
@@ -669,6 +760,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+{"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemTextCenter TextAlignCenter
             SpecialMenu = 0
@@ -678,12 +770,14 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+|"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemTextJustify TextJustify
             SpecialMenu = 0
             Text = "#CocoaMenuItemTextJustify.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemTextAlignRight TextAlignRight
             SpecialMenu = 0
@@ -693,12 +787,14 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+}"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 13
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemWritingDirection TextWritingDirection
             SpecialMenu = 0
@@ -706,53 +802,62 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
             SubMenu = True
+            Visible = True
             Begin CocoaMenuItemWritingDirectionBase WritingDirectionParagraph
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionBase.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionBaseNatural WritingDirectionParagraphDefault
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionBaseNatural.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionBaseLeftToRight WritingDirectionParagraphLefttoRight
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionBaseLeftToRight.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionBaseRightToLeft WritingDirectionParagraphRighttoLeft
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionBaseRightToLeft.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionText WritingDirectionSelection
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionText.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionTextNatural WritingDirectionSelectionDefault
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionTextNatural.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionTextLeftToRight WritingDirectionSelectionLeftToRight
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionTextLeftToRight.LocalizedText"
                Index = -2147483648
                AutoEnable = True
+               Visible = True
             End
             Begin CocoaMenuItemWritingDirectionTextRightToLeft WritingDirectionSelectionRightToLeft
                SpecialMenu = 0
                Text = "#CocoaMenuItemWritingDirectionTextRightToLeft.LocalizedText"
                Index = -2147483648
                AutoEnable = False
+               Visible = True
             End
          End
          Begin MenuItem MenuSeparator
@@ -760,6 +865,7 @@ Begin Menu MainMenubar
             Text = "-"
             Index = 14
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemShowRuler TextShowRuler
             SpecialMenu = 0
@@ -769,6 +875,7 @@ Begin Menu MainMenubar
             Shortcut = "Cmd+R"
             MenuModifier = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemCopyRuler TextCopyRuler
             SpecialMenu = 0
@@ -779,6 +886,7 @@ Begin Menu MainMenubar
             MenuModifier = True
             MacControlKey = True
             AutoEnable = False
+            Visible = True
          End
          Begin CocoaMenuItemPasteRuler TextPasteRuler
             SpecialMenu = 0
@@ -789,18 +897,21 @@ Begin Menu MainMenubar
             MenuModifier = True
             MacControlKey = True
             AutoEnable = False
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 15
             AutoEnable = True
+            Visible = True
          End
          Begin CocoaMenuItemSpacing TextSpacing
             SpecialMenu = 0
             Text = "#CocoaMenuItemSpacing.LocalizedText"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem MenuSeparator
@@ -808,6 +919,7 @@ Begin Menu MainMenubar
          Text = "-"
          Index = 7
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem FormatMakePlainText
          SpecialMenu = 0
@@ -818,12 +930,14 @@ Begin Menu MainMenubar
          MenuModifier = True
          AltMenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem FormatPreventEditing
          SpecialMenu = 0
          Text = "Prevent Editing"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem FormatWrapToPage
          SpecialMenu = 0
@@ -834,30 +948,35 @@ Begin Menu MainMenubar
          MenuModifier = True
          AltMenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem FormatAllowHyphenation
          SpecialMenu = 0
          Text = "Allow Hyphenation"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 8
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemList FormatList
          SpecialMenu = 0
          Text = "#CocoaMenuItemList.LocalizedText"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemTable FormatTable
          SpecialMenu = 0
          Text = "#CocoaMenuItemTable.LocalizedText"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
    End
    Begin MenuItemViewMenu ViewMenu
@@ -865,23 +984,27 @@ Begin Menu MainMenubar
       Text = "#MenuItemViewMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin CocoaMenuItemShowToolbar ViewToggleToolbar
          SpecialMenu = 0
          Text = "#CocoaMenuItemShowToolbar.LocalizedTextShow"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin CocoaMenuItemCustomizeToolbar ViewCustomizeToolbar
          SpecialMenu = 0
          Text = "#CocoaMenuItemCustomizeToolbar.LocalizedText"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 16
          AutoEnable = True
+         Visible = True
       End
       Begin CocoaMenuItemToggleFullscreen ViewToggleFullscreen
          SpecialMenu = 0
@@ -892,6 +1015,7 @@ Begin Menu MainMenubar
          MenuModifier = True
          MacControlKey = True
          AutoEnable = True
+         Visible = True
       End
    End
    Begin MenuItemExamplesMenu ExamplesMenu
@@ -899,71 +1023,83 @@ Begin Menu MainMenubar
       Text = "#MenuItemExamplesMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin MenuItem ConvenienceMethodsMenu
          SpecialMenu = 0
          Text = "Convenience Extensions"
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem StringExtensionMenu
             SpecialMenu = 0
             Text = "String Extensions"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem UnicodeExtensionsMenu
             SpecialMenu = 0
             Text = "Unicode Extensions for strings"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem SystemIconsMenuItem
             SpecialMenu = 0
             Text = "System Icons Extensions"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem SystemExtensionsMenu
             SpecialMenu = 0
             Text = "System Extensions"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem ApplicationExtensionsMenu
             SpecialMenu = 0
             Text = "Application Extensions"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem BonjourExampleMenu
             SpecialMenu = 0
             Text = "Bonjour Services"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem DebugReportMenu
             SpecialMenu = 0
             Text = "Debug Reports"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem FSEventStreamMenu
             SpecialMenu = 0
             Text = "FSEvent stream"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem SpeechMenu
             SpecialMenu = 0
             Text = "Speech"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem LabelExtensionMenu
             SpecialMenu = 0
             Text = "Label Extensions"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem MenuSeparator
@@ -971,6 +1107,7 @@ Begin Menu MainMenubar
          Text = "-"
          Index = 17
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem ExamplesCocoa
          SpecialMenu = 0
@@ -978,191 +1115,230 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem CocoaNSDatePicker
             SpecialMenu = 0
             Text = "NSDatePicker"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSLevelIndicator
             SpecialMenu = 0
             Text = "NSLevelIndicator"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSPathControl
             SpecialMenu = 0
             Text = "NSPathControl"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSSearchField
             SpecialMenu = 0
             Text = "NSSearchField"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSTableView
             SpecialMenu = 0
             Text = "NSTableView"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem NSTokenFieldMenuItem
             SpecialMenu = 0
             Text = "NSTokenField"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSToolbar
             SpecialMenu = 0
             Text = "NSToolbar"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem NSSlidersExampleMenu
             SpecialMenu = 0
             Text = "NSSliders"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem NSImageViewMenu
             SpecialMenu = 0
             Text = "NSImageView (incl. ImageWell)"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSSound
             SpecialMenu = 0
             Text = "NSSound/AVAsset/AVMetadataItem"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaTextArea
             SpecialMenu = 0
             Text = "Text Area"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 18
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSAlert
             SpecialMenu = 0
             Text = "NSAlert"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSDockTile
             SpecialMenu = 0
             Text = "NSDockTile"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSPopover
             SpecialMenu = 0
             Text = "NSPopover"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSSharingServicePicker
             SpecialMenu = 0
             Text = "NSSharingServicePicker"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSStatusItem
             SpecialMenu = 0
             Text = "NSStatusItem"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSUserNotifications
             SpecialMenu = 0
             Text = "NSUserNotifications"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSWindow
             SpecialMenu = 0
             Text = "NSWindow"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem MenuSeparator
             SpecialMenu = 0
             Text = "-"
             Index = 21
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaApplicationIcon
             SpecialMenu = 0
             Text = "Application Icon"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSByteCountFormatter
             SpecialMenu = 0
             Text = "NSByteCountFormatter"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSColorBrowser
             SpecialMenu = 0
             Text = "NSColor Browser"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
+         End
+         Begin MenuItem CocoaNSGradient
+            SpecialMenu = 0
+            Text = "NSGradient"
+            Index = -2147483648
+            AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSHost
             SpecialMenu = 0
             Text = "NSHost"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSPasteboard
             SpecialMenu = 0
             Text = "NSPasteboard"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSPrinter
             SpecialMenu = 0
             Text = "NSPrinter"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSRunningApplication
             SpecialMenu = 0
             Text = "NSRunningApplication"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSTask
             SpecialMenu = 0
             Text = "NSTask"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSTimeZone
             SpecialMenu = 0
             Text = "NSTimeZone"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaNSWorkspaceNotifications
             SpecialMenu = 0
             Text = "NSWorkspace notifications"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CocoaSystemImages
             SpecialMenu = 0
             Text = "System Images"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesControls
@@ -1171,17 +1347,20 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem ControlsMacDatePicker
             SpecialMenu = 0
             Text = "MacDatePicker"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem ControlsHISearchField
             SpecialMenu = 0
             Text = "HISearchField"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesCoreFoundation
@@ -1190,17 +1369,20 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem CoreFoundationShowVersion
             SpecialMenu = 0
             Text = "Show Version"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CoreFoundationStringTokenizer
             SpecialMenu = 0
             Text = "String Tokenizer"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesCoreGraphics
@@ -1209,29 +1391,34 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem CoreGraphicsAxialShadingExample
             SpecialMenu = 0
             Text = "Axial Shading Example"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CoreGraphicsRadialShadingExample
             SpecialMenu = 0
             Text = "Radial Shading Example"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CoreGraphicsPDFBrowser
             SpecialMenu = 0
             Text = "PDF Browser"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem CoreGraphicsImageTransform
             SpecialMenu = 0
             Text = "Image Transform"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem MenuItemExamplesMenuLocalizedTextCoreText
@@ -1240,11 +1427,13 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem CoreTextOpenExampleWindow
             SpecialMenu = 0
             Text = "Open Example Window"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem IKICExampleMenu
@@ -1253,23 +1442,27 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem ImageKitMenu
             SpecialMenu = 0
             Text = "ImageKit example"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem ImageCaptureMenu
             SpecialMenu = 0
             Text = "ImageCapture example"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem IKImageBrowserMenu
             SpecialMenu = 0
             Text = "IKImageBrowser example"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesFolderManager
@@ -1278,11 +1471,13 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem FolderManagerShowFolders
             SpecialMenu = 0
             Text = "Show Folders"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesIconServices
@@ -1291,11 +1486,13 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem IconServicesShowIconBrowser
             SpecialMenu = 0
             Text = "Show Icon Browser"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesIOKit
@@ -1304,17 +1501,20 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem IOKitPrimaryMACAddress
             SpecialMenu = 0
             Text = "Primary MAC Address"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem IOKitExternalPowerAdapter
             SpecialMenu = 0
             Text = "External Power Adapter"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesNavigationServices
@@ -1323,11 +1523,13 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem NavigationServicesOpenExampleWindow
             SpecialMenu = 0
             Text = "Open Example Window"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesQTKit
@@ -1336,17 +1538,20 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem QTKitQTCaptureView
             SpecialMenu = 0
             Text = "QTCaptureView"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem QTKitQTMovieView
             SpecialMenu = 0
             Text = "QTMovieView"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesWindowManager
@@ -1355,17 +1560,20 @@ Begin Menu MainMenubar
          Index = -2147483648
          AutoEnable = True
          SubMenu = True
+         Visible = True
          Begin MenuItem WindowManagerAlpha
             SpecialMenu = 0
             Text = "Alpha"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
          Begin MenuItem WindowManagerProxyIcons
             SpecialMenu = 0
             Text = "Proxy Icons"
             Index = -2147483648
             AutoEnable = True
+            Visible = True
          End
       End
       Begin MenuItem ExamplesLanguages
@@ -1373,42 +1581,49 @@ Begin Menu MainMenubar
          Text = "Languages"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem ExamplesSockets
          SpecialMenu = 0
          Text = "Sockets"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem ExamplesCarbonPasteboard
          SpecialMenu = 0
          Text = "Carbon Pasteboard"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem MenuItemExamplesMenuLocalizedTextDragManager
          SpecialMenu = 0
          Text = "Carbon Drag Manager"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem MenuItemExamplesMenuLocalizedTextThemeColors
          SpecialMenu = 0
          Text = "Theme Colors"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem ExamplesCorePrinting
          SpecialMenu = 0
          Text = "Core Printing"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItem ExamplesAuthorizationShell
          SpecialMenu = 0
          Text = "AuthorizationShell"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
    End
    Begin MenuItemWindowMenu WindowMenu
@@ -1416,6 +1631,7 @@ Begin Menu MainMenubar
       Text = "#MenuItemWindowMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin MenuItemMinimize WindowMinimize
          SpecialMenu = 0
          Text = "#MenuItemMinimize.LocalizedText"
@@ -1424,30 +1640,35 @@ Begin Menu MainMenubar
          Shortcut = "Cmd+M"
          MenuModifier = True
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItemZoom AppWindowMenuTitleZoom
          SpecialMenu = 0
          Text = "#MenuItemZoom.LocalizedText"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 19
          AutoEnable = True
+         Visible = True
       End
       Begin MenuItemBringAllToFront AppWindowMenuTitleBringAllToFront
          SpecialMenu = 0
          Text = "#MenuItemBringAllToFront.LocalizedText"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
       End
       Begin MenuItem MenuSeparator
          SpecialMenu = 0
          Text = "-"
          Index = 20
          AutoEnable = True
+         Visible = True
       End
    End
    Begin MenuItemHelpMenu HelpMenu
@@ -1455,11 +1676,13 @@ Begin Menu MainMenubar
       Text = "#MenuItemHelpMenu.LocalizedText"
       Index = -2147483648
       AutoEnable = True
+      Visible = True
       Begin MenuItem WelcomeWindowMenu
          SpecialMenu = 0
          Text = "Welcome Window"
          Index = -2147483648
          AutoEnable = True
+         Visible = True
       End
    End
 End
