@@ -333,9 +333,13 @@ Inherits NSObject
 			Set
 			  #If TargetMacOS Then
 			    Declare Sub setAttributedTitle Lib CocoaLib Selector "setAttributedTitle:" (obj_id As Ptr, value As Ptr)
-			    setAttributedTitle Self, value
+			    
+			    Dim titleRef As Ptr
+			    If value <> Nil Then titleRef = value
+			    
+			    setAttributedTitle Self, titleRef
 			  #Else
-			    #pragma Unused value
+			    #Pragma Unused value
 			  #EndIf
 			End Set
 		#tag EndSetter
