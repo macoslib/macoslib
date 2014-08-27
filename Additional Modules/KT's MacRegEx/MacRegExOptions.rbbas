@@ -1,7 +1,7 @@
 #tag Class
 Protected Class MacRegExOptions
-	#tag Method, Flags = &h1
-		Protected Function Operator_Convert() As UInt32
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As UInt32
 		  dim r as UInt32
 		  
 		  if not CaseSensitive then r = r or NSRegularExpression.NSRegularExpressionCaseInsensitive
