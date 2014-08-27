@@ -457,8 +457,8 @@ Class CFType
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function WriteToFile(file as FolderItem, asXML as Boolean = true) As Boolean
+	#tag Method, Flags = &h1
+		Protected Function WriteToFile(file as FolderItem, asXML as Boolean = true) As Boolean
 		  // Added by Kem Tekinay.
 		  //This method is declared by CFPropertyList; CFType subclasses that implement CFPropertyList
 		  //invoke this method.
