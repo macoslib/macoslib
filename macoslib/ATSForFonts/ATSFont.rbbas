@@ -93,8 +93,8 @@ Class ATSFont
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function Operator_Convert() As UInt32
+	#tag Method, Flags = &h0
+		Function Operator_Convert() As UInt32
 		  return me.ATSFontRef
 		End Function
 	#tag EndMethod
