@@ -441,7 +441,7 @@ Protected Module DebugReportModule
 		        if VarType( drfResult ) = Variant.TypeString then
 		          return   drfResult.StringValue
 		        else
-		          return   "<" + v.ClassName + EndOfLine + FormatVariant( drfResult, "-" ) + " >"
+		          return   "<" + v.ObjectValue.ClassName + EndOfLine + FormatVariant( drfResult, "-" ) + " >"
 		        end if
 		      end if
 		      
