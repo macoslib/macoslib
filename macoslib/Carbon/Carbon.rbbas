@@ -348,12 +348,6 @@ Protected Module Carbon
 		data as String*255
 	#tag EndStructure
 
-	#tag Structure, Name = UTCDateTime, Flags = &h0
-		highSeconds as UInt16
-		  lowSeconds as UInt32
-		fraction as UInt16
-	#tag EndStructure
-
 
 	#tag Enum, Name = UIMode, Flags = &h0
 		Normal = 0

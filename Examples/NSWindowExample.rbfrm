@@ -1549,10 +1549,10 @@ End
 		  
 		  // Set presentation options for full screen mode
 		  Dim NSApp as NSApplication = NSApplication.App
-		  NSApp.PresentationOptions = integer(NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationFullScreen or _
-		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideToolbar or _
-		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideMenuBar or _
-		  NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideDock)
+		  NSApp.PresentationOptions = integer(NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationFullScreen) or _
+		  integer(NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideToolbar) or _
+		  integer(NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideMenuBar) or _
+		  integer(NSApplication.NSApplicationPresentationOptions.NSApplicationPresentationAutoHideDock)
 		  
 		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
 		  m_NSWindow.ContentBorderBottomThickness = 23 // Draw a border at the bottom of the window
