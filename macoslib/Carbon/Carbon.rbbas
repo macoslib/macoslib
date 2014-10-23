@@ -90,6 +90,16 @@ Protected Module Carbon
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function IsYosemite() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101000
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Function Languages() As String()
 		  dim languagelist as CFArray = CFArray(CFPreferences.Value("AppleLanguages"))
@@ -363,33 +373,33 @@ Protected Module Carbon
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
