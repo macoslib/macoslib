@@ -348,7 +348,7 @@ Begin Window NSToolbarWindow
       Caption         =   "FullSizeContentView"
       DataField       =   ""
       DataSource      =   ""
-      Enabled         =   False
+      Enabled         =   True
       Height          =   20
       HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. OS X 10.10+"
       Index           =   -2147483648
@@ -696,11 +696,28 @@ End
 		  end if
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events chkFullSizeContentView
 	#tag Event
 		Sub Action()
-		  self.FullSizeContentView = me.Value
+		  
+		  
+		  if IsYosemite then
+		    self.FullSizeContentView = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -714,6 +731,11 @@ End
 		    MsgBox "This option is for OS X 10.10+"
 		    me.Value = False
 		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
 		End Sub
 	#tag EndEvent
 #tag EndEvents

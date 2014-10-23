@@ -43,7 +43,7 @@ Begin Window NSWindowExample
       TabIndex        =   16
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   500
       Begin PushButton btnSetFileByURL
@@ -1887,6 +1887,11 @@ End
 		  UpdateStyleMask
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton1
 	#tag Event
@@ -1905,6 +1910,11 @@ End
 		  end if
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events CheckBox1
 	#tag Event
@@ -1917,6 +1927,11 @@ End
 		    MsgBox "This option is for OS X 10.10+"
 		    me.Value = False
 		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
 		End Sub
 	#tag EndEvent
 #tag EndEvents
