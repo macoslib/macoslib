@@ -996,15 +996,16 @@ Inherits NSObject
 			Get
 			  
 			  #if targetMacOS
-			    declare function port lib CocoaLib selector "port" (obj_id as Ptr) as CFStringRef
+			    declare function port lib CocoaLib selector "port" (obj_id as Ptr) as Ptr ' NSNumber
+			    Declare Function integerValue Lib "Cocoa" Selector "integerValue" (classRef As Ptr) As Integer
 			    
-			    return port(self)
+			    return integerValue(port(self))
 			    
 			  #endif
 			  
 			End Get
 		#tag EndGetter
-		Port As String
+		Port As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1479,7 +1480,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Fragment"
@@ -1498,7 +1498,7 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDirectory"
@@ -1531,13 +1531,13 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParameterString"
@@ -1597,14 +1597,14 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="User"
