@@ -170,9 +170,6 @@ Protected Module AppleEvents
 	#tag EndNote
 
 
-	#tag Constant, Name = typeBoolean, Type = String, Dynamic = False, Default = \"bool", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = typeFSRef, Type = String, Dynamic = False, Default = \"fsrf", Scope = Public
 	#tag EndConstant
 
