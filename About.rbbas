@@ -62,6 +62,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		178: 2014-12-11 by VVB
+		- Fixed the SegmentedControl moving to the bottom of the window if the toolbar was set to text-only mode by placing it inside a canvas.
+		
 		177: 2014-10-23 by VVB
 		- Added OS Check IsYosemite.
 		- Moved NSWindow.NS*WindowMask constants to an enumerator.
@@ -543,7 +546,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"177", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"178", Scope = Protected
 	#tag EndConstant
 
 

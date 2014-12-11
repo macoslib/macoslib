@@ -71,96 +71,6 @@ Begin Window NSToolbarWindow
       Visible         =   True
       Width           =   601
    End
-   Begin Cocoa.NSSlider NSSlider1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
-      AllowsExpansionToolTips=   ""
-      AllowsTickMarkValuesOnly=   ""
-      AltIncrementValue=   ""
-      AutoDeactivate  =   True
-      autoresizesSubviews=   ""
-      Backdrop        =   ""
-      Bold            =   false
-      DoubleBuffer    =   ""
-      DoubleValue     =   ""
-      Enabled         =   True
-      EraseBackground =   ""
-      FloatValue      =   ""
-      Height          =   32
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IntegerValue    =   ""
-      IsFlipped       =   ""
-      Italic          =   false
-      Left            =   103
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      MaxValue        =   100
-      MinValue        =   0
-      NumberOfTickMarks=   5
-      Scope           =   0
-      Size            =   0
-      TabIndex        =   1
-      TabPanelIndex   =   0
-      TabStop         =   ""
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TickPosition    =   0
-      Top             =   -74
-      Type            =   0
-      Underlined      =   false
-      UseFocusRing    =   ""
-      Value           =   0
-      Visible         =   True
-      Width           =   100
-   End
-   Begin Cocoa.NSSearchField NSSearchField1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
-      AllowsExpansionToolTips=   ""
-      AutoDeactivate  =   True
-      autoresizesSubviews=   ""
-      Backdrop        =   ""
-      Bold            =   false
-      DoubleBuffer    =   ""
-      DoubleValue     =   ""
-      Enabled         =   True
-      EraseBackground =   ""
-      FloatValue      =   ""
-      FocusRing       =   True
-      Height          =   32
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IntegerValue    =   ""
-      IsFlipped       =   ""
-      Italic          =   false
-      Left            =   273
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      MaxRecentSearches=   0
-      Scope           =   0
-      SendSearchStringImmediately=   ""
-      SendWholeSearchString=   ""
-      ShowMenu        =   ""
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   ""
-      TextFont        =   "System"
-      TextSize        =   0
-      Top             =   -74
-      Underlined      =   false
-      UseFocusRing    =   ""
-      Visible         =   True
-      Width           =   150
-   End
    Begin CheckBox CheckBox1
       AutoDeactivate  =   True
       Bold            =   ""
@@ -289,27 +199,6 @@ Begin Window NSToolbarWindow
       Visible         =   True
       Width           =   196
    End
-   BeginSegmented SegmentedControl SegmentedControl1
-      Enabled         =   True
-      Height          =   24
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   465
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      MacControlStyle =   0
-      Scope           =   0
-      Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse\r\n\nFalse"
-      SelectionType   =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      Top             =   -66
-      Visible         =   True
-      Width           =   120
-   End
    Begin CheckBox CheckBox2
       AutoDeactivate  =   True
       Bold            =   ""
@@ -405,6 +294,144 @@ Begin Window NSToolbarWindow
       Value           =   True
       Visible         =   True
       Width           =   193
+   End
+   Begin Canvas Canvas1
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   49
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   -93
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   846
+      Begin Cocoa.NSSlider NSSlider1
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AllowsExpansionToolTips=   ""
+         AllowsTickMarkValuesOnly=   ""
+         AltIncrementValue=   ""
+         AutoDeactivate  =   True
+         autoresizesSubviews=   ""
+         Backdrop        =   ""
+         Bold            =   false
+         DoubleBuffer    =   ""
+         DoubleValue     =   ""
+         Enabled         =   True
+         EraseBackground =   ""
+         FloatValue      =   ""
+         Height          =   32
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         IntegerValue    =   ""
+         IsFlipped       =   ""
+         Italic          =   false
+         Left            =   344
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         MaxValue        =   100
+         MinValue        =   0
+         NumberOfTickMarks=   5
+         Scope           =   0
+         Size            =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   ""
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TickPosition    =   0
+         Top             =   -85
+         Type            =   0
+         Underlined      =   false
+         UseFocusRing    =   ""
+         Value           =   0
+         Visible         =   True
+         Width           =   100
+      End
+      Begin Cocoa.NSSearchField NSSearchField1
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AllowsExpansionToolTips=   ""
+         AutoDeactivate  =   True
+         autoresizesSubviews=   ""
+         Backdrop        =   ""
+         Bold            =   false
+         DoubleBuffer    =   ""
+         DoubleValue     =   ""
+         Enabled         =   True
+         EraseBackground =   ""
+         FloatValue      =   ""
+         FocusRing       =   True
+         Height          =   32
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         IntegerValue    =   ""
+         IsFlipped       =   ""
+         Italic          =   false
+         Left            =   514
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         MaxRecentSearches=   0
+         Scope           =   0
+         SendSearchStringImmediately=   ""
+         SendWholeSearchString=   ""
+         ShowMenu        =   ""
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   ""
+         TextFont        =   "System"
+         TextSize        =   0
+         Top             =   -85
+         Underlined      =   false
+         UseFocusRing    =   ""
+         Visible         =   True
+         Width           =   150
+      End
+      BeginSegmented SegmentedControl SegmentedControl1
+         Enabled         =   True
+         Height          =   24
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Left            =   706
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         MacControlStyle =   0
+         Scope           =   0
+         Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse\r\n\nFalse"
+         SelectionType   =   0
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         Top             =   -85
+         Visible         =   True
+         Width           =   120
+      End
    End
 End
 #tag EndWindow
@@ -611,39 +638,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events NSSlider1
-	#tag Event
-		Sub ValueChanged()
-		  
-		  Log "NSSlider changed value to "+me.stringValue+endofLine
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events NSSearchField1
-	#tag Event
-		Sub Open()
-		  
-		  me.ShowMenu = true
-		  me.AddMenuItem "Foo"
-		  
-		  me.PlaceholderText = "Search"
-		  
-		  
-		  //setting this name means that recent searches will be saved to user defaults under this name.
-		  //the shared NSUserDefaults object is saved periodically.
-		  me.RecentsAutosaveName = "NSSearchFieldExample.RecentSearches"
-		  
-		  me.ShowRecentSearches = true
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Action()
-		  beep
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events CheckBox1
 	#tag Event
 		Sub Action()
@@ -656,31 +650,6 @@ End
 		Sub Action()
 		  
 		  NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled = not NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events SegmentedControl1
-	#tag Event
-		Sub Open()
-		  me.SegmentStyle = SegmentedControlExtension.NSSegmentStyle.TexturedRounded
-		  
-		  dim Scale as Integer = self.ScalingFactor
-		  
-		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
-		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
-		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
-		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate( 0, 10 )
-		  
-		  for i as Integer = 0 to 3
-		    me.ImageForSegment(i).Template = true
-		  next
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Action(itemIndex as integer)
-		  
-		  Log "Selected navigation button "+str(itemIndex)
-		  Log EndOfLine
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -736,6 +705,64 @@ End
 	#tag Event
 		Sub Open()
 		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NSSlider1
+	#tag Event
+		Sub ValueChanged()
+		  
+		  Log "NSSlider changed value to "+me.stringValue+endofLine
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NSSearchField1
+	#tag Event
+		Sub Open()
+		  
+		  me.ShowMenu = true
+		  me.AddMenuItem "Foo"
+		  
+		  me.PlaceholderText = "Search"
+		  
+		  
+		  //setting this name means that recent searches will be saved to user defaults under this name.
+		  //the shared NSUserDefaults object is saved periodically.
+		  me.RecentsAutosaveName = "NSSearchFieldExample.RecentSearches"
+		  
+		  me.ShowRecentSearches = true
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  beep
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SegmentedControl1
+	#tag Event
+		Sub Open()
+		  me.SegmentStyle = SegmentedControlExtension.NSSegmentStyle.TexturedRounded
+		  
+		  dim Scale as Integer = self.ScalingFactor
+		  
+		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
+		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
+		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
+		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate( 0, 10 )
+		  
+		  for i as Integer = 0 to 3
+		    me.ImageForSegment(i).Template = true
+		  next
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action(itemIndex as integer)
+		  
+		  Log "Selected navigation button "+str(itemIndex)
+		  Log EndOfLine
 		End Sub
 	#tag EndEvent
 #tag EndEvents
