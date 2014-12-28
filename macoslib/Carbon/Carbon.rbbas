@@ -7,16 +7,23 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function GetSystemVersionFromGestalt() As String
-		  dim sys1, sys2, sys3 as Integer
-		  dim OK as Boolean = true
-		  OK = OK AND System.Gestalt("sys1", sys1)
-		  OK = OK AND System.Gestalt("sys2", sys2)
-		  OK = OK AND System.Gestalt("sys3", sys3)
+		Attributes( deprecated ) Protected Function GetSystemVersionFromGestalt() As String
+		  // Attention: This is now deprecated because it's returning wrong
+		  // results on OSX 10.10 (Yosemite) and also shows a warning
+		  // in the Console log.
+		  // Use the Is... functions or SystemVersionAsInt instead.
 		  
-		  if OK AND sys1 <> 0 then
-		    return Format(sys1,"#")+"."+Format(sys2,"#")+"."+Format(sys3,"#")
-		  end if
+		  #if TargetMacOS
+		    dim sys1, sys2, sys3 as Integer
+		    dim OK as Boolean = true
+		    OK = OK AND System.Gestalt("sys1", sys1)
+		    OK = OK AND System.Gestalt("sys2", sys2)
+		    OK = OK AND System.Gestalt("sys3", sys3)
+		    
+		    if OK AND sys1 <> 0 then
+		      return Format(sys1,"#")+"."+Format(sys2,"#")+"."+Format(sys3,"#")
+		    end if
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -201,10 +208,29 @@ Protected Module Carbon
 		  //
 		  // This function avoids using floating point, so that a version such as 10.4 doesn't become 10.39999 or something alike, making a test for >=10.4 fail
 		  
-		  static version as Integer = Carbon.VersionAsInteger( SystemVersionAsString )
-		  
-		  return version
-		  
+		  #if TargetMacOS
+		    static version as Integer
+		    
+		    if version = 0 then
+		      // Since OSX 10.10, we have to prefer NSProcessInfo's version over Gestalt
+		      dim sys1, sys2, sys3 as Integer
+		      dim v as NSProcessInfo.OSVersion
+		      v = NSProcessInfo.ProcessInfo.OperatingSystemVersion
+		      if v.major > 0 then
+		        sys1 = v.major
+		        sys2 = v.minor
+		        sys3 = v.patch
+		      else
+		        // This OS is older (pre 10.9), so we'll fall back to using Gestalt
+		        call System.Gestalt("sys1", sys1)
+		        call System.Gestalt("sys2", sys2)
+		        call System.Gestalt("sys3", sys3)
+		      end if
+		      version = 10000 * sys1 + 100 * sys2 + sys3
+		    end if
+		    
+		    return version
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -221,10 +247,15 @@ Protected Module Carbon
 		  //   SystemVersionAsString >= "10.6"
 		  // with the actual OS X version being 10.11: Then the string "10.6" will be
 		  // greater than "10.11", which is the wrong result for your test.
+		  //
+		  // Also, this text may be localized in ways you cannot even parse!
 		  
-		  
-		  static version as String = GetSystemVersionFromGestalt
-		  return version
+		  #if TargetMacOS
+		    // Due to the fact that using Gestalt to get the version is not working in OSX 10.10
+		    // any more, we need to use NSProcessInfo now instead:
+		    static version as String = NSProcessInfo.ProcessInfo.operatingSystemVersionString
+		    return version
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -373,33 +404,33 @@ Protected Module Carbon
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
