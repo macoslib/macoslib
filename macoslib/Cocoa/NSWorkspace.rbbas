@@ -917,7 +917,13 @@ Inherits NSObject
 		    (obj_id as Ptr, fullPath as CFStringRef, appName as CFStringRef, flag as Boolean) as Boolean
 		    
 		    if file <> nil then
-		      return openFile(SharedWorkspace, file.POSIXPath, withApp, deactivate)
+		      dim appName as CFStringRef
+		      if withApp <> "" then
+		        appName = withApp
+		      else
+		        // We need to pass nil as the appName parameter if we want to open the file with its default app
+		      end if
+		      return openFile(SharedWorkspace, file.POSIXPath, appName, deactivate)
 		    end if
 		    
 		  #else
