@@ -62,6 +62,12 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		177: 2014-12-28 by TT
+		- Fixes the Carbon.IsYosemite() and related functions by using the AppKit version number instead of Gestalt().
+		- Fixes the Carbon.SystemVersionAsString() function by using NSProcessInfo.OperatingSystemVersionString instead of Gestalt().
+		- Adds Cocoa.NSAppKitVersionNumber
+		- Improves NSWorkspace.OpenFile to allow using the deafault app when specifying the optional "deactivate" parameter.
+		
 		176: 2014-06-28 by VVB
 		- Added missing 'blueComponent' to NSColor.
 		- Changed NSWindow.Transparency method to use the window's actual background color rather than an aproximation.
@@ -529,7 +535,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"176", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"177", Scope = Protected
 	#tag EndConstant
 
 
