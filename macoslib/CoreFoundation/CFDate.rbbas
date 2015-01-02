@@ -50,7 +50,11 @@ Implements CFPropertyList
 		    d = new Date
 		  end if
 		  
-		  me.Constructor d.TotalSeconds - AbsoluteTimeIntervalSince1904
+		    // d.TotalSeconds is local TotalSeconds, CFDate uses absolute seconds
+		    d = new Date(d)
+		    d.GMTOffset = 0.0
+		    
+		    me.Constructor d.TotalSeconds - AbsoluteTimeIntervalSince1904
 		End Sub
 	#tag EndMethod
 
@@ -161,7 +165,10 @@ Implements CFPropertyList
 		  else
 		    
 		    dim d as new Date
+		    dim gmt As Double = d.GMTOffset
+		    d.GMTOffset = 0.0
 		    d.TotalSeconds = me.AbsoluteTime + AbsoluteTimeIntervalSince1904
+		    d.GMTOffset = gmt
 		    return d
 		    
 		  end if
