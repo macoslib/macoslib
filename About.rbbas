@@ -30,6 +30,7 @@ Protected Module About
 		Stéphane Mons (SM)
 		Kem Tekinay (KT)
 		Vidal van Bergen (VVB)
+		Jeff Fowler (JF)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -61,6 +62,9 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		178: 2014-01-02 by JF
+		- Fixes CFDate.Constructor(d As Date) to account for Date.TotalSeconds depending on Date.GMTOffset.
 		
 		177: 2014-12-28 by TT
 		- Fixes the Carbon.IsYosemite() and related functions by using the AppKit version number instead of Gestalt().
@@ -535,7 +539,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"177", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"178", Scope = Protected
 	#tag EndConstant
 
 
