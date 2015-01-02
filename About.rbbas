@@ -63,7 +63,7 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		178: 2014-01-02 by JF
+		178: 2015-01-02 by JF
 		- Fixes CFDate.Constructor(d As Date) to account for Date.TotalSeconds depending on Date.GMTOffset.
 		
 		177: 2014-12-28 by TT
