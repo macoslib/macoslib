@@ -50,6 +50,10 @@ Implements CFPropertyList
 		    d = new Date
 		  end if
 		  
+		  // convert d.TotalSeconds to absolute time
+		  d = new Date(d)
+		  d.GMTOffset = 0.0
+		  
 		  me.Constructor d.TotalSeconds - AbsoluteTimeIntervalSince1904
 		End Sub
 	#tag EndMethod
@@ -161,7 +165,17 @@ Implements CFPropertyList
 		  else
 		    
 		    dim d as new Date
+		    
+		    // save d.GMTOffset
+		    dim gmt As Double = d.GMTOffset
+		    
+		    // d.TotalSeconds depends on d.GMTOffset, convert to absolute time before assignment
+		    d.GMTOffset = 0.0
 		    d.TotalSeconds = me.AbsoluteTime + AbsoluteTimeIntervalSince1904
+		    
+		    // restore original d.GMTOffset
+		    d.GMTOffset = gmt
+		    
 		    return d
 		    
 		  end if
