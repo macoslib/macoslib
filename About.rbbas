@@ -30,6 +30,7 @@ Protected Module About
 		Stéphane Mons (SM)
 		Kem Tekinay (KT)
 		Vidal van Bergen (VVB)
+		Jeff Fowler (JF)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -62,10 +63,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		178: 2014-12-11 by VVB
+		180: 2014-12-11 by VVB
 		- Fixed the SegmentedControl moving to the bottom of the window if the toolbar was set to text-only mode by placing it inside a canvas.
 		
-		177: 2014-10-23 by VVB
+		179: 2014-10-23 by VVB
 		- Added OS Check IsYosemite.
 		- Moved NSWindow.NS*WindowMask constants to an enumerator.
 		- Added NSFullSizeContentViewWindowMask to enumerator and a computed property to set NSWindow.FullSizeContentView. (Blurry transparent toolbar, OS 10.10+)
@@ -78,6 +79,15 @@ Protected Module About
 		- Added new NSColors LabelColor and SecondaryLabelColor. (OS 10.10+)
 		- Added the new NSColors to NSColorWindow Example.
 		- Added WantsLayer property to NSView.
+		
+		178: 2015-01-12 by JF
+		- Fixes incorrect handling of timezone in CFDate.Constructor(d as Date) and CFDate.Operator_Convert() As Date.
+		
+		177: 2014-12-28 by TT
+		- Fixes the Carbon.IsYosemite() and related functions by using the AppKit version number instead of Gestalt().
+		- Fixes the Carbon.SystemVersionAsString() function by using NSProcessInfo.OperatingSystemVersionString instead of Gestalt().
+		- Adds Cocoa.NSAppKitVersionNumber
+		- Improves NSWorkspace.OpenFile to allow using the deafault app when specifying the optional "deactivate" parameter.
 		
 		176: 2014-06-28 by VVB
 		- Added missing 'blueComponent' to NSColor.
@@ -546,7 +556,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"178", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"180", Scope = Protected
 	#tag EndConstant
 
 

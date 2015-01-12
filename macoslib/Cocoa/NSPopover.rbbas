@@ -460,18 +460,6 @@ Inherits NSResponder
 			  #endif
 			End Get
 		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  #if TargetMacOS then
-			    declare sub setShown lib CocoaLib selector "setShown:" (obj_id as Ptr, value as Boolean)
-			    
-			    setShown self, value
-			  #else
-			    #pragma Unused value
-			  #endif
-			End Set
-		#tag EndSetter
 		Shown As Boolean
 	#tag EndComputedProperty
 

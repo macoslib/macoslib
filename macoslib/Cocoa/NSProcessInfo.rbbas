@@ -229,6 +229,33 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  // Available in OS X v10.10 and later.
+			  //
+			  // Returns 0, 0, 0 if called on systems before 10.10.
+			  //
+			  // Hint: If you need this to work on pre-10.10 systems, use Carbon.SystemVersionAsInt
+			  
+			  #if TargetMacOS
+			    declare function operatingSystemVersion lib CocoaLib selector "operatingSystemVersion" (obj_id as Ptr) as OSVersion
+			    
+			    if me.RespondsToSelector("operatingSystemVersion") then
+			      'dim mb as Ptr = operatingSystemVersion(self)
+			      dim result as OSVersion = operatingSystemVersion(self)
+			      'result.major = mb.Int32Value(0)
+			      'result.minor = mb.Int32Value(4)
+			      'result.patch = mb.Int32Value(8)
+			      return result
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		OperatingSystemVersion As OSVersion
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  
 			  #if targetMacOS
 			    declare function operatingSystemVersionString lib CocoaLib selector "operatingSystemVersionString" (obj_id as Ptr) as CFStringRef
@@ -360,6 +387,13 @@ Inherits NSObject
 
 	#tag Constant, Name = NSWindowsNTOperatingSystem, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
+
+
+	#tag Structure, Name = OSVersion, Flags = &h0
+		major as Integer
+		  minor as Integer
+		patch as Integer
+	#tag EndStructure
 
 
 	#tag ViewBehavior

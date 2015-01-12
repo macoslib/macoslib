@@ -300,6 +300,19 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function NSAppKitVersionNumber() As Double
+		  #if TargetMacOS
+		    static d as Double
+		    if d = 0 then
+		      dim mb as MemoryBlock = CFBundle.NewCFBundleFromID("com.apple.Cocoa").DataPointerNotRetained("NSAppKitVersionNumber")
+		      d = mb.DoubleValue(0)
+		    end if
+		    return d
+		  #endif
+		End Function
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSClassFromString Lib CocoaLib (aClassName as CFStringRef) As Ptr
 	#tag EndExternalMethod

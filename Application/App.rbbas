@@ -668,26 +668,9 @@ Inherits Application
 
 	#tag Method, Flags = &h1
 		Protected Sub TestCarbon()
-		  select case Carbon.GetSystemVersionFromGestalt.Left(4)
-		  case "10.3"
-		    pTestAssert IsPanther
-		    pTestAssert not IsTiger
-		  case "10.4"
-		    pTestAssert IsPanther
-		    pTestAssert IsTiger
-		    pTestAssert not IsLeopard
-		  case "10.5"
-		    pTestAssert IsTiger
-		    pTestAssert IsLeopard
-		    pTestAssert not IsSnowLeopard
-		  case "10.6"
-		    pTestAssert IsLeopard
-		    pTestAssert IsSnowLeopard
-		    pTestAssert not IsLion
-		  else
-		    pTestAssert IsSnowLeopard
-		    pTestAssert IsLion
-		  end select
+		  dim osversion as Integer = Carbon.SystemVersionAsInt
+		  dim nsversion as Double = Cocoa.NSAppKitVersionNumber
+		  dim cfversion as Double = CoreFoundation.Version
 		  
 		End Sub
 	#tag EndMethod
