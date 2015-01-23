@@ -100,7 +100,6 @@ Protected Module SegmentedControlExtension
 		  #else
 		    #pragma Unused s
 		    #pragma Unused segment
-		    #pragma Unused ImageScaling
 		  #endif
 		End Function
 	#tag EndMethod
