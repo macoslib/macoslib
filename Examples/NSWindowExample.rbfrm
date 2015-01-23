@@ -43,7 +43,7 @@ Begin Window NSWindowExample
       TabIndex        =   16
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   2
       Visible         =   True
       Width           =   500
       Begin PushButton btnSetFileByURL
@@ -1906,7 +1906,9 @@ End
 		      me.Caption = "Hide Title"
 		    end if
 		  else
-		    MsgBox "This option is for OS X 10.10+"
+		    #if DebugBuild then
+		      MsgBox "This option is for OS X 10.10+"
+		    #endif
 		  end if
 		End Sub
 	#tag EndEvent
@@ -1924,7 +1926,9 @@ End
 		    'm_NSWindow.TitlebarAppearsTransparent = me.Value
 		    self.TitlebarAppearsTransparent = me.Value
 		  else
-		    MsgBox "This option is for OS X 10.10+"
+		    #if DebugBuild then
+		      MsgBox "This option is for OS X 10.10+"
+		    #endif
 		    me.Value = False
 		  end if
 		End Sub

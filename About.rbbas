@@ -63,6 +63,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		181: 2015-01-23 by VVB
+		- Some minor changes to NSWindowExtensions and the NSWindowExample.
+		
 		180: 2014-12-11 by VVB
 		- Fixed the SegmentedControl moving to the bottom of the window if the toolbar was set to text-only mode by placing it inside a canvas.
 		
@@ -556,7 +559,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"180", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"181", Scope = Protected
 	#tag EndConstant
 
 

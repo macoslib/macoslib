@@ -1040,15 +1040,11 @@ Protected Module WindowExtensions
 	#tag Method, Flags = &h0
 		Function TitleVisible(extends w as Window) As Boolean
 		  
-		  // Visible = 0
-		  // Hidden = 1
-		  // Hidden When Active = 2
-		  
 		  #if TargetCocoa then
 		    if IsYosemite then
-		      declare function titleVisibility lib CocoaLib selector "titleVisibility" (WindowRef as WindowPtr) as Integer
+		      declare function titleVisibility lib CocoaLib selector "titleVisibility" (WindowRef as WindowPtr) as NSWindowTitleVisibility
 		      
-		      return titleVisibility(w) = 0
+		      return titleVisibility(w) = NSWindowTitleVisibility.Visible
 		    else
 		      return True
 		    end if
@@ -1060,18 +1056,14 @@ Protected Module WindowExtensions
 	#tag Method, Flags = &h0
 		Sub TitleVisible(extends w as Window, assigns TitleVisible as Boolean)
 		  
-		  // Visible = 0
-		  // Hidden = 1
-		  // Hidden When Active = 2
-		  
 		  #if TargetCocoa then
 		    if IsYosemite then
-		      declare sub setTitleVisibility lib CocoaLib selector "setTitleVisibility:" (WindowRef as WindowPtr, titleVisibility as Integer )
+		      declare sub setTitleVisibility lib CocoaLib selector "setTitleVisibility:" (WindowRef as WindowPtr, titleVisibility as NSWindowTitleVisibility )
 		      
 		      if TitleVisible then
-		        setTitleVisibility w, 0
+		        setTitleVisibility w, NSWindowTitleVisibility.Visible
 		      else
-		        setTitleVisibility w, 1
+		        setTitleVisibility w, NSWindowTitleVisibility.Hidden
 		      end if
 		    end if
 		  #else
@@ -1201,6 +1193,13 @@ Protected Module WindowExtensions
 		  #endif
 		End Sub
 	#tag EndMethod
+
+
+	#tag Enum, Name = NSWindowTitleVisibility, Flags = &h0
+		Visible
+		  Hidden
+		HiddenWhenActive
+	#tag EndEnum
 
 
 	#tag ViewBehavior
