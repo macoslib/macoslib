@@ -655,9 +655,9 @@ End
 		    
 		    // Set the detached window style
 		    if me.Appearance = NSPopover.NSPopoverAppearance.HUD then
-		      DetachedWindow.StyleMask = DetachedWindow.StyleMask or NSWindow.NSHUDWindowMask
+		      DetachedWindow.StyleMask = DetachedWindow.StyleMask or Integer( NSWindow.NSWindowMask.HUD )
 		    else
-		      DetachedWindow.StyleMask = DetachedWindow.StyleMask and NOT NSWindow.NSHUDWindowMask
+		      DetachedWindow.StyleMask = DetachedWindow.StyleMask and NOT Integer( NSWindow.NSWindowMask.HUD )
 		    end if
 		    
 		  end if

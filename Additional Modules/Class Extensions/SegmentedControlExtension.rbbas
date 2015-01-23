@@ -248,7 +248,8 @@ Protected Module SegmentedControlExtension
 		  TexturedSquare
 		  Capsule
 		  SmallSquare
-		Slider
+		  Slider
+		Separated
 	#tag EndEnum
 
 

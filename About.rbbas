@@ -63,6 +63,23 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		180: 2014-12-11 by VVB
+		- Fixed the SegmentedControl moving to the bottom of the window if the toolbar was set to text-only mode by placing it inside a canvas.
+		
+		179: 2014-10-23 by VVB
+		- Added OS Check IsYosemite.
+		- Moved NSWindow.NS*WindowMask constants to an enumerator.
+		- Added NSFullSizeContentViewWindowMask to enumerator and a computed property to set NSWindow.FullSizeContentView. (Blurry transparent toolbar, OS 10.10+)
+		- Added a checkbox for FullSizeContentView to the NSWindow Example called 'Transparent Toolbar'.
+		- Added 'Seperated' style to SegmentedControlExtension.NSSegmentStyle. (OS 10.10+)
+		- Added NSWindow.NSWindowTitleVisibility enumerator and a NSWindow.WindowTitleVisibility property. (Moves close/min/zoom buttons down into the toolbar, OS 10.10+)
+		- Added NSWindow.TitlebarAppearsTransparent property. (OS 10.10+)
+		- Added buttons to NSWindow and NSToolbarWindow Examples for FullSizeContentView, TitleVisibilty and TitleAppearsTransparent.
+		- Added NSWindow.TitlebarAppearsTransparent property. (Fully transparent toolbar, OS 10.10+)
+		- Added new NSColors LabelColor and SecondaryLabelColor. (OS 10.10+)
+		- Added the new NSColors to NSColorWindow Example.
+		- Added WantsLayer property to NSView.
+		
 		178: 2015-01-12 by JF
 		- Fixes incorrect handling of timezone in CFDate.Constructor(d as Date) and CFDate.Operator_Convert() As Date.
 		
@@ -539,7 +556,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"178", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"180", Scope = Protected
 	#tag EndConstant
 
 

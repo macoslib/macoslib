@@ -1004,13 +1004,13 @@ Inherits NSResponder
 		  
 		  //@discussion Only works on floating (palette) windows. (frame = 3 & 7)
 		  
-		  Dim tmpStyleMask as UInt32 = NSHUDWindowMask or NSTitledWindowMask or NSUtilityWindowMask
+		  Dim tmpStyleMask as UInt32 = Integer( NSWindow.NSWindowMask.HUD ) or Integer( NSWindow.NSWindowMask.Titled ) or Integer( NSWindow.NSWindowMask.Utility )
 		  dim w as window = self
-		  if w.Resizeable then tmpStyleMask = tmpStyleMask or NSResizableWindowMask
+		  if w.Resizeable then tmpStyleMask = tmpStyleMask or Integer( NSWindow.NSWindowMask.Resizable )
 		  #if RBVersion > 2013.02
-		    if w.CloseButton   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		    if w.CloseButton   then tmpStyleMask = tmpStyleMask or Integer( NSWindow.NSWindowMask.Closable )
 		  #else
-		    if w.CloseBox   then tmpStyleMask = tmpStyleMask or NSClosableWindowMask
+		    if w.CloseBox   then tmpStyleMask = tmpStyleMask or Integer( NSWindow.NSWindowMask.Closable )
 		  #endif
 		  
 		  StyleMask = tmpStyleMask
@@ -2905,6 +2905,41 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Note
+			Blurry Translucent toolbars
+		#tag EndNote
+		#tag Getter
+			Get
+			  #if TargetCocoa then
+			    if IsYosemite then
+			      return ( StyleMask and Integer( NSWindow.NSWindowMask.FullSizeContentView ) ) <> 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if TargetCocoa then
+			    if IsYosemite then
+			      dim WindowStyleMask as UInt32
+			      
+			      if value then
+			        WindowStyleMask = StyleMask or Integer( NSWindow.NSWindowMask.FullSizeContentView )
+			      else
+			        WindowStyleMask = StyleMask and NOT Integer( NSWindow.NSWindowMask.FullSizeContentView )
+			      end if
+			      
+			      StyleMask = WindowStyleMask
+			    else
+			      #pragma Unused value
+			    end if
+			  #endif
+			End Set
+		#tag EndSetter
+		FullSizeContentView As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
 			  
@@ -3203,7 +3238,7 @@ Inherits NSResponder
 			Get
 			  #if TargetCocoa then
 			    if IsLion then // the styleMask selector is available since 10.0, but the NSFullScreenWindowMask bit is first introduced in 10.7
-			      return ( self.StyleMask and NSFullScreenWindowMask ) = NSFullScreenWindowMask
+			      return ( self.StyleMask and Integer( NSWindow.NSWindowMask.FullScreen ) ) = Integer( NSWindow.NSWindowMask.FullScreen )
 			    End If
 			  #endif
 			End Get
@@ -4250,6 +4285,40 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    if IsYosemite then
+			      declare function titlebarAppearsTransparent lib CocoaLib selector "titlebarAppearsTransparent" (obj_id as Ptr) as Boolean
+			      
+			      return titlebarAppearsTransparent(self)
+			    else
+			      return false
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if IsYosemite then
+			      declare sub setTitlebarAppearsTransparent lib CocoaLib selector "setTitlebarAppearsTransparent:" (obj_id as Ptr, value as Boolean)
+			      
+			      setTitlebarAppearsTransparent self, value
+			    end if
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		TitlebarAppearsTransparent As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Note
 			
 			The window floats in Spaces and is hidden by Exposé. This is the default behavior if windowLevel is not equal to NSNormalWindowLevel.
@@ -4434,6 +4503,40 @@ Inherits NSResponder
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  #if TargetCocoa
+			    if IsYosemite then
+			      declare function titleVisibility lib CocoaLib selector "titleVisibility" (obj_id as Ptr) as NSWindowTitleVisibility
+			      
+			      return titleVisibility(self)
+			    else
+			      return NSWindowTitleVisibility.Visible
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if IsYosemite then
+			      declare sub setTitleVisibility lib CocoaLib selector "setTitleVisibility:" (obj_id as Ptr, titleVisibility as NSWindowTitleVisibility)
+			      
+			      setTitleVisibility self, value
+			    end if
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		WindowTitleVisibility As NSWindowTitleVisibility
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
 		#tag Note
 			Get & Set the window’s toolbar.
 		#tag EndNote
@@ -4497,33 +4600,6 @@ Inherits NSResponder
 		WorksWhenModal As Boolean
 	#tag EndComputedProperty
 
-
-	#tag Constant, Name = NSBorderlessWindowMask, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSClosableWindowMask, Type = Double, Dynamic = False, Default = \"2", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSFullScreenWindowMask, Type = Double, Dynamic = False, Default = \"16384", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = NSHUDWindowMask, Type = Double, Dynamic = False, Default = \"8192", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSMiniaturizableWindowMask, Type = Double, Dynamic = False, Default = \"4", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSResizableWindowMask, Type = Double, Dynamic = False, Default = \"8", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSTexturedBackgroundWindowMask, Type = Double, Dynamic = False, Default = \"256", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSTitledWindowMask, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = NSUtilityWindowMask, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
 
 	#tag Constant, Name = NSWindowNumberListAllApplications, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
@@ -4593,6 +4669,19 @@ Inherits NSResponder
 		NSScreenSaverWindowLevel = 13
 	#tag EndEnum
 
+	#tag Enum, Name = NSWindowMask, Type = Integer, Flags = &h0
+		Borderless = 0
+		  Titled = 1
+		  Closable = 2
+		  Miniaturizable = 4
+		  Resizable = 8
+		  Utility = 16
+		  TexturedBackground = 256
+		  HUD = 8192
+		  FullScreen = 16384
+		FullSizeContentView = 32768
+	#tag EndEnum
+
 	#tag Enum, Name = NSWindowOrderingMode, Type = Integer, Flags = &h0
 		NSWindowAbove = 1
 		  NSWindowBelow = -1
@@ -4603,6 +4692,12 @@ Inherits NSResponder
 		NSWindowSharingNone
 		  NSWindowSharingReadOnly
 		NSWindowSharingReadWrite
+	#tag EndEnum
+
+	#tag Enum, Name = NSWindowTitleVisibility, Type = Integer, Flags = &h0
+		Visible
+		  Hidden
+		HiddenWhenActive
 	#tag EndEnum
 
 
@@ -4728,6 +4823,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FullscreenAllowedAuxiliary"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FullSizeContentView"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -4929,6 +5029,11 @@ Inherits NSResponder
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TitlebarAppearsTransparent"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"

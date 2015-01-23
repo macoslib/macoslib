@@ -69,96 +69,7 @@ Begin Window NSToolbarWindow
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   806
-   End
-   Begin Cocoa.NSSlider NSSlider1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
-      AllowsExpansionToolTips=   ""
-      AllowsTickMarkValuesOnly=   ""
-      AltIncrementValue=   ""
-      AutoDeactivate  =   True
-      autoresizesSubviews=   ""
-      Backdrop        =   ""
-      Bold            =   false
-      DoubleBuffer    =   ""
-      DoubleValue     =   ""
-      Enabled         =   True
-      EraseBackground =   ""
-      FloatValue      =   ""
-      Height          =   32
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IntegerValue    =   ""
-      IsFlipped       =   ""
-      Italic          =   false
-      Left            =   103
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      MaxValue        =   100
-      MinValue        =   0
-      NumberOfTickMarks=   5
-      Scope           =   0
-      Size            =   0
-      TabIndex        =   1
-      TabPanelIndex   =   0
-      TabStop         =   ""
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TickPosition    =   0
-      Top             =   -74
-      Type            =   0
-      Underlined      =   false
-      UseFocusRing    =   ""
-      Value           =   0
-      Visible         =   True
-      Width           =   100
-   End
-   Begin Cocoa.NSSearchField NSSearchField1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
-      AllowsExpansionToolTips=   ""
-      AutoDeactivate  =   True
-      autoresizesSubviews=   ""
-      Backdrop        =   ""
-      Bold            =   false
-      DoubleBuffer    =   ""
-      DoubleValue     =   ""
-      Enabled         =   True
-      EraseBackground =   ""
-      FloatValue      =   ""
-      Height          =   32
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IntegerValue    =   ""
-      IsFlipped       =   ""
-      Italic          =   false
-      Left            =   273
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      MaxRecentSearches=   0
-      Scope           =   0
-      SendSearchStringImmediately=   ""
-      SendWholeSearchString=   ""
-      ShowMenu        =   ""
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   ""
-      TextFont        =   "System"
-      TextSize        =   0
-      Top             =   -74
-      Underlined      =   false
-      UseFocusRing    =   ""
-      Visible         =   True
-      Width           =   150
+      Width           =   601
    End
    Begin CheckBox CheckBox1
       AutoDeactivate  =   True
@@ -288,26 +199,239 @@ Begin Window NSToolbarWindow
       Visible         =   True
       Width           =   196
    End
-   BeginSegmented SegmentedControl SegmentedControl1
+   Begin CheckBox CheckBox2
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Transparent Toolbar"
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
-      Height          =   24
+      Height          =   20
+      HelpTag         =   "Makes the toolbar fully transparent (OS X 10.10+)"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   465
+      Italic          =   ""
+      Left            =   633
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   102
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   193
+   End
+   Begin CheckBox chkFullSizeContentView
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "FullSizeContentView"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. OS X 10.10+"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   633
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   71
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   190
+   End
+   Begin CheckBox CheckBox3
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Title Visibility"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   "Affects where the Close/Minimize/Zoom buttons are shown (OS X 10.10+)"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   633
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      State           =   1
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   134
+      Underline       =   ""
+      Value           =   True
+      Visible         =   True
+      Width           =   193
+   End
+   Begin Canvas Canvas1
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   49
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      MacControlStyle =   0
       Scope           =   0
-      Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse\r\n\nFalse"
-      SelectionType   =   0
-      TabIndex        =   8
+      TabIndex        =   13
       TabPanelIndex   =   0
-      Top             =   -66
+      TabStop         =   True
+      Top             =   -93
+      UseFocusRing    =   True
       Visible         =   True
-      Width           =   120
+      Width           =   846
+      Begin Cocoa.NSSlider NSSlider1
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AllowsExpansionToolTips=   ""
+         AllowsTickMarkValuesOnly=   ""
+         AltIncrementValue=   ""
+         AutoDeactivate  =   True
+         autoresizesSubviews=   ""
+         Backdrop        =   ""
+         Bold            =   false
+         DoubleBuffer    =   ""
+         DoubleValue     =   ""
+         Enabled         =   True
+         EraseBackground =   ""
+         FloatValue      =   ""
+         Height          =   32
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         IntegerValue    =   ""
+         IsFlipped       =   ""
+         Italic          =   false
+         Left            =   344
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         MaxValue        =   100
+         MinValue        =   0
+         NumberOfTickMarks=   5
+         Scope           =   0
+         Size            =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   ""
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TickPosition    =   0
+         Top             =   -85
+         Type            =   0
+         Underlined      =   false
+         UseFocusRing    =   ""
+         Value           =   0
+         Visible         =   True
+         Width           =   100
+      End
+      Begin Cocoa.NSSearchField NSSearchField1
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AllowsExpansionToolTips=   ""
+         AutoDeactivate  =   True
+         autoresizesSubviews=   ""
+         Backdrop        =   ""
+         Bold            =   false
+         DoubleBuffer    =   ""
+         DoubleValue     =   ""
+         Enabled         =   True
+         EraseBackground =   ""
+         FloatValue      =   ""
+         FocusRing       =   True
+         Height          =   32
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         IntegerValue    =   ""
+         IsFlipped       =   ""
+         Italic          =   false
+         Left            =   514
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         MaxRecentSearches=   0
+         Scope           =   0
+         SendSearchStringImmediately=   ""
+         SendWholeSearchString=   ""
+         ShowMenu        =   ""
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   ""
+         TextFont        =   "System"
+         TextSize        =   0
+         Top             =   -85
+         Underlined      =   false
+         UseFocusRing    =   ""
+         Visible         =   True
+         Width           =   150
+      End
+      BeginSegmented SegmentedControl SegmentedControl1
+         Enabled         =   True
+         Height          =   24
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Left            =   706
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         MacControlStyle =   0
+         Scope           =   0
+         Segments        =   "\n\nTrue\r\n\nFalse\r\n\nFalse\r\n\nFalse"
+         SelectionType   =   0
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         Top             =   -85
+         Visible         =   True
+         Width           =   120
+      End
    End
 End
 #tag EndWindow
@@ -514,6 +638,76 @@ End
 
 #tag EndWindowCode
 
+#tag Events CheckBox1
+	#tag Event
+		Sub Action()
+		  t.ShowsBaselineSeparator = not me.value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton1
+	#tag Event
+		Sub Action()
+		  
+		  NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled = not NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox2
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    self.TitlebarAppearsTransparent = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkFullSizeContentView
+	#tag Event
+		Sub Action()
+		  
+		  
+		  if IsYosemite then
+		    self.FullSizeContentView = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox3
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    self.TitleVisible = me.Value
+		  else
+		    MsgBox "This option is for OS X 10.10+"
+		    me.Value = False
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events NSSlider1
 	#tag Event
 		Sub ValueChanged()
@@ -544,21 +738,6 @@ End
 	#tag Event
 		Sub Action()
 		  beep
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events CheckBox1
-	#tag Event
-		Sub Action()
-		  t.ShowsBaselineSeparator = not me.value
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton1
-	#tag Event
-		Sub Action()
-		  
-		  NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled = not NSToolbarItem(PopupMenu1.rowTag(PopupMenu1.listIndex)).enabled
 		End Sub
 	#tag EndEvent
 #tag EndEvents
