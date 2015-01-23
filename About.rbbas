@@ -63,6 +63,13 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		182: 2015-01-23 by VVB
+		- Moved some extension enumerators that were valid for multiple controls to ControlExtension.
+		- Added CheckBoxExtension, RadioButtonExtension, UpDownArrowsExtension, ScrollBarExtension modules.
+		- Added Bordered, BezelStyle, ControlSize, ImagePosition, ImageScaling, Transparant to various extension modules where they applied.
+		- Adjusted examples for the changes.
+		- TokenFieldExample and SystemIconsExample uses Macintosh LineEndings, now works correctly on Xojo.
+		
 		181: 2015-01-23 by VVB
 		- Some minor changes to NSWindowExtensions and the NSWindowExample.
 		
@@ -559,7 +566,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"181", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"182", Scope = Protected
 	#tag EndConstant
 
 

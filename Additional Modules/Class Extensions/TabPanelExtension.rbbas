@@ -30,6 +30,33 @@ Protected Module TabPanelExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ControlSize(Extends t as TabPanel) As NSControlSize
+		  
+		  #if TargetCocoa
+		    declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
+		    
+		    return controlSize(t.handle)
+		  #else
+		    #pragma unused t
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ControlSize(Extends t as TabPanel, Assigns value as NSControlSize)
+		  
+		  #if TargetCocoa
+		    declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
+		    
+		    setControlSize(t.handle, value)
+		  #else
+		    #pragma unused t
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MinimumSize(Extends t as TabPanel) As Cocoa.NSSize
 		  //# Returns the minimum size necessary for the receiver to display tabs in a useful way.
 		  

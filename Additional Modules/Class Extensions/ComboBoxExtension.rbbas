@@ -59,6 +59,33 @@ Protected Module ComboBoxExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ControlSize(Extends c as ComboBox) As NSControlSize
+		  
+		  #if TargetCocoa
+		    declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
+		    
+		    return controlSize(c.handle)
+		  #else
+		    #pragma unused c
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ControlSize(Extends c as ComboBox, Assigns value as NSControlSize)
+		  
+		  #if TargetCocoa
+		    declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
+		    
+		    setControlSize(c.handle, value)
+		  #else
+		    #pragma unused c
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DoubleValue(Extends c as ComboBox) As Double
 		  //# Returns the value of the combo box’s cell as a double-precision floating-point number.
 		  

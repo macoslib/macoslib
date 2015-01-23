@@ -1,6 +1,33 @@
 #tag Module
 Protected Module SegmentedControlExtension
 	#tag Method, Flags = &h0
+		Function ControlSize(Extends s as SegmentedControl) As NSControlSize
+		  
+		  #if TargetCocoa
+		    declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
+		    
+		    return controlSize(s.handle)
+		  #else
+		    #pragma unused s
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ControlSize(Extends s as SegmentedControl, Assigns value as NSControlSize)
+		  
+		  #if TargetCocoa
+		    declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
+		    
+		    setControlSize(s.handle, value)
+		  #else
+		    #pragma unused s
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function EnabledForSegment(extends s as SegmentedControl, segment as Integer) As Boolean
 		  //# Returns a Boolean value indicating whether the specified segment is enabled.
 		  
@@ -60,6 +87,22 @@ Protected Module SegmentedControlExtension
 		    #pragma unused image
 		  #endif
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ImageScalingForSegment(extends s as SegmentedControl, segment as integer) As NSImageScaling
+		  //# Return the scale factor for the receiver’s image.
+		  
+		  #if TargetCocoa then
+		    declare function ImageScalingForSegment lib CocoaLib selector "imageScalingForSegment:" (obj_id as Integer, segment as Integer) as NSImageScaling
+		    
+		    return ImageScalingForSegment(s.Handle, segment)
+		  #else
+		    #pragma Unused s
+		    #pragma Unused segment
+		    #pragma Unused ImageScaling
+		  #endif
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -232,13 +275,6 @@ Protected Module SegmentedControlExtension
 		End Sub
 	#tag EndMethod
 
-
-	#tag Enum, Name = NSImageScaling, Flags = &h0
-		ProportionallyDown
-		  AxesIndependently
-		  None
-		ProportionallyUpOrDown
-	#tag EndEnum
 
 	#tag Enum, Name = NSSegmentStyle, Flags = &h0
 		Automatic = 0

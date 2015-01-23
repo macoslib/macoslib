@@ -111,6 +111,62 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Bordered(Extends p as PopupMenu) As Boolean
+		  //# Returns a Boolean value indicating whether the combo box has a border.
+		  
+		  #if TargetCocoa then
+		    declare function isBordered lib CocoaLib selector "isBordered" (obj_id as Integer) as Boolean
+		    
+		    return isBordered(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Bordered(Extends p as PopupMenu, Assigns value as Boolean)
+		  //# Places or removes a border on the combo box and redraws the combo box.
+		  
+		  #if TargetCocoa then
+		    declare sub setBordered lib CocoaLib selector "setBordered:" (obj_id as Integer, flag as Boolean)
+		    
+		    setBordered(p.handle, value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ControlSize(Extends p as PopupMenu) As NSControlSize
+		  
+		  #if TargetCocoa
+		    declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
+		    
+		    return controlSize(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ControlSize(Extends p as PopupMenu, Assigns value as NSControlSize)
+		  
+		  #if TargetCocoa
+		    declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
+		    
+		    setControlSize(p.handle, value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Icon(extends p as PopupMenu, index as Integer, assigns value as NSImage)
 		  #if TargetCocoa
 		    declare function menu lib CocoaLib selector "menu" (obj_id as Integer) as Ptr
@@ -120,8 +176,8 @@ Protected Module PopupMenuExtension
 		    
 		    dim m as Ptr = menu(p.Handle)
 		    dim item as Ptr = itemAtIndex(m, index)
-		    dim icon as NSImage 
-		    if value <> nil then 
+		    dim icon as NSImage
+		    if value <> nil then
 		      icon = value.Copy
 		    end if
 		    
@@ -386,6 +442,35 @@ Protected Module PopupMenuExtension
 		    synchronizeTitleAndSelectedItem(p.handle)
 		  #else
 		    #pragma unused p
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Transparent(extends p as PopupMenu) As Boolean
+		  //# Returns a Boolean value indicating whether the button is transparent.
+		  
+		  #if TargetCocoa then
+		    declare function isTransparent lib CocoaLib selector "isTransparent" (obj_id as Integer) as Boolean
+		    
+		    return isTransparent(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Transparent(extends p as PopupMenu, Assigns value as Boolean)
+		  //# Sets whether the receiver is transparent and redraws the receiver if necessary.
+		  
+		  #if TargetCocoa then
+		    declare sub setTransparent lib CocoaLib selector "setTransparent:" (obj_id as Integer, value as Boolean)
+		    
+		    setTransparent(p.handle, value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
 		  #endif
 		End Sub
 	#tag EndMethod

@@ -267,9 +267,7 @@ Begin Window SystemIconsExampleWindow
       Left            =   0
       LockedInPosition=   False
       Scope           =   0
-      TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   -66
       Visible         =   True
       Width           =   695
@@ -291,7 +289,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   0
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   142
@@ -313,7 +310,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   71
@@ -335,7 +331,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   43
@@ -357,7 +352,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   9
       Visible         =   True
       Width           =   43
@@ -379,7 +373,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   499
       Visible         =   True
       Width           =   66
@@ -406,7 +399,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Your age"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -510,7 +502,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   14
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Colored icons (Templates only)"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -566,7 +557,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "All the icons in this window have been obtained from the convenience SystemIcons module. They are all simple Pictures, e.g.\r\rpict = SystemIcons.Network\r\rfor the Network icon in the toolbar."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -601,7 +591,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Warning: you need Real Studio 2011.r4 or higher and Mac OS X 10.6 or higher for optimum results (especially transparency)."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -636,7 +625,6 @@ Begin Window SystemIconsExampleWindow
       Selectable      =   False
       TabIndex        =   18
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Example of a bad entry signalled by a red arrow:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -720,7 +708,7 @@ End
 		  dim names() as string
 		  dim w, h as double
 		  
-		  lines = Split( kListboxContent, EndOfLine )
+		  lines = Split( kListboxContent, EndOfLine.Macintosh )
 		  
 		  #pragma BreakOnExceptions false
 		  
@@ -920,7 +908,7 @@ End
 #tag Events PB1
 	#tag Event
 		Sub Open()
-		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
+		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
 		End Sub
 	#tag EndEvent
 #tag EndEvents

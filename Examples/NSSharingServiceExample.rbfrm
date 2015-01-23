@@ -46,7 +46,6 @@ Begin Window NSSharingServiceExample
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Image"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -81,7 +80,6 @@ Begin Window NSSharingServiceExample
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Text"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -116,7 +114,6 @@ Begin Window NSSharingServiceExample
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "URL"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -151,7 +148,6 @@ Begin Window NSSharingServiceExample
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "File"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -279,7 +275,6 @@ Begin Window NSSharingServiceExample
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Array"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -357,6 +352,7 @@ Begin Window NSSharingServiceExample
    Begin Cocoa.NSButton NSButton1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
+      AllowsExpansionToolTips=   ""
       AllowsMixedState=   False
       AlternateImage  =   ""
       AlternateTitle  =   ""
@@ -367,14 +363,17 @@ Begin Window NSSharingServiceExample
       BooleanValue    =   ""
       Bordered        =   True
       DoubleBuffer    =   ""
+      DoubleValue     =   ""
       Enabled         =   True
       EraseBackground =   ""
+      FloatValue      =   ""
       Height          =   24
       HelpTag         =   ""
       Image           =   ""
       ImagePosition   =   0
       Index           =   -2147483648
       InitialParent   =   ""
+      IntegerValue    =   ""
       IsFlipped       =   ""
       Italic          =   false
       Left            =   159
@@ -411,7 +410,7 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
+		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
 		  
 		  if IsMountainLion then
 		    me.Image = NSImage.ShareTemplate
@@ -432,7 +431,7 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
+		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
 		  
 		  if IsMountainLion then
 		    me.Image = NSImage.ShareTemplate
@@ -453,7 +452,7 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
+		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
 		  
 		  if IsMountainLion then
 		    me.Image = NSImage.ShareTemplate
@@ -478,7 +477,7 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
+		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
 		  
 		  if IsMountainLion then
 		    me.Image = NSImage.ShareTemplate
@@ -504,7 +503,7 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  me.BezelStyle = PushButtonExtension.NSBezelStyle.NSTexturedRoundedBezelStyle
+		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
 		  
 		  if IsMountainLion then
 		    me.Image = NSImage.ShareTemplate
