@@ -143,9 +143,11 @@ Protected Module PopupMenuExtension
 		Function ControlSize(Extends p as PopupMenu) As NSControlSize
 		  
 		  #if TargetCocoa
-		    declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
-		    
-		    return controlSize(p.handle)
+		    if IsYosemite then
+		      declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
+		      
+		      return controlSize(p.handle)
+		    end if
 		  #else
 		    #pragma unused p
 		  #endif
@@ -156,9 +158,11 @@ Protected Module PopupMenuExtension
 		Sub ControlSize(Extends p as PopupMenu, Assigns value as NSControlSize)
 		  
 		  #if TargetCocoa
-		    declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
-		    
-		    setControlSize(p.handle, value)
+		    if IsYosemite then
+		      declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
+		      
+		      setControlSize(p.handle, value)
+		    end if
 		  #else
 		    #pragma unused p
 		    #pragma unused value
