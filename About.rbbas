@@ -69,7 +69,7 @@ Protected Module About
 		- Added Bordered, BezelStyle, ControlSize, ImagePosition, ImageScaling, Transparant to various extension modules where they applied.
 		- Adjusted examples for the changes.
 		- TokenFieldExample and SystemIconsExample uses Macintosh LineEndings, now works correctly on Xojo.
-		- Added a 'template' version of PopupMenuExtension.Icon.
+		- Added a 'template' option to PopupMenuExtension.Icon.
 		
 		181: 2015-01-23 by VVB
 		- Some minor changes to NSWindowExtensions and the NSWindowExample.

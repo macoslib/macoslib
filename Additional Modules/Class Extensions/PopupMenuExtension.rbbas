@@ -167,7 +167,7 @@ Protected Module PopupMenuExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Icon(extends p as PopupMenu, index as Integer, assigns value as NSImage)
+		Sub Icon(extends p as PopupMenu, index as Integer, setTemplate as Boolean = False, assigns value as NSImage)
 		  #if TargetCocoa
 		    declare function menu lib CocoaLib selector "menu" (obj_id as Integer) as Ptr
 		    declare function itemAtIndex lib CocoaLib selector "itemAtIndex:" (obj_id as Ptr, index as Integer) as Ptr
@@ -190,44 +190,7 @@ Protected Module PopupMenuExtension
 		      size.Width = MenuIconSize
 		      size.Height = MenuIconSize
 		      setSize(icon, size)
-		      setImage(item, icon)
-		    end if
-		    
-		  #else
-		    
-		    #pragma unused p
-		    #pragma unused index
-		    #pragma unused value
-		    
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub IconTemplate(extends p as PopupMenu, index as Integer, assigns value as NSImage)
-		  #if TargetCocoa
-		    declare function menu lib CocoaLib selector "menu" (obj_id as Integer) as Ptr
-		    declare function itemAtIndex lib CocoaLib selector "itemAtIndex:" (obj_id as Ptr, index as Integer) as Ptr
-		    declare sub setImage lib CocoaLib selector "setImage:" (obj_id as Ptr, menuImage as Ptr)
-		    declare sub setSize lib CocoaLib selector "setSize:" (obj_id as Ptr, aSize as Cocoa.NSSize)
-		    
-		    dim m as Ptr = menu(p.Handle)
-		    dim item as Ptr = itemAtIndex(m, index)
-		    dim icon as NSImage
-		    if value <> nil then
-		      icon = value.Copy
-		    end if
-		    
-		    const MenuIconSize = 16
-		    
-		    if icon is nil then
-		      setImage( item, nil )
-		    else
-		      dim size as Cocoa.NSSize
-		      size.Width = MenuIconSize
-		      size.Height = MenuIconSize
-		      setSize(icon, size)
-		      icon.Template = True
+		      icon.Template = setTemplate
 		      setImage(item, icon)
 		    end if
 		    
