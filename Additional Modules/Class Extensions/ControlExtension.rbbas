@@ -252,6 +252,49 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 
+	#tag Enum, Name = NSBezelStyle, Flags = &h0
+		NSRoundedBezelStyle = 1
+		  NSRegularSquareBezelStyle
+		  NSThickSquareBezelStyle
+		  NSThickerSquareBezelStyle
+		  NSDisclosureBezelStyle
+		  NSShadowlessSquareBezelStyle
+		  NSCircularBezelStyle
+		  NSTexturedSquareBezelStyle
+		  NSHelpButtonBezelStyle
+		  NSSmallSquareBezelStyle
+		  NSTexturedRoundedBezelStyle
+		  NSRoundRectBezelStyle
+		  NSRecessedBezelStyle
+		  NSRoundedDisclosureBezelStyle
+		  NSInlineBezelStyle
+		NSSmallIconButtonBezelStyle = 2
+	#tag EndEnum
+
+	#tag Enum, Name = NSControlSize, Flags = &h0
+		NSRegularControlSize
+		  NSSmallControlSize
+		NSMiniControlSize
+	#tag EndEnum
+
+	#tag Enum, Name = NSImagePosition, Flags = &h0
+		NSNoImage
+		  NSImageOnly
+		  NSImageLeft
+		  NSImageRight
+		  NSImageBelow
+		  NSImageAbove
+		NSImageOverlaps
+	#tag EndEnum
+
+	#tag Enum, Name = NSImageScaling, Flags = &h0
+		ProportionallyDown
+		  AxesIndependently
+		  None
+		ProportionallyUpOrDown
+	#tag EndEnum
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Index"

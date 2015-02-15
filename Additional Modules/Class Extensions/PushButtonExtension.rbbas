@@ -132,6 +132,33 @@ Protected Module PushButtonExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ControlSize(Extends p as PushButton) As NSControlSize
+		  
+		  #if TargetCocoa
+		    declare function controlSize lib CocoaLib selector "controlSize" (obj_id as Integer) as NSControlSize
+		    
+		    return controlSize(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ControlSize(Extends p as PushButton, Assigns value as NSControlSize)
+		  
+		  #if TargetCocoa
+		    declare sub setControlSize lib CocoaLib selector "setControlSize:" (obj_id as Integer, value as NSControlSize)
+		    
+		    setControlSize(p.handle, value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub GradientType(extends p as PushButton, assigns value as NSGradientType)
 		  //# Sets the type of gradient to use for the receiver.
 		  
@@ -208,6 +235,33 @@ Protected Module PushButtonExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ImageScaling(Extends p as PushButton) As NSImageScaling
+		  
+		  #if TargetCocoa then
+		    declare function imageScaling lib CocoaLib selector "imageScaling" (obj_id as Integer) as NSImageScaling
+		    
+		    return imageScaling(p.handle)
+		  #else
+		    #pragma unused p
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ImageScaling(Extends p as PushButton, Assigns value as NSImageScaling)
+		  
+		  #if TargetCocoa
+		    declare sub setImageScaling lib CocoaLib selector "setImageScaling:" (obj_id as Integer, value as NSImageScaling)
+		    
+		    setImageScaling(p.handle, value)
+		  #else
+		    #pragma unused p
+		    #pragma unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function NSButtonObject(extends p as PushButton) As NSButton
 		  
 		  return New NSButton( Ptr( p.Handle ) )
@@ -273,25 +327,6 @@ Protected Module PushButtonExtension
 	#tag EndMethod
 
 
-	#tag Enum, Name = NSBezelStyle, Flags = &h0
-		NSRoundedBezelStyle = 1
-		  NSRegularSquareBezelStyle
-		  NSThickSquareBezelStyle
-		  NSThickerSquareBezelStyle
-		  NSDisclosureBezelStyle
-		  NSShadowlessSquareBezelStyle
-		  NSCircularBezelStyle
-		  NSTexturedSquareBezelStyle
-		  NSHelpButtonBezelStyle
-		  NSSmallSquareBezelStyle
-		  NSTexturedRoundedBezelStyle
-		  NSRoundRectBezelStyle
-		  NSRecessedBezelStyle
-		  NSRoundedDisclosureBezelStyle
-		  NSInlineBezelStyle
-		NSSmallIconButtonBezelStyle = 2
-	#tag EndEnum
-
 	#tag Enum, Name = NSButtonType, Flags = &h0
 		NSMomentaryLightButton = 0
 		  NSPushOnPushOffButton
@@ -311,16 +346,6 @@ Protected Module PushButtonExtension
 		  NSGradientConcaveStrong
 		  NSGradientConvexWeak
 		NSGradientConvexStrong
-	#tag EndEnum
-
-	#tag Enum, Name = NSImagePosition, Flags = &h0
-		NSNoImage
-		  NSImageOnly
-		  NSImageLeft
-		  NSImageRight
-		  NSImageBelow
-		  NSImageAbove
-		NSImageOverlaps
 	#tag EndEnum
 
 

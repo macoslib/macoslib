@@ -129,13 +129,6 @@ Protected Module ProgressWheelExtension
 	#tag EndMethod
 
 
-	#tag Enum, Name = NSControlSize, Type = Integer, Flags = &h0
-		NSRegularControlSize
-		  NSSmallControlSize
-		NSMiniControlSize
-	#tag EndEnum
-
-
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Index"

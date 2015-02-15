@@ -27,18 +27,22 @@ Begin Window TokenFieldExampleWindow
    Begin Cocoa.NSTokenField NSTokenField1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
+      AllowsExpansionToolTips=   ""
       AutoDeactivate  =   True
       autoresizesSubviews=   ""
       Backdrop        =   ""
       Bold            =   false
       CompletionDelay =   ""
       DoubleBuffer    =   ""
+      DoubleValue     =   ""
       Enabled         =   True
       EraseBackground =   ""
+      FloatValue      =   ""
       Height          =   23
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      IntegerValue    =   ""
       IsFlipped       =   ""
       Italic          =   false
       Left            =   26
@@ -79,7 +83,6 @@ Begin Window TokenFieldExampleWindow
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
-      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -288,7 +291,6 @@ Begin Window TokenFieldExampleWindow
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -318,7 +320,6 @@ Begin Window TokenFieldExampleWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "The TokenField uses Tab and Return to validate each token. It also allows other characters to be used (comma by default)"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -425,7 +426,6 @@ Begin Window TokenFieldExampleWindow
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
-      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -486,7 +486,6 @@ Begin Window TokenFieldExampleWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Set TokenField contents to a small list of european countries"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -552,7 +551,6 @@ Begin Window TokenFieldExampleWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Clear the TokenField"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -587,7 +585,6 @@ Begin Window TokenFieldExampleWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Get Contents and show it below"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -651,6 +648,8 @@ Begin Window TokenFieldExampleWindow
          Italic          =   ""
          Left            =   112
          LimitText       =   0
+         LineHeight      =   0
+         LineSpacing     =   1
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -731,7 +730,6 @@ Begin Window TokenFieldExampleWindow
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Type in some country names in the TokenField below. You should be presented a list of suggestions. Type Tab, Return or comma to accept the suggestion.\rOnce accepted, each token is stored as an Object and the text displayed is the ISO abbreviation of the country name."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -839,7 +837,6 @@ Begin Window TokenFieldExampleWindow
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
-      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -912,7 +909,6 @@ Begin Window TokenFieldExampleWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "sec"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -966,7 +962,7 @@ End
 		  
 		  //Create the CountryClass instances for the TokenField
 		  
-		  dim c() as string = Split( CountryListWithCodes, EndOfLine )
+		  dim c() as string = Split( CountryListWithCodes, EndOfLine.Macintosh )
 		  dim cc as CountryClass
 		  
 		  for each s as string in c
