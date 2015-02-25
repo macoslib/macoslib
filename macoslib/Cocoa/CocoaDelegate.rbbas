@@ -17,31 +17,33 @@ Inherits NSObject
 		  // This is an abstract class to construct Cocoa delegates. It must not be directly instantiated, instead it must be subclassed.
 		  // A subclass MUST implement the events to provide a name for the Cocoa class and delegate methods
 		  
-		  mClassName = raiseEvent DelegateClassName // get the Class name and store it
-		  const superClassName = "NSObject"
-		  dim protocols() as String = raiseEvent DelegateProtocols
-		  
-		  declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
-		  
-		  // allocate the instance
-		  dim delegate_id as Ptr = Initialize(alloc(RegisterClass(ClassName, superClassName, protocols)))
-		  super.Constructor(delegate_id, NSObject.hasOwnership) // construct the super object (NSObject)
-		  
-		  // store the instance in a static map
-		  CocoaDelegateMap.Value(delegate_id) = new WeakRef(self)
-		  
+		  #if TargetMacOS
+		    mClassName = raiseEvent DelegateClassName // get the Class name and store it
+		    const superClassName = "NSObject"
+		    dim protocols() as String = raiseEvent DelegateProtocols
+		    
+		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
+		    
+		    // allocate the instance
+		    dim delegate_id as Ptr = Initialize(alloc(RegisterClass(ClassName, superClassName, protocols)))
+		    super.Constructor(delegate_id, NSObject.hasOwnership) // construct the super object (NSObject)
+		    
+		    // store the instance in a static map
+		    CocoaDelegateMap.Value(delegate_id) = new WeakRef(self)
+		  #endif
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  
-		  // if self is still present in the static map, remove it
-		  
-		  if CocoaDelegateMap.HasKey(self.id) then
-		    CocoaDelegateMap.Remove(self.id)
-		  end if
-		  
+		  #if TargetMacOS
+		    // if self is still present in the static map, remove it
+		    
+		    if CocoaDelegateMap.HasKey(self.id) then
+		      CocoaDelegateMap.Remove(self.id)
+		    end if
+		  #endif
 		End Sub
 	#tag EndMethod
 

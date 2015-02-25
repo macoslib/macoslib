@@ -313,9 +313,14 @@ Protected Module Cocoa
 		End Function
 	#tag EndMethod
 
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function NSClassFromString Lib CocoaLib (aClassName as CFStringRef) As Ptr
-	#tag EndExternalMethod
+	#tag Method, Flags = &h1
+		Protected Function NSClassFromString(aClassName as CFStringRef) As Ptr
+		  #if TargetMacOS
+		    Declare Function NSClassFromString Lib CocoaLib (aClassName as CFStringRef) As Ptr
+		    Return NSClassFromString(aClassName)
+		  #endif
+		End Function
+	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function NSFullUserName Lib CocoaLib () As CFStringRef

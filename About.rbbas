@@ -31,6 +31,7 @@ Protected Module About
 		Kem Tekinay (KT)
 		Vidal van Bergen (VVB)
 		Jeff Fowler (JF)
+		Kenichi Maehashi (KM)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -62,6 +63,10 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		183: 2015-02-26 by KM
+		- Changed Cocoa.NSClassFromString from External Method to Shared Method to improve cross-platform compatibility.
+		- Fixed Cocoa.CocoaDelegate and Cocoa.NSArray using Declare without 'ifdef' block.
 		
 		182: 2015-01-23 by VVB
 		- Moved some extension enumerators that were valid for multiple controls to ControlExtension.
@@ -567,7 +572,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"182", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"183", Scope = Protected
 	#tag EndConstant
 
 
