@@ -181,7 +181,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function PtrValue() As Ptr
 		  #if targetMacOS
-		    declare function pointerValue lib CocoaLib selector "pointerValue" (obj_id as Ptr) as Ptr
+		    declare function pointerValue lib CocoaLib selector “pointValue" (obj_id as Ptr) as Ptr
 		    
 		    return pointerValue(self)
 		  #endif

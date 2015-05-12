@@ -484,7 +484,6 @@ Inherits NSResponder
 		  #else
 		    #pragma unused aRect
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
@@ -502,7 +501,6 @@ Inherits NSResponder
 		  #else
 		    #pragma unused aRect
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 

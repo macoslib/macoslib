@@ -299,35 +299,35 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Function DataWithEPSInsideRect(aRect as Cocoa.NSRect) As NSData
-		  #if TargetMacOS then
-		    declare sub setDataWithEPSInsideRect lib CocoaLib selector "dataWithEPSInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect)
+		  
+		  #if TargetCocoa
+		    declare function dataWithEPSInsideRect lib CocoaLib selector "dataWithEPSInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect) as Ptr
 		    
-		    setDataWithEPSInsideRect self, aRect
+		    dim dataRef as Ptr = dataWithEPSInsideRect(self, aRect)
+		    if dataRef <> nil then
+		      return new NSData(dataRef)
+		    end if
+		    
 		  #else
-		    #pragma Unused aRect
+		    #pragma unused aRect
 		  #endif
-		  
-		  
-		  
-		  
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function DataWithPDFInsideRect(aRect as Cocoa.NSRect) As NSData
+		  
 		  #if TargetMacOS then
-		    declare sub setDataWithPDFInsideRect lib CocoaLib selector "dataWithPDFInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect)
+		    declare function dataWithPDFInsideRect lib CocoaLib selector "dataWithPDFInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect) as Ptr
 		    
-		    setDataWithPDFInsideRect self, aRect
+		    dim dataRef as Ptr = dataWithPDFInsideRect(self, aRect)
+		    if dataRef <> nil then
+		      return new NSData(dataRef)
+		    end if
+		    
 		  #else
 		    #pragma Unused aRect
 		  #endif
-		  
-		  
-		  
-		  
-		  
 		End Function
 	#tag EndMethod
 
@@ -2219,6 +2219,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WantsDefaultClipping"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WantsLayer"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
