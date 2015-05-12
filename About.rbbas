@@ -64,6 +64,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		184: 2015-05-12 by TT (Thanks to jda@his.com for pointing out both of these bugs)
+		- Fixes all DataWithPDFInsideRect() and DataWithEPSInsideRect() functions - they did not return a value before.
+		- Fixes Cocoa.NSValue.PtrValue. Didn't work at all before.
+		
 		183: 2015-02-26 by KM
 		- Changed Cocoa.NSClassFromString from External Method to Shared Method to improve cross-platform compatibility.
 		- Fixed Cocoa.CocoaDelegate and Cocoa.NSArray using Declare without 'ifdef' block.
@@ -572,7 +576,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"183", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"184", Scope = Protected
 	#tag EndConstant
 
 
