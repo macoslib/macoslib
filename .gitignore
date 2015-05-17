@@ -1,4 +1,5 @@
 *.rbuistate
+*.xojo_uistate
 .DS_Store
 .obsolete
 macoslib.debug.app
