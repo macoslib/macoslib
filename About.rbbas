@@ -64,6 +64,11 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		185: 2015-05-17 by CY
+		- Remove a smart quote that slipped into v. 184.
+		- Add property NSTokenField.Bordered.
+		- Update .gitignore for Xojo.
+		
 		184: 2015-05-12 by TT (Thanks to jda@his.com for pointing out both of these bugs)
 		- Fixes all DataWithPDFInsideRect() and DataWithEPSInsideRect() functions - they did not return a value before.
 		- Fixes Cocoa.NSValue.PtrValue. Didn't work at all before.
@@ -576,7 +581,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"184", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"185", Scope = Protected
 	#tag EndConstant
 
 
@@ -586,33 +591,33 @@ Protected Module About
 			Visible=true
 			Group="ID"
 			InitialValue="2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
