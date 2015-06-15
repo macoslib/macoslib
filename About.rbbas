@@ -64,6 +64,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		186: 2015-06-16 by VVB
+		- Added NSVisualEffectView class
+		- Added a SetVisualEffectView window extension, and an example to NSWindowExample.
+		
 		185: 2015-05-17 by CY
 		- Remove a smart quote that slipped into v. 184.
 		- Add property NSTokenField.Bordered.
@@ -581,7 +585,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"185", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"186", Scope = Protected
 	#tag EndConstant
 
 
@@ -590,34 +594,34 @@ Protected Module About
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="2147483648"
-			Type="Integer"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
