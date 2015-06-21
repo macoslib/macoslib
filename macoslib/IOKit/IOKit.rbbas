@@ -80,6 +80,53 @@ Protected Module IOKit
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IdleTime() As Int64
+		  //
+		  // Get the number of nano seconds the user has been idle
+		  //
+		  // Hint: To convert to seconds, divide by 1000000000
+		  //
+		  
+		  dim idleNanoSecs as Int64 = -1
+		  
+		  #if TargetMacOS
+		    soft declare function IOServiceMatching lib IOKit (name as CString) as Ptr
+		    soft declare function IOServiceGetMatchingServices lib IOKit (masterPort as UInt32, matching as Ptr, ByRef existing as UInt32) as Integer
+		    soft declare function IOIteratorNext lib IOKit (iterator as UInt32) as UInt32
+		    soft declare function IORegistryEntryCreateCFProperties lib IOKit (entry as UInt32, ByRef properties as Ptr, allocator as Ptr, options as UInt32) as Integer
+		    
+		    const kHIDIdleTime = "HIDIdleTime"
+		    const kKernSuccess = 0
+		    
+		    dim iter as UInt32
+		    
+		    if IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kIOHIDSystem), iter) = kKernSuccess then
+		      dim entry as UInt32 = IOIteratorNext(iter)
+		      
+		      if entry <> 0 then
+		        dim dictPtr as Ptr
+		        
+		        if IORegistryEntryCreateCFProperties(entry, dictPtr, nil, 0) = kKernSuccess then
+		          dim dictRef as CFTypeRef
+		          dictRef.value = dictPtr
+		          
+		          dim dict as new CFDictionary(dictRef, True)
+		          
+		          dim defaultNanosecs as new CFNumber(0)
+		          dim obj as CFNumber = CFNumber(dict.Lookup(new CFString(kHIDIdleTime), defaultNanosecs))
+		          if obj isa CFNumber then
+		            idleNanoSecs = obj.Int64Value
+		          end if
+		        end if
+		      end if
+		    end if
+		  #endif
+		  
+		  return idleNanoSecs
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PrimaryMACAddress() As String
 		  //The code is ported from the Apple example code at http://developer.apple.com/library/mac/#samplecode/GetPrimaryMACAddress/Listings/GetPrimaryMACAddress_c.html%23//apple_ref/doc/uid/DTS10000698-GetPrimaryMACAddress_c-DontLinkElementID_3
 		  
@@ -108,6 +155,9 @@ Protected Module IOKit
 	#tag EndConstant
 
 	#tag Constant, Name = kIOEthernetInterfaceClass, Type = String, Dynamic = False, Default = \"IOEthernetInterface", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kIOHIDSystem, Type = String, Dynamic = False, Default = \"IOHIDSystem", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kIOMACAddress, Type = String, Dynamic = False, Default = \"IOMACAddress", Scope = Protected

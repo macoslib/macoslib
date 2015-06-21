@@ -180,6 +180,7 @@ Folder=ImageKit and ImageCapture Examples;Examples/ImageKit and ImageCapture Exa
 Window=ImageTransformExample;Examples/ImageTransformExample.rbfrm;&h1AE19A10;&h4BD59C08;false
 Window=IOKitExternalPowerWindow;Examples/IOKitExternalPowerWindow.rbfrm;&h60DD7C48;&h4BD59C08;false
 Window=IOKitPrimaryMACAddressExample;Examples/IOKitPrimaryMACAddressExample.rbfrm;&h20AD9A2F;&h4BD59C08;false
+Window=IOKitIdleTimeExampleWindow;Examples/IOKitIdleTimeExampleWindow.xojo_window;&h66AE3FFF;&h4BD59C08;false
 Window=LabelExtensionExampleWindow;Examples/LabelExtensionExampleWindow.rbfrm;&h2CBC474;&h4BD59C08;false
 Window=LanguagesWindow;Examples/LanguagesWindow.rbfrm;&h3152B679;&h4BD59C08;false
 Window=MacDatePickerExampleWindow;Examples/MacDatePickerExampleWindow.rbfrm;&h3FFC42FA;&h4BD59C08;false

@@ -1310,6 +1310,13 @@ Begin Menu MainMenubar
             Index = -2147483648
             AutoEnable = True
          End
+         Begin MenuItem IOKitIdleTime
+            SpecialMenu = 0
+            Text = "Idle Time"
+            Index = -2147483648
+            AutoEnable = True
+            Visible = True
+         End
          Begin MenuItem IOKitExternalPowerAdapter
             SpecialMenu = 0
             Text = "External Power Adapter"
