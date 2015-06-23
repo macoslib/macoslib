@@ -90,10 +90,10 @@ Protected Module IOKit
 		  dim idleNanoSecs as Int64 = -1
 		  
 		  #if TargetMacOS
-		    soft declare function IOServiceMatching lib IOKit (name as CString) as Ptr
-		    soft declare function IOServiceGetMatchingServices lib IOKit (masterPort as UInt32, matching as Ptr, ByRef existing as UInt32) as Integer
-		    soft declare function IOIteratorNext lib IOKit (iterator as UInt32) as UInt32
-		    soft declare function IORegistryEntryCreateCFProperties lib IOKit (entry as UInt32, ByRef properties as Ptr, allocator as Ptr, options as UInt32) as Integer
+		    declare function IOServiceMatching lib IOKit (name as CString) as Ptr
+		    declare function IOServiceGetMatchingServices lib IOKit (masterPort as UInt32, matching as Ptr, ByRef existing as UInt32) as Integer
+		    declare function IOIteratorNext lib IOKit (iterator as UInt32) as UInt32
+		    declare function IORegistryEntryCreateCFProperties lib IOKit (entry as UInt32, ByRef properties as Ptr, allocator as Ptr, options as UInt32) as Integer
 		    
 		    const kHIDIdleTime = "HIDIdleTime"
 		    const kKernSuccess = 0
