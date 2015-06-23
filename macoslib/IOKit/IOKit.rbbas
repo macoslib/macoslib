@@ -87,7 +87,7 @@ Protected Module IOKit
 		  // Hint: To convert to seconds, divide by 1000000000
 		  //
 		  
-		  dim idleNanoSecs as Int64 = -1
+		  const errorReturnValue as Int64 = -1
 		  
 		  #if TargetMacOS
 		    declare function IOServiceMatching lib IOKit (name as CString) as Ptr
@@ -100,29 +100,53 @@ Protected Module IOKit
 		    
 		    dim iter as UInt32
 		    
-		    if IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kIOHIDSystem), iter) = kKernSuccess then
-		      dim entry as UInt32 = IOIteratorNext(iter)
+		    if IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kIOHIDSystem), iter) <> kKernSuccess then
+		      //
+		      // Could not locate the HID System Service
+		      //
 		      
-		      if entry <> 0 then
-		        dim dictPtr as Ptr
-		        
-		        if IORegistryEntryCreateCFProperties(entry, dictPtr, nil, 0) = kKernSuccess then
-		          dim dictRef as CFTypeRef
-		          dictRef.value = dictPtr
-		          
-		          dim dict as new CFDictionary(dictRef, True)
-		          
-		          dim defaultNanosecs as new CFNumber(0)
-		          dim obj as CFNumber = CFNumber(dict.Lookup(new CFString(kHIDIdleTime), defaultNanosecs))
-		          if obj isa CFNumber then
-		            idleNanoSecs = obj.Int64Value
-		          end if
-		        end if
-		      end if
+		      return errorReturnValue
 		    end if
+		    
+		    dim entry as UInt32 = IOIteratorNext(iter)
+		    if entry = 0 then
+		      //
+		      // All we cared about was the first instance, but no instances of the HID System Service existed
+		      //
+		      
+		      return errorReturnValue
+		    end if
+		    
+		    dim dictPtr as Ptr
+		    
+		    if IORegistryEntryCreateCFProperties(entry, dictPtr, nil, 0) <> kKernSuccess then
+		      //
+		      // Something failed (probably memory) creating a dictionary representation
+		      // of the properties on the HID System Service
+		      //
+		      
+		      return errorReturnValue
+		    end if
+		    
+		    //
+		    // Create our dictionary representing the properties in the HID System Service
+		    //
+		    
+		    dim dictRef as CFTypeRef
+		    dictRef.value = dictPtr
+		    
+		    dim dict as new CFDictionary(dictRef, True)
+		    
+		    //
+		    // Get the idle time entry
+		    //
+		    
+		    dim obj as CFType = dict.Lookup(new CFString(kHIDIdleTime), new CFNumber(errorReturnValue))
+		    return CFNumber(obj).Int64Value
+		    
+		  #else
+		    return errorReturnValue
 		  #endif
-		  
-		  return idleNanoSecs
 		End Function
 	#tag EndMethod
 
@@ -135,17 +159,17 @@ Protected Module IOKit
 		    dim matchingservices as UInt32 = FindInternetInterfaces
 		    dim MACAddress as String = GetMACAddress(matchingservices)
 		    
-		finally
-		  dim err as Integer
-		  if matchingservices <> 0 then
-		    soft declare function IOObjectRelease lib IOKit (obj as UInt32) as Integer
-		    
-		    err = IOObjectRelease(matchingservices)
-		  end if
-		  return MACAddress
-		  
-		  // Keep the compiler from complaining
-		  #pragma unused err
+		    finally
+		      dim err as Integer
+		      if matchingservices <> 0 then
+		        soft declare function IOObjectRelease lib IOKit (obj as UInt32) as Integer
+		        
+		        err = IOObjectRelease(matchingservices)
+		      end if
+		      return MACAddress
+		      
+		      // Keep the compiler from complaining
+		      #pragma unused err
 		  #endif
 		End Function
 	#tag EndMethod
@@ -182,33 +206,33 @@ Protected Module IOKit
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
