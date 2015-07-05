@@ -34,9 +34,8 @@ Implements CFPropertyList
 		    if Encoding(s) <> nil then
 		      p = CFStringCreateWithCString(nil, s, Encoding(s).code)
 		    else
-		      const kCFStringEncodingInvalidId = &hffffffff
-		      
-		      p = CFStringCreateWithCString(nil, s, kCFStringEncodingInvalidId)
+		      // missing encoding!
+		      raise new UnsupportedFormatException
 		    end if
 		    
 		    self.Constructor(p, hasOwnership)
