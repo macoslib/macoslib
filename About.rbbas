@@ -32,6 +32,7 @@ Protected Module About
 		Vidal van Bergen (VVB)
 		Jeff Fowler (JF)
 		Kenichi Maehashi (KM)
+		Jeremy Cowgar (JC)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -64,9 +65,13 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		186: 2015-06-16 by VVB
+		187: 2015-07-05 by VVB
 		- Added NSVisualEffectView class
 		- Added a SetVisualEffectView window extension, and an example to NSWindowExample.
+		
+		186: 2015-06-21 by JC
+		- Added IoKit.IdleTime which returns the user idle time in nano seconds
+		- Added IoKit.IdleTime example, Examples/IOKitIdleTimeExampleWindow
 		
 		185: 2015-05-17 by CY
 		- Remove a smart quote that slipped into v. 184.
@@ -585,7 +590,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"186", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"187", Scope = Protected
 	#tag EndConstant
 
 

@@ -452,6 +452,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function IOKitIdleTime() As Boolean Handles IOKitIdleTime.Action
+			IOKitIdleTimeExampleWindow.Show
+			return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function IOKitPrimaryMACAddress() As Boolean Handles IOKitPrimaryMACAddress.Action
 			IOKitPrimaryMACAddressExample.Show
 			return true
