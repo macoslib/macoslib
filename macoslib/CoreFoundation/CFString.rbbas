@@ -34,8 +34,11 @@ Implements CFPropertyList
 		    if Encoding(s) <> nil then
 		      p = CFStringCreateWithCString(nil, s, Encoding(s).code)
 		    else
-		      // missing encoding!
-		      raise new UnsupportedFormatException
+		      // Missing encoding!
+		      break
+		      // Fall back to a safe encoding, e.g. any 8 Bit encoding, but not UTF-8 because that's may not be valid with all byte combinations!
+		      const kCFStringEncodingISOLatin1 = &h0201
+		      p = CFStringCreateWithCString(nil, s, kCFStringEncodingISOLatin1)
 		    end if
 		    
 		    self.Constructor(p, hasOwnership)
