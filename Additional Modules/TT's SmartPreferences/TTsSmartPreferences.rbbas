@@ -223,6 +223,8 @@ Protected Class TTsSmartPreferences
 		    newv = CFNumber(v.DoubleValue)
 		  case v.TypeString, v.TypeCFStringRef
 		    newv = CFString(v.StringValue)
+		  case v.TypeDate
+		    newv = CFDate(v.DateValue)
 		  case v.TypeObject
 		    if v.ObjectValue isA Dictionary then
 		      dim d as Dictionary = v
