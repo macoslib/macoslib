@@ -1,12 +1,12 @@
 #tag Class
 Protected Class TTsSmartPreferences
-	#tag Method, Flags = &h1
-		Protected Function AppSupportFolder(createIfMissing as Boolean = true) As FolderItem
+	#tag Method, Flags = &h0
+		 Shared Function AppSupportFolder(appName as String, createIfMissing as Boolean = true) As FolderItem
 		  // Return:
 		  // nil -> app folder invalid or can't be created
 		  // otherwise -> test for .Exists if createIfMissing=false was passed
 		  
-		  if mAppName = "" then
+		  if appName = "" then
 		    // App Name must be specified
 		    raise new RuntimeException
 		  end
@@ -18,7 +18,7 @@ Protected Class TTsSmartPreferences
 		    return nil
 		  end if
 		  
-		  f = f.Child(mAppName)
+		  f = f.Child(appName)
 		  if not f.Exists then
 		    
 		    if not createIfMissing then
@@ -183,7 +183,7 @@ Protected Class TTsSmartPreferences
 		Private Sub syncPrefsFile()
 		  // This gets used only when mUseAppSupportFolder=true
 		  
-		  dim f as FolderItem = AppSupportFolder(me.IsDirty)
+		  dim f as FolderItem = AppSupportFolder(mAppName, me.IsDirty)
 		  if f = nil or not f.Exists then return
 		  
 		  f = f.Child("Preferences.plist")
