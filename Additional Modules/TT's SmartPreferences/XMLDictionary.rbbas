@@ -7,8 +7,37 @@ Protected Module XMLDictionary
 		      Dictionary(storage).Clear
 		    End If
 		  ElseIf storage.IsArray Then
+		    dim t as Integer = storage.ArrayElementType
+		    if t = Variant.TypeString then
+		      dim a() as String = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeInteger then
+		      dim a() as Integer = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeBoolean then
+		      dim a() as Boolean = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeDouble then
+		      dim a() as Double = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeSingle then
+		      dim a() as Single = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeDate then
+		      dim a() as Date = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeLong then
+		      dim a() as Int64 = storage
+		      redim a(-1)
+		    elseif t = Variant.TypeObject then
+		      dim a() as Object = storage
+		      redim a(-1)
+		    end
+		    
+		    // fallback for unknown types - if this gets a TypeMismatchException, add the missing type to another elseif/dim/return above
 		    dim a() as Variant = storage
 		    redim a(-1)
+		    
 		  End If
 		End Sub
 	#tag EndMethod
@@ -450,8 +479,37 @@ Protected Module XMLDictionary
 		      Return Dictionary(storage.ObjectValue).Count
 		    End If
 		  ElseIf storage.IsArray Then
+		    dim t as Integer = storage.ArrayElementType
+		    if t = Variant.TypeString then
+		      dim a() as String = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeInteger then
+		      dim a() as Integer = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeBoolean then
+		      dim a() as Boolean = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeDouble then
+		      dim a() as Double = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeSingle then
+		      dim a() as Single = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeDate then
+		      dim a() as Date = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeLong then
+		      dim a() as Int64 = storage
+		      return a.Ubound+1
+		    elseif t = Variant.TypeObject then
+		      dim a() as Object = storage
+		      return a.Ubound+1
+		    end
+		    
+		    // fallback for unknown types - if this gets a TypeMismatchException, add the missing type to another elseif/dim/return above
 		    dim a() as Variant = storage
 		    return a.Ubound+1
+		    
 		  End If
 		End Function
 	#tag EndMethod
@@ -473,8 +531,37 @@ Protected Module XMLDictionary
 		      Return Dictionary(storage.ObjectValue).Value(key)
 		    End If
 		  ElseIf storage.IsArray Then
+		    dim t as Integer = storage.ArrayElementType
+		    if t = Variant.TypeString then
+		      dim a() as String = storage
+		      return a(index)
+		    elseif t = Variant.TypeInteger then
+		      dim a() as Integer = storage
+		      return a(index)
+		    elseif t = Variant.TypeBoolean then
+		      dim a() as Boolean = storage
+		      return a(index)
+		    elseif t = Variant.TypeDouble then
+		      dim a() as Double = storage
+		      return a(index)
+		    elseif t = Variant.TypeSingle then
+		      dim a() as Single = storage
+		      return a(index)
+		    elseif t = Variant.TypeDate then
+		      dim a() as Date = storage
+		      return a(index)
+		    elseif t = Variant.TypeLong then
+		      dim a() as Int64 = storage
+		      return a(index)
+		    elseif t = Variant.TypeObject then
+		      dim a() as Object = storage
+		      return a(index)
+		    end
+		    
+		    // fallback for unknown types - if this gets a TypeMismatchException, add the missing type to another elseif/dim/return above
 		    dim a() as Variant = storage
 		    return a(index)
+		    
 		  End If
 		End Function
 	#tag EndMethod
@@ -482,95 +569,51 @@ Protected Module XMLDictionary
 	#tag Method, Flags = &h21
 		Private Sub StoreValue(key As Variant, value As Variant, storage As Variant)
 		  If storage.IsArray Then
+		    dim t as Integer = storage.ArrayElementType
+		    if t = Variant.TypeString then
+		      dim a() as String = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeInteger then
+		      dim a() as Integer = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeBoolean then
+		      dim a() as Boolean = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeDouble then
+		      dim a() as Double = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeSingle then
+		      dim a() as Single = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeDate then
+		      dim a() as Date = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeLong then
+		      dim a() as Int64 = storage
+		      a.Append value
+		      return
+		    elseif t = Variant.TypeObject then
+		      dim a() as Object = storage
+		      a.Append value
+		      return
+		    end
+		    
+		    // fallback for unknown types - if this gets a TypeMismatchException, add the missing type to another elseif/dim/Append/return above
 		    dim a() as Variant = storage
 		    a.Append value
+		    
 		  ElseIf storage.Type = 9 Then
 		    If storage.ObjectValue IsA Dictionary And key <> nil Then
 		      Dictionary(storage.ObjectValue).Value(key) = value
 		    End If
 		  End If
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function VariantValueAsString(v As Variant) As String
-		  // Added by Kem Tekinay.
-		  // Gets the true value of a double/single as a string.
-		  // Can't use str without truncating and can't use format without truncating or adding junk.
-		  
-		  dim isDouble as boolean
-		  select case v.Type
-		  case Variant.TypeDouble
-		    isDouble = true
-		  case Variant.TypeSingle
-		    // isDouble = false
-		  else // Not a single or double
-		    if v.Type = Variant.TypeObject then
-		      return ""
-		    else
-		      return v.StringValue
-		    end if
-		  end select
-		  
-		  return v.StringValue
-		  
-		  // The code below is an exercise in making the value of a double "pretty", i.e., keep it
-		  // from returning scientific notation. After much experimentation, we found that
-		  // these attempts can lose precision in some cases so it was safer to use StringValue.
-		  // In the end, this method isn't being used anywhere, but has been left here
-		  // for later examination.
-		  
-		  'const kBunchOfHash = "####################################################################################"
-		  '
-		  'dim dv as double = v.DoubleValue
-		  'dim sv as single = v.SingleValue
-		  'dim s as string = v.StringValue
-		  'dim parts() as string = s.SplitB( "e" )
-		  'if parts.Ubound = 0 then return s // Not scientific notation
-		  '
-		  'dim valAsStr as string
-		  'if isDouble then
-		  'valAsStr = str( dv )
-		  'else
-		  'valAsStr = str( sv )
-		  'end if
-		  '
-		  'dim numStr as string = parts( 0 )
-		  'dim decimalPlaces as integer = val( parts( 1 ) )
-		  'dim numParts() as string = numStr.SplitB( "." ) // Get the decimal part
-		  'if numParts.Ubound = 1 then decimalPlaces = decimalPlaces - len( numParts( 1 ) ) // Complete decimal places
-		  '
-		  'if decimalPlaces < -20 or decimalPlaces > 20 then return valAsStr // Really large or really small number
-		  '
-		  'if decimalPlaces > 0 then
-		  'dim formatStr as string = kBunchOfHash.Left( decimalPlaces ) + ".########"
-		  'if dv < 0. then formatStr = "-" + formatStr
-		  'return str( dv, formatStr )
-		  '
-		  'else
-		  '
-		  'decimalPlaces = 0 - decimalPlaces // Make it positive
-		  'if decimalPlaces > 19 then
-		  'return s
-		  'else
-		  'dim formatStr as string = "0." + kBunchOfHash.Left( decimalPlaces )
-		  'if dv < 0. then formatStr = "-" + formatStr
-		  'dim r as string = str( dv, formatStr )
-		  '
-		  '// This is a bit of a hack to compensate for rounding errors
-		  'if decimalPlaces = 17 then
-		  'if valAsStr.InStrB( "e" ) = 0 then // str does not give us scientific notation so it's possible to use it
-		  'dim lastSix as string = r.RightB( 6 )
-		  'if StrComp( lastSix, "000001", 0 ) = 0 or StrComp( lastSix, "999999", 0) = 0 then r = valAsStr
-		  'end if
-		  'end if
-		  '
-		  'return r
-		  'end if
-		  '
-		  'end if
-		  
-		End Function
 	#tag EndMethod
 
 

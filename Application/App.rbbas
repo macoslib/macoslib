@@ -12,6 +12,7 @@ Inherits Application
 		  TestCertTools
 		  TestFileManager
 		  TestBundleLookup
+		  TestTTsSmartPrefs
 		End Sub
 	#tag EndEvent
 
@@ -1104,6 +1105,30 @@ Inherits Application
 		  if space <= 0 then
 		    break // test failed!
 		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub TestTTsSmartPrefs()
+		  const appName = "MacOSLib Prefs Testing"
+		  try
+		    // create a new prefs file
+		    Dim prefs As New TTsSmartPreferences(appName, true)
+		    Dim currentArray() As Variant
+		    currentArray = prefs.Value("somearray", currentArray) // when retrieving arrays, an array of Variants must be used
+		    prefs.Value("somearray") = Array("foo", "bar") // when setting arrays, arrays of String, Integer, Boolean, Double etc. may be used
+		    prefs.Sync ' writes the data to the prefs file immediately
+		    prefs = nil
+		    // re-read the data using a fresh class
+		    prefs = New TTsSmartPreferences(appName, true)
+		    Dim updatedArray() As Variant
+		    updatedArray = prefs.Value("somearray", updatedArray)
+		  catch
+		    'ignore
+		  end
+		  // delete the prefs file and folder
+		  TTsSmartPreferences.AppSupportFolder(appName, false).Child("Preferences.plist").Delete
+		  TTsSmartPreferences.AppSupportFolder(appName, false).Delete
 		End Sub
 	#tag EndMethod
 
