@@ -65,6 +65,12 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		187: 2015-08-09 by TT
+		- Improves XMLDictionary (part of TTsSmartPreferences) to accept arrays of various common types instead of only arrays of Variants.
+		- Makes IOKit compile with REAL Studio again
+		- Fixes CFString constructor to fall back to a safe encoding when the string's encoding is not set.
+		- Renames KeychainServices.UserInteractionAllowed into IsUserInteractionAllowed to make it compile with Xojo 2015r2
+		
 		186: 2015-06-21 by JC
 		- Added IoKit.IdleTime which returns the user idle time in nano seconds
 		- Added IoKit.IdleTime example, Examples/IOKitIdleTimeExampleWindow
@@ -586,7 +592,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"186", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"187", Scope = Protected
 	#tag EndConstant
 
 
@@ -595,34 +601,34 @@ Protected Module About
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue="2147483648"
-			Type="Integer"
+			InitialValue="-2147483648"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
