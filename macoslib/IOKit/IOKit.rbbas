@@ -87,7 +87,7 @@ Protected Module IOKit
 		  // Hint: To convert to seconds, divide by 1000000000
 		  //
 		  
-		  const errorReturnValue as Int64 = -1
+		  const errorReturnValue = -1
 		  
 		  #if TargetMacOS
 		    declare function IOServiceMatching lib IOKit (name as CString) as Ptr
@@ -159,17 +159,17 @@ Protected Module IOKit
 		    dim matchingservices as UInt32 = FindInternetInterfaces
 		    dim MACAddress as String = GetMACAddress(matchingservices)
 		    
-		    finally
-		      dim err as Integer
-		      if matchingservices <> 0 then
-		        soft declare function IOObjectRelease lib IOKit (obj as UInt32) as Integer
-		        
-		        err = IOObjectRelease(matchingservices)
-		      end if
-		      return MACAddress
-		      
-		      // Keep the compiler from complaining
-		      #pragma unused err
+		finally
+		  dim err as Integer
+		  if matchingservices <> 0 then
+		    soft declare function IOObjectRelease lib IOKit (obj as UInt32) as Integer
+		    
+		    err = IOObjectRelease(matchingservices)
+		  end if
+		  return MACAddress
+		  
+		  // Keep the compiler from complaining
+		  #pragma unused err
 		  #endif
 		End Function
 	#tag EndMethod
@@ -206,33 +206,33 @@ Protected Module IOKit
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
