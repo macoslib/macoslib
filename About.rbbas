@@ -68,6 +68,8 @@ Protected Module About
 		187: 2015-08-09 by TT
 		- Improves XMLDictionary (part of TTsSmartPreferences) to accept arrays of various common types instead of only arrays of Variants.
 		- Makes IOKit compile with REAL Studio again
+		- Fixes CFString constructor to fall back to a safe encoding when the string's encoding is not set.
+		- Renames KeychainServices.UserInteractionAllowed into IsUserInteractionAllowed to make it compile with Xojo 2015r2
 		
 		186: 2015-06-21 by JC
 		- Added IoKit.IdleTime which returns the user idle time in nano seconds
