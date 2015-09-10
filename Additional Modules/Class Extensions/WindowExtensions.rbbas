@@ -974,18 +974,18 @@ Protected Module WindowExtensions
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (WindowRef as WindowPtr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
 		    setFrameDisplayAnimate w, NewRect, true, true
 		    
-		  #elseif TargetCarbon or TargetWin32 then
+		  #elseif TargetCarbon' or TargetWin32 then
 		    
 		    dim err, t, l as integer
 		    dim rect as MemoryBlock
 		    
-		    #if TargetCarbon then
-		      Declare Function TransitionWindow Lib CarbonLib (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
-		      Declare Function GetWindowBounds  Lib CarbonLib (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
-		    #else
-		      Declare Function TransitionWindow Lib "WindowsLib" (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
-		      Declare Function GetWindowBounds  Lib "WindowsLib" (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
-		    #endif
+		    '#if TargetCarbon then
+		    Declare Function TransitionWindow Lib CarbonLib (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
+		    Declare Function GetWindowBounds  Lib CarbonLib (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
+		    '#else
+		    'Declare Function TransitionWindow Lib "WindowsLib" (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
+		    'Declare Function GetWindowBounds  Lib "WindowsLib" (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
+		    '#endif
 		    
 		    // we get the old window region
 		    rect = New MemoryBlock(8)
