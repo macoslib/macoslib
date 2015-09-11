@@ -65,6 +65,11 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		188: 2015-09-11 by VVB
+		- Fixed a bug in SmoothResize that could throw up an error message on windows. (There is probably no such thing as 'windowslib')
+		- Fixed a bug that threw up an error message if people used the 'CocoaMenuItem' on windows.
+		- Fixed a missing window file that apparantly got renamed to using the '.xojo_window' extension.
+		
 		187: 2015-07-05 by VVB
 		- Added NSVisualEffectView class
 		- Added a SetVisualEffectView window extension, and an example to NSWindowExample.
@@ -590,7 +595,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"187", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"188", Scope = Protected
 	#tag EndConstant
 
 
