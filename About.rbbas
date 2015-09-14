@@ -65,14 +65,20 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		188: 2015-09-11 by VVB
+		189: 2015-09-11 by VVB
 		- Fixed a bug in SmoothResize that could throw up an error message on windows. (There is probably no such thing as 'windowslib')
 		- Fixed a bug that threw up an error message if people used the 'CocoaMenuItem' on windows.
 		- Fixed a missing window file that apparantly got renamed to using the '.xojo_window' extension.
 		
-		187: 2015-07-05 by VVB
+		188: 2015-07-05 by VVB
 		- Added NSVisualEffectView class
 		- Added a SetVisualEffectView window extension, and an example to NSWindowExample.
+		
+		187: 2015-08-09 by TT
+		- Improves XMLDictionary (part of TTsSmartPreferences) to accept arrays of various common types instead of only arrays of Variants.
+		- Makes IOKit compile with REAL Studio again
+		- Fixes CFString constructor to fall back to a safe encoding when the string's encoding is not set.
+		- Renames KeychainServices.UserInteractionAllowed into IsUserInteractionAllowed to make it compile with Xojo 2015r2
 		
 		186: 2015-06-21 by JC
 		- Added IoKit.IdleTime which returns the user idle time in nano seconds
@@ -595,7 +601,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"188", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"189", Scope = Protected
 	#tag EndConstant
 
 
