@@ -1398,7 +1398,7 @@ Begin Window NSWindowExample
          Visible         =   True
          Width           =   40
       End
-      Begin PushButton PushButton1
+      Begin PushButton btnHideTitle
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -1458,6 +1458,37 @@ Begin Window NSWindowExample
          Top             =   301
          Underline       =   ""
          Value           =   False
+         Visible         =   True
+         Width           =   190
+      End
+      Begin PushButton btnSetVisualEffect
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Visual Effect"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   15
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   333
+         Underline       =   ""
          Visible         =   True
          Width           =   190
       End
@@ -1893,7 +1924,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton1
+#tag Events btnHideTitle
 	#tag Event
 		Sub Action()
 		  
@@ -1936,6 +1967,16 @@ End
 	#tag Event
 		Sub Open()
 		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnSetVisualEffect
+	#tag Event
+		Sub Action()
+		  
+		  self.SetVisualEffectView( NSVisualEffectView.NSMaterial.Dark )
+		  'self.SetVisualEffectView( 0, 23, self.Width/2, (self.Height/2) - 23, NSVisualEffectView.NSMaterial.Dark, False, True )
+		  'self.SetVisualEffectView( self.width/2, self.Height/2, self.Width/2, self.Height/2, NSVisualEffectView.NSMaterial.Dark, True, False )
 		End Sub
 	#tag EndEvent
 #tag EndEvents

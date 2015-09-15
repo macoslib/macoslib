@@ -65,7 +65,9 @@ Inherits MenuItem
 
 	#tag Method, Flags = &h0
 		Function ActionSelector() As Ptr
-		  return Cocoa.NSSelectorFromString(raiseEvent ActionSelectorName)
+		  #if TargetCocoa then
+		    return Cocoa.NSSelectorFromString(raiseEvent ActionSelectorName)
+		  #endif
 		End Function
 	#tag EndMethod
 

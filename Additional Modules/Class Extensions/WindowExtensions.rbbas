@@ -857,6 +857,62 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SetVisualEffectView(Extends w as Window, x as integer, y as Integer, width as Integer, Height as Integer, Material as NSVisualEffectView.NSMaterial = NSVisualEffectView.NSMaterial.Light, SizableWidth as Boolean = True, SizableHeight as Boolean = True)
+		  
+		  // Sets up a NSVisualEffectView for the Window
+		  #if TargetCocoa then
+		    dim EffectViewClass as Ptr = Cocoa.NSClassFromString("NSVisualEffectView")
+		    if EffectViewClass <> Nil then // we have at least OS X 10.10
+		      declare function contentView lib CocoaLib selector "contentView" ( WindowRef as WindowPtr ) as ptr
+		      
+		      declare sub addSubViewRelativeTo lib CocoaLib selector "addSubview:positioned:relativeTo:" (id as ptr, view as ptr, position as integer, relativeTo as Ptr)
+		      declare sub setAutoresizingMask lib CocoaLib selector "setAutoresizingMask:" (view as ptr, mask as integer)
+		      'declare sub setWantsLayer lib CocoaLib selector "setWantsLayer:" (view as ptr, yesNo as Boolean)
+		      
+		      // Store int to set which sides are auto-resizable with the window's size.
+		      dim ResizeAble as Integer = NSVisualEffectView.NSViewNotSizable
+		      if SizableWidth then
+		        ResizeAble = ResizeAble or NSVisualEffectView.NSViewWidthSizable
+		      end if
+		      if SizableHeight then
+		        ResizeAble = ResizeAble or NSVisualEffectView.NSViewHeightSizable
+		      end if
+		      
+		      // Start position and height are calculated from bottom to top.
+		      dim WindowEffectView as new NSVisualEffectView( x, y, width, height )
+		      'setWantsLayer(WindowEffectView,True)
+		      WindowEffectView.material = Material
+		      setAutoresizingMask( WindowEffectView, ResizeAble )
+		      
+		      dim contentViewPtr as ptr = contentView( w )
+		      addSubViewRelativeTo( contentViewPtr, WindowEffectView, -1, Nil )
+		    end if
+		  #else
+		    #pragma Unused w
+		    #pragma Unused x
+		    #pragma Unused y
+		    #pragma Unused width
+		    #pragma Unused Height
+		    #pragma Unused Material
+		    #pragma Unused SizableWidth
+		    #pragma Unused SizableHeight
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetVisualEffectView(Extends w as Window, Material as NSVisualEffectView.NSMaterial = NSVisualEffectView.NSMaterial.Light)
+		  
+		  #if TargetCocoa then
+		    w.SetVisualEffectView( 0, 0, w.Width, w.Height, Material, True, True )
+		  #else
+		    #pragma Unused w
+		    #pragma Unused Material
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SmoothResize(extends w as Window, Width as Integer, Height as Integer, Align as Integer = 4)
 		  //# Easy to use animated window resizing with the ability to customize the animation origin.
 		  
@@ -918,18 +974,13 @@ Protected Module WindowExtensions
 		    declare sub setFrameDisplayAnimate lib CocoaLib selector "setFrame:display:animate:" (WindowRef as WindowPtr, inNSRect as Cocoa.NSRect, Display as Boolean, Animate as Boolean)
 		    setFrameDisplayAnimate w, NewRect, true, true
 		    
-		  #elseif TargetCarbon or TargetWin32 then
+		  #elseif TargetCarbon
 		    
 		    dim err, t, l as integer
 		    dim rect as MemoryBlock
 		    
-		    #if TargetCarbon then
-		      Declare Function TransitionWindow Lib CarbonLib (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
-		      Declare Function GetWindowBounds  Lib CarbonLib (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
-		    #else
-		      Declare Function TransitionWindow Lib "WindowsLib" (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
-		      Declare Function GetWindowBounds  Lib "WindowsLib" (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
-		    #endif
+		    Declare Function TransitionWindow Lib CarbonLib (window as WindowPtr, effect as Integer, action as Integer, rect as Ptr) as Integer
+		    Declare Function GetWindowBounds  Lib CarbonLib (window As WindowPtr, regionCode As Integer, globalBounds As Ptr) as Integer
 		    
 		    // we get the old window region
 		    rect = New MemoryBlock(8)

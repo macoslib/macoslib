@@ -65,6 +65,15 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		189: 2015-09-11 by VVB
+		- Fixed a bug in SmoothResize that could throw up an error message on windows.
+		- Fixed a bug that threw up an error message if people used the 'CocoaMenuItem' on windows.
+		- Fixed a missing window file that apparantly got renamed to using the '.xojo_window' extension.
+		
+		188: 2015-07-05 by VVB
+		- Added NSVisualEffectView class
+		- Added a SetVisualEffectView window extension, and an example to NSWindowExample.
+		
 		187: 2015-08-09 by TT
 		- Improves XMLDictionary (part of TTsSmartPreferences) to accept arrays of various common types instead of only arrays of Variants.
 		- Makes IOKit compile with REAL Studio again

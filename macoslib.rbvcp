@@ -378,6 +378,7 @@ Class=NSUserNotificationCenter;macoslib/Cocoa/NSUserNotificationCenter.rbbas;&h6
 Class=NSValue;macoslib/Cocoa/NSValue.rbbas;&h2BA8F3FB;&h36D6C6CC;false
 Class=NSView;macoslib/Cocoa/NSView.rbbas;&h4D413BF8;&h36D6C6CC;false
 Class=NSViewController;macoslib/Cocoa/NSViewController.rbbas;&h6E67D026;&h36D6C6CC;false
+Class=NSVisualEffectView;macoslib/Cocoa/NSVisualEffectView.rbbas;&h38283D53;&h36D6C6CC;false
 Class=NSWindow;macoslib/Cocoa/NSWindow.rbbas;&h1D1ED1CF;&h36D6C6CC;false
 Class=NSWindowController;macoslib/Cocoa/NSWindowController.rbbas;&h51AB8C82;&h36D6C6CC;false
 Class=NSWorkspace;macoslib/Cocoa/NSWorkspace.rbbas;&h298133CF;&h36D6C6CC;false
