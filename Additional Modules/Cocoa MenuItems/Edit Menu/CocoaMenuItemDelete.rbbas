@@ -9,7 +9,7 @@ Inherits CocoaMenuItem
 
 
 	#tag Constant, Name = LocalizedText, Type = String, Dynamic = True, Default = \"Delete", Scope = Public
-		#Tag Instance, Platform = Any, Language = Default, Definition  = \"Delete"
+		#Tag Instance, Platform = Any, Language = en, Definition  = \"Delete"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"L\xC3\xB6schen"
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE5\x89\x8A\xE9\x99\xA4"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Supprimer"

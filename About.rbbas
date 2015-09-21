@@ -65,6 +65,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		190: 2015-09-21 by VVB
+		- Fixed a few localization issues in the CocoaMenu items.
+		
 		189: 2015-09-11 by VVB
 		- Fixed a bug in SmoothResize that could throw up an error message on windows.
 		- Fixed a bug that threw up an error message if people used the 'CocoaMenuItem' on windows.
@@ -601,7 +604,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"187", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"190", Scope = Protected
 	#tag EndConstant
 
 

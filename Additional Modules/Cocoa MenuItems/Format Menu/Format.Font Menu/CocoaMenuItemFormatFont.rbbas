@@ -2,7 +2,7 @@
 Protected Class CocoaMenuItemFormatFont
 Inherits CocoaMenuItemSupermenu
 	#tag Constant, Name = LocalizedText, Type = String, Dynamic = True, Default = \"Font", Scope = Public
-		#Tag Instance, Platform = Any, Language = Default, Definition  = \"Font"
+		#Tag Instance, Platform = Any, Language = en, Definition  = \"Font"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Schrift"
 		#Tag Instance, Platform = Any, Language = he, Definition  = \"\xE3\x83\x95\xE3\x82\xA9\xE3\x83\xB3\xE3\x83\x88"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Police"

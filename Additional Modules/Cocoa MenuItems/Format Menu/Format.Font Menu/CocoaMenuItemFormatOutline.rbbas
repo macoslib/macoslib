@@ -9,7 +9,7 @@ Inherits CocoaMenuItem
 
 
 	#tag Constant, Name = LocalizedText, Type = String, Dynamic = True, Default = \"Outline", Scope = Public
-		#Tag Instance, Platform = Any, Language = Default, Definition  = \"Outline"
+		#Tag Instance, Platform = Any, Language = en, Definition  = \"Outline"
 		#Tag Instance, Platform = Any, Language = de, Definition  = \"Konturschrift"
 		#Tag Instance, Platform = Any, Language = ja, Definition  = \"\xE3\x82\xA2\xE3\x82\xA6\xE3\x83\x88\xE3\x83\xA9\xE3\x82\xA4\xE3\x83\xB3"
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Contour"
