@@ -77,7 +77,7 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CFNumber(int_32 as Integer) As CFNumber
+		Function CFNumber(int_32 as Int32) As CFNumber
 		  return new CFNumber(int_32)
 		End Function
 	#tag EndMethod
