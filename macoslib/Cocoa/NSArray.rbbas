@@ -651,7 +651,11 @@ Inherits NSObject
 		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
 		  dim n as UInt32 = arrayRange.length-1
 		  for i as integer = 0 to n
-		    retArray.append new NSString(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		    #if Target64Bit then
+		      retArray.append new NSString(Ptr(m.UInt64Value(i*8)))
+		    #else
+		      retArray.append new NSString(Ptr(m.UInt32Value(i*4)))
+		    #endif
 		  next
 		  
 		  return retArray
@@ -758,7 +762,11 @@ Inherits NSObject
 		  
 		  dim n as UInt32 = aRange.length-1
 		  for i as integer = 0 to n
-		    rb_array.append new NSObject(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		    #if Target64Bit then
+		      rb_array.append new NSObject(Ptr(m.UInt64Value(i*8)))
+		    #else
+		      rb_array.append new NSObject(Ptr(m.UInt32Value(i*4)))
+		    #endif
 		  next
 		  
 		  return rb_array
