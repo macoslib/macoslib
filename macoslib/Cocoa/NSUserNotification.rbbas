@@ -312,7 +312,9 @@ Inherits NSObject
 			  #if TargetMacOS then
 			    declare function soundName lib CocoaLib selector "soundName" (obj_id as Ptr) as CFStringRef
 			    
-			    return soundName(self)
+			    dim buffer as string
+			    buffer = SoundName(self)
+			    return buffer
 			  #endif
 			End Get
 		#tag EndGetter
@@ -322,13 +324,20 @@ Inherits NSObject
 			  #if TargetMacOS then
 			    declare sub setSoundName lib CocoaLib selector "setSoundName:" (obj_id as Ptr, value as CFStringRef)
 			    
-			    setSoundName self, value
+			    if value = NIL then
+			      setSoundName self, NIL
+			    else
+			      dim buffer as string
+			      buffer = cstr(value)
+			      setSoundName self, buffer
+			    end if
+			    
 			  #else
 			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
-		SoundName As String
+		SoundName As Variant
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -423,6 +432,11 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ActivationType"
+			Group="Behavior"
+			Type="NSUserNotificationActivationType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
