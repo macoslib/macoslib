@@ -40,9 +40,8 @@ Inherits NSObject
 		    dim notificationRef as Ptr
 		    if notification <> nil then
 		      notificationRef = notification
+		      postNotification self, notificationRef
 		    end if
-		    
-		    postNotification self, notificationRef
 		    
 		  #else
 		    #pragma unused notification
