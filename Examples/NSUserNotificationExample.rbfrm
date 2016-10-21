@@ -754,6 +754,7 @@ End
 		  if edtOther.Text <> "" then n.otherButtonTitle = edtOther.Text
 		  
 		  if edtSoundName.Text <> "" then n.SoundName = edtSoundName.Text
+		  // To Play no Sound for a notification set n.SoundName = NIL
 		  
 		  return n
 		End Function
