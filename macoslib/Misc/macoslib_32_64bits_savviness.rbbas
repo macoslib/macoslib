@@ -59,7 +59,9 @@ Protected Module macoslib_32_64bits_savviness
 		  //@discussion/
 		  
 		  if SizeOfPointer=4 then //32 bits
-		    return  Ptr( mb.UInt32Value( offset ))
+		    #if Target32Bit
+		      return  Ptr( mb.UInt32Value( offset ))
+		    #endif
 		    
 		  else //64 bits
 		    #if RBVersion>= 2013
@@ -87,7 +89,9 @@ Protected Module macoslib_32_64bits_savviness
 		  //Note: ShiftLeft is quicker than a multiplication
 		  
 		  if SizeOfPointer=4 then //32 bits
-		    return  Ptr( mb.UInt32Value( Bitwise.ShiftLeft( ArrayIndex, 2 )))
+		    #if Target32Bit
+		      return  Ptr( mb.UInt32Value( Bitwise.ShiftLeft( ArrayIndex, 2 )))
+		    #endif
 		    
 		  else //64 bits
 		    #if RBVersion>= 2013
