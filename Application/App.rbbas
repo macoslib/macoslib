@@ -875,8 +875,8 @@ Inherits Application
 		  if kTestCFURL then
 		    dim url as new CFURL(SpecialFolder.System)
 		    pTestAssert url.Scheme = "file"
-		    pTestAssert url.NetLocation = "localhost"
-		    pTestAssert url.StringValue = "file://localhost"+url.Path+"/"
+		    pTestAssert url.NetLocation = "localhost" or url.NetLocation = ""
+		    pTestAssert url.StringValue = "file://"+url.NetLocation+url.Path+"/"
 		    pTestAssert url.Name.StringValue = SpecialFolder.System.Name
 		    pTestAssert url.IsAlias.VariantValue = SpecialFolder.System.Alias
 		    pTestAssert url.IsDirectory = true
