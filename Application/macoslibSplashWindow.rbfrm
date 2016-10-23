@@ -30,7 +30,7 @@ Begin Window macoslibSplashWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   86
+      Height          =   105
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -41,7 +41,7 @@ Begin Window macoslibSplashWindow
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      Multiline       =   ""
+      Multiline       =   True
       Scope           =   0
       Selectable      =   False
       TabIndex        =   0
@@ -52,7 +52,7 @@ Begin Window macoslibSplashWindow
       TextFont        =   "System"
       TextSize        =   72
       TextUnit        =   0
-      Top             =   124
+      Top             =   105
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
@@ -64,7 +64,7 @@ Begin Window macoslibSplashWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   89
+      Height          =   112
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
