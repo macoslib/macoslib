@@ -215,6 +215,21 @@ Protected Module SegmentedControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SelectedForSegment(extends s as SegmentedControl, Segment as Integer, assigns value as Boolean)
+		  //# Sets the selected segment of the SegmentedControl.
+		  
+		  #if TargetCocoa then
+		    declare sub setSelectedSegment lib CocoaLib selector "setSelected:forSegment:" (obj_id as Integer, selected as Boolean, inFlag as Integer)
+		    
+		    setSelectedSegment(s.Handle, value, Segment)
+		  #else
+		    #pragma Unused s
+		    #pragma Unused Value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function SelectedSegment(extends s as SegmentedControl) As Integer
 		  //# Returns the index of the selected segment of the SegmentedControl.
 		  
