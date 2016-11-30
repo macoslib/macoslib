@@ -65,6 +65,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		191: 2016-11-09 by VVB
+		- Added SegmentedControlExtension.SelectedForSegment(#) = True/False
+		
 		190: 2015-09-21 by VVB
 		- Fixed a few localization issues in the CocoaMenu items.
 		
@@ -604,7 +607,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"190", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"191", Scope = Protected
 	#tag EndConstant
 
 

@@ -215,6 +215,21 @@ Protected Module SegmentedControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function SelectedForSegment(extends s as SegmentedControl, Segment as Integer) As Boolean
+		  //# Returns a Boolean value indicating whether the specified segment is selected.
+		  
+		  #if TargetCocoa then
+		    declare function isSelectedForSegment lib CocoaLib selector "isSelectedForSegment:" (obj_id as Integer, segment as Integer) as Boolean
+		    
+		    return isSelectedForSegment(s.handle, segment)
+		  #else
+		    #pragma unused s
+		    #pragma unused segment
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SelectedForSegment(extends s as SegmentedControl, Segment as Integer, assigns value as Boolean)
 		  //# Sets the selected segment of the SegmentedControl.
 		  
