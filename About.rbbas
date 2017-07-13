@@ -71,15 +71,18 @@ Protected Module About
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
 		200: 2017-07-12 by SD
-		- Important! The main idea of this update is just to get project compiled in 64 bit environment. Now it does, but there are still a lot of work to test it and get it worked for all supported functionality. So, please use this fork only on your own risk and only if you are ready to debug it, fix it and commit your changes.
+		- Important! The main purpose of this update is simply to have the project compiled in a 64-bit environment. 
+		Now it does, but there is still a lot of work to be done to test it and get it working for all supported functionality. 
+		So, please use this fork only at your own risk and only if you are ready to debug it, fix it, and commit your changes.
+		
 		- App version was increased to 2.0a because of moving to 64 bit.
-		- Starting from 2.0 macoslib is 64 bit only, please use v1.89 for 32 bit.
+		- Starting from 2.0, MacOSLib is 64 bit-only, please use v1.89 for 32 bit.
 		- To get project compiled in 64 bit these parts of code (propbably depricated declares in 64 bit) were removed:
-		         HISearchField, HISearchFieldExample, MacDatePicker, MacDatePickerExampleWindow, CarbonDragManager, DragManagerExample, CarbonPasteboard
-		- All Single types were changed with Double.
-		- There are still a lot of places that should be checked, for example, UInt32 should be changed to UInteger in most of the places, but for some Carbon functions and structures it's still should be UInt32, so every place should be checked manually. So, please check the code you are curently working with and change types when necessary.
-		- There some old modules, like ATSForFonts, and maybe it's better to try to clean up project a bit as it's 64bit only now instead of trying to fix everything?
+		       HISearchField, HISearchFieldExample, MacDatePicker, MacDatePickerExampleWindow, CarbonDragManager, DragManagerExample, CarbonPasteboard
+		- All Single types were changed to Double.
+		- There are still a lot of places that should be checked, for example, UInt32 should be changed to UInteger in most places, but for some Carbon functions and structures it's still should be UInt32, so every place must be checked manually. So, please check the code you are curently working with and change types when necessary.
 		- Special thanks to Jonathan Ashwell for helping in this initial conversion and testing.
+		
 		
 		189: 2015-09-11 by VVB
 		- Fixed a bug in SmoothResize that could throw up an error message on windows.
