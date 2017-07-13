@@ -251,11 +251,11 @@ Protected Module ComboBoxExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ItemHeight(Extends c as ComboBox) As Single
+		Function ItemHeight(Extends c as ComboBox) As Double
 		  //# Returns the height of each item in the combo box’s pop-up list.
 		  
 		  #if TargetCocoa then
-		    declare function itemHeight lib CocoaLib selector "itemHeight" (obj_id as Integer) as Single
+		    declare function itemHeight lib CocoaLib selector "itemHeight" (obj_id as Integer) as Double
 		    
 		    return itemHeight(c.handle)
 		  #else
@@ -265,11 +265,11 @@ Protected Module ComboBoxExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ItemHeight(Extends c as ComboBox, Assigns value as Single)
+		Sub ItemHeight(Extends c as ComboBox, Assigns value as Double)
 		  //# Sets the height for items.
 		  
 		  #if TargetCocoa then
-		    declare sub setItemHeight lib CocoaLib selector "setItemHeight:" (obj_id as Integer, value as Single)
+		    declare sub setItemHeight lib CocoaLib selector "setItemHeight:" (obj_id as Integer, value as Double)
 		    
 		    setItemHeight(c.handle, value)
 		  #else
@@ -309,11 +309,11 @@ Protected Module ComboBoxExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SingleValue(Extends c as ComboBox) As Single
+		Function SingleValue(Extends c as ComboBox) As Double
 		  //# Returns the value of the combo box’s cell as a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Single
+		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Double
 		    
 		    return floatValue(c.handle)
 		  #else
@@ -323,11 +323,11 @@ Protected Module ComboBoxExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SingleValue(Extends c as ComboBox, Assigns value as Single)
+		Sub SingleValue(Extends c as ComboBox, Assigns value as Double)
 		  //# Sets the value of the combo box's cell using a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Single)
+		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Double)
 		    
 		    setFloatValue(c.handle, value)
 		  #else
@@ -344,33 +344,33 @@ Protected Module ComboBoxExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

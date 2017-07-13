@@ -1285,7 +1285,7 @@ Inherits NSControl
 			  #if TargetMacOS
 			    declare sub setTokenStyle lib CocoaLib selector "setTokenStyle::" (id as Ptr, newValue as integer)
 			    
-			    setTokenStyle( me.id, Int32( value ) )
+			    setTokenStyle( me.id, Integer( value ) )
 			    
 			  #else
 			    #pragma unused value
@@ -1362,6 +1362,11 @@ Inherits NSControl
 			Visible=true
 			Group="Behavior"
 			InitialValue="false"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bordered"
+			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty

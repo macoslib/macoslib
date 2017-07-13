@@ -119,7 +119,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontDescriptorWithFontAttributes(attribs as NSDictionary) As NSFontDescriptor
+		Shared Function FontDescriptorWithFontAttributes(attribs as NSDictionary) As NSFontDescriptor
 		  
 		  #if TargetMacOS
 		    declare function fontDescriptorWithFontAttributes lib CocoaLib selector "fontDescriptorWithFontAttributes:" (obj_id as Ptr, attribs as Ptr) as Ptr
@@ -171,7 +171,29 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontDescriptorWithName(name as String, matrix as NSAffineTransform) As NSFontDescriptor
+		Shared Function FontDescriptorWithName(name as String, size as Double) As NSFontDescriptor
+		  
+		  #if TargetMacOS
+		    declare function fontDescriptorWithName lib CocoaLib selector "fontDescriptorWithName:size:" (obj_id as Ptr, name as CFStringRef, size as Double) as Ptr
+		    
+		    dim descriptorRef as Ptr = fontDescriptorWithName(ClassRef, name, size)
+		    
+		    if descriptorRef <> nil then
+		      return new NSFontDescriptor(descriptorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused name
+		    #pragma unused size
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Shared Function FontDescriptorWithName(name as String, matrix as NSAffineTransform) As NSFontDescriptor
 		  
 		  #if TargetMacOS
 		    declare function fontDescriptorWithName lib CocoaLib selector "fontDescriptorWithName:matrix:" (obj_id as Ptr, name as CFStringRef, matrix as Ptr) as Ptr
@@ -198,32 +220,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontDescriptorWithName(name as String, size as Single) As NSFontDescriptor
+		Function FontDescriptorWithSize(newPointSIze as Double) As NSFontDescriptor
 		  
 		  #if TargetMacOS
-		    declare function fontDescriptorWithName lib CocoaLib selector "fontDescriptorWithName:size:" (obj_id as Ptr, name as CFStringRef, size as Single) as Ptr
-		    
-		    dim descriptorRef as Ptr = fontDescriptorWithName(ClassRef, name, size)
-		    
-		    if descriptorRef <> nil then
-		      return new NSFontDescriptor(descriptorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused name
-		    #pragma unused size
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function FontDescriptorWithSize(newPointSIze as Single) As NSFontDescriptor
-		  
-		  #if TargetMacOS
-		    declare function fontDescriptorWithSize lib CocoaLib selector "fontDescriptorWithSize:" (obj_id as Ptr, newPointSize as Single) as Ptr
+		    declare function fontDescriptorWithSize lib CocoaLib selector "fontDescriptorWithSize:" (obj_id as Ptr, newPointSize as Double) as Ptr
 		    
 		    dim descriptorRef as Ptr = fontDescriptorWithSize(self, newPointSize)
 		    
@@ -279,17 +279,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSFontDescriptor(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSFontDescriptor(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -347,7 +341,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontCascadeListAttribute() As String
+		Shared Function NSFontCascadeListAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontCascadeListAttribute")
 		  
@@ -355,7 +349,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontCharacterSetAttribute() As String
+		Shared Function NSFontCharacterSetAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontCharacterSetAttribute")
 		  
@@ -363,7 +357,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontColorAttribute() As String
+		Shared Function NSFontColorAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontColorAttribute")
 		  
@@ -371,7 +365,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontFaceAttribute() As String
+		Shared Function NSFontFaceAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontFaceAttribute")
 		  
@@ -379,7 +373,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontFamilyAttribute() As String
+		Shared Function NSFontFamilyAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontFamilyAttribute")
 		  
@@ -387,7 +381,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontFeatureSettingsAttribute() As String
+		Shared Function NSFontFeatureSettingsAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontFeatureSettingsAttribute")
 		  
@@ -395,7 +389,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontFixedAdvanceAttribute() As String
+		Shared Function NSFontFixedAdvanceAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontFixedAdvanceAttribute")
 		  
@@ -403,7 +397,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontMatrixAttribute() As String
+		Shared Function NSFontMatrixAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontMatrixAttribute")
 		  
@@ -411,7 +405,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontNameAttribute() As String
+		Shared Function NSFontNameAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontNameAttribute")
 		  
@@ -419,7 +413,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontSizeAttribute() As String
+		Shared Function NSFontSizeAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontSizeAttribute")
 		  
@@ -427,7 +421,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontTraitsAttribute() As String
+		Shared Function NSFontTraitsAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontTraitsAttribute")
 		  
@@ -435,7 +429,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontVariationAttribute() As String
+		Shared Function NSFontVariationAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontVariationAttribute")
 		  
@@ -443,7 +437,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontVisibleNameAttribute() As String
+		Shared Function NSFontVisibleNameAttribute() As String
 		  
 		  return Cocoa.StringConstant("NSFontVisibleNameAttribute")
 		  
@@ -472,10 +466,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function PointSize() As Single
+		Function PointSize() As Double
 		  
 		  #if TargetMacOS
-		    declare function pointSize lib CocoaLib selector "pointSize" (obj_id as Ptr) as Single
+		    declare function pointSize lib CocoaLib selector "pointSize" (obj_id as Ptr) as Double
 		    
 		    return pointSize(self)
 		    
@@ -517,7 +511,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -525,7 +518,6 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -533,21 +525,18 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -555,7 +544,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

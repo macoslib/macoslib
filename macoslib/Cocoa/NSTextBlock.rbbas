@@ -93,10 +93,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function ContentWidth() As Single
+		Function ContentWidth() As Double
 		  
 		  #if targetMacOS
-		    declare function contentWidth lib CocoaLib selector "contentWidth" (obj_id as Ptr) as Single
+		    declare function contentWidth lib CocoaLib selector "contentWidth" (obj_id as Ptr) as Double
 		    
 		    return contentWidth(self)
 		    
@@ -106,10 +106,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub ContentWidth(type as NSTextBlockValueType, assigns value as Single)
+		Sub ContentWidth(type as NSTextBlockValueType, assigns value as Double)
 		  
 		  #if targetMacOS
-		    declare sub setContentWidth lib CocoaLib selector "setContentWidth:type:" (obj_id as Ptr, value as Single, type as NSTextBlockValueType)
+		    declare sub setContentWidth lib CocoaLib selector "setContentWidth:type:" (obj_id as Ptr, value as Double, type as NSTextBlockValueType)
 		    
 		    setContentWidth self, value, type
 		    
@@ -183,10 +183,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function Value(dimension as NSTextBlockDimension) As Single
+		Function Value(dimension as NSTextBlockDimension) As Double
 		  
 		  #if targetMacOS
-		    declare function valueForDimension lib CocoaLib selector "valueForDimension:" (obj_id as Ptr, dimension as NSTextBlockDimension) as Single
+		    declare function valueForDimension lib CocoaLib selector "valueForDimension:" (obj_id as Ptr, dimension as NSTextBlockDimension) as Double
 		    
 		    return valueForDimension(self, dimension)
 		    
@@ -198,11 +198,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Value(type as NSTextBlockValueType, dimension as NSTextBlockDimension, assigns value as Single)
+		Sub Value(type as NSTextBlockValueType, dimension as NSTextBlockDimension, assigns value as Double)
 		  
 		  #if targetMacOS
 		    declare sub setValue lib CocoaLib selector "setValue:type:forDimension:" _
-		    (obj_id as Ptr, value as Single, type as NSTextBlockValueType, dimension as NSTextBlockDimension)
+		    (obj_id as Ptr, value as Double, type as NSTextBlockValueType, dimension as NSTextBlockDimension)
 		    
 		    setValue self, value, type, dimension
 		    
@@ -232,11 +232,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function Width(layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge) As Single
+		Function Width(layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge) As Double
 		  
 		  #if targetMacOS
 		    declare function widthForLayer lib CocoaLib selector "widthForLayer:edge:" _
-		    (obj_id as Ptr, layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge) as Single
+		    (obj_id as Ptr, layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge) as Double
 		    
 		    return widthForLayer(self, layer, edge)
 		    
@@ -249,11 +249,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Width(type as NSTextBlockValueType, layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge, assigns value as Single)
+		Sub Width(type as NSTextBlockValueType, layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge, assigns value as Double)
 		  
 		  #if targetMacOS
 		    declare sub setWidth lib CocoaLib selector "setWidth:type:forLayer:edge:" _
-		    (obj_id as Ptr, value as Single, type as NSTextBlockValueType, layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge)
+		    (obj_id as Ptr, value as Double, type as NSTextBlockValueType, layer as NSTextBlockLayer, edge as Cocoa.NSRectEdge)
 		    
 		    setWidth self, value, type, layer, edge
 		    
@@ -268,11 +268,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Width(type as NSTextBlockValueType, layer as NSTextBlockLayer, assigns value as Single)
+		Sub Width(type as NSTextBlockValueType, layer as NSTextBlockLayer, assigns value as Double)
 		  
 		  #if targetMacOS
 		    declare sub setWidth lib CocoaLib selector "setWidth:type:forLayer:" _
-		    (obj_id as Ptr, value as Single, type as NSTextBlockValueType, layer as NSTextBlockLayer)
+		    (obj_id as Ptr, value as Double, type as NSTextBlockValueType, layer as NSTextBlockLayer)
 		    
 		    setWidth self, value, type, layer
 		    
@@ -406,40 +406,51 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="VerticalAlignment"
+			Group="Behavior"
+			Type="NSTextBlockVerticalAlignment"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSTextBlockTopAlignment"
+				"1 - NSTextBlockMiddleAlignment"
+				"2 - NSTextBlockBottomAlignment"
+				"3 - NSTextBlockBaselineAlignment"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

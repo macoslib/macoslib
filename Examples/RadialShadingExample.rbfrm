@@ -1,11 +1,13 @@
 #tag Window
 Begin Window RadialShadingExample
-   BackColor       =   16777215
-   Backdrop        =   ""
+   BackColor       =   &cFFFFFF00
+   Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
    Height          =   300
    ImplicitInstance=   True
@@ -14,7 +16,7 @@ Begin Window RadialShadingExample
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -62,28 +64,28 @@ End
 
 
 	#tag Method, Flags = &h21
-		Private Shared Sub CalculateShadingValues(info as Ptr, inSingleArray as Ptr, outSingleArray as Ptr)
+		Private Shared Sub CalculateShadingValues(info as Ptr, inDoubleArray as Ptr, outDoubleArray as Ptr)
 		  if info = nil then
 		    break
 		  end if
-		  if inSingleArray = nil then
+		  if inDoubleArray = nil then
 		    break
 		  end if
-		  if outSingleArray = nil then
+		  if outDoubleArray = nil then
 		    break
 		  end if
 		  
 		  dim lastColorComponentIndex as Integer = info.Int32(0) - 2
 		  dim frequency() as Double = Array(55.0, 220.0, 110.0, 0.0)
-		  dim x as Single = inSingleArray.Single(0)
+		  dim x as Double = inDoubleArray.Double(0)
 		  dim offset as Integer = 0
-		  const sizeOfSingle = 4
+		  
 		  for k as Integer = 0 to lastColorComponentIndex
-		    outSingleArray.Single(offset) = (1.0 + Sin(x*frequency(k)))/2.0
-		    offset = offset + sizeOfSingle
+		    outDoubleArray.Double(offset) = (1.0 + Sin(x*frequency(k)))/2.0
+		    offset = offset + SizeOfDouble
 		  next
-		  outSingleArray.Single(offset) = 1.0 //sets the alpha value
-		  offset = offset + sizeOfSingle
+		  outDoubleArray.Double(offset) = 1.0 //sets the alpha value
+		  offset = offset + SizeOfDouble
 		End Sub
 	#tag EndMethod
 

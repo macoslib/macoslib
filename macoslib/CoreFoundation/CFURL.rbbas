@@ -2,7 +2,7 @@
 Class CFURL
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -54,10 +54,10 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFURLGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CFURLGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -235,7 +235,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateBookmarkData(f As FolderItem, options As UInt32 = 0, resourcePropertiesToInclude() As String = nil, relativeTo As FolderItem = nil) As CFData
+		Shared Function CreateBookmarkData(f As FolderItem, options As UInt32 = 0, resourcePropertiesToInclude() As String = nil, relativeTo As FolderItem = nil) As CFData
 		  // Added by Kem Tekinay.
 		  
 		  dim r as CFData
@@ -293,7 +293,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateBookmarkDataFromFile(alias As FolderItem) As CFData
+		Shared Function CreateBookmarkDataFromFile(alias As FolderItem) As CFData
 		  dim r as CFData
 		  
 		  if alias is nil then return r
@@ -330,7 +330,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateByResolvingBookmarkData(bookmark As CFData, ByRef isStale As Boolean, options As UInt32 = 0, resourcePropertiesToInclude() As String = nil, relativeTo As FolderItem = nil) As CFURL
+		Shared Function CreateByResolvingBookmarkData(bookmark As CFData, ByRef isStale As Boolean, options As UInt32 = 0, resourcePropertiesToInclude() As String = nil, relativeTo As FolderItem = nil) As CFURL
 		  dim r as CFURL
 		  
 		  #if TargetMacOS
@@ -385,7 +385,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateByResolvingBookmarkData(bookmark As CFData, options As UInt32 = 0, resourcePropertiesToInclude() As String = nil, relativeTo As FolderItem = nil) As CFURL
+		Shared Function CreateByResolvingBookmarkData(bookmark As CFData, options As UInt32 = 0, resourcePropertiesToInclude() As String = nil, relativeTo As FolderItem = nil) As CFURL
 		  dim r as CFURL
 		  
 		  #if TargetMacOS
@@ -419,7 +419,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromFSRef(fsRef as MemoryBlock) As CFURL
+		Shared Function CreateFromFSRef(fsRef as MemoryBlock) As CFURL
 		  #if targetMacOS
 		    
 		    // Introduced in MacOS X 10.0
@@ -434,13 +434,13 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromHFSPath(path as String, isDirectory as Boolean) As CFURL
+		Shared Function CreateFromHFSPath(path as String, isDirectory as Boolean) As CFURL
 		  return CreateFromFilesystemPath(path, CFURL.HFSPathStyle, isDirectory)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPOSIXPath(path as String, isDirectory as Boolean) As CFURL
+		Shared Function CreateFromPOSIXPath(path as String, isDirectory as Boolean) As CFURL
 		  return CreateFromFilesystemPath(path, CFURL.POSIXPathStyle, isDirectory)
 		End Function
 	#tag EndMethod
@@ -1295,7 +1295,7 @@ Inherits CFType
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Exists"
@@ -1307,20 +1307,20 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RelativeURL"
@@ -1338,14 +1338,14 @@ Inherits CFType
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

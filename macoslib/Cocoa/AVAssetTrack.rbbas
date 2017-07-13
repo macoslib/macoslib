@@ -234,7 +234,7 @@ Inherits NSObject
 			Get
 			  #if TargetCocoa
 			    
-			    declare function preferredVolume lib Framework selector "preferredVolume" ( obj_id As Ptr ) As Single
+			    declare function preferredVolume lib Framework selector "preferredVolume" ( obj_id As Ptr ) as Double
 			    // Introduced in MacOS X 10.7.
 			    
 			    return preferredVolume( self.id )
@@ -242,7 +242,7 @@ Inherits NSObject
 			  #endif
 			End Get
 		#tag EndGetter
-		PreferredVolume As Single
+		PreferredVolume As Double
 	#tag EndComputedProperty
 
 
@@ -256,7 +256,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -268,20 +267,20 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreferredVolume"
@@ -292,14 +291,14 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

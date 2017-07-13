@@ -55,7 +55,7 @@ Inherits CFString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableString
+		Shared Function CreateFromPListFile(file as FolderItem) As CFMutableString
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
@@ -72,7 +72,7 @@ Inherits CFString
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFMutableString
+		Shared Function CreateFromPListString(plistString as String) As CFMutableString
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
@@ -177,52 +177,51 @@ Inherits CFString
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="CFString"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="CFString"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Length"
 			Group="Behavior"
 			Type="Integer"
-			InheritedFrom="CFString"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="CFString"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFString"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="CFString"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="CFString"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

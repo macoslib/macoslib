@@ -1,20 +1,22 @@
 #tag Window
 Begin Window CoreTextExample
-   BackColor       =   &hFFFFFF
-   Backdrop        =   ""
+   BackColor       =   &cFFFFFF00
+   Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   2.42e+2
+   Height          =   242
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -23,12 +25,12 @@ Begin Window CoreTextExample
    Resizeable      =   True
    Title           =   "Core Text Example"
    Visible         =   True
-   Width           =   3.93e+2
+   Width           =   393
    Begin Canvas textCanvas
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
+      AcceptFocus     =   False
+      AcceptTabs      =   False
       AutoDeactivate  =   True
-      Backdrop        =   ""
+      Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
@@ -47,13 +49,14 @@ Begin Window CoreTextExample
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   20
+      Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
       Width           =   148
    End
    Begin Label Label1
       AutoDeactivate  =   True
-      Bold            =   ""
+      Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -61,9 +64,9 @@ Begin Window CoreTextExample
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   197
-      LockBottom      =   ""
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
@@ -76,21 +79,21 @@ Begin Window CoreTextExample
       TabStop         =   True
       Text            =   "Resize the window to watch the text adjust itself inside the Canvas."
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   &c000000
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
       Transparent     =   False
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   176
    End
    Begin Canvas textCanvas2
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
+      AcceptFocus     =   False
+      AcceptTabs      =   False
       AutoDeactivate  =   True
-      Backdrop        =   ""
+      Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
@@ -109,6 +112,7 @@ Begin Window CoreTextExample
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   127
+      Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
       Width           =   148
@@ -243,7 +247,7 @@ End
 		    dim flush as Double = .5
 		    dim penOffset as Double = line.PenOffsetForFlush (flush, g.width)
 		    
-		    dim ascent, descent, leading as Single
+		    dim ascent, descent, leading as Double
 		    call line.GetTypographicBounds ascent, descent, leading
 		    
 		    dim lineRect as CGRect = line.ImageBounds(context)

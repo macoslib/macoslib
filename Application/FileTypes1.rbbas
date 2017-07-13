@@ -6,6 +6,11 @@
 		MacCreator=????
 		MacType=????
 		Name=special/any
+		UTI=
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=True
 	#tag EndFileType
 
 #tag EndFileTypeSet

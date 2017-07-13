@@ -96,9 +96,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FloatValue(key as String) As single
+		Function FloatValue(key as String) As Double
 		  #if TargetMacOS
-		    declare function floatForKey lib CocoaLib selector "floatForKey:" (id as Ptr, key as CFStringRef) as single
+		    declare function floatForKey lib CocoaLib selector "floatForKey:" (id as Ptr, key as CFStringRef) as Double
 		    
 		    return floatForKey( self, key )
 		  #endif
@@ -106,9 +106,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FloatValue(key as String, assigns value as single)
+		Sub FloatValue(key as String, assigns value as Double)
 		  #if TargetMacOS
-		    declare sub setFloat lib CocoaLib selector "setFloat:forKey:" (id as Ptr, value as single, key as CFStringRef)
+		    declare sub setFloat lib CocoaLib selector "setFloat:forKey:" (id as Ptr, value as Double, key as CFStringRef)
 		    
 		    setFloat( self, value, key )
 		  #endif
@@ -194,7 +194,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StandardUserDefaults() As NSUserDefaults
+		Shared Function StandardUserDefaults() As NSUserDefaults
 		  #if TargetMacOS
 		    declare function standardUserDefaults lib CocoaLib selector "standardUserDefaults" (Cls as Ptr) as Ptr
 		    
@@ -278,40 +278,39 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

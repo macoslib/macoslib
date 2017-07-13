@@ -6,12 +6,6 @@ Protected Module UnicodeFormsExtension
 		  
 		  //@ If one of the two strings is not Unicode, result in undefined
 		  
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		    #endif
-		  #endif
-		  
 		  'dim form as integer
 		  '
 		  'form = s1.GuessUnicodeNormalization
@@ -690,33 +684,33 @@ Protected Module UnicodeFormsExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

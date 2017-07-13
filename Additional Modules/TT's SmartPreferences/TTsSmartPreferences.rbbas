@@ -1,7 +1,7 @@
 #tag Class
 Protected Class TTsSmartPreferences
 	#tag Method, Flags = &h0
-		 Shared Function AppSupportFolder(appName as String, createIfMissing as Boolean = true) As FolderItem
+		Shared Function AppSupportFolder(appName as String, createIfMissing as Boolean = true) As FolderItem
 		  // Return:
 		  // nil -> app folder invalid or can't be created
 		  // otherwise -> test for .Exists if createIfMissing=false was passed
@@ -95,16 +95,6 @@ Protected Class TTsSmartPreferences
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromObject(a() as Object) As Variant()
-		  dim var() as Variant
-		  for each v as Variant in a
-		    var.Append v
-		  next
-		  return var
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Shared Function arrayFromSingle(a() as Single) As Variant()
 		  dim var() as Variant
 		  for each v as Variant in a
 		    var.Append v
@@ -219,7 +209,7 @@ Protected Class TTsSmartPreferences
 		    newv = CFBoolean.Get(v.BooleanValue)
 		  case v.TypeInteger
 		    newv = CFNumber(v.Int64Value)
-		  case v.TypeDouble, v.TypeSingle
+		  case v.TypeDouble
 		    newv = CFNumber(v.DoubleValue)
 		  case v.TypeString, v.TypeCFStringRef
 		    newv = CFString(v.StringValue)
@@ -255,8 +245,6 @@ Protected Class TTsSmartPreferences
 		        ar = arrayFromInteger (v)
 		      case Variant.TypeLong
 		        ar = arrayFromLong (v)
-		      case Variant.TypeSingle
-		        ar = arrayFromSingle (v)
 		      case Variant.TypeObject
 		        ar = arrayFromObject (v)
 		      end select
@@ -276,9 +264,9 @@ Protected Class TTsSmartPreferences
 		  
 		  return newv
 		  
-		Exception exc as RuntimeException
-		  break
-		  raise new UnsupportedFormatException
+		  Exception exc as RuntimeException
+		    break
+		    raise new UnsupportedFormatException
 		End Function
 	#tag EndMethod
 
@@ -464,7 +452,7 @@ Protected Class TTsSmartPreferences
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDirty"
@@ -476,26 +464,26 @@ Protected Class TTsSmartPreferences
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -286,11 +286,11 @@ Protected Module TextFieldExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SingleValue(Extends t as TextField) As Single
+		Function SingleValue(Extends t as TextField) As Double
 		  //# Returns the value of the text field’s cell as a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Single
+		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Double
 		    
 		    return floatValue(t.handle)
 		  #else
@@ -300,11 +300,11 @@ Protected Module TextFieldExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SingleValue(Extends t as TextField, Assigns value as Single)
+		Sub SingleValue(Extends t as TextField, Assigns value as Double)
 		  //# Sets the value of the text field’s cell using a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Single)
+		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Double)
 		    
 		    setFloatValue(t.handle, value)
 		  #else
@@ -340,33 +340,33 @@ Protected Module TextFieldExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

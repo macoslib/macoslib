@@ -77,7 +77,7 @@ Protected Module CocoaToolbar
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ToolbarHeight(extends w as Window) As Single
+		Function ToolbarHeight(extends w as Window) As Double
 		  
 		  #if TargetCocoa
 		    declare function getToolbar lib CocoaLib selector "toolbar" (obj_id as Integer) as Ptr
@@ -89,7 +89,7 @@ Protected Module CocoaToolbar
 		    declare function styleMask lib CocoaLib selector "styleMask" (obj_id as Integer) as Integer
 		    
 		    dim windowToolbar as Ptr = getToolbar(w.handle)
-		    dim toolbarHeight as Single = 0.0
+		    dim toolbarHeight as Double = 0.0
 		    dim windowFrame as Cocoa.NSRect
 		    
 		    if windowToolbar <> nil and isVisible(windowToolbar) then
@@ -118,33 +118,33 @@ Protected Module CocoaToolbar
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

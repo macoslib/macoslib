@@ -3,11 +3,11 @@ Protected Module CFArrayExtension
 	#tag Method, Flags = &h0
 		Function CFStringRefValue(extends theArray as CFArray, index as Integer) As CFStringRef
 		  #if TargetMacOS
-		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
-		    declare function CFStringGetTypeID lib CarbonLib () as UInt32
+		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
+		    declare function CFStringGetTypeID lib CarbonLib () as UInteger
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
 		    
-		    static StringTypeID as UInt32 = CFStringGetTypeID
+		    static StringTypeID as UInteger = CFStringGetTypeID
 		    
 		    dim p as Ptr = theArray.Value(index)
 		    if CFGetTypeID(p) = StringTypeID then
@@ -37,11 +37,11 @@ Protected Module CFArrayExtension
 		  
 		  #if TargetMacOS
 		    declare sub CFArrayGetValues lib CarbonLib ( theArray as Ptr, range as CFRange, values as Ptr )
-		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
-		    declare function CFStringGetTypeID lib CarbonLib () as UInt32
+		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
+		    declare function CFStringGetTypeID lib CarbonLib () as UInteger
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
 		    
-		    static StringTypeID as UInt32 = CFStringGetTypeID
+		    static StringTypeID as UInteger = CFStringGetTypeID
 		    
 		    dim p as Ptr
 		    dim mb as MemoryBlock
@@ -81,33 +81,33 @@ Protected Module CFArrayExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -2,7 +2,7 @@
 Class CGContext
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -15,7 +15,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextAddArc lib CarbonLib (context as Ptr, x as Single, y as Single, radius as Single, startAngle as Single, endAngle as Single, clockwise as Integer)
+		    soft declare sub CGContextAddArc lib CarbonLib (context as Ptr, x as Double, y as Double, radius as Double, startAngle as Double, endAngle as Double, clockwise as Integer)
 		    
 		    CGContextAddArc me, x, y, radius, startAngle, endAngle, clockwise
 		  #endif
@@ -29,7 +29,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextAddArcToPoint lib CarbonLib (context as Ptr, x1 as Single, y1 as Single, x2 as Single, y2 as Single, radius as Single)
+		    soft declare sub CGContextAddArcToPoint lib CarbonLib (context as Ptr, x1 as Double, y1 as Double, x2 as Double, y2 as Double, radius as Double)
 		    
 		    CGContextAddArcToPoint me, x1, y1, x2, y2, radius
 		  #endif
@@ -43,7 +43,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextAddCurveToPoint lib CarbonLib (context as Ptr, cp1x as Single, cp1y as Single, cp2x as Single, cp2y as Single, x as Single, y as Single)
+		    soft declare sub CGContextAddCurveToPoint lib CarbonLib (context as Ptr, cp1x as Double, cp1y as Double, cp2x as Double, cp2y as Double, x as Double, y as Double)
 		    
 		    CGContextAddCurveToPoint me, cp1x, cp1y, cp2x, cp2y, x, y
 		  #endif
@@ -89,7 +89,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextAddLineToPoint lib CarbonLib (context as Ptr, x as Single, y as Single)
+		    soft declare sub CGContextAddLineToPoint lib CarbonLib (context as Ptr, x as Double, y as Double)
 		    
 		    CGContextAddLineToPoint me, x, y
 		  #endif
@@ -121,7 +121,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextAddQuadCurveToPoint lib CarbonLib (path as Ptr, cpx as Single, cpy as Single, x as Single, y as Single)
+		    soft declare sub CGContextAddQuadCurveToPoint lib CarbonLib (path as Ptr, cpx as Double, cpy as Double, x as Double, y as Double)
 		    
 		    CGContextAddQuadCurveToPoint me, cpx, cpy, x, y
 		  #endif
@@ -195,12 +195,11 @@ Inherits CFType
 		    return nil
 		  end if
 		  
-		  const sizeOfSingle = 4
-		  dim theArray as new MemoryBlock(sizeOfSingle*(1 + UBound(theList)))
+		  dim theArray as new MemoryBlock(SizeOfDouble *(1 + UBound(theList)))
 		  dim offset as Integer = 0
 		  for i as Integer = 0 to UBound(theList)
-		    theArray.SingleValue(offset) = theList(i)
-		    offset = offset + sizeOfSingle
+		    theArray.DoubleValue(offset) = theList(i)
+		    offset = offset + SizeOfDouble
 		  next
 		  
 		  return theArray
@@ -208,11 +207,11 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CGContextGetTypeID" () as UInt32
+		    declare function TypeID lib CarbonLib alias "CGContextGetTypeID" () as UInteger
 		    
-		    static id as UInt32 = TypeID
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -584,7 +583,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextMoveToPoint lib CarbonLib (context as Ptr, x as Single, y as Single)
+		    soft declare sub CGContextMoveToPoint lib CarbonLib (context as Ptr, x as Double, y as Double)
 		    
 		    CGContextMoveToPoint me, x, y
 		  #endif
@@ -668,7 +667,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextRotateCTM lib CarbonLib (context as Ptr, angle as Single)
+		    soft declare sub CGContextRotateCTM lib CarbonLib (context as Ptr, angle as Double)
 		    
 		    CGContextRotateCTM me, angle
 		  #endif
@@ -696,7 +695,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextScaleCTM lib CarbonLib (context as Ptr, sx as Single, sy as Single)
+		    soft declare sub CGContextScaleCTM lib CarbonLib (context as Ptr, sx as Double, sy as Double)
 		    
 		    CGContextScaleCTM me, sx, sy
 		  #endif
@@ -704,13 +703,13 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SetAlpha(value as Single)
+		Sub SetAlpha(value as Double)
 		  if me = nil then
 		    return
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextSetAlpha lib CarbonLib (context as Ptr, alpha as Single)
+		    soft declare sub CGContextSetAlpha lib CarbonLib (context as Ptr, alpha as Double)
 		    //values outside range 0.0-1.0 are clipped, according to CGContextRef documentation.
 		    CGContextSetAlpha me, value
 		  #endif
@@ -747,7 +746,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub SetFillColor(c as Color, alpha as Double = 1.0)
 		  #if targetMacOS
-		    soft declare sub CGContextSetRGBFillColor lib CarbonLib (context as Ptr, red as Single, green as Single, blue as Single, alpha as Single)
+		    soft declare sub CGContextSetRGBFillColor lib CarbonLib (context as Ptr, red as Double, green as Double, blue as Double, alpha as Double)
 		    
 		    CGContextSetRGBFillColor me, c.Red/255, c.Green/255, c.Blue/255, alpha
 		  #endif
@@ -780,7 +779,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextSetFlatness lib CarbonLib (context as Ptr, flatness as Single)
+		    soft declare sub CGContextSetFlatness lib CarbonLib (context as Ptr, flatness as Double)
 		    
 		    CGContextSetFlatness me, flatness
 		  #endif
@@ -808,7 +807,7 @@ Inherits CFType
 		Sub SetFontSize(size as Double)
 		  #if TargetMacOS
 		    
-		    soft declare sub CGContextSetFontSize lib CarbonLib (context as Ptr, size as Single)
+		    soft declare sub CGContextSetFontSize lib CarbonLib (context as Ptr, size as Double)
 		    
 		    CGContextSetFontSize me, size
 		    
@@ -830,7 +829,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub SetLineDash(phase as Double, lengths() as Double, count as UInt32)
 		  #if targetMacOS
-		    soft declare sub CGContextSetLineDash lib CarbonLib (phase as Single, lengths as Ptr, count as UInt32)
+		    soft declare sub CGContextSetLineDash lib CarbonLib (phase as Double, lengths as Ptr, count as UInt32)
 		    
 		    if UBound(lengths) > -1 then
 		      dim lengthArray as MemoryBlock = CFloatArray(lengths)
@@ -859,7 +858,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub SetLineWidth(width as Double)
 		  #if targetMacOS
-		    soft declare sub CGContextSetLineWidth lib CarbonLib (context as Ptr, width as Single)
+		    soft declare sub CGContextSetLineWidth lib CarbonLib (context as Ptr, width as Double)
 		    
 		    CGContextSetLineWidth me, width
 		  #endif
@@ -869,7 +868,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub SetMiterLimit(limit as Double)
 		  #if targetMacOS
-		    soft declare sub CGContextSetMiterLimit lib CarbonLib (context as Ptr, limit as Single)
+		    soft declare sub CGContextSetMiterLimit lib CarbonLib (context as Ptr, limit as Double)
 		    
 		    CGContextSetMiterLimit me, limit
 		  #endif
@@ -913,7 +912,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextSetShadow lib CarbonLib (context as Ptr, offset as CGSize, blur as Single)
+		    soft declare sub CGContextSetShadow lib CarbonLib (context as Ptr, offset as CGSize, blur as Double)
 		    
 		    CGContextSetShadow me, offset, blur
 		  #endif
@@ -927,7 +926,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextSetShadowWithColor lib CarbonLib (context as Ptr, offset as CGSize, blur as Single, color as Ptr)
+		    soft declare sub CGContextSetShadowWithColor lib CarbonLib (context as Ptr, offset as CGSize, blur as Double, color as Ptr)
 		    
 		    if color <> nil then
 		      CGContextSetShadowWithColor me, offset, blur, color
@@ -978,7 +977,7 @@ Inherits CFType
 	#tag Method, Flags = &h0
 		Sub SetStrokeColor(c as Color, alpha as Double = 1.0)
 		  #if targetMacOS
-		    soft declare sub CGContextSetRGBStrokeColor lib CarbonLib (context as Ptr, red as Single, green as Single, blue as Single, alpha as Single)
+		    soft declare sub CGContextSetRGBStrokeColor lib CarbonLib (context as Ptr, red as Double, green as Double, blue as Double, alpha as Double)
 		    
 		    CGContextSetRGBStrokeColor me, c.Red/255, c.Green/255, c.Blue/255, alpha
 		  #endif
@@ -1015,9 +1014,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SetTextPosition(x as Single, y as Single)
+		Sub SetTextPosition(x as Double, y as Double)
 		  #if targetMacOS
-		    declare sub CGContextSetTextPosition lib CarbonLib (context as Ptr, x as Single, y as Single)
+		    declare sub CGContextSetTextPosition lib CarbonLib (context as Ptr, x as Double, y as Double)
 		    
 		    CGContextSetTextPosition me, x, y
 		  #endif
@@ -1101,7 +1100,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextStrokeRectWithWidth lib CarbonLib (context as Ptr, rect as CGRect, width as Single)
+		    soft declare sub CGContextStrokeRectWithWidth lib CarbonLib (context as Ptr, rect as CGRect, width as Double)
 		    
 		    CGContextStrokeRectWithWidth me, rect, width
 		  #endif
@@ -1115,7 +1114,7 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGContextTranslateCTM lib CarbonLib (context as Ptr, tx as Single, ty as Single)
+		    soft declare sub CGContextTranslateCTM lib CarbonLib (context as Ptr, tx as Double, ty as Double)
 		    
 		    CGContextTranslateCTM me, tx, ty
 		  #endif
@@ -1158,40 +1157,51 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="InterpolationQuality"
+			Group="Behavior"
+			Type="CGInterpolationQuality"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Default"
+				"1 - None"
+				"2 - Low"
+				"3 - High"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

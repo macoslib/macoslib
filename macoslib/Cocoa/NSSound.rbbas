@@ -230,7 +230,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SoundNamed(soundName As NSString) As NSSound
+		Shared Function SoundNamed(soundName As NSString) As NSSound
 		  dim r as NSSound
 		  
 		  #if TargetMacOS
@@ -449,7 +449,7 @@ Inherits NSObject
 			Get
 			  #if TargetMacOS
 			    
-			    declare function volume_ lib Framework selector "volume" ( obj_id As Ptr ) As Single
+			    declare function volume_ lib Framework selector "volume" ( obj_id As Ptr ) as Double
 			    
 			    return volume_( self.id )
 			    
@@ -461,7 +461,7 @@ Inherits NSObject
 			Set
 			  #if TargetMacOS
 			    
-			    declare sub setVolume lib Framework selector "setVolume:" ( obj_id As Ptr, volume As Single )
+			    declare sub setVolume lib Framework selector "setVolume:" ( obj_id As Ptr, volume as Double )
 			    
 			    setVolume( self.id, value )
 			    
@@ -473,7 +473,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		Volume As Single
+		Volume As Double
 	#tag EndComputedProperty
 
 
@@ -495,14 +495,13 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPlaying"
@@ -514,7 +513,7 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Loops"
@@ -525,7 +524,7 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StopOnDestruct"
@@ -536,14 +535,14 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Volume"

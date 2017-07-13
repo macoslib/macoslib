@@ -655,7 +655,7 @@ Protected Module HTMLViewerExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub MoveDragCaretToPoint(extends v as HTMLViewer, x as Single, y as Single)
+		Sub MoveDragCaretToPoint(extends v as HTMLViewer, x as Double, y as Double)
 		  //# Moves the drag caret that indicates the destination of a drag operation to a given point.
 		  
 		  #if TargetCocoa then
@@ -1109,11 +1109,11 @@ Protected Module HTMLViewerExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TextSizeMultiplier(extends v as HTMLViewer) As Single
+		Function TextSizeMultiplier(extends v as HTMLViewer) As Double
 		  //# Returns the font size multiplier for text displayed in web frame view objects managed by the HTMLViewer.
 		  
 		  #if TargetCocoa then
-		    declare function textSizeMultiplier lib CocoaLib selector "textSizeMultiplier" (obj_id as Integer) as Single
+		    declare function textSizeMultiplier lib CocoaLib selector "textSizeMultiplier" (obj_id as Integer) as Double
 		    
 		    return textSizeMultiplier(v.Handle)
 		  #else
@@ -1123,11 +1123,11 @@ Protected Module HTMLViewerExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub TextSizeMultiplier(extends v as HTMLViewer, Assigns multiplier as Single)
+		Sub TextSizeMultiplier(extends v as HTMLViewer, Assigns multiplier as Double)
 		  //# Change the font size multiplier for text displayed in web frame view objects managed by the HTMLViewer.
 		  
 		  #if TargetCocoa then
-		    declare sub setTextSizeMultiplier lib CocoaLib selector "setTextSizeMultiplier:" (obj_id as Integer, multiplier as Single)
+		    declare sub setTextSizeMultiplier lib CocoaLib selector "setTextSizeMultiplier:" (obj_id as Integer, multiplier as Double)
 		    
 		    setTextSizeMultiplier(v.Handle, multiplier)
 		  #else
@@ -1197,33 +1197,33 @@ Protected Module HTMLViewerExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

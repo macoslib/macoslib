@@ -60,31 +60,31 @@ Protected Module CoreGraphics
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformMake Lib "Carbon.framework" (a as Single, b as Single, c as Single, d as Single, tx as Single, ty as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformMake Lib "Carbon.framework" (a as Double, b as Double, c as Double, d as Double, tx as Double, ty as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformMakeRotation Lib "Carbon.framework" (angle as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformMakeRotation Lib "Carbon.framework" (angle as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformMakeScale Lib "Carbon.framework" (sx as Single, sy as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformMakeScale Lib "Carbon.framework" (sx as Double, sy as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformMakeTranslation Lib "Carbon.framework" (tx as Single, ty as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformMakeTranslation Lib "Carbon.framework" (tx as Double, ty as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformRotate Lib "Carbon.framework" (t as CGAffineTransform, angle as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformRotate Lib "Carbon.framework" (t as CGAffineTransform, angle as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformScale Lib "Carbon.framework" (t as CGAffineTransform, sx as Single, sy as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformScale Lib "Carbon.framework" (t as CGAffineTransform, sx as Double, sy as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGAffineTransformTranslate Lib "Carbon.framework" (t as CGAffineTransform, tx as Single, ty as Single) As CGAffineTransform
+		Soft Declare Function CGAffineTransformTranslate Lib "Carbon.framework" (t as CGAffineTransform, tx as Double, ty as Double) As CGAffineTransform
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
@@ -96,7 +96,7 @@ Protected Module CoreGraphics
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
-		Function CGPointMake(x as Single, y as Single) As CGPoint
+		Function CGPointMake(x as Double, y as Double) As CGPoint
 		  dim pt as CGPoint
 		  pt.x = x
 		  pt.y = y
@@ -107,7 +107,7 @@ Protected Module CoreGraphics
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CGPointOffset(pt as CGPoint, xOffset as Single, yOffset as Single) As CGPoint
+		Function CGPointOffset(pt as CGPoint, xOffset as Double, yOffset as Double) As CGPoint
 		  // moves the CGPoint by the given offsets
 		  
 		  pt.x = pt.x + xOffset
@@ -129,7 +129,7 @@ Protected Module CoreGraphics
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Sub CGRectDivide Lib "Carbon.framework" (rect as CGRect, ByRef slice as CGRect, ByRef remainder as CGRect, amount as Single, edge as CGRectEdge)
+		Soft Declare Sub CGRectDivide Lib "Carbon.framework" (rect as CGRect, ByRef slice as CGRect, ByRef remainder as CGRect, amount as Double, edge as CGRectEdge)
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
@@ -155,7 +155,7 @@ Protected Module CoreGraphics
 	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGRectInset Lib "Carbon.framework" (rect as CGRect, dx as Single, dy as Single) As CGRect
+		Soft Declare Function CGRectInset Lib "Carbon.framework" (rect as CGRect, dx as Double, dy as Double) As CGRect
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
@@ -183,7 +183,7 @@ Protected Module CoreGraphics
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
-		Function CGRectMake(x as Single, y as Single, width as Single, height as Single) As CGRect
+		Function CGRectMake(x as Double, y as Double, width as Double, height as Double) As CGRect
 		  dim rect as CGRect
 		  rect.origin = CGPointMake(x, y)
 		  rect.rectSize = CGSizeMake(width, height)
@@ -212,7 +212,7 @@ Protected Module CoreGraphics
 	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h0
-		Soft Declare Function CGRectOffset Lib "Carbon.framework" (rect as CGRect, dx as Single, dy as Single) As CGRect
+		Soft Declare Function CGRectOffset Lib "Carbon.framework" (rect as CGRect, dx as Double, dy as Double) As CGRect
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
@@ -232,7 +232,7 @@ Protected Module CoreGraphics
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
-		Function CGSizeMake(width as Single, height as Single) As CGSize
+		Function CGSizeMake(width as Double, height as Double) As CGSize
 		  dim size as CGSize
 		  size.width = width
 		  size.height = height
@@ -295,12 +295,12 @@ Protected Module CoreGraphics
 
 
 	#tag Structure, Name = CGAffineTransform, Flags = &h0
-		a as Single
-		  b as Single
-		  c as Single
-		  d as Single
-		  tx as Single
-		ty as Single
+		a as Double
+		  b as Double
+		  c as Double
+		  d as Double
+		  tx as Double
+		ty as Double
 	#tag EndStructure
 
 	#tag Structure, Name = CGFunctionCallbacks, Flags = &h0
@@ -319,8 +319,8 @@ Protected Module CoreGraphics
 	#tag EndStructure
 
 	#tag Structure, Name = CGPoint, Flags = &h0
-		x as Single
-		y as Single
+		x as Double
+		y as Double
 	#tag EndStructure
 
 	#tag Structure, Name = CGRect, Flags = &h0
@@ -329,8 +329,8 @@ Protected Module CoreGraphics
 	#tag EndStructure
 
 	#tag Structure, Name = CGSize, Flags = &h0
-		width as Single
-		height as Single
+		width as Double
+		height as Double
 	#tag EndStructure
 
 

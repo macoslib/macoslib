@@ -59,7 +59,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromFolderItem(f as FolderItem) As QTMovie
+		Shared Function LoadFromFolderItem(f as FolderItem) As QTMovie
 		  if f = nil then
 		    return nil
 		  end if
@@ -69,7 +69,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromPath(path as String) As QTMovie
+		Shared Function LoadFromPath(path as String) As QTMovie
 		  #if targetCocoa
 		    declare function initWithFile lib QTKit.Framework selector "initWithFile:error:" (obj_id as Ptr, fileName as CFStringRef, ByRef errorPtr as Ptr) as Ptr
 		    
@@ -88,7 +88,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MakeFileType(uti as String) As FileType
+		Shared Function MakeFileType(uti as String) As FileType
 		  'dim f as new FileType
 		  'f.MacType = UTI.OSType(uti)
 		  'f.Extensions = UTI.
@@ -131,7 +131,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Rate() As Double
 		  #if targetCocoa
-		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Single
+		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Double
 		    
 		    return CType(rate(self), Double)
 		  #endif
@@ -182,7 +182,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTIs() As UTI()
+		Shared Function UTIs() As UTI()
 		  #if targetCocoa
 		    declare function movieTypesWithOptions lib QTKit.framework selector "movieTypesWithOptions:" (class_id as Ptr, types as Integer) as Ptr
 		    
@@ -199,7 +199,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Volume() As Double
 		  #if targetCocoa
-		    declare function volume lib QTKit.framework selector "volume" (obj_id as Ptr) as Single
+		    declare function volume lib QTKit.framework selector "volume" (obj_id as Ptr) as Double
 		    
 		    return CType(volume(self), Double)
 		  #endif
@@ -250,21 +250,20 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Muted"
@@ -275,20 +274,20 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

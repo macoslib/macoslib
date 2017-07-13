@@ -244,11 +244,11 @@ Protected Module SegmentedControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function WidthForSegment(extends s as SegmentedControl, segment as Integer) As Single
+		Function WidthForSegment(extends s as SegmentedControl, segment as Integer) As Double
 		  //# Returns the width of the specified segment.
 		  
 		  #if TargetCocoa then
-		    declare function widthForSegment lib CocoaLib selector "widthForSegment:" (obj_id as Integer, segment as Integer) as Single
+		    declare function widthForSegment lib CocoaLib selector "widthForSegment:" (obj_id as Integer, segment as Integer) as Double
 		    
 		    return widthForSegment(s.handle, segment)
 		  #else
@@ -259,11 +259,11 @@ Protected Module SegmentedControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub WidthForSegment(extends s as SegmentedControl, segment as Integer, assigns width as Single)
+		Sub WidthForSegment(extends s as SegmentedControl, segment as Integer, assigns width as Double)
 		  //# Sets the width of the specified segment.
 		  
 		  #if TargetCocoa then
-		    declare sub setWidth lib CocoaLib selector "setWidth:forSegment:" (obj_id as Integer, width as Single, segment as Integer)
+		    declare sub setWidth lib CocoaLib selector "setWidth:forSegment:" (obj_id as Integer, width as Double, segment as Integer)
 		    
 		    setWidth(s.handle, width, segment)
 		  #else
@@ -294,33 +294,33 @@ Protected Module SegmentedControlExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

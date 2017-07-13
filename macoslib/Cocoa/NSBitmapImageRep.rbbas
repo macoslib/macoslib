@@ -43,7 +43,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CanInitWithData(data as NSData) As Boolean
+		Shared Function CanInitWithData(data as NSData) As Boolean
 		  
 		  #if TargetMacOS
 		    declare function canInitWithData lib CocoaLib selector "canInitWithData:" (class_id as Ptr, data as Ptr) as Boolean
@@ -63,7 +63,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CanInitWithPasteboard(pasteboard as NSPasteboard) As Boolean
+		Shared Function CanInitWithPasteboard(pasteboard as NSPasteboard) As Boolean
 		  
 		  #if TargetMacOS
 		    declare function canInitWithPasteboard lib CocoaLib selector "canInitWithPasteboard:" (class_id as Ptr, pasteboard as Ptr) as Boolean
@@ -101,7 +101,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ClassForData(data as NSData) As Ptr
+		Shared Function ClassForData(data as NSData) As Ptr
 		  
 		  #if TargetMacOS
 		    declare function imageRepClassForData lib CocoaLib selector "imageRepClassForData:" (class_id as Ptr, data as Ptr) as Ptr
@@ -121,7 +121,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ClassForFileType(fileType as String) As Ptr
+		Shared Function ClassForFileType(fileType as String) As Ptr
 		  
 		  #if TargetMacOS
 		    declare function imageRepClassForFileType lib CocoaLib selector "imageRepClassForFileType:" (class_id as Ptr, fileType as CFStringRef) as Ptr
@@ -136,7 +136,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ClassForPasteboardType(pboardType as String) As Ptr
+		Shared Function ClassForPasteboardType(pboardType as String) As Ptr
 		  
 		  #if TargetMacOS
 		    declare function imageRepClassForPasteboardType lib CocoaLib selector "imageRepClassForPasteboardType:" (class_id as Ptr, pboardType as CFStringRef) as Ptr
@@ -151,7 +151,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ClassForType(type as String) As Ptr
+		Shared Function ClassForType(type as String) As Ptr
 		  
 		  #if TargetMacOS
 		    declare function imageRepClassForType lib CocoaLib selector "imageRepClassForType:" (class_id as Ptr, type as CFStringRef) as Ptr
@@ -175,11 +175,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub ColorizeByMappingGray(midPoint as Single, midPointColor as NSColor, shadowColor as NSColor, lightColor as NSColor)
+		Sub ColorizeByMappingGray(midPoint as Double, midPointColor as NSColor, shadowColor as NSColor, lightColor as NSColor)
 		  //# Colorizes a grayscale image.
 		  
 		  #if TargetMacOS
-		    declare sub colorizeByMappingGray lib CocoaLib selector "colorizeByMappingGray:toColor:blackMapping:whiteMapping:" (obj_id as Ptr, midPoint as Single, midPointColor as Ptr, shadowColor as Ptr, lightColor as Ptr)
+		    declare sub colorizeByMappingGray lib CocoaLib selector "colorizeByMappingGray:toColor:blackMapping:whiteMapping:" (obj_id as Ptr, midPoint as Double, midPointColor as Ptr, shadowColor as Ptr, lightColor as Ptr)
 		    
 		    dim midPointColorRef as Ptr
 		    if midPointColor <> nil then
@@ -413,7 +413,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreatesWithData(data as NSData) As NSBitmapImageRep()
+		Shared Function CreatesWithData(data as NSData) As NSBitmapImageRep()
 		  
 		  #if TargetMacOS
 		    declare function imageRepsWithData lib CocoaLib selector "imageRepsWithData:" (class_id as Ptr, data as Ptr) as Ptr
@@ -429,17 +429,11 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -453,7 +447,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreatesWithFile(file as FolderItem) As NSBitmapImageRep()
+		Shared Function CreatesWithFile(file as FolderItem) As NSBitmapImageRep()
 		  
 		  #if TargetMacOS
 		    declare function imageRepsWithContentsOfFile lib CocoaLib selector "imageRepsWithContentsOfFile:" (class_id as Ptr, aPath as CFStringRef) as Ptr
@@ -465,17 +459,11 @@ Inherits NSImageRep
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
 		        
-		        #if RBVersion > 2013.01
-		          #if Target64Bit
-		            #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		          #endif
-		        #endif
-		        
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		        dim n as UInt32 = arrayRange.length-1
+		        dim n as Integer = arrayRange.length-1
 		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		        next
 		      end if
 		    end if
@@ -490,7 +478,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreatesWithPasteboard(pasteboard as NSPasteboard) As NSBitmapImageRep()
+		Shared Function CreatesWithPasteboard(pasteboard as NSPasteboard) As NSBitmapImageRep()
 		  
 		  #if TargetMacOS
 		    declare function imageRepsWithPasteboard lib CocoaLib selector "imageRepsWithPasteboard:" (class_id as Ptr, pasteboard as Ptr) as Ptr
@@ -506,17 +494,11 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -530,7 +512,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreatesWithURL(aURL as NSURL) As NSBitmapImageRep()
+		Shared Function CreatesWithURL(aURL as NSURL) As NSBitmapImageRep()
 		  
 		  #if TargetMacOS
 		    declare function imageRepsWithContentsOfURL lib CocoaLib selector "imageRepsWithContentsOfURL:" (class_id as Ptr, aURL as Ptr) as Ptr
@@ -546,17 +528,11 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -570,7 +546,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithData(data as NSData) As NSBitmapImageRep
+		Shared Function CreateWithData(data as NSData) As NSBitmapImageRep
 		  
 		  #if TargetMacOS
 		    declare function imageRepWithData lib CocoaLib selector "imageRepWithData:" (class_id as Ptr, data as Ptr) as Ptr
@@ -593,7 +569,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithFile(file as FolderItem) As NSBitmapImageRep
+		Shared Function CreateWithFile(file as FolderItem) As NSBitmapImageRep
 		  
 		  #if TargetMacOS
 		    declare function imageRepWithContentsOfFile lib CocoaLib selector "imageRepWithContentsOfFile:" (class_id as Ptr, aPath as CFStringRef) as Ptr
@@ -613,7 +589,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithPasteboard(pasteboard as NSPasteboard) As NSBitmapImageRep
+		Shared Function CreateWithPasteboard(pasteboard as NSPasteboard) As NSBitmapImageRep
 		  
 		  #if TargetMacOS
 		    declare function imageRepWithPasteboard lib CocoaLib selector "imageRepWithPasteboard:" (class_id as Ptr, pasteboard as Ptr) as Ptr
@@ -636,7 +612,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithURL(aURL as NSURL) As NSBitmapImageRep
+		Shared Function CreateWithURL(aURL as NSURL) As NSBitmapImageRep
 		  
 		  #if TargetMacOS
 		    declare function imageRepWithContentsOfURL lib CocoaLib selector "imageRepWithContentsOfURL:" (class_id as Ptr, aURL as Ptr) as Ptr
@@ -678,11 +654,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub GetCompression(byRef compression as NSTIFFCompression, byRef factor as Single)
+		Sub GetCompression(byRef compression as NSTIFFCompression, byRef factor as Double)
 		  //# Returns by indirection the NSBitmapImageRep’s compression type and compression factor.
 		  
 		  #if TargetMacOS
-		    declare sub getCompression lib CocoaLib selector "getCompression:factor:" (obj_id as Ptr, byRef compression as NSTIFFCompression, byRef factor as Single)
+		    declare sub getCompression lib CocoaLib selector "getCompression:factor:" (obj_id as Ptr, byRef compression as NSTIFFCompression, byRef factor as Double)
 		    
 		    getCompression self, compression, factor
 		  #else
@@ -729,7 +705,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ImageFileTypes() As String()
+		Shared Function ImageFileTypes() As String()
 		  
 		  #if TargetMacOS
 		    declare function imageFileTypes lib CocoaLib selector "imageFileTypes" (class_id as Ptr) as Ptr
@@ -749,7 +725,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ImagePasteboardTypes() As String()
+		Shared Function ImagePasteboardTypes() As String()
 		  
 		  #if TargetMacOS
 		    declare function imagePasteboardTypes lib CocoaLib selector "imagePasteboardTypes" (class_id as Ptr) as Ptr
@@ -769,7 +745,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ImageTypes() As String()
+		Shared Function ImageTypes() As String()
 		  
 		  #if TargetMacOS
 		    declare function imageTypes lib CocoaLib selector "imageTypes" (class_id as Ptr) as Ptr
@@ -789,7 +765,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ImageUnfilteredFileTypes() As String()
+		Shared Function ImageUnfilteredFileTypes() As String()
 		  
 		  #if TargetMacOS
 		    declare function imageUnfilteredFileTypes lib CocoaLib selector "imageUnfilteredFileTypes" (class_id as Ptr) as Ptr
@@ -809,7 +785,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ImageUnfilteredPasteboardTypes() As String()
+		Shared Function ImageUnfilteredPasteboardTypes() As String()
 		  
 		  #if TargetMacOS
 		    declare function imageUnfilteredPasteboardTypes lib CocoaLib selector "imageUnfilteredPasteboardTypes" (class_id as Ptr) as Ptr
@@ -829,7 +805,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ImageUnfilteredTypes() As String()
+		Shared Function ImageUnfilteredTypes() As String()
 		  
 		  #if TargetMacOS
 		    declare function imageUnfilteredTypes lib CocoaLib selector "imageUnfilteredTypes" (class_id as Ptr) as Ptr
@@ -872,7 +848,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageColorSyncProfileData() As String
+		Shared Function NSImageColorSyncProfileData() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageColorSyncProfileData")
 		  return name
@@ -881,7 +857,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageCompressionFactor() As String
+		Shared Function NSImageCompressionFactor() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageCompressionFactor")
 		  return name
@@ -890,7 +866,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageCompressionMethod() As String
+		Shared Function NSImageCompressionMethod() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageCompressionMethod")
 		  return name
@@ -899,7 +875,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageCurrentFrame() As String
+		Shared Function NSImageCurrentFrame() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageCurrentFrame")
 		  return name
@@ -908,7 +884,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageCurrentFrameDuration() As String
+		Shared Function NSImageCurrentFrameDuration() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageCurrentFrameDuration")
 		  return name
@@ -917,7 +893,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageDitherTransparency() As String
+		Shared Function NSImageDitherTransparency() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageDitherTransparency")
 		  return name
@@ -926,7 +902,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageEXIFData() As String
+		Shared Function NSImageEXIFData() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageEXIFData")
 		  return name
@@ -935,7 +911,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageFallbackBackgroundColor() As String
+		Shared Function NSImageFallbackBackgroundColor() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageFallbackBackgroundColor")
 		  return name
@@ -944,7 +920,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageFrameCount() As String
+		Shared Function NSImageFrameCount() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageFrameCount")
 		  return name
@@ -953,7 +929,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageGamma() As String
+		Shared Function NSImageGamma() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageGamma")
 		  return name
@@ -962,7 +938,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageInterlaced() As String
+		Shared Function NSImageInterlaced() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageInterlaced")
 		  return name
@@ -971,7 +947,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageLoopCount() As String
+		Shared Function NSImageLoopCount() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageLoopCount")
 		  return name
@@ -980,7 +956,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageProgressive() As String
+		Shared Function NSImageProgressive() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageProgressive")
 		  return name
@@ -989,7 +965,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageRGBColorTable() As String
+		Shared Function NSImageRGBColorTable() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSImageRGBColorTable")
 		  return name
@@ -998,7 +974,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function RegisteredImageRepClasses() As Ptr()
+		Shared Function RegisteredImageRepClasses() As Ptr()
 		  
 		  #if TargetMacOS
 		    declare function registeredImageRepClasses lib CocoaLib selector "registeredImageRepClasses" (class_id as Ptr) as Ptr
@@ -1009,17 +985,11 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
+		        retArray.append Ptr(m.UInt64Value(i*SizeOfPointer))
 		      next
 		    end if
 		    
@@ -1031,7 +1001,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Sub RegisterImageRepClass(imageRepClass as Ptr)
+		Shared Sub RegisterImageRepClass(imageRepClass as Ptr)
 		  
 		  #if TargetMacOS
 		    declare sub registerImageRepClass lib CocoaLib selector "registerImageRepClass:" (class_id as Ptr, imageRepClass as Ptr)
@@ -1046,7 +1016,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Representation(imageReps as NSArray, storageType as NSBitmapImageFileType, properties as NSDictionary) As NSData
+		Shared Function Representation(imageReps as NSArray, storageType as NSBitmapImageFileType, properties as NSDictionary) As NSData
 		  
 		  #if TargetMacOS
 		    declare function representationOfImageRepsInArray lib CocoaLib selector "representationOfImageRepsInArray:usingType:properties:" _
@@ -1149,7 +1119,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub SetCompression(compression as NSTIFFCompression, factor as Single)
+		Sub SetCompression(compression as NSTIFFCompression, factor as Double)
 		  //# Sets the NSBitmapImageRep's compression type and compression factor.
 		  
 		  //@param compression = An enum constant that identifies one of the supported compression types as described in “Constants.”
@@ -1160,7 +1130,7 @@ Inherits NSImageRep
 		  // with 0.0 being the lowest and 1.0 being the highest.
 		  
 		  #if TargetMacOS
-		    declare sub setCompression lib CocoaLib selector "setCompression:factor:" (obj_id as Ptr, compression as NSTIFFCompression, factor as Single)
+		    declare sub setCompression lib CocoaLib selector "setCompression:factor:" (obj_id as Ptr, compression as NSTIFFCompression, factor as Double)
 		    
 		    setCompression self, compression, factor
 		  #else
@@ -1212,7 +1182,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function TIFFCompressionTypeLocalizedName(compression as NSTIFFCompression) As String
+		Shared Function TIFFCompressionTypeLocalizedName(compression as NSTIFFCompression) As String
 		  
 		  #if TargetMacOS
 		    declare function localizedNameForTIFFCompressionType lib CocoaLib selector "localizedNameForTIFFCompressionType:" _
@@ -1228,12 +1198,10 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function TIFFCompressionTypes() As NSTIFFCompression()
+		Shared Function TIFFCompressionTypes() As NSTIFFCompression()
 		  
 		  #if TargetMacOS
 		    declare sub getTIFFCompressionTypes lib CocoaLib selector "getTIFFCompressionTypes:count:" (class_id as Ptr, byRef list as Ptr, byRef count as Integer)
-		    
-		    const sizeOfUInteger = 4
 		    
 		    dim listRef as Ptr
 		    dim listCount as Integer
@@ -1246,7 +1214,7 @@ Inherits NSImageRep
 		    
 		    if m <> nil then
 		      for i as integer = 0 to listCount-1
-		        rb_array.append NSTIFFCompression(m.UInt32Value(i*sizeOfUInteger))
+		        rb_array.append NSTIFFCompression(m.Int64Value(i*SizeOfInteger))
 		      next
 		    end if
 		    
@@ -1275,7 +1243,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function TIFFRepresentation(imageReps as NSArray) As NSData
+		Shared Function TIFFRepresentation(imageReps as NSArray) As NSData
 		  
 		  #if TargetMacOS
 		    declare function TIFFRepresentationOfImageRepsInArray lib CocoaLib selector "TIFFRepresentationOfImageRepsInArray:" _
@@ -1300,11 +1268,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function TIFFRepresentation(imageReps as NSArray, compression as NSTIFFCompression, factor as Single) As NSData
+		Shared Function TIFFRepresentation(imageReps as NSArray, compression as NSTIFFCompression, factor as Double) As NSData
 		  
 		  #if TargetMacOS
 		    declare function TIFFRepresentationOfImageRepsInArray lib CocoaLib selector "TIFFRepresentationOfImageRepsInArray:usingCompression:factor:" _
-		    (class_id as Ptr, anArray as Ptr, compression as NSTIFFCompression, factor as Single) as Ptr
+		    (class_id as Ptr, anArray as Ptr, compression as NSTIFFCompression, factor as Double) as Ptr
 		    
 		    dim arrayRef as Ptr
 		    if imageReps <> nil then
@@ -1327,11 +1295,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function TIFFRepresentation(compression as NSTIFFCompression, factor as Single) As NSData
+		Function TIFFRepresentation(compression as NSTIFFCompression, factor as Double) As NSData
 		  //# Returns a data object containing TIFF data with the specified compression settings for all of the image representations in the NSBitmapImageRep.
 		  
 		  #if TargetMacOS
-		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" (class_id as Ptr, compression as NSTIFFCompression, factor as Single) as Ptr
+		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" (class_id as Ptr, compression as NSTIFFCompression, factor as Double) as Ptr
 		    
 		    dim dataRef as Ptr = TIFFRepresentationUsingCompression(self, compression, factor)
 		    
@@ -1347,7 +1315,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Sub UnregisterImageRepClass(imageRepClass as Ptr)
+		Shared Sub UnregisterImageRepClass(imageRepClass as Ptr)
 		  
 		  #if TargetMacOS
 		    declare sub unregisterImageRepClass lib CocoaLib selector "unregisterImageRepClass:" (class_id as Ptr, imageRepClass as Ptr)
@@ -1517,7 +1485,7 @@ Inherits NSImageRep
 		NSImageRepLoadStatusCompleted = -6
 	#tag EndEnum
 
-	#tag Enum, Name = NSTIFFCompression, Type = UInt32, Flags = &h0
+	#tag Enum, Name = NSTIFFCompression, Type = UInteger, Flags = &h0
 		NSTIFFCompressionNone = 1
 		  NSTIFFCompressionCCITTFAX3 = 3
 		  NSTIFFCompressionCCITTFAX4 = 4
@@ -1531,6 +1499,11 @@ Inherits NSImageRep
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BitmapFormat"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BitsPerPixel"
 			Group="Behavior"
 			Type="Integer"
@@ -1539,7 +1512,6 @@ Inherits NSImageRep
 			Name="BitsPerSample"
 			Group="Behavior"
 			Type="Integer"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BytesPerPlane"
@@ -1556,20 +1528,17 @@ Inherits NSImageRep
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasAlpha"
 			Group="Behavior"
 			Type="Boolean"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -1577,13 +1546,11 @@ Inherits NSImageRep
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOpaque"
 			Group="Behavior"
 			Type="Boolean"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPlanar"
@@ -1596,14 +1563,12 @@ Inherits NSImageRep
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NumberOfPlanes"
@@ -1614,13 +1579,11 @@ Inherits NSImageRep
 			Name="PixelsHigh"
 			Group="Behavior"
 			Type="Integer"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PixelsWide"
 			Group="Behavior"
 			Type="Integer"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SamplesPerPixel"
@@ -1632,7 +1595,6 @@ Inherits NSImageRep
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1640,7 +1602,6 @@ Inherits NSImageRep
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSImageRep"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

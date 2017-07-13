@@ -20,9 +20,6 @@ Protected Module XMLDictionary
 		    elseif t = Variant.TypeDouble then
 		      dim a() as Double = storage
 		      redim a(-1)
-		    elseif t = Variant.TypeSingle then
-		      dim a() as Single = storage
-		      redim a(-1)
 		    elseif t = Variant.TypeDate then
 		      dim a() as Date = storage
 		      redim a(-1)
@@ -137,9 +134,9 @@ Protected Module XMLDictionary
 		  xdoc.LoadXml(XMLData)
 		  Return xmldict.LoadXML(xdoc)
 		  
-		Exception err As XmlException
-		  // Ugh, invalid XML
-		  Return False
+		  Exception err As XmlException
+		    // Ugh, invalid XML
+		    Return False
 		End Function
 	#tag EndMethod
 
@@ -178,9 +175,9 @@ Protected Module XMLDictionary
 		    End If
 		  End If
 		  
-		Exception err As XmlException
-		  // Ugh, invalid XML
-		  Return False
+		  Exception err As XmlException
+		    // Ugh, invalid XML
+		    Return False
 		End Function
 	#tag EndMethod
 
@@ -492,9 +489,6 @@ Protected Module XMLDictionary
 		    elseif t = Variant.TypeDouble then
 		      dim a() as Double = storage
 		      return a.Ubound+1
-		    elseif t = Variant.TypeSingle then
-		      dim a() as Single = storage
-		      return a.Ubound+1
 		    elseif t = Variant.TypeDate then
 		      dim a() as Date = storage
 		      return a.Ubound+1
@@ -544,9 +538,6 @@ Protected Module XMLDictionary
 		    elseif t = Variant.TypeDouble then
 		      dim a() as Double = storage
 		      return a(index)
-		    elseif t = Variant.TypeSingle then
-		      dim a() as Single = storage
-		      return a(index)
 		    elseif t = Variant.TypeDate then
 		      dim a() as Date = storage
 		      return a(index)
@@ -584,10 +575,6 @@ Protected Module XMLDictionary
 		      return
 		    elseif t = Variant.TypeDouble then
 		      dim a() as Double = storage
-		      a.Append value
-		      return
-		    elseif t = Variant.TypeSingle then
-		      dim a() as Single = storage
 		      a.Append value
 		      return
 		    elseif t = Variant.TypeDate then
@@ -704,33 +691,33 @@ Protected Module XMLDictionary
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

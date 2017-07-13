@@ -332,27 +332,17 @@ Protected Module Cocoa
 
 	#tag Method, Flags = &h1
 		Protected Function NSIntegerMax() As Integer
-		  // This is a method and not a constant because it will be a different value under 32-bit and 64-bit.
-		  
-		  #if RBVersion >= 2013.01 // No 64-bit versions before this anyway
-		    
-		    #if Target64Bit then
-		      return &h7FFFFFFFFFFFFFFF
-		    #else
-		      return &h7FFFFFFF
-		    #endif
-		    
-		  #else // Older version of Real Studio that may not have had Target64Bit
-		    
+		  #if Target64Bit then
+		    return &h7FFFFFFFFFFFFFFF
+		  #else
 		    return &h7FFFFFFF
-		    
 		  #endif
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function NSMakePoint(x as Single, y as Single) As NSPoint
+		Protected Function NSMakePoint(x as Double, y as Double) As NSPoint
 		  dim p as NSPoint
 		  p.x = x
 		  p.y = y
@@ -381,7 +371,7 @@ Protected Module Cocoa
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function NSMakeSize(width as Single, Height as Single) As NSSize
+		Protected Function NSMakeSize(width as Double, Height as Double) As NSSize
 		  dim s as NSSize
 		  s.width = width
 		  s.height = Height
@@ -625,7 +615,7 @@ Protected Module Cocoa
 		    dim s as NSString = v.StringValue
 		    return s
 		    
-		  case Variant.TypeDouble, Variant.TypeSingle
+		  case Variant.TypeDouble
 		    return new NSNumber( v.DoubleValue )
 		    
 		  case Variant.TypeObject  //->Dictionary, MemoryBlock
@@ -650,6 +640,10 @@ Protected Module Cocoa
 		  end select
 		End Function
 	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function NSOffsetRect Lib CocoaLib (aRect as NSRect, dx as CGFloat, dY as CGFloat) As NSRect
+	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
 		Declare Function NSSearchPathForDirectoriesInDomains Lib CocoaLib (directory as Integer, domainMask as Integer, expandTilde as Boolean) As Ptr
@@ -865,8 +859,8 @@ Protected Module Cocoa
 	#tag EndStructure
 
 	#tag Structure, Name = NSPoint, Flags = &h1
-		x as Single
-		y as Single
+		x as Double
+		y as Double
 	#tag EndStructure
 
 	#tag Structure, Name = NSRange, Flags = &h1
@@ -875,15 +869,15 @@ Protected Module Cocoa
 	#tag EndStructure
 
 	#tag Structure, Name = NSRect, Flags = &h1
-		x as Single
-		  y as Single
-		  w as Single
-		h as Single
+		x as Double
+		  y as Double
+		  w as Double
+		h as Double
 	#tag EndStructure
 
 	#tag Structure, Name = NSSize, Flags = &h1
-		width as Single
-		height as Single
+		width as Double
+		height as Double
 	#tag EndStructure
 
 
@@ -913,33 +907,33 @@ Protected Module Cocoa
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

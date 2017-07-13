@@ -138,7 +138,7 @@ Protected Module WindowExtensions
 		    dim NSColorClassRef as Ptr = NSClassFromString("NSColor")
 		    
 		    // Now ask the NSColor class to create a new NSColor from the values we have
-		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" (classRef as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
+		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" (classRef as Ptr, red as Double, green as Double, blue as Double, alpha as Double) as Ptr
 		    dim NSColorInstance as Ptr
 		    #if RBVersion >= 2011.04
 		      NSColorInstance = colorWithDeviceRed(NSColorClassRef, value.Red / 255, value.Green / 255, value.Blue / 255, Value.Alpha / 255)
@@ -147,7 +147,7 @@ Protected Module WindowExtensions
 		    #endif
 		    
 		    // Set the features on the window
-		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (WindowRef as WindowPtr, AlphaValue as Single)
+		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (WindowRef as WindowPtr, AlphaValue as Double)
 		    declare sub setOpaque lib CocoaLib selector "setOpaque:" (WindowRef as WindowPtr, IsOpague as Boolean)
 		    declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (WindowRef as WindowPtr, inNSColorInstance as Ptr)
 		    
@@ -188,7 +188,7 @@ Protected Module WindowExtensions
 		    if IsLeopard then
 		      declare sub setBackingType lib CocoaLib selector "setBackingType:" (WindowRef as WindowPtr, BackingType as Integer)
 		      declare sub setAutorecalculatesContentBorderThicknessForEdge lib CocoaLib selector "setAutorecalculatesContentBorderThickness:forEdge:" (WindowRef as WindowPtr, Flag as Boolean, Edge as Integer)
-		      declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (WindowRef as WindowPtr, Thickness as Single, Edge as Integer)
+		      declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (WindowRef as WindowPtr, Thickness as Double, Edge as Integer)
 		      
 		      setBackingType w, 2 // NSBackingStoreBuffered
 		      setAutorecalculatesContentBorderThicknessForEdge w, false, 1 // Do not recalculate the border thickness automatically
@@ -229,7 +229,7 @@ Protected Module WindowExtensions
 		    if IsLeopard and w.Frame = Window.FrameTypeMetal then
 		      declare sub setBackingType lib CocoaLib selector "setBackingType:" (WindowRef as WindowPtr, BackingType as Integer)
 		      declare sub setAutorecalculatesContentBorderThicknessForEdge lib CocoaLib selector "setAutorecalculatesContentBorderThickness:forEdge:" (WindowRef as WindowPtr, Flag as Boolean, Edge as Integer)
-		      declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (WindowRef as WindowPtr, Thickness as Single, Edge as Integer)
+		      declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (WindowRef as WindowPtr, Thickness as Double, Edge as Integer)
 		      
 		      setBackingType w, 2 // NSBackingStoreBuffered
 		      setAutorecalculatesContentBorderThicknessForEdge w, false, 3 // Do not recalculate the border thickness automatically
@@ -759,7 +759,7 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ScalingFactor(Extends w as Window) As Single
+		Function ScalingFactor(Extends w as Window) As Double
 		  //# Determines if the window is displayed on a Retina screen or other HiDPI mode.
 		  
 		  //@result The ScalingFactor is 2 for a Retina MacBook Pro (or other HiDPI modes) and 1 for anything else
@@ -768,7 +768,7 @@ Protected Module WindowExtensions
 		  // __<key>NSHighResolutionCapable</key>__
 		  // __<true/>__
 		  
-		  dim r as Single = 1. // Default response
+		  dim r as Double = 1. // Default response
 		  
 		  #if TargetCocoa
 		    if IsLion then
@@ -1138,11 +1138,11 @@ Protected Module WindowExtensions
 		    dim NSColorClassRef as Ptr = NSClassFromString("NSColor")
 		    
 		    // Now ask the NSColor class to create a new NSColor from the values we have
-		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" (classRef as Ptr, red as Single, green as Single, blue as Single, alpha as Single) as Ptr
+		    declare function colorWithDeviceRed lib CocoaLib selector "colorWithDeviceRed:green:blue:alpha:" (classRef as Ptr, red as Double, green as Double, blue as Double, alpha as Double) as Ptr
 		    dim NSColorInstance as Ptr = colorWithDeviceRed(NSColorClassRef, 0.92, 0.92, 0.92, Value)
 		    
 		    // Set the features on the window
-		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (WindowRef as WindowPtr, AlphaValue as Single)
+		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (WindowRef as WindowPtr, AlphaValue as Double)
 		    declare sub setOpaque lib CocoaLib selector "setOpaque:" (WindowRef as WindowPtr, IsOpague as Boolean)
 		    declare sub setBackgroundColor lib CocoaLib selector "setBackgroundColor:" (WindowRef as WindowPtr, inNSColorInstance as Ptr)
 		    
@@ -1259,33 +1259,33 @@ Protected Module WindowExtensions
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

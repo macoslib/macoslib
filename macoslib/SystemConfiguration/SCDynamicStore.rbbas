@@ -2,17 +2,17 @@
 Class SCDynamicStore
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return SCDynamicStore.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib SystemConfiguration.framework alias "SCDynamicStoreGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib SystemConfiguration.framework alias "SCDynamicStoreGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -39,7 +39,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateComputerName() As String
+		Shared Function KeyCreateComputerName() As String
 		  #if targetMacOS
 		    declare function SCDynamicStoreKeyCreateComputerName lib SystemConfiguration.framework (allocator as Ptr) as Ptr
 		    
@@ -49,7 +49,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateConsoleUser() As String
+		Shared Function KeyCreateConsoleUser() As String
 		  #if targetMacOS
 		    declare function SCDynamicStoreKeyCreateConsoleUser lib SystemConfiguration.framework (allocator as Ptr) as Ptr
 		    
@@ -59,7 +59,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateHostNames() As String
+		Shared Function KeyCreateHostNames() As String
 		  #if targetMacOS
 		    declare function SCDynamicStoreKeyCreateHostNames lib SystemConfiguration.framework (allocator as Ptr) as Ptr
 		    
@@ -69,7 +69,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateLocation() As String
+		Shared Function KeyCreateLocation() As String
 		  #if targetMacOS
 		    declare function SCDynamicStoreKeyCreateLocation lib SystemConfiguration.framework (allocator as Ptr) as Ptr
 		    
@@ -79,7 +79,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateNetworkGlobalEntity(domain as String, entity as String) As String
+		Shared Function KeyCreateNetworkGlobalEntity(domain as String, entity as String) As String
 		  #if targetMacOS
 		    soft declare function SCDynamicStoreKeyCreateNetworkGlobalEntity lib SystemConfiguration.Framework (allocator as Ptr, domain as Ptr, entity as Ptr) as CFStringRef
 		    
@@ -90,7 +90,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateNetworkInterface(domain as String) As String
+		Shared Function KeyCreateNetworkInterface(domain as String) As String
 		  #if targetMacOS
 		    soft declare function SCDynamicStoreKeyCreateNetworkInterface lib SystemConfiguration.Framework (allocator as Ptr, domain as Ptr) as CFStringRef
 		    
@@ -101,7 +101,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateNetworkInterfaceEntity(domain as String, ifname as String, entity as String) As String
+		Shared Function KeyCreateNetworkInterfaceEntity(domain as String, ifname as String, entity as String) As String
 		  #if targetMacOS
 		    soft declare function SCDynamicStoreKeyCreateNetworkInterfaceEntity lib SystemConfiguration.Framework (allocator as Ptr, domain as Ptr, ifname as CFStringRef, entity as Ptr) as CFStringRef
 		    
@@ -112,7 +112,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateNetworkServiceEntity(domain as String, serviceID as String, entity as String) As String
+		Shared Function KeyCreateNetworkServiceEntity(domain as String, serviceID as String, entity as String) As String
 		  #if targetMacOS
 		    soft declare function SCDynamicStoreKeyCreateNetworkServiceEntity lib SystemConfiguration.Framework (allocator as Ptr, domain as Ptr, serviceID as Ptr, entity as Ptr) as CFStringRef
 		    
@@ -123,7 +123,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function KeyCreateProxies() As String
+		Shared Function KeyCreateProxies() As String
 		  #if targetMacOS
 		    declare function SCDynamicStoreKeyCreateProxies lib SystemConfiguration.framework (allocator as Ptr) as Ptr
 		    
@@ -172,7 +172,7 @@ Inherits CFType
 		    declare function SCDynamicStoreCopyValue lib SystemConfiguration.framework (store as Ptr, key as CFStringRef) as Ptr
 		    dim p as Ptr = SCDynamicStoreCopyValue(self, key)
 		    if p <> nil then
-		      soft declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
+		      soft declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
 		      select case CFGetTypeID(p)
 		      case CFArray.ClassID
 		        return new CFArray(p, hasOwnership)
@@ -326,21 +326,20 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LocalHostName"
@@ -358,20 +357,20 @@ Inherits CFType
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

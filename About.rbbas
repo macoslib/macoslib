@@ -5,11 +5,15 @@ Protected Module About
 		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 		
-		Requires REALbasic 2011r1 or later and MacOS X 10.5 or later. See Compatibility.
+		Requires REALbasic 2017r1 or later and MacOS X 10.7 or later. See Compatibility.
 	#tag EndNote
 
 	#tag Note, Name = Compatibility
 		COMPATIBILITY WITH REAL STUDIO AND XOJO
+		
+		macoslib.rbvcp v200:
+		    Xojo 2017r1 and later, x86-64 bit architecture only
+		
 		
 		macoslib.rbvcp v147 (i.e. running the full project):
 		    REAL Studio 2010r5 and below   NOT COMPATIBLE
@@ -33,6 +37,7 @@ Protected Module About
 		Jeff Fowler (JF)
 		Kenichi Maehashi (KM)
 		Jeremy Cowgar (JC)
+		Serhiy Duminskyy (SD)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -64,6 +69,17 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		200: 2017-07-12 by SD
+		- Important! The main idea of this update is just to get project compiled in 64 bit environment. Now it does, but there are still a lot of work to test it and get it worked for all supported functionality. So, please use this fork only on your own risk and only if you are ready to debug it, fix it and commit your changes.
+		- App version was increased to 2.0a because of moving to 64 bit.
+		- Starting from 2.0 macoslib is 64 bit only, please use v1.89 for 32 bit.
+		- To get project compiled in 64 bit these parts of code (propbably depricated declares in 64 bit) were removed:
+		         HISearchField, HISearchFieldExample, MacDatePicker, MacDatePickerExampleWindow, CarbonDragManager, DragManagerExample, CarbonPasteboard
+		- All Single types were changed with Double.
+		- There are still a lot of places that should be checked, for example, UInt32 should be changed to UInteger in most of the places, but for some Carbon functions and structures it's still should be UInt32, so every place should be checked manually. So, please check the code you are curently working with and change types when necessary.
+		- There some old modules, like ATSForFonts, and maybe it's better to try to clean up project a bit as it's 64bit only now instead of trying to fix everything?
+		- Special thanks to Jonathan Ashwell for helping in this initial conversion and testing.
 		
 		189: 2015-09-11 by VVB
 		- Fixed a bug in SmoothResize that could throw up an error message on windows.
@@ -601,7 +617,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"187", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"200", Scope = Protected
 	#tag EndConstant
 
 
@@ -611,33 +627,33 @@ Protected Module About
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

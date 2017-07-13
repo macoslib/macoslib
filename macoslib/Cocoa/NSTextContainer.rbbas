@@ -187,7 +187,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function lineFragmentPadding lib CocoaLib selector "lineFragmentPadding" (obj_id as Ptr) as Single
+			    declare function lineFragmentPadding lib CocoaLib selector "lineFragmentPadding" (obj_id as Ptr) as Double
 			    
 			    return lineFragmentPadding(self)
 			    
@@ -199,7 +199,7 @@ Inherits NSObject
 			Set
 			  
 			  #if TargetMacOS
-			    declare sub setLineFragmentPadding lib CocoaLib selector "setLineFragmentPadding:" (obj_id as Ptr, aFloat as Single)
+			    declare sub setLineFragmentPadding lib CocoaLib selector "setLineFragmentPadding:" (obj_id as Ptr, aFloat as Double)
 			    
 			    setLineFragmentPadding self, value
 			    
@@ -209,7 +209,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		LineFragmentPadding As Single
+		LineFragmentPadding As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -301,7 +301,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HeightTracksTextView"
@@ -313,14 +312,14 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineFragmentPadding"
@@ -331,20 +330,20 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WidthTracksTextView"

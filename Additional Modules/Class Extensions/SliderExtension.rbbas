@@ -159,11 +159,11 @@ Protected Module SliderExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function KnobThickness(Extends s as Slider) As Single
+		Function KnobThickness(Extends s as Slider) As Double
 		  //# Returns the knob’s thickness, in pixels.
 		  
 		  #if TargetCocoa then
-		    declare function knobThickness lib CocoaLib selector "knobThickness" (obj_id as Integer) as Single
+		    declare function knobThickness lib CocoaLib selector "knobThickness" (obj_id as Integer) as Double
 		    
 		    return knobThickness(s.handle)
 		  #else
@@ -173,11 +173,11 @@ Protected Module SliderExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub KnobThickness(Extends s as Slider, assigns thickness as Single)
+		Sub KnobThickness(Extends s as Slider, assigns thickness as Double)
 		  //# This method has been deprecated. Lets you set the knob’s thickness, measured in pixels.
 		  
 		  #if TargetCocoa then
-		    declare sub setKnobThickness lib CocoaLib selector "setKnobThickness:" (obj_id as Integer, thickness as Single)
+		    declare sub setKnobThickness lib CocoaLib selector "setKnobThickness:" (obj_id as Integer, thickness as Double)
 		    
 		    setKnobThickness(s.handle, thickness)
 		  #else
@@ -275,11 +275,11 @@ Protected Module SliderExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SingleValue(Extends s as Slider) As Single
+		Function SingleValue(Extends s as Slider) As Double
 		  //# Returns the value of the slider’s cell as a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Single
+		    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Integer) as Double
 		    
 		    return floatValue(s.handle)
 		  #else
@@ -289,11 +289,11 @@ Protected Module SliderExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SingleValue(Extends s as Slider, Assigns value as Single)
+		Sub SingleValue(Extends s as Slider, Assigns value as Double)
 		  //# Sets the value of the slider’s cell using a single-precision floating-point number.
 		  
 		  #if TargetCocoa then
-		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Single)
+		    declare sub setFloatValue lib CocoaLib selector "setFloatValue:" (obj_id as Integer, value as Double)
 		    
 		    setFloatValue(s.handle, value)
 		  #else
@@ -310,33 +310,33 @@ Protected Module SliderExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

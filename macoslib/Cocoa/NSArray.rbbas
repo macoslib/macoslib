@@ -143,21 +143,15 @@ Inherits NSObject
 		  //# Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 		  
 		  #if targetMacOS
-		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
-		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
+		    dim uboundObject as UInteger = objects.ubound
+		    dim objectCount as UInteger = uboundObject+1
 		    if uboundObject > -1 then
 		      
 		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
 		      next
 		      
 		      super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
@@ -240,7 +234,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSArray
+		Shared Function Create() As NSArray
 		  
 		  #if TargetMacOS
 		    declare function array_ lib CocoaLib selector "array" (class_id as Ptr) as Ptr
@@ -256,7 +250,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromArrayOfStrings(Strings() as String) As NSArray
+		Shared Function CreateFromArrayOfStrings(Strings() as String) As NSArray
 		  #if TargetMacOS
 		    dim cfa as new CFArray( Strings )
 		    dim nsa as new NSArray( cfa )
@@ -269,7 +263,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromNSArray(theArray as NSArray, indexSet as NSIndexSet) As NSArray
+		Shared Function CreateFromNSArray(theArray as NSArray, indexSet as NSIndexSet) As NSArray
 		  //# Returns the objects in the ordered set at the specified indexes.
 		  
 		  #if TargetMacOS
@@ -290,7 +284,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromObjectsArray(theArray as variant) As NSArray
+		Shared Function CreateFromObjectsArray(theArray as variant) As NSArray
 		  dim nsma as new NSMutableArray
 		  
 		  select case theArray.ArrayElementType
@@ -313,7 +307,7 @@ Inherits NSObject
 		      nsma.Append s
 		    next
 		    
-		  case Variant.TypeDouble, Variant.TypeSingle
+		  case Variant.TypeDouble
 		    dim ard() as double = theArray
 		    for each d as double in ard
 		      nsma.Append   new NSNumber( d )
@@ -338,7 +332,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithArray(anArray as NSArray) As NSArray
+		Shared Function CreateWithArray(anArray as NSArray) As NSArray
 		  //# Creates and returns an array containing the objects in another given array.
 		  
 		  #if TargetMacOS
@@ -362,7 +356,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithFile(file as FolderItem) As NSArray
+		Shared Function CreateWithFile(file as FolderItem) As NSArray
 		  //# Creates and returns an array containing the contents of the file specified by a given path.
 		  
 		  #if TargetMacOS
@@ -383,7 +377,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObject(anObject as NSObject) As NSArray
+		Shared Function CreateWithObject(anObject as NSObject) As NSArray
 		  //# Creates and returns an array containing a given object.
 		  
 		  #if TargetMacOS
@@ -404,25 +398,19 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObjects(objects() as NSObject) As NSArray
+		Shared Function CreateWithObjects(objects() as NSObject) As NSArray
 		  //# Creates and returns an array containing the objects in the argument list.
 		  
 		  #if TargetMacOS
-		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
-		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
+		    dim uboundObject as Integer = objects.ubound
+		    dim objectCount as Integer = uboundObject+1
 		    if uboundObject > -1 then
 		      
 		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		      for i as UInteger = 0 to uboundObject
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
 		      next
 		      
 		      dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
@@ -439,7 +427,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithURL(aURL as NSURL) As NSArray
+		Shared Function CreateWithURL(aURL as NSURL) As NSArray
 		  //# Creates and returns an array containing the contents specified by a given URL.
 		  
 		  #if TargetMacOS
@@ -641,17 +629,11 @@ Inherits NSObject
 		  
 		  dim retArray() as String
 		  
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		    #endif
-		  #endif
-		  
 		  dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
 		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
-		  dim n as UInt32 = arrayRange.length-1
+		  dim n as Integer = arrayRange.length-1
 		  for i as integer = 0 to n
-		    retArray.append new NSString(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		    retArray.append new NSString(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		  next
 		  
 		  return retArray
@@ -746,19 +728,13 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function Values(aRange as Cocoa.NSRange) As NSObject()
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		    #endif
-		  #endif
-		  
 		  dim rb_array() as NSObject
 		  
 		  dim m as MemoryBlock = self.ValuesArray(aRange)
 		  
-		  dim n as UInt32 = aRange.length-1
+		  dim n as Integer = aRange.length-1
 		  for i as integer = 0 to n
-		    rb_array.append new NSObject(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		    rb_array.append new NSObject(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		  next
 		  
 		  return rb_array
@@ -796,12 +772,6 @@ Inherits NSObject
 		  
 		  #if targetMacOS
 		    declare sub getObjects lib CocoaLib selector "getObjects:range:" (obj_id as Ptr, aBuffer as Ptr, aRange as Cocoa.NSRange)
-		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
 		    
 		    dim m as new MemoryBlock(SizeOfPointer*aRange.length)
 		    
@@ -885,25 +855,13 @@ Inherits NSObject
 			Get
 			  //# Returns the number of objects currently in the array.
 			  
-			  #if TargetMacOS
-			    #if RBVersion >= 2012.02
-			      #if Target32Bit
-			        declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
-			      #else
-			        declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt64
-			      #endif
-			      
-			    #else //Previous versions are 32 bits only
-			      declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
-			    #endif
-			    
-			    dim cnt as integer = m_count( me.id )
-			    
-			    return  cnt
-			  #endif
+			  declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInteger
+			  dim cnt as integer = m_count( me.id )
+			  
+			  return  cnt
 			End Get
 		#tag EndGetter
-		Count As Integer
+		Count As UInteger
 	#tag EndComputedProperty
 
 
@@ -918,7 +876,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -926,7 +883,6 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -934,21 +890,18 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -956,7 +909,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

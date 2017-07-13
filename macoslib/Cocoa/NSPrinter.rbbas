@@ -23,7 +23,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String) As NSPrinter
+		Shared Function CreateWithName(name as String) As NSPrinter
 		  
 		  #if targetMacOS
 		    declare function printerWithName lib CocoaLib selector "printerWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
@@ -41,7 +41,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithType(type as String) As NSPrinter
+		Shared Function CreateWithType(type as String) As NSPrinter
 		  
 		  #if targetMacOS
 		    declare function printerWithType lib CocoaLib selector "printerWithType:" (class_id as Ptr, type as CFStringRef) as Ptr
@@ -69,7 +69,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Get(name as String) As NSPrinter
+		Shared Function Get(name as String) As NSPrinter
 		  #if targetMacOS
 		    declare function printerWithName lib CocoaLib selector "printerWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    
@@ -110,7 +110,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Names() As String()
+		Shared Function Names() As String()
 		  #if targetMacOS
 		    declare function printerNames lib CocoaLib selector "printerNames" (class_id as Ptr) as Ptr
 		    
@@ -159,9 +159,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SingleValue(key as String, table as String) As Single
+		Function SingleValue(key as String, table as String) As Double
 		  #if targetMacOS
-		    declare function floatForKey lib CocoaLib selector "floatForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Single
+		    declare function floatForKey lib CocoaLib selector "floatForKey:inTable:" (obj_id as Ptr, key as CFStringRef, table as CFStringRef) as Double
 		    
 		    return floatForKey(self, key, table)
 		  #else
@@ -211,7 +211,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Types() As String()
+		Shared Function Types() As String()
 		  #if targetMacOS
 		    declare function printerTypes lib CocoaLib selector "printerTypes" (class_id as Ptr) as Ptr
 		    
@@ -296,14 +296,13 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LanguageLevel"
@@ -315,27 +314,26 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Type"

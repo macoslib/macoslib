@@ -61,7 +61,7 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h21
-		Private Declare Function CFGetTypeID Lib framework (cf as CFTypeRef) As UInt32
+		Private Declare Function CFGetTypeID Lib framework (cf as CFTypeRef) As UInteger
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
@@ -71,14 +71,8 @@ Module CoreFoundation
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CFNumber(int_64 as Int64) As CFNumber
-		  return new CFNumber(int_64)
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function CFNumber(int_32 as Integer) As CFNumber
-		  return new CFNumber(int_32)
+		Function CFNumber(val as Integer) As CFNumber
+		  return new CFNumber(val)
 		End Function
 	#tag EndMethod
 
@@ -123,7 +117,7 @@ Module CoreFoundation
 		    end if
 		    
 		    select case theValue.Type
-		    case  Variant.TypeInteger, Variant.TypeLong, Variant.TypeDouble, Variant.TypeSingle
+		    case  Variant.TypeInteger, Variant.TypeLong, Variant.TypeDouble
 		      Return   new CFNumber( theValue )
 		      
 		    case  Variant.TypeDate
@@ -664,33 +658,33 @@ Module CoreFoundation
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

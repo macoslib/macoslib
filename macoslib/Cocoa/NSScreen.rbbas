@@ -57,7 +57,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function DeepestScreen() As NSScreen
+		Shared Function DeepestScreen() As NSScreen
 		  
 		  #if TargetMacOS
 		    declare function deepestScreen lib CocoaLib selector "deepestScreen" (class_id as Ptr) as Ptr
@@ -73,7 +73,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function MainScreen() As NSScreen
+		Shared Function MainScreen() As NSScreen
 		  
 		  #if TargetMacOS
 		    declare function mainScreen lib CocoaLib selector "mainScreen" (class_id as Ptr) as Ptr
@@ -89,7 +89,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Screens() As NSScreen()
+		Shared Function Screens() As NSScreen()
 		  
 		  #if TargetMacOS
 		    declare function screens lib CocoaLib selector "screens" (class_id as Ptr) as Ptr
@@ -100,17 +100,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSScreen(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSScreen(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -127,7 +121,7 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function supportedWindowDepths lib CocoaLib selector "supportedWindowDepths" (obj_id as Ptr) as Ptr
 		    
-		    const sizeOfInteger = 4
+		    const kSizeOfInteger = 4
 		    dim m as MemoryBlock = supportedWindowDepths(self)
 		    
 		    dim retValue() as Integer
@@ -140,7 +134,7 @@ Inherits NSObject
 		        if wdepth <> 0 then
 		          retValue.append wdepth
 		        end if
-		        offset = offset + sizeOfInteger
+		        offset = offset + kSizeOfInteger
 		      loop until wdepth = 0
 		    end if
 		    
@@ -157,7 +151,7 @@ Inherits NSObject
 			Get
 			  
 			  #if targetMacOS
-			    declare function backingScaleFactor lib CocoaLib selector "backingScaleFactor" (obj_id as Ptr) as Single
+			    declare function backingScaleFactor lib CocoaLib selector "backingScaleFactor" (obj_id as Ptr) as Double
 			    
 			    return backingScaleFactor(self)
 			    
@@ -165,7 +159,7 @@ Inherits NSObject
 			  
 			End Get
 		#tag EndGetter
-		BackingScaleFactor As Single
+		BackingScaleFactor As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -259,7 +253,7 @@ Inherits NSObject
 		#tag ViewProperty
 			Name="BackingScaleFactor"
 			Group="Behavior"
-			Type="Single"
+			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Depth"
@@ -271,40 +265,39 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

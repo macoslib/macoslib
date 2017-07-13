@@ -58,7 +58,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file As FolderItem, mutability As Integer) As CFPropertyList
+		Shared Function CreateFromPListFile(file As FolderItem, mutability As Integer) As CFPropertyList
 		  // Added by Kem Tekinay.
 		  // Convenience method to return a property list from a PList file.
 		  // Classes that are CFPropertyList should override this to return their type.
@@ -83,7 +83,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String, mutability As Integer) As CFPropertyList
+		Shared Function CreateFromPListString(plistString as String, mutability As Integer) As CFPropertyList
 		  // Added by Kem Tekinay.
 		  // Convenience method to return a property list from a PList string.
 		  // Classes that are CFPropertyList should override this to return their type.
@@ -127,7 +127,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FromHandle(handle as Integer) As CFType
+		Shared Function FromHandle(handle as Integer) As CFType
 		  // This is an alternative constructor for "foreign" CFType objects.
 		  //
 		  // It can be used to access existing CFType objects, e.g. those from MBS plugins,
@@ -146,9 +146,9 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Hash() As UInt32
+		Function Hash() As UInteger
 		  #if TargetMacOS
-		    soft declare function CFHash lib CarbonLib (cf as CFTypeRef) as UInt32
+		    soft declare function CFHash lib CarbonLib (cf as CFTypeRef) as UInteger
 		    
 		    if self.mRef.value <> nil then
 		      return CFHash(self.mRef)
@@ -166,7 +166,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewObject(ref as CFTypeRef, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
+		Shared Function NewObject(ref as CFTypeRef, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
 		  // This function never returns nil on Mac OS X (but always nil on other platforms)
 		  //
 		  // hasOwnership: pass true if ref comes from a OS's CF... call and has just been retained. The constructor will release it then.
@@ -182,7 +182,7 @@ Class CFType
 		    end if
 		    
 		    
-		    dim theTypeID as UInt32 = CFGetTypeID(ref)
+		    dim theTypeID as UInteger = CFGetTypeID(ref)
 		    
 		    select case theTypeID
 		      
@@ -400,7 +400,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TypeDescription(id as UInt32) As String
+		Shared Function TypeDescription(id as UInt32) As String
 		  #if TargetMacOS
 		    declare function CFCopyTypeIDDescription lib CarbonLib (id as UInt32) as CFStringRef
 		    
@@ -414,7 +414,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TypeID() As UInt32
+		Function TypeID() As UInteger
 		  #if TargetMacOS
 		    if self.mRef.value <> nil then
 		      return CFGetTypeID(self.mRef)
@@ -442,8 +442,8 @@ Class CFType
 		    if ref.value = nil then
 		      return ref
 		    else
-		      dim expectedTypeID as UInt32 = RaiseEvent ClassID()
-		      dim actualTypeID as UInt32 = CFGetTypeID(ref)
+		      dim expectedTypeID as UInteger = RaiseEvent ClassID()
+		      dim actualTypeID as UInteger = CFGetTypeID(ref)
 		      if (expectedTypeID = actualTypeID) then
 		        return ref
 		      else
@@ -494,7 +494,7 @@ Class CFType
 
 
 	#tag Hook, Flags = &h0
-		Event ClassID() As UInt32
+		Event ClassID() As UInteger
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -569,33 +569,33 @@ Class CFType
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

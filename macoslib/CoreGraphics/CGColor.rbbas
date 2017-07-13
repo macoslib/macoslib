@@ -2,18 +2,18 @@
 Class CGColor
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CGColorGetTypeID" () as UInt32
+		    declare function TypeID lib CarbonLib alias "CGColorGetTypeID" () as UInteger
 		    
-		    static id as UInt32 = TypeID
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -45,10 +45,9 @@ Inherits CFType
 		    end if
 		    
 		    dim theList() as Double
-		    const sizeOfSingle = 4
-		    dim lastOffset as Integer = sizeOfSingle*me.ComponentCount - 1
-		    for offset as Integer = 0 to lastOffset step sizeOfSingle
-		      theList.Append p.Single(offset)
+		    dim lastOffset as Integer = SizeOfDouble*me.ComponentCount - 1
+		    for offset as Integer = 0 to lastOffset step SizeOfDouble
+		      theList.Append p.Double(offset)
 		    next
 		    return theList
 		  #endif
@@ -76,10 +75,8 @@ Inherits CFType
 		  end if
 		  
 		  #if targetMacOS
-		    declare function CGColorCreateCopyWithAlpha lib CarbonLib (color as Ptr, alpha as Single) as Ptr
-		    
-		    dim alphaSingle as Single = alpha
-		    super.Constructor CGColorCreateCopyWithAlpha(me, alphaSingle), true
+		    declare function CGColorCreateCopyWithAlpha lib CarbonLib (color as Ptr, alpha as Double) as Ptr
+		    super.Constructor CGColorCreateCopyWithAlpha(me, alpha), true
 		  #endif
 		  
 		End Sub
@@ -92,12 +89,11 @@ Inherits CFType
 		    
 		    //convert components to C array
 		    
-		    const sizeOfSingle = 4
-		    dim m as new MemoryBlock(sizeOfSingle*(1 + UBound(components)))
+		    dim m as new MemoryBlock(SizeOfDouble*(1 + UBound(components)))
 		    dim offset as Integer = 0
 		    for i as Integer = 0 to UBound(components)
-		      m.SingleValue(offset) = components(i)
-		      offset = offset + sizeOfSingle
+		      m.DoubleValue(offset) = components(i)
+		      offset = offset + SizeOfDouble
 		    next
 		    
 		    super.Constructor CGColorCreate(colorSpace, m), true
@@ -140,7 +136,7 @@ Inherits CFType
 			  end if
 			  
 			  #if targetMacOS
-			    declare function CGColorGetAlpha lib CarbonLib (color as Ptr) as Single
+			    declare function CGColorGetAlpha lib CarbonLib (color as Ptr) as Double
 			    
 			    return CGColorGetAlpha(me)
 			  #endif
@@ -185,40 +181,39 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -1,11 +1,13 @@
 #tag Window
 Begin Window AxialShadingExample
-   BackColor       =   16777215
-   Backdrop        =   ""
+   BackColor       =   &cFFFFFF00
+   Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
    Height          =   300
    ImplicitInstance=   True
@@ -14,7 +16,7 @@ Begin Window AxialShadingExample
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -68,28 +70,28 @@ End
 
 
 	#tag Method, Flags = &h21
-		Private Shared Sub CalculateShadingValues(info as Ptr, inSingleArray as Ptr, outSingleArray as Ptr)
+		Private Shared Sub CalculateShadingValues(info as Ptr, inDoubleArray as Ptr, outDoubleArray as Ptr)
 		  if info = nil then
 		    return
 		  end if
-		  if inSingleArray = nil then
+		  if inDoubleArray = nil then
 		    return
 		  end if
-		  if outSingleArray = nil then
+		  if outDoubleArray = nil then
 		    return
 		  end if
 		  
 		  dim lastColorComponentIndex as Integer = info.Int32(0) - 2
 		  dim c() as Double = Array(1.0, 0.0, 0.5, 0.0)
-		  dim v as Single = inSingleArray.Single(0)
+		  dim v as Double = inDoubleArray.Double(0)
 		  dim offset as Integer = 0
-		  const sizeOfSingle = 4
+		  
 		  for k as Integer = 0 to lastColorComponentIndex
-		    outSingleArray.Single(offset) = c(k)*v
-		    offset = offset + sizeOfSingle
+		    outDoubleArray.Double(offset) = c(k)*v
+		    offset = offset + SizeOfDouble
 		  next
-		  outSingleArray.Single(offset) = 1.0 //sets the alpha value for the color
-		  offset = offset + sizeOfSingle
+		  outDoubleArray.Double(offset) = 1.0 //sets the alpha value for the color
+		  offset = offset + SizeOfDouble
 		End Sub
 	#tag EndMethod
 
