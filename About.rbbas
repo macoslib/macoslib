@@ -65,6 +65,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		192: 2017-05-27 by VVB
+		- Added OS Version checks for IsElCapitan and IsSierra.
+		
 		191: 2016-11-09 by VVB
 		- Added SegmentedControlExtension.SelectedForSegment(#) = True/False
 		
@@ -607,7 +610,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"191", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"192", Scope = Protected
 	#tag EndConstant
 
 
