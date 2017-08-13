@@ -2,24 +2,24 @@
 Class CTFont
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return CTFont.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CTFontGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CTFontGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String, size as Double = 0.0) As CTFont
+		Shared Function CreateWithName(name as String, size as Double = 0.0) As CTFont
 		  'CTFontRef CTFontCreateWithName (
 		  'CFStringRef name,
 		  'CGFloat size,
@@ -29,7 +29,7 @@ Inherits CFType
 		  //According to the CTFont documentation, the default font size is currently 12.0.
 		  
 		  #if targetMacOS
-		    soft declare function CTFontCreateWithName lib CarbonLib (name as CFStringRef, size as Single, matrix as Ptr) as Ptr
+		    soft declare function CTFontCreateWithName lib CarbonLib (name as CFStringRef, size as Double, matrix as Ptr) as Ptr
 		    
 		    dim p as Ptr = CTFontCreateWithName(name, size, nil)
 		    if p = nil then
@@ -69,7 +69,7 @@ Inherits CFType
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    soft declare function CTFontGetSize lib CarbonLib (font as Ptr) as Single
+			    soft declare function CTFontGetSize lib CarbonLib (font as Ptr) as Double
 			    
 			    return CTFontGetSize(me)
 			  #endif
@@ -85,7 +85,6 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FullName"
@@ -98,20 +97,20 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Size"
@@ -122,14 +121,14 @@ Inherits CFType
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

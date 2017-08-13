@@ -59,11 +59,11 @@ Protected Module GroupBoxExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function BorderWidth(Extends g as GroupBox) As Single
+		Function BorderWidth(Extends g as GroupBox) As Double
 		  //# Returns the width of the groupbox’s border when the groupbox is a custom box with a simple line border.
 		  
 		  #if TargetCocoa then
-		    declare function borderWidth lib CocoaLib selector "borderWidth" (obj_id as Integer) as Single
+		    declare function borderWidth lib CocoaLib selector "borderWidth" (obj_id as Integer) as Double
 		    
 		    return borderWidth(g.handle)
 		  #else
@@ -73,11 +73,11 @@ Protected Module GroupBoxExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub BorderWidth(Extends g as GroupBox, Assigns value as Single)
+		Sub BorderWidth(Extends g as GroupBox, Assigns value as Double)
 		  //# Specifies the groupbox’s border width.
 		  
 		  #if TargetCocoa then
-		    declare sub setBorderWidth lib CocoaLib selector "setBorderWidth:" (obj_id as Integer, value as Single)
+		    declare sub setBorderWidth lib CocoaLib selector "setBorderWidth:" (obj_id as Integer, value as Double)
 		    
 		    setBorderWidth(g.handle, value)
 		  #else
@@ -117,13 +117,13 @@ Protected Module GroupBoxExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CornerRadius(Extends g as GroupBox) As Single
+		Function CornerRadius(Extends g as GroupBox) As Double
 		  //# Returns the radius of the groupbox’s corners when the groupbox is a custom box with a simple line border.
 		  
 		  //@return The groupbox’s corner radius. It must be a custom box—that is, it has a type of NSBoxCustom—and it must have a border style of NSLineBorder.
 		  
 		  #if TargetCocoa then
-		    declare function cornerRadius lib CocoaLib selector "cornerRadius" (obj_id as Integer) as Single
+		    declare function cornerRadius lib CocoaLib selector "cornerRadius" (obj_id as Integer) as Double
 		    
 		    return cornerRadius(g.handle)
 		  #else
@@ -133,13 +133,13 @@ Protected Module GroupBoxExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub CornerRadius(Extends g as GroupBox, Assigns value as Single)
+		Sub CornerRadius(Extends g as GroupBox, Assigns value as Double)
 		  //# Specifies the groupbox’s corner radius.
 		  
 		  //@considerations: Functional only when the groupbox’s box type (boxType) is NSBoxCustom and its border type (borderType) is NSLineBorder.
 		  
 		  #if TargetCocoa then
-		    declare sub setCornerRadius lib CocoaLib selector "setCornerRadius:" (obj_id as Integer, value as Single)
+		    declare sub setCornerRadius lib CocoaLib selector "setCornerRadius:" (obj_id as Integer, value as Double)
 		    
 		    setCornerRadius(g.handle, value)
 		  #else
@@ -269,33 +269,33 @@ Protected Module GroupBoxExtensions
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

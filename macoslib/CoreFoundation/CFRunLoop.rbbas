@@ -2,7 +2,7 @@
 Class CFRunLoop
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return CFRunLoop.ClassID
 		End Function
 	#tag EndEvent
@@ -38,10 +38,10 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFRunLoopGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    soft declare function TypeID lib CarbonLib alias "CFRunLoopGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -58,7 +58,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Current() As CFRunLoop
+		Shared Function Current() As CFRunLoop
 		  #if targetMacOS
 		    soft declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
 		    const hasOwnership = false
@@ -68,7 +68,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultMode() As Ptr
+		Shared Function DefaultMode() As Ptr
 		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(kCFRunLoopDefaultMode)
 		  if p <> nil then
 		    return p.Ptr(0)
@@ -79,7 +79,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Main() As CFRunLoop
+		Shared Function Main() As CFRunLoop
 		  #if targetMacOS
 		    //Available in Mac OS X v10.5 and later.
 		    soft declare function CFRunLoopGetMain lib CarbonLib () as Ptr
@@ -126,40 +126,39 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -1,7 +1,7 @@
 #tag Class
 Protected Class MacSpeechSynthesizer
 	#tag Method, Flags = &h0
-		 Shared Function AttributesForVoice(theVoice as string) As Dictionary
+		Shared Function AttributesForVoice(theVoice as string) As Dictionary
 		  //# Read the voice attributes and return them as a dictionary
 		  
 		  #if TargetMacOS
@@ -14,7 +14,7 @@ Protected Class MacSpeechSynthesizer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AvailableVoices() As string()
+		Shared Function AvailableVoices() As string()
 		  //# Return a list of available voices identifiers
 		  
 		  #if TargetMacOS
@@ -49,7 +49,7 @@ Protected Class MacSpeechSynthesizer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultVoice() As String
+		Shared Function DefaultVoice() As String
 		  //# Return the default voice identifier (as defined in System Preferences)
 		  
 		  return  NSSpeechSynthesizer.DefaultVoice
@@ -156,7 +156,7 @@ Protected Class MacSpeechSynthesizer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IsAnyApplicationSpeaking() As Boolean
+		Shared Function IsAnyApplicationSpeaking() As Boolean
 		  //# Check if the speech synthesizer core is busy talking in any running application
 		  
 		  #if TargetMacOS
@@ -322,7 +322,7 @@ Protected Class MacSpeechSynthesizer
 			  
 			End Set
 		#tag EndSetter
-		Rate As single
+		Rate As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -367,7 +367,7 @@ Protected Class MacSpeechSynthesizer
 			  synth.Volume = value
 			End Set
 		#tag EndSetter
-		Volume As single
+		Volume As Double
 	#tag EndComputedProperty
 
 
@@ -388,20 +388,19 @@ Protected Class MacSpeechSynthesizer
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Rate"
@@ -412,14 +411,14 @@ Protected Class MacSpeechSynthesizer
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Voice"

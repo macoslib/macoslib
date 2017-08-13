@@ -3,7 +3,7 @@ Class CFArray
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return self.ClassID
 		End Function
 	#tag EndEvent
@@ -23,10 +23,10 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -74,7 +74,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
+		Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
 		  
 		  #if TargetMacOS
 		    dim cfma as new CFMutableArray
@@ -102,7 +102,7 @@ Implements CFPropertyList
 		        cfma.Append   new CFString( s )
 		      next
 		      
-		    case Variant.TypeDouble, Variant.TypeSingle
+		    case Variant.TypeDouble
 		      dim ard() as double = theArray
 		      for each d as double in ard
 		        cfma.Append   new CFNumber( d )
@@ -131,7 +131,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFArray
+		Shared Function CreateFromPListFile(file as FolderItem) As CFArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListFile(file, CoreFoundation.kCFPropertyListImmutable))
 		  #else
@@ -142,7 +142,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFArray
+		Shared Function CreateFromPListString(plistString as String) As CFArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListString(plistString, CoreFoundation.kCFPropertyListImmutable))
 		  #else
@@ -243,40 +243,40 @@ Implements CFPropertyList
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

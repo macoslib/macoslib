@@ -3,7 +3,7 @@ Class CFDictionary
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -39,10 +39,10 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFDictionaryGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CFDictionaryGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -76,13 +76,13 @@ Implements CFPropertyList
 		    declare function CFDictionaryCreate lib CarbonLib (allocator as Ptr, keys as Ptr, values as Ptr, numValues as Integer, keyCallBacks as Ptr, valueCallBacks as Ptr) as Ptr
 		    
 		    if UBound(theKeys) >= 0 then
-		      dim keyBlock as new MemoryBlock(4*(1 + UBound(theKeys)))
-		      dim valueBlock as new MemoryBlock(4*(1 + UBound(theValues)))
+		      dim keyBlock as new MemoryBlock(SizeOfPointer*(1 + UBound(theKeys)))
+		      dim valueBlock as new MemoryBlock(SizeOfPointer*(1 + UBound(theValues)))
 		      dim offset as Integer = 0
 		      for i as Integer = 0 to UBound(theKeys)
 		        keyBlock.Ptr(offset) = theKeys(i).Reference
 		        valueBlock.Ptr(offset) = theValues(i).Reference
-		        offset = offset + 4
+		        offset = offset + SizeOfPointer
 		      next
 		      // create with presets
 		      super.Constructor CFDictionaryCreate(nil, keyBlock, valueBlock, 1 + UBound(theKeys), keyCallbacks, valueCallbacks), true
@@ -96,7 +96,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromDictionary(dict as Dictionary) As CFDictionary
+		Shared Function CreateFromDictionary(dict as Dictionary) As CFDictionary
 		  #if TargetMacOS
 		    dim md as new CFMutableDictionary
 		    
@@ -122,7 +122,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFDictionary
+		Shared Function CreateFromPListFile(file as FolderItem) As CFDictionary
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
@@ -139,7 +139,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFDictionary
+		Shared Function CreateFromPListString(plistString as String) As CFDictionary
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
@@ -194,14 +194,13 @@ Implements CFPropertyList
 		      if dictCount > 0 then
 		        declare sub CFDictionaryGetKeysAndValues lib CarbonLib (theDict as Ptr, keys as Ptr, values as Ptr)
 		        
-		        const sizeOfCFTypeRef = 4
-		        dim keyList as new MemoryBlock(sizeOfCFTypeRef*dictCount)
+		        dim keyList as new MemoryBlock(CFTypeRef.Size*dictCount)
 		        CFDictionaryGetKeysAndValues me.Reference, keyList, nil
 		        
 		        dim offset as Integer = 0
 		        for i as Integer = 1 to dictCount
 		          theList.Append CFType.NewObject(keyList.Ptr(offset), false, kCFPropertyListImmutable)
-		          offset = offset + sizeOfCFTypeRef
+		          offset = offset + CFTypeRef.Size
 		        next
 		      end if
 		    end if
@@ -297,40 +296,40 @@ Implements CFPropertyList
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

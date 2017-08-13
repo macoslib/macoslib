@@ -3,7 +3,7 @@ Class CFBoolean
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return self.ClassID
 		End Function
 	#tag EndEvent
@@ -20,10 +20,10 @@ Implements CFPropertyList
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFBooleanGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CFBooleanGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -44,7 +44,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFBoolean
+		Shared Function CreateFromPListFile(file as FolderItem) As CFBoolean
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
@@ -61,7 +61,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFBoolean
+		Shared Function CreateFromPListString(plistString as String) As CFBoolean
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
@@ -78,14 +78,14 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Get(value as Boolean) As CFBoolean
+		Shared Function Get(value as Boolean) As CFBoolean
 		  static ObjectCache as Dictionary = MakeCache
 		  return ObjectCache.Value(value)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Get(ref as CFTypeRef) As CFBoolean
+		Shared Function Get(ref as CFTypeRef) As CFBoolean
 		  #if targetMacOS
 		    return CFBoolean.Get(CFBooleanGetValue(ref))
 		  #endif
@@ -93,13 +93,13 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetFalse() As CFBoolean
+		Shared Function GetFalse() As CFBoolean
 		  return Get(false)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetTrue() As CFBoolean
+		Shared Function GetTrue() As CFBoolean
 		  return Get(true)
 		End Function
 	#tag EndMethod
@@ -203,40 +203,40 @@ Implements CFPropertyList
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -2,16 +2,16 @@
 Class CFError
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return CFError.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function CFErrorGetTypeID lib CarbonLib () as UInt32
+		    declare function CFErrorGetTypeID lib CarbonLib () as UInteger
 		    
 		    return CFErrorGetTypeID
 		  #endif
@@ -43,7 +43,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RaiseExceptionAndRelease(CFErrorRef As Ptr)
+		Shared Sub RaiseExceptionAndRelease(CFErrorRef As Ptr)
 		  // Added by Kem Tekinay.
 		  
 		  // This convenience method is really here as a demonstration of the right way to handle the CFErrorRef
@@ -123,7 +123,6 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Domain"
@@ -136,33 +135,33 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

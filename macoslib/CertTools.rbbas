@@ -80,10 +80,10 @@ Protected Module CertTools
 		  // This function reads certain entries from the App's certification receipt file
 		  
 		  #if TargetMacOS
-		    declare function d2i_PKCS7_fp lib "/usr/lib/libcrypto.dylib" (fp as Int32, p7 as Ptr) as Ptr
+		    declare function d2i_PKCS7_fp lib "/usr/lib/libcrypto.dylib" (fp as integer, p7 as Ptr) as Ptr
 		    declare sub PKCS7_free lib "/usr/lib/libcrypto.dylib" (p7 as Ptr)
 		    declare function OBJ_obj2nid lib "/usr/lib/libcrypto.dylib" (ASN1_OBJECT as Ptr) as Int32
-		    declare function ASN1_get_object lib "/usr/lib/libcrypto.dylib" (ByRef pp as Ptr, ByRef plength as Int32, ByRef ptag as Int32, ByRef pclass as Int32, omax as Int32) as Int32
+		    declare function ASN1_get_object lib "/usr/lib/libcrypto.dylib" (ByRef pp as Ptr, ByRef plength as Integer, ByRef ptag as Int32, ByRef pclass as Int32, omax as Integer) as Int32
 		    
 		    dim result as Dictionary
 		    
@@ -94,7 +94,7 @@ Protected Module CertTools
 		    catch exc as RuntimeException
 		      return nil
 		    end
-		    dim fp as Int32 = bs.Handle(BinaryStream.HandleTypeFilePointer)
+		    dim fp as Integer = bs.Handle(BinaryStream.HandleTypeFilePointer)
 		    if fp = 0 then return nil
 		    dim p7 as Ptr = d2i_PKCS7_fp (fp, nil)
 		    bs.Close
@@ -115,14 +115,15 @@ Protected Module CertTools
 		    dim l as Integer = octets.ASN1_STRING.length
 		    e = p + Ptr(l)
 		    
-		    dim res, type, xclass, length as Integer
+		    dim res, type, xclass as Int32
+		    dim length as Integer
 		    
-		    res = ASN1_get_object(p, length, type, xclass, e - p)
+		    res = ASN1_get_object(p, length, type, xclass, integer(e) - integer(p))
 		    if type <> 17 then goto bail1 ' V_ASN1_SET
 		    
 		    result = new Dictionary
 		    while p < e
-		      call ASN1_get_object (p, length, type, xclass, e - p)
+		      call ASN1_get_object (p, length, type, xclass, integer(e) - integer(p))
 		      if type <> 16 then
 		        exit ' V_ASN1_SEQUENCE
 		      end
@@ -132,14 +133,14 @@ Protected Module CertTools
 		      dim attr_type, attr_version as Integer
 		      
 		      // Attribute type
-		      call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		      call ASN1_get_object (p, length, type, xclass, integer(seq_end) - integer(p))
 		      if type = 2 and length = 1 then ' V_ASN1_INTEGER
 		        attr_type = p.Byte(0)
 		      end
 		      p = p + Ptr(length)
 		      
 		      // Attribute version
-		      call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		      call ASN1_get_object (p, length, type, xclass, integer(seq_end) - integer(p))
 		      if type = 2 and length = 1 then ' V_ASN1_INTEGER
 		        attr_version = p.Byte(0)
 		      end
@@ -149,7 +150,7 @@ Protected Module CertTools
 		      if ATTRS(attr_type) > ATTRS.ATTR_START and ATTRS(attr_type) < ATTRS.ATTR_END then
 		        dim key as Keys
 		        
-		        call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		        call ASN1_get_object (p, length, type, xclass, integer(seq_end) - integer(p))
 		        if type = 4 then ' V_ASN1_OCTET_STRING
 		          // Bytes
 		          if ATTRS(attr_type) = ATTRS.BUNDLE_ID or ATTRS(attr_type) = ATTRS.OPAQUE_VALUE or ATTRS(attr_type) = ATTRS.HASH then
@@ -168,9 +169,10 @@ Protected Module CertTools
 		          
 		          // Strings
 		          if ATTRS(attr_type) = ATTRS.BUNDLE_ID or ATTRS(attr_type) = ATTRS.VERSION then
-		            dim str_type, str_length as Integer
+		            dim str_type as Int32
+		            dim str_length as Integer
 		            dim str_p as Ptr = p
-		            call ASN1_get_object (str_p, str_length, str_type, xclass, seq_end - str_p)
+		            call ASN1_get_object (str_p, str_length, str_type, xclass, integer(seq_end) - integer(str_p))
 		            if str_type = 12 then ' V_ASN1_UTF8STRING
 		              dim mb as MemoryBlock = str_p
 		              dim s as String = mb.StringValue(0,str_length).DefineEncoding(Encodings.UTF8)
@@ -190,7 +192,7 @@ Protected Module CertTools
 		      
 		      // Skip any remaining fields in this SEQUENCE
 		      while p < seq_end
-		        call ASN1_get_object (p, length, type, xclass, seq_end - p)
+		        call ASN1_get_object (p, length, type, xclass, integer(seq_end) - integer(p))
 		        p = p + Ptr(length)
 		      wend
 		      
@@ -284,12 +286,12 @@ Protected Module CertTools
 		length as Int32
 		  type as Int32
 		  data as Ptr
-		flags as Int32
+		flags as Integer
 	#tag EndStructure
 
 	#tag Structure, Name = PKCS7, Flags = &h21
 		asn1 as CString
-		  length as Int32
+		  length as Integer
 		  state as Int32
 		  detached as Int32
 		  type as Ptr
@@ -331,33 +333,33 @@ Protected Module CertTools
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -21,7 +21,7 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CurrentProcess() As Process
+		Shared Function CurrentProcess() As Process
 		  #if targetMacOS
 		    soft declare function GetCurrentProcess lib CarbonLib (ByRef psn as ProcessSerialNumber) as Int16
 		    
@@ -60,7 +60,7 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FrontProcess() As Process
+		Shared Function FrontProcess() As Process
 		  #if targetMacOS
 		    soft declare function GetFrontProcess lib CarbonLib (ByRef PSN as ProcessSerialNumber) as Int16
 		    
@@ -77,7 +77,7 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub FrontProcess(p as Process, frontWindowOnly as Boolean = false)
+		Shared Sub FrontProcess(p as Process, frontWindowOnly as Boolean = false)
 		  if p is nil then
 		    return
 		  end if
@@ -104,7 +104,7 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IsBundleRunning(id as string) As boolean
+		Shared Function IsBundleRunning(id as string) As boolean
 		  
 		  dim running as boolean
 		  dim p as new Process
@@ -190,7 +190,7 @@ Protected Class Process
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ProcessList() As Process()
+		Shared Function ProcessList() As Process()
 		  dim theList() as Process
 		  
 		  dim p as new Process
@@ -461,7 +461,7 @@ Protected Class Process
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsBackgroundProcess"
@@ -498,14 +498,13 @@ Protected Class Process
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PID"
@@ -522,14 +521,14 @@ Protected Class Process
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Visible"

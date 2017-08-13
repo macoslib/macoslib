@@ -1,11 +1,11 @@
 #tag Module
 Protected Module ControlExtension
 	#tag Method, Flags = &h0
-		Function AlphaValue(extends c as Control) As Single
+		Function AlphaValue(extends c as Control) As Double
 		  //# Returns the opacity of the control
 		  
 		  #if TargetCocoa then
-		    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Integer) as Single
+		    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Integer) as Double
 		    
 		    if c.Handle <> 0 then
 		      return alphaValue(c.Handle)
@@ -19,11 +19,11 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub AlphaValue(extends c as Control, Assigns alpha as Single)
+		Sub AlphaValue(extends c as Control, Assigns alpha as Double)
 		  //# Sets the opacity of the control.
 		  
 		  #if TargetCocoa
-		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Integer, alpha as Single)
+		    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Integer, alpha as Double)
 		    
 		    if c.Handle <> 0 then
 		      setAlphaValue(c.Handle, alpha)
@@ -73,10 +73,10 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function BoundsRotation(extends c as Control) As Single
+		Function BoundsRotation(extends c as Control) As Double
 		  
 		  #if TargetCocoa
-		    declare function boundsRotation lib CocoaLib selector "boundsRotation" (obj_id as Integer) as Single
+		    declare function boundsRotation lib CocoaLib selector "boundsRotation" (obj_id as Integer) as Double
 		    
 		    if c.Handle <> 0 then
 		      return boundsRotation(c.Handle)
@@ -90,10 +90,10 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub BoundsRotation(extends c as Control, Assigns angle as Single)
+		Sub BoundsRotation(extends c as Control, Assigns angle as Double)
 		  
 		  #if TargetCocoa
-		    declare sub setBoundsRotation lib CocoaLib selector "setBoundsRotation:" (obj_id as Integer, angle as Single)
+		    declare sub setBoundsRotation lib CocoaLib selector "setBoundsRotation:" (obj_id as Integer, angle as Double)
 		    
 		    if c.Handle <> 0 then
 		      setBoundsRotation(c.Handle, angle)
@@ -143,10 +143,10 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FrameCenterRotation(extends c as Control) As Single
+		Function FrameCenterRotation(extends c as Control) As Double
 		  
 		  #if TargetCocoa then
-		    declare function frameCenterRotation lib CocoaLib selector "frameCenterRotation" (obj_id as Integer) as Single
+		    declare function frameCenterRotation lib CocoaLib selector "frameCenterRotation" (obj_id as Integer) as Double
 		    
 		    if c.Handle <> 0 then
 		      return frameCenterRotation(c.Handle)
@@ -160,11 +160,11 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FrameCenterRotation(extends c as Control, Assigns angle as Single)
+		Sub FrameCenterRotation(extends c as Control, Assigns angle as Double)
 		  //# Rotates the frame of the control about the layer’s position.
 		  
 		  #if TargetCocoa then
-		    declare sub setFrameCenterRotation lib CocoaLib selector "setFrameCenterRotation:" (obj_id as Integer, angle as Single)
+		    declare sub setFrameCenterRotation lib CocoaLib selector "setFrameCenterRotation:" (obj_id as Integer, angle as Double)
 		    
 		    if c.Handle <> 0 then
 		      setFrameCenterRotation(c.Handle, angle)
@@ -179,11 +179,11 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FrameRotation(extends c as Control) As Single
+		Function FrameRotation(extends c as Control) As Double
 		  //# Returns the control’s rotation about the layer’s position.
 		  
 		  #if TargetCocoa then
-		    declare function frameRotation lib CocoaLib selector "frameRotation" (obj_id as Integer) as Single
+		    declare function frameRotation lib CocoaLib selector "frameRotation" (obj_id as Integer) as Double
 		    
 		    if c.Handle <> 0 then
 		      return frameRotation(c.Handle)
@@ -197,10 +197,10 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FrameRotation(extends c as Control, Assigns angle as Single)
+		Sub FrameRotation(extends c as Control, Assigns angle as Double)
 		  
 		  #if TargetCocoa then
-		    declare sub setFrameRotation lib CocoaLib selector "setFrameRotation:" (obj_id as Integer, angle as Single)
+		    declare sub setFrameRotation lib CocoaLib selector "setFrameRotation:" (obj_id as Integer, angle as Double)
 		    
 		    if c.Handle <> 0 then
 		      setFrameRotation(c.Handle, angle)
@@ -224,11 +224,11 @@ Protected Module ControlExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RotateByAngle(extends c as Control, angle as Single)
+		Sub RotateByAngle(extends c as Control, angle as Double)
 		  //# Rotates the control’s bounds rectangle by a specified degree value around the origin of the coordinate system, (0.0, 0.0).
 		  
 		  #if TargetCocoa
-		    declare sub rotateByAngle lib CocoaLib selector "rotateByAngle:" (obj_id as Integer, angle as Single)
+		    declare sub rotateByAngle lib CocoaLib selector "rotateByAngle:" (obj_id as Integer, angle as Double)
 		    
 		    if c.Handle <> 0 then
 		      rotateByAngle(c.Handle, angle)
@@ -301,33 +301,33 @@ Protected Module ControlExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

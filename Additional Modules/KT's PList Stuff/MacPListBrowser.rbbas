@@ -277,7 +277,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(f As FolderItem, isCaseSensitive As Boolean = False) As MacPListBrowser
+		Shared Function CreateFromPListFile(f As FolderItem, isCaseSensitive As Boolean = False) As MacPListBrowser
 		  // Note that passing a FolderItem to the Contructor will add that FolderItem as an alias
 		  
 		  dim r as MacPListBrowser
@@ -303,7 +303,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(s As String, isCaseSensitive As Boolean = False) As MacPListBrowser
+		Shared Function CreateFromPListString(s As String, isCaseSensitive As Boolean = False) As MacPListBrowser
 		  // Returns a MacPListBrowser from a plist string.
 		  // Could have put this into the constructor, but don't want to make assumptions about
 		  // what the developer is trying to do.
@@ -340,7 +340,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Difference(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
+		Shared Function Difference(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
 		  // Returns an array of items that are present in one array or the other, but not both.
 		  
 		  dim r() as MacPListBrowser
@@ -550,7 +550,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Intersection(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
+		Shared Function Intersection(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
 		  // Returns an array of items that are present in both arrays
 		  
 		  dim r() As MacPListBrowser
@@ -1219,7 +1219,7 @@ Protected Class MacPListBrowser
 		      else
 		        return ValueType.IsUnknown
 		      end if
-		    case Variant.TypeInteger, Variant.TypeSingle, Variant.TypeDouble, Variant.TypeLong
+		    case Variant.TypeInteger, Variant.TypeDouble, Variant.TypeLong
 		      return ValueType.IsNumber
 		    case Variant.TypeString
 		      return ValueType.IsString
@@ -1304,7 +1304,7 @@ Protected Class MacPListBrowser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Union(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
+		Shared Function Union(arr1() As MacPListBrowser, arr2() As MacPListBrowser) As MacPListBrowser()
 		  // Joins two arrays of type MacPListBrowser into one.
 		  
 		  dim r() as MacPListBrowser
@@ -1836,7 +1836,7 @@ Protected Class MacPListBrowser
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Key"
@@ -1849,13 +1849,13 @@ Protected Class MacPListBrowser
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PrettyText"
@@ -1873,14 +1873,19 @@ Protected Class MacPListBrowser
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Type"
+			Group="Behavior"
+			Type="ValueType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="XMLValue"

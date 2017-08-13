@@ -59,7 +59,7 @@ Protected Module GeneralExtensions
 		  //# Equivalent to Variant.IsNumeric but does not return true for strings representing a numeric value
 		  
 		  Select case VarType( v )
-		  case Variant.TypeInteger, Variant.TypeLong, Variant.TypeSingle, Variant.TypeDouble, Variant.TypeCurrency
+		  case Variant.TypeInteger, Variant.TypeLong, Variant.TypeDouble, Variant.TypeCurrency
 		    return   true
 		  end select
 		End Function
@@ -72,33 +72,33 @@ Protected Module GeneralExtensions
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

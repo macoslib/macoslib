@@ -2,17 +2,17 @@
 Class CTLine
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return CTLine.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CTLineGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CTLineGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -48,9 +48,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function GetOffsetForStringIndex(charIndex as Integer, ByRef secondaryOffset as Single) As Single
+		Function GetOffsetForStringIndex(charIndex as Integer, ByRef secondaryOffset as Double) As Double
 		  #if TargetMacOS
-		    declare function CTLineGetOffsetForStringIndex lib CarbonLib (r as Ptr, charIndex as Integer, ByRef secondaryOffset as Single) as Single
+		    declare function CTLineGetOffsetForStringIndex lib CarbonLib (r as Ptr, charIndex as Integer, ByRef secondaryOffset as Double) as Double
 		    
 		    return CTLineGetOffsetForStringIndex (self, charIndex, secondaryOffset)
 		  #endif
@@ -58,9 +58,9 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function GetTypographicBounds(ByRef ascent as Single, ByRef descent as Single, ByRef leading as Single) As Double
+		Function GetTypographicBounds(ByRef ascent as Double, ByRef descent as Double, ByRef leading as Double) As Double
 		  #if TargetMacOS
-		    declare function CTLineGetTypographicBounds lib CarbonLib (r as Ptr, ByRef ascent as Single, ByRef descent as Single, ByRef leading as Single) as Double
+		    declare function CTLineGetTypographicBounds lib CarbonLib (r as Ptr, ByRef ascent as Double, ByRef descent as Double, ByRef leading as Double) as Double
 		    
 		    return CTLineGetTypographicBounds (self, ascent, descent, leading)
 		  #endif
@@ -78,18 +78,18 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function JustifiedLine(justificationFactor as Single, justificationWidth as Double) As CTLine
+		Function JustifiedLine(justificationFactor as Double, justificationWidth as Double) As CTLine
 		  #if TargetMacOS
-		    declare function CTLineCreateJustifiedLine lib CarbonLib (r as Ptr, justificationFactor as Single, justificationWidth as Double) as Ptr
+		    declare function CTLineCreateJustifiedLine lib CarbonLib (r as Ptr, justificationFactor as Double, justificationWidth as Double) as Ptr
 		    return new CTLine (CTLineCreateJustifiedLine (self, justificationFactor, justificationWidth), hasOwnership)
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function PenOffsetForFlush(flushFactor as Single, flushWidth as Double) As Double
+		Function PenOffsetForFlush(flushFactor as Double, flushWidth as Double) As Double
 		  #if TargetMacOS
-		    declare function CTLineGetPenOffsetForFlush lib CarbonLib (r as Ptr, flushFactor as Single, flushWidth as Double) as Double
+		    declare function CTLineGetPenOffsetForFlush lib CarbonLib (r as Ptr, flushFactor as Double, flushWidth as Double) as Double
 		    
 		    return CTLineGetPenOffsetForFlush (self, flushFactor, flushWidth)
 		  #endif
@@ -144,40 +144,39 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -91,7 +91,7 @@ Module FileManager
 		    if aliasData is nil then return nil
 		    
 		    declare function FSResolveAliasWithMountFlags Lib CarbonLib _
-		    ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInt32 ) as Integer
+		    ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInteger ) as Integer
 		    declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
 		    declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
 		    

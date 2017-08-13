@@ -1,11 +1,13 @@
 #tag Window
 Begin Window ImageTransformExample
-   BackColor       =   16777215
-   Backdrop        =   ""
+   BackColor       =   &cFFFFFF00
+   Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
    Height          =   293
    ImplicitInstance=   True
@@ -14,7 +16,7 @@ Begin Window ImageTransformExample
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -27,77 +29,83 @@ Begin Window ImageTransformExample
    Begin PushButton PushButton1
       AutoDeactivate  =   True
       BehaviorIndex   =   0
-      Bold            =   ""
-      Cancel          =   ""
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
       Caption         =   "Choose"
       Default         =   True
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   421
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   ""
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   ""
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
+      TextUnit        =   0
       Top             =   253
-      Underline       =   ""
+      Underline       =   False
       Visible         =   True
       Width           =   80
    End
    Begin Label StaticText1
       AutoDeactivate  =   True
       BehaviorIndex   =   1
-      Bold            =   ""
+      Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
       Height          =   64
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
+      Italic          =   False
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   ""
+      LockTop         =   False
       Multiline       =   True
       Scope           =   0
+      Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "You should be able to open an image file in any reasonable format, including .icns. This window will display the original image, plus disabled and selected versions of it."
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   &c000000
       TextFont        =   "System"
-      TextSize        =   0
+      TextSize        =   0.0
+      TextUnit        =   0
       Top             =   222
-      Underline       =   ""
+      Transparent     =   False
+      Underline       =   False
       Visible         =   True
       Width           =   389
    End
    Begin Canvas Canvas1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
+      AcceptFocus     =   False
+      AcceptTabs      =   False
       AutoDeactivate  =   False
-      Backdrop        =   ""
+      Backdrop        =   0
       BehaviorIndex   =   2
+      DoubleBuffer    =   False
       Enabled         =   False
       EraseBackground =   True
       Height          =   203
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Left            =   20
       LockBottom      =   True
@@ -110,6 +118,7 @@ Begin Window ImageTransformExample
       TabPanelIndex   =   0
       TabStop         =   False
       Top             =   14
+      Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
       Width           =   481
@@ -193,7 +202,7 @@ End
 		    return
 		  end if
 		  
-		  dim w as Single = 10 + me.Image.Width
+		  dim w as Double = 10 + me.Image.Width
 		  dim rect as CGRect = CGRectMake(10, 10, Image.Width, Image.Height)
 		  context.DrawImage me.Image,              CGRectOffset (rect, w * 0, 0)
 		  context.DrawImage me.ImageDisabled, CGRectOffset (rect, w * 1, 0)
@@ -267,7 +276,7 @@ End
 		  
 		  #pragma StackOverflowChecking False
 		  
-		  soft declare function InstallEventHandler lib CarbonLib (inTarget as Ptr, inHandler as Ptr, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
+		  soft declare function InstallEventHandler lib CarbonLib (inTarget as Ptr, inHandler as Integer, inNumTypes as Integer, inList as Ptr,  inUserData as Integer, handlerRef as Ptr) as Integer
 		  
 		  
 		  soft declare function HIViewGetEventTarget lib CarbonLib (inView as Ptr) as Ptr
@@ -278,9 +287,9 @@ End
 		  end if
 		  
 		  //inHandler
-		  soft declare function NewEventHandlerUPP lib CarbonLib (userRoutine as Ptr) as Ptr
+		  soft declare function NewEventHandlerUPP lib CarbonLib (userRoutine as Ptr) as Integer
 		  
-		  dim CallbackUPP as Ptr = NewEventHandlerUPP(AddressOf ForwardCarbonEventToObject)
+		  dim CallbackUPP as Integer = NewEventHandlerUPP(AddressOf ForwardCarbonEventToObject)
 		  
 		  //events
 		  dim eventList(0) as EventTypeSpec

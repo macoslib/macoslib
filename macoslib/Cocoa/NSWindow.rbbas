@@ -177,17 +177,12 @@ Inherits NSResponder
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSWindow(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSWindow(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -295,7 +290,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContentBorderBottomThickness() As Single
+		Function ContentBorderBottomThickness() As Double
 		  //@header Returns the thickness of the bottom border of the window.
 		  
 		  // Convenience method.
@@ -304,7 +299,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ContentBorderBottomThickness(assigns thickness as Single)
+		Sub ContentBorderBottomThickness(assigns thickness as Double)
 		  //@header Indicates the thickness of the bottom border of the window.
 		  
 		  // Convenience method.
@@ -313,12 +308,12 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContentBorderThickness(edge as Cocoa.NSRectEdge) As Single
+		Function ContentBorderThickness(edge as Cocoa.NSRectEdge) As Double
 		  //@header Indicates the thickness of a given border of the window.
 		  
 		  #if TargetCocoa
 		    declare function contentBorderThicknessForEdge lib CocoaLib selector "contentBorderThicknessForEdge:" _
-		    (obj_id as Ptr, edge as Cocoa.NSRectEdge) as Single
+		    (obj_id as Ptr, edge as Cocoa.NSRectEdge) as Double
 		    
 		    return contentBorderThicknessForEdge(self, edge)
 		  #else
@@ -328,7 +323,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Single)
+		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Double)
 		  //@header Specifies the thickness of a given border of the window.
 		  
 		  //@param '''thickness''' The thickness for edge
@@ -347,7 +342,7 @@ Inherits NSResponder
 		  #if TargetCocoa
 		    declare sub setBackingType lib CocoaLib selector "setBackingType:" (obj_id as Ptr, BackingType as NSBackingStoreType)
 		    declare sub setAutorecalculatesContentBorderThicknessForEdge lib CocoaLib selector "setAutorecalculatesContentBorderThickness:forEdge:" (obj_id as Ptr, Flag as Boolean, edge as Cocoa.NSRectEdge)
-		    declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (obj_id as Ptr, thickness as Single, edge as Cocoa.NSRectEdge)
+		    declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (obj_id as Ptr, thickness as Double, edge as Cocoa.NSRectEdge)
 		    
 		    setBackingType self, NSBackingStoreType.NSBackingStoreBuffered
 		    setAutorecalculatesContentBorderThicknessForEdge self, false, edge // Do not recalculate the border thickness automatically
@@ -360,7 +355,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContentBorderTopThickness() As Single
+		Function ContentBorderTopThickness() As Double
 		  //@header Returns the thickness of the top border of the window.
 		  
 		  // Convenience method.
@@ -369,7 +364,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ContentBorderTopThickness(assigns thickness as Single)
+		Sub ContentBorderTopThickness(assigns thickness as Double)
 		  //@header Indicates the thickness of the top border of the window.
 		  
 		  // Convenience method.
@@ -394,7 +389,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ContentRect(windowFrame as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
+		Shared Function ContentRect(windowFrame as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
 		  
 		  #if TargetCocoa
 		    declare function contentRectForFrameRect lib CocoaLib selector "contentRectForFrameRect:styleMask:" _
@@ -505,7 +500,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultDepthLimit() As Integer
+		Shared Function DefaultDepthLimit() As Integer
 		  
 		  #if TargetCocoa
 		    declare function defaultDepthLimit lib CocoaLib selector "defaultDepthLimit" (class_id as Ptr) as Integer
@@ -688,17 +683,11 @@ Inherits NSResponder
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSDrawer(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSDrawer(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -886,7 +875,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FrameRect(windowContentRect as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
+		Shared Function FrameRect(windowContentRect as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
 		  
 		  #if TargetCocoa
 		    declare function frameRectForContentRect lib CocoaLib selector "frameRectForContentRect:styleMask:" _
@@ -1055,11 +1044,11 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MinFrameWidth(windowTitle as String, styleMask as UInt32) As Single
+		Shared Function MinFrameWidth(windowTitle as String, styleMask as UInt32) As Double
 		  
 		  #if TargetCocoa
 		    declare function minFrameWidthWithTitle lib CocoaLib selector "minFrameWidthWithTitle:styleMask:" _
-		    (class_id as Ptr, windowTitle as CFStringRef, styleMask as UInt32) as Single
+		    (class_id as Ptr, windowTitle as CFStringRef, styleMask as UInt32) as Double
 		    
 		    return minFrameWidthWithTitle(ClassRef, windowTitle, styleMask)
 		    
@@ -1085,7 +1074,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceBitsPerSample() As String
+		Shared Function NSDeviceBitsPerSample() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceBitsPerSample")
 		  return name
@@ -1094,7 +1083,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceColorSpaceName() As String
+		Shared Function NSDeviceColorSpaceName() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceColorSpaceName")
 		  return name
@@ -1103,7 +1092,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceIsPrinter() As String
+		Shared Function NSDeviceIsPrinter() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceIsPrinter")
 		  return name
@@ -1112,7 +1101,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceIsScreen() As String
+		Shared Function NSDeviceIsScreen() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceIsScreen")
 		  return name
@@ -1121,7 +1110,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceResolution() As String
+		Shared Function NSDeviceResolution() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceResolution")
 		  return name
@@ -1130,7 +1119,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceSize() As String
+		Shared Function NSDeviceSize() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceSize")
 		  return name
@@ -1329,7 +1318,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RemoveFrame(frameName as String)
+		Shared Sub RemoveFrame(frameName as String)
 		  
 		  #if TargetCocoa
 		    declare sub removeFrameUsingName lib CocoaLib selector "removeFrameUsingName:" (class_id as Ptr, frameName as CFStringRef)
@@ -1547,7 +1536,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StandardWindowButton(windowButtonKind as NSWindowButton, styleMask as UInt32) As Ptr
+		Shared Function StandardWindowButton(windowButtonKind as NSWindowButton, styleMask as UInt32) As Ptr
 		  
 		  #if TargetCocoa
 		    declare function standardWindowButton lib CocoaLib selector "standardWindowButton:forStyleMask:" _
@@ -1694,7 +1683,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WindowNumberAtPoint(point as NSPoint, startingBelowWinNumber as Integer) As Integer
+		Shared Function WindowNumberAtPoint(point as NSPoint, startingBelowWinNumber as Integer) As Integer
 		  
 		  #if TargetCocoa
 		    declare function windowNumberAtPoint lib CocoaLib selector "windowNumberAtPoint:belowWindowWithWindowNumber:" _
@@ -1711,10 +1700,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WindowNumbers(options as UInt32) As Integer()
+		Shared Function WindowNumbers(options as UInt32) As Integer()
 		  
 		  #if TargetCocoa
-		    declare function windowNumbersWithOptions lib CocoaLib selector "windowNumbersWithOptions:" (class_id as Ptr, options as UInt32) as Ptr
+		    declare function windowNumbersWithOptions lib CocoaLib selector "windowNumbersWithOptions:" (class_id as Ptr, options as UInteger) as Ptr
 		    
 		    dim retArray() as Integer
 		    
@@ -1722,17 +1711,11 @@ Inherits NSResponder
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        dim temp as new NSNumber(Ptr(m.Int32Value(i*SizeOfPointer)))
+		        dim temp as new NSNumber(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		        retArray.append temp.IntegerValue
 		      next
 		    end if
@@ -1857,7 +1840,7 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Ptr) as Single
+			    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Ptr) as Double
 			    
 			    return alphaValue(self)
 			    
@@ -1869,7 +1852,7 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetCocoa
-			    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Ptr, windowAlpha as Single)
+			    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Ptr, windowAlpha as Double)
 			    
 			    setAlphaValue self, value
 			    
@@ -1879,7 +1862,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		AlphaValue As Single
+		AlphaValue As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2112,7 +2095,7 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    
 			    if me.RespondsToSelector( "backingScaleFactor" ) then
-			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) As Single
+			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) as Double
 			      r = instanceBackingScaleFactor( self )
 			    end if
 			    
@@ -2121,7 +2104,7 @@ Inherits NSResponder
 			  return r
 			End Get
 		#tag EndGetter
-		BackingScaleFactor As Single
+		BackingScaleFactor As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4718,7 +4701,20 @@ Inherits NSResponder
 		#tag ViewProperty
 			Name="AlphaValue"
 			Group="Behavior"
-			Type="Single"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AnimationBehavior"
+			Group="Behavior"
+			Type="NSWindowAnimationBehavior"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSWindowAnimationBehaviorDefault"
+				"2 - NSWindowAnimationBehaviorNone"
+				"3 - NSWindowAnimationBehaviorDocumentWindow"
+				"4 - NSWindowAnimationBehaviorUtilityWindow"
+				"5 - NSWindowAnimationBehaviorAlertPanel"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AreCursorRectsEnabled"
@@ -4736,9 +4732,31 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="BackingLocation"
+			Group="Behavior"
+			Type="NSWindowBackingLocation"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSWindowBackingLocationDefault"
+				"1 - NSWindowBackingLocationVideoMemory"
+				"2 - NSWindowBackingLocationMainMemory"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BackingScaleFactor"
 			Group="Behavior"
-			Type="Single"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BackingType"
+			Group="Behavior"
+			Type="NSBackingStoreType"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSBackingStoreRetained"
+				"1 - NSBackingStoreNonretained"
+				"2 - NSBackingStoreBuffered"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBecomeKeyWindow"
@@ -4785,7 +4803,6 @@ Inherits NSResponder
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisplaysWhenScreenProfileChanges"
@@ -4859,7 +4876,7 @@ Inherits NSResponder
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InLiveResize"
@@ -4942,11 +4959,22 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="KeyViewSelectionDirection"
+			Group="Behavior"
+			Type="NSSelectionDirection"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSDirectSelection"
+				"1 - NSSelectingNext"
+				"2 - NSSelectingPrevious"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Managed"
@@ -4973,7 +5001,7 @@ Inherits NSResponder
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="OneShot"
@@ -4984,6 +5012,17 @@ Inherits NSResponder
 			Name="ParticipatesInCycle"
 			Group="Behavior"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PreferredBackingLocation"
+			Group="Behavior"
+			Type="NSWindowBackingLocation"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSWindowBackingLocationDefault"
+				"1 - NSWindowBackingLocationVideoMemory"
+				"2 - NSWindowBackingLocationMainMemory"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreservesContentDuringLiveResize"
@@ -5002,6 +5041,17 @@ Inherits NSResponder
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="SharingType"
+			Group="Behavior"
+			Type="NSWindowSharingType"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSWindowSharingNone"
+				"1 - NSWindowSharingReadOnly"
+				"2 - NSWindowSharingReadWrite"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ShowsResizeIndicator"
 			Group="Behavior"
 			Type="Boolean"
@@ -5017,10 +5067,15 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="StyleMask"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Title"
@@ -5038,7 +5093,7 @@ Inherits NSResponder
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Transient"
@@ -5051,9 +5106,37 @@ Inherits NSResponder
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="WindowLevel"
+			Group="Behavior"
+			Type="NSWindowLevel"
+			EditorType="Enum"
+			#tag EnumValues
+				"4 - NSNormalWindowLevel"
+				"5 - NSFloatingWindowLevel"
+				"6 - NSSubmenuWindowLevel"
+				"6 - NSTornOffMenuWindowLevel"
+				"8 - NSMainMenuWindowLevel"
+				"9 - NSStatusWindowLevel"
+				"10 - NSModalPanelWindowLevel"
+				"11 - NSPopUpMenuWindowLevel"
+				"13 - NSScreenSaverWindowLevel"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="WindowNumber"
 			Group="Behavior"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WindowTitleVisibility"
+			Group="Behavior"
+			Type="NSWindowTitleVisibility"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Visible"
+				"1 - Hidden"
+				"2 - HiddenWhenActive"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WorksWhenModal"

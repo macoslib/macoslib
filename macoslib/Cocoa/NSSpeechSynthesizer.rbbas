@@ -2,7 +2,7 @@
 Class NSSpeechSynthesizer
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function AttributesForVoice(theVoice as string) As NSDictionary
+		Shared Function AttributesForVoice(theVoice as string) As NSDictionary
 		  
 		  #if TargetMacOS
 		    declare function attributesForVoice lib CocoaLib selector "attributesForVoice:" (Cls as Ptr, voice as CFStringRef) as Ptr
@@ -17,7 +17,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AvailableVoices() As NSArray
+		Shared Function AvailableVoices() As NSArray
 		  
 		  #if TargetMacOS
 		    declare function availableVoices lib CocoaLib selector "availableVoices" (Cls as Ptr) as Ptr
@@ -62,7 +62,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultVoice() As String
+		Shared Function DefaultVoice() As String
 		  
 		  #if TargetMacOS
 		    declare function defaultVoice lib CocoaLib selector "defaultVoice" (Cls as Ptr) as CFStringRef
@@ -270,7 +270,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IsAnyApplicationSpeaking() As Boolean
+		Shared Function IsAnyApplicationSpeaking() As Boolean
 		  
 		  #if TargetMacOS
 		    declare function isAnyApplicationSpeaking lib CocoaLib selector "isAnyApplicationSpeaking" (Cls as Ptr) as Boolean
@@ -484,7 +484,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function getRate lib CocoaLib selector "rate" (id as Ptr) as single
+			    declare function getRate lib CocoaLib selector "rate" (id as Ptr) as Double
 			    
 			    return  getRate( me.id )
 			  #endif
@@ -493,7 +493,7 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub setRate lib CocoaLib selector "setRate:" (id as Ptr, newRate as single)
+			    declare sub setRate lib CocoaLib selector "setRate:" (id as Ptr, newRate as Double)
 			    
 			    setRate( me.id, value )
 			    
@@ -502,7 +502,7 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Rate As single
+		Rate As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -534,7 +534,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function getVolume lib CocoaLib selector "volume" (id as Ptr) as single
+			    declare function getVolume lib CocoaLib selector "volume" (id as Ptr) as Double
 			    
 			    return  getVolume( me.id )
 			  #endif
@@ -543,7 +543,7 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub setVolume lib CocoaLib selector "setVolume:" (id as Ptr, newVol as single)
+			    declare sub setVolume lib CocoaLib selector "setVolume:" (id as Ptr, newVol as Double)
 			    
 			    if value<0.0 OR value>1.0 then
 			      raise new  macoslibException( "NSSpeechSynthesizer volume must be in range 0.0 to 1.0" )
@@ -556,7 +556,7 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Volume As single
+		Volume As Double
 	#tag EndComputedProperty
 
 
@@ -582,27 +582,26 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Rate"
@@ -613,14 +612,14 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Voice"

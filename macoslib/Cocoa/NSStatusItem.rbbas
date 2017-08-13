@@ -477,7 +477,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Single
+			    declare function length lib CocoaLib selector "length" (obj_id as Ptr) as Double
 			    
 			    return length(self)
 			    
@@ -489,7 +489,7 @@ Inherits NSObject
 			Set
 			  
 			  #if TargetMacOS
-			    declare sub setLength lib CocoaLib selector "setLength:" (obj_id as Ptr, itemLen as Single)
+			    declare sub setLength lib CocoaLib selector "setLength:" (obj_id as Ptr, itemLen as Double)
 			    
 			    setLength self, value
 			    
@@ -499,7 +499,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		Length As Single
+		Length As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

@@ -497,11 +497,7 @@ Class NavigationDialog
 
 	#tag Method, Flags = &h0
 		Sub Show(parentWindow as Window = nil)
-		  #if targetMachO
-		    soft declare function NewNavEventUPP lib CarbonLib (userRoutine as Ptr) as Ptr
-		  #else
-		    soft declare function NewNavEventUPP Lib CarbonLib (userRoutine as Ptr) as Ptr
-		  #endif
+		  soft declare function NewNavEventUPP Lib CarbonLib (userRoutine as Ptr) as Ptr
 		  
 		  #if targetMacOS
 		    dim eventHandlerPtr as MemoryBlock = AddressOf HandleEvent
@@ -980,14 +976,14 @@ Class NavigationDialog
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Message"
@@ -999,7 +995,7 @@ Class NavigationDialog
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NoTypePopup"
@@ -1041,7 +1037,7 @@ Class NavigationDialog
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SupportPackages"
@@ -1060,7 +1056,7 @@ Class NavigationDialog
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UseCustomFrame"

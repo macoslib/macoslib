@@ -41,7 +41,7 @@ Inherits CFArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableArray
+		Shared Function CreateFromPListFile(file as FolderItem) As CFMutableArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListFile(file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves))
 		  #else
@@ -52,7 +52,7 @@ Inherits CFArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFMutableArray
+		Shared Function CreateFromPListString(plistString as String) As CFMutableArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListString(plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves))
 		  #else
@@ -127,46 +127,45 @@ Inherits CFArray
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="CFArray"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="CFType"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="CFType"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="CFType"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="CFType"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="CFType"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -2,17 +2,17 @@
 Class CFRunLoopTimer
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFRunLoopTimerGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    soft declare function TypeID lib CarbonLib alias "CFRunLoopTimerGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -81,7 +81,7 @@ Inherits CFType
 		  //period is the time in seconds between invocations of the callback.  fireTime is the time of the first invocation.
 		  
 		  #if targetMacOS
-		    soft declare function CFRunLoopTimerCreate lib CarbonLib (allocator as Ptr, fireDate as Double, interval as Double, flags as Uint32, order as Uint32, callout as Ptr, context as Ptr) as Ptr
+		    soft declare function CFRunLoopTimerCreate lib CarbonLib (allocator as Ptr, fireDate as Double, interval as Double, flags as UInteger, order as Integer, callout as Ptr, context as Ptr) as Ptr
 		    soft declare function CFAbsoluteTimeGetCurrent lib CarbonLib () as Double
 		    
 		    dim fireDate as Double
@@ -247,7 +247,6 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -261,7 +260,6 @@ Inherits CFType
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRepeating"
@@ -280,13 +278,13 @@ Inherits CFType
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Period"
@@ -298,14 +296,14 @@ Inherits CFType
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

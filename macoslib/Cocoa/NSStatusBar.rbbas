@@ -2,10 +2,10 @@
 Class NSStatusBar
 Inherits NSObject
 	#tag Method, Flags = &h0
-		Function CreateStatusItem(length as Single, actionHandler as NSStatusItem.ActionDelegate) As NSStatusItem
+		Function CreateStatusItem(length as Double, actionHandler as NSStatusItem.ActionDelegate) As NSStatusItem
 		  
 		  #if TargetMacOS
-		    declare function statusItemWithLength lib CocoaLib selector "statusItemWithLength:" (obj_id as Ptr, length as Single) as Ptr
+		    declare function statusItemWithLength lib CocoaLib selector "statusItemWithLength:" (obj_id as Ptr, length as Double) as Ptr
 		    
 		    dim itemRef as Ptr = statusItemWithLength(self, length)
 		    if itemRef <> nil then
@@ -56,7 +56,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemStatusBar() As NSStatusBar
+		Shared Function SystemStatusBar() As NSStatusBar
 		  
 		  #if TargetMacOS
 		    declare function systemStatusBar lib CocoaLib selector "systemStatusBar" (obj_id as Ptr) as Ptr
@@ -74,10 +74,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Thickness() As Single
+		Function Thickness() As Double
 		  
 		  #if TargetMacOS
-		    declare function thickness lib CocoaLib selector "thickness" (obj_id as Ptr) as Single
+		    declare function thickness lib CocoaLib selector "thickness" (obj_id as Ptr) as Double
 		    
 		    return thickness(self)
 		    
@@ -100,40 +100,39 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

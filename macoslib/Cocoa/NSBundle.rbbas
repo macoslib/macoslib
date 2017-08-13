@@ -2,7 +2,7 @@
 Class NSBundle
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function AllBundles() As NSBundle()
+		Shared Function AllBundles() As NSBundle()
 		  //# Returns an array of all the application’s non-framework bundles.
 		  
 		  #if targetMacOS
@@ -14,17 +14,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBundle(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSBundle(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -34,7 +28,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AllFrameworks() As NSBundle()
+		Shared Function AllFrameworks() As NSBundle()
 		  //# Returns an array of all of the application’s bundles that represent frameworks.
 		  
 		  #if targetMacOS
@@ -46,17 +40,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSBundle(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSBundle(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -316,17 +304,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSNumber(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSNumber(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -521,7 +503,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromClass(className as String) As NSBundle
+		Shared Function LoadFromClass(className as String) As NSBundle
 		  //# Returns the NSBundle object with which the specified class is associated.
 		  
 		  #if targetMacOS
@@ -541,7 +523,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromFile(file as FolderItem) As NSBundle
+		Shared Function LoadFromFile(file as FolderItem) As NSBundle
 		  //# Convienence method to load a folderitem
 		  
 		  if file <> nil then
@@ -553,7 +535,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromIdentifier(bundleID as String) As NSBundle
+		Shared Function LoadFromIdentifier(bundleID as String) As NSBundle
 		  //# Returns the previously created NSBundle instance that has the specified bundle identifier.
 		  
 		  #if targetCocoa
@@ -573,7 +555,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromPath(path as String) As NSBundle
+		Shared Function LoadFromPath(path as String) As NSBundle
 		  //# Returns an NSBundle object that corresponds to the specified directory.
 		  
 		  #if targetCocoa
@@ -593,7 +575,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromURL(url as NSURL) As NSBundle
+		Shared Function LoadFromURL(url as NSURL) As NSBundle
 		  //# Returns an NSBundle object that corresponds to the specified file URL.
 		  
 		  #if targetMacOS
@@ -682,7 +664,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MainBundle() As NSBundle
+		Shared Function MainBundle() As NSBundle
 		  //# Returns the NSBundle object that corresponds to the directory where the current application executable is located.
 		  
 		  #if targetMacOS
@@ -770,7 +752,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PathForResource(name as String, extension as String, bundlePath as String) As String
+		Shared Function PathForResource(name as String, extension as String, bundlePath as String) As String
 		  //# Returns the full pathname for the resource file identified by the specified name and extension and residing in a given bundle directory.
 		  
 		  #if targetMacOS
@@ -834,7 +816,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PathsForResources(extension as String, bundlePath as String) As String()
+		Shared Function PathsForResources(extension as String, bundlePath as String) As String()
 		  //# Returns an array containing the pathnames for all bundle resources having the specified extension and residing in the bundle directory at the specified path.
 		  
 		  #if targetMacOS
@@ -921,7 +903,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PreferredLocalizations(localizationsArray() as String) As String()
+		Shared Function PreferredLocalizations(localizationsArray() as String) As String()
 		  //# Returns one or more localizations from the specified list that a bundle object would use to locate resources for the current user.
 		  
 		  #if targetMacOS
@@ -950,7 +932,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PreferredLocalizations(localizationsArray() as String, preferencesArray() as String) As String()
+		Shared Function PreferredLocalizations(localizationsArray() as String, preferencesArray() as String) As String()
 		  //# Returns the localizations that a bundle object would prefer, given the specified bundle and user preference localizations.
 		  
 		  #if targetMacOS
@@ -1276,7 +1258,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function URLForResource(name as String, extension as String, subpath as String, bundleURL as NSURL) As NSURL
+		Shared Function URLForResource(name as String, extension as String, subpath as String, bundleURL as NSURL) As NSURL
 		  //# Creates and returns a file URL for the resource with the specified name and extension in the specified bundle.
 		  
 		  #if targetMacOS
@@ -1316,17 +1298,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSURL(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSURL(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1339,7 +1315,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function URLsForResources(extension as String, subpath as String, bundleURL as NSURL) As NSURL()
+		Shared Function URLsForResources(extension as String, subpath as String, bundleURL as NSURL) As NSURL()
 		  //# Returns an array containing the file URLs for all bundle resources having the specified filename extension, residing in the specified resource subdirectory, within the specified bundle.
 		  
 		  #if targetMacOS
@@ -1356,17 +1332,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSURL(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSURL(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1392,17 +1362,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSURL(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSURL(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1496,7 +1460,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -1504,7 +1467,6 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsLoaded"
@@ -1517,21 +1479,18 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1539,7 +1498,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

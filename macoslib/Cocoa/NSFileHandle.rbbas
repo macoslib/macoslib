@@ -53,7 +53,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewReadHandle(path as String) As NSFileHandle
+		Shared Function NewReadHandle(path as String) As NSFileHandle
 		  //opens an existing file for reading.
 		  #if targetMacOS
 		    declare function fileHandleForReadingAtPath lib CocoaLib selector "fileHandleForReadingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
@@ -64,7 +64,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewReadWriteHandle(path as String) As NSFileHandle
+		Shared Function NewReadWriteHandle(path as String) As NSFileHandle
 		  //opens an existing file for reading/writing.
 		  #if targetMacOS
 		    declare function fileHandleForUpdatingAtPath lib CocoaLib selector "fileHandleForUpdatingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
@@ -75,7 +75,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewWriteHandle(path as String) As NSFileHandle
+		Shared Function NewWriteHandle(path as String) As NSFileHandle
 		  //opens an existing file for writing.
 		  #if targetMacOS
 		    declare function fileHandleForWritingAtPath lib CocoaLib selector "fileHandleForWritingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
@@ -86,7 +86,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Null() As NSFileHandle
+		Shared Function Null() As NSFileHandle
 		  //this method returns the NSFileHandle representation of /dev/null.
 		  
 		  #if targetMacOS
@@ -126,15 +126,15 @@ Inherits NSObject
 		  //Puts the file pointer at the end of the file referenced by the NSFileHandle and returns the new file offset.
 		  
 		  #if targetMacOS
-		    declare function seekToFileOffset lib CocoaLib (obj_id as Ptr) as UInt64
+		    declare function seekToEndOfFile lib CocoaLib selector "seekToEndOfFile" (obj_id as Ptr) as UInt64
 		    
-		    return seekToFileOffset(self)
+		    return seekToEndOfFile(self)
 		  #endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Stderr() As NSFileHandle
+		Shared Function Stderr() As NSFileHandle
 		  #if targetMacOS
 		    declare function fileHandleWithStandardError lib CocoaLib selector "fileHandleWithStandardError" (class_id as Ptr) as Ptr
 		    
@@ -144,7 +144,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Stdin() As NSFileHandle
+		Shared Function Stdin() As NSFileHandle
 		  #if targetMacOS
 		    declare function fileHandleWithStandardInput lib CocoaLib selector "fileHandleWithStandardInput" (class_id as Ptr) as Ptr
 		    
@@ -154,7 +154,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Stdout() As NSFileHandle
+		Shared Function Stdout() As NSFileHandle
 		  #if targetMacOS
 		    declare function fileHandleWithStandardOutput lib CocoaLib selector "fileHandleWithStandardOutput" (class_id as Ptr) as Ptr
 		    
@@ -188,8 +188,7 @@ Inherits NSObject
 		  
 		  
 		  #if targetMacOS
-		    declare sub truncateFileAtOffset lib CocoaLib (obj_id as Ptr, offset as UInt64)
-		    
+		    declare sub truncateFileAtOffset lib CocoaLib selector "truncateFileAtOffset:" (obj_id as Ptr, offset as UInt64)
 		    truncateFileAtOffset(self, offset)
 		  #endif
 		End Sub
@@ -258,7 +257,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FileDescriptor"
@@ -271,7 +269,6 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -279,21 +276,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Offset"
+			Group="Behavior"
+			Type="UInt64"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -301,7 +300,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

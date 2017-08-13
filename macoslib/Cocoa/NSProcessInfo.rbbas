@@ -65,7 +65,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ProcessInfo() As NSProcessInfo
+		Shared Function ProcessInfo() As NSProcessInfo
 		  #if targetMacOS
 		    declare function defaultCenter lib CocoaLib selector "processInfo" (class_id as Ptr) as Ptr
 		    
@@ -398,6 +398,11 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="ActiveProcessorCount"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AutomaticTerminationSupportEnabled"
 			Group="Behavior"
 			Type="Boolean"
@@ -407,7 +412,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GloballyUniqueString"
@@ -426,20 +430,25 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="OperatingSystem"
+			Group="Behavior"
+			Type="UInt32"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="OperatingSystemName"
@@ -454,6 +463,11 @@ Inherits NSObject
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PhysicalMemory"
+			Group="Behavior"
+			Type="UInt64"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ProcessIdentifier"
 			Group="Behavior"
 			Type="Integer"
@@ -465,10 +479,15 @@ Inherits NSObject
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ProcessorCount"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SystemUptime"
@@ -480,7 +499,7 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

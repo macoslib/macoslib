@@ -2,14 +2,14 @@
 Class CFLocale
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		 Shared Function AvailableIdentifiers() As String()
+		Shared Function AvailableIdentifiers() As String()
 		  #if targetMacOS
 		    //added in 10.4
 		    soft declare function CFLocaleCopyAvailableLocaleIdentifiers lib CarbonLib () as Ptr
@@ -21,10 +21,10 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() as UInteger
 		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFLocaleGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    soft declare function TypeID lib CarbonLib alias "CFLocaleGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -40,7 +40,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create(localeIdentifier as String) As CFLocale
+		Shared Function Create(localeIdentifier as String) As CFLocale
 		  #if targetMacOS
 		    soft declare function CFLocaleCreate lib CarbonLib (allocator as Ptr, localeIdentifier as CFStringRef) as Ptr
 		    
@@ -51,7 +51,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateCanonicalLanguageIdentifierFromString(langIdentifier as String) As String
+		Shared Function CreateCanonicalLanguageIdentifierFromString(langIdentifier as String) As String
 		  #if targetMacOS
 		    soft declare function CFLocaleCreateCanonicalLanguageIdentifierFromString lib CarbonLib (allocator as Ptr, langIdentifier as CFStringRef) as CFStringRef
 		    
@@ -61,7 +61,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateCanonicalLocaleIdentifierFromString(localeIdentifier as String) As String
+		Shared Function CreateCanonicalLocaleIdentifierFromString(localeIdentifier as String) As String
 		  #if targetMacOS
 		    soft declare function CFLocaleCreateCanonicalLocaleIdentifierFromString lib CarbonLib (allocator as Ptr, localeIdentifier as CFStringRef) as CFStringRef
 		    
@@ -97,7 +97,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ISOCommonCurrencyCodes() As String()
+		Shared Function ISOCommonCurrencyCodes() As String()
 		  #if targetMacOS
 		    //added in 10.5
 		    soft declare function CFLocaleCopyCommonISOCurrencyCodes lib CarbonLib () as Ptr
@@ -109,7 +109,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ISOCountryCodes() As String()
+		Shared Function ISOCountryCodes() As String()
 		  #if targetMacOS
 		    //added in 10.4
 		    soft declare function CFLocaleCopyISOCountryCodes lib CarbonLib () as Ptr
@@ -121,7 +121,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ISOCurrencyCodes() As String()
+		Shared Function ISOCurrencyCodes() As String()
 		  #if targetMacOS
 		    //added in 10.4
 		    soft declare function CFLocaleCopyISOCurrencyCodes lib CarbonLib () as Ptr
@@ -133,7 +133,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PreferredLanguages() As String()
+		Shared Function PreferredLanguages() As String()
 		  #if targetMacOS
 		    //added in 10.5
 		    soft declare function CFLocaleCopyPreferredLanguages lib CarbonLib () as Ptr
@@ -145,7 +145,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemLocale() As CFLocale
+		Shared Function SystemLocale() As CFLocale
 		  #if targetMacOS
 		    soft declare function CFLocaleGetSystem lib CarbonLib () as Ptr
 		    return new CFLocale(CFLocaleGetSystem(), false)
@@ -155,7 +155,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserLocale() As CFLocale
+		Shared Function UserLocale() As CFLocale
 		  #if targetMacOS
 		    soft declare function CFLocaleCopyCurrent lib CarbonLib () as Ptr
 		    return new CFLocale(CFLocaleCopyCurrent(), true)
@@ -516,7 +516,6 @@ Inherits CFType
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="CFType"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GroupingSeparator"
@@ -535,7 +534,7 @@ Inherits CFType
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LanguageCode"
@@ -548,7 +547,7 @@ Inherits CFType
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MeasurementSystem"
@@ -560,7 +559,7 @@ Inherits CFType
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ScriptCode"
@@ -572,14 +571,14 @@ Inherits CFType
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UsesMetricSystem"

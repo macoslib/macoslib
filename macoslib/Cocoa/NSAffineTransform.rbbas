@@ -39,7 +39,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create() As NSAffineTransform
+		Shared Function Create() As NSAffineTransform
 		  
 		  #if TargetMacOS
 		    declare function transform lib CocoaLib selector "transform" (obj_id as Ptr) as Ptr
@@ -132,9 +132,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub RotateByDegrees(angle as Double)
 		  #if targetMacOS
-		    declare sub rotateByDegrees lib CocoaLib selector "rotateByDegrees:" (obj_id as Ptr, angle as Single)
+		    declare sub rotateByDegrees lib CocoaLib selector "rotateByDegrees:" (obj_id as Ptr, angle as Double)
 		    
-		    rotateByDegrees(self, CType(angle, Single))
+		    rotateByDegrees(self, CType(angle, Double))
 		  #else
 		    #pragma Unused angle
 		  #endif
@@ -144,9 +144,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub RotateByRadians(angle as Double)
 		  #if targetMacOS
-		    declare sub rotateByRadians lib CocoaLib selector "rotateByRadians:" (obj_id as Ptr, angle as Single)
+		    declare sub rotateByRadians lib CocoaLib selector "rotateByRadians:" (obj_id as Ptr, angle as Double)
 		    
-		    rotateByRadians(self, CType(angle, Single))
+		    rotateByRadians(self, CType(angle, Double))
 		  #else
 		    #pragma Unused angle
 		  #endif
@@ -156,9 +156,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Scale(scaleFactor as Double)
 		  #if targetMacOS
-		    declare sub scaleBy lib CocoaLib selector "scaleBy:" (obj_id as Ptr, scale as Single)
+		    declare sub scaleBy lib CocoaLib selector "scaleBy:" (obj_id as Ptr, scale as Double)
 		    
-		    scaleBy(self, CType(scaleFactor, Single))
+		    scaleBy(self, CType(scaleFactor, Double))
 		  #else
 		    #pragma Unused scaleFactor
 		  #endif
@@ -168,9 +168,9 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Scale(scaleX as Double, scaleY as Double)
 		  #if targetMacOS
-		    declare sub scaleXBy lib CocoaLib selector "scaleXBy:yBy:" (obj_id as Ptr, scaleX as Single, scaleY as Single)
+		    declare sub scaleXBy lib CocoaLib selector "scaleXBy:yBy:" (obj_id as Ptr, scaleX as Double, scaleY as Double)
 		    
-		    scaleXBy(self, CType(scaleX, Single), CType(scaleY, Single))
+		    scaleXBy(self, CType(scaleX, Double), CType(scaleY, Double))
 		  #else
 		    #pragma Unused scaleX
 		    #pragma Unused scaleY
@@ -238,9 +238,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Translate(deltaX as Single, deltaY as Single)
+		Sub Translate(deltaX as Double, deltaY as Double)
 		  #if targetMacOS
-		    declare sub translateXBy lib CocoaLib selector "translateXBy:yBy:" (obj_id as Ptr, deltaX as Single, deltaY as Single)
+		    declare sub translateXBy lib CocoaLib selector "translateXBy:yBy:" (obj_id as Ptr, deltaX as Double, deltaY as Double)
 		    
 		    translateXBy(self, deltaX, deltaY)
 		  #else
@@ -252,12 +252,12 @@ Inherits NSObject
 
 
 	#tag Structure, Name = TransformMatrix, Flags = &h0
-		m11 as Single
-		  m12 as Single
-		  m21 as Single
-		  m22 as Single
-		  tX as Single
-		tY as Single
+		m11 as Double
+		  m12 as Double
+		  m21 as Double
+		  m22 as Double
+		  tX as Double
+		tY as Double
 	#tag EndStructure
 
 
@@ -267,7 +267,6 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -275,7 +274,6 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -283,21 +281,18 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -305,7 +300,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -34,21 +34,15 @@ Inherits NSMutableSet
 		  //# Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 		  
 		  #if targetMacOS
-		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
-		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
+		    dim uboundObject as Integer = objects.ubound
+		    dim objectCount as Integer = uboundObject+1
 		    if uboundObject > -1 then
 		      
 		      dim m as new MemoryBlock(SizeOfPointer*objectCount)
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
 		      next
 		      
 		      super.Constructor(initWithObjects(Allocate("NSCountedSet"), m, objectCount), NSCountedSet.hasOwnership)
@@ -135,7 +129,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSCountedSet
+		Shared Function Create() As NSCountedSet
 		  //# Creates and returns an empty set.
 		  
 		  #if TargetMacOS
@@ -152,7 +146,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithArray(anArray as NSArray) As NSCountedSet
+		Shared Function CreateWithArray(anArray as NSArray) As NSCountedSet
 		  //# Creates and returns a set containing a uniqued collection of the objects contained in a given array.
 		  
 		  #if TargetMacOS
@@ -175,7 +169,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithCapacity(numItems as UInt32) As NSCountedSet
+		Shared Function CreateWithCapacity(numItems as UInt32) As NSCountedSet
 		  //# Creates and returns a mutable set with a given initial capacity.
 		  
 		  #if TargetMacOS
@@ -194,7 +188,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObject(anObject as NSObject) As NSCountedSet
+		Shared Function CreateWithObject(anObject as NSObject) As NSCountedSet
 		  //# Creates and returns a set that contains a single given object.
 		  
 		  #if TargetMacOS
@@ -217,25 +211,19 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObjects(objects() as NSObject) As NSCountedSet
+		Shared Function CreateWithObjects(objects() as NSObject) As NSCountedSet
 		  //# Creates and returns a set containing the objects in a given argument list.
 		  
 		  #if TargetMacOS
-		    declare function setWithObjects lib CocoaLib selector "setWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		    declare function setWithObjects lib CocoaLib selector "setWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
-		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
+		    dim uboundObject as Integer = objects.ubound
+		    dim objectCount as Integer = uboundObject+1
 		    if uboundObject > -1 then
 		      
 		      dim m as new MemoryBlock(SizeOfPointer*objectCount)
 		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
 		      next
 		      
 		      dim setRef as Ptr = setWithObjects(ClassRef, m, objectCount)
@@ -251,7 +239,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithSet(aSet as NSSet) As NSCountedSet
+		Shared Function CreateWithSet(aSet as NSSet) As NSCountedSet
 		  //# Creates and returns a set containing the objects from another set.
 		  
 		  #if TargetMacOS
@@ -281,7 +269,6 @@ Inherits NSMutableSet
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSMutableSet"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -289,7 +276,6 @@ Inherits NSMutableSet
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSMutableSet"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -297,21 +283,18 @@ Inherits NSMutableSet
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSMutableSet"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSMutableSet"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSMutableSet"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -319,7 +302,6 @@ Inherits NSMutableSet
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSMutableSet"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

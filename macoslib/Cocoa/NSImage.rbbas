@@ -2,7 +2,7 @@
 Class NSImage
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function ActionTemplate() As NSImage
+		Shared Function ActionTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameActionTemplate)
 		  
@@ -47,7 +47,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AddTemplate() As NSImage
+		Shared Function AddTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameAddTemplate)
 		  
@@ -55,7 +55,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Advanced() As NSImage
+		Shared Function Advanced() As NSImage
 		  
 		  return LoadByName(NSImageNameAdvanced)
 		  
@@ -63,7 +63,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ApplicationIcon() As NSImage
+		Shared Function ApplicationIcon() As NSImage
 		  
 		  return LoadByName(NSImageNameApplicationIcon)
 		  
@@ -102,7 +102,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function BluetoothTemplate() As NSImage
+		Shared Function BluetoothTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameBluetoothTemplate)
 		  
@@ -110,7 +110,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Bonjour() As NSImage
+		Shared Function Bonjour() As NSImage
 		  
 		  return LoadByName(NSImageNameBonjour)
 		  
@@ -118,7 +118,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function BookmarksTemplate() As NSImage
+		Shared Function BookmarksTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameBookmarksTemplate)
 		  
@@ -139,7 +139,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CanInitWithPasteboard(pasteboard as NSPasteboard) As Boolean
+		Shared Function CanInitWithPasteboard(pasteboard as NSPasteboard) As Boolean
 		  
 		  #if targetMacOS
 		    declare function canInitWithPasteboard lib CocoaLib selector "canInitWithPasteboard:" (class_id as Ptr, pasteboard as Ptr) as Boolean
@@ -159,7 +159,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Caution() As NSImage
+		Shared Function Caution() As NSImage
 		  
 		  return LoadByName(NSImageNameCaution)
 		  
@@ -206,7 +206,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ColorPanel() As NSImage
+		Shared Function ColorPanel() As NSImage
 		  
 		  return LoadByName(NSImageNameColorPanel)
 		  
@@ -214,7 +214,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ColumnViewTemplate() As NSImage
+		Shared Function ColumnViewTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameColumnViewTemplate)
 		  
@@ -222,7 +222,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Computer() As NSImage
+		Shared Function Computer() As NSImage
 		  
 		  return LoadByName(NSImageNameComputer)
 		  
@@ -394,7 +394,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPicture(pict as Picture) As NSImage
+		Shared Function CreateFromPicture(pict as Picture) As NSImage
 		  //To create an NSimage from a REALbasic Picture, create a CGImage from the Picture, then make an NSImage.
 		  
 		  #if TargetMacOS
@@ -413,7 +413,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithPicture(pict as Picture) As NSImage
+		Shared Function CreateWithPicture(pict as Picture) As NSImage
 		  
 		  return new NSImage(pict)
 		  
@@ -421,7 +421,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DotMac() As NSImage
+		Shared Function DotMac() As NSImage
 		  
 		  return LoadByName(NSImageNameDotMac)
 		  
@@ -443,9 +443,9 @@ Inherits NSObject
 		  //pass fromRect = zeroRect to draw the entire image.
 		  
 		  #if targetCocoa
-		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Single)
+		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Double)
 		    
-		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Single))
+		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Double))
 		  #else
 		    #pragma unused point
 		    #pragma unused fromRect
@@ -456,27 +456,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double)
-		  //draws part of image defined by srcRect into dstRect in the current context.  The image is scaled as needed.
-		  //Pass srcRect = zeroRect to draw the entire image.
-		  
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double = 1.0, respectFlipped as Boolean = true, hints as NSDictionary = nil)
 		  #if targetMacOS
-		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Single)
-		    
-		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Single))
-		  #else
-		    #pragma Unused srcRect
-		    #pragma Unused dstRect
-		    #pragma Unused operation
-		    #pragma Unused opacity
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Single = 1.0, respectFlipped as Boolean = true, hints as NSDictionary = nil)
-		  #if targetMacOS
-		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" (obj_id as Ptr, dstSpacePortionRect as Cocoa.NSRect, srcSpacePortionRect as Cocoa.NSRect, op as NSComposite, requestedAlpha as Single, respectContextIsFlipped as Boolean, hints as Ptr)
+		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" (obj_id as Ptr, dstSpacePortionRect as Cocoa.NSRect, srcSpacePortionRect as Cocoa.NSRect, op as NSComposite, requestedAlpha as Double, respectContextIsFlipped as Boolean, hints as Ptr)
 		    
 		    dim hintsPtr as Ptr
 		    if hints <> nil then
@@ -498,7 +480,25 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function EnterFullScreenTemplate() As NSImage
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double)
+		  //draws part of image defined by srcRect into dstRect in the current context.  The image is scaled as needed.
+		  //Pass srcRect = zeroRect to draw the entire image.
+		  
+		  #if targetMacOS
+		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Double)
+		    
+		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Double))
+		  #else
+		    #pragma Unused srcRect
+		    #pragma Unused dstRect
+		    #pragma Unused operation
+		    #pragma Unused opacity
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Shared Function EnterFullScreenTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameEnterFullScreenTemplate)
 		  
@@ -506,7 +506,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Everyone() As NSImage
+		Shared Function Everyone() As NSImage
 		  
 		  return LoadByName(NSImageNameEveryone)
 		  
@@ -514,7 +514,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ExitFullScreenTemplate() As NSImage
+		Shared Function ExitFullScreenTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameExitFullScreenTemplate)
 		  
@@ -522,7 +522,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FlowViewTemplate() As NSImage
+		Shared Function FlowViewTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameFlowViewTemplate)
 		  
@@ -530,7 +530,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Folder() As NSImage
+		Shared Function Folder() As NSImage
 		  
 		  return LoadByName(NSImageNameFolder)
 		  
@@ -538,7 +538,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FolderBurnable() As NSImage
+		Shared Function FolderBurnable() As NSImage
 		  
 		  return LoadByName(NSImageNameFolderBurnable)
 		  
@@ -546,7 +546,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FolderSmart() As NSImage
+		Shared Function FolderSmart() As NSImage
 		  
 		  return LoadByName(NSImageNameFolderSmart)
 		  
@@ -554,7 +554,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FollowLinkFreestandingTemplate() As NSImage
+		Shared Function FollowLinkFreestandingTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameFollowLinkFreestandingTemplate)
 		  
@@ -562,7 +562,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontPanel() As NSImage
+		Shared Function FontPanel() As NSImage
 		  
 		  return LoadByName(NSImageNameFontPanel)
 		  
@@ -570,7 +570,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GoLeftTemplate() As NSImage
+		Shared Function GoLeftTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameGoLeftTemplate)
 		  
@@ -578,7 +578,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GoRightTemplate() As NSImage
+		Shared Function GoRightTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameGoRightTemplate)
 		  
@@ -586,7 +586,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function HintCTM() As NSImage
+		Shared Function HintCTM() As NSImage
 		  
 		  return LoadByName(NSImageHintCTM)
 		  
@@ -594,7 +594,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function HintInterpolation() As NSImage
+		Shared Function HintInterpolation() As NSImage
 		  
 		  return LoadByName(NSImageHintInterpolation)
 		  
@@ -632,7 +632,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function HomeTemplate() As NSImage
+		Shared Function HomeTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameHomeTemplate)
 		  
@@ -640,7 +640,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IChatTheaterTemplate() As NSImage
+		Shared Function IChatTheaterTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameIChatTheaterTemplate)
 		  
@@ -648,7 +648,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IconViewTemplate() As NSImage
+		Shared Function IconViewTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameIconViewTemplate)
 		  
@@ -656,7 +656,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ImageFileTypes() As String()
+		Shared Function ImageFileTypes() As String()
 		  
 		  #if targetMacOS
 		    declare function imageFileTypes lib CocoaLib selector "imageFileTypes" (class_id as Ptr) as Ptr
@@ -676,7 +676,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ImageTypes() As String()
+		Shared Function ImageTypes() As String()
 		  
 		  #if targetMacOS
 		    declare function imageTypes lib CocoaLib selector "imageTypes" (class_id as Ptr) as Ptr
@@ -696,7 +696,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ImageUnfilteredFileTypes() As String()
+		Shared Function ImageUnfilteredFileTypes() As String()
 		  
 		  #if targetMacOS
 		    declare function imageUnfilteredFileTypes lib CocoaLib selector "imageUnfilteredFileTypes" (class_id as Ptr) as Ptr
@@ -716,7 +716,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ImageUnfilteredPasteboardTypes() As String()
+		Shared Function ImageUnfilteredPasteboardTypes() As String()
 		  
 		  #if targetMacOS
 		    declare function imageUnfilteredPasteboardTypes lib CocoaLib selector "imageUnfilteredPasteboardTypes" (class_id as Ptr) as Ptr
@@ -736,7 +736,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ImageUnfilteredTypes() As String()
+		Shared Function ImageUnfilteredTypes() As String()
 		  
 		  #if targetMacOS
 		    declare function imageUnfilteredTypes lib CocoaLib selector "imageUnfilteredTypes" (class_id as Ptr) as Ptr
@@ -756,7 +756,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Info() As NSImage
+		Shared Function Info() As NSImage
 		  
 		  return LoadByName(NSImageNameInfo)
 		  
@@ -764,7 +764,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function InvalidDataFreestandingTemplate() As NSImage
+		Shared Function InvalidDataFreestandingTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameInvalidDataFreestandingTemplate)
 		  
@@ -772,7 +772,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LeftFacingTriangleTemplate() As NSImage
+		Shared Function LeftFacingTriangleTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameLeftFacingTriangleTemplate)
 		  
@@ -780,7 +780,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ListViewTemplate() As NSImage
+		Shared Function ListViewTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameListViewTemplate)
 		  
@@ -788,7 +788,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadByName(name as String) As NSImage
+		Shared Function LoadByName(name as String) As NSImage
 		  #if targetMacOS
 		    declare function imageNamed lib CocoaLib selector "imageNamed:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    
@@ -803,7 +803,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadByNameWithSymbolResolution(name as String) As NSImage
+		Shared Function LoadByNameWithSymbolResolution(name as String) As NSImage
 		  
 		  return LoadByName(Cocoa.StringConstant(name))
 		  
@@ -846,7 +846,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LockLockedTemplate() As NSImage
+		Shared Function LockLockedTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameLockLockedTemplate)
 		  
@@ -854,7 +854,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LockUnlockedTemplate() As NSImage
+		Shared Function LockUnlockedTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameLockUnlockedTemplate)
 		  
@@ -920,7 +920,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MenuMixedStateTemplate() As NSIMage
+		Shared Function MenuMixedStateTemplate() As NSIMage
 		  
 		  return LoadByName(NSImageNameMenuMixedStateTemplate)
 		  
@@ -928,7 +928,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MenuOnStateTemplate() As NSImage
+		Shared Function MenuOnStateTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameMenuOnStateTemplate)
 		  
@@ -936,7 +936,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MobileMe() As NSImage
+		Shared Function MobileMe() As NSImage
 		  
 		  return LoadByName(NSImageNameMobileMe)
 		  
@@ -944,7 +944,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MultipleDocuments() As NSImage
+		Shared Function MultipleDocuments() As NSImage
 		  
 		  return LoadByName(NSImageNameMultipleDocuments)
 		  
@@ -952,7 +952,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Network() As NSImage
+		Shared Function Network() As NSImage
 		  
 		  return LoadByName(NSImageNameNetwork)
 		  
@@ -960,7 +960,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageHintCTM() As String
+		Shared Function NSImageHintCTM() As String
 		  
 		  return Cocoa.StringConstant("NSImageHintCTM")
 		  
@@ -968,7 +968,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageHintInterpolation() As String
+		Shared Function NSImageHintInterpolation() As String
 		  
 		  return Cocoa.StringConstant("NSImageHintInterpolation")
 		  
@@ -976,7 +976,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameActionTemplate() As String
+		Shared Function NSImageNameActionTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameActionTemplate")
 		  
@@ -984,7 +984,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameAddTemplate() As String
+		Shared Function NSImageNameAddTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameAddTemplate")
 		  
@@ -992,7 +992,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameAdvanced() As String
+		Shared Function NSImageNameAdvanced() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameAdvanced")
 		  
@@ -1000,7 +1000,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameApplicationIcon() As String
+		Shared Function NSImageNameApplicationIcon() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameApplicationIcon")
 		  
@@ -1008,7 +1008,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameBluetoothTemplate() As String
+		Shared Function NSImageNameBluetoothTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameBluetoothTemplate")
 		  
@@ -1016,7 +1016,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameBonjour() As String
+		Shared Function NSImageNameBonjour() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameBonjour")
 		  
@@ -1024,7 +1024,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameBookmarksTemplate() As String
+		Shared Function NSImageNameBookmarksTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameBookmarksTemplate")
 		  
@@ -1032,7 +1032,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameCaution() As String
+		Shared Function NSImageNameCaution() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameCaution")
 		  
@@ -1040,7 +1040,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameColorPanel() As String
+		Shared Function NSImageNameColorPanel() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameColorPanel")
 		  
@@ -1048,7 +1048,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameColumnViewTemplate() As String
+		Shared Function NSImageNameColumnViewTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameColumnViewTemplate")
 		  
@@ -1056,7 +1056,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameComputer() As String
+		Shared Function NSImageNameComputer() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameComputer")
 		  
@@ -1064,7 +1064,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameDotMac() As String
+		Shared Function NSImageNameDotMac() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameDotMac")
 		  
@@ -1072,7 +1072,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameEnterFullScreenTemplate() As String
+		Shared Function NSImageNameEnterFullScreenTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameEnterFullScreenTemplate")
 		  
@@ -1080,7 +1080,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameEveryone() As String
+		Shared Function NSImageNameEveryone() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameEveryone")
 		  
@@ -1088,7 +1088,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameExitFullScreenTemplate() As String
+		Shared Function NSImageNameExitFullScreenTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameExitFullScreenTemplate")
 		  
@@ -1096,7 +1096,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameFlowViewTemplate() As String
+		Shared Function NSImageNameFlowViewTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameFlowViewTemplate")
 		  
@@ -1104,7 +1104,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameFolder() As String
+		Shared Function NSImageNameFolder() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameFolder")
 		  
@@ -1112,7 +1112,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameFolderBurnable() As String
+		Shared Function NSImageNameFolderBurnable() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameFolderBurnable")
 		  
@@ -1120,7 +1120,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameFolderSmart() As String
+		Shared Function NSImageNameFolderSmart() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameFolderSmart")
 		  
@@ -1128,7 +1128,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameFollowLinkFreestandingTemplate() As String
+		Shared Function NSImageNameFollowLinkFreestandingTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameFollowLinkFreestandingTemplate")
 		  
@@ -1136,7 +1136,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameFontPanel() As String
+		Shared Function NSImageNameFontPanel() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameFontPanel")
 		  
@@ -1144,7 +1144,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameGoLeftTemplate() As String
+		Shared Function NSImageNameGoLeftTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameGoLeftTemplate")
 		  
@@ -1152,7 +1152,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameGoRightTemplate() As String
+		Shared Function NSImageNameGoRightTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameGoRightTemplate")
 		  
@@ -1160,7 +1160,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameHomeTemplate() As String
+		Shared Function NSImageNameHomeTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameHomeTemplate")
 		  
@@ -1168,7 +1168,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameIChatTheaterTemplate() As String
+		Shared Function NSImageNameIChatTheaterTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameIChatTheaterTemplate")
 		  
@@ -1176,7 +1176,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameIconViewTemplate() As String
+		Shared Function NSImageNameIconViewTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameIconViewTemplate")
 		  
@@ -1184,7 +1184,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameInfo() As String
+		Shared Function NSImageNameInfo() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameInfo")
 		  
@@ -1192,7 +1192,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameInvalidDataFreestandingTemplate() As String
+		Shared Function NSImageNameInvalidDataFreestandingTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameInvalidDataFreestandingTemplate")
 		  
@@ -1200,7 +1200,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameLeftFacingTriangleTemplate() As String
+		Shared Function NSImageNameLeftFacingTriangleTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameLeftFacingTriangleTemplate")
 		  
@@ -1208,7 +1208,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameListViewTemplate() As String
+		Shared Function NSImageNameListViewTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameListViewTemplate")
 		  
@@ -1216,7 +1216,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameLockLockedTemplate() As String
+		Shared Function NSImageNameLockLockedTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameLockLockedTemplate")
 		  
@@ -1224,7 +1224,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameLockUnlockedTemplate() As String
+		Shared Function NSImageNameLockUnlockedTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameLockUnlockedTemplate")
 		  
@@ -1232,7 +1232,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameMenuMixedStateTemplate() As String
+		Shared Function NSImageNameMenuMixedStateTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameMenuMixedStateTemplate")
 		  
@@ -1240,7 +1240,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameMenuOnStateTemplate() As String
+		Shared Function NSImageNameMenuOnStateTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameMenuOnStateTemplate")
 		  
@@ -1248,7 +1248,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameMobileMe() As String
+		Shared Function NSImageNameMobileMe() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameMobileMe")
 		  
@@ -1256,7 +1256,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameMultipleDocuments() As String
+		Shared Function NSImageNameMultipleDocuments() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameMultipleDocuments")
 		  
@@ -1264,7 +1264,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameNetwork() As String
+		Shared Function NSImageNameNetwork() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameNetwork")
 		  
@@ -1272,7 +1272,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNamePathTemplate() As String
+		Shared Function NSImageNamePathTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNamePathTemplate")
 		  
@@ -1280,7 +1280,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNamePreferencesGeneral() As String
+		Shared Function NSImageNamePreferencesGeneral() As String
 		  
 		  return Cocoa.StringConstant("NSImageNamePreferencesGeneral")
 		  
@@ -1288,7 +1288,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameQuickLookTemplate() As String
+		Shared Function NSImageNameQuickLookTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameQuickLookTemplate")
 		  
@@ -1296,7 +1296,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameRefreshFreestandingTemplate() As String
+		Shared Function NSImageNameRefreshFreestandingTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameRefreshFreestandingTemplate")
 		  
@@ -1304,7 +1304,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameRefreshTemplate() As String
+		Shared Function NSImageNameRefreshTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameRefreshTemplate")
 		  
@@ -1312,7 +1312,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameRemoveTemplate() As String
+		Shared Function NSImageNameRemoveTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameRemoveTemplate")
 		  
@@ -1320,7 +1320,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameRevealFreestandingTemplate() As String
+		Shared Function NSImageNameRevealFreestandingTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameRevealFreestandingTemplate")
 		  
@@ -1328,7 +1328,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameRightFacingTriangleTemplate() As String
+		Shared Function NSImageNameRightFacingTriangleTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameRightFacingTriangleTemplate")
 		  
@@ -1336,7 +1336,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameShareTemplate() As String
+		Shared Function NSImageNameShareTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameShareTemplate")
 		  
@@ -1344,7 +1344,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameSlideshowTemplate() As String
+		Shared Function NSImageNameSlideshowTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameSlideshowTemplate")
 		  
@@ -1352,7 +1352,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameSmartBadgeTemplate() As String
+		Shared Function NSImageNameSmartBadgeTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameSmartBadgeTemplate")
 		  
@@ -1360,7 +1360,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameStatusAvailable() As String
+		Shared Function NSImageNameStatusAvailable() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameStatusAvailable")
 		  
@@ -1368,7 +1368,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameStatusNone() As String
+		Shared Function NSImageNameStatusNone() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameStatusNone")
 		  
@@ -1376,7 +1376,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameStatusPartiallyAvailable() As String
+		Shared Function NSImageNameStatusPartiallyAvailable() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameStatusPartiallyAvailable")
 		  
@@ -1384,7 +1384,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameStatusUnavailable() As String
+		Shared Function NSImageNameStatusUnavailable() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameStatusUnavailable")
 		  
@@ -1392,7 +1392,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameStopProgressFreestandingTemplate() As String
+		Shared Function NSImageNameStopProgressFreestandingTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameStopProgressFreestandingTemplate")
 		  
@@ -1400,7 +1400,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameStopProgressTemplate() As String
+		Shared Function NSImageNameStopProgressTemplate() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameStopProgressTemplate")
 		  
@@ -1408,7 +1408,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameTrashEmpty() As String
+		Shared Function NSImageNameTrashEmpty() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameTrashEmpty")
 		  
@@ -1416,7 +1416,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameTrashFull() As String
+		Shared Function NSImageNameTrashFull() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameTrashFull")
 		  
@@ -1424,7 +1424,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameUser() As String
+		Shared Function NSImageNameUser() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameUser")
 		  
@@ -1432,7 +1432,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameUserAccounts() As String
+		Shared Function NSImageNameUserAccounts() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameUserAccounts")
 		  
@@ -1440,7 +1440,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameUserGroup() As String
+		Shared Function NSImageNameUserGroup() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameUserGroup")
 		  
@@ -1448,7 +1448,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSImageNameUserGuest() As String
+		Shared Function NSImageNameUserGuest() As String
 		  
 		  return Cocoa.StringConstant("NSImageNameUserGuest")
 		  
@@ -1483,7 +1483,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PasteboardTypes() As String()
+		Shared Function PasteboardTypes() As String()
 		  
 		  #if targetMacOS
 		    declare function imagePasteboardTypes lib CocoaLib selector "imagePasteboardTypes" (class_id as Ptr) as Ptr
@@ -1503,7 +1503,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PathTemplate() As NSImage
+		Shared Function PathTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNamePathTemplate)
 		  
@@ -1511,7 +1511,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PreferencesGeneral() As NSImage
+		Shared Function PreferencesGeneral() As NSImage
 		  
 		  return LoadByName(NSImageNamePreferencesGeneral)
 		  
@@ -1519,7 +1519,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function QuickLookTemplate() As NSImage
+		Shared Function QuickLookTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameQuickLookTemplate)
 		  
@@ -1540,7 +1540,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RefreshFreestandingTemplate() As NSImage
+		Shared Function RefreshFreestandingTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameRefreshFreestandingTemplate)
 		  
@@ -1548,7 +1548,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RefreshTemplate() As NSImage
+		Shared Function RefreshTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameRefreshTemplate)
 		  
@@ -1576,7 +1576,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RemoveTemplate() As NSImage
+		Shared Function RemoveTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameRemoveTemplate)
 		  
@@ -1595,17 +1595,11 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
+		      dim n as Integer = arrayRange.length-1
 		      for i as integer = 0 to n
-		        retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
 		      next
 		    end if
 		    
@@ -1629,7 +1623,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RevealFreestandingTemplate() As NSImage
+		Shared Function RevealFreestandingTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameRevealFreestandingTemplate)
 		  
@@ -1637,7 +1631,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RightFacingTriangleTemplate() As NSImage
+		Shared Function RightFacingTriangleTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameRightFacingTriangleTemplate)
 		  
@@ -1707,7 +1701,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ShareTemplate() As NSImage
+		Shared Function ShareTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameShareTemplate)
 		  
@@ -1715,7 +1709,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SlideshowTemplate() As NSImage
+		Shared Function SlideshowTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameSlideshowTemplate)
 		  
@@ -1723,7 +1717,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SmartBadgeTemplate() As NSImage
+		Shared Function SmartBadgeTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameSmartBadgeTemplate)
 		  
@@ -1731,7 +1725,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StatusAvailable() As NSImage
+		Shared Function StatusAvailable() As NSImage
 		  
 		  return LoadByName(NSImageNameStatusAvailable)
 		  
@@ -1739,7 +1733,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StatusNone() As NSImage
+		Shared Function StatusNone() As NSImage
 		  
 		  return LoadByName(NSImageNameStatusNone)
 		  
@@ -1747,7 +1741,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StatusPartiallyAvailable() As NSImage
+		Shared Function StatusPartiallyAvailable() As NSImage
 		  
 		  return LoadByName(NSImageNameStatusPartiallyAvailable)
 		  
@@ -1755,7 +1749,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StatusUnavailable() As NSImage
+		Shared Function StatusUnavailable() As NSImage
 		  
 		  return LoadByName(NSImageNameStatusUnavailable)
 		  
@@ -1763,7 +1757,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StopProgressFreestandingTemplate() As NSImage
+		Shared Function StopProgressFreestandingTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameStopProgressFreestandingTemplate)
 		  
@@ -1771,7 +1765,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StopProgressTemplate() As NSImage
+		Shared Function StopProgressTemplate() As NSImage
 		  
 		  return LoadByName(NSImageNameStopProgressTemplate)
 		  
@@ -1795,11 +1789,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TIFFRepresentation(comp as NSBitmapImageRep.NSTIFFCompression, factor as Single) As NSData
+		Function TIFFRepresentation(comp as NSBitmapImageRep.NSTIFFCompression, factor as Double) As NSData
 		  
 		  #if targetMacOS
 		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" _
-		    (obj_id as Ptr, comp as NSBitmapImageRep.NSTIFFCompression, factor as Single) as Ptr
+		    (obj_id as Ptr, comp as NSBitmapImageRep.NSTIFFCompression, factor as Double) as Ptr
 		    
 		    dim dataRef as Ptr = TIFFRepresentationUsingCompression(self, comp, factor)
 		    if dataRef <> nil then
@@ -1815,7 +1809,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TrashEmpty() As NSImage
+		Shared Function TrashEmpty() As NSImage
 		  
 		  return LoadByName(NSImageNameTrashEmpty)
 		  
@@ -1823,7 +1817,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TrashFull() As NSImage
+		Shared Function TrashFull() As NSImage
 		  
 		  return LoadByName(NSImageNameTrashFull)
 		  
@@ -1844,7 +1838,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function User() As NSImage
+		Shared Function User() As NSImage
 		  
 		  return LoadByName(NSImageNameUser)
 		  
@@ -1852,7 +1846,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserAccounts() As NSImage
+		Shared Function UserAccounts() As NSImage
 		  
 		  return LoadByName(NSImageNameUserAccounts)
 		  
@@ -1860,7 +1854,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserGroup() As NSImage
+		Shared Function UserGroup() As NSImage
 		  
 		  return LoadByName(NSImageNameUserGroup)
 		  
@@ -1868,7 +1862,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserGuest() As NSImage
+		Shared Function UserGuest() As NSImage
 		  
 		  return LoadByName(NSImageNameUserGuest)
 		  
@@ -2260,11 +2254,22 @@ Inherits NSObject
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="CacheMode"
+			Group="Behavior"
+			Type="NSCacheMode"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSImageCacheDefault"
+				"1 - NSImageCacheAlways"
+				"2 - NSImageCacheBySize"
+				"3 - NSImageCacheNever"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Description"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -2272,7 +2277,6 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -2280,7 +2284,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MatchesOnMultipleResolution"
@@ -2292,7 +2295,6 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PrefersColorMatch"
@@ -2304,7 +2306,6 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			Type="String"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Template"
@@ -2317,7 +2318,6 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UsesEPSOnResolutionMismatch"
