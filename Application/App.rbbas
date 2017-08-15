@@ -117,6 +117,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CocoaNSGradient() As Boolean Handles CocoaNSGradient.Action
+			NSGradientwindow.Show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CocoaNSHost() As Boolean Handles CocoaNSHost.Action
 			NSHostExampleWindow.Show
 			return true
