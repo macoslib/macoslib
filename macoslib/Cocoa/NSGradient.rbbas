@@ -31,7 +31,8 @@ Inherits NSObject
 		    dim colors as new NSArray (ColorArray, false)
 		    
 		    super.Constructor (initWithColors (Allocate("NSGradient"), colors), false)
-		    
+		  #else
+		    #pragma Unused ColorArray
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -109,7 +110,10 @@ Inherits NSObject
 		    
 		    super.Constructor ( initwithColorsAtLocationColorSpace (Allocate("NSGradient"), colors, locs, colspace), false)
 		    
-		    
+		  #else
+		    #pragma Unused ColorArray
+		    #pragma Unused atLocations
+		    #pragma Unused ColSpace
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -125,6 +129,9 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Function InitWithStartingColor_EndingColor lib cocoalib selector "initWithStartingColor:endingColor:"  (id as ptr, Startcolor as ptr, EndColor as ptr) as Ptr
 		    super.Constructor ( InitWithStartingColor_EndingColor ( Allocate("NSGradient"), startcolor, endcolor), false)
+		  #else
+		    #pragma Unused Startcolor
+		    #pragma Unused EndColor
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -137,6 +144,12 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare sub drawFromCenter_RadiusToCenter_Radius_Options lib cocoalib selector "drawFromCenter:radius:toCenter:radius:options:"  (id as ptr, startCenter as nspoint, startradius as single, endCenter as nspoint, endRadius as Single, options as NSGradientDrawingOptions)
 		    drawFromCenter_RadiusToCenter_Radius_Options ( self, startCenter, startRadius, endCenter, endRadius, options )
+		  #else
+		    #pragma Unused StartCenter
+		    #pragma Unused startRadius
+		    #pragma Unused endCenter
+		    #pragma Unused endRadius
+		    #pragma Unused option
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -150,6 +163,10 @@ Inherits NSObject
 		    Declare sub drawFromPoint lib cocoalib selector "drawFromPoint:toPoint:options:"  (id as ptr, startingPoint as nspoint, toPoint as nspoint, options as NSGradientDrawingOptions)
 		    
 		    drawFromPoint ( self, startingPoint, toPoint, options )
+		  #else
+		    #pragma Unused startingPoint
+		    #pragma Unused toPoint
+		    #pragma Unused option
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -164,7 +181,9 @@ Inherits NSObject
 		    
 		    
 		    DrawInBezierPath ( self, path, angle )
-		    
+		  #else
+		    #pragma Unused path
+		    #pragma Unused angle
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -179,7 +198,9 @@ Inherits NSObject
 		    
 		    
 		    DrawInBezierPathRelativeCenter ( self, path, relativeCenterPosition )
-		    
+		  #else
+		    #pragma Unused path
+		    #pragma Unused relativeCenterPosition
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -193,7 +214,9 @@ Inherits NSObject
 		    Declare sub DrawinRect lib cocoalib selector "drawInRect:angle:"  (id as ptr, myrect as nsrect, angle as single)
 		    
 		    DrawInRect ( self, myrect, angle )
-		    
+		  #else
+		    #pragma Unused myRect
+		    #pragma Unused angle
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -207,7 +230,9 @@ Inherits NSObject
 		    Declare sub drawInRectRelativeCenterPosition lib cocoalib selector "drawInRect:relativeCenterPosition:"  (id as ptr, myrect as nsrect, relativeCenterPosition as NSPoint)
 		    
 		    drawInRectRelativeCenterPosition ( self, myrect, relativeCenterPosition )
-		    
+		  #else
+		    #pragma Unused myRect
+		    #pragma Unused relativeCenterPosition
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -221,6 +246,10 @@ Inherits NSObject
 		    Declare sub getColorlocationatIndex lib CocoaLib selector "getColor:location:atIndex:"  (id as ptr, byref colorptr as ptr, byref location as single, atIndex as Integer)
 		    getColorlocationatIndex ( self, colorptr, location, atIndex )
 		    GetColor = cocoa.NSObjectFromNSPtr  (colorptr, true, true)
+		  #else
+		    #pragma Unused getColor
+		    #pragma Unused location
+		    #pragma Unused atIndex
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -236,7 +265,8 @@ Inherits NSObject
 		    Declare Function interpolatedColorAtLocation lib CocoaLib selector "interpolatedColorAtLocation:"  (id as ptr, location as single) as Ptr
 		    
 		    return cocoa.NSObjectFromNSPtr (interpolatedColorAtLocation ( self, location ), false)
-		    
+		  #else
+		    #pragma Unused location
 		  #endif
 		End Function
 	#tag EndMethod

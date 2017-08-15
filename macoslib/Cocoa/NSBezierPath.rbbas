@@ -23,6 +23,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub appendBezierPath lib Cocoalib selector "appendBezierPath:" (obj_ID as Ptr, aPath as Ptr)
 		    appendBezierPath (self, aPath)
+		  #else
+		    #pragma Unused aPath
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -42,6 +44,10 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub appendBezierPathWithArc lib Cocoalib selector "appendBezierPathWithArcFromPoint:toPoint:radius:" (obj_ID as Ptr, fromPoint as NSPoint, toPoint as NSPoint, radius as Single)
 		    appendBezierPathWithArc (self, fromPoint, toPoint, radius)
+		  #else
+		    #pragma Unused fromPoint
+		    #pragma Unused toPoint
+		    #pragma Unused radius
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -64,6 +70,11 @@ Inherits NSObject
 		    Declare Sub appendBezierPathWithArcWithCenter lib Cocoalib selector "appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:" _
 		    (obj_ID as Ptr, center as NSPoint, radius as Single, startAngle as Single, endAngle as Single )
 		    appendBezierPathWithArcWithCenter (self, center, radius, startAngle, endAngle)
+		  #else
+		    #pragma Unused center
+		    #pragma Unused radius
+		    #pragma Unused startAngle
+		    #pragma Unused endAngle
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -87,6 +98,12 @@ Inherits NSObject
 		    Declare Sub appendBezierPathWithArcWithCenterclockwise lib Cocoalib selector "appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:" _
 		    (obj_ID as Ptr, center as NSPoint, radius as Single, startAngle as Single, endAngle as Single, clockwise as boolean )
 		    appendBezierPathWithArcWithCenterclockwise (self, center, radius, startAngle, endAngle, clockwise)
+		  #else
+		    #pragma Unused center
+		    #pragma Unused radius
+		    #pragma Unused startAngle
+		    #pragma Unused endAngle
+		    #pragma Unused clockwise
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -100,6 +117,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub appendBezierPathWithOvalInRect lib Cocoalib selector "appendBezierPathWithOvalInRect:" (obj_ID as Ptr, aRect as NSRect)
 		    appendBezierPathWithOvalInRect (self, aRect)
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -121,23 +140,27 @@ Inherits NSObject
 		Sub appendBezierPathWithPoints(points() as NSPoint, count as integer = - 1)
 		  // Appends the contents of the specified path object to the receiver’s path.
 		  
-		  //set up an array we can pass
-		  dim pointsarray as new NSArray ("NSPoint")
-		  pointsarray = NSArray.CreateFromObjectsArray (points)
-		  
-		  // and add count. Check user‘s entry before so it won‘t crash (or calculate anyway if the user did not enter a count)
-		  
-		  dim realcount as Integer
-		  if count > pointsarray.count or count < 1 then
-		    realcount = pointsarray.Count
-		  else
-		    realcount = count
-		  end if
-		  
 		  
 		  #if TargetMacOS
 		    Declare Sub appendBezierPathWithPoints lib Cocoalib selector "appendBezierPathWithPoints:count:" (obj_ID as Ptr, points as Ptr, count as integer)
+		    
+		    //set up an array we can pass
+		    dim pointsarray as new NSArray ("NSPoint")
+		    pointsarray = NSArray.CreateFromObjectsArray (points)
+		    
+		    // and add count. Check user‘s entry before so it won‘t crash (or calculate anyway if the user did not enter a count)
+		    
+		    dim realcount as Integer
+		    if count > pointsarray.count or count < 1 then
+		      realcount = pointsarray.Count
+		    else
+		      realcount = count
+		    end if
+		    
 		    appendBezierPathWithPoints (self, pointsarray, realcount)
+		  #else
+		    #pragma Unused points
+		    #pragma Unused count
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -151,6 +174,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub appendBezierPathWithRect lib Cocoalib selector "appendBezierPathWithRect:" (obj_ID as Ptr, aRect as NSRect)
 		    appendBezierPathWithRect (self, aRect)
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -164,6 +189,10 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub appendBezierPathWithRoundedRect lib Cocoalib selector "appendBezierPathWithRoundedRect:xRadius:yRadius:" (obj_ID as Ptr, aRect as NSRect, xRadius as Single, yRadius as Single)
 		    appendBezierPathWithRoundedRect (self, aRect, xRadius, yRadius)
+		  #else
+		    #pragma Unused aRect
+		    #pragma Unused xRadius
+		    #pragma Unused yRadius
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -283,8 +312,8 @@ Inherits NSObject
 		    Declare Function bezierPathWithOvalInRect lib Cocoalib selector "bezierPathWithOvalInRect:" (obj_ID as Ptr, aRect as NSRect) as Ptr
 		    dim bezierRef as Ptr = bezierPathWithOvalInRect (classref, aRect)
 		    return new NSBezierPath(bezierRef)
-		    
-		    
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Function
 	#tag EndMethod
@@ -298,6 +327,8 @@ Inherits NSObject
 		    Declare Function bezierPathWithRect lib Cocoalib selector "bezierPathWithRect:" (obj_ID as Ptr, arect as nsrect) as Ptr
 		    dim bezierRef as Ptr = bezierPathWithRect (classref, aRect)
 		    return new NSBezierPath(bezierRef)
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Function
 	#tag EndMethod
@@ -312,6 +343,10 @@ Inherits NSObject
 		    Declare Function bezierPathWithRoundedRect lib Cocoalib selector "bezierPathWithRoundedRect:xRadius:yRadius:" (obj_ID as Ptr, arect as nsrect, xRadius as Single, yRadius as Single) as Ptr
 		    dim bezierRef as Ptr = bezierPathWithRoundedRect (classref, aRect, xRadius, yRadius)
 		    return new NSBezierPath(bezierRef)
+		  #else
+		    #pragma Unused aRect
+		    #pragma Unused xRadius
+		    #pragma Unused yRadius
 		  #endif
 		End Function
 	#tag EndMethod
@@ -347,6 +382,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub clipRect lib Cocoalib selector "clipRect:" (id as ptr, aRect as NSRect)
 		    clipRect (ClassRef, aRect)
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -379,6 +416,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Function containsPoint lib Cocoalib selector "containsPoint:" (obj_ID as Ptr, aPoint as NSPoint) as boolean
 		    return containsPoint (self, aPoint)
+		  #else
+		    #pragma Unused aPoint
 		  #endif
 		End Function
 	#tag EndMethod
@@ -424,6 +463,10 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub curveToPoint lib Cocoalib selector "curveToPoint:controlPoint1:controlPoint2:" (obj_ID as Ptr, Apoint as NSPoint, controlPoint1 as NSPoint, controlPoint2 as NSPoint)
 		    curveToPoint (self, aPoint, controlPoint1, controlPoint2)
+		  #else
+		    #pragma Unused aPoint
+		    #pragma Unused controlPoint1
+		    #pragma Unused controlPoint2
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -437,6 +480,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Function elementAtIndex lib Cocoalib selector "elementAtIndex:" (obj_ID as Ptr, index as Integer) as NSBezierPathElement
 		    return elementAtIndex (self, index)
+		  #else
+		    #pragma Unused index
 		  #endif
 		End Function
 	#tag EndMethod
@@ -496,6 +541,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub fillRect lib Cocoalib selector "fillRect:" (id as ptr, aRect as NSRect)
 		    fillRect (ClassRef, aRect)
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -515,6 +562,10 @@ Inherits NSObject
 		    patternarray = Cocoa.NSObjectFromNSPtr (patternpointer)
 		    msgbox str(patternarray.Size)+", "+str(count) +", "+str(phase)
 		    // pattern = returnarray
+		  #else
+		    #pragma Unused pattern
+		    #pragma Unused Count
+		    #pragma Unused Phase
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -541,6 +592,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub lineToPoint lib Cocoalib selector "lineToPoint:" (obj_ID as Ptr, aPoint as NSPoint)
 		    lineToPoint (self, aPoint)
+		  #else
+		    #pragma Unused aPoint
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -554,6 +607,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub moveToPoint lib Cocoalib selector "moveToPoint:" (obj_ID as Ptr, Apoint as NSPoint)
 		    moveToPoint (self, aPoint)
+		  #else
+		    #pragma Unused aPoint
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -574,6 +629,10 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub relativeCurveToPoint lib Cocoalib selector "relativeCurveToPoint:controlPoint1:controlPoint2:" (obj_ID as Ptr, Apoint as NSPoint, controlPoint1 as NSPoint, controlPoint2 as NSPoint)
 		    relativeCurveToPoint (self, aPoint, controlPoint1, controlPoint2)
+		  #else
+		    #pragma Unused aPoint
+		    #pragma Unused controlPoint1
+		    #pragma Unused controlPoint2
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -587,6 +646,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub relativeLineToPoint lib Cocoalib selector "relativeLineToPoint:" (obj_ID as Ptr, aPoint as NSPoint)
 		    relativeLineToPoint (self, aPoint)
+		  #else
+		    #pragma Unused aPoint
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -600,6 +661,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub relativeMoveToPoint lib Cocoalib selector "relativeMoveToPoint:" (obj_ID as Ptr, Apoint as NSPoint)
 		    relativeMoveToPoint (self, aPoint)
+		  #else
+		    #pragma Unused aPoint
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -626,16 +689,20 @@ Inherits NSObject
 		  // index
 		  // The index of the path element you want to modify.
 		  
-		  //set up an array we can pass
-		  dim pointsarray as new NSArray ("NSPoint")
-		  pointsarray = NSArray.CreateFromObjectsArray (points)
-		  
-		  // and add count. Check user‘s entry before so it won‘t crash (or calculate anyway if the user did not enter a count)
-		  
 		  
 		  #if TargetMacOS
 		    Declare Sub setAssociatedPoints lib Cocoalib selector "setAssociatedPoints:atIndex:" (obj_ID as Ptr, points as Ptr, atIndex as Integer)
+		    
+		    //set up an array we can pass
+		    dim pointsarray as new NSArray ("NSPoint")
+		    pointsarray = NSArray.CreateFromObjectsArray (points)
+		    
+		    // and add count. Check user‘s entry before so it won‘t crash (or calculate anyway if the user did not enter a count)
+		    
 		    setAssociatedPoints (self, pointsarray, atIndex)
+		  #else
+		    #pragma Unused points
+		    #pragma Unused atIndex
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -665,20 +732,25 @@ Inherits NSObject
 		  // The offset at which to start drawing the pattern, measured in points along the dashed-line pattern. For example, a phase of 6 in the pattern 5-2-3-2 would cause drawing to begin in the middle of the first gap
 		  
 		  
-		  // create a memoryblock from pattern() to pass it to the Sub
-		  
-		  const sizeofsingle=4
-		  dim patternCount as Integer = pattern.ubound+1
-		  dim m as new MemoryBlock(patternCount * sizeOfSingle)
-		  for i as integer = 0 to patternCount-1
-		    m.SingleValue(i*sizeOfSingle) = pattern(i)
-		  next
-		  
 		  
 		  
 		  #if TargetMacOS
 		    Declare Sub setLineDash lib Cocoalib selector "setLineDash:count:phase:" (obj_ID as Ptr, pattern as ptr, count as integer, phase as single)
+		    
+		    // create a memoryblock from pattern() to pass it to the Sub
+		    
+		    const sizeofsingle=4
+		    dim patternCount as Integer = pattern.ubound+1
+		    dim m as new MemoryBlock(patternCount * sizeOfSingle)
+		    for i as integer = 0 to patternCount-1
+		      m.SingleValue(i*sizeOfSingle) = pattern(i)
+		    next
+		    
 		    setLineDash (self, m, count, phase)
+		  #else
+		    #pragma Unused pattern
+		    #pragma Unused count
+		    #pragma Unused Phase
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -704,6 +776,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub strokeLine lib Cocoalib selector "strokeLineFromPoint:toPoint:" (id as ptr, Point1 as NSPoint, Point2 as NSPoint)
 		    strokeLine (ClassRef, point1, point2)
+		  #else
+		    #pragma Unused point1, point2
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -716,6 +790,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub strokeRect lib Cocoalib selector "strokeRect:" (id as ptr, aRect as NSRect)
 		    strokeRect (ClassRef, aRect)
+		  #else
+		    #pragma Unused aRect
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -729,6 +805,8 @@ Inherits NSObject
 		  #if TargetMacOS
 		    Declare Sub transformUsingAffineTransform lib Cocoalib selector "transformUsingAffineTransform:" (obj_ID as Ptr, aTransform as ptr)
 		    transformUsingAffineTransform (self, aTransform)
+		  #else
+		    #pragma Unused aTransform
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -774,6 +852,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setDefaultFlatness lib Cocoalib selector "setDefaultFlatness:" (id as ptr, avalue as single)
 			    setdefaultFlatness (ClassRef, value)
+			  #else
+			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -805,6 +885,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setDefaultLineCapStyle lib Cocoalib selector "setDefaultLineCapStyle:" (id as ptr, avalue as NSLineCapStyle)
 			    setDefaultLineCapStyle (ClassRef, value)
+			  #else
+			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -836,6 +918,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setDefaultLineJoinStyle lib Cocoalib selector "setDefaultLineJoinStyle:" (id as ptr, avalue as NSLineJoinStyle)
 			    setDefaultLineJoinStyle (ClassRef, value)
+			  #else
+			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -867,6 +951,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setDefaultLineWidth lib Cocoalib selector "setDefaultLineWidth:" (id as ptr, avalue as single)
 			    setDefaultLineWidth (ClassRef, value)
+			  #else
+			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -898,6 +984,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setDefaultMiterLimit lib Cocoalib selector "setDefaultMiterLimit:" (id as ptr, avalue as single)
 			    setDefaultMiterLimit (ClassRef, value)
+			  #else
+			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -929,6 +1017,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setDefaultWindingRule lib Cocoalib selector "setDefaultWindingRule:" (id as ptr, avalue as NSWindingRule)
 			    setDefaultWindingRule (ClassRef, value)
+			  #else
+			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -957,6 +1047,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setFlatness lib Cocoalib selector "setFlatness:" (id as ptr, avalue as single)
 			    setFlatness (Self, value)
+			  #else
+			    #pragma Unused Value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -985,6 +1077,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setLineCapStyle lib Cocoalib selector "setLineCapStyle:" (id as ptr, avalue as NSLineCapStyle)
 			    setLineCapStyle (Self, value)
+			  #else
+			    #pragma Unused Value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1013,6 +1107,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setLineJoinStyle lib Cocoalib selector "setLineJoinStyle:" (id as ptr, avalue as NSLineJoinStyle)
 			    setLineJoinStyle (Self, value)
+			  #else
+			    #pragma Unused Value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1041,6 +1137,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setLineWidth lib Cocoalib selector "setLineWidth:" (id as ptr, avalue as single)
 			    setLineWidth (Self, value)
+			  #else
+			    #pragma Unused Value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1069,6 +1167,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setMiterLimit lib Cocoalib selector "setMiterLimit:" (id as ptr, avalue as single)
 			    setMiterLimit (Self, value)
+			  #else
+			    #pragma Unused Value
 			  #endif
 			End Set
 		#tag EndSetter
@@ -1096,6 +1196,8 @@ Inherits NSObject
 			  #if TargetMacOS
 			    Declare Sub setWindingRule lib Cocoalib selector "setWindingRule:" (id as ptr, avalue as NSWindingRule)
 			    setWindingRule (Self, value)
+			  #else
+			    #pragma Unused Value
 			  #endif
 			End Set
 		#tag EndSetter
