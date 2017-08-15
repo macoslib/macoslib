@@ -70,6 +70,9 @@ Protected Module About
 
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 
+		201: 2017-08-13 by VVB
+		- TTsSmartPreferences.toCFType, Added variant.TypeInt64 to integer recognition as a previously saved int came up as int64
+
 		200: 2017-07-12 by SD
 		- Important! The main purpose of this update is simply to have the project compiled in a 64-bit environment.
 		Now it does, but there is still a lot of work to be done to test it and get it working for all supported functionality.
@@ -628,7 +631,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"200", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"201", Scope = Protected
 	#tag EndConstant
 
 
