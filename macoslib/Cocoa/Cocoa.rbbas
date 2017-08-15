@@ -428,7 +428,7 @@ Protected Module Cocoa
 		      return  new NSColor( id, hasOwnership )
 		      
 		    case "NSColorSpace"
-		      'return  new NSColorSpace( id, hasOwnership )
+		      return  new NSColorSpace( id, hasOwnership )
 		      
 		    case "NSData"
 		      return  new NSData( id, hasOwnership )

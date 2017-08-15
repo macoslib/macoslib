@@ -1266,6 +1266,12 @@ Begin Menu MainMenubar
             AutoEnable = True
             Visible = True
          End
+         Begin MenuItem CocoaNSGradient
+            SpecialMenu = 0
+            Text = "NSGradient"
+            Index = -2147483648
+            AutoEnable = True
+         End
          Begin MenuItem CocoaNSHost
             SpecialMenu = 0
             Text = "NSHost"
@@ -1496,7 +1502,6 @@ Begin Menu MainMenubar
             Text = "Idle Time"
             Index = -2147483648
             AutoEnable = True
-            Visible = True
          End
          Begin MenuItem IOKitExternalPowerAdapter
             SpecialMenu = 0

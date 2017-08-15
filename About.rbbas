@@ -38,6 +38,7 @@ Protected Module About
 		Kenichi Maehashi (KM)
 		Jeremy Cowgar (JC)
 		Serhiy Duminskyy (SD)
+		Ulrich Bogun (UB)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -88,6 +89,8 @@ Protected Module About
 
 		192: 2017-05-27 by VVB
 		- Added OS Version checks for IsElCapitan and IsSierra.
+		- Added NSBezierPath, NSGradient & NSGradientExample, courtesy of Ulrich Bogun.
+		
 
 		191: 2016-11-09 by VVB
 		- Added SegmentedControlExtension.SelectedForSegment(#) = True/False
