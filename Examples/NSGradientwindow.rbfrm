@@ -1,11 +1,13 @@
 #tag Window
 Begin Window NSGradientwindow
-   BackColor       =   -256
+   BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
+   FullScreenButton=   False
    HasBackColor    =   False
    Height          =   546
    ImplicitInstance=   True
@@ -47,6 +49,7 @@ Begin Window NSGradientwindow
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   62
+      Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
       Width           =   669
@@ -73,6 +76,7 @@ Begin Window NSGradientwindow
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   82
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   629
@@ -98,10 +102,9 @@ Begin Window NSGradientwindow
             Selectable      =   False
             TabIndex        =   0
             TabPanelIndex   =   0
-            TabStop         =   True
             Text            =   "DrawInRectRelativeCenterPosition"
             TextAlign       =   1
-            TextColor       =   -1077952768
+            TextColor       =   &cBFBFBF00
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
@@ -134,10 +137,9 @@ Begin Window NSGradientwindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "DrawInRect"
          TextAlign       =   1
-         TextColor       =   -1077952768
+         TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
@@ -170,6 +172,7 @@ Begin Window NSGradientwindow
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   238
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   209
@@ -196,10 +199,9 @@ Begin Window NSGradientwindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "DrawFromCenterToCenter"
          TextAlign       =   1
-         TextColor       =   -1077952768
+         TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
@@ -232,6 +234,7 @@ Begin Window NSGradientwindow
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   238
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   212
@@ -259,6 +262,7 @@ Begin Window NSGradientwindow
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   283
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   184
@@ -285,10 +289,9 @@ Begin Window NSGradientwindow
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "DrawinBezierPathWithRelativeCenter"
          TextAlign       =   1
-         TextColor       =   -1077952768
+         TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
@@ -320,10 +323,9 @@ Begin Window NSGradientwindow
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "DrawInBezierPath"
          TextAlign       =   1
-         TextColor       =   -1077952768
+         TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
@@ -357,6 +359,7 @@ Begin Window NSGradientwindow
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   501
+      Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
       Width           =   788
@@ -383,10 +386,9 @@ Begin Window NSGradientwindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "DrawInRect with InitWithColors"
       TextAlign       =   1
-      TextColor       =   -1077952768
+      TextColor       =   &cBFBFBF00
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
@@ -418,10 +420,9 @@ Begin Window NSGradientwindow
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "DrawFromPointToPoint with initWithColors:atLocations:colorSpace:"
       TextAlign       =   1
-      TextColor       =   -1077952768
+      TextColor       =   &cBFBFBF00
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
@@ -440,20 +441,19 @@ End
 		  // Here come the initializations for our Gradients.
 		  // At first we create some colors:
 		  
-		  dim sc as nscolor = nscolor.Blue
+		  dim sc as NSColor = NSColor.Blue
 		  dim ec as NSColor = NSColor.Black
-		  dim wc as nscolor = NSColor.White
-		  dim gc as nscolor = NSColor.Green
-		  dim yc as nscolor = NSColor.Yellow
-		  dim grc as nscolor = nscolor.Gray
-		  dim rc as NSColor = NSColor.red
+		  dim wc as NSColor = NSColor.White
+		  dim gc as NSColor = NSColor.Green
+		  dim yc as NSColor = NSColor.Yellow
+		  dim grc as NSColor = NSColor.Gray
+		  dim rc as NSColor = NSColor.Red
 		  dim cc as NSColor = NSColor.ColorWithRGB (50, 30, 20, 50) // Custom Color with Alpha
 		  
 		  
 		  // set up some initWithStartingColor:endingColor: Gradients
 		  
 		  myGradient = new NSGradient (sc,ec)
-		  
 		  
 		  myGradient3 = new NSGradient (ec, wc)
 		  
