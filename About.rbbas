@@ -66,6 +66,29 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		202: 2017-08-27 by TT
+		- Moving functions from CFArrayExtension into CFArray, making the module obsolete, finally (never understood what that was needed for)
+		- Slight optimization by using static vars
+		- Fixes "Constructor(d as Date)": Now handles GMTOffsets correctly.
+		- Removes obsolete CFArrayExtension module
+		
+		201: 2017-08-13 by VVB
+		- TTsSmartPreferences.toCFType, Added variant.TypeInt64 to integer recognition as a previously saved int came up as int64
+		
+		200: 2017-07-12 by SD
+		- Important! The main purpose of this update is simply to have the project compiled in a 64-bit environment.
+		  Now it does, but there is still a lot of work to be done to test it and get it working for all supported functionality.
+		  So, please use this branch only at your own risk and only if you are ready to debug it, fix it, and commit your changes.
+		
+		- App version was increased to 2.0a because of moving to 64 bit.
+		- Starting from 2.0, MacOSLib has two branches, one for 32 bit, and another which is 64 bit-only.
+		- To get project compiled in 64 bit these parts of code (propbably depricated declares in 64 bit) were removed from the 64 bit branch:
+		      HISearchField, HISearchFieldExample, MacDatePicker, MacDatePickerExampleWindow, CarbonDragManager, DragManagerExample, CarbonPasteboard
+		- All Single types were changed to Double.
+		- There are still a lot of places that should be checked, for example, UInt32 should be changed to UInteger in most places, but for some Carbon functions and structures it's still should be UInt32, so every place must be checked manually. So, please check the code you are curently working with and change types when necessary.
+		- Special thanks to Jonathan Ashwell for helping in this initial conversion and testing.
+		
+		
 		192: 2017-05-27 by VVB
 		- Added OS Version checks for IsElCapitan and IsSierra.
 		- Added NSBezierPath, NSGradient & NSGradientExample, courtesy of Ulrich Bogun.
@@ -612,7 +635,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"192", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"202", Scope = Protected
 	#tag EndConstant
 
 

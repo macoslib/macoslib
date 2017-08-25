@@ -65,7 +65,6 @@ Module=Carbon;macoslib/Carbon/Carbon.rbbas;&h7DC4FD7A;&h62249E78;false
 Module=CarbonDragManager;macoslib/CarbonDragManager/CarbonDragManager.rbbas;&h187BB275;&h62249E78;false
 Module=CarbonEvents;macoslib/CarbonEvents.rbbas;&h22B9E759;&h62249E78;false
 Folder=Controls;macoslib/Controls;&h175B17B;&h62249E78;false
-Module=CFArrayExtension;macoslib/CFArrayExtension.rbbas;&h299C0ED1;&h62249E78;false
 Module=CoreFoundation;macoslib/CoreFoundation/CoreFoundation.rbbas;&h72896D36;&h62249E78;false
 Module=CoreGraphics;macoslib/CoreGraphics/CoreGraphics.rbbas;&h4983118E;&h62249E78;false
 Module=CorePrinting;macoslib/CorePrinting/CorePrinting.rbbas;&h7F0DC438;&h62249E78;false
