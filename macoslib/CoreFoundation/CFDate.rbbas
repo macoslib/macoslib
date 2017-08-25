@@ -52,9 +52,13 @@ Implements CFPropertyList
 		  
 		  // convert d.TotalSeconds to absolute time
 		  d = new Date(d)
+		  
+		  dim ofs as Double = d.GMTOffset
 		  d.GMTOffset = 0.0
 		  
 		  me.Constructor d.TotalSeconds - AbsoluteTimeIntervalSince1904
+		  
+		  d.GMTOffset = ofs
 		End Sub
 	#tag EndMethod
 

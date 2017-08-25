@@ -70,8 +70,8 @@ Implements CFPropertyList
 		  end if
 		  
 		  #if targetMacOS
-		    dim keyCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryKeyCallBacks")
-		    dim valueCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryValueCallBacks")
+		    static keyCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryKeyCallBacks")
+		    static valueCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryValueCallBacks")
 		    
 		    declare function CFDictionaryCreate lib CarbonLib (allocator as Ptr, keys as Ptr, values as Ptr, numValues as Integer, keyCallBacks as Ptr, valueCallBacks as Ptr) as Ptr
 		    
@@ -155,8 +155,8 @@ Implements CFPropertyList
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function DefaultCallbacks(name as String) As Ptr
+	#tag Method, Flags = &h1
+		Protected Shared Function DefaultCallbacks(name as String) As Ptr
 		  return Carbon.Bundle.DataPointerNotRetained(name)
 		End Function
 	#tag EndMethod
