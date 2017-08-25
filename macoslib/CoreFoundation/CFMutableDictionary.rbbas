@@ -18,12 +18,11 @@ Inherits CFDictionary
 		  #if targetMacOS
 		    declare function CFDictionaryCreateMutable lib CarbonLib (allocator as Ptr, capacity as Integer, keyCallbacks as Ptr, valueCallbacks as Ptr) as Ptr
 		    
-		    const kCFTypeDictionaryKeyCallBacks = "kCFTypeDictionaryKeyCallBacks"
-		    const kCFTypeDictionaryValueCallBacks = "kCFTypeDictionaryValueCallBacks"
+		    static keyCallbacks as Ptr = super.DefaultCallbacks("kCFTypeDictionaryKeyCallBacks")
+		    static valueCallbacks as Ptr = super.DefaultCallbacks("kCFTypeDictionaryValueCallBacks")
 		    
-		    super.Constructor CFDictionaryCreateMutable(nil, 0, me.DefaultCallbacks(kCFTypeDictionaryKeyCallBacks), me.DefaultCallbacks(kCFTypeDictionaryValueCallBacks)), true '
+		    super.Constructor CFDictionaryCreateMutable(nil, 0, keyCallbacks, valueCallbacks), true '
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -43,22 +42,14 @@ Inherits CFDictionary
 
 	#tag Method, Flags = &h1000
 		Sub Constructor(dict As Dictionary)
-		  // Added by Kem Tekinay.
-		  
-		  #if targetMacOS
-		    declare function CFDictionaryCreateMutable lib CarbonLib (allocator as Ptr, capacity as Integer, keyCallbacks as Ptr, valueCallbacks as Ptr) as Ptr
+		  #if TargetMacOS
+		    Constructor()
 		    
-		    const kCFTypeDictionaryKeyCallBacks = "kCFTypeDictionaryKeyCallBacks"
-		    const kCFTypeDictionaryValueCallBacks = "kCFTypeDictionaryValueCallBacks"
-		    
-		    super.Constructor CFDictionaryCreateMutable(nil, 0, me.DefaultCallbacks(kCFTypeDictionaryKeyCallBacks), me.DefaultCallbacks(kCFTypeDictionaryValueCallBacks)), true '
-		    
-		    if dict=nil then return
+		    if dict is nil then return
 		    
 		    for i as integer=0 to dict.Count - 1
 		      self.Value( CFTypeFromVariant( dict.Key( i ))) = CFTypeFromVariant( dict.value( dict.key( i )))
 		    next
-		    
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -97,20 +88,12 @@ Inherits CFDictionary
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function DefaultCallbacks(name as String) As Ptr
-		  return Carbon.Bundle.DataPointerNotRetained(name)
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Sub Operator_Convert(dict As Dictionary)
-		  // Added by Kem Tekinay.
-		  
 		  #if TargetMacOS
 		    self.Constructor
 		    
-		    if dict=nil then return
+		    if dict is nil then return
 		    
 		    dim k() as variant = dict.Keys
 		    dim v() as Variant = dict.Values
@@ -120,13 +103,9 @@ Inherits CFDictionary
 		      value = v( i )
 		      self.Value( CFTypeFromVariant( key ) ) = CFTypeFromVariant( value )
 		    next
-		    
 		  #else
-		    
 		    #pragma unused dict
-		    
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
