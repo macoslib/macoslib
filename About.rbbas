@@ -66,7 +66,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		202: 2017-08-27 by TT
+		203: 2017-08-26 by VVB
+		- Changed a reference in NSURL.ResourceValue from newvalue.id to self.
+		
+		202: 2017-08-25 by TT
 		- Moving functions from CFArrayExtension into CFArray, making the module obsolete, finally (never understood what that was needed for)
 		- Slight optimization by using static vars
 		- Fixes "Constructor(d as Date)": Now handles GMTOffsets correctly.
