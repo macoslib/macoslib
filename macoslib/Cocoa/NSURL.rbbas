@@ -484,7 +484,7 @@ Inherits NSObject
 		    assertOSVersion  100600 //Snow Leopard
 		    
 		    dim err as Ptr
-		    dim OK as Boolean = setResourceValue(newValue.id, newValue, forKey, err )
+		    dim OK as Boolean = setResourceValue(self, newValue, forKey, err )
 		    
 		    if err <> nil then
 		      raise new NSException( err )
@@ -1480,6 +1480,7 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Fragment"
@@ -1498,7 +1499,7 @@ Inherits NSObject
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDirectory"
@@ -1531,13 +1532,13 @@ Inherits NSObject
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParameterString"
@@ -1566,7 +1567,7 @@ Inherits NSObject
 		#tag ViewProperty
 			Name="Port"
 			Group="Behavior"
-			Type="String"
+			Type="Integer"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1597,14 +1598,14 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
-			Type="String"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
+			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="User"

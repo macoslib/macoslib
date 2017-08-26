@@ -49,6 +49,7 @@ Begin Window NSGradientwindow
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   62
+      Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
       Width           =   669
@@ -75,6 +76,7 @@ Begin Window NSGradientwindow
          TabPanelIndex   =   0
          TabStop         =   True
          Top             =   82
+         Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
          Width           =   629
@@ -100,7 +102,6 @@ Begin Window NSGradientwindow
             Selectable      =   False
             TabIndex        =   0
             TabPanelIndex   =   0
-            TabStop         =   True
             Text            =   "DrawInRectRelativeCenterPosition"
             TextAlign       =   1
             TextColor       =   &cBFBFBF00
@@ -136,7 +137,6 @@ Begin Window NSGradientwindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "DrawInRect"
          TextAlign       =   1
          TextColor       =   &cBFBFBF00
