@@ -66,6 +66,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		204: 207-10-09 by VVB
+		- Added DatePickerElements as Integer property to NSDatePicker class.
+		
 		203: 2017-08-26 by VVB
 		- Changed a reference in NSURL.ResourceValue from newvalue.id to self.
 		
@@ -638,7 +641,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"202", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"204", Scope = Protected
 	#tag EndConstant
 
 
