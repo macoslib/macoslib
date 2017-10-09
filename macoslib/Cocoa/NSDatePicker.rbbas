@@ -164,6 +164,38 @@ Inherits NSControl
 		#tag Getter
 			Get
 			  #if targetCocoa
+			    declare function datePickerElements lib CocoaLib selector "datePickerElements" (id as Ptr) as Integer
+			    
+			    if self.id <> nil then
+			      return datePickerElements(self)
+			    else
+			      return 0
+			    end if
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setDatePickerElements lib CocoaLib selector "setDatePickerElements:" (id as Ptr, value as Integer)
+			    if self.id <> nil then
+			      setDatePickerElements self, value
+			    else
+			      //
+			    end if
+			    
+			  #else
+			    #pragma unused value
+			  #endif
+			End Set
+		#tag EndSetter
+		DatePickerElements As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
 			    declare function drawsBackground lib CocoaLib selector "drawsBackground" (id as Ptr) as Boolean
 			    
 			    if self.id <> nil then
@@ -416,6 +448,24 @@ Inherits NSControl
 	#tag EndConstant
 
 	#tag Constant, Name = NSClockAndCalendar, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSDatePickerElementFlagEra, Type = Double, Dynamic = False, Default = \"256", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSDatePickerElementFlagHourMinute, Type = Double, Dynamic = False, Default = \"12", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSDatePickerElementFlagHourMinuteSecond, Type = Double, Dynamic = False, Default = \"14", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSDatePickerElementFlagTimeZone, Type = Double, Dynamic = False, Default = \"16", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSDatePickerElementFlagYearMonth, Type = Double, Dynamic = False, Default = \"192", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = NSDatePickerElementFlagYearMonthDay, Type = Double, Dynamic = False, Default = \"224", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = NSTextField, Type = Double, Dynamic = False, Default = \"2", Scope = Public
