@@ -467,6 +467,21 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub HideWindowButton(Extends w as Window, button as NSWindowButton, assigns Value as Boolean)
+		  
+		  #if TargetMacOS then
+		    Declare Function standardWindowButton Lib CocoaLib Selector "standardWindowButton:" (NSWindow As Ptr, windowButtonKind As NSWindowButton) As Ptr
+		    Declare Sub setHidden Lib CocoaLib selector "setHidden:" (obj_id as Ptr, value as Boolean)
+		    
+		    setHidden(standardWindowButton(Ptr(w.Handle), button), Value)
+		  #else
+		    #pragma Unused w
+		    #pragma Unused button
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IgnoresMouseEvents(extends w as Window) As Boolean
 		  //# Specifies whether the window is transparent to mouse clicks and other mouse events, allowing overlay windows.
 		  
@@ -1245,6 +1260,16 @@ Protected Module WindowExtensions
 		End Sub
 	#tag EndMethod
 
+
+	#tag Enum, Name = NSWindowButton, Type = Integer, Flags = &h0
+		NSWindowCloseButton = 0
+		  NSWindowMiniaturizeButton
+		  NSWindowZoomButton
+		  NSWindowToolbarButton
+		  NSWindowDocumentIconButton
+		  NSWindowDocumentVersionsButton = 6
+		NSWindowFullScreenButton
+	#tag EndEnum
 
 	#tag Enum, Name = NSWindowTitleVisibility, Flags = &h0
 		Visible
