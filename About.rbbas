@@ -71,7 +71,11 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		204: 207-10-09 by VVB
+		205: 2017-10-14 by VVB
+		- Added a WindowExtension to hide the close/minimize/zoom and other titlebar buttons, and updated the NSWindowExample.
+		- Added OS Version check for IsHighSierra.
+		
+		204: 2017-10-09 by VVB
 		- Added DatePickerElements as Integer property to NSDatePicker class.
 		
 		203: 2017-08-26 by VVB
@@ -647,7 +651,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"204", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"205", Scope = Protected
 	#tag EndConstant
 
 

@@ -108,44 +108,13 @@ Begin Window NSWindowExample
          Visible         =   True
          Width           =   195
       End
-      Begin PushButton btnSetFile
-         AutoDeactivate  =   True
-         Bold            =   ""
-         ButtonStyle     =   0
-         Cancel          =   ""
-         Caption         =   "Set File"
-         Default         =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "ppExamples"
-         Italic          =   ""
-         Left            =   212
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   2
-         TabPanelIndex   =   1
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   14
-         Underline       =   ""
-         Visible         =   True
-         Width           =   195
-      End
       Begin Label lblArray
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   45
+         Height          =   33
          HelpTag         =   ""
          Index           =   0
          InitialParent   =   "ppExamples"
@@ -167,7 +136,7 @@ Begin Window NSWindowExample
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
-         Top             =   158
+         Top             =   134
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -552,7 +521,7 @@ Begin Window NSWindowExample
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
-         Top             =   126
+         Top             =   110
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1264,72 +1233,6 @@ Begin Window NSWindowExample
          Visible         =   True
          Width           =   190
       End
-      Begin CheckBox chkFullSizeContentView
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "FullSizeContentView"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. (OS X 10.10+)"
-         Index           =   -2147483648
-         InitialParent   =   "ppExamples"
-         Italic          =   ""
-         Left            =   485
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   24
-         TabPanelIndex   =   2
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   253
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   190
-      End
-      Begin Label lblArray
-         AutoDeactivate  =   True
-         Bold            =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   36
-         HelpTag         =   ""
-         Index           =   6
-         InitialParent   =   "ppExamples"
-         Italic          =   ""
-         Left            =   485
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Multiline       =   True
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   25
-         TabPanelIndex   =   2
-         Text            =   "(OS X 10.10+ Makes the toolbar blurry transparent and moves it down to hover over the window content.)"
-         TextAlign       =   0
-         TextColor       =   &h000000
-         TextFont        =   "System"
-         TextSize        =   10
-         TextUnit        =   0
-         Top             =   285
-         Transparent     =   False
-         Underline       =   ""
-         Visible         =   True
-         Width           =   190
-      End
       Begin Label lblArray
          AutoDeactivate  =   True
          Bold            =   ""
@@ -1398,75 +1301,12 @@ Begin Window NSWindowExample
          Visible         =   True
          Width           =   40
       End
-      Begin PushButton btnHideTitle
-         AutoDeactivate  =   True
-         Bold            =   ""
-         ButtonStyle     =   0
-         Cancel          =   ""
-         Caption         =   "Hide Title"
-         Default         =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "ppExamples"
-         Italic          =   ""
-         Left            =   212
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   12
-         TabPanelIndex   =   3
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   301
-         Underline       =   ""
-         Visible         =   True
-         Width           =   190
-      End
-      Begin CheckBox CheckBox1
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "Transparent Toolbar"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "ppExamples"
-         Italic          =   ""
-         Left            =   414
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   14
-         TabPanelIndex   =   3
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   301
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   190
-      End
       Begin PushButton btnSetVisualEffect
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "Visual Effect"
+         Caption         =   "Light Visual Effect"
          Default         =   ""
          Enabled         =   True
          Height          =   20
@@ -1482,6 +1322,514 @@ Begin Window NSWindowExample
          LockTop         =   True
          Scope           =   0
          TabIndex        =   15
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   301
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin PushButton btnSetFile
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Set File"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   14
+         Underline       =   ""
+         Visible         =   True
+         Width           =   195
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide close button"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   0
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   7
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   179
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin Label lblArray
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   36
+         HelpTag         =   ""
+         Index           =   6
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   490
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   8
+         TabPanelIndex   =   1
+         Text            =   "(OS X 10.10+ Makes the toolbar blurry transparent and moves it down to hover over the window content.)"
+         TextAlign       =   0
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   10
+         TextUnit        =   0
+         Top             =   307
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin CheckBox chkFullSizeContentView
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "FullSizeContentView"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. (OS X 10.10+)"
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   490
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   9
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   283
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   190
+      End
+      Begin CheckBox chkTransparentToolbar
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Transparent Toolbar"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   490
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   10
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   251
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   190
+      End
+      Begin PushButton btnHideTitle
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Hide Title"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   490
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   11
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   219
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide minimize button"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   1
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   12
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   203
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide zoom button"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   2
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   13
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   227
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide fullscreen button"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   3
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   14
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   251
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide toolbar button"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   4
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   15
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   275
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide document icon"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   5
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   16
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   299
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin CheckBox chkHideTitleButtons
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Hide document versions"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   6
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   17
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   323
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   219
+      End
+      Begin PushButton btnHideTitlebar
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Hide Titlebar"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   490
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   18
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   190
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin PushButton btnSetVisualEffect1
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Dark Visual Effect"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   212
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   16
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   333
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin PushButton btnSetVisualEffect2
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Titlebar Visual Effect"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   414
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   17
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   301
+         Underline       =   ""
+         Visible         =   True
+         Width           =   190
+      End
+      Begin PushButton btnSetVisualEffect21
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Appearance Based VE"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         Italic          =   ""
+         Left            =   414
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   18
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "System"
@@ -1516,7 +1864,7 @@ Begin Window NSWindowExample
       Hierarchical    =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Working with files\rWindow behavior\rAppearance & Position"
+      InitialValue    =   "Titlebar behavior\rWindow behavior\rAppearance & Position"
       Italic          =   ""
       Left            =   0
       LockBottom      =   True
@@ -1678,31 +2026,6 @@ End
 		    lblFilePath.Text = path
 		  end if
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnSetFile
-	#tag Event
-		Sub Action()
-		  dim f as FolderItem = GetOpenFolderItem( "" )
-		  self.DocumentFile = f
-		  if f is nil then
-		    self.Title = "No File Set"
-		  end if
-		  
-		  f = self.DocumentFile
-		  if f is nil then
-		    lblFilePath.Text = "No file specified"
-		  else
-		    lblFilePath.Text = f.POSIXPath
-		  end if
-		  
-		  
-		  // I'm using DocumentFile here because it's a convenience method and will probably be used
-		  // more often than calling the NSWindow method directly. It, in turn, calls NSWindow.RepresentedFile
-		  // in Cocoa, or the appropriate Carbon methods.
-		  //
-		  // Otherwise, I could have used m_NSWindow.RepresentedFile = f in Cocoa.
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1911,11 +2234,100 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events btnSetVisualEffect
+	#tag Event
+		Sub Action()
+		  
+		  self.SetVisualEffectView( NSVisualEffectView.NSMaterial.Light )
+		  'self.SetVisualEffectView( 0, 23, self.Width/2, (self.Height/2) - 23, NSVisualEffectView.NSMaterial.Dark, False, True )
+		  'self.SetVisualEffectView( self.width/2, self.Height/2, self.Width/2, self.Height/2, NSVisualEffectView.NSMaterial.Dark, True, False )
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnSetFile
+	#tag Event
+		Sub Action()
+		  dim f as FolderItem = GetOpenFolderItem( "" )
+		  self.DocumentFile = f
+		  if f is nil then
+		    self.Title = "No File Set"
+		  end if
+		  
+		  f = self.DocumentFile
+		  if f is nil then
+		    lblFilePath.Text = "No file specified"
+		  else
+		    lblFilePath.Text = f.POSIXPath
+		  end if
+		  
+		  
+		  // I'm using DocumentFile here because it's a convenience method and will probably be used
+		  // more often than calling the NSWindow method directly. It, in turn, calls NSWindow.RepresentedFile
+		  // in Cocoa, or the appropriate Carbon methods.
+		  //
+		  // Otherwise, I could have used m_NSWindow.RepresentedFile = f in Cocoa.
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkHideTitleButtons
+	#tag Event
+		Sub Action(index as Integer)
+		  dim button as NSWindowButton
+		  
+		  Select case index
+		  case 0
+		    button = NSWindowButton.NSWindowCloseButton
+		    
+		  case 1
+		    button = NSWindowButton.NSWindowMiniaturizeButton
+		    
+		  case 2
+		    button = NSWindowButton.NSWindowZoomButton
+		    
+		  case 3
+		    button = NSWindowButton.NSWindowFullScreenButton
+		    
+		  case 4
+		    button = NSWindowButton.NSWindowToolbarButton
+		    
+		  case 5
+		    button = NSWindowButton.NSWindowDocumentIconButton
+		    
+		  case 6
+		    button = NSWindowButton.NSWindowDocumentVersionsButton
+		    
+		  End Select
+		  
+		  self.HideWindowButton(button) = me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events chkFullSizeContentView
 	#tag Event
 		Sub Action()
 		  m_NSWindow.FullSizeContentView = me.Value
 		  UpdateStyleMask
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.Enabled = IsYosemite
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkTransparentToolbar
+	#tag Event
+		Sub Action()
+		  
+		  if IsYosemite then
+		    'm_NSWindow.TitlebarAppearsTransparent = me.Value
+		    self.TitlebarAppearsTransparent = me.Value
+		  else
+		    #if DebugBuild then
+		      MsgBox "This option is for OS X 10.10+"
+		    #endif
+		    me.Value = False
+		  end if
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1949,34 +2361,42 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CheckBox1
+#tag Events btnHideTitlebar
 	#tag Event
 		Sub Action()
+		  chkHideTitleButtons(0).Value = True
+		  chkHideTitleButtons(1).Value = True
+		  chkHideTitleButtons(2).Value = True
+		  chkHideTitleButtons(5).Value = True
 		  
-		  if IsYosemite then
-		    'm_NSWindow.TitlebarAppearsTransparent = me.Value
-		    self.TitlebarAppearsTransparent = me.Value
-		  else
-		    #if DebugBuild then
-		      MsgBox "This option is for OS X 10.10+"
-		    #endif
-		    me.Value = False
-		  end if
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  me.Enabled = IsYosemite
+		  chkTransparentToolbar.Value = True
+		  chkFullSizeContentView.Value = True
+		  
+		  btnHideTitle.Push
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnSetVisualEffect
+#tag Events btnSetVisualEffect1
 	#tag Event
 		Sub Action()
 		  
 		  self.SetVisualEffectView( NSVisualEffectView.NSMaterial.Dark )
 		  'self.SetVisualEffectView( 0, 23, self.Width/2, (self.Height/2) - 23, NSVisualEffectView.NSMaterial.Dark, False, True )
 		  'self.SetVisualEffectView( self.width/2, self.Height/2, self.Width/2, self.Height/2, NSVisualEffectView.NSMaterial.Dark, True, False )
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnSetVisualEffect2
+	#tag Event
+		Sub Action()
+		  self.SetVisualEffectView( NSVisualEffectView.NSMaterial.Titlebar )
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnSetVisualEffect21
+	#tag Event
+		Sub Action()
+		  self.SetVisualEffectView( NSVisualEffectView.NSMaterial.AppearanceBased )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
