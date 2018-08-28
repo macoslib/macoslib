@@ -854,11 +854,12 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  //# Returns the number of objects currently in the array.
+			  #If TargetMacOS Then
+			  	declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInteger
+			  	dim cnt as integer = m_count( me.id )
 			  
-			  declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInteger
-			  dim cnt as integer = m_count( me.id )
-			  
-			  return  cnt
+			  	return  cnt
+			#EndIf
 			End Get
 		#tag EndGetter
 		Count As UInteger
