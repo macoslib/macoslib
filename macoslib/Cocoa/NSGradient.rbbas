@@ -149,7 +149,7 @@ Inherits NSObject
 		    #pragma Unused startRadius
 		    #pragma Unused endCenter
 		    #pragma Unused endRadius
-		    #pragma Unused option
+		    #pragma Unused options
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -166,7 +166,7 @@ Inherits NSObject
 		  #else
 		    #pragma Unused startingPoint
 		    #pragma Unused toPoint
-		    #pragma Unused option
+		    #pragma Unused options
 		  #endif
 		End Sub
 	#tag EndMethod
