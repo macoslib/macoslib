@@ -777,7 +777,8 @@ Inherits NSObject
 		    Declare Sub strokeLine lib Cocoalib selector "strokeLineFromPoint:toPoint:" (id as ptr, Point1 as NSPoint, Point2 as NSPoint)
 		    strokeLine (ClassRef, point1, point2)
 		  #else
-		    #pragma Unused point1, point2
+		    #pragma Unused point1
+		    #pragma Unused point2
 		  #endif
 		End Sub
 	#tag EndMethod
