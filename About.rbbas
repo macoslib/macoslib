@@ -34,6 +34,7 @@ Protected Module About
 		Kenichi Maehashi (KM)
 		Jeremy Cowgar (JC)
 		Ulrich Bogun (UB)
+		Graham Spratt (GS)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -65,6 +66,9 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		206: 2018-08-29 by GS
+		- Fixed some syntax errors that caused failure to compile for Windows Builds.
 		
 		205: 2017-10-14 by VVB
 		- Added a WindowExtension to hide the close/minimize/zoom and other titlebar buttons, and updated the NSWindowExample.
@@ -645,7 +649,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"205", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"206", Scope = Protected
 	#tag EndConstant
 
 
