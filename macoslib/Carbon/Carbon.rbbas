@@ -78,6 +78,16 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsMojave() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101400
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsMountainLion() As Boolean
 		  // Tells you if this OS has features of this version
 		  // This means that it returns true for later OS versions as well.

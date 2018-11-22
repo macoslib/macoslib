@@ -72,6 +72,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		207: 2018-09-29 by VVB
+		- Added OS Version check for IsMojave.
+		
 		206: 2018-08-29 by GS
 		- Fixed some syntax errors that caused failure to compile for Windows Builds.
 		
