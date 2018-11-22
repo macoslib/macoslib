@@ -658,7 +658,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"206", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"207", Scope = Protected
 	#tag EndConstant
 
 
