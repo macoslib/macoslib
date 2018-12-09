@@ -626,18 +626,18 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As String()
-		  
-		  dim retArray() as String
-		  
-		  dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
-		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
-		  dim n as Integer = arrayRange.length-1
-		  for i as integer = 0 to n
-		    retArray.append new NSString(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		  next
-		  
-		  return retArray
-		  
+		  #If TargetMacOS
+		    dim retArray() as String
+		    
+		    dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
+		    dim m as MemoryBlock = self.ValuesArray(arrayRange)
+		    dim n as Integer = arrayRange.length-1
+		    for i as integer = 0 to n
+		      retArray.append New NSString(Ptr(m.UInt64Value(i * SizeOfPointer)))
+		    next
+		    
+		    return retArray
+		  #EndIf
 		End Function
 	#tag EndMethod
 
@@ -728,16 +728,18 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function Values(aRange as Cocoa.NSRange) As NSObject()
-		  dim rb_array() as NSObject
-		  
-		  dim m as MemoryBlock = self.ValuesArray(aRange)
-		  
-		  dim n as Integer = aRange.length-1
-		  for i as integer = 0 to n
-		    rb_array.append new NSObject(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		  next
-		  
-		  return rb_array
+		  #If TargetMacOS
+		    Dim rb_array() As NSObject
+		    
+		    Dim m As MemoryBlock = Self.ValuesArray(aRange)
+		    
+		    Dim n As Integer = aRange.length - 1
+		    For i As Integer = 0 To n
+		      rb_array.append New NSObject(Ptr(m.UInt64Value(i * SizeOfPointer)))
+		    Next
+		    
+		    Return rb_array
+		  #EndIf
 		  
 		End Function
 	#tag EndMethod
@@ -870,7 +872,7 @@ Inherits NSObject
 		#tag ViewProperty
 			Name="Count"
 			Group="Behavior"
-			Type="Integer"
+			Type="UInteger"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
