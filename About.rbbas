@@ -40,6 +40,7 @@ Protected Module About
 		Serhiy Duminskyy (SD)
 		Ulrich Bogun (UB)
 		Graham Spratt (GS)
+		Ed Palmer (EP)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -72,7 +73,7 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		208: 2018-12-09 by Ed Palmer
+		208: 2018-12-09 by EP
 		- Conditional compilation for NSArray:Operator_Convert.
 		
 		207: 2018-09-29 by VVB
@@ -661,7 +662,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"207", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"208", Scope = Protected
 	#tag EndConstant
 
 
