@@ -35,6 +35,7 @@ Protected Module About
 		Jeremy Cowgar (JC)
 		Ulrich Bogun (UB)
 		Graham Spratt (GS)
+		Ed Palmer (EP)
 	#tag EndNote
 
 	#tag Note, Name = Documentation
@@ -66,6 +67,9 @@ Protected Module About
 		for previous release notes. Contributors are identified by initials. See the "Contributors" note for full names.
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
+		
+		208: 2018-12-09 by EP
+		- Conditional compilation for NSArray:Operator_Convert.
 		
 		207: 2018-09-29 by VVB
 		- Added OS Version check for IsMojave.

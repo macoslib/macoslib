@@ -638,28 +638,28 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As String()
-		  
-		  dim retArray() as String
-		  
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		  #if targetMacOS then
+		    dim retArray() as String
+		    
+		    #if RBVersion > 2013.01
+		      #if Target64Bit
+		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
+		      #endif
 		    #endif
+		    
+		    dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
+		    dim m as MemoryBlock = self.ValuesArray(arrayRange)
+		    dim n as UInt32 = arrayRange.length-1
+		    for i as integer = 0 to n
+		      #if Target64Bit then
+		        retArray.append new NSString(Ptr(m.UInt64Value(i*8)))
+		      #else
+		        retArray.append new NSString(Ptr(m.UInt32Value(i*4)))
+		      #endif
+		    next
+		    
+		    return retArray
 		  #endif
-		  
-		  dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
-		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
-		  dim n as UInt32 = arrayRange.length-1
-		  for i as integer = 0 to n
-		    #if Target64Bit then
-		      retArray.append new NSString(Ptr(m.UInt64Value(i*8)))
-		    #else
-		      retArray.append new NSString(Ptr(m.UInt32Value(i*4)))
-		    #endif
-		  next
-		  
-		  return retArray
-		  
 		End Function
 	#tag EndMethod
 
