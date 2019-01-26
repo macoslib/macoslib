@@ -72,6 +72,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		208: 2018-12-09 by Ed Palmer
+		- Conditional compilation for NSArray:Operator_Convert.
+		
 		207: 2018-09-29 by VVB
 		- Added OS Version check for IsMojave.
 		
