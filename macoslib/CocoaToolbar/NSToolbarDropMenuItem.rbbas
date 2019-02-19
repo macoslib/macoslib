@@ -297,53 +297,6 @@ Implements NSToolbarItemInterface
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Image() As NSImage
-		  
-		  // get the item image as NSImage
-		  
-		  #if TargetCocoa
-		    declare function image lib CocoaLib selector "image:" (obj_id as Ptr) as Ptr
-		    
-		    dim imageRef as Ptr = image(_control_id)
-		    if imageRef <> nil then
-		      return new NSImage(imageRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Image(assigns n as NSImage)
-		  
-		  // set the image item as NSImage
-		  
-		  #if TargetCocoa
-		    declare sub setImage lib CocoaLib selector "setImage:" (obj_id as Ptr, menuImage as Ptr)
-		    
-		    if n <> nil then
-		      setImage _control_id, n
-		      
-		      // set the same image on the overflow menu item (just smaller)
-		      dim tinyImage as NSImage = n.Copy
-		      dim s as Cocoa.NSSize
-		      s.width = 16
-		      s.height = 16
-		      tinyImage.Size = s
-		      _overflowMenuItem.Image = tinyImage
-		    end if
-		    
-		  #else
-		    #pragma unused n
-		  #endif
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function IndexOfItemWithTag(tag as Integer) As Integer
 		  
 		  // get the index of first menu item with a provided tag
