@@ -68,6 +68,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		209: 2018-02-19 by VVB
+		- Removed NSToolbarDropMenuItem.Image() methods since they are already implemented in its super class and they were causing an issue while trying to set the template option causing the toolbar not to show.
+		
 		208: 2018-12-09 by EP
 		- Conditional compilation for NSArray:Operator_Convert.
 		
@@ -656,7 +659,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"208", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"209", Scope = Protected
 	#tag EndConstant
 
 
@@ -666,33 +669,33 @@ Protected Module About
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
