@@ -1072,6 +1072,42 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub TabsForApp(optIn as Boolean)
+		  //# Disables automatic tabs for all windows, call from app's open event.
+		  
+		  #if TargetCocoa then
+		    if IsSierra then
+		      declare function objc_getClass lib "libobjc.dylib" ( name as CString ) as ptr
+		      dim nsWindowClass as ptr = objc_getClass( "NSWindow" )
+		      
+		      declare sub AllowTabGrouping lib "AppKit"selector "setAllowsAutomaticWindowTabbing:" (classPtr as Ptr , enableDisable as Boolean)
+		      
+		      AllowTabGrouping( nsWindowClass, optIn )
+		    end if
+		  #else
+		    #Pragma Unused optIn
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TabsForWindow(extends w as Window, assigns tabMode as TabbingMode)
+		  //# Disables automatic tabs for the current window.
+		  
+		  #if TargetCocoa then
+		    if IsSierra then
+		      declare sub setTabbingMode lib CocoaLib selector "setTabbingMode:" (obj as Integer, m as Integer)
+		      
+		      setTabbingMode(w.handle, Integer(tabMode))
+		    end if
+		  #else
+		    #Pragma Unused w
+		    #Pragma Unused tabMode
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function TitlebarAppearsTransparent(extends w as Window) As Boolean
 		  
 		  #if TargetCocoa then
@@ -1275,6 +1311,12 @@ Protected Module WindowExtensions
 		Visible
 		  Hidden
 		HiddenWhenActive
+	#tag EndEnum
+
+	#tag Enum, Name = TabbingMode, Type = Integer, Flags = &h0
+		Automatic
+		  Preferred
+		Disallowed
 	#tag EndEnum
 
 

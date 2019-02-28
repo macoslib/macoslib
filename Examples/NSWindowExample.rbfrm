@@ -7,7 +7,7 @@ Begin Window NSWindowExample
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   423
+   Height          =   473
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -27,7 +27,7 @@ Begin Window NSWindowExample
    Begin PagePanel ppExamples
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   400
+      Height          =   450
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -1840,6 +1840,71 @@ Begin Window NSWindowExample
          Visible         =   True
          Width           =   190
       End
+      Begin PopupMenu popTabbingMode
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ppExamples"
+         InitialValue    =   "Automatic\nPreferred\nDisallowed"
+         Italic          =   False
+         Left            =   212
+         ListIndex       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   19
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0e+
+         TextUnit        =   0
+         Top             =   389
+         Underline       =   False
+         Visible         =   True
+         Width           =   190
+      End
+      Begin Label lblArray
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   8
+         InitialParent   =   "ppExamples"
+         Italic          =   False
+         Left            =   212
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   20
+         TabPanelIndex   =   3
+         Text            =   "Tabbing Mode:"
+         TextAlign       =   0
+         TextColor       =   &h00000000
+         TextFont        =   "System"
+         TextSize        =   0.0e+
+         TextUnit        =   0
+         Top             =   365
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   182
+      End
    End
    Begin Listbox lstExamples
       AutoDeactivate  =   True
@@ -1859,7 +1924,7 @@ Begin Window NSWindowExample
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   400
+      Height          =   450
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -1940,6 +2005,9 @@ End
 		  UpdateBackingScaleFactor
 		  UpdateCollectionBehavior
 		  UpdateStyleMask
+		  
+		  // Sets app wide automatic tabbing mode
+		  'WindowExtensions.TabsForApp(False)
 		End Sub
 	#tag EndEvent
 
@@ -2397,6 +2465,13 @@ End
 	#tag Event
 		Sub Action()
 		  self.SetVisualEffectView( NSVisualEffectView.NSMaterial.AppearanceBased )
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events popTabbingMode
+	#tag Event
+		Sub Change()
+		  self.TabsForWindow = WindowExtensions.TabbingMode(me.ListIndex)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
