@@ -73,6 +73,11 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		210: 2018-02-28 by VVB
+		- RestoreFrameFromWindowName: Set build target to TargetCocoa from TargetMacOS.
+		- WindowExtensions: Added methods for enabling/disabling window tabs on a per window or app wide setting.
+		- NSWindowExample: Added example for auto window tabs enabling/disabling.
+		
 		209: 2018-02-19 by VVB
 		- Removed NSToolbarDropMenuItem.Image() methods since they are already implemented in its super class and they were causing an issue while trying to set the template option causing the toolbar not to show.
 		
@@ -665,7 +670,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"209", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"210", Scope = Protected
 	#tag EndConstant
 
 
