@@ -189,14 +189,14 @@ Inherits MenuItem
 		    declare sub setState lib CocoaLib selector "setState:" (obj_id as Ptr, value as Integer)
 		    declare function state lib CocoaLib selector "state" (obj_id as Ptr) as Integer
 		    declare sub setMixedStateImage lib CocoaLib selector "setMixedStateImage:" (obj_id as Ptr, itemImage as Ptr)
-		    declare function _NSGetThemeImage lib CocoaLib (num as Integer) as Ptr
+		    'declare function _NSGetThemeImage lib CocoaLib (num as Integer) as Ptr
 		    
 		    dim wItem as Ptr = FindMenuItemByTarget(notification.AssociatedObject)
 		    if wItem <> nil then
 		      if isMiniaturized(notification.AssociatedObject) then
 		        //beware that m_NSGetThemeImage is private API.  This code may get your app rejected from the App Store.
 		        setState(wItem, NSMixedState)
-		        setMixedStateImage(wItem, _NSGetThemeImage(155))
+		        'setMixedStateImage(wItem, _NSGetThemeImage(155))
 		      else
 		        if state(wItem) = NSMixedState then
 		          setState(wItem, NSOffState)

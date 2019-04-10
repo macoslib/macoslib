@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		211: 2019-04-10 by VVB
+		- Commented out two lines in MenuItemWindowMenu.HandleWindowMiniaturize which caused compilation issues in Xojo release 2018R4 and up.
+		
 		210: 2018-02-28 by VVB
 		- RestoreFrameFromWindowName: Set build target to TargetCocoa from TargetMacOS.
 		- WindowExtensions: Added methods for enabling/disabling window tabs on a per window or app wide setting.
@@ -670,7 +673,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"210", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"211", Scope = Protected
 	#tag EndConstant
 
 
