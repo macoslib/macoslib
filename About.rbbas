@@ -68,6 +68,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		211: 2019-04-18 by VVB
+		- Added a commandline version of GetSystemVersion.
+		- Expanded NSDatePicker example.
+		
 		210: 2018-02-28 by VVB
 		- RestoreFrameFromWindowName: Set build target to TargetCocoa from TargetMacOS.
 		- WindowExtensions: Added methods for enabling/disabling window tabs on a per window or app wide setting.
@@ -664,7 +668,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"210", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"211", Scope = Protected
 	#tag EndConstant
 
 
@@ -674,33 +678,33 @@ Protected Module About
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

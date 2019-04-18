@@ -6,6 +6,15 @@ Protected Module Carbon
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GetSystemVersionFromCommandLine() As String
+		  dim sh as new shell
+		  sh.Execute("sw_vers | grep ProductVersion | awk '{print $2}'")
+		  dim s as string = sh.Result
+		  return trim(s)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Attributes( deprecated ) Protected Function GetSystemVersionFromGestalt() As String
 		  // Attention: This is now deprecated because it's returning wrong
