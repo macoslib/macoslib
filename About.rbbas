@@ -73,7 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
-		211: 2019-04-10 by VVB
+		211: 2019-04-18 by VVB
+		- Added a commandline version of GetSystemVersion.
+		- Expanded NSDatePicker example.
 		- Commented out two lines in MenuItemWindowMenu.HandleWindowMiniaturize which caused compilation issues in Xojo release 2018R4 and up.
 		
 		210: 2018-02-28 by VVB
