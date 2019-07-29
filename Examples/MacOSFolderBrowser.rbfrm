@@ -2,31 +2,52 @@
 Begin Window MacOSFolderBrowser
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
+   BackgroundColor =   &cFFFFFF00
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
-   Frame           =   0
+   DefaultLocation =   "0"
+   Frame           =   "0"
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
+   HasBackgroundColor=   False
+   HasCloseButton  =   True
+   HasFullScreenButton=   False
+   HasMaximizeButton=   True
+   HasMinimizeButton=   True
    Height          =   380
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
+   MaximumHeight   =   32000
+   MaximumWidth    =   32000
    MaxWidth        =   32000
    MenuBar         =   -1162234704
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
+   MinimumHeight   =   64
+   MinimumWidth    =   64
    MinWidth        =   64
-   Placement       =   0
-   Resizeable      =   True
+   Placement       =   "0"
+   Resizable       =   True
+   Resizeable      =   "True"
+   SystemUIVisible =   True
    Title           =   "MacOSFolders"
+   Type            =   "0"
    Visible         =   True
    Width           =   482
    Begin ListBox ListBox1
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   True
+      AllowRowDragging=   False
+      AllowRowReordering=   False
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       BehaviorIndex   =   0
@@ -38,12 +59,22 @@ Begin Window MacOSFolderBrowser
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      GridLinesHorizontal=   0
-      GridLinesVertical=   0
+      FontName        =   "System"
+      FontSize        =   12.0
+      FontUnit        =   0
+      GridLinesHorizontal=   "0"
+      GridLinesHorizontalStyle=   "0"
+      GridLinesVertical=   "0"
+      GridLinesVerticalStyle=   "0"
+      HasBorder       =   True
+      HasHeader       =   True
       HasHeading      =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
       HeadingIndex    =   -1
       Height          =   331
       HelpTag         =   ""
@@ -59,10 +90,12 @@ Begin Window MacOSFolderBrowser
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      Scope           =   "0"
+      RowSelectionType=   "0"
+      Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
-      SelectionType   =   0
+      SelectionRequired=   False
+      SelectionType   =   "0"
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -70,6 +103,7 @@ Begin Window MacOSFolderBrowser
       TextSize        =   12.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -78,12 +112,16 @@ Begin Window MacOSFolderBrowser
       _ScrollWidth    =   -1
    End
    Begin PopupMenu PopupMenu1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   12.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -97,7 +135,8 @@ Begin Window MacOSFolderBrowser
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      Scope           =   "0"
+      Scope           =   0
+      SelectedRowIndex=   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -105,17 +144,22 @@ Begin Window MacOSFolderBrowser
       TextSize        =   12.0
       TextUnit        =   0
       Top             =   343
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   161
    End
    Begin Label StaticText1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       BehaviorIndex   =   2
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   12.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -128,20 +172,22 @@ Begin Window MacOSFolderBrowser
       LockRight       =   False
       LockTop         =   False
       Multiline       =   False
-      Scope           =   "0"
+      Scope           =   0
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Disk/Domain:"
-      TextAlign       =   0
-      TextColor       =   
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   12.0
       TextUnit        =   0
       Top             =   343
       Transparent     =   False
       Underline       =   False
+      Value           =   "Disk/Domain:"
       Visible         =   True
       Width           =   86
    End
@@ -306,7 +352,7 @@ End
 		    ListBox1.AddRow folderTypes.Key(i).StringValue
 		    dim f as FolderItem = FolderManager.FindFolder(domain, FolderTypes.value(folderTypes.Key(i)).StringValue, false)
 		    if f <> nil then
-		      ListBox1.Cell(ListBox1.LastIndex, 1) = f.AbsolutePath
+		      ListBox1.Cell(ListBox1.LastIndex, 1) = f.NativePath
 		      ListBox1.Cell(ListBox1.LastIndex, 2) = f.ShellPath
 		    else
 		      ListBox1.Cell(ListBox1.LastIndex, 1) = "Nil"
@@ -348,8 +394,8 @@ End
 		  c.SetText hitItem.Tag.StringValue
 		  return true
 		  
-		exception oops as TypeMismatchException
-		  //please file a macoslib bug report.
+		  exception oops as TypeMismatchException
+		    //please file a macoslib bug report.
 		End Function
 	#tag EndEvent
 #tag EndEvents
@@ -376,7 +422,13 @@ End
 		  
 		  for i as Integer = 0 to VolumeCount - 1
 		    me.AddRow "Volume " + Str(i)
-		    me.RowTag(me.ListCount - 1) = Volume(i).MacVRefNum
+		    
+		    #if XojoVersion < 2019.02
+		      me.RowTag(me.ListCount - 1) = Volume(i).MacVRefNum
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
+		    #endif
 		  next
 		  
 		  me.ListIndex = 0

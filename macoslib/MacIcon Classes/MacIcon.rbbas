@@ -1,7 +1,7 @@
 #tag Class
 Protected Class MacIcon
 	#tag Method, Flags = &h0
-		 Shared Sub Acquire(iconRef as Ptr)
+		Shared Sub Acquire(iconRef as Ptr)
 		  if iconRef = nil then
 		    return
 		  end if
@@ -106,7 +106,7 @@ Protected Class MacIcon
 		    dim context as Integer = g.Handle(Graphics.HandleTypeCGContextRef)
 		    dim grafPort as Integer
 		    if context = 0 then
-		      grafPort = g.Handle(Graphics.handleTypeCGrafPtr)
+		      grafPort = g.Handle(Graphics.HandleTypeCGContextRef)
 		      error = QDBeginCGContext (grafPort, context)
 		    end if
 		    
@@ -145,7 +145,7 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromExtension(extension as String) As MacIcon
+		Shared Function NewIconFromExtension(extension as String) As MacIcon
 		  #if TargetMacOS
 		    soft declare function GetIconRefFromTypeInfo lib CarbonLib (inCreator as OSType, inType as OSType, inExtension as CFStringRef, inMIMEType as Ptr, inUsageFlags as Integer, ByRef outIconRef as Ptr) as Short
 		    //requires OS 10.3
@@ -162,7 +162,7 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromFolderItem(f as FolderItem, quick as Boolean = false) As MacIcon
+		Shared Function NewIconFromFolderItem(f as FolderItem, quick as Boolean = false) As MacIcon
 		  if not (f is nil) and f.Exists then
 		    if quick then
 		      if f.Directory then
@@ -182,7 +182,7 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromFSRef(fileRef as FSRef) As MacIcon
+		Shared Function NewIconFromFSRef(fileRef as FSRef) As MacIcon
 		  #if targetMacOS
 		    
 		    dim catalogInfo as FSCatalogInfo
@@ -216,7 +216,7 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromicnsFile(icnsFile as FolderItem) As MacIcon
+		Shared Function NewIconFromicnsFile(icnsFile as FolderItem) As MacIcon
 		  #if targetMacOS
 		    if icnsFile is nil or not icnsFile.Exists then
 		      return NewIconFromOSInfo(kUnknownFileType)
@@ -274,7 +274,7 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromMIMEType(mimeType as String) As MacIcon
+		Shared Function NewIconFromMIMEType(mimeType as String) As MacIcon
 		  #if TargetMacOS
 		    soft declare function GetIconRefFromTypeInfo lib CarbonLib (inCreator as OSType, inType as OSType, inExtension as Ptr, inMIMEType as CFStringRef, inUsageFlags as Integer, ByRef outIconRef as Ptr) as Short
 		    //requires OS 10.3
@@ -291,13 +291,13 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromOSInfo(type as OSType) As MacIcon
+		Shared Function NewIconFromOSInfo(type as OSType) As MacIcon
 		  return NewIconFromOSInfo(MacIcon.kSystemIconsCreator, type)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewIconFromOSInfo(creator as OSType, type as OSType) As MacIcon
+		Shared Function NewIconFromOSInfo(creator as OSType, type as OSType) As MacIcon
 		  #if TargetMacOS
 		    soft declare function GetIconRef lib CarbonLib (vRefNum as Short, creator as OSType, icnType as OSType, ByRef theIconRef as Ptr) as Short
 		    
@@ -364,7 +364,7 @@ Protected Class MacIcon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub Release(theIconRef as Ptr)
+		Shared Sub Release(theIconRef as Ptr)
 		  if theIconRef = nil then
 		    return
 		  end if
@@ -739,33 +739,40 @@ Protected Class MacIcon
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

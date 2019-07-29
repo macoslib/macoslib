@@ -90,50 +90,55 @@ Module FileManager
 		    
 		    if aliasData is nil then return nil
 		    
-		    declare function FSResolveAliasWithMountFlags Lib CarbonLib _
-		    ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInteger ) as Integer
-		    declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
-		    declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
-		    
-		    dim mb1 as new MemoryBlock( 4 ) // holds just the handle for the alias data
-		    mb1.Long( 0 ) = NewHandle( LenB( aliasData ) )
-		    mb1.Ptr( 0 ).Ptr( 0 ).StringValue( 0, LenB( aliasData ) ) = aliasData
-		    
-		    dim OSError as Integer
-		    dim mb2 as MemoryBlock
-		    if relativeTo <> nil then
-		      mb2 = relativeTo.MacFSRef
-		    end
-		    dim outRef as new MemoryBlock( 80 )
-		    dim changed as Boolean
-		    if mb2 <> nil then
-		      OSError = FSResolveAliasWithMountFlags( mb2, mb1.Long(0), outRef, changed, flags )
-		    else
-		      OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
-		    end
-		    DisposeHandle ( mb1.Long( 0 ) )
-		    if OSError = 0 then
-		      r = FolderItem.CreateFromMacFSRef( outRef )
-		    else
+		    #if XojoVersion < 2019.02
+		      declare function FSResolveAliasWithMountFlags Lib CarbonLib _
+		      ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInteger ) as Integer
+		      declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
+		      declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
 		      
-		      // We'll grab the info from the alias and create a folderitem that way.
-		      dim targetNameHFS as HFSUniStr255
-		      dim volumeNameHFS as HFSUniStr255
-		      dim pathString as CFStringRef
-		      dim bitmap as integer
-		      dim aliasInfo as FSAliasInfo
+		      dim mb1 as new MemoryBlock( 4 ) // holds just the handle for the alias data
+		      mb1.Long( 0 ) = NewHandle( LenB( aliasData ) )
+		      mb1.Ptr( 0 ).Ptr( 0 ).StringValue( 0, LenB( aliasData ) ) = aliasData
 		      
-		      OSError = FSCopyAliasInfo( aliasData, targetNameHFS, volumeNameHFS, pathString, bitmap, aliasInfo )
-		      if OSError = 0 and pathString <> "" then
-		        #if DebugBuild
-		          dim targetName as string = StringValue( targetNameHFS )
-		          dim volumeName as string = StringValue( volumeNameHFS )
-		          #pragma unused targetName
-		          #pragma unused volumeName
-		        #endif
-		        r = GetFolderItemFromPOSIXPath( pathString )
+		      dim OSError as Integer
+		      dim mb2 as MemoryBlock
+		      if relativeTo <> nil then
+		        mb2 = relativeTo.MacFSRef
+		      end
+		      dim outRef as new MemoryBlock( 80 )
+		      dim changed as Boolean
+		      if mb2 <> nil then
+		        OSError = FSResolveAliasWithMountFlags( mb2, mb1.Long(0), outRef, changed, flags )
+		      else
+		        OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
+		      end
+		      DisposeHandle ( mb1.Long( 0 ) )
+		      if OSError = 0 then
+		        r = FolderItem.CreateFromMacFSRef( outRef )
+		      else
+		        
+		        // We'll grab the info from the alias and create a folderitem that way.
+		        dim targetNameHFS as HFSUniStr255
+		        dim volumeNameHFS as HFSUniStr255
+		        dim pathString as CFStringRef
+		        dim bitmap as integer
+		        dim aliasInfo as FSAliasInfo
+		        
+		        OSError = FSCopyAliasInfo( aliasData, targetNameHFS, volumeNameHFS, pathString, bitmap, aliasInfo )
+		        if OSError = 0 and pathString <> "" then
+		          #if DebugBuild
+		            dim targetName as string = StringValue( targetNameHFS )
+		            dim volumeName as string = StringValue( volumeNameHFS )
+		            #pragma unused targetName
+		            #pragma unused volumeName
+		          #endif
+		          r = GetFolderItemFromPOSIXPath( pathString )
+		        end if
 		      end if
-		    end if
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
+		    #endif
 		    
 		  #else
 		    
@@ -154,7 +159,12 @@ Module FileManager
 		    
 		    #if RBVersion >= 2010.05
 		      
-		      return FolderItem.CreateFromMacFSRef (theFSRef)
+		      #if XojoVersion < 2019.02
+		        return FolderItem.CreateFromMacFSRef (theFSRef)
+		      #else
+		        // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		        break
+		      #endif
 		      
 		    #else
 		      
@@ -215,14 +225,20 @@ Module FileManager
 		Protected Function GetFolderItemFromFSSpec(theFSSpec as FSSpec) As FolderItem
 		  #if targetMacOS
 		    if theFSSpec.parID = fsRtParID then // I am the root directory
-		      dim f as FolderItem
-		      for i as Integer = 0 to VolumeCount - 1
-		        if Volume(i).MacVRefNum = theFSSpec.vRefNum then
-		          f = Volume(i)
-		          exit
-		        end if
-		      next
-		      return f
+		      #if XojoVersion < 2019.02
+		        dim f as FolderItem
+		        for i as Integer = 0 to VolumeCount - 1
+		          if Volume(i).MacVRefNum = theFSSpec.vRefNum then
+		            f = Volume(i)
+		            exit
+		          end if
+		        next
+		        return f
+		      #else
+		        // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		        break
+		      #endif
+		      
 		    else
 		      soft declare function FSMakeFSSpec lib CarbonLib (vRefNum as Int16, dirID as Integer, filename as PString, ByRef spec as FSSpec) as Int16
 		      
@@ -309,7 +325,12 @@ Module FileManager
 		    
 		    #if RBVersion >= 2010.05
 		      
-		      theFSRef = new FSRef(f.MacFSRef)
+		      #if XojoVersion < 2019.02
+		        theFSRef = new FSRef(f.MacFSRef)
+		      #else
+		        // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		        break
+		      #endif
 		      
 		    #else
 		      // use the "lib hack"
@@ -382,14 +403,19 @@ Module FileManager
 		  #if targetMacOS
 		    soft declare function FSGetVolumeParms lib CarbonLib (volume as Int16, ByRef buffer as GetVolParmsInfoBuffer, bufferSize as Integer) as Integer
 		    
-		    dim buffer as GetVolParmsInfoBuffer
-		    dim err as Integer = FSGetVolumeParms(f.MacVRefNum, buffer, buffer.Size)
-		    if err = noErr then
-		      return (buffer.vMExtendedAttributes and isCaseSensitive) = isCaseSensitive
-		    else
-		      //since we're not generally raising exceptions, alas
-		      return false
-		    end if
+		    #if XojoVersion < 2019.02
+		      dim buffer as GetVolParmsInfoBuffer
+		      dim err as Integer = FSGetVolumeParms(f.MacVRefNum, buffer, buffer.Size)
+		      if err = noErr then
+		        return (buffer.vMExtendedAttributes and isCaseSensitive) = isCaseSensitive
+		      else
+		        //since we're not generally raising exceptions, alas
+		        return false
+		      end if
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
+		    #endif
 		    
 		  #else
 		    
@@ -801,6 +827,7 @@ Module FileManager
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -808,18 +835,23 @@ Module FileManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -827,6 +859,7 @@ Module FileManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

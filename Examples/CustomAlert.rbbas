@@ -17,11 +17,25 @@ Inherits NSAlert
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
+			Name="AlertStyle"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
+			Type="Style"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Warning"
+				"1 - Informational"
+				"2 - Critical"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSObject"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -29,45 +43,55 @@ Inherits NSAlert
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsHelp"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="NSAlert"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsSuppressionButton"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="NSAlert"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

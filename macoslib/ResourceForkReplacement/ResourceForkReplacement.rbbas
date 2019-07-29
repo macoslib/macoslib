@@ -2,9 +2,14 @@
 Protected Module ResourceForkReplacement
 	#tag Method, Flags = &h0
 		Function OpenMacResourceFork(extends f as FolderItem) As MacResourceFork
-		  if f <> nil and f.ResourceForkLength > 0 then
-		    return new MacResourceFork (f)
-		  end if
+		  #if XojoVersion < 2019.02
+		    if f <> nil and f.ResourceForkLength > 0 then
+		      return new MacResourceFork (f)
+		    end if
+		  #else
+		    // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		    break
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -39,6 +44,7 @@ Protected Module ResourceForkReplacement
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -46,18 +52,23 @@ Protected Module ResourceForkReplacement
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -65,6 +76,7 @@ Protected Module ResourceForkReplacement
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

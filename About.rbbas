@@ -73,6 +73,21 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		212: 2019-08-29 by SD
+		- The project was re-saved in a new Xojo format (.xojo_code instead of .rbbas) — the reason of massive changes in this commit.
+		- MacType, MacCreator and MacFSRef have been deprecated for many years and will be removed in future version of Xojo. 
+		This allows the project to be compiled in future versions of Xojo without any changes to the code, but functions relying on removed features will need to be removed or rewritten to work.
+		So, such places were rewritten to:
+		#if XojoVersion < 2019.02
+		...code...
+		#else
+		// the code isn’t supported or should be rewritten
+		break
+		#endif
+		
+		Changes can be found by searching for: 2019.02
+		18-20 changes in total.
+		
 		211: 2019-04-18 by VVB
 		- Added a commandline version of GetSystemVersion.
 		- Expanded NSDatePicker example.
@@ -675,7 +690,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"211", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"212", Scope = Protected
 	#tag EndConstant
 
 

@@ -858,51 +858,83 @@ Inherits NSControl
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="AcceptFocus"
-			Visible=true
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AcceptTabs"
-			Visible=true
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AllowsExpansionToolTips"
-			Group="Behavior"
-			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AutoDeactivate"
+			Name="AllowAutoDeactivate"
 			Visible=true
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowFocusRing"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowFocus"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowTabs"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Alignment"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSTextAlignment"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Left"
+				"1 - Right"
+				"2 - Center"
+				"3 - Justified"
+				"4 - Natural"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsExpansionToolTips"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoenablesItems"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="autoresizesSubviews"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Backdrop"
 			Visible=true
 			Group="Appearance"
+			InitialValue=""
 			Type="Picture"
 			EditorType="Picture"
-			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Bold"
@@ -910,32 +942,31 @@ Inherits NSControl
 			Group="Behavior"
 			InitialValue="false"
 			Type="Boolean"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Bordered"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DoubleBuffer"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -943,21 +974,15 @@ Inherits NSControl
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
-			InheritedFrom="Canvas"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="EraseBackground"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FloatValue"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
-			InheritedFrom="NSControl"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -965,38 +990,47 @@ Inherits NSControl
 			Group="Position"
 			InitialValue="100"
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HelpTag"
 			Visible=true
 			Group="Appearance"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
-			InheritedFrom="Canvas"
+			Visible=false
+			Group=""
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IntegerValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Italic"
@@ -1004,49 +1038,55 @@ Inherits NSControl
 			Group="Behavior"
 			InitialValue="false"
 			Type="Boolean"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockBottom"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockLeft"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockRight"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockTop"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="Canvas"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PullsDown"
@@ -1054,18 +1094,23 @@ Inherits NSControl
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="NSControl"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Canvas"
+			InitialValue=""
+			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
@@ -1073,14 +1118,15 @@ Inherits NSControl
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabPanelIndex"
+			Visible=false
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
@@ -1088,7 +1134,7 @@ Inherits NSControl
 			Group="Position"
 			InitialValue="True"
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TextFont"
@@ -1097,7 +1143,6 @@ Inherits NSControl
 			InitialValue="System"
 			Type="String"
 			EditorType="MultiLineEditor"
-			InheritedFrom="NSControl"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TextSize"
@@ -1105,18 +1150,21 @@ Inherits NSControl
 			Group="Behavior"
 			InitialValue="0.0"
 			Type="double"
-			InheritedFrom="NSControl"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Transparent"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
 			EditorType="Boolean"
 		#tag EndViewProperty
@@ -1126,15 +1174,7 @@ Inherits NSControl
 			Group="Behavior"
 			InitialValue="false"
 			Type="Boolean"
-			InheritedFrom="NSControl"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="UseFocusRing"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Visible"
@@ -1142,7 +1182,7 @@ Inherits NSControl
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
-			InheritedFrom="Canvas"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"
@@ -1150,7 +1190,91 @@ Inherits NSControl
 			Group="Position"
 			InitialValue="100"
 			Type="Integer"
-			InheritedFrom="Canvas"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ArrowPosition"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSPopUpArrowPosition"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSPopUpNoArrow"
+				"1 - NSPopUpArrowAtCenter"
+				"2 - NSPopUpArrowAtBottom"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BezelStyle"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSBezelStyle"
+			EditorType="Enum"
+			#tag EnumValues
+				"1 - NSRoundedBezelStyle"
+				"2 - NSRegularSquareBezelStyle"
+				"3 - NSThickSquareBezelStyle"
+				"4 - NSThickerSquareBezelStyle"
+				"5 - NSDisclosureBezelStyle"
+				"6 - NSShadowlessSquareBezelStyle"
+				"7 - NSCircularBezelStyle"
+				"8 - NSTexturedSquareBezelStyle"
+				"9 - NSHelpButtonBezelStyle"
+				"10 - NSSmallSquareBezelStyle"
+				"11 - NSTexturedRoundedBezelStyle"
+				"12 - NSRoundRectBezelStyle"
+				"13 - NSRecessedBezelStyle"
+				"14 - NSRoundedDisclosureBezelStyle"
+				"15 - NSInlineBezelStyle"
+				"2 - NSSmallIconButtonBezelStyle"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ImagePosition"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSCellImagePosition"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSNoImage"
+				"1 - NSImageOnly"
+				"2 - NSImageLeft"
+				"3 - NSImageRight"
+				"4 - NSImageBelow"
+				"5 - NSImageAbove"
+				"6 - NSImageOverlaps"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ImageScaling"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSImageScaling"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSImageScaleProportionallyDown"
+				"1 - NSImageScaleAxesIndependently"
+				"2 - NSImageScaleNone"
+				"3 - NSImageScaleProportionallyUpOrDown"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PreferredEdge"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSRectEdge"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSMinXEdge"
+				"1 - NSMinYEdge"
+				"2 - NSMaxXEdge"
+				"3 - NSMaxYEdge"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

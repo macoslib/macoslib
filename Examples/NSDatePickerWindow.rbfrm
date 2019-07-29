@@ -2,35 +2,53 @@
 Begin Window NSDatePickerWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
+   BackgroundColor =   &cFFFFFF00
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
-   Frame           =   0
+   DefaultLocation =   "0"
+   Frame           =   "0"
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
+   HasBackgroundColor=   False
+   HasCloseButton  =   True
+   HasFullScreenButton=   False
+   HasMaximizeButton=   False
+   HasMinimizeButton=   True
    Height          =   368
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
+   MaximumHeight   =   32000
+   MaximumWidth    =   32000
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
+   MinimumHeight   =   64
+   MinimumWidth    =   64
    MinWidth        =   64
-   Placement       =   0
-   Resizeable      =   True
+   Placement       =   "0"
+   Resizable       =   True
+   Resizeable      =   "True"
+   SystemUIVisible =   True
    Title           =   "NSDatePicker"
+   Type            =   "0"
    Visible         =   True
    Width           =   764
    Begin NSDatePicker NSPickerDateTimeGraphical
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
       AllowsExpansionToolTips=   False
+      AllowTabs       =   False
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -39,11 +57,11 @@ Begin Window NSDatePickerWindow
       Bordered        =   False
       DatePickerElements=   0
       Description     =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       DoubleValue     =   0.0
       DrawsBackground =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       FloatValue      =   0.0
       Height          =   150
       HelpTag         =   ""
@@ -75,6 +93,7 @@ Begin Window NSDatePickerWindow
       Width           =   280
    End
    Begin PushButton PushButton1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -82,6 +101,9 @@ Begin Window NSDatePickerWindow
       Caption         =   "Change Background"
       Default         =   False
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -93,6 +115,7 @@ Begin Window NSDatePickerWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -101,17 +124,22 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   280
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   168
    End
    Begin CheckBox BackgroundCheckbox
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Draw Background"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -124,7 +152,7 @@ Begin Window NSDatePickerWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      State           =   0
+      State           =   "0"
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
@@ -132,17 +160,23 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   280
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
+      VisualState     =   "0"
       Width           =   145
    End
    Begin PopupMenu PopupMenu1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -157,6 +191,7 @@ Begin Window NSDatePickerWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
+      SelectedRowIndex=   0
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
@@ -164,17 +199,22 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   -302
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   153
    End
    Begin CheckBox BezeledCheckbox
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Bezeled"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -187,7 +227,7 @@ Begin Window NSDatePickerWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   2
-      State           =   1
+      State           =   "1"
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
@@ -195,18 +235,24 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   304
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
+      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox BorderedCheckbox
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Bordered"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -219,7 +265,7 @@ Begin Window NSDatePickerWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      State           =   0
+      State           =   "0"
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
@@ -227,16 +273,22 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   328
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
+      VisualState     =   "0"
       Width           =   100
    End
    Begin NSDatePicker NSPickerDateOnly
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
       AllowsExpansionToolTips=   False
+      AllowTabs       =   False
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -245,11 +297,11 @@ Begin Window NSDatePickerWindow
       Bordered        =   False
       DatePickerElements=   0
       Description     =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       DoubleValue     =   0.0
       DrawsBackground =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       FloatValue      =   0.0
       Height          =   24
       HelpTag         =   ""
@@ -281,11 +333,15 @@ Begin Window NSDatePickerWindow
       Width           =   142
    End
    Begin Label lblArray
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   19
       HelpTag         =   ""
       Index           =   0
@@ -304,7 +360,8 @@ Begin Window NSDatePickerWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Date only:"
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -312,6 +369,7 @@ Begin Window NSDatePickerWindow
       Top             =   20
       Transparent     =   False
       Underline       =   False
+      Value           =   "Date only:"
       Visible         =   True
       Width           =   152
    End
@@ -319,7 +377,11 @@ Begin Window NSDatePickerWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
       AllowsExpansionToolTips=   False
+      AllowTabs       =   False
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -328,11 +390,11 @@ Begin Window NSDatePickerWindow
       Bordered        =   False
       DatePickerElements=   0
       Description     =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       DoubleValue     =   0.0
       DrawsBackground =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       FloatValue      =   0.0
       Height          =   24
       HelpTag         =   ""
@@ -364,11 +426,15 @@ Begin Window NSDatePickerWindow
       Width           =   142
    End
    Begin Label lblArray
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   19
       HelpTag         =   ""
       Index           =   1
@@ -387,7 +453,8 @@ Begin Window NSDatePickerWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Time only:"
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -395,6 +462,7 @@ Begin Window NSDatePickerWindow
       Top             =   20
       Transparent     =   False
       Underline       =   False
+      Value           =   "Time only:"
       Visible         =   True
       Width           =   152
    End
@@ -402,7 +470,11 @@ Begin Window NSDatePickerWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
       AllowsExpansionToolTips=   False
+      AllowTabs       =   False
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -411,11 +483,11 @@ Begin Window NSDatePickerWindow
       Bordered        =   False
       DatePickerElements=   0
       Description     =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       DoubleValue     =   0.0
       DrawsBackground =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       FloatValue      =   0.0
       Height          =   24
       HelpTag         =   ""
@@ -447,11 +519,15 @@ Begin Window NSDatePickerWindow
       Width           =   180
    End
    Begin Label lblArray
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   19
       HelpTag         =   ""
       Index           =   2
@@ -470,7 +546,8 @@ Begin Window NSDatePickerWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Date && Time:"
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -478,15 +555,20 @@ Begin Window NSDatePickerWindow
       Top             =   20
       Transparent     =   False
       Underline       =   False
+      Value           =   "Date && Time:"
       Visible         =   True
       Width           =   152
    End
    Begin Label lblArray
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   19
       HelpTag         =   ""
       Index           =   3
@@ -505,7 +587,8 @@ Begin Window NSDatePickerWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Date && Time Graphical:"
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -513,6 +596,7 @@ Begin Window NSDatePickerWindow
       Top             =   87
       Transparent     =   False
       Underline       =   False
+      Value           =   "Date && Time Graphical:"
       Visible         =   True
       Width           =   152
    End
@@ -520,7 +604,11 @@ Begin Window NSDatePickerWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
       AllowsExpansionToolTips=   False
+      AllowTabs       =   False
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -529,11 +617,11 @@ Begin Window NSDatePickerWindow
       Bordered        =   False
       DatePickerElements=   0
       Description     =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       DoubleValue     =   0.0
       DrawsBackground =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       FloatValue      =   0.0
       Height          =   122
       HelpTag         =   ""
@@ -568,7 +656,11 @@ Begin Window NSDatePickerWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
       AllowsExpansionToolTips=   False
+      AllowTabs       =   False
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -577,11 +669,11 @@ Begin Window NSDatePickerWindow
       Bordered        =   False
       DatePickerElements=   0
       Description     =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       DoubleValue     =   0.0
       DrawsBackground =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       FloatValue      =   0.0
       Height          =   150
       HelpTag         =   ""
@@ -613,11 +705,15 @@ Begin Window NSDatePickerWindow
       Width           =   150
    End
    Begin Label lblArray
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   19
       HelpTag         =   ""
       Index           =   4
@@ -636,7 +732,8 @@ Begin Window NSDatePickerWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Time Graphical:"
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -644,15 +741,20 @@ Begin Window NSDatePickerWindow
       Top             =   87
       Transparent     =   False
       Underline       =   False
+      Value           =   "Time Graphical:"
       Visible         =   True
       Width           =   152
    End
    Begin Label lblArray
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   19
       HelpTag         =   ""
       Index           =   5
@@ -671,7 +773,8 @@ Begin Window NSDatePickerWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Date Graphical:"
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -679,10 +782,12 @@ Begin Window NSDatePickerWindow
       Top             =   87
       Transparent     =   False
       Underline       =   False
+      Value           =   "Date Graphical:"
       Visible         =   True
       Width           =   152
    End
    Begin PushButton btnDateNow
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -690,6 +795,9 @@ Begin Window NSDatePickerWindow
       Caption         =   "Set all to now"
       Default         =   False
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -701,6 +809,7 @@ Begin Window NSDatePickerWindow
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -709,11 +818,13 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   328
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   150
    End
    Begin PushButton btnDateNow1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -721,6 +832,9 @@ Begin Window NSDatePickerWindow
       Caption         =   "Get All Values"
       Default         =   False
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -732,6 +846,7 @@ Begin Window NSDatePickerWindow
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
@@ -740,6 +855,7 @@ Begin Window NSDatePickerWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   328
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   150
@@ -951,39 +1067,43 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
-		Name="BackColor"
+		Name="MinimumWidth"
 		Visible=true
-		Group="Background"
-		InitialValue="&hFFFFFF"
-		Type="Color"
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Backdrop"
+		Name="MinimumHeight"
 		Visible=true
-		Group="Background"
-		Type="Picture"
-		EditorType="Picture"
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="CloseButton"
+		Name="MaximumWidth"
 		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Composite"
-		Group="OS X (Carbon)"
-		InitialValue="False"
-		Type="Boolean"
+		Name="MaximumHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Frame"
+		Name="Type"
 		Visible=true
 		Group="Frame"
 		InitialValue="0"
-		Type="Integer"
+		Type="Types"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Document"
@@ -1000,14 +1120,39 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="FullScreen"
-		Group="Behavior"
-		InitialValue="False"
+		Name="HasCloseButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="FullScreenButton"
+		Name="Resizable"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasMaximizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasMinimizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasFullScreenButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="False"
@@ -1015,11 +1160,67 @@ End
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasBackColor"
+		Name="DefaultLocation"
+		Visible=true
+		Group="Behavior"
+		InitialValue="0"
+		Type="Locations"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Default"
+			"1 - Parent Window"
+			"2 - Main Screen"
+			"3 - Parent Window Screen"
+			"4 - Stagger"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="SystemUIVisible"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasBackgroundColor"
 		Visible=true
 		Group="Background"
 		InitialValue="False"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BackgroundColor"
+		Visible=true
+		Group="Background"
+		InitialValue="&hFFFFFF"
+		Type="Color"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Backdrop"
+		Visible=true
+		Group="Background"
+		InitialValue=""
+		Type="Picture"
+		EditorType="Picture"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Composite"
+		Visible=false
+		Group="OS X (Carbon)"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FullScreen"
+		Visible=false
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Height"
@@ -1027,6 +1228,7 @@ End
 		Group="Size"
 		InitialValue="400"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ImplicitInstance"
@@ -1040,115 +1242,39 @@ End
 		Name="Interfaces"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
 		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="LiveResize"
-		Group="Behavior"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="MacProcID"
+		Visible=false
 		Group="OS X (Carbon)"
 		InitialValue="0"
 		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaxHeight"
-		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaximizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaxWidth"
-		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBar"
 		Visible=true
 		Group="Menus"
+		InitialValue=""
 		Type="MenuBar"
 		EditorType="MenuBar"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBarVisible"
-		Visible=true
-		Group="Deprecated"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinHeight"
-		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinimizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinWidth"
-		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Name"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
 		EditorType="String"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Placement"
-		Visible=true
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - Default"
-			"1 - Parent Window"
-			"2 - Main Screen"
-			"3 - Parent Window Screen"
-			"4 - Stagger"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Resizeable"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
 		EditorType="String"
 	#tag EndViewProperty
@@ -1158,6 +1284,7 @@ End
 		Group="Frame"
 		InitialValue="Untitled"
 		Type="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
@@ -1173,5 +1300,6 @@ End
 		Group="Size"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

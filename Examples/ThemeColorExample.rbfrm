@@ -1,29 +1,44 @@
 #tag Window
 Begin Window ThemeColorExample
-   BackColor       =   &hFFFFFF
-   Backdrop        =   ""
+   BackColor       =   &cFFFFFF00
+   Backdrop        =   0
+   BackgroundColor =   &cFFFFFF00
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
-   Frame           =   0
+   DefaultLocation =   "0"
+   Frame           =   "0"
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   3.45e+2
+   HasBackgroundColor=   False
+   HasCloseButton  =   True
+   HasFullScreenButton=   False
+   HasMaximizeButton=   False
+   HasMinimizeButton=   True
+   Height          =   345
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
+   MaximumHeight   =   32000
+   MaximumWidth    =   32000
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
+   MinimumHeight   =   64
+   MinimumWidth    =   64
    MinWidth        =   64
-   Placement       =   0
-   Resizeable      =   True
+   Placement       =   "0"
+   Resizable       =   True
+   Resizeable      =   "True"
+   SystemUIVisible =   True
    Title           =   "ThemeColors"
+   Type            =   "0"
    Visible         =   True
-   Width           =   5.03e+2
+   Width           =   503
 End
 #tag EndWindow
 

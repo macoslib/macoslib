@@ -80,34 +80,40 @@ Protected Module MacOSFolderItemExtension
 		  //# DeviceName returns the BSD name of the volume containing f as found in the directory /dev.  Only local volumes have such names.
 		  
 		  #if TargetMacOS
-		    soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
-		    
-		    dim paramBlock as HIOParam
-		    paramBlock.ioVRefNum = f.MacVRefNum
-		    //the following line is a trick to work around the inability to assign a pointer to a structure
-		    //to a field of type Ptr.
-		    dim infoBuffer as new MemoryBlock(GetVolParmsInfoBuffer.Size)
-		    paramBlock.ioBuffer = infoBuffer
-		    paramBlock.ioReqCount = infoBuffer.Size
-		    
-		    dim OSError as Integer = PBHGetVolParmsSync(paramBlock)
-		    if OSError <> 0 then
-		      return ""
-		    end if
-		    
-		    dim infoBufferPtr as GetVolParmsInfoBuffer = paramBlock.ioBuffer.GetVolParmsInfoBuffer(0)
-		    if infoBufferPtr.vMServerAddr = 0 then
-		      if infoBufferPtr.vMDeviceID <> nil then
-		        dim s as MemoryBlock = infoBufferPtr.vMDeviceID
-		        dim BSDName as String = s.CString(0)
-		        return DefineEncoding(BSDName, Encodings.SystemDefault)
-		      else
+		    #if XojoVersion < 2019.02
+		      soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
+		      
+		      dim paramBlock as HIOParam
+		      paramBlock.ioVRefNum = f.MacVRefNum
+		      //the following line is a trick to work around the inability to assign a pointer to a structure
+		      //to a field of type Ptr.
+		      dim infoBuffer as new MemoryBlock(GetVolParmsInfoBuffer.Size)
+		      paramBlock.ioBuffer = infoBuffer
+		      paramBlock.ioReqCount = infoBuffer.Size
+		      
+		      dim OSError as Integer = PBHGetVolParmsSync(paramBlock)
+		      if OSError <> 0 then
 		        return ""
 		      end if
-		    else
-		      // vMServerAddr <> 0 means it's a network device, which apparently won't have a BSD name.
+		      
+		      dim infoBufferPtr as GetVolParmsInfoBuffer = paramBlock.ioBuffer.GetVolParmsInfoBuffer(0)
+		      if infoBufferPtr.vMServerAddr = 0 then
+		        if infoBufferPtr.vMDeviceID <> nil then
+		          dim s as MemoryBlock = infoBufferPtr.vMDeviceID
+		          dim BSDName as String = s.CString(0)
+		          return DefineEncoding(BSDName, Encodings.SystemDefault)
+		        else
+		          return ""
+		        end if
+		      else
+		        // vMServerAddr <> 0 means it's a network device, which apparently won't have a BSD name.
+		        return ""
+		      end if
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
 		      return ""
-		    end if
+		    #endif
 		    
 		  #else
 		    #pragma unused f
@@ -119,40 +125,51 @@ Protected Module MacOSFolderItemExtension
 		Function Equals(extends f as FolderItem, g as FolderItem) As Boolean
 		  //f cannot be nil; if it were, the framework would raise a NilObjectException before this method was invoked.
 		  #if targetMacOS
-		    if g <> nil then
-		      if f.Exists then
-		        if g.Exists then
-		          soft declare function FSCompareFSRefs lib CarbonLib (ref1 as Ptr, ref2 as Ptr) as Int16
-		          #if RBVersion >= 2010.05
-		            dim fRef as MemoryBlock = f.MacFSRef
-		            dim gRef as MemoryBlock = g.MacFSRef
-		          #else
-		            dim fRef as MemoryBlock = f.FSRef
-		            dim gRef as MemoryBlock = g.FSRef
-		          #endif
-		          return FSCompareFSRefs(fRef, gRef) = noErr
-		        else
-		          return false
-		        end if
-		      else
-		        if g.Exists then
-		          return false
-		        else
-		          //compare parents + names.
-		          dim f_parent as FolderItem = f.Parent
-		          dim g_parent as FolderItem = g.Parent
-		          if f_parent <> nil and g_parent <> nil then
-		            return AreNamesEqual(f.Name, g.Name, f.IsVolumeCaseSensitive ) and f_parent.Equals(g_parent)
+		    #if XojoVersion < 2019.02
+		      if g <> nil then
+		        if f.Exists then
+		          if g.Exists then
+		            #if XojoVersion < 2019.02
+		              soft declare function FSCompareFSRefs lib CarbonLib (ref1 as Ptr, ref2 as Ptr) as Int16
+		              #if RBVersion >= 2010.05
+		                dim fRef as MemoryBlock = f.MacFSRef
+		                dim gRef as MemoryBlock = g.MacFSRef
+		              #else
+		                dim fRef as MemoryBlock = f.FSRef
+		                dim gRef as MemoryBlock = g.FSRef
+		              #endif
+		              return FSCompareFSRefs(fRef, gRef) = noErr
+		            #else
+		              // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		              break
+		              return false
+		            #endif
 		          else
-		            //in general, f.Parent = nil only if f is the root FolderItem, in which case f.Exists would be true.  But, thanks to BSD under the hood, one must always expect permissions issues.
-		            //So in this case, we give up.
 		            return false
 		          end if
+		        else
+		          if g.Exists then
+		            return false
+		          else
+		            //compare parents + names.
+		            dim f_parent as FolderItem = f.Parent
+		            dim g_parent as FolderItem = g.Parent
+		            if f_parent <> nil and g_parent <> nil then
+		              return AreNamesEqual(f.Name, g.Name, f.IsVolumeCaseSensitive ) and f_parent.Equals(g_parent)
+		            else
+		              //in general, f.Parent = nil only if f is the root FolderItem, in which case f.Exists would be true.  But, thanks to BSD under the hood, one must always expect permissions issues.
+		              //So in this case, we give up.
+		              return false
+		            end if
+		          end if
 		        end if
+		      else
+		        return false
 		      end if
-		    else
-		      return false
-		    end if
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
+		    #endif
 		    
 		  #else
 		    #pragma unused f
@@ -213,16 +230,21 @@ Protected Module MacOSFolderItemExtension
 		Function FreeSpaceOnVolume(extends theVolume as FolderItem) As UInt64
 		  #if targetMacOS
 		    if SystemVersionAsInt < 100700 then //Before Lion
-		      declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
-		      
-		      dim theInfo as FSVolumeInfo
-		      dim OSErr as Int16 = FSGetVolumeInfo(theVolume.MacVRefNum, 0, nil, FileManager.kFSVolInfoSizes, theInfo, nil, nil)
-		      if OSErr <> noErr then
+		      #if XojoVersion < 2019.02
+		        declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, ByRef info as FSVolumeInfo, volumeName as Ptr, rootDirectory as Ptr) as Int16
+		        
+		        dim theInfo as FSVolumeInfo
+		        dim OSErr as Int16 = FSGetVolumeInfo(theVolume.MacVRefNum, 0, nil, FileManager.kFSVolInfoSizes, theInfo, nil, nil)
+		        if OSErr <> noErr then
+		          break
+		          return 0
+		        end if
+		        
+		        return theInfo.freeBytes
+		      #else
+		        // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
 		        break
-		        return 0
-		      end if
-		      
-		      return theInfo.freeBytes
+		      #endif
 		      
 		    else //Lion and later
 		      dim url as new NSURL( theVolume )
@@ -449,21 +471,26 @@ Protected Module MacOSFolderItemExtension
 		  
 		  #if TargetMacOS
 		    if SystemVersionAsInt < 100700 then //Before Lion
-		      soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
-		      
-		      dim paramBlock as HIOParam
-		      paramBlock.ioVRefNum = f.MacVRefNum
-		      //the following line is a trick to work around the inability to assign a pointer to a structure
-		      //to a field of type Ptr.
-		      dim infoBuffer as new MemoryBlock(GetVolParmsInfoBuffer.Size)
-		      paramBlock.ioBuffer = infoBuffer
-		      paramBlock.ioReqCount = infoBuffer.Size
-		      
-		      dim OSError as Integer = PBHGetVolParmsSync(paramBlock)
-		      if OSError <> 0 then
-		        return false
-		      end if
-		      return (infoBuffer.Long(10) <> 0)
+		      #if XojoVersion < 2019.02
+		        soft declare function PBHGetVolParmsSync lib CarbonLib (ByRef paramBlock as HIOParam) as Short
+		        
+		        dim paramBlock as HIOParam
+		        paramBlock.ioVRefNum = f.MacVRefNum
+		        //the following line is a trick to work around the inability to assign a pointer to a structure
+		        //to a field of type Ptr.
+		        dim infoBuffer as new MemoryBlock(GetVolParmsInfoBuffer.Size)
+		        paramBlock.ioBuffer = infoBuffer
+		        paramBlock.ioReqCount = infoBuffer.Size
+		        
+		        dim OSError as Integer = PBHGetVolParmsSync(paramBlock)
+		        if OSError <> 0 then
+		          return false
+		        end if
+		        return (infoBuffer.Long(10) <> 0)
+		      #else
+		        // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		        break
+		      #endif
 		      
 		    else //Lion+
 		      dim deviceURL as new CFURL(f)
@@ -802,7 +829,12 @@ Protected Module MacOSFolderItemExtension
 		    if OSError<>0 then
 		      raise   new MacOSError( OSError )
 		    else
-		      return  FolderItem.CreateFromMacFSRef( dest )
+		      #if XojoVersion < 2019.02
+		        return  FolderItem.CreateFromMacFSRef( dest )
+		      #else
+		        // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		        break
+		      #endif
 		    end if
 		    
 		  #else
@@ -978,33 +1010,40 @@ Protected Module MacOSFolderItemExtension
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -264,20 +264,26 @@ Protected Module LaunchServices
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare function LSOpenURLsWithRole lib CarbonLib (inURLs as Ptr, inRole as UInt32, inAEParam as Ptr, ByRef inAppParams as LSApplicationParameters, outPSNs as Ptr, inMaxPSNCount as Integer) as Integer
-		    
-		    dim theArray as new CFArray(Array(new CFURL(url)))
-		    const paramIgnoredBecauseinAppParamsNotNil = 0
-		    
-		    dim appParams as LSApplicationParameters
-		    //we need to keep a reference to the MemoryBlock so that the object lives through the call to LSOpenURLsWithRole.
-		    dim appRef as MemoryBlock = appItem.MacFSRef
-		    appParams.application = appRef
-		    
-		    dim OSError as Integer = LSOpenURLsWithRole(theArray, paramIgnoredBecauseinAppParamsNotNil, nil, appParams, nil, 0)
-		    
-		    // Keep the compiler from complaining
-		    #pragma unused OSError
+		    #if XojoVersion < 2019.02
+		      soft declare function LSOpenURLsWithRole lib CarbonLib (inURLs as Ptr, inRole as UInt32, inAEParam as Ptr, ByRef inAppParams as LSApplicationParameters, outPSNs as Ptr, inMaxPSNCount as Integer) as Integer
+		      
+		      dim theArray as new CFArray(Array(new CFURL(url)))
+		      const paramIgnoredBecauseinAppParamsNotNil = 0
+		      
+		      dim appParams as LSApplicationParameters
+		      //we need to keep a reference to the MemoryBlock so that the object lives through the call to LSOpenURLsWithRole.
+		      dim appRef as MemoryBlock = appItem.MacFSRef
+		      appParams.application = appRef
+		      
+		      dim OSError as Integer = LSOpenURLsWithRole(theArray, paramIgnoredBecauseinAppParamsNotNil, nil, appParams, nil, 0)
+		      
+		      // Keep the compiler from complaining
+		      #pragma unused OSError
+		      
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
+		    #endif
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -450,6 +456,7 @@ Protected Module LaunchServices
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -457,18 +464,23 @@ Protected Module LaunchServices
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -476,6 +488,7 @@ Protected Module LaunchServices
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

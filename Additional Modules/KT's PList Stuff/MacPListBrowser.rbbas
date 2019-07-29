@@ -930,7 +930,7 @@ Protected Class MacPListBrowser
 		  elseif zIsFolderItem then
 		    thisLine.Append "<folderitem>"
 		    dim f as FolderItem = zValue
-		    thisLine.Append f.AbsolutePath
+		    thisLine.Append f.NativePath
 		    appendTo.Append join( thisLine, "" )
 		    
 		  else
@@ -1828,8 +1828,11 @@ Protected Class MacPListBrowser
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="CaseSensitive"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -1837,10 +1840,13 @@ Protected Class MacPListBrowser
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Key"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -1850,22 +1856,29 @@ Protected Class MacPListBrowser
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PrettyText"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -1873,7 +1886,9 @@ Protected Class MacPListBrowser
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1881,15 +1896,31 @@ Protected Class MacPListBrowser
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Type"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="ValueType"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - IsDictionary"
+				"1 - IsArray"
+				"2 - IsString"
+				"3 - IsDate"
+				"4 - IsBoolean"
+				"5 - IsData"
+				"6 - IsNumber"
+				"7 - IsUnknown"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="XMLValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty

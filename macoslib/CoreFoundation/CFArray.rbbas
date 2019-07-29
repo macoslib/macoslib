@@ -12,11 +12,11 @@ Implements CFPropertyList
 		Function VariantValue() As Variant
 		  dim result() as Variant
 		  dim lastOffset as Integer = self.Count - 1
-
+		  
 		  for i as Integer = 0 to lastOffset
 		    result.Append self.CFValue(i).VariantValue
 		  next
-
+		  
 		  return result
 		End Function
 	#tag EndEvent
@@ -28,9 +28,9 @@ Implements CFPropertyList
 		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
 		    declare function CFStringGetTypeID lib CarbonLib () as UInteger
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-
+		    
 		    static StringTypeID as UInteger = CFStringGetTypeID
-
+		    
 		    dim p as Ptr = self.Value(index)
 		    if CFGetTypeID(p) = StringTypeID then
 		      return CFRetain(p)
@@ -52,7 +52,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInteger
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
 		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInteger
 		    static id as UInteger = TypeID
@@ -65,7 +65,7 @@ Implements CFPropertyList
 		Function Clone() As CFArray
 		  #if TargetMacOS
 		    declare function CFArrayCreateCopy lib CoreFoundation.framework (allocator as Ptr, theArray as CFTypeRef) as CFTypeRef
-
+		    
 		    if self <> nil then
 		      return new CFArray(CFArrayCreateCopy(nil, self), CFType.hasOwnership)
 		    else
@@ -79,7 +79,7 @@ Implements CFPropertyList
 		Sub Constructor(theList() as CFType)
 		  #if targetMacOS
 		    declare function CFArrayCreate lib CoreFoundation.framework (allocator as Ptr, values as Ptr, numValues as Integer, callbacks as Ptr) as CFTypeRef
-
+		    
 		    self.Constructor(CFArrayCreate(nil, GetValuesAsCArray(theList), UBound(theList) + 1, DefaultCallbacks), hasOwnership)
 		  #else
 		    #pragma unused theList
@@ -95,7 +95,7 @@ Implements CFPropertyList
 		      cfstr.Append str
 		    next
 		    self.Constructor(cfstr)
-
+		    
 		  #else
 		    #pragma unused strings
 		  #endif
@@ -103,11 +103,11 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
-
+		Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
+		  
 		  #if TargetMacOS
 		    dim cfma as new CFMutableArray
-
+		    
 		    select case theArray.ArrayElementType
 		    case Variant.TypeBoolean
 		      dim arb() as Boolean = theArray
@@ -118,31 +118,31 @@ Implements CFPropertyList
 		          cfma.Append   CFBoolean.GetFalse
 		        end if
 		      next
-
+		      
 		    case Variant.TypeInteger
 		      dim ari() as Integer = theArray
 		      for each i as integer in ari
 		        cfma.Append   new CFNumber( i )
 		      next
-
+		      
 		    case Variant.TypeString
 		      dim ars() as string = theArray
 		      for each s as String in ars
 		        cfma.Append   new CFString( s )
 		      next
-
+		      
 		    case Variant.TypeDouble
 		      dim ard() as double = theArray
 		      for each d as double in ard
 		        cfma.Append   new CFNumber( d )
 		      next
-
+		      
 		    case Variant.TypeDate
 		      dim ardate() as Date = theArray
 		      for each dd as date in ardate
 		        cfma.Append   new CFDate( dd )
 		      next
-
+		      
 		    case 9
 		      dim arv() as variant = theArray
 		      for each v as variant in arv
@@ -150,9 +150,9 @@ Implements CFPropertyList
 		        cfma.Append   CFTypeFromVariant( v ) // Modified by Kem Tekinay. The line above was just wrong
 		      next
 		    end select
-
+		    
 		    return  cfma
-
+		    
 		  #else
 		    #pragma unused theArray
 		  #endif
@@ -160,24 +160,24 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFArray
+		Shared Function CreateFromPListFile(file as FolderItem) As CFArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListFile(file, CoreFoundation.kCFPropertyListImmutable))
 		  #else
 		    #pragma unused file
 		  #endif
-
+		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFArray
+		Shared Function CreateFromPListString(plistString as String) As CFArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListString(plistString, CoreFoundation.kCFPropertyListImmutable))
 		  #else
 		    #pragma unused plistString
 		  #endif
-
+		  
 		End Function
 	#tag EndMethod
 
@@ -216,7 +216,7 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As Variant()
 		  // Added by Kem Tekinay.
-
+		  
 		  return self.VariantValue
 		End Function
 	#tag EndMethod
@@ -224,22 +224,22 @@ Implements CFPropertyList
 	#tag Method, Flags = &h0
 		Function StringValues() As String()
 		  //New 75% faster implementation. Still sluggish, though.
-
+		  
 		  #if TargetMacOS
 		    declare sub CFArrayGetValues lib CarbonLib ( theArray as Ptr, range as CFRange, values as Ptr )
 		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
 		    declare function CFStringGetTypeID lib CarbonLib () as UInteger
 		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
-
+		    
 		    static StringTypeID as UInteger = CFStringGetTypeID
-
+		    
 		    dim p as Ptr
 		    dim mb as MemoryBlock
 		    dim L() as String
-
+		    
 		    mb = new MemoryBlock( SizeOfPointer * self.Count )
 		    CFArrayGetValues self.Reference, CFRangeMake( 0, self.Count ), mb
-
+		    
 		    dim lastIndex as Integer = self.Count - 1
 		    for index as Integer = 0 to lastIndex
 		      p = mb.bsPtrValueFromCArray( index )
@@ -251,10 +251,10 @@ Implements CFPropertyList
 		        raise e
 		      end if
 		    next
-
+		    
 		    return L
 		  #endif
-
+		  
 		End Function
 	#tag EndMethod
 
@@ -263,17 +263,17 @@ Implements CFPropertyList
 		  #if TargetMacOS
 		    declare function CFArrayGetCount lib CoreFoundation.framework (theArray as CFTypeRef) as Integer
 		    declare function CFArrayGetValueAtIndex lib CoreFoundation.framework (theArray as CFTypeRef, idx as Integer) as Ptr
-
+		    
 		    if self <> nil then
 		      if index < 0 or index >= CFArrayGetCount(self) then
 		        raise new OutOfBoundsException
 		      end if
-
+		      
 		      return CFArrayGetValueAtIndex(self, index)
 		    else
 		      return nil
 		    end if
-
+		    
 		  #else
 		    #pragma unused index
 		  #endif
@@ -286,7 +286,7 @@ Implements CFPropertyList
 			Get
 			  #if targetMacOS
 			    declare function CFArrayGetCount lib CoreFoundation.framework (theArray as CFTypeRef) as Integer
-
+			    
 			    if self <> nil then
 			      return CFArrayGetCount(self)
 			    else
@@ -302,48 +302,59 @@ Implements CFPropertyList
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Count"
+			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="CFType"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

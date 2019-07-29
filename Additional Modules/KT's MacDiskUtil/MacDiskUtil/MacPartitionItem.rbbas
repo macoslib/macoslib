@@ -117,163 +117,258 @@ Inherits MacDiskUtil.MacDeviceItem
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="BlockSize"
+			Name="FreeSpace"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
+			Type="UInt64"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IOKitSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="UInt64"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MountStatus"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="MountType"
+			EditorType="Enum"
+			#tag EnumValues
+				"-2 - Unknown"
+				"-1 - NotApplicable"
+				"0 - Unmounted"
+				"1 - Mounted"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BlockSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Bootable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBeMadeBootable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBeMadeBootableRequiresDestroy"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Ejectable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FileSystemName"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FileSystemType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GlobalPermissionsEnabled"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IOContent"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MediaName"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Mounted"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RAIDMaster"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RAIDSlice"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SMARTStatus"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SupportsGlobalPermissionsDisable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SystemImage"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="VolumeName"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="VolumeUUID"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Writable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WritableMedia"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WritableVolume"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-			InheritedFrom="MacDiskUtil.MacDeviceItem"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="JournalOffset"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="UInt64"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="JournalSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="UInt64"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -5,111 +5,111 @@ Protected Class TTsSmartPreferences
 		  // Return:
 		  // nil -> app folder invalid or can't be created
 		  // otherwise -> test for .Exists if createIfMissing=false was passed
-
+		  
 		  if appName = "" then
 		    // App Name must be specified
 		    raise new RuntimeException
 		  end
-
+		  
 		  dim f as FolderItem = SpecialFolder.ApplicationData
 		  if f = nil or not f.Exists then
 		    break
 		    System.DebugLog "Can't locate app data folder"
 		    return nil
 		  end if
-
+		  
 		  f = f.Child(appName)
 		  if not f.Exists then
-
+		    
 		    if not createIfMissing then
 		      return f
 		    end
-
+		    
 		    f.CreateAsFolder
 		    if not f.Exists then
 		      break
-		      System.DebugLog "Can't create App data folder at: "+f.AbsolutePath
+		      System.DebugLog "Can't create App data folder at: "+f.NativePath
 		      return nil
 		    end if
 		  end if
-
+		  
 		  if not f.Directory then
 		    break
-		    System.DebugLog "App data folder not a dir at: "+f.AbsolutePath
+		    System.DebugLog "App data folder not a dir at: "+f.NativePath
 		    return nil
 		  end if
-
+		  
 		  return f
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromBoolean(a() as Boolean) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromDate(a() as Date) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromDouble(a() as Double) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromInteger(a() as Integer) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromLong(a() as Int64) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromObject(a() as Object) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromString(a() as String) As Variant()
-		  dim var() as Variant
+		  dim arr() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    arr.Append v
 		  next
-		  return var
+		  return arr
 		End Function
 	#tag EndMethod
 
@@ -150,8 +150,8 @@ Protected Class TTsSmartPreferences
 		      CFPreferences.Value(key) = nil
 		    #endif
 		  end if
-
-
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -172,17 +172,17 @@ Protected Class TTsSmartPreferences
 	#tag Method, Flags = &h21
 		Private Sub syncPrefsFile()
 		  // This gets used only when mUseAppSupportFolder=true
-
+		  
 		  dim f as FolderItem = AppSupportFolder(mAppName, me.IsDirty)
 		  if f = nil or not f.Exists then return
-
+		  
 		  f = f.Child("Preferences.plist")
-
+		  
 		  if me.IsDirty then
 		    // write changes to disk
 		    if not mPrefsDict.SaveXML (f, true) then
 		      break
-		      System.DebugLog "Can't save prefs at: "+f.AbsolutePath
+		      System.DebugLog "Can't save prefs at: "+f.NativePath
 		      return
 		    else
 		      mIsDirty = false
@@ -191,7 +191,7 @@ Protected Class TTsSmartPreferences
 		    // read latest state from disk
 		    if f.Exists and not mPrefsDict.LoadXML (f) then
 		      break
-		      System.DebugLog "Can't read prefs at: "+f.AbsolutePath
+		      System.DebugLog "Can't read prefs at: "+f.NativePath
 		      return
 		    end
 		  end
@@ -201,10 +201,10 @@ Protected Class TTsSmartPreferences
 	#tag Method, Flags = &h21
 		Private Function toCFType(v as Variant) As CFType
 		  // Throws an UnsupportedFormatException if it contains objects it can't convert
-
+		  
 		  dim newv as CFType
 		  select case v.Type
-
+		    
 		  case v.TypeBoolean
 		    newv = CFBoolean.Get(v.BooleanValue)
 		  case v.TypeInteger, v.TypeInt64
@@ -231,7 +231,7 @@ Protected Class TTsSmartPreferences
 		    end if
 		  else
 		    if v.IsArray then
-
+		      
 		      // this is ugly - we have to do an individual loop for each possible type of the elems in the array
 		      dim ar() as Variant
 		      select case v.ArrayElementType
@@ -250,22 +250,22 @@ Protected Class TTsSmartPreferences
 		      case Variant.TypeObject
 		        ar = arrayFromObject (v)
 		      end select
-
+		      
 		      dim cfa as new CFMutableArray(ar.Ubound+1)
 		      for each value as Variant in ar
 		        cfa.Append toCFType (value)
 		      next
 		      newv = cfa
-
+		      
 		    else
 		      // not supported yet
 		      raise new UnsupportedFormatException
 		    end if
-
+		    
 		  end select
-
+		  
 		  return newv
-
+		  
 		  Exception exc as RuntimeException
 		    break
 		    raise new UnsupportedFormatException
@@ -282,10 +282,10 @@ Protected Class TTsSmartPreferences
 		  else
 		    #if TargetMacOS
 		      dim oldv as CFType = CFType(CFPreferences.Value (key))
-
+		      
 		      dim newv as CFType
 		      newv = toCFType (v)
-
+		      
 		      if oldv = nil then
 		        // value not in prefs yet
 		        CFPreferences.Value(key) = CFPropertyList(newv)
@@ -344,51 +344,51 @@ Protected Class TTsSmartPreferences
 
 	#tag Note, Name = About
 		App Preferences for OS X, Windows and Linux
-
+		
 		It's "smart" because it only writes to CFPreferences if the set value is
 		actually different from the current prefs value, hence avoiding dirtying
 		the prefs unnecessarily.
-
+		
 		Written by Thomas Tempelmann for the public domain.
-
-
+		
+		
 		This is part of the open source "MacOSLib"
-
+		
 		Original sources are located here:  https://github.com/macoslib/macoslib
 	#tag EndNote
 
 	#tag Note, Name = How to use
 		Create one instance of this class and store it in a global variable or in a property of the App class.
-
+		
 		To create, pass the app's name to the Constructor. That name is used on Windows and Linux
 		to locate the App specific folder in which the "Preferences.plist" file is then created.
-
+		
 		To access preference values, use the Value() functions.
-
+		
 		To set a preference:
-
+		
 		  prefs.Value ("EnableSomething") = true
-
+		
 		To read a preference, you must also pass a default value that's returned if the preference
 		hasn't been set yet:
-
+		
 		  if prefs.Value ("EnableSomething", false) then
 		    // the option "EnableSomething" is 'true'
 		    ...
-
+		
 		To add a dictionary to the prefs, do something like this:
-
+		
 		  dim dictValues as new Dictionary
 		  dictValues.Value ("a key") = "a value")
 		  prefs.Value ("the dictionary") = dictValues
-
+		
 		You can get the Dictionary back using the Value function just the same:
-
+		
 		  dim dictValues as Dictionary = prefs.Value ("the dictionary")
-
+		
 		Same goes for Arrays of Strings, Booleans and Integers.
-
-
+		
+		
 		Use the Sync function to read the latest values from disk, and write any changes to disk.
 		Call this after you've made changes to preferences, to make sure the changes are saved
 		right away. If you don't call Sync, they get written to disk when your program quits.
@@ -402,7 +402,7 @@ Protected Class TTsSmartPreferences
 	#tag Note, Name = Requirements
 		For Mac OS, the entire "CoreFoundation" module with contained classes needs to be added, available here:
 		https://github.com/macoslib/macoslib/
-
+		
 		Also, Keven Ballard's "XMLDictionary" is needed (should be included)
 	#tag EndNote
 
@@ -455,11 +455,15 @@ Protected Class TTsSmartPreferences
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDirty"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -467,18 +471,23 @@ Protected Class TTsSmartPreferences
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -486,6 +495,7 @@ Protected Class TTsSmartPreferences
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

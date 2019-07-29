@@ -10,8 +10,12 @@ Inherits Application
 		  TestCocoa ' call this only after TestCoreFoundation because it relies on prefs settings from the former call!
 		  TestATSFont
 		  TestCertTools
-		  TestFileManager
-		  TestBundleLookup
+		  
+		  #if XojoVersion < 2019.02
+		    TestFileManager
+		    TestBundleLookup
+		  #endif
+		  
 		  TestTTsSmartPrefs
 		End Sub
 	#tag EndEvent
@@ -1109,7 +1113,7 @@ Inherits Application
 		  f = GetFolderItem("")
 		  s = FileManager.NativePath( f )
 		  ref = f.FSRef
-		  if ref.FolderItem.AbsolutePath <> f.AbsolutePath then
+		  if ref.FolderItem.NativePath <> f.NativePath then
 		    break // test failed!
 		  end
 		  

@@ -5,7 +5,13 @@ Protected Module FolderManager
 		  if vol is nil then
 		    return nil
 		  end if
-		  return FindFolder(vol.MacVRefNum, folderType, create)
+		  
+		  #if XojoVersion < 2019.02
+		    return FindFolder(vol.MacVRefNum, folderType, create)
+		  #else
+		    // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		    break
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -605,33 +611,40 @@ Protected Module FolderManager
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Object"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			InheritedFrom="Object"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -22,43 +22,48 @@ Class MacResourceFork
 		  // Opens or creates the Mac Resource of the given file
 		  
 		  #if TargetMacOS
-		    
-		    declare function FSOpenResFile lib CarbonLib (fsRef as Ptr, permission as Integer) as Integer
-		    declare function FSCreateResourceFile lib CarbonLib (parRef as Ptr, nameLen as Integer, name as Ptr, whichinfo as Integer, catinfo as Ptr, forkNameLen as Integer, forkName as Ptr, ByRef outRef as Ptr, outSpec as Ptr) as Integer
-		    
-		    mFileHandle = -1 // "not valid"
-		    
-		    dim saver as new ResourceChainSaver ' saves the current res file and restore it again when leaving this method
-		    
-		    dim ref as MemoryBlock = f.MacFSRef
-		    
-		    if create then
-		      // create a new rsrc fork
-		      if ref = nil then
-		        break ' file not accessible
-		        return
-		      end if
+		    #if XojoVersion < 2019.02
 		      
-		    else
-		      // open an existing rsrc fork
-		      if ref = nil then
-		        break ' file not accessible
-		        return
-		      end if
-		      const fsCurPerm = 0
-		      const fsRdPerm = 1
-		      const fsRdWrPerm = 3
-		      dim hdl as Integer = FSOpenResFile (ref, fsCurPerm)
-		      if hdl = -1 then
-		        break ' cannot open it
-		        return
-		      end if
-		      ' successfully opened the rsrc fork
-		      mFileHandle = hdl
-		      mResHandle = ResourceChainSaver.CurResFile
-		    end
-		    
-		    saver = nil // Keeps the compiler from complaining
+		      declare function FSOpenResFile lib CarbonLib (fsRef as Ptr, permission as Integer) as Integer
+		      declare function FSCreateResourceFile lib CarbonLib (parRef as Ptr, nameLen as Integer, name as Ptr, whichinfo as Integer, catinfo as Ptr, forkNameLen as Integer, forkName as Ptr, ByRef outRef as Ptr, outSpec as Ptr) as Integer
+		      
+		      mFileHandle = -1 // "not valid"
+		      
+		      dim saver as new ResourceChainSaver ' saves the current res file and restore it again when leaving this method
+		      
+		      dim ref as MemoryBlock = f.MacFSRef
+		      
+		      if create then
+		        // create a new rsrc fork
+		        if ref = nil then
+		          break ' file not accessible
+		          return
+		        end if
+		        
+		      else
+		        // open an existing rsrc fork
+		        if ref = nil then
+		          break ' file not accessible
+		          return
+		        end if
+		        const fsCurPerm = 0
+		        const fsRdPerm = 1
+		        const fsRdWrPerm = 3
+		        dim hdl as Integer = FSOpenResFile (ref, fsCurPerm)
+		        if hdl = -1 then
+		          break ' cannot open it
+		          return
+		        end if
+		        ' successfully opened the rsrc fork
+		        mFileHandle = hdl
+		        mResHandle = ResourceChainSaver.CurResFile
+		      end
+		      
+		      saver = nil // Keeps the compiler from complaining
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		      break
+		    #endif
 		    
 		  #else
 		    
@@ -318,7 +323,7 @@ Class MacResourceFork
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			InheritedFrom="Object"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -326,21 +331,23 @@ Class MacResourceFork
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="Object"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="Object"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			InheritedFrom="Object"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -348,7 +355,7 @@ Class MacResourceFork
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			InheritedFrom="Object"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

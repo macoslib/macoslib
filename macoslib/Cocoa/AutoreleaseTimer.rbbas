@@ -33,26 +33,12 @@ Inherits Timer
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			InheritedFrom="Timer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			Type="Integer"
-			InheritedFrom="Timer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Mode"
+			Name="RunMode"
 			Visible=true
 			Group="Behavior"
 			InitialValue="2"
-			Type="Integer"
+			Type="RunModes"
 			EditorType="Enum"
-			InheritedFrom="Timer"
 			#tag EnumValues
 				"0 - Off"
 				"1 - Single"
@@ -60,10 +46,20 @@ Inherits Timer
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Timer"
+			InitialValue=""
+			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Period"
@@ -71,20 +67,15 @@ Inherits Timer
 			Group="Behavior"
 			InitialValue="1000"
 			Type="Integer"
-			InheritedFrom="Timer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InheritedFrom="Timer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Top"
-			Visible=true
-			Group="Position"
-			Type="Integer"
-			InheritedFrom="Timer"
+			InitialValue=""
+			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

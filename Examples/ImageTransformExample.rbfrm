@@ -2,31 +2,46 @@
 Begin Window ImageTransformExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
+   BackgroundColor =   &cFFFFFF00
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   True
-   Frame           =   0
+   DefaultLocation =   "0"
+   Frame           =   "0"
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
+   HasBackgroundColor=   False
+   HasCloseButton  =   True
+   HasFullScreenButton=   False
+   HasMaximizeButton=   True
+   HasMinimizeButton=   True
    Height          =   293
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
+   MaximumHeight   =   32000
+   MaximumWidth    =   32000
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
+   MinimumHeight   =   64
+   MinimumWidth    =   64
    MinWidth        =   64
-   Placement       =   0
-   Resizeable      =   True
+   Placement       =   "0"
+   Resizable       =   True
+   Resizeable      =   "True"
+   SystemUIVisible =   True
    Title           =   "Image Transformations"
+   Type            =   "0"
    Visible         =   True
    Width           =   521
    Begin PushButton PushButton1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       BehaviorIndex   =   0
       Bold            =   False
@@ -35,6 +50,9 @@ Begin Window ImageTransformExample
       Caption         =   "Choose"
       Default         =   True
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -46,6 +64,7 @@ Begin Window ImageTransformExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -54,17 +73,22 @@ Begin Window ImageTransformExample
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   253
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
    End
    Begin Label StaticText1
+      AllowAutoDeactivate=   True
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   64
       HelpTag         =   ""
       Index           =   -2147483648
@@ -83,7 +107,8 @@ Begin Window ImageTransformExample
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "You should be able to open an image file in any reasonable format, including .icns. This window will display the original image, plus disabled and selected versions of it."
-      TextAlign       =   0
+      TextAlign       =   "0"
+      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -91,18 +116,23 @@ Begin Window ImageTransformExample
       Top             =   222
       Transparent     =   False
       Underline       =   False
+      Value           =   "You should be able to open an image file in any reasonable format, including .icns. This window will display the original image, plus disabled and selected versions of it."
       Visible         =   True
       Width           =   389
    End
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
+      AllowAutoDeactivate=   False
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       AutoDeactivate  =   False
       Backdrop        =   0
       BehaviorIndex   =   2
-      DoubleBuffer    =   False
+      DoubleBuffer    =   "False"
       Enabled         =   False
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   203
       HelpTag         =   ""
       Index           =   -2147483648
