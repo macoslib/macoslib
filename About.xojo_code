@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		213: 2019-10-11 by VVB
+		- Added OS Version check for IsCatalina.
+		
 		212: 2019-08-29 by SD
 		- The project was re-saved in a new Xojo format (.xojo_code instead of .rbbas) — the reason of massive changes in this commit.
 		- MacType, MacCreator and MacFSRef have been deprecated for many years and will be removed in future version of Xojo. 
@@ -690,7 +693,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"212", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"213", Scope = Protected
 	#tag EndConstant
 
 
