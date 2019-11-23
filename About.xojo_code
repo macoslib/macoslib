@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		214: 2019-11-23 by VVB
+		- Added an alternative method for MoveToTrash to support Xojo 2019.02+
+		
 		213: 2019-10-11 by VVB
 		- Added OS Version check for IsCatalina.
 		
@@ -693,7 +696,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"213", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"214", Scope = Protected
 	#tag EndConstant
 
 
