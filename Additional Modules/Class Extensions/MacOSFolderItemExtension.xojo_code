@@ -790,16 +790,34 @@ Protected Module MacOSFolderItemExtension
 		  //# Move the FolderItem to the trash. If such item already exists, the FolderItem is renamed. If there is no Trash on the given volume, the method fails.
 		  
 		  #if targetMacOS
-		    if f = nil or NOT f.Exists then return
-		    
-		    dim source as FSRef = FileManager.GetFSRefFromFolderItem(f)
-		    
-		    soft declare function FSMoveObjectToTrashSync lib CarbonLib (fsRef as Ptr, target as Ptr, options as UInt32) as Integer
-		    
-		    dim OSError as Integer = FSMoveObjectToTrashSync(source, nil, 0)
-		    
-		    // Keep the compiler from complaining
-		    #pragma unused OSError
+		    #if XojoVersion >= 2017.03 then
+		      //These Declares require macOS 10.8+ (Xojo 2017.03 builds for OS X 10.9+)
+		      Declare Function trashItemAtURL Lib CocoaLib selector "trashItemAtURL:resultingItemURL:error:" ( NSFileManagerInstance As Integer, inUrl As Integer, outUrl As Integer, outError As Integer ) As Boolean
+		      Declare Function defaultManager Lib CocoaLib selector "defaultManager" ( NSFileManagerClass As Integer ) As Integer
+		      Declare Function NSClassFromString Lib CocoaLib (className As CFStringRef) As Integer
+		      Declare Function NSerrorlocalizedDescription Lib CocoaLib selector "localizedDescription" (NSErrorInstance As Integer) As CFStringRef
+		      Declare Function NSURLfileURLWithPathIsDirectory Lib CocoaLib selector "fileURLWithPath:isDirectory:" (NSURLClass As Integer, path As CFStringRef, directory As Boolean) As Integer
+		      
+		      Dim newLocation, NSError As Integer
+		      Dim bSuccess As Boolean = trashItemAtURL( defaultManager( NSClassFromString( "NSFileManager" ) ), NSURLFileURLWithPathIsDirectory( NSClassFromString( "NSURL" ), f.NativePath, f.Directory ), newLocation, NSError )
+		      
+		      If (bSuccess = False) Then
+		        dim sErrorMessage As String = NSErrorlocalizedDescription( NSError )
+		        //cope with it
+		      end if
+		    #else
+		      // Makes use of MacFSRef which is no longer suported in Xojo 2019.02
+		      if f = nil or NOT f.Exists then return
+		      
+		      dim source as FSRef = FileManager.GetFSRefFromFolderItem(f)
+		      
+		      soft declare function FSMoveObjectToTrashSync lib CarbonLib (fsRef as Ptr, target as Ptr, options as UInt32) as Integer
+		      
+		      dim OSError as Integer = FSMoveObjectToTrashSync(source, nil, 0)
+		      
+		      // Keep the compiler from complaining
+		      #pragma unused OSError
+		    #endif
 		    
 		  #else
 		    #pragma unused f

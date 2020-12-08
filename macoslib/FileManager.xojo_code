@@ -466,8 +466,11 @@ Module FileManager
 		    return url.Path
 		    
 		  #elseif TargetLinux
-		    
-		    return f.AbsolutePath
+		    #if RBVersion >= 2013.0
+		      return f.AbsolutePath
+		    #else
+		      return f.NativePath
+		    #endif
 		    
 		  #else
 		    
