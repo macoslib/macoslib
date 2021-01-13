@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		215: 2020-02-07 by EP
+		- Handle Linux compile with Xojo 2019r2 and higher
+		
 		214: 2019-11-23 by VVB
 		- Added an alternative method for MoveToTrash to support Xojo 2019.02+
 		
@@ -696,7 +699,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"214", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"215", Scope = Protected
 	#tag EndConstant
 
 
