@@ -2,10 +2,12 @@
 Protected Module QTKit
 	#tag Method, Flags = &h1
 		Protected Function Load() As Boolean
-		  dim b as NSBundle = NSBundle.LoadFromPath("/System/Library/Frameworks/QTKit.framework")
-		  if b <> nil then
-		    return b.Load
-		  end if
+		  #if targetMacOS and targetX86
+		    dim b as NSBundle = NSBundle.LoadFromPath("/System/Library/Frameworks/QTKit.framework")
+		    if b <> nil then
+		      return b.Load
+		    end if
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -39,6 +41,7 @@ Protected Module QTKit
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -46,18 +49,23 @@ Protected Module QTKit
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -65,6 +73,7 @@ Protected Module QTKit
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
