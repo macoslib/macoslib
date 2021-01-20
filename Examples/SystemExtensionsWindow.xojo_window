@@ -3,7 +3,6 @@ Begin Window SystemExtensionsWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window SystemExtensionsWindow
    HasBackColor    =   False
    Height          =   447
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,14 +26,10 @@ Begin Window SystemExtensionsWindow
    Visible         =   True
    Width           =   729
    Begin GroupBox GroupBox3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       Caption         =   "Other Data"
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   62
       HelpTag         =   ""
       Index           =   -2147483648
@@ -59,15 +54,11 @@ Begin Window SystemExtensionsWindow
       Visible         =   True
       Width           =   703
       Begin Label DoubleClickTimeLBL
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "11.0"
-         FontUnit        =   "0"
          Height          =   16
          HelpTag         =   ""
          Index           =   -2147483648
@@ -85,9 +76,7 @@ Begin Window SystemExtensionsWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "SystemDoubleClickTime"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   11.0
@@ -101,14 +90,10 @@ Begin Window SystemExtensionsWindow
       End
    End
    Begin GroupBox GroupBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       Caption         =   "Available Printers"
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   123
       HelpTag         =   ""
       Index           =   -2147483648
@@ -133,13 +118,6 @@ Begin Window SystemExtensionsWindow
       Visible         =   True
       Width           =   702
       Begin Listbox Listbox2
-         AllowAutoDeactivate=   "True"
-         AllowAutoHideScrollbars=   "True"
-         AllowExpandableRows=   "False"
-         AllowFocusRing  =   "True"
-         AllowResizableColumns=   "False"
-         AllowRowDragging=   "False"
-         AllowRowReordering=   "False"
          AutoDeactivate  =   True
          AutoHideScrollbars=   True
          Bold            =   False
@@ -150,22 +128,12 @@ Begin Window SystemExtensionsWindow
          DataField       =   ""
          DataSource      =   ""
          DefaultRowHeight=   16
-         DropIndicatorVisible=   "False"
          Enabled         =   True
          EnableDrag      =   False
          EnableDragReorder=   False
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          GridLinesHorizontal=   0
-         GridLinesHorizontalStyle=   "0"
          GridLinesVertical=   0
-         GridLinesVerticalStyle=   "0"
-         HasBorder       =   "True"
-         HasHeader       =   "True"
          HasHeading      =   True
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          HeadingIndex    =   -1
          Height          =   94
          HelpTag         =   ""
@@ -181,7 +149,6 @@ Begin Window SystemExtensionsWindow
          LockRight       =   False
          LockTop         =   True
          RequiresSelection=   False
-         RowSelectionType=   "0"
          Scope           =   0
          ScrollbarHorizontal=   False
          ScrollBarVertical=   True
@@ -205,14 +172,10 @@ Begin Window SystemExtensionsWindow
       End
    End
    Begin GroupBox GroupBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       Caption         =   "Finder Labels"
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   189
       HelpTag         =   ""
       Index           =   -2147483648
@@ -237,13 +200,6 @@ Begin Window SystemExtensionsWindow
       Visible         =   True
       Width           =   702
       Begin Listbox Listbox1
-         AllowAutoDeactivate=   "True"
-         AllowAutoHideScrollbars=   "True"
-         AllowExpandableRows=   "False"
-         AllowFocusRing  =   "True"
-         AllowResizableColumns=   "False"
-         AllowRowDragging=   "False"
-         AllowRowReordering=   "False"
          AutoDeactivate  =   True
          AutoHideScrollbars=   True
          Bold            =   False
@@ -254,22 +210,12 @@ Begin Window SystemExtensionsWindow
          DataField       =   ""
          DataSource      =   ""
          DefaultRowHeight=   18
-         DropIndicatorVisible=   "False"
          Enabled         =   True
          EnableDrag      =   False
          EnableDragReorder=   False
-         FontName        =   "System"
-         FontSize        =   "11.0"
-         FontUnit        =   "0"
          GridLinesHorizontal=   0
-         GridLinesHorizontalStyle=   "0"
          GridLinesVertical=   0
-         GridLinesVerticalStyle=   "0"
-         HasBorder       =   "True"
-         HasHeader       =   "False"
          HasHeading      =   False
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          HeadingIndex    =   -1
          Height          =   155
          HelpTag         =   "Finder Labels obtained with SystemExtensions module"
@@ -285,7 +231,6 @@ Begin Window SystemExtensionsWindow
          LockRight       =   False
          LockTop         =   True
          RequiresSelection=   False
-         RowSelectionType=   "0"
          Scope           =   0
          ScrollbarHorizontal=   False
          ScrollBarVertical=   True
@@ -308,15 +253,11 @@ Begin Window SystemExtensionsWindow
          _ScrollWidth    =   -1
       End
       Begin Label Label3
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "11.0"
-         FontUnit        =   "0"
          Height          =   64
          HelpTag         =   ""
          Index           =   -2147483648
@@ -334,9 +275,7 @@ Begin Window SystemExtensionsWindow
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Note that you can use the CustomWorkspaceEvents module to get a notification anytime the user makes changes to the Finder labels (name or color).\r\rYour application can then take the changes into account immediately."
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   11.0
@@ -350,15 +289,11 @@ Begin Window SystemExtensionsWindow
       End
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Height          =   39
       HelpTag         =   ""
       Index           =   -2147483648
@@ -376,9 +311,7 @@ Begin Window SystemExtensionsWindow
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "SystemExtensions are not invoked with a ""dot notation"" (because Real Studio does not allow extending a module) but they all use System as a prefix. Use the autocompletion feature to access them easily."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0

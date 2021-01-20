@@ -3,7 +3,6 @@ Begin Window AuthorizationShellExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window AuthorizationShellExample
    HasBackColor    =   False
    Height          =   555
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -34,17 +33,13 @@ Begin Window AuthorizationShellExample
       TabPanelIndex   =   0
    End
    Begin PushButton runBut
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Run"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -56,7 +51,6 @@ Begin Window AuthorizationShellExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -73,28 +67,18 @@ Begin Window AuthorizationShellExample
    Begin TextField cmdEdit
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -106,15 +90,12 @@ Begin Window AuthorizationShellExample
       LockRight       =   True
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "/bin/sh"
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -123,7 +104,6 @@ Begin Window AuthorizationShellExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "/bin/sh"
       Visible         =   True
       Width           =   299
@@ -131,28 +111,18 @@ Begin Window AuthorizationShellExample
    Begin TextField argsEdit
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -164,15 +134,12 @@ Begin Window AuthorizationShellExample
       LockRight       =   True
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-i"
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -181,7 +148,6 @@ Begin Window AuthorizationShellExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "-i"
       Visible         =   True
       Width           =   298
@@ -189,28 +155,18 @@ Begin Window AuthorizationShellExample
    Begin TextField inputEdit
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   "enter a command here ('exit' when done)"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   "enter a command here ('exit' when done)"
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -222,15 +178,12 @@ Begin Window AuthorizationShellExample
       LockRight       =   True
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -239,7 +192,6 @@ Begin Window AuthorizationShellExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   449
@@ -247,27 +199,15 @@ Begin Window AuthorizationShellExample
    Begin TextArea outputEdit
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "Courier"
-      FontSize        =   "10.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   288
       HelpTag         =   ""
       HideSelection   =   True
@@ -284,7 +224,6 @@ Begin Window AuthorizationShellExample
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -294,8 +233,6 @@ Begin Window AuthorizationShellExample
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Instructions:\r\rHit the Run button to run a new shell (sh) with root permissions.\r\rOnce you've entered your login credentials, reactivate this window by clicking into it.\r\rThen enter a command into the upper editfield, e.g.:\r\rls /.fseventsd\r\rYou'll get a listing of a folder that can't be read without root permissions.\r\rType 'exit' to close the session."
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "Courier"
       TextSize        =   10.0
@@ -303,22 +240,18 @@ Begin Window AuthorizationShellExample
       Top             =   221
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Instructions:\r\rHit the Run button to run a new shell (sh) with root permissions.\r\rOnce you've entered your login credentials, reactivate this window by clicking into it.\r\rThen enter a command into the upper editfield, e.g.:\r\rls /.fseventsd\r\rYou'll get a listing of a folder that can't be read without root permissions.\r\rType 'exit' to close the session."
       Visible         =   True
       Width           =   449
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -336,9 +269,7 @@ Begin Window AuthorizationShellExample
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Cmd:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -351,15 +282,11 @@ Begin Window AuthorizationShellExample
       Width           =   51
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -377,9 +304,7 @@ Begin Window AuthorizationShellExample
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Args:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -392,7 +317,7 @@ Begin Window AuthorizationShellExample
       Width           =   51
    End
    Begin Line Line1
-      BorderWidth     =   1
+      BorderWidth     =   1.0
       Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
@@ -401,27 +326,22 @@ Begin Window AuthorizationShellExample
       Scope           =   0
       TabIndex        =   "8"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Thickness       =   "1.0"
+      TabStop         =   "True"
       Transparent     =   False
       Visible         =   True
-      X1              =   12
-      X2              =   474
-      Y1              =   177
-      Y2              =   178
+      X1              =   12.0
+      X2              =   474.0
+      Y1              =   177.0
+      Y2              =   178.0
    End
    Begin PushButton clearOutputBut
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Clear"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -433,7 +353,6 @@ Begin Window AuthorizationShellExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -450,28 +369,18 @@ Begin Window AuthorizationShellExample
    Begin TextField fldUsername
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   "optional"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   "optional"
       Index           =   -2147483648
       Italic          =   False
       Left            =   145
@@ -482,15 +391,12 @@ Begin Window AuthorizationShellExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -499,7 +405,6 @@ Begin Window AuthorizationShellExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   228
@@ -507,28 +412,18 @@ Begin Window AuthorizationShellExample
    Begin TextField fldPassword
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   "optional"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   "optional"
       Index           =   -2147483648
       Italic          =   False
       Left            =   145
@@ -539,15 +434,12 @@ Begin Window AuthorizationShellExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   True
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -556,21 +448,16 @@ Begin Window AuthorizationShellExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   228
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   2
@@ -588,9 +475,7 @@ Begin Window AuthorizationShellExample
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Username:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -603,15 +488,11 @@ Begin Window AuthorizationShellExample
       Width           =   114
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   3
@@ -629,9 +510,7 @@ Begin Window AuthorizationShellExample
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Password:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -644,15 +523,11 @@ Begin Window AuthorizationShellExample
       Width           =   114
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   32
       HelpTag         =   ""
       Index           =   4
@@ -670,9 +545,7 @@ Begin Window AuthorizationShellExample
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Enter a username and password below. Blank or incorrect values will bring up the standard dialog."
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -685,7 +558,7 @@ Begin Window AuthorizationShellExample
       Width           =   449
    End
    Begin Line Line2
-      BorderWidth     =   1
+      BorderWidth     =   1.0
       Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
@@ -694,14 +567,13 @@ Begin Window AuthorizationShellExample
       Scope           =   0
       TabIndex        =   "15"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Thickness       =   "1.0"
+      TabStop         =   "True"
       Transparent     =   False
       Visible         =   True
-      X1              =   12
-      X2              =   474
-      Y1              =   102
-      Y2              =   103
+      X1              =   12.0
+      X2              =   474.0
+      Y1              =   102.0
+      Y2              =   103.0
    End
 End
 #tag EndWindow

@@ -448,6 +448,7 @@ Begin Window NSToolbarWindow
          SelectionType   =   0
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Top             =   -85
          Transparent     =   False
          Visible         =   True
@@ -622,7 +623,7 @@ End
 		  PopupMenu1.listIndex = 0
 		  
 		  // BigSur added a subtitle property, which is added after the title on intel, or underneath the title on ARM if the toolbar is visible.
-		  m_NSWindow.Subtitle = "Subtitle Example"
+		  me.NSWindowObject.Subtitle = "Subtitle Example"
 		End Sub
 	#tag EndEvent
 

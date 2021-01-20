@@ -3,7 +3,6 @@ Begin Window NSTableViewExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSTableViewExample
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -30,25 +29,21 @@ Begin Window NSTableViewExample
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
       AllowColumnReordering=   False
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AlternatingRowBackground=   False
       AutoDeactivate  =   True
       AutohideScrollbars=   False
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       ColumnCount     =   0
       debugGridColor  =   &c00000000
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   400
       HelpTag         =   ""
@@ -58,7 +53,7 @@ Begin Window NSTableViewExample
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
@@ -76,7 +71,7 @@ Begin Window NSTableViewExample
       Top             =   0
       Transparent     =   True
       TypeSelect      =   False
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       VerticalGrid    =   False
       VerticalScrollbar=   False
@@ -84,16 +79,12 @@ Begin Window NSTableViewExample
       Width           =   315
    End
    Begin CheckBox HorizontalGrid
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Horizontal grid lines"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -118,20 +109,15 @@ Begin Window NSTableViewExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   171
    End
    Begin CheckBox VerticalGrid
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Vertical grid lines"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -156,20 +142,15 @@ Begin Window NSTableViewExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   156
    End
    Begin CheckBox AlternatingRows
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Alternating Row Colors"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -194,7 +175,6 @@ Begin Window NSTableViewExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   192
    End
 End

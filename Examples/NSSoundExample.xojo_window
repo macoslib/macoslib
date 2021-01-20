@@ -3,7 +3,6 @@ Begin Window NSSoundExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSSoundExample
    HasBackColor    =   False
    Height          =   429
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,17 +26,13 @@ Begin Window NSSoundExample
    Visible         =   True
    Width           =   536
    Begin PushButton btnSelect
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Select"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -49,7 +44,6 @@ Begin Window NSSoundExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -69,20 +63,15 @@ Begin Window NSSoundExample
       LockedInPosition=   False
       Mode            =   2
       Period          =   250
-      RunMode         =   "2"
       Scope           =   0
       TabPanelIndex   =   0
    End
    Begin Label lblFilePath
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   39
       HelpTag         =   ""
       Index           =   -2147483648
@@ -100,9 +89,7 @@ Begin Window NSSoundExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "(no file selected)"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -115,17 +102,13 @@ Begin Window NSSoundExample
       Width           =   373
    End
    Begin PushButton btnStop
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Stop"
       Default         =   False
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -137,7 +120,6 @@ Begin Window NSSoundExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -152,17 +134,13 @@ Begin Window NSSoundExample
       Width           =   80
    End
    Begin PushButton btnPlay
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Play"
       Default         =   False
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -174,7 +152,6 @@ Begin Window NSSoundExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -189,17 +166,13 @@ Begin Window NSSoundExample
       Width           =   80
    End
    Begin PushButton btnPause
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Pause"
       Default         =   False
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -211,7 +184,6 @@ Begin Window NSSoundExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -226,17 +198,13 @@ Begin Window NSSoundExample
       Width           =   80
    End
    Begin PushButton btnResume
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Resume"
       Default         =   False
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -248,7 +216,6 @@ Begin Window NSSoundExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -263,15 +230,11 @@ Begin Window NSSoundExample
       Width           =   80
    End
    Begin Label lblStatus
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -289,9 +252,7 @@ Begin Window NSSoundExample
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "unknown"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -304,15 +265,11 @@ Begin Window NSSoundExample
       Width           =   142
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   0
@@ -330,9 +287,7 @@ Begin Window NSSoundExample
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Status:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -345,15 +300,11 @@ Begin Window NSSoundExample
       Width           =   104
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   1
@@ -371,9 +322,7 @@ Begin Window NSSoundExample
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Current Time:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -386,15 +335,11 @@ Begin Window NSSoundExample
       Width           =   104
    End
    Begin Label lblCurrentTime
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -412,9 +357,7 @@ Begin Window NSSoundExample
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "0"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -427,16 +370,12 @@ Begin Window NSSoundExample
       Width           =   142
    End
    Begin CheckBox cbLoops
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Loops"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -461,12 +400,9 @@ Begin Window NSSoundExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   100
    End
    Begin Slider sldVolume
-      AllowAutoDeactivate=   "True"
-      AllowLiveScrolling=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   23
@@ -482,16 +418,13 @@ Begin Window NSSoundExample
       LockRight       =   False
       LockTop         =   True
       Maximum         =   1000
-      MaximumValue    =   "1000"
       Minimum         =   0
-      MinimumValue    =   "0"
       PageStep        =   20
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      TickMarkStyle   =   "0"
-      TickStyle       =   "0"
+      TickStyle       =   0
       Top             =   232
       Transparent     =   False
       Value           =   0
@@ -499,15 +432,11 @@ Begin Window NSSoundExample
       Width           =   100
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   2
@@ -525,9 +454,7 @@ Begin Window NSSoundExample
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Volume:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -540,15 +467,11 @@ Begin Window NSSoundExample
       Width           =   91
    End
    Begin Label lblVolume
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -566,9 +489,7 @@ Begin Window NSSoundExample
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "0.000"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -581,15 +502,11 @@ Begin Window NSSoundExample
       Width           =   142
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   25
       HelpTag         =   ""
       Index           =   3
@@ -607,9 +524,7 @@ Begin Window NSSoundExample
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Select a sound file:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -622,8 +537,6 @@ Begin Window NSSoundExample
       Width           =   169
    End
    Begin Slider sldProgress
-      AllowAutoDeactivate=   "True"
-      AllowLiveScrolling=   "True"
       AutoDeactivate  =   True
       Enabled         =   False
       Height          =   23
@@ -639,16 +552,13 @@ Begin Window NSSoundExample
       LockRight       =   False
       LockTop         =   True
       Maximum         =   1000
-      MaximumValue    =   "1000"
       Minimum         =   0
-      MinimumValue    =   "0"
       PageStep        =   20
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      TickMarkStyle   =   "0"
-      TickStyle       =   "0"
+      TickStyle       =   0
       Top             =   98
       Transparent     =   False
       Value           =   0
@@ -656,13 +566,6 @@ Begin Window NSSoundExample
       Width           =   496
    End
    Begin Listbox lbMetadata
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -673,22 +576,12 @@ Begin Window NSSoundExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   117
       HelpTag         =   ""
@@ -704,7 +597,6 @@ Begin Window NSSoundExample
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -727,15 +619,11 @@ Begin Window NSSoundExample
       _ScrollWidth    =   -1
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   25
       HelpTag         =   ""
       Index           =   4
@@ -753,9 +641,7 @@ Begin Window NSSoundExample
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Metadata"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -770,15 +656,11 @@ Begin Window NSSoundExample
    Begin Canvas cvsArtwork
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   100
       HelpTag         =   ""
       Index           =   -2147483648

@@ -3,7 +3,6 @@ Begin Window QuickStartPDFWND
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window QuickStartPDFWND
    HasBackColor    =   False
    Height          =   736
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,10 +28,6 @@ Begin Window QuickStartPDFWND
    Begin PDFView PV1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutoresizesSubviews=   False
       AutoresizingMask=   0
@@ -50,7 +45,7 @@ Begin Window QuickStartPDFWND
       displaysNetworkScanners=   ""
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FocusRingType   =   ""
       FrameRotation   =   0.0
       Height          =   709
@@ -92,10 +87,6 @@ Begin Window QuickStartPDFWND
    Begin PDFThumbnailView TV1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutoresizesSubviews=   False
       AutoresizingMask=   0
@@ -107,7 +98,7 @@ Begin Window QuickStartPDFWND
       Description     =   ""
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FocusRingType   =   ""
       FrameRotation   =   0.0
       Height          =   709
@@ -146,15 +137,11 @@ Begin Window QuickStartPDFWND
       Width           =   131
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -172,9 +159,7 @@ Begin Window QuickStartPDFWND
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "To print the PDF document, press Cmd-P or choose Print from the File menu."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   12.0

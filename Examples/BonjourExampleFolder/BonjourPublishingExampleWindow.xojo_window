@@ -3,7 +3,6 @@ Begin Window BonjourPublishingExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window BonjourPublishingExampleWindow
    HasBackColor    =   False
    Height          =   455
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,15 +28,11 @@ Begin Window BonjourPublishingExampleWindow
    Begin Canvas Group1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   131
       HelpTag         =   ""
       Index           =   -2147483648
@@ -58,15 +53,11 @@ Begin Window BonjourPublishingExampleWindow
       Visible         =   True
       Width           =   762
       Begin Label Label8
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -84,9 +75,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "The port number that the clients must connect to. This is mandatory."
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -101,28 +90,18 @@ Begin Window BonjourPublishingExampleWindow
       Begin TextField PortTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "Group1"
          Italic          =   False
@@ -134,15 +113,12 @@ Begin Window BonjourPublishingExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "50000"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -151,21 +127,16 @@ Begin Window BonjourPublishingExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "50000"
          Visible         =   True
          Width           =   70
       End
       Begin Label Label7
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -183,9 +154,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Port:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -198,15 +167,11 @@ Begin Window BonjourPublishingExampleWindow
          Width           =   100
       End
       Begin Label Label6
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -224,9 +189,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Usually """", ""."" or ""local."""
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -241,28 +204,18 @@ Begin Window BonjourPublishingExampleWindow
       Begin TextField DomainTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "Group1"
          Italic          =   False
@@ -274,15 +227,12 @@ Begin Window BonjourPublishingExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   ""
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -291,21 +241,16 @@ Begin Window BonjourPublishingExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   ""
          Visible         =   True
          Width           =   294
       End
       Begin Label Label5
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -323,9 +268,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Domain:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -338,15 +281,11 @@ Begin Window BonjourPublishingExampleWindow
          Width           =   100
       End
       Begin Label Label10
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -364,9 +303,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "See IANA defined services"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c0000FF00
          TextFont        =   "System"
          TextSize        =   0.0
@@ -379,15 +316,11 @@ Begin Window BonjourPublishingExampleWindow
          Width           =   174
       End
       Begin Label Label4
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -405,9 +338,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "incl. .m_udp or ._tcp"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -422,28 +353,18 @@ Begin Window BonjourPublishingExampleWindow
       Begin TextField TypeTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "Group1"
          Italic          =   False
@@ -455,15 +376,12 @@ Begin Window BonjourPublishingExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   8
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "m_macoslib._tcp"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -472,21 +390,16 @@ Begin Window BonjourPublishingExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "m_macoslib._tcp"
          Visible         =   True
          Width           =   294
       End
       Begin Label Label3
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -504,9 +417,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   9
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Service type:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -521,28 +432,18 @@ Begin Window BonjourPublishingExampleWindow
       Begin TextField NameTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "Group1"
          Italic          =   False
@@ -554,15 +455,12 @@ Begin Window BonjourPublishingExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   10
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "MacOSLibService"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -571,21 +469,16 @@ Begin Window BonjourPublishingExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "MacOSLibService"
          Visible         =   True
          Width           =   294
       End
       Begin Label Label2
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -603,9 +496,7 @@ Begin Window BonjourPublishingExampleWindow
          TabIndex        =   11
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Service name:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -619,15 +510,11 @@ Begin Window BonjourPublishingExampleWindow
       End
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   67
       HelpTag         =   ""
       Index           =   -2147483648
@@ -645,9 +532,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Before publishing a BonjourService, you should first create a Socket or a ServerSocket with a given port to accept connections from the outside. Then you can publish the Service so clients can find and connect to you.\r\rThe TXTRecord contains some data that the service requires. TXTRecords are usually private."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -660,17 +545,13 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   741
    End
    Begin PushButton PublishBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Publish Service"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -682,7 +563,6 @@ Begin Window BonjourPublishingExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -697,15 +577,11 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   156
    End
    Begin Label Label9
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Each TXT record is composed by ""name=value"""
       Index           =   -2147483648
@@ -723,9 +599,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "TXT Record:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -738,15 +612,11 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   100
    End
    Begin Label Label11
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Each TXT record is composed by ""name=value"""
       Index           =   -2147483648
@@ -764,9 +634,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "(optional)"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -779,13 +647,6 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   100
    End
    Begin Listbox TXTLB
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -796,22 +657,12 @@ Begin Window BonjourPublishingExampleWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   18
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   100
       HelpTag         =   ""
@@ -827,7 +678,6 @@ Begin Window BonjourPublishingExampleWindow
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -850,17 +700,13 @@ Begin Window BonjourPublishingExampleWindow
       _ScrollWidth    =   -1
    End
    Begin PushButton ChangeTXTBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Change TXT Records"
       Default         =   False
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Validate modified TXT Records on the network"
       Index           =   -2147483648
@@ -872,7 +718,6 @@ Begin Window BonjourPublishingExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   22
       TabPanelIndex   =   0
@@ -887,7 +732,6 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   156
    End
    Begin ProgressWheel PW1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   16
@@ -913,12 +757,8 @@ Begin Window BonjourPublishingExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
       AllowCopyCutPaste=   False
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -928,7 +768,7 @@ Begin Window BonjourPublishingExampleWindow
       DoubleValue     =   0.0
       Editable        =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       FocusRingType   =   0
       FrameStyle      =   0
@@ -972,15 +812,11 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   16
    End
    Begin Label Label12
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -998,9 +834,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   25
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Status"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -1013,15 +847,11 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   51
    End
    Begin Label Label13
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   36
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1039,9 +869,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   26
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "This example window allows you to publish only one service. In the real life, you can register as many services as you want."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c80004000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -1055,36 +883,22 @@ Begin Window BonjourPublishingExampleWindow
    End
    Begin BevelButton AddTXT
       AcceptFocus     =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
       AutoDeactivate  =   True
       BackColor       =   &c00000000
-      BackgroundColor =   "&c00000000"
       Bevel           =   0
-      BevelStyle      =   "0"
       Bold            =   False
-      ButtonStyle     =   "0"
       ButtonType      =   0
       Caption         =   "+"
       CaptionAlign    =   3
-      CaptionAlignment=   "3"
       CaptionDelta    =   0
       CaptionPlacement=   1
-      CaptionPosition =   "1"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       HasBackColor    =   False
-      HasBackgroundColor=   "False"
       HasMenu         =   0
       Height          =   22
       HelpTag         =   ""
       Icon            =   0
       IconAlign       =   0
-      IconAlignment   =   "0"
-      IconDeltaX      =   "0"
-      IconDeltaY      =   "0"
       IconDX          =   0
       IconDY          =   0
       Index           =   -2147483648
@@ -1096,8 +910,7 @@ Begin Window BonjourPublishingExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MenuStyle       =   "0"
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   27
       TabPanelIndex   =   0
@@ -1115,36 +928,22 @@ Begin Window BonjourPublishingExampleWindow
    End
    Begin BevelButton RemoveTXT
       AcceptFocus     =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
       AutoDeactivate  =   True
       BackColor       =   &c00000000
-      BackgroundColor =   "&c00000000"
       Bevel           =   0
-      BevelStyle      =   "0"
       Bold            =   False
-      ButtonStyle     =   "0"
       ButtonType      =   0
       Caption         =   "–"
       CaptionAlign    =   3
-      CaptionAlignment=   "3"
       CaptionDelta    =   0
       CaptionPlacement=   1
-      CaptionPosition =   "1"
       Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       HasBackColor    =   False
-      HasBackgroundColor=   "False"
       HasMenu         =   0
       Height          =   22
       HelpTag         =   ""
       Icon            =   0
       IconAlign       =   0
-      IconAlignment   =   "0"
-      IconDeltaX      =   "0"
-      IconDeltaY      =   "0"
       IconDX          =   0
       IconDY          =   0
       Index           =   -2147483648
@@ -1156,8 +955,7 @@ Begin Window BonjourPublishingExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MenuStyle       =   "0"
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   28
       TabPanelIndex   =   0
@@ -1174,15 +972,11 @@ Begin Window BonjourPublishingExampleWindow
       Width           =   22
    End
    Begin Label Label14
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Each TXT record is composed by ""name=value"""
       Index           =   -2147483648
@@ -1200,9 +994,7 @@ Begin Window BonjourPublishingExampleWindow
       TabIndex        =   30
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You can add/remove/modify the records even after the service has been published."
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0

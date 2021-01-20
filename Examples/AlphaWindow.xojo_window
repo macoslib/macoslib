@@ -3,7 +3,6 @@ Begin Window AlphaWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window AlphaWindow
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,8 +26,6 @@ Begin Window AlphaWindow
    Visible         =   True
    Width           =   600
    Begin Slider Slider1
-      AllowAutoDeactivate=   "True"
-      AllowLiveScrolling=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   17
@@ -44,16 +41,13 @@ Begin Window AlphaWindow
       LockRight       =   False
       LockTop         =   False
       Maximum         =   100
-      MaximumValue    =   "100"
       Minimum         =   0
-      MinimumValue    =   "0"
       PageStep        =   20
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TickMarkStyle   =   "2"
-      TickStyle       =   "2"
+      TickStyle       =   2
       Top             =   356
       Transparent     =   False
       Value           =   100

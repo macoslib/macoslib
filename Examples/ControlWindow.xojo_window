@@ -3,7 +3,6 @@ Begin Window ControlWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window ControlWindow
    HasBackColor    =   False
    Height          =   300
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,7 +26,6 @@ Begin Window ControlWindow
    Visible         =   True
    Width           =   300
    Begin CheckBox CheckBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   0
       Bold            =   False
@@ -36,9 +34,6 @@ Begin Window ControlWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -63,11 +58,9 @@ Begin Window ControlWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox CheckBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   False
@@ -76,9 +69,6 @@ Begin Window ControlWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -103,27 +93,20 @@ Begin Window ControlWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckboxContainer ContainerControl11
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       BackColor       =   &cFFFFFF00
       Backdrop        =   0
-      BackgroundColor =   "&cFFFFFF00"
       BehaviorIndex   =   2
       ControlOrder    =   "2"
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
       HasBackColor    =   False
-      HasBackgroundColor=   "False"
       Height          =   21
       HelpTag         =   ""
       Index           =   -2147483648
@@ -147,10 +130,6 @@ Begin Window ControlWindow
    Begin MacCheckbox MacCheckbox1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutoToggle      =   False
       Backdrop        =   0
@@ -159,7 +138,7 @@ Begin Window ControlWindow
       ControlOrder    =   "3"
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648

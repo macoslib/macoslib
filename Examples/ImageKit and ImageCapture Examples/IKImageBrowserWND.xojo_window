@@ -3,7 +3,6 @@ Begin Window IKImageBrowserWND
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window IKImageBrowserWND
    HasBackColor    =   False
    Height          =   654
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,13 +28,9 @@ Begin Window IKImageBrowserWND
    Begin IKImageBrowserView IKIView
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsEmptySelection=   False
       AllowsMultipleSelection=   False
       AllowsReordering=   False
-      AllowTabs       =   "False"
       Animates        =   False
       AutoDeactivate  =   True
       Backdrop        =   0
@@ -44,7 +39,7 @@ Begin Window IKImageBrowserWND
       ConstrainsToOriginalSize=   False
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       Height          =   593
       HelpTag         =   ""
       Index           =   -2147483648
@@ -68,17 +63,13 @@ Begin Window IKImageBrowserWND
       Width           =   852
    End
    Begin PushButton PushButton2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Open image folder…"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Open a folder containing images and display the result. Subfolders are ignored."
       Index           =   -2147483648
@@ -90,7 +81,6 @@ Begin Window IKImageBrowserWND
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -105,8 +95,6 @@ Begin Window IKImageBrowserWND
       Width           =   173
    End
    Begin Slider Slider1
-      AllowAutoDeactivate=   "True"
-      AllowLiveScrolling=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   22
@@ -122,16 +110,13 @@ Begin Window IKImageBrowserWND
       LockRight       =   True
       LockTop         =   False
       Maximum         =   512
-      MaximumValue    =   "512"
       Minimum         =   32
-      MinimumValue    =   "32"
       PageStep        =   20
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      TickMarkStyle   =   "0"
-      TickStyle       =   "0"
+      TickStyle       =   0
       Top             =   623
       Transparent     =   False
       Value           =   64
@@ -139,15 +124,11 @@ Begin Window IKImageBrowserWND
       Width           =   165
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   15
       HelpTag         =   ""
       Index           =   -2147483648
@@ -165,9 +146,7 @@ Begin Window IKImageBrowserWND
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Icon size"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -180,15 +159,11 @@ Begin Window IKImageBrowserWND
       Width           =   100
    End
    Begin Label ColsRowsLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   34
       HelpTag         =   ""
       Index           =   -2147483648
@@ -206,9 +181,7 @@ Begin Window IKImageBrowserWND
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Columns:\rRows:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0

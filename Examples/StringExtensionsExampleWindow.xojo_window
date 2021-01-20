@@ -3,7 +3,6 @@ Begin Window StringExtensionsExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window StringExtensionsExampleWindow
    HasBackColor    =   False
    Height          =   648
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,9 @@ Begin Window StringExtensionsExampleWindow
    Visible         =   True
    Width           =   1019
    Begin TabPanel TabPanel1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   635
       HelpTag         =   ""
       Index           =   -2147483648
@@ -62,15 +57,11 @@ Begin Window StringExtensionsExampleWindow
       Visible         =   True
       Width           =   1009
       Begin Label Label1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   40
          HelpTag         =   ""
          Index           =   -2147483648
@@ -88,9 +79,7 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   0
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "It is sometimes useful to be able to get a substring before or after some text or between two tags, e.g. when processing some Shell result. Macoslib allows you to do that. You can try it below."
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -103,15 +92,11 @@ Begin Window StringExtensionsExampleWindow
          Width           =   987
       End
       Begin Label Label2
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -129,9 +114,7 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   1
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "Source:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -144,15 +127,11 @@ Begin Window StringExtensionsExampleWindow
          Width           =   52
       End
       Begin Label Label3
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -170,9 +149,7 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   2
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "Substring #1:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -185,15 +162,11 @@ Begin Window StringExtensionsExampleWindow
          Width           =   91
       End
       Begin Label Label4
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -211,9 +184,7 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   3
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "Substring #2:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -228,27 +199,15 @@ Begin Window StringExtensionsExampleWindow
       Begin TextArea SrcTA
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "True"
-         AllowStyledText =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   True
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          Height          =   66
          HelpTag         =   ""
          HideSelection   =   True
@@ -265,7 +224,6 @@ Begin Window StringExtensionsExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Multiline       =   True
          ReadOnly        =   False
          Scope           =   0
@@ -275,8 +233,6 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   4
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "name=Some string;"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -284,8 +240,8 @@ Begin Window StringExtensionsExampleWindow
          Top             =   122
          Transparent     =   False
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "name=Some string;"
          Visible         =   True
          Width           =   878
@@ -293,27 +249,15 @@ Begin Window StringExtensionsExampleWindow
       Begin TextArea SubstrTA1
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "True"
-         AllowStyledText =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   True
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          Height          =   21
          HelpTag         =   ""
          HideSelection   =   True
@@ -330,7 +274,6 @@ Begin Window StringExtensionsExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Multiline       =   True
          ReadOnly        =   False
          Scope           =   0
@@ -340,8 +283,6 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   5
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "name="
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -349,8 +290,8 @@ Begin Window StringExtensionsExampleWindow
          Top             =   200
          Transparent     =   False
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "name="
          Visible         =   True
          Width           =   878
@@ -358,27 +299,15 @@ Begin Window StringExtensionsExampleWindow
       Begin TextArea SubstrTA2
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "True"
-         AllowStyledText =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   True
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          Height          =   21
          HelpTag         =   ""
          HideSelection   =   True
@@ -395,7 +324,6 @@ Begin Window StringExtensionsExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Multiline       =   True
          ReadOnly        =   False
          Scope           =   0
@@ -405,8 +333,6 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   6
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   ";"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -414,24 +340,20 @@ Begin Window StringExtensionsExampleWindow
          Top             =   229
          Transparent     =   False
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   ";"
          Visible         =   True
          Width           =   878
       End
       Begin PushButton BeforeBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "String before substring #1"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -443,7 +365,6 @@ Begin Window StringExtensionsExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   7
          TabPanelIndex   =   1
@@ -458,16 +379,12 @@ Begin Window StringExtensionsExampleWindow
          Width           =   218
       End
       Begin CheckBox BeforeCB
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Return empty string if substring #1 was not found"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -492,20 +409,15 @@ Begin Window StringExtensionsExampleWindow
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   646
       End
       Begin CheckBox AfterCB
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Include substring #1 in the result"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -530,21 +442,16 @@ Begin Window StringExtensionsExampleWindow
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   646
       End
       Begin PushButton AfterBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "String after substring #1"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -556,7 +463,6 @@ Begin Window StringExtensionsExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   10
          TabPanelIndex   =   1
@@ -571,16 +477,12 @@ Begin Window StringExtensionsExampleWindow
          Width           =   218
       End
       Begin CheckBox Inc1CB
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Include substring #1 in the result"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -605,21 +507,16 @@ Begin Window StringExtensionsExampleWindow
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   646
       End
       Begin PushButton BetweenBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "String between substring #1 and substring #2"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -631,7 +528,6 @@ Begin Window StringExtensionsExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   12
          TabPanelIndex   =   1
@@ -646,16 +542,12 @@ Begin Window StringExtensionsExampleWindow
          Width           =   333
       End
       Begin CheckBox Inc2CB
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Include substring #2 in the result"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -680,19 +572,14 @@ Begin Window StringExtensionsExampleWindow
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   646
       End
       Begin Label Label5
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -710,9 +597,7 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   14
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "Result:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -727,27 +612,15 @@ Begin Window StringExtensionsExampleWindow
       Begin TextArea ResultTA
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "True"
-         AllowStyledText =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   True
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          Height          =   98
          HelpTag         =   ""
          HideSelection   =   True
@@ -764,7 +637,6 @@ Begin Window StringExtensionsExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Multiline       =   True
          ReadOnly        =   False
          Scope           =   0
@@ -774,8 +646,6 @@ Begin Window StringExtensionsExampleWindow
          TabIndex        =   15
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   ""
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -783,8 +653,8 @@ Begin Window StringExtensionsExampleWindow
          Top             =   428
          Transparent     =   False
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   ""
          Visible         =   True
          Width           =   884

@@ -3,7 +3,6 @@ Begin Window NSPrinterExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSPrinterExampleWindow
    HasBackColor    =   False
    Height          =   547
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -30,12 +29,8 @@ Begin Window NSPrinterExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
       AllowColumnReordering=   False
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AlternatingRowBackground=   False
       AutoDeactivate  =   True
       AutohideScrollbars=   False
@@ -48,7 +43,7 @@ Begin Window NSPrinterExampleWindow
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   547
       HelpTag         =   ""

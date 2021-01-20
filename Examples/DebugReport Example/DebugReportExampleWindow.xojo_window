@@ -3,7 +3,6 @@ Begin Window DebugReportExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window DebugReportExampleWindow
    HasBackColor    =   False
    Height          =   372
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,7 +26,6 @@ Begin Window DebugReportExampleWindow
    Visible         =   True
    Width           =   600
    Begin HTMLViewer HTML1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   199
@@ -50,17 +48,13 @@ Begin Window DebugReportExampleWindow
       Width           =   590
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "DReport   ""A string"", 2, true, 3.14159"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   "Simple report with a string, an integer, a boolean and a double values"
       Index           =   -2147483648
@@ -72,7 +66,6 @@ Begin Window DebugReportExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -87,17 +80,13 @@ Begin Window DebugReportExampleWindow
       Width           =   364
    End
    Begin PushButton PushButton2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "DReportWarning   ""Couldn't create desired object"""
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   "A simple Warning"
       Index           =   -2147483648
@@ -109,7 +98,6 @@ Begin Window DebugReportExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -124,17 +112,13 @@ Begin Window DebugReportExampleWindow
       Width           =   364
    End
    Begin PushButton PushButton3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Custom implementation for CountryClass"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   "Example of a custom report implementation"
       Index           =   -2147483648
@@ -146,7 +130,6 @@ Begin Window DebugReportExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -161,15 +144,11 @@ Begin Window DebugReportExampleWindow
       Width           =   364
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -187,9 +166,7 @@ Begin Window DebugReportExampleWindow
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Description:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -202,17 +179,13 @@ Begin Window DebugReportExampleWindow
       Width           =   100
    End
    Begin PushButton PushButton5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "From Thread"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   "Reports sent from a Thread"
       Index           =   -2147483648
@@ -224,7 +197,6 @@ Begin Window DebugReportExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0

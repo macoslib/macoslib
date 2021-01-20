@@ -3,7 +3,6 @@ Begin Window NSPathControlWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSPathControlWindow
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -30,11 +29,7 @@ Begin Window NSPathControlWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
@@ -44,7 +39,7 @@ Begin Window NSPathControlWindow
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   32
       HelpTag         =   ""
@@ -76,15 +71,11 @@ Begin Window NSPathControlWindow
       Width           =   483
    End
    Begin PopupMenu PopupMenu1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   21
       HelpTag         =   ""
       Index           =   -2147483648
@@ -99,7 +90,6 @@ Begin Window NSPathControlWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -113,15 +103,11 @@ Begin Window NSPathControlWindow
       Width           =   176
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -139,9 +125,7 @@ Begin Window NSPathControlWindow
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Path Style"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0

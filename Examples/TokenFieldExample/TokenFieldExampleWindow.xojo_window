@@ -3,7 +3,6 @@ Begin Window TokenFieldExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window TokenFieldExampleWindow
    HasBackColor    =   False
    Height          =   525
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -30,22 +29,18 @@ Begin Window TokenFieldExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       Bordered        =   False
       CompletionDelay =   0.0
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   23
       HelpTag         =   ""
@@ -53,7 +48,7 @@ Begin Window TokenFieldExampleWindow
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   26
       LockBottom      =   False
       LockedInPosition=   False
@@ -71,20 +66,16 @@ Begin Window TokenFieldExampleWindow
       TokenStyle      =   ""
       Top             =   68
       Transparent     =   True
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       Visible         =   True
       Width           =   713
    End
    Begin GroupBox GroupBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Presentation"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   136
       HelpTag         =   ""
       Index           =   -2147483648
@@ -111,28 +102,18 @@ Begin Window TokenFieldExampleWindow
       Begin TextField FontNameTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
@@ -144,15 +125,12 @@ Begin Window TokenFieldExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "System"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -161,7 +139,6 @@ Begin Window TokenFieldExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "System"
          Visible         =   True
          Width           =   153
@@ -169,28 +146,18 @@ Begin Window TokenFieldExampleWindow
       Begin TextField FontSizeTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
@@ -202,15 +169,12 @@ Begin Window TokenFieldExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "0"
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -219,22 +183,17 @@ Begin Window TokenFieldExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   "0"
          Visible         =   True
          Width           =   153
       End
       Begin CheckBox FontBoldCB
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Bold"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -259,20 +218,15 @@ Begin Window TokenFieldExampleWindow
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   100
       End
       Begin CheckBox FontItalicCB
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Italic"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -297,21 +251,16 @@ Begin Window TokenFieldExampleWindow
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   100
       End
       Begin PushButton ApplyFontBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Apply"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -323,7 +272,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   4
          TabPanelIndex   =   0
@@ -339,14 +287,10 @@ Begin Window TokenFieldExampleWindow
       End
    End
    Begin GroupBox GroupBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Separators"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   136
       HelpTag         =   ""
       Index           =   -2147483648
@@ -371,15 +315,11 @@ Begin Window TokenFieldExampleWindow
       Visible         =   True
       Width           =   293
       Begin Label Label1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   45
          HelpTag         =   ""
          Index           =   -2147483648
@@ -397,9 +337,7 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "The TokenField uses Tab and Return to validate each token. It also allows other characters to be used (comma by default)"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "SmallSystem"
          TextSize        =   0.0
@@ -414,28 +352,18 @@ Begin Window TokenFieldExampleWindow
       Begin TextField SeparatorsTF
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
@@ -447,15 +375,12 @@ Begin Window TokenFieldExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   ","
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -464,23 +389,18 @@ Begin Window TokenFieldExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   ","
          Visible         =   True
          Width           =   279
       End
       Begin PushButton SeparatorsApplyBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Apply"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -492,7 +412,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   0
@@ -508,14 +427,10 @@ Begin Window TokenFieldExampleWindow
       End
    End
    Begin GroupBox GroupBox3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Getting and Setting Content"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   247
       HelpTag         =   ""
       Index           =   -2147483648
@@ -540,17 +455,13 @@ Begin Window TokenFieldExampleWindow
       Visible         =   True
       Width           =   713
       Begin PushButton SetContentsBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Set Contents"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Set the TokenField contents to a small list of european countries"
          Index           =   -2147483648
@@ -562,7 +473,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
@@ -577,15 +487,11 @@ Begin Window TokenFieldExampleWindow
          Width           =   113
       End
       Begin Label Label2
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -603,9 +509,7 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Set TokenField contents to a small list of european countries"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "SmallSystem"
          TextSize        =   0.0
@@ -618,17 +522,13 @@ Begin Window TokenFieldExampleWindow
          Width           =   560
       End
       Begin PushButton ClearTokenFieldBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Clear"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -640,7 +540,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   0
@@ -655,15 +554,11 @@ Begin Window TokenFieldExampleWindow
          Width           =   113
       End
       Begin Label Label3
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -681,9 +576,7 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Clear the TokenField"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "SmallSystem"
          TextSize        =   0.0
@@ -696,15 +589,11 @@ Begin Window TokenFieldExampleWindow
          Width           =   376
       End
       Begin Label Label4
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -722,9 +611,7 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Get Contents and show it below"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "SmallSystem"
          TextSize        =   0.0
@@ -737,17 +624,13 @@ Begin Window TokenFieldExampleWindow
          Width           =   560
       End
       Begin PushButton GetContentsBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Get Contents"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Get the current contents of the TokenField, making the difference between real objects and unrecognized countries."
          Index           =   -2147483648
@@ -759,7 +642,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   5
          TabPanelIndex   =   0
@@ -776,27 +658,15 @@ Begin Window TokenFieldExampleWindow
       Begin TextArea ContentsTA
          AcceptTabs      =   False
          Alignment       =   0
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "True"
-         AllowStyledText =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   True
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
-         HasHorizontalScrollbar=   "False"
-         HasVerticalScrollbar=   "True"
          Height          =   118
          HelpTag         =   ""
          HideSelection   =   True
@@ -813,7 +683,6 @@ Begin Window TokenFieldExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   ""
-         MaximumCharactersAllowed=   "0"
          Multiline       =   True
          ReadOnly        =   True
          Scope           =   0
@@ -823,8 +692,6 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   ""
-         TextAlignment   =   "0"
          TextColor       =   &c000000
          TextFont        =   "SmallSystem"
          TextSize        =   0.0
@@ -832,24 +699,20 @@ Begin Window TokenFieldExampleWindow
          Top             =   387
          Transparent     =   False
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
-         ValidationMask  =   ""
          Value           =   ""
          Visible         =   True
          Width           =   613
       End
       Begin PushButton AddUnrecognizedBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Add unrecognized country"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "12.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Add an unrecognized country (i.e. Europe). Use the Get Contents button to see the difference"
          Index           =   -2147483648
@@ -861,7 +724,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   7
          TabPanelIndex   =   0
@@ -877,15 +739,11 @@ Begin Window TokenFieldExampleWindow
       End
    End
    Begin Label Label5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   51
       HelpTag         =   ""
       Index           =   -2147483648
@@ -903,9 +761,7 @@ Begin Window TokenFieldExampleWindow
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Type in some country names in the TokenField below. You should be presented a list of suggestions. Type Tab, Return or comma to accept the suggestion.\rOnce accepted, each token is stored as an Object and the text displayed is the ISO abbreviation of the country name."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   12.0
@@ -918,13 +774,6 @@ Begin Window TokenFieldExampleWindow
       Width           =   714
    End
    Begin Listbox LB1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "True"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -935,22 +784,12 @@ Begin Window TokenFieldExampleWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   18
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   True
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   448
       HelpTag         =   ""
@@ -966,7 +805,6 @@ Begin Window TokenFieldExampleWindow
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -991,15 +829,11 @@ Begin Window TokenFieldExampleWindow
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   42
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1021,14 +855,10 @@ Begin Window TokenFieldExampleWindow
       Width           =   213
    End
    Begin GroupBox GroupBox4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Completion delay"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   136
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1055,28 +885,18 @@ Begin Window TokenFieldExampleWindow
       Begin TextField DelayTF
          AcceptTabs      =   False
          Alignment       =   3
-         AllowAutoDeactivate=   "True"
-         AllowFocusRing  =   "True"
-         AllowSpellChecking=   "False"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
          BackColor       =   &cFFFFFF00
-         BackgroundColor =   "&cFFFFFF00"
          Bold            =   False
          Border          =   True
          CueText         =   ""
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Format          =   ""
-         HasBorder       =   "True"
          Height          =   22
          HelpTag         =   ""
-         Hint            =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox4"
          Italic          =   False
@@ -1088,15 +908,12 @@ Begin Window TokenFieldExampleWindow
          LockRight       =   False
          LockTop         =   True
          Mask            =   "#.##"
-         MaximumCharactersAllowed=   "0"
          Password        =   False
          ReadOnly        =   False
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "0.00"
-         TextAlignment   =   "3"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1105,21 +922,16 @@ Begin Window TokenFieldExampleWindow
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
-         ValidationMask  =   "#.##"
          Value           =   "0.00"
          Visible         =   True
          Width           =   125
       End
       Begin Label Label6
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1137,9 +949,7 @@ Begin Window TokenFieldExampleWindow
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "sec"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1152,17 +962,13 @@ Begin Window TokenFieldExampleWindow
          Width           =   29
       End
       Begin PushButton ApplyDelayBTN
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Apply"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1174,7 +980,6 @@ Begin Window TokenFieldExampleWindow
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   0

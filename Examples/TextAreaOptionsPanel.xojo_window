@@ -3,7 +3,6 @@ Begin Window TextAreaOptionsPanel
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   3
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window TextAreaOptionsPanel
    HasBackColor    =   False
    Height          =   796
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,16 +26,12 @@ Begin Window TextAreaOptionsPanel
    Visible         =   True
    Width           =   335
    Begin CheckBox CheckBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Automatic Dash Substitution"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -61,20 +56,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Automatic Data Detection"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -99,20 +89,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Automatic Link Detection"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -137,20 +122,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Automatic Quote Substitution"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -175,20 +155,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Automatic Spelling Correction"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -213,20 +188,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox6
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Automatic Text Replacement"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -251,20 +221,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox7
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Continuous Spell Checking"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -289,20 +254,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox8
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Displays Link ToolTips"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -327,20 +287,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox9
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Draws Background"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -365,20 +320,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox10
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Editable"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -403,20 +353,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   107
    End
    Begin CheckBox CheckBox11
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Grammar Checking"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -441,21 +386,16 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Loosen"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -467,7 +407,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -482,17 +421,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   60
    End
    Begin PushButton PushButton2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Lower"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -504,7 +439,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -519,17 +453,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   70
    End
    Begin PushButton PushButton3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Insert Link…"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -541,7 +471,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -556,17 +485,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   107
    End
    Begin PushButton PushButton4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Insert List…"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -578,7 +503,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
@@ -593,17 +517,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   107
    End
    Begin PushButton PushButton5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Spacing…"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -615,7 +535,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -630,17 +549,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   107
    End
    Begin PushButton PushButton6
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Substitutions…"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -652,7 +567,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
@@ -667,17 +581,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   108
    End
    Begin PushButton PushButton7
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Insert Table…"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -689,7 +599,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -704,17 +613,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   107
    End
    Begin PushButton PushButton8
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Raise"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -726,7 +631,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -741,16 +645,12 @@ Begin Window TextAreaOptionsPanel
       Width           =   70
    End
    Begin CheckBox CheckBox13
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Rich Text"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -775,20 +675,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox14
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Show Ruler"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -813,20 +708,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin CheckBox CheckBox15
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Selectable"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -851,20 +741,15 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   132
    End
    Begin CheckBox CheckBox16
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Smart Insert Delete"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -889,21 +774,16 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin PushButton PushButton9
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Tighten"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -915,7 +795,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   24
       TabPanelIndex   =   0
@@ -930,17 +809,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   60
    End
    Begin PushButton PushButton10
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Turn Off"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -952,7 +827,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   25
       TabPanelIndex   =   0
@@ -967,17 +841,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   68
    End
    Begin PushButton PushButton11
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Turn Off"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -989,7 +859,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   26
       TabPanelIndex   =   0
@@ -1004,17 +873,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   74
    End
    Begin PushButton PushButton12
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Use All"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1026,7 +891,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   27
       TabPanelIndex   =   0
@@ -1041,16 +905,12 @@ Begin Window TextAreaOptionsPanel
       Width           =   70
    End
    Begin CheckBox CheckBox20
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Show Inspector Bar"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1075,21 +935,16 @@ Begin Window TextAreaOptionsPanel
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   259
    End
    Begin PushButton PushButton13
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Standard"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1101,7 +956,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   33
       TabPanelIndex   =   0
@@ -1116,17 +970,13 @@ Begin Window TextAreaOptionsPanel
       Width           =   70
    End
    Begin PushButton PushButton14
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "2"
+      ButtonStyle     =   2
       Cancel          =   False
       Caption         =   "Standard"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1138,7 +988,6 @@ Begin Window TextAreaOptionsPanel
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "2"
       Scope           =   0
       TabIndex        =   34
       TabPanelIndex   =   0
@@ -1153,15 +1002,11 @@ Begin Window TextAreaOptionsPanel
       Width           =   70
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1179,9 +1024,7 @@ Begin Window TextAreaOptionsPanel
       TabIndex        =   35
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Kerning"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -1194,15 +1037,11 @@ Begin Window TextAreaOptionsPanel
       Width           =   100
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1220,9 +1059,7 @@ Begin Window TextAreaOptionsPanel
       TabIndex        =   36
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Baseline"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -1235,15 +1072,11 @@ Begin Window TextAreaOptionsPanel
       Width           =   100
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1261,9 +1094,7 @@ Begin Window TextAreaOptionsPanel
       TabIndex        =   37
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Ligatures"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0

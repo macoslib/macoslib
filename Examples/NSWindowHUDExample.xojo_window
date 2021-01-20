@@ -3,7 +3,6 @@ Begin Window NSWindowHUDExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   3
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSWindowHUDExample
    HasBackColor    =   False
    Height          =   235
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,14 +26,10 @@ Begin Window NSWindowHUDExample
    Visible         =   True
    Width           =   255
    Begin GroupBox GroupBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   201
       HelpTag         =   ""
       Index           =   -2147483648
@@ -59,15 +54,11 @@ Begin Window NSWindowHUDExample
       Visible         =   True
       Width           =   215
       Begin Label Label1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   58
          HelpTag         =   ""
          Index           =   -2147483648
@@ -85,9 +76,7 @@ Begin Window NSWindowHUDExample
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "This is one of those fancy HUD windows."
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &cFFFFFF
          TextFont        =   "System"
          TextSize        =   0.0
