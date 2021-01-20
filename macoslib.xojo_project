@@ -1,6 +1,7 @@
 Type=Desktop
-RBProjectVersion=2019.01
+RBProjectVersion=2020.021
 MinIDEVersion=20070100
+OrigIDEVersion=00000000
 Module=About;About.xojo_code;&h000000003F268F53;&h0000000000000000;false
 Class=CFArray;macoslib/CoreFoundation/CFArray.xojo_code;&hFFFFFFFFBD036B3D;&h0000000072896D36;false
 Class=CFAttributedString;macoslib/CoreFoundation/CFAttributedString.xojo_code;&h000000007768FB63;&h0000000072896D36;false

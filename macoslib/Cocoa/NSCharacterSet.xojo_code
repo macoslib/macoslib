@@ -14,7 +14,7 @@ Inherits NSObject
 		      value = mb.Byte( byteNbr )
 		      
 		      for bitNbr as integer = 0 to 7
-		        if  BitWise.BitAnd( value, RealBasic.Pow( 2., bitNbr ))<>0 then
+		        if  BitWise.BitAnd( value, Pow( 2., bitNbr ))<>0 then
 		          result = result + Encodings.UTF16.Chr( byteNbr * 8 + bitNbr )
 		        end if
 		      next
