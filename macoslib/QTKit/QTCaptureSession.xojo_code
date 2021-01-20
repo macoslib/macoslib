@@ -3,7 +3,7 @@ Class QTCaptureSession
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub AddInput(qtInput as QTCaptureDeviceInput)
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function addInput lib QTKit.framework selector "addInput:error:" (obj_id as Ptr, input_ as Ptr, ByRef errorPtr as Ptr) as Boolean
 		    
 		    dim errorPtr as Ptr
@@ -19,7 +19,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Sub Constructor()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		    declare function init lib CocoaLib selector "init" (obj_id as Ptr) as Ptr
 		    
@@ -33,7 +33,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub StartRunning()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub startRunning lib QTKit.framework selector "startRunning" (obj_id as Ptr)
 		    
 		    startRunning(self)
@@ -43,7 +43,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub StopRunning()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub stopRunning lib QTKit.framework selector "stopRunning" (obj_id as Ptr)
 		    
 		    stopRunning(self)
@@ -55,7 +55,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function isRunning lib QTKit.framework selector "isRunning" (obj_id as Ptr) as Boolean
 			    
 			    return isRunning(self)

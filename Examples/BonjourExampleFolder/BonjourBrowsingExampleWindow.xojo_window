@@ -3,7 +3,6 @@ Begin Window BonjourBrowsingExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window BonjourBrowsingExampleWindow
    HasBackColor    =   False
    Height          =   505
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,6 @@ Begin Window BonjourBrowsingExampleWindow
    Visible         =   True
    Width           =   683
    Begin Listbox LB1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -44,22 +36,12 @@ Begin Window BonjourBrowsingExampleWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   18
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   405
       HelpTag         =   ""
@@ -75,7 +57,6 @@ Begin Window BonjourBrowsingExampleWindow
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -100,15 +81,11 @@ Begin Window BonjourBrowsingExampleWindow
    Begin BonjourModule.BonjourControl BonjourControl1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   1976802531
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
@@ -132,28 +109,18 @@ Begin Window BonjourBrowsingExampleWindow
    Begin TextField TypeTF
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   77
@@ -164,15 +131,12 @@ Begin Window BonjourBrowsingExampleWindow
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "m_macoslib._tcp."
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -181,21 +145,16 @@ Begin Window BonjourBrowsingExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "m_macoslib._tcp."
       Visible         =   True
       Width           =   169
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -213,9 +172,7 @@ Begin Window BonjourBrowsingExampleWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Type:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -230,28 +187,18 @@ Begin Window BonjourBrowsingExampleWindow
    Begin TextField DomainTF
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   354
@@ -262,15 +209,12 @@ Begin Window BonjourBrowsingExampleWindow
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -279,21 +223,16 @@ Begin Window BonjourBrowsingExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   169
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -311,9 +250,7 @@ Begin Window BonjourBrowsingExampleWindow
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Domain:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -326,17 +263,13 @@ Begin Window BonjourBrowsingExampleWindow
       Width           =   56
    End
    Begin PushButton BrowseBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Browse"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -348,7 +281,6 @@ Begin Window BonjourBrowsingExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -363,15 +295,11 @@ Begin Window BonjourBrowsingExampleWindow
       Width           =   111
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -389,9 +317,7 @@ Begin Window BonjourBrowsingExampleWindow
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Double-click on a row to display details and addresses."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0

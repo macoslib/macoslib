@@ -3,7 +3,6 @@ Begin Window DefaultWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window DefaultWindow
    HasBackColor    =   False
    Height          =   399
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -92,7 +91,7 @@ Begin Window DefaultWindow
       Begin PushButton QuickStartBTN
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Beginner"
          Default         =   False
@@ -124,7 +123,7 @@ Begin Window DefaultWindow
       Begin PushButton QuickStartBTN
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Advanced"
          Default         =   False
@@ -156,7 +155,7 @@ Begin Window DefaultWindow
       Begin PushButton QuickStartBTN
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Expert"
          Default         =   False
@@ -294,7 +293,7 @@ Begin Window DefaultWindow
    Begin PushButton LearnMoreBTN
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Learn more"
       Default         =   False
@@ -326,7 +325,7 @@ Begin Window DefaultWindow
    Begin PushButton LastChangesBTN
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Last changes"
       Default         =   False

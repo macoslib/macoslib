@@ -3,7 +3,6 @@ Begin Window ServiceDescriptionSHEET
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   8
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window ServiceDescriptionSHEET
    HasBackColor    =   False
    Height          =   443
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,6 @@ Begin Window ServiceDescriptionSHEET
    Visible         =   True
    Width           =   480
    Begin Listbox TXTLB
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -44,22 +36,12 @@ Begin Window ServiceDescriptionSHEET
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   99
       HelpTag         =   ""
@@ -75,7 +57,6 @@ Begin Window ServiceDescriptionSHEET
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -98,13 +79,6 @@ Begin Window ServiceDescriptionSHEET
       _ScrollWidth    =   -1
    End
    Begin Listbox AdrLB
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -115,22 +89,12 @@ Begin Window ServiceDescriptionSHEET
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   184
       HelpTag         =   ""
@@ -146,7 +110,6 @@ Begin Window ServiceDescriptionSHEET
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -169,17 +132,13 @@ Begin Window ServiceDescriptionSHEET
       _ScrollWidth    =   -1
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "OK"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -191,7 +150,6 @@ Begin Window ServiceDescriptionSHEET
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -206,15 +164,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   80
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -232,9 +186,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Name:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -247,15 +199,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   45
    End
    Begin Label ServiceNameLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -273,9 +221,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -288,15 +234,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   397
    End
    Begin Label TypeLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -314,9 +256,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -329,15 +269,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   397
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -355,9 +291,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Type:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -370,15 +304,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   45
    End
    Begin Label DomainLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -396,9 +326,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -411,15 +339,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   397
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -437,9 +361,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Domain:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -452,15 +374,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   45
    End
    Begin Label PortLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -478,9 +396,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -493,15 +409,11 @@ Begin Window ServiceDescriptionSHEET
       Width           =   397
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -519,9 +431,7 @@ Begin Window ServiceDescriptionSHEET
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Port:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0

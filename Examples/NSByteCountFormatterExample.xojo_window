@@ -3,7 +3,6 @@ Begin Window NSByteCountFormatterExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSByteCountFormatterExample
    HasBackColor    =   False
    Height          =   375
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,28 +28,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtBytes
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   "Bytes"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   "Bytes"
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -61,15 +50,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "1024"
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -78,7 +64,6 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "1024"
       Visible         =   True
       Width           =   260
@@ -86,28 +71,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtFile
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -118,15 +93,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -135,7 +107,6 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
@@ -143,28 +114,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtMemory
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -175,15 +136,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -192,7 +150,6 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
@@ -200,28 +157,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtDecimal
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -232,15 +179,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -249,7 +193,6 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
@@ -257,28 +200,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtBinary
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -289,15 +222,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -306,7 +236,6 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
@@ -314,28 +243,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtDefault
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -346,15 +265,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -363,21 +279,16 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   2
@@ -395,9 +306,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "File"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -410,15 +319,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   80
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   3
@@ -436,9 +341,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Memory"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -451,15 +354,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   80
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   4
@@ -477,9 +376,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Decimal"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -492,15 +389,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   80
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   5
@@ -518,9 +411,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Binary"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -533,15 +424,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   80
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -559,9 +446,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Default"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -576,28 +461,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtFormatSizeBinary
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -608,15 +483,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -625,21 +497,16 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -657,9 +524,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Binary"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -672,15 +537,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   80
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   7
@@ -698,9 +559,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Mac OS 10.8+ only:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0
@@ -713,15 +572,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   352
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   6
@@ -739,9 +594,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Decimal"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -756,28 +609,18 @@ Begin Window NSByteCountFormatterExample
    Begin TextField edtFormatSizeDecimal
       AcceptTabs      =   False
       Alignment       =   3
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -788,15 +631,12 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -805,13 +645,11 @@ Begin Window NSByteCountFormatterExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   260
    End
    Begin Separator sep
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4
@@ -835,7 +673,6 @@ Begin Window NSByteCountFormatterExample
    End
    Begin UpDownArrows udBytes
       AcceptFocus     =   False
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   23
@@ -858,16 +695,12 @@ Begin Window NSByteCountFormatterExample
       Width           =   13
    End
    Begin CheckBox chkAllowsNonNumericFormatting
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Allows Non-numeric Formatting"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -892,19 +725,14 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   265
    End
    Begin PopupMenu PopupMenu1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -919,7 +747,6 @@ Begin Window NSByteCountFormatterExample
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
@@ -933,15 +760,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   152
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   8
@@ -959,9 +782,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   23
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Using StringExtensions.FormatSize:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0
@@ -974,15 +795,11 @@ Begin Window NSByteCountFormatterExample
       Width           =   352
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   9
@@ -1000,9 +817,7 @@ Begin Window NSByteCountFormatterExample
       TabIndex        =   24
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Count Style:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -1015,7 +830,6 @@ Begin Window NSByteCountFormatterExample
       Width           =   101
    End
    Begin Separator sep
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4
@@ -1038,16 +852,12 @@ Begin Window NSByteCountFormatterExample
       Width           =   352
    End
    Begin CheckBox chkIncludesActualByteCount
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Includes Actual Byte Count"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1072,20 +882,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   265
    End
    Begin CheckBox chkIncludesCount
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Includes Count"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1110,20 +915,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   265
    End
    Begin CheckBox chkIncludesUnit
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Includes Unit"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1148,20 +948,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   265
    End
    Begin CheckBox chkAdaptive
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Adaptive"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1186,20 +981,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   265
    End
    Begin CheckBox chkZeroPadsFractionDigits
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Zero Pads Fraction Digits"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1224,20 +1014,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   265
    End
    Begin CheckBox chkUseBytes
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use Bytes"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1262,20 +1047,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUseKB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use KB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1300,20 +1080,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUseMB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use MB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1338,20 +1113,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUseGB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use GB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1376,20 +1146,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUsePB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use PB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1414,20 +1179,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUseTB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use TB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1452,20 +1212,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUseEB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use EB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1490,20 +1245,15 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin CheckBox chkUseZB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use ZB"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1528,7 +1278,6 @@ Begin Window NSByteCountFormatterExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
 End

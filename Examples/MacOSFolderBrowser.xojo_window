@@ -3,7 +3,6 @@ Begin Window MacOSFolderBrowser
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window MacOSFolderBrowser
    HasBackColor    =   False
    Height          =   380
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -27,13 +26,6 @@ Begin Window MacOSFolderBrowser
    Visible         =   True
    Width           =   482
    Begin ListBox ListBox1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "True"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       BehaviorIndex   =   0
@@ -45,22 +37,12 @@ Begin Window MacOSFolderBrowser
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   331
       HelpTag         =   ""
@@ -76,7 +58,6 @@ Begin Window MacOSFolderBrowser
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -99,16 +80,12 @@ Begin Window MacOSFolderBrowser
       _ScrollWidth    =   -1
    End
    Begin PopupMenu PopupMenu1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -123,7 +100,6 @@ Begin Window MacOSFolderBrowser
       LockRight       =   False
       LockTop         =   False
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -137,16 +113,12 @@ Begin Window MacOSFolderBrowser
       Width           =   161
    End
    Begin Label StaticText1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   2
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -164,9 +136,7 @@ Begin Window MacOSFolderBrowser
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Disk/Domain:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   12.0

@@ -3,7 +3,7 @@ Class QTMovieView
 Inherits Canvas
 	#tag Event
 		Sub Open()
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function initWithFrame lib QTKit.Framework selector "initWithFrame:" (obj_id as Ptr, frame as Cocoa.NSRect) as Ptr
 		    soft declare sub addSubview lib QTKit.framework selector "addSubview:" (id as Ptr, aView as Ptr)
 		    soft declare sub setAutoresizingMask lib QTKit.framework selector "setAutoresizingMask:" (id as Ptr, mask as Integer)
@@ -42,7 +42,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Add()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub add lib QTKit.framework selector "add:" (obj_id as Ptr, sender as Ptr)
 		    
 		    add(self, nil)
@@ -52,7 +52,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub AddScaled()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub addScaled lib QTKit.framework selector "addScaled:" (obj_id as Ptr, sender as Ptr)
 		    
 		    addScaled(self, nil)
@@ -62,7 +62,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Copy()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub copy lib QTKit.framework selector "copy:" (obj_id as Ptr, sender as Ptr)
 		    
 		    copy(self, nil)
@@ -72,7 +72,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Cut()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub cut lib QTKit.framework selector "cut:" (obj_id as Ptr, sender as Ptr)
 		    
 		    cut(self, nil)
@@ -82,7 +82,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Delete()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub delete lib QTKit.framework selector "delete:" (obj_id as Ptr, sender as Ptr)
 		    
 		    delete(self, nil)
@@ -92,7 +92,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function FillColor() As NSColor
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function fillColor lib QTKit.framework selector "fillColor" (obj_id as Ptr) as Ptr
 		    
 		    return new NSColor(fillColor(self))
@@ -102,7 +102,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub FillColor(assigns value as NSColor)
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare sub setFillColor lib QTKit.framework selector "setFillColor:" (obj_id as Ptr, value as Ptr)
 		    
 		    if value <> nil then
@@ -119,7 +119,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoBeginning()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub gotoBeginning lib QTKit.framework selector "gotoBeginning:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoBeginning(self, nil)
@@ -129,7 +129,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoEnd()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub gotoEnd lib QTKit.framework selector "gotoEnd:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoEnd(self, nil)
@@ -139,7 +139,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoNextSelectionPoint()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub gotoNextSelectionPoint lib QTKit.framework selector "gotoNextSelectionPoint:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoNextSelectionPoint(self, nil)
@@ -149,7 +149,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoPosterFrame()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub gotoPosterFrame lib QTKit.framework selector "gotoPosterFrame:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoPosterFrame(self, nil)
@@ -159,7 +159,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoPreviousSelectionPoint()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub gotoPreviousSelectionPoint lib QTKit.framework selector "gotoPreviousSelectionPoint:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoPreviousSelectionPoint(self, nil)
@@ -169,7 +169,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function Movie() As QTMovie
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function movie lib QTKit.framework selector "movie" (obj_id as Ptr) as Ptr
 		    
 		    dim p as Ptr = movie(self)
@@ -184,7 +184,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Movie(assigns value as QTMovie)
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare sub setMovie lib QTKit.framework selector "setMovie:" (obj_id as Ptr, value as Ptr)
 		    
 		    if value <> nil then
@@ -201,7 +201,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function MovieBounds() As Cocoa.NSRect
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function movieBounds lib QTKit.framework selector "movieBounds" (obj_id as Ptr) as Cocoa.NSRect
 		    
 		    return movieBounds(self)
@@ -211,7 +211,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function MovieControllerBounds() As Cocoa.NSRect
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function movieControllerBounds lib QTKit.framework selector "movieControllerBounds" (obj_id as Ptr) as Cocoa.NSRect
 		    
 		    return movieControllerBounds(self)
@@ -227,7 +227,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Paste()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub paste lib QTKit.framework selector "paste:" (obj_id as Ptr, sender as Ptr)
 		    
 		    paste(self, nil)
@@ -237,7 +237,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Pause()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub pause lib QTKit.framework selector "pause:" (obj_id as Ptr, sender as Ptr)
 		    
 		    pause(self, nil)
@@ -247,7 +247,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Play()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub play lib QTKit.framework selector "play:" (obj_id as Ptr, sender as Ptr)
 		    
 		    play(self, nil)
@@ -257,7 +257,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Replace()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub replace lib QTKit.framework selector "replace:" (obj_id as Ptr, sender as Ptr)
 		    
 		    replace(self, nil)
@@ -267,7 +267,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub SelectAll()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub selectAll lib QTKit.framework selector "selectAll:" (obj_id as Ptr, sender as Ptr)
 		    
 		    selectAll(self, nil)
@@ -277,7 +277,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub SelectNone()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub selectNone lib QTKit.framework selector "selectNone:" (obj_id as Ptr, sender as Ptr)
 		    
 		    selectNone(self, nil)
@@ -287,7 +287,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub StepBackward()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub stepBackward lib QTKit.framework selector "stepBackward:" (obj_id as Ptr, sender as Ptr)
 		    
 		    stepBackward(self, nil)
@@ -297,7 +297,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub StepForward()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub stepForward lib QTKit.framework selector "stepForward:" (obj_id as Ptr, sender as Ptr)
 		    
 		    stepForward(self, nil)
@@ -307,7 +307,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Trim()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub trim lib QTKit.framework selector "trim:" (obj_id as Ptr, sender as Ptr)
 		    
 		    trim(self, nil)
@@ -324,7 +324,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function controllerBarHeight lib QTKit.framework selector "controllerBarHeight" (obj_id as Ptr) as Double
 			    
 			    return CType(controllerBarHeight(self), Double)
@@ -337,7 +337,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare function isControllerVisible lib QTKit.framework selector "isControllerVisible" (obj_id as Ptr) as Boolean
 			    
 			    return isControllerVisible(self)
@@ -346,7 +346,7 @@ Inherits Canvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare sub setControllerVisible lib QTKit.framework selector "setControllerVisible:" (obj_id as Ptr, value as Boolean)
 			    
 			    setControllerVisible(self, value)
@@ -363,7 +363,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare function isEditable lib QTKit.framework selector "isEditable" (obj_id as Ptr) as Boolean
 			    
 			    return isEditable(self)
@@ -372,7 +372,7 @@ Inherits Canvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare sub setEditable lib QTKit.framework selector "setEditable:" (obj_id as Ptr, value as Boolean)
 			    
 			    setEditable(self, value)
@@ -392,7 +392,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare function preservesAspectRatio lib QTKit.framework selector "preservesAspectRatio" (obj_id as Ptr) as Boolean
 			    
 			    return preservesAspectRatio(self)
@@ -401,7 +401,7 @@ Inherits Canvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare sub setPreservesAspectRatio lib QTKit.framework selector "setPreservesAspectRatio:" (obj_id as Ptr, value as Boolean)
 			    
 			    setPreservesAspectRatio(self, value)
@@ -417,30 +417,44 @@ Inherits Canvas
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="AutoDeactivate"
+			Name="AllowAutoDeactivate"
 			Visible=true
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="UseFocusRing"
+			Name="Tooltip"
+			Visible=true
+			Group="Appearance"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowFocusRing"
 			Visible=true
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AcceptFocus"
+			Name="AllowFocus"
 			Visible=true
 			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AcceptTabs"
+			Name="AllowTabs"
 			Visible=true
 			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
@@ -448,35 +462,39 @@ Inherits Canvas
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="EraseBackground"
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Backdrop"
 			Visible=true
 			Group="Appearance"
+			InitialValue=""
 			Type="Picture"
-			EditorType="Picture"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ControllerBarHeight"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ControllerVisible"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Editable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -484,6 +502,7 @@ Inherits Canvas
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -491,73 +510,87 @@ Inherits Canvas
 			Group="Position"
 			InitialValue="100"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HelpTag"
-			Visible=true
-			Group="Appearance"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="Integer"
-			EditorType="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Visible=false
+			Group=""
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockBottom"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockLeft"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockRight"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockTop"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			EditorType="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreservesAspectRatio"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			EditorType="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
@@ -565,12 +598,15 @@ Inherits Canvas
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabPanelIndex"
+			Visible=false
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
@@ -578,12 +614,15 @@ Inherits Canvas
 			Group="Position"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Transparent"
@@ -591,7 +630,7 @@ Inherits Canvas
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
-			EditorType="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Visible"
@@ -599,6 +638,7 @@ Inherits Canvas
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"
@@ -606,6 +646,7 @@ Inherits Canvas
 			Group="Position"
 			InitialValue="100"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

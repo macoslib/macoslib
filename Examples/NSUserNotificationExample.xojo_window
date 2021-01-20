@@ -3,7 +3,6 @@ Begin Window NSUserNotificationExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSUserNotificationExample
    HasBackColor    =   False
    Height          =   466
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window NSUserNotificationExample
    Visible         =   True
    Width           =   600
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -53,9 +48,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Title:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -68,15 +61,11 @@ Begin Window NSUserNotificationExample
       Width           =   133
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -94,9 +83,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Subtitle:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -109,15 +96,11 @@ Begin Window NSUserNotificationExample
       Width           =   133
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   2
@@ -135,9 +118,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Informative Text:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -150,15 +131,11 @@ Begin Window NSUserNotificationExample
       Width           =   133
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   3
@@ -176,9 +153,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Action Button Title:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -191,15 +166,11 @@ Begin Window NSUserNotificationExample
       Width           =   133
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   4
@@ -217,9 +188,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Other Button Title:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -234,28 +203,18 @@ Begin Window NSUserNotificationExample
    Begin TextField edtTitle
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   165
@@ -266,15 +225,12 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -283,7 +239,6 @@ Begin Window NSUserNotificationExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   415
@@ -291,28 +246,18 @@ Begin Window NSUserNotificationExample
    Begin TextField edtSubtitle
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   165
@@ -323,15 +268,12 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -340,7 +282,6 @@ Begin Window NSUserNotificationExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   415
@@ -348,28 +289,18 @@ Begin Window NSUserNotificationExample
    Begin TextField edtInfo
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   165
@@ -380,15 +311,12 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Hello World!"
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -397,7 +325,6 @@ Begin Window NSUserNotificationExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Hello World!"
       Visible         =   True
       Width           =   415
@@ -405,28 +332,18 @@ Begin Window NSUserNotificationExample
    Begin TextField edtAction
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   165
@@ -437,15 +354,12 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -454,7 +368,6 @@ Begin Window NSUserNotificationExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   415
@@ -462,28 +375,18 @@ Begin Window NSUserNotificationExample
    Begin TextField edtOther
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   165
@@ -494,15 +397,12 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -511,23 +411,18 @@ Begin Window NSUserNotificationExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   415
    End
    Begin PushButton btnShowNow
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Show now"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -539,7 +434,6 @@ Begin Window NSUserNotificationExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -554,17 +448,13 @@ Begin Window NSUserNotificationExample
       Width           =   150
    End
    Begin PushButton btnShowLater
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Show in 10 Seconds"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -576,7 +466,6 @@ Begin Window NSUserNotificationExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -591,13 +480,6 @@ Begin Window NSUserNotificationExample
       Width           =   150
    End
    Begin Listbox lstNotifications
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -608,22 +490,12 @@ Begin Window NSUserNotificationExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   14
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "False"
       HasHeading      =   False
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   141
       HelpTag         =   ""
@@ -639,7 +511,6 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -662,17 +533,13 @@ Begin Window NSUserNotificationExample
       _ScrollWidth    =   -1
    End
    Begin PushButton btnListScheduled
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "List Scheduled"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -684,7 +551,6 @@ Begin Window NSUserNotificationExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -699,17 +565,13 @@ Begin Window NSUserNotificationExample
       Width           =   150
    End
    Begin PushButton btnListDelivered
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "List Delivered"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -721,7 +583,6 @@ Begin Window NSUserNotificationExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -736,17 +597,13 @@ Begin Window NSUserNotificationExample
       Width           =   150
    End
    Begin PushButton btnListDelivered1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Remove All Delivered"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -758,7 +615,6 @@ Begin Window NSUserNotificationExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
@@ -773,15 +629,11 @@ Begin Window NSUserNotificationExample
       Width           =   150
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   52
       HelpTag         =   ""
       Index           =   5
@@ -799,9 +651,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Requires Mac OS X 10.8.\rButtons work only if allowed in system preferences."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -814,15 +664,11 @@ Begin Window NSUserNotificationExample
       Width           =   153
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   6
@@ -840,9 +686,7 @@ Begin Window NSUserNotificationExample
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Sound Name:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -857,28 +701,18 @@ Begin Window NSUserNotificationExample
    Begin TextField edtSoundName
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   165
@@ -889,15 +723,12 @@ Begin Window NSUserNotificationExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Purr"
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -906,7 +737,6 @@ Begin Window NSUserNotificationExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Purr"
       Visible         =   True
       Width           =   415

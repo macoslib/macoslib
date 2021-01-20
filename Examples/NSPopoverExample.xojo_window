@@ -3,7 +3,6 @@ Begin Window NSPopoverExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSPopoverExample
    HasBackColor    =   False
    Height          =   258
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window NSPopoverExample
    Visible         =   True
    Width           =   354
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -53,9 +48,7 @@ Begin Window NSPopoverExample
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Popover Type:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -68,15 +61,11 @@ Begin Window NSPopoverExample
       Width           =   100
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -94,9 +83,7 @@ Begin Window NSPopoverExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Position:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -109,14 +96,10 @@ Begin Window NSPopoverExample
       Width           =   100
    End
    Begin RadioButton rdioPopType
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Normal"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -143,14 +126,10 @@ Begin Window NSPopoverExample
       Width           =   100
    End
    Begin RadioButton rdioPopType
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "HUD"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -177,16 +156,12 @@ Begin Window NSPopoverExample
       Width           =   100
    End
    Begin CheckBox chkAnimates
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Animates"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -211,21 +186,16 @@ Begin Window NSPopoverExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   100
    End
    Begin PushButton btnShowPopover
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "1"
+      ButtonStyle     =   1
       Cancel          =   False
       Caption         =   "Show Popover"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   26
       HelpTag         =   ""
       Index           =   -2147483648
@@ -237,7 +207,6 @@ Begin Window NSPopoverExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "1"
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -254,15 +223,11 @@ Begin Window NSPopoverExample
    Begin Canvas cvsPositionGroup
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   92
       HelpTag         =   ""
       Index           =   -2147483648
@@ -283,14 +248,10 @@ Begin Window NSPopoverExample
       Visible         =   True
       Width           =   202
       Begin RadioButton rdioPopPosition
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Top (NSMinYEdge)"
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   1
@@ -317,14 +278,10 @@ Begin Window NSPopoverExample
          Width           =   202
       End
       Begin RadioButton rdioPopPosition
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Right (NSMaxXEdge)"
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   2
@@ -351,14 +308,10 @@ Begin Window NSPopoverExample
          Width           =   202
       End
       Begin RadioButton rdioPopPosition
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Bottom (NSMaxYEdge)"
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   3
@@ -385,14 +338,10 @@ Begin Window NSPopoverExample
          Width           =   202
       End
       Begin RadioButton rdioPopPosition
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Left (NSMinXEdge)"
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   0
@@ -434,15 +383,11 @@ Begin Window NSPopoverExample
    Begin Canvas groupingbox
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   128
       HelpTag         =   ""
       Index           =   -2147483648
@@ -463,17 +408,13 @@ Begin Window NSPopoverExample
       Visible         =   True
       Width           =   200
       Begin PushButton btnClosePopover
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Close"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "11.0"
-         FontUnit        =   "0"
          Height          =   18
          HelpTag         =   ""
          Index           =   -2147483648
@@ -485,7 +426,6 @@ Begin Window NSPopoverExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
@@ -500,15 +440,11 @@ Begin Window NSPopoverExample
          Width           =   55
       End
       Begin Label Label1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -526,9 +462,7 @@ Begin Window NSPopoverExample
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Popover!"
          TextAlign       =   1
-         TextAlignment   =   "2"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -541,15 +475,11 @@ Begin Window NSPopoverExample
          Width           =   100
       End
       Begin PopupMenu PopupMenu1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -564,7 +494,6 @@ Begin Window NSPopoverExample
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         SelectedRowIndex=   "0"
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True

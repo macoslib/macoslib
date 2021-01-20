@@ -2274,30 +2274,44 @@ Implements objHasVariantValue
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="AutoDeactivate"
+			Name="AllowAutoDeactivate"
 			Visible=true
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="UseFocusRing"
+			Name="Tooltip"
+			Visible=true
+			Group="Appearance"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowFocusRing"
 			Visible=true
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AcceptFocus"
+			Name="AllowFocus"
 			Visible=true
 			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AcceptTabs"
+			Name="AllowTabs"
 			Visible=true
 			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleBuffer"
@@ -2305,54 +2319,69 @@ Implements objHasVariantValue
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="EraseBackground"
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoresizesSubviews"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoresizingMask"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Backdrop"
 			Visible=true
 			Group="Appearance"
+			InitialValue=""
 			Type="Picture"
-			EditorType="Picture"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BoundsRotation"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBecomeKeyView"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanDraw"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanDrawConcurrently"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -2362,10 +2391,13 @@ Implements objHasVariantValue
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FocusRingType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSFocusRingType"
 			EditorType="Enum"
 			#tag EnumValues
@@ -2376,8 +2408,11 @@ Implements objHasVariantValue
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FrameRotation"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
@@ -2385,23 +2420,23 @@ Implements objHasVariantValue
 			Group="Position"
 			InitialValue="100"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HelpTag"
-			Visible=true
-			Group="Appearance"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Hidden"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HiddenOrHasHiddenAncestor"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -2409,41 +2444,63 @@ Implements objHasVariantValue
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			EditorType="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Visible=false
+			Group=""
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InLiveResize"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsInFullScreenMode"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOpague"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRotatedFromBase"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRotatedOrScaledFromBase"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -2451,69 +2508,95 @@ Implements objHasVariantValue
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockBottom"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockLeft"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockRight"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LockTop"
 			Visible=true
 			Group="Position"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			EditorType="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NeedsDisplay"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PostsBoundsChangedNotifications"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PostsFrameChangedNotifications"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreservesContentDuringLiveResize"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShouldDrawColor"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-			EditorType="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
@@ -2521,12 +2604,15 @@ Implements objHasVariantValue
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabPanelIndex"
+			Visible=false
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabStop"
@@ -2534,11 +2620,15 @@ Implements objHasVariantValue
 			Group="Position"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Tag"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -2546,6 +2636,7 @@ Implements objHasVariantValue
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Transparent"
@@ -2553,7 +2644,7 @@ Implements objHasVariantValue
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
-			EditorType="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Visible"
@@ -2561,11 +2652,15 @@ Implements objHasVariantValue
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WantsDefaultClipping"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"
@@ -2573,6 +2668,7 @@ Implements objHasVariantValue
 			Group="Position"
 			InitialValue="100"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

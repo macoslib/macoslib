@@ -3,7 +3,6 @@ Begin Window NSWindowSplashExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   4
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSWindowSplashExample
    HasBackColor    =   False
    Height          =   600
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window NSWindowSplashExample
    Visible         =   True
    Width           =   600
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "72.0"
-      FontUnit        =   "0"
       Height          =   86
       HelpTag         =   ""
       Index           =   -2147483648
@@ -53,9 +48,7 @@ Begin Window NSWindowSplashExample
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Hello World!"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   72.0
@@ -68,15 +61,11 @@ Begin Window NSWindowSplashExample
       Width           =   600
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "72.0"
-      FontUnit        =   "0"
       Height          =   86
       HelpTag         =   ""
       Index           =   -2147483648
@@ -94,9 +83,7 @@ Begin Window NSWindowSplashExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Hello World!"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &cFFFFFF
       TextFont        =   "System"
       TextSize        =   72.0

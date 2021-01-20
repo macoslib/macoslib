@@ -3,7 +3,6 @@ Begin Window DebugLogWND
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   3
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window DebugLogWND
    HasBackColor    =   False
    Height          =   442
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,16 +26,12 @@ Begin Window DebugLogWND
    Visible         =   True
    Width           =   305
    Begin CheckBox AllowReportCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Allow report"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Allow debug reports when checked"
       Index           =   -2147483648
@@ -61,20 +56,15 @@ Begin Window DebugLogWND
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   93
    End
    Begin CheckBox ImmediateReportCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Immediate report"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Force immediate refreshing when check (very time consuming). If unchecked, debug reports will be displayed only when the window refreshes."
       Index           =   -2147483648
@@ -99,33 +89,20 @@ Begin Window DebugLogWND
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   116
    End
    Begin TextArea LogTA
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   401
       HelpTag         =   ""
       HideSelection   =   True
@@ -141,7 +118,6 @@ Begin Window DebugLogWND
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -151,8 +127,6 @@ Begin Window DebugLogWND
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -160,8 +134,8 @@ Begin Window DebugLogWND
       Top             =   21
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   303
@@ -169,15 +143,11 @@ Begin Window DebugLogWND
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   12
       HelpTag         =   "Number of errors reported"
       Index           =   -2147483648
@@ -201,15 +171,11 @@ Begin Window DebugLogWND
    Begin Canvas Canvas2
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   12
       HelpTag         =   "Number of warnings reported"
       Index           =   -2147483648
@@ -233,15 +199,11 @@ Begin Window DebugLogWND
    Begin Canvas Canvas3
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   12
       HelpTag         =   "Number of simple reports reported"
       Index           =   -2147483648
@@ -263,15 +225,11 @@ Begin Window DebugLogWND
       Width           =   12
    End
    Begin Label ErrorCountLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Number of errors reported"
       Index           =   -2147483648
@@ -289,9 +247,7 @@ Begin Window DebugLogWND
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "0"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -304,15 +260,11 @@ Begin Window DebugLogWND
       Width           =   41
    End
    Begin Label WarningCountLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Number of warnings reported"
       Index           =   -2147483648
@@ -330,9 +282,7 @@ Begin Window DebugLogWND
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "0"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -345,15 +295,11 @@ Begin Window DebugLogWND
       Width           =   41
    End
    Begin Label ReportCountLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Number of simple reports reported"
       Index           =   -2147483648
@@ -371,9 +317,7 @@ Begin Window DebugLogWND
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "0"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -386,15 +330,11 @@ Begin Window DebugLogWND
       Width           =   41
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Momentarily stops immediate report"
       Index           =   -2147483648
@@ -412,9 +352,7 @@ Begin Window DebugLogWND
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "F18"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c66666600
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -427,15 +365,11 @@ Begin Window DebugLogWND
       Width           =   26
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Disable immediate report"
       Index           =   -2147483648
@@ -453,9 +387,7 @@ Begin Window DebugLogWND
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "F19"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c66666600
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -468,11 +400,9 @@ Begin Window DebugLogWND
       Width           =   26
    End
    Begin PopupArrow PopupArrow1
-      AllowAutoDeactivate=   "False"
       AutoDeactivate  =   False
       Enabled         =   True
       Facing          =   3
-      FacingDirection =   "3"
       Height          =   10
       HelpTag         =   "Window Menu"
       Index           =   -2147483648
@@ -493,16 +423,12 @@ Begin Window DebugLogWND
       Width           =   10
    End
    Begin CheckBox SyslogCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Syslog"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Also log Errors and Warnings to the System log"
       Index           =   -2147483648
@@ -527,7 +453,6 @@ Begin Window DebugLogWND
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   67
    End
 End

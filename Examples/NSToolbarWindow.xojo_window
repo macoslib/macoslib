@@ -3,7 +3,6 @@ Begin Window NSToolbarWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSToolbarWindow
    HasBackColor    =   False
    Height          =   525
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,27 +28,15 @@ Begin Window NSToolbarWindow
    Begin TextArea TextArea1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "True"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   435
       HelpTag         =   ""
       HideSelection   =   True
@@ -65,7 +52,6 @@ Begin Window NSToolbarWindow
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -75,8 +61,6 @@ Begin Window NSToolbarWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -84,23 +68,19 @@ Begin Window NSToolbarWindow
       Top             =   70
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   601
    End
    Begin CheckBox CheckBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Hide toolbar baseline"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -125,19 +105,14 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   165
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -155,9 +130,7 @@ Begin Window NSToolbarWindow
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Enable/Disable item:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -170,17 +143,13 @@ Begin Window NSToolbarWindow
       Width           =   148
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Toggle"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -192,7 +161,6 @@ Begin Window NSToolbarWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -207,15 +175,11 @@ Begin Window NSToolbarWindow
       Width           =   80
    End
    Begin PopupMenu PopupMenu1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -230,7 +194,6 @@ Begin Window NSToolbarWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
@@ -244,16 +207,12 @@ Begin Window NSToolbarWindow
       Width           =   196
    End
    Begin CheckBox CheckBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Transparent Toolbar"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Makes the toolbar fully transparent (OS X 10.10+)"
       Index           =   -2147483648
@@ -278,20 +237,15 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   193
    End
    Begin CheckBox chkFullSizeContentView
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "FullSizeContentView"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. OS X 10.10+"
       Index           =   -2147483648
@@ -316,20 +270,15 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   190
    End
    Begin CheckBox CheckBox3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Title Visibility"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Affects where the Close/Minimize/Zoom buttons are shown (OS X 10.10+)"
       Index           =   -2147483648
@@ -354,21 +303,15 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   193
    End
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
       Height          =   49
       HelpTag         =   ""
       Index           =   -2147483648
@@ -392,23 +335,18 @@ Begin Window NSToolbarWindow
          AcceptFocus     =   False
          AcceptTabs      =   False
          Alignment       =   ""
-         AllowAutoDeactivate=   "True"
-         AllowFocus      =   "False"
-         AllowFocusRing  =   "False"
          AllowsExpansionToolTips=   False
          AllowsTickMarkValuesOnly=   False
-         AllowTabs       =   "False"
          AltIncrementValue=   0.0
          AutoDeactivate  =   True
          autoresizesSubviews=   False
          Backdrop        =   0
-         Bold            =   false
+         Bold            =   False
          ControlSize     =   ""
          Description     =   ""
          DoubleBuffer    =   False
          DoubleValue     =   0.0
          Enabled         =   True
-         EraseBackground =   False
          FloatValue      =   0.0
          Height          =   32
          HelpTag         =   ""
@@ -416,7 +354,7 @@ Begin Window NSToolbarWindow
          InitialParent   =   "Canvas1"
          IntegerValue    =   0
          IsFlipped       =   False
-         Italic          =   false
+         Italic          =   False
          Left            =   344
          LockBottom      =   False
          LockedInPosition=   False
@@ -440,7 +378,7 @@ Begin Window NSToolbarWindow
          Top             =   -85
          Transparent     =   True
          Type            =   0
-         Underlined      =   false
+         Underlined      =   False
          UseFocusRing    =   False
          Value           =   0.0
          Visible         =   True
@@ -450,20 +388,15 @@ Begin Window NSToolbarWindow
          AcceptFocus     =   False
          AcceptTabs      =   False
          Alignment       =   ""
-         AllowAutoDeactivate=   "True"
-         AllowFocus      =   "False"
-         AllowFocusRing  =   "False"
          AllowsExpansionToolTips=   False
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          autoresizesSubviews=   False
          Backdrop        =   0
-         Bold            =   false
+         Bold            =   False
          Description     =   ""
          DoubleBuffer    =   False
          DoubleValue     =   0.0
          Enabled         =   True
-         EraseBackground =   False
          FloatValue      =   0.0
          FocusRing       =   True
          Height          =   32
@@ -472,7 +405,7 @@ Begin Window NSToolbarWindow
          InitialParent   =   "Canvas1"
          IntegerValue    =   0
          IsFlipped       =   False
-         Italic          =   false
+         Italic          =   False
          Left            =   514
          LockBottom      =   False
          LockedInPosition=   False
@@ -493,7 +426,7 @@ Begin Window NSToolbarWindow
          TextSize        =   0.0
          Top             =   -85
          Transparent     =   True
-         Underlined      =   false
+         Underlined      =   False
          UseFocusRing    =   False
          Visible         =   True
          Width           =   150
@@ -689,6 +622,8 @@ End
 		  next
 		  PopupMenu1.listIndex = 0
 		  
+		  // BigSur added a subtitle property, which is added after the title on intel, or underneath the title on ARM if the toolbar is visible.
+		  me.NSWindowObject.Subtitle = "Subtitle Example"
 		End Sub
 	#tag EndEvent
 

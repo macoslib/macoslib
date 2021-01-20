@@ -3,7 +3,6 @@ Begin Window LabelExtensionExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window LabelExtensionExampleWindow
    HasBackColor    =   False
    Height          =   315
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,9 @@ Begin Window LabelExtensionExampleWindow
    Visible         =   True
    Width           =   754
    Begin TabPanel TabPanel1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   219
       HelpTag         =   ""
       Index           =   -2147483648
@@ -62,15 +57,11 @@ Begin Window LabelExtensionExampleWindow
       Visible         =   True
       Width           =   726
       Begin Label Label1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "12.0"
-         FontUnit        =   "0"
          Height          =   158
          HelpTag         =   ""
          Index           =   -2147483648
@@ -88,9 +79,7 @@ Begin Window LabelExtensionExampleWindow
          TabIndex        =   0
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "In Cocoa, a Label object is just a TextField without background or editing capabilities.\rAs TextFields support AttributedString (i.e. a more advanced equivalent of the RB's StyledText), so can Labels, e.g:\r\r1. Styled text, including subscript and superscript\r2. Different underlining styles and colors (also strike-through)\r3. Multiple help tags for different parts of the text\r4. Automatic handling of hypertext links\r\r... and many more features"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   12.0
@@ -103,15 +92,11 @@ Begin Window LabelExtensionExampleWindow
          Width           =   720
       End
       Begin Label RichLBL
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   167
          HelpTag         =   ""
          Index           =   -2147483648
@@ -129,9 +114,7 @@ Begin Window LabelExtensionExampleWindow
          TabIndex        =   0
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   ""
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -145,15 +128,11 @@ Begin Window LabelExtensionExampleWindow
       End
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -171,9 +150,7 @@ Begin Window LabelExtensionExampleWindow
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You can also select how a string will be truncated if it is too long for the Label"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   12.0
@@ -186,15 +163,11 @@ Begin Window LabelExtensionExampleWindow
       Width           =   583
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -212,9 +185,7 @@ Begin Window LabelExtensionExampleWindow
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You can also select how a string will be truncated if it is too long for the Label"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c80004000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -227,15 +198,11 @@ Begin Window LabelExtensionExampleWindow
       Width           =   342
    End
    Begin PopupMenu LineBreakPOP
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -250,7 +217,6 @@ Begin Window LabelExtensionExampleWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "2"
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True

@@ -3,7 +3,6 @@ Begin Window NSImageViewExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSImageViewExampleWindow
    HasBackColor    =   False
    Height          =   277
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -30,22 +29,18 @@ Begin Window NSImageViewExampleWindow
       AcceptFocus     =   True
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
       AllowCopyCutPaste=   True
-      AllowFocus      =   "True"
-      AllowFocusRing  =   "True"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Editable        =   True
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       FocusRingType   =   0
       FrameStyle      =   2
@@ -67,7 +62,7 @@ Begin Window NSImageViewExampleWindow
       initUseFocusRing=   True
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
@@ -83,7 +78,7 @@ Begin Window NSImageViewExampleWindow
       TextSize        =   0.0
       Top             =   14
       Transparent     =   True
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   True
       Visible         =   True
       Width           =   70
@@ -92,22 +87,18 @@ Begin Window NSImageViewExampleWindow
       AcceptFocus     =   True
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
       AllowCopyCutPaste=   True
-      AllowFocus      =   "True"
-      AllowFocusRing  =   "True"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Editable        =   True
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       FocusRingType   =   0
       FrameStyle      =   2
@@ -117,19 +108,19 @@ Begin Window NSImageViewExampleWindow
       ImageAlignment  =   0
       ImageScaling    =   0
       Index           =   1
-      initAcceptFocus =   true
+      initAcceptFocus =   True
       initAlignment   =   0
-      initAllowCopyCutPaste=   true
-      initEditable    =   true
+      initAllowCopyCutPaste=   True
+      initEditable    =   True
       initFocusRingType=   0
       initFrameStyle  =   1
       InitialParent   =   ""
       initImage       =   0
       initScaling     =   0
-      initUseFocusRing=   true
+      initUseFocusRing=   True
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   126
       LockBottom      =   False
       LockedInPosition=   False
@@ -145,7 +136,7 @@ Begin Window NSImageViewExampleWindow
       TextSize        =   0.0
       Top             =   14
       Transparent     =   True
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   True
       Visible         =   True
       Width           =   70
@@ -154,22 +145,18 @@ Begin Window NSImageViewExampleWindow
       AcceptFocus     =   True
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
       AllowCopyCutPaste=   True
-      AllowFocus      =   "True"
-      AllowFocusRing  =   "True"
       AllowsExpansionToolTips=   False
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Editable        =   True
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       FocusRingType   =   0
       FrameStyle      =   2
@@ -179,19 +166,19 @@ Begin Window NSImageViewExampleWindow
       ImageAlignment  =   0
       ImageScaling    =   0
       Index           =   2
-      initAcceptFocus =   true
+      initAcceptFocus =   True
       initAlignment   =   0
-      initAllowCopyCutPaste=   true
-      initEditable    =   true
+      initAllowCopyCutPaste=   True
+      initEditable    =   True
       initFocusRingType=   0
       initFrameStyle  =   2
       InitialParent   =   ""
       initImage       =   0
       initScaling     =   0
-      initUseFocusRing=   true
+      initUseFocusRing=   True
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   229
       LockBottom      =   False
       LockedInPosition=   False
@@ -207,21 +194,17 @@ Begin Window NSImageViewExampleWindow
       TextSize        =   0.0
       Top             =   14
       Transparent     =   True
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   True
       Visible         =   True
       Width           =   70
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -239,9 +222,7 @@ Begin Window NSImageViewExampleWindow
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Bordeless"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -254,15 +235,11 @@ Begin Window NSImageViewExampleWindow
       Width           =   70
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -280,9 +257,7 @@ Begin Window NSImageViewExampleWindow
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Black square"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -295,15 +270,11 @@ Begin Window NSImageViewExampleWindow
       Width           =   94
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -321,9 +292,7 @@ Begin Window NSImageViewExampleWindow
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "ImageWell"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -336,15 +305,11 @@ Begin Window NSImageViewExampleWindow
       Width           =   70
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -362,9 +327,7 @@ Begin Window NSImageViewExampleWindow
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "And 2 more ugly presentations..."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -377,16 +340,12 @@ Begin Window NSImageViewExampleWindow
       Width           =   225
    End
    Begin CheckBox CheckBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Selectable"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -411,20 +370,15 @@ Begin Window NSImageViewExampleWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   528
    End
    Begin CheckBox CheckBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Editable"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -449,20 +403,15 @@ Begin Window NSImageViewExampleWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   528
    End
    Begin CheckBox CheckBox3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "AllowCopyCutPaste (allow automatic management of copying, cutting, pasting, deleting the picture)"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -487,19 +436,14 @@ Begin Window NSImageViewExampleWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   581
    End
    Begin PopupMenu PopupMenu1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -514,7 +458,6 @@ Begin Window NSImageViewExampleWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
@@ -528,15 +471,11 @@ Begin Window NSImageViewExampleWindow
       Width           =   343
    End
    Begin Label Label5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -554,9 +493,7 @@ Begin Window NSImageViewExampleWindow
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Image scaling:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -569,15 +506,11 @@ Begin Window NSImageViewExampleWindow
       Width           =   101
    End
    Begin PopupMenu PopupMenu2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -592,7 +525,6 @@ Begin Window NSImageViewExampleWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
@@ -606,15 +538,11 @@ Begin Window NSImageViewExampleWindow
       Width           =   343
    End
    Begin Label Label6
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -632,9 +560,7 @@ Begin Window NSImageViewExampleWindow
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Image alignment:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0

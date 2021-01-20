@@ -3,7 +3,6 @@ Begin Window NSHostExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSHostExampleWindow
    HasBackColor    =   False
    Height          =   361
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,28 +28,18 @@ Begin Window NSHostExampleWindow
    Begin TextField TextField1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   26
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   186
@@ -61,15 +50,12 @@ Begin Window NSHostExampleWindow
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -78,21 +64,16 @@ Begin Window NSHostExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   243
    End
    Begin PopupMenu PopupMenu1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   21
       HelpTag         =   ""
       Index           =   -2147483648
@@ -107,7 +88,6 @@ Begin Window NSHostExampleWindow
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
@@ -121,13 +101,6 @@ Begin Window NSHostExampleWindow
       Width           =   154
    End
    Begin Listbox Listbox1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -138,22 +111,12 @@ Begin Window NSHostExampleWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "False"
       HasHeading      =   False
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   248
       HelpTag         =   ""
@@ -169,7 +132,6 @@ Begin Window NSHostExampleWindow
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True

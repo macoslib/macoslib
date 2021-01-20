@@ -3,7 +3,7 @@ Class QTCaptureDeviceInput
 Inherits NSObject
 	#tag Method, Flags = &h1000
 		Sub Constructor(device as QTCaptureDevice)
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
 		    declare function initWithDevice lib CocoaLib selector "initWithDevice:" (obj_id as Ptr, device as Ptr) as Ptr
 		    

@@ -3,7 +3,6 @@ Begin Window NSPasteboardExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSPasteboardExample
    HasBackColor    =   False
    Height          =   600
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,6 @@ Begin Window NSPasteboardExample
    Visible         =   True
    Width           =   512
    Begin Listbox TypesList
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -44,22 +36,12 @@ Begin Window NSPasteboardExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "10.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "False"
       HasHeading      =   False
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   335
       HelpTag         =   ""
@@ -75,7 +57,6 @@ Begin Window NSPasteboardExample
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -100,27 +81,15 @@ Begin Window NSPasteboardExample
    Begin TextArea TypeValue
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   187
       HelpTag         =   ""
       HideSelection   =   True
@@ -136,7 +105,6 @@ Begin Window NSPasteboardExample
       LockRight       =   True
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -146,8 +114,6 @@ Begin Window NSPasteboardExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -155,24 +121,20 @@ Begin Window NSPasteboardExample
       Top             =   393
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   472
    End
    Begin PushButton RefreshButton
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Refresh"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -184,7 +146,6 @@ Begin Window NSPasteboardExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -199,15 +160,11 @@ Begin Window NSPasteboardExample
       Width           =   80
    End
    Begin Label ClipboardIDText
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -225,9 +182,7 @@ Begin Window NSPasteboardExample
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -245,7 +200,6 @@ Begin Window NSPasteboardExample
       LockedInPosition=   False
       Mode            =   2
       Period          =   200
-      RunMode         =   "2"
       Scope           =   0
       TabPanelIndex   =   0
    End

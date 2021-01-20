@@ -3,7 +3,6 @@ Begin Window macoslibSplashWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   4
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window macoslibSplashWindow
    HasBackColor    =   False
    Height          =   480
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window macoslibSplashWindow
    Visible         =   True
    Width           =   494
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "72.0"
-      FontUnit        =   "0"
       Height          =   105
       HelpTag         =   ""
       Index           =   -2147483648
@@ -53,9 +48,7 @@ Begin Window macoslibSplashWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "macoslib"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c80000000
       TextFont        =   "System"
       TextSize        =   72.0
@@ -68,15 +61,11 @@ Begin Window macoslibSplashWindow
       Width           =   480
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "36.0"
-      FontUnit        =   "0"
       Height          =   112
       HelpTag         =   ""
       Index           =   -2147483648
@@ -94,9 +83,7 @@ Begin Window macoslibSplashWindow
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "unleash the power of OS X"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &cAB490500
       TextFont        =   "System"
       TextSize        =   36.0

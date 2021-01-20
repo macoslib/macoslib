@@ -3,7 +3,6 @@ Begin Window NSAlertExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSAlertExample
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,17 +26,13 @@ Begin Window NSAlertExample
    Visible         =   True
    Width           =   700
    Begin PushButton btnAlertMultiButtons
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Extra Buttons"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -49,7 +44,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -64,17 +58,13 @@ Begin Window NSAlertExample
       Width           =   200
    End
    Begin PushButton btnAlertOKCancelDialog
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Cancel / OK Dialog"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -86,7 +76,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -103,28 +92,18 @@ Begin Window NSAlertExample
    Begin TextField edtResult
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   107
@@ -135,15 +114,12 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -152,21 +128,16 @@ Begin Window NSAlertExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   361
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -184,9 +155,7 @@ Begin Window NSAlertExample
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Result:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -199,17 +168,13 @@ Begin Window NSAlertExample
       Width           =   75
    End
    Begin PushButton btnResetAlerts
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Reset Alerts"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -221,7 +186,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -236,17 +200,13 @@ Begin Window NSAlertExample
       Width           =   100
    End
    Begin PushButton btnAlertOKCancelDialog1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Cancel / Yes / No Dialog"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -258,7 +218,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -273,17 +232,13 @@ Begin Window NSAlertExample
       Width           =   200
    End
    Begin PushButton btnAlertMessage
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Message Dialog"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -295,7 +250,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -310,17 +264,13 @@ Begin Window NSAlertExample
       Width           =   200
    End
    Begin PushButton btnAlertCustomDialog
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Show Custom Dialog"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -332,7 +282,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -347,15 +296,11 @@ Begin Window NSAlertExample
       Width           =   200
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -373,9 +318,7 @@ Begin Window NSAlertExample
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Message Text:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -388,15 +331,11 @@ Begin Window NSAlertExample
       Width           =   150
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   2
@@ -414,9 +353,7 @@ Begin Window NSAlertExample
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Informative Text:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -431,28 +368,18 @@ Begin Window NSAlertExample
    Begin TextField edtMessage
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   182
@@ -463,15 +390,12 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Are you sure you want to save changes to this document?"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -480,7 +404,6 @@ Begin Window NSAlertExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Are you sure you want to save changes to this document?"
       Visible         =   True
       Width           =   286
@@ -488,27 +411,15 @@ Begin Window NSAlertExample
    Begin TextArea edtInformation
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "True"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   66
       HelpTag         =   ""
       HideSelection   =   True
@@ -524,7 +435,6 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -534,8 +444,6 @@ Begin Window NSAlertExample
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "This action cannot be undone"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -543,22 +451,18 @@ Begin Window NSAlertExample
       Top             =   46
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "This action cannot be undone"
       Visible         =   True
       Width           =   286
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   3
@@ -576,9 +480,7 @@ Begin Window NSAlertExample
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Default Button:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -591,15 +493,11 @@ Begin Window NSAlertExample
       Width           =   150
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   4
@@ -617,9 +515,7 @@ Begin Window NSAlertExample
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Alternate Button:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -632,15 +528,11 @@ Begin Window NSAlertExample
       Width           =   150
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   5
@@ -658,9 +550,7 @@ Begin Window NSAlertExample
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Other Button:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -675,28 +565,18 @@ Begin Window NSAlertExample
    Begin TextField edtBtnDefault
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   182
@@ -707,15 +587,12 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Save"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -724,7 +601,6 @@ Begin Window NSAlertExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Save"
       Visible         =   True
       Width           =   286
@@ -732,28 +608,18 @@ Begin Window NSAlertExample
    Begin TextField edtBtnAlternate
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   182
@@ -764,15 +630,12 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Cancel"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -781,7 +644,6 @@ Begin Window NSAlertExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Cancel"
       Visible         =   True
       Width           =   286
@@ -789,28 +651,18 @@ Begin Window NSAlertExample
    Begin TextField edtBtnOther
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   182
@@ -821,15 +673,12 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Don't Save"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -838,22 +687,17 @@ Begin Window NSAlertExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Don't Save"
       Visible         =   True
       Width           =   286
    End
    Begin CheckBox chkSuppression
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Show Suppression Button"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -878,20 +722,15 @@ Begin Window NSAlertExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   286
    End
    Begin CheckBox chkHelp
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Show Help Button"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -916,19 +755,14 @@ Begin Window NSAlertExample
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   286
    End
    Begin PopupMenu popStyle
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -943,7 +777,6 @@ Begin Window NSAlertExample
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   21
       TabPanelIndex   =   0
       TabStop         =   True
@@ -957,15 +790,11 @@ Begin Window NSAlertExample
       Width           =   130
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   6
@@ -983,9 +812,7 @@ Begin Window NSAlertExample
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Alert Style:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -998,17 +825,13 @@ Begin Window NSAlertExample
       Width           =   150
    End
    Begin PushButton btnAlertCustomSheet
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Show Custom Sheet"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1020,7 +843,6 @@ Begin Window NSAlertExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   23
       TabPanelIndex   =   0

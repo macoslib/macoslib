@@ -3,7 +3,6 @@ Begin Window NSDockTileExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSDockTileExample
    HasBackColor    =   False
    Height          =   118
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,28 +28,18 @@ Begin Window NSDockTileExample
    Begin TextField edtDockTile
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -61,15 +50,12 @@ Begin Window NSDockTileExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Hello World!"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -78,23 +64,18 @@ Begin Window NSDockTileExample
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Hello World!"
       Visible         =   True
       Width           =   200
    End
    Begin PushButton btnSetText
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Set"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -106,7 +87,6 @@ Begin Window NSDockTileExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -122,7 +102,6 @@ Begin Window NSDockTileExample
    End
    Begin UpDownArrows UpDownArrows1
       AcceptFocus     =   False
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   23
@@ -145,15 +124,11 @@ Begin Window NSDockTileExample
       Width           =   13
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -171,9 +146,7 @@ Begin Window NSDockTileExample
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Badge Value"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -186,17 +159,13 @@ Begin Window NSDockTileExample
       Width           =   175
    End
    Begin PushButton btnHide
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Hide"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -208,7 +177,6 @@ Begin Window NSDockTileExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -223,17 +191,13 @@ Begin Window NSDockTileExample
       Width           =   80
    End
    Begin PushButton btnVersion
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "MacOSLib Version"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -245,7 +209,6 @@ Begin Window NSDockTileExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0

@@ -3,7 +3,6 @@ Begin Window ChangeHistoryWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window ChangeHistoryWindow
    HasBackColor    =   False
    Height          =   533
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,27 +28,15 @@ Begin Window ChangeHistoryWindow
    Begin TextArea TA1
       AcceptTabs      =   True
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "True"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   533
       HelpTag         =   ""
       HideSelection   =   True
@@ -65,7 +52,6 @@ Begin Window ChangeHistoryWindow
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -75,8 +61,6 @@ Begin Window ChangeHistoryWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0
@@ -84,8 +68,8 @@ Begin Window ChangeHistoryWindow
       Top             =   0
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   610

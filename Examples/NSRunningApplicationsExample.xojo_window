@@ -3,7 +3,6 @@ Begin Window NSRunningApplicationsExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSRunningApplicationsExample
    HasBackColor    =   False
    Height          =   572
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window NSRunningApplicationsExample
    Visible         =   True
    Width           =   438
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   40
       HelpTag         =   ""
       Index           =   -2147483648
@@ -53,9 +48,7 @@ Begin Window NSRunningApplicationsExample
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Select an activation policy to show only apps which were activated using that policy."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -68,13 +61,6 @@ Begin Window NSRunningApplicationsExample
       Width           =   396
    End
    Begin Listbox lstActiveApps
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -85,22 +71,12 @@ Begin Window NSRunningApplicationsExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   24
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   416
       HelpTag         =   ""
@@ -116,7 +92,6 @@ Begin Window NSRunningApplicationsExample
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -139,17 +114,13 @@ Begin Window NSRunningApplicationsExample
       _ScrollWidth    =   -1
    End
    Begin PushButton btnRefresh
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   True
       Caption         =   "Refresh"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -161,7 +132,6 @@ Begin Window NSRunningApplicationsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -176,15 +146,11 @@ Begin Window NSRunningApplicationsExample
       Width           =   90
    End
    Begin PopupMenu popActivationPolicy
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -199,7 +165,6 @@ Begin Window NSRunningApplicationsExample
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
@@ -213,15 +178,11 @@ Begin Window NSRunningApplicationsExample
       Width           =   239
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -239,9 +200,7 @@ Begin Window NSRunningApplicationsExample
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Activation Policy:"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -254,17 +213,13 @@ Begin Window NSRunningApplicationsExample
       Width           =   147
    End
    Begin PushButton btnForceQuit
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Force Quit"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -276,7 +231,6 @@ Begin Window NSRunningApplicationsExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -291,17 +245,13 @@ Begin Window NSRunningApplicationsExample
       Width           =   90
    End
    Begin PushButton btnQuit
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Quit"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -313,7 +263,6 @@ Begin Window NSRunningApplicationsExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -328,17 +277,13 @@ Begin Window NSRunningApplicationsExample
       Width           =   90
    End
    Begin PushButton btnHide
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "(Un)Hide"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -350,7 +295,6 @@ Begin Window NSRunningApplicationsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -498,39 +442,43 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
-		Name="MinWidth"
+		Name="MinimumWidth"
 		Visible=true
 		Group="Size"
 		InitialValue="64"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MinHeight"
+		Name="MinimumHeight"
 		Visible=true
 		Group="Size"
 		InitialValue="64"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaxWidth"
+		Name="MaximumWidth"
 		Visible=true
 		Group="Size"
 		InitialValue="32000"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaxHeight"
+		Name="MaximumHeight"
 		Visible=true
 		Group="Size"
 		InitialValue="32000"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Frame"
+		Name="Type"
 		Visible=true
 		Group="Frame"
 		InitialValue="0"
-		Type="Integer"
+		Type="Types"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Document"
@@ -547,58 +495,43 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="CloseButton"
+		Name="HasCloseButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Resizeable"
+		Name="HasMaximizeButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaximizeButton"
+		Name="HasMinimizeButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MinimizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FullScreenButton"
+		Name="HasFullScreenButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="False"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="LiveResize"
-		Group="Behavior"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Placement"
+		Name="DefaultLocation"
 		Visible=true
 		Group="Behavior"
 		InitialValue="0"
-		Type="Integer"
+		Type="Locations"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Default"
@@ -609,18 +542,28 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasBackColor"
+		Name="HasBackgroundColor"
 		Visible=true
 		Group="Background"
 		InitialValue="False"
 		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="BackColor"
+		Name="BackgroundColor"
 		Visible=true
 		Group="Background"
 		InitialValue="&hFFFFFF"
 		Type="Color"
+		EditorType="Color"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Resizeable"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBarVisible"
@@ -628,27 +571,31 @@ End
 		Group="Deprecated"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Backdrop"
 		Visible=true
 		Group="Background"
+		InitialValue=""
 		Type="Picture"
-		EditorType="Picture"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Composite"
+		Visible=false
 		Group="OS X (Carbon)"
 		InitialValue="False"
 		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="FullScreen"
+		Visible=false
 		Group="Behavior"
 		InitialValue="False"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Height"
@@ -656,6 +603,7 @@ End
 		Group="Size"
 		InitialValue="400"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ImplicitInstance"
@@ -663,41 +611,47 @@ End
 		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Interfaces"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
-		EditorType="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MacProcID"
+		Visible=false
 		Group="OS X (Carbon)"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBar"
 		Visible=true
 		Group="Menus"
+		InitialValue=""
 		Type="MenuBar"
-		EditorType="MenuBar"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Name"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
-		EditorType="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
-		EditorType="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"
@@ -705,6 +659,7 @@ End
 		Group="Frame"
 		InitialValue="Untitled"
 		Type="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
@@ -712,7 +667,7 @@ End
 		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Width"
@@ -720,5 +675,6 @@ End
 		Group="Size"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

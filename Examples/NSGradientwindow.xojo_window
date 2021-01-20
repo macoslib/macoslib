@@ -3,7 +3,6 @@ Begin Window NSGradientwindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSGradientwindow
    HasBackColor    =   False
    Height          =   546
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -29,15 +28,11 @@ Begin Window NSGradientwindow
    Begin canvas Rectangle1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       Height          =   414
       HelpTag         =   ""
       Index           =   -2147483648
@@ -60,15 +55,11 @@ Begin Window NSGradientwindow
       Begin canvas Rectangle3
          AcceptFocus     =   False
          AcceptTabs      =   False
-         AllowAutoDeactivate=   "True"
-         AllowFocus      =   "False"
-         AllowFocusRing  =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
-         EraseBackground =   False
+         EraseBackground =   "False"
          Height          =   97
          HelpTag         =   ""
          Index           =   -2147483648
@@ -89,15 +80,11 @@ Begin Window NSGradientwindow
          Visible         =   True
          Width           =   629
          Begin Label Label2
-            AllowAutoDeactivate=   "True"
             AutoDeactivate  =   True
             Bold            =   False
             DataField       =   ""
             DataSource      =   ""
             Enabled         =   True
-            FontName        =   "System"
-            FontSize        =   "0.0"
-            FontUnit        =   "0"
             Height          =   20
             HelpTag         =   ""
             Index           =   -2147483648
@@ -115,9 +102,7 @@ Begin Window NSGradientwindow
             TabIndex        =   0
             TabPanelIndex   =   0
             TabStop         =   True
-            Text            =   "DrawInRectRelativeCenterPosition"
             TextAlign       =   1
-            TextAlignment   =   "2"
             TextColor       =   &cBFBFBF00
             TextFont        =   "System"
             TextSize        =   0.0
@@ -131,15 +116,11 @@ Begin Window NSGradientwindow
          End
       End
       Begin Label Label1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -157,9 +138,7 @@ Begin Window NSGradientwindow
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "DrawInRect"
          TextAlign       =   1
-         TextAlignment   =   "2"
          TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
@@ -174,15 +153,11 @@ Begin Window NSGradientwindow
       Begin canvas Rectangle4
          AcceptFocus     =   False
          AcceptTabs      =   False
-         AllowAutoDeactivate=   "True"
-         AllowFocus      =   "False"
-         AllowFocusRing  =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
-         EraseBackground =   False
+         EraseBackground =   "False"
          Height          =   186
          HelpTag         =   ""
          Index           =   -2147483648
@@ -204,15 +179,11 @@ Begin Window NSGradientwindow
          Width           =   209
       End
       Begin Label Label5
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -230,9 +201,7 @@ Begin Window NSGradientwindow
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "DrawFromCenterToCenter"
          TextAlign       =   1
-         TextAlignment   =   "2"
          TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
@@ -247,15 +216,11 @@ Begin Window NSGradientwindow
       Begin Canvas Canvas1
          AcceptFocus     =   False
          AcceptTabs      =   False
-         AllowAutoDeactivate=   "True"
-         AllowFocus      =   "False"
-         AllowFocusRing  =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
-         EraseBackground =   True
+         EraseBackground =   "True"
          Height          =   186
          HelpTag         =   ""
          Index           =   -2147483648
@@ -279,15 +244,11 @@ Begin Window NSGradientwindow
       Begin canvas Rectangle5
          AcceptFocus     =   False
          AcceptTabs      =   False
-         AllowAutoDeactivate=   "True"
-         AllowFocus      =   "False"
-         AllowFocusRing  =   "True"
-         AllowTabs       =   "False"
          AutoDeactivate  =   True
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
-         EraseBackground =   False
+         EraseBackground =   "False"
          Height          =   141
          HelpTag         =   ""
          Index           =   -2147483648
@@ -309,15 +270,11 @@ Begin Window NSGradientwindow
          Width           =   184
       End
       Begin Label Label7
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -335,9 +292,7 @@ Begin Window NSGradientwindow
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "DrawinBezierPathWithRelativeCenter"
          TextAlign       =   1
-         TextAlignment   =   "2"
          TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
@@ -350,15 +305,11 @@ Begin Window NSGradientwindow
          Width           =   254
       End
       Begin Label Label6
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -376,9 +327,7 @@ Begin Window NSGradientwindow
          TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "DrawInBezierPath"
          TextAlign       =   1
-         TextAlignment   =   "2"
          TextColor       =   &cBFBFBF00
          TextFont        =   "System"
          TextSize        =   0.0
@@ -394,15 +343,11 @@ Begin Window NSGradientwindow
    Begin Canvas Rectangle2
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       Height          =   25
       HelpTag         =   ""
       Index           =   -2147483648
@@ -424,15 +369,11 @@ Begin Window NSGradientwindow
       Width           =   788
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -450,9 +391,7 @@ Begin Window NSGradientwindow
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "DrawInRect with InitWithColors"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &cBFBFBF00
       TextFont        =   "System"
       TextSize        =   0.0
@@ -465,15 +404,11 @@ Begin Window NSGradientwindow
       Width           =   620
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -491,9 +426,7 @@ Begin Window NSGradientwindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "DrawFromPointToPoint with initWithColors:atLocations:colorSpace:"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &cBFBFBF00
       TextFont        =   "System"
       TextSize        =   0.0

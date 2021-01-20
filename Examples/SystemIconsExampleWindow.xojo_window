@@ -3,7 +3,6 @@ Begin Window SystemIconsExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window SystemIconsExampleWindow
    HasBackColor    =   False
    Height          =   527
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,6 @@ Begin Window SystemIconsExampleWindow
    Visible         =   True
    Width           =   695
    Begin Listbox LB1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "True"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -44,22 +36,12 @@ Begin Window SystemIconsExampleWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   18
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   485
       HelpTag         =   ""
@@ -75,7 +57,6 @@ Begin Window SystemIconsExampleWindow
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   True
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -98,17 +79,13 @@ Begin Window SystemIconsExampleWindow
       _ScrollWidth    =   -1
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Resize"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Resize the icon"
       Index           =   -2147483648
@@ -120,7 +97,6 @@ Begin Window SystemIconsExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -137,28 +113,18 @@ Begin Window SystemIconsExampleWindow
    Begin TextField TF1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   293
@@ -169,15 +135,12 @@ Begin Window SystemIconsExampleWindow
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -186,7 +149,6 @@ Begin Window SystemIconsExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   61
@@ -194,28 +156,18 @@ Begin Window SystemIconsExampleWindow
    Begin TextField TF2
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   367
@@ -226,15 +178,12 @@ Begin Window SystemIconsExampleWindow
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -243,7 +192,6 @@ Begin Window SystemIconsExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   61
@@ -251,15 +199,11 @@ Begin Window SystemIconsExampleWindow
    Begin Canvas CVS1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   42
       HelpTag         =   ""
       Index           =   -2147483648
@@ -282,36 +226,22 @@ Begin Window SystemIconsExampleWindow
    End
    Begin BevelButton BB1
       AcceptFocus     =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
       AutoDeactivate  =   True
       BackColor       =   &c00000000
-      BackgroundColor =   "&c00000000"
       Bevel           =   3
-      BevelStyle      =   "3"
       Bold            =   False
-      ButtonStyle     =   "0"
       ButtonType      =   0
       Caption         =   ""
       CaptionAlign    =   3
-      CaptionAlignment=   "3"
       CaptionDelta    =   0
       CaptionPlacement=   1
-      CaptionPosition =   "1"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       HasBackColor    =   False
-      HasBackgroundColor=   "False"
       HasMenu         =   0
       Height          =   22
       HelpTag         =   ""
       Icon            =   0
       IconAlign       =   1
-      IconAlignment   =   "1"
-      IconDeltaX      =   "0"
-      IconDeltaY      =   "0"
       IconDX          =   0
       IconDY          =   0
       Index           =   -2147483648
@@ -323,8 +253,7 @@ Begin Window SystemIconsExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MenuStyle       =   "0"
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -366,7 +295,7 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   0
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -389,7 +318,7 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -412,7 +341,7 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -435,7 +364,7 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -458,22 +387,18 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   499
       Transparent     =   False
       Visible         =   True
       Width           =   66
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -491,9 +416,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Your age"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -508,28 +431,18 @@ Begin Window SystemIconsExampleWindow
    Begin TextField TF11
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   371
@@ -540,15 +453,12 @@ Begin Window SystemIconsExampleWindow
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   True
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "1206"
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -557,7 +467,6 @@ Begin Window SystemIconsExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "1206"
       Visible         =   True
       Width           =   61
@@ -565,15 +474,11 @@ Begin Window SystemIconsExampleWindow
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   16
       HelpTag         =   "Invalid value for your age"
       Index           =   -2147483648
@@ -595,15 +500,11 @@ Begin Window SystemIconsExampleWindow
       Width           =   16
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   "Select an icon in the list"
       Index           =   -2147483648
@@ -621,9 +522,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Colored icons (Templates only)"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -636,7 +535,6 @@ Begin Window SystemIconsExampleWindow
       Width           =   177
    End
    Begin Separator Separator1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4
@@ -659,15 +557,11 @@ Begin Window SystemIconsExampleWindow
       Width           =   400
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   118
       HelpTag         =   ""
       Index           =   -2147483648
@@ -685,9 +579,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "All the icons in this window have been obtained from the convenience SystemIcons module. They are all simple Pictures, e.g.\r\rpict = SystemIcons.Network\r\rfor the Network icon in the toolbar."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -700,15 +592,11 @@ Begin Window SystemIconsExampleWindow
       Width           =   401
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "12.0"
-      FontUnit        =   "0"
       Height          =   41
       HelpTag         =   ""
       Index           =   -2147483648
@@ -726,9 +614,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Warning: you need Real Studio 2011.r4 or higher and Mac OS X 10.6 or higher for optimum results (especially transparency)."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   12.0
@@ -741,15 +627,11 @@ Begin Window SystemIconsExampleWindow
       Width           =   401
    End
    Begin Label Label5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -767,9 +649,7 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Example of a bad entry signalled by a red arrow:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -782,7 +662,6 @@ Begin Window SystemIconsExampleWindow
       Width           =   375
    End
    Begin Separator Separator2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4
@@ -805,17 +684,13 @@ Begin Window SystemIconsExampleWindow
       Width           =   400
    End
    Begin PushButton PB1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   ""
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -827,7 +702,6 @@ Begin Window SystemIconsExampleWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0

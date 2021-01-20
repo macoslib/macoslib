@@ -3,7 +3,6 @@ Begin Window IOKitExternalPowerWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window IOKitExternalPowerWindow
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window IOKitExternalPowerWindow
    Visible         =   True
    Width           =   600
    Begin Label AdapterAttachedText
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -53,9 +48,7 @@ Begin Window IOKitExternalPowerWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -68,13 +61,6 @@ Begin Window IOKitExternalPowerWindow
       Width           =   600
    End
    Begin Listbox Listbox1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -85,22 +71,12 @@ Begin Window IOKitExternalPowerWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "False"
       HasHeading      =   False
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   267
       HelpTag         =   ""
@@ -116,7 +92,6 @@ Begin Window IOKitExternalPowerWindow
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True

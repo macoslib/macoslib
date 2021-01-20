@@ -3,7 +3,6 @@ Begin Window CorePrintingWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window CorePrintingWindow
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,6 @@ Begin Window CorePrintingWindow
    Visible         =   True
    Width           =   780
    Begin Listbox lbPrinters
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -44,22 +36,12 @@ Begin Window CorePrintingWindow
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   366
       HelpTag         =   ""
@@ -75,7 +57,6 @@ Begin Window CorePrintingWindow
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -98,17 +79,13 @@ Begin Window CorePrintingWindow
       _ScrollWidth    =   -1
    End
    Begin PushButton btnRefresh
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Refresh"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -120,7 +97,6 @@ Begin Window CorePrintingWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -135,17 +111,13 @@ Begin Window CorePrintingWindow
       Width           =   108
    End
    Begin PushButton btnSetDefault
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Set Default"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -157,7 +129,6 @@ Begin Window CorePrintingWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -172,15 +143,11 @@ Begin Window CorePrintingWindow
       Width           =   108
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   39
       HelpTag         =   ""
       Index           =   0
@@ -198,9 +165,7 @@ Begin Window CorePrintingWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Default Printer Name:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -213,15 +178,11 @@ Begin Window CorePrintingWindow
       Width           =   100
    End
    Begin Label lblDefaultPrinterName
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   50
       HelpTag         =   ""
       Index           =   -2147483648
@@ -239,9 +200,7 @@ Begin Window CorePrintingWindow
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Unknown"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -254,17 +213,13 @@ Begin Window CorePrintingWindow
       Width           =   100
    End
    Begin PushButton btnSetCurrent
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Set Current"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -276,7 +231,6 @@ Begin Window CorePrintingWindow
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -291,15 +245,11 @@ Begin Window CorePrintingWindow
       Width           =   108
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   39
       HelpTag         =   ""
       Index           =   1
@@ -317,9 +267,7 @@ Begin Window CorePrintingWindow
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Current Printer Name:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -332,15 +280,11 @@ Begin Window CorePrintingWindow
       Width           =   100
    End
    Begin Label lblCurrentPrinterName
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   50
       HelpTag         =   ""
       Index           =   -2147483648
@@ -358,9 +302,7 @@ Begin Window CorePrintingWindow
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Unknown"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0

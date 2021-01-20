@@ -3,7 +3,6 @@ Begin Window IKDeviceBrowserWND
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window IKDeviceBrowserWND
    HasBackColor    =   False
    Height          =   572
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,10 +28,6 @@ Begin Window IKDeviceBrowserWND
    Begin IKDeviceBrowserView IKLB
       AcceptFocus     =   True
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "True"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       displaysLocalCameras=   False
@@ -41,7 +36,7 @@ Begin Window IKDeviceBrowserWND
       displaysNetworkScanners=   False
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   267
       HelpTag         =   ""
       Index           =   -2147483648
@@ -64,17 +59,13 @@ Begin Window IKDeviceBrowserWND
       Width           =   377
    End
    Begin PushButton PushButton3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Open…"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -86,7 +77,6 @@ Begin Window IKDeviceBrowserWND
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -101,15 +91,11 @@ Begin Window IKDeviceBrowserWND
       Width           =   80
    End
    Begin PopupMenu ShowAsPOP
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -124,7 +110,6 @@ Begin Window IKDeviceBrowserWND
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "1"
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
@@ -138,16 +123,12 @@ Begin Window IKDeviceBrowserWND
       Width           =   184
    End
    Begin CheckBox CheckBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Local scanners"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -172,19 +153,14 @@ Begin Window IKDeviceBrowserWND
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   242
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -202,9 +178,7 @@ Begin Window IKDeviceBrowserWND
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Search:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -217,16 +191,12 @@ Begin Window IKDeviceBrowserWND
       Width           =   100
    End
    Begin CheckBox CheckBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Local cameras/iPhones"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -251,20 +221,15 @@ Begin Window IKDeviceBrowserWND
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   242
    End
    Begin CheckBox CheckBox3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Network scanners"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -289,20 +254,15 @@ Begin Window IKDeviceBrowserWND
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   242
    End
    Begin CheckBox CheckBox4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Network cameras"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -327,19 +287,14 @@ Begin Window IKDeviceBrowserWND
       Underline       =   False
       Value           =   True
       Visible         =   True
-      VisualState     =   "1"
       Width           =   242
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -357,9 +312,7 @@ Begin Window IKDeviceBrowserWND
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Show as:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -372,15 +325,11 @@ Begin Window IKDeviceBrowserWND
       Width           =   100
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   103
       HelpTag         =   ""
       Index           =   -2147483648
@@ -398,9 +347,7 @@ Begin Window IKDeviceBrowserWND
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "The following uses ImageKit (Mac OS X 10.6+) to find the connected scanners, multifunction devices, cameras, iPod or iPhones connected to your computer just like ImageCapture.app does.\r\rWhen opening a device, you can transfer pictures and/or movies to the computer.\r\rNOTE that ImageKit is easy to use and provides a localized UI for most operations. It is based on ImageCaptureCore (IC... objects) which is more powerful but much more difficult to use and does not provide any UI."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -413,15 +360,11 @@ Begin Window IKDeviceBrowserWND
       Width           =   661
    End
    Begin PopupMenu TransferPOP
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "For each device, you can choose whether you want that the scan/pictures are written as files to the disk or transferred directly to your application as a MemoryBlock (one for each file)."
       Index           =   -2147483648
@@ -436,7 +379,6 @@ Begin Window IKDeviceBrowserWND
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   "0"
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
@@ -450,15 +392,11 @@ Begin Window IKDeviceBrowserWND
       Width           =   184
    End
    Begin Label Label5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "For each device, you can choose whether you want that the scan/pictures are written as files to the disk or transferred directly to your application as a MemoryBlock (one for each file)."
       Index           =   -2147483648
@@ -476,9 +414,7 @@ Begin Window IKDeviceBrowserWND
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Scan/download as:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -491,17 +427,13 @@ Begin Window IKDeviceBrowserWND
       Width           =   198
    End
    Begin PushButton PushButton4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Info"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -513,7 +445,6 @@ Begin Window IKDeviceBrowserWND
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
@@ -528,16 +459,12 @@ Begin Window IKDeviceBrowserWND
       Width           =   80
    End
    Begin CheckBox CheckBox6
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Show control bar"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -562,11 +489,9 @@ Begin Window IKDeviceBrowserWND
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   138
    End
    Begin Separator Separator2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   5
@@ -589,15 +514,11 @@ Begin Window IKDeviceBrowserWND
       Width           =   662
    End
    Begin Label Label6
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   107
       HelpTag         =   ""
       Index           =   -2147483648
@@ -615,9 +536,7 @@ Begin Window IKDeviceBrowserWND
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "UNDOCUMENTED FEATURES:\r\rA control bar can be displayed at the bottom of the control, as in the ImageCapture.app application. Its main feature here would be to show/hide the settings for the selected item.\r\rNote that, as it is not documented, such feature might cause your application to be rejected by the MAS. If you want that feature to be completely disabled, set the constant IKDeviceBrowserView.DisableUndocumentedFeatures to true."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -630,7 +549,7 @@ Begin Window IKDeviceBrowserWND
       Width           =   661
    End
    Begin Line Line1
-      BorderWidth     =   1
+      BorderWidth     =   1.0
       Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
@@ -639,14 +558,13 @@ Begin Window IKDeviceBrowserWND
       Scope           =   0
       TabIndex        =   "16"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Thickness       =   "1.0"
+      TabStop         =   "True"
       Transparent     =   False
       Visible         =   True
-      X1              =   19
-      X2              =   19
-      Y1              =   412
-      Y2              =   444
+      X1              =   19.0
+      X2              =   19.0
+      Y1              =   412.0
+      Y2              =   444.0
    End
 End
 #tag EndWindow

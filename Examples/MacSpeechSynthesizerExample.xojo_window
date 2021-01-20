@@ -3,7 +3,6 @@ Begin Window MacSpeechSynthesizerExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window MacSpeechSynthesizerExample
    HasBackColor    =   False
    Height          =   623
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,27 +28,15 @@ Begin Window MacSpeechSynthesizerExample
    Begin TextArea TA1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "True"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   73
       HelpTag         =   "Text to be spoken. Words are highlighted when spoken."
       HideSelection   =   True
@@ -65,7 +52,6 @@ Begin Window MacSpeechSynthesizerExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -75,8 +61,6 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -84,24 +68,20 @@ Begin Window MacSpeechSynthesizerExample
       Top             =   39
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   557
    End
    Begin PushButton SpeakBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Speak"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Speak the text"
       Index           =   -2147483648
@@ -113,7 +93,6 @@ Begin Window MacSpeechSynthesizerExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -128,13 +107,6 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   80
    End
    Begin Listbox VoicesLB
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -145,22 +117,12 @@ Begin Window MacSpeechSynthesizerExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   17
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   428
       HelpTag         =   "Available voices on your computer"
@@ -176,7 +138,6 @@ Begin Window MacSpeechSynthesizerExample
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -201,27 +162,15 @@ Begin Window MacSpeechSynthesizerExample
    Begin TextArea TA2
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   325
       HelpTag         =   "Voice attributes (as a flattened Dictionary)"
       HideSelection   =   True
@@ -237,7 +186,6 @@ Begin Window MacSpeechSynthesizerExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -247,8 +195,6 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -256,22 +202,18 @@ Begin Window MacSpeechSynthesizerExample
       Top             =   265
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   451
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -289,9 +231,7 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Voice attributes:  (a Dictionary available for each voice)"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -304,17 +244,13 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   451
    End
    Begin PushButton PushButton3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Get phonemes"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Convert text into phonemes"
       Index           =   -2147483648
@@ -326,7 +262,6 @@ Begin Window MacSpeechSynthesizerExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -341,17 +276,13 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   136
    End
    Begin PushButton SetVoiceBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Select highlighted voice"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Activate the selected voice"
       Index           =   -2147483648
@@ -363,7 +294,6 @@ Begin Window MacSpeechSynthesizerExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -378,8 +308,6 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   179
    End
    Begin Slider VolumeSLID
-      AllowAutoDeactivate=   "True"
-      AllowLiveScrolling=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   23
@@ -395,16 +323,13 @@ Begin Window MacSpeechSynthesizerExample
       LockRight       =   False
       LockTop         =   True
       Maximum         =   100
-      MaximumValue    =   "100"
       Minimum         =   0
-      MinimumValue    =   "0"
       PageStep        =   20
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      TickMarkStyle   =   "0"
-      TickStyle       =   "0"
+      TickStyle       =   0
       Top             =   49
       Transparent     =   False
       Value           =   0
@@ -412,15 +337,11 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   218
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -438,9 +359,7 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Volume:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -464,15 +383,11 @@ Begin Window MacSpeechSynthesizerExample
       Volume          =   0.0
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Currently selected voice"
       Index           =   -2147483648
@@ -490,9 +405,7 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Current voice:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -505,15 +418,11 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   99
    End
    Begin Label VoiceLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -531,9 +440,7 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -546,17 +453,13 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   357
    End
    Begin PushButton StopBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Stop"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Stop speaking"
       Index           =   -2147483648
@@ -568,7 +471,6 @@ Begin Window MacSpeechSynthesizerExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -583,8 +485,6 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   80
    End
    Begin Slider RateSLID
-      AllowAutoDeactivate=   "True"
-      AllowLiveScrolling=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   23
@@ -600,16 +500,13 @@ Begin Window MacSpeechSynthesizerExample
       LockRight       =   False
       LockTop         =   True
       Maximum         =   400
-      MaximumValue    =   "400"
       Minimum         =   100
-      MinimumValue    =   "100"
       PageStep        =   20
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      TickMarkStyle   =   "0"
-      TickStyle       =   "0"
+      TickStyle       =   0
       Top             =   78
       Transparent     =   False
       Value           =   190
@@ -617,15 +514,11 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   218
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -643,9 +536,7 @@ Begin Window MacSpeechSynthesizerExample
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Rate:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -658,14 +549,10 @@ Begin Window MacSpeechSynthesizerExample
       Width           =   67
    End
    Begin GroupBox PauseGRP
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Pause"
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   79
       HelpTag         =   ""
       Index           =   -2147483648
@@ -690,14 +577,10 @@ Begin Window MacSpeechSynthesizerExample
       Visible         =   True
       Width           =   341
       Begin RadioButton RB1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Immediately"
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   16
          HelpTag         =   "When pausing, pause immediately"
          Index           =   0
@@ -724,14 +607,10 @@ Begin Window MacSpeechSynthesizerExample
          Width           =   177
       End
       Begin RadioButton RB1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "At the end of the word"
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   16
          HelpTag         =   "When pausing, pause at the end of the current word"
          Index           =   1
@@ -758,14 +637,10 @@ Begin Window MacSpeechSynthesizerExample
          Width           =   178
       End
       Begin RadioButton RB1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "At the end of the sentence"
          Enabled         =   True
-         FontName        =   "SmallSystem"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   16
          HelpTag         =   "When pausing, pause at the end of the current sentence"
          Index           =   2
@@ -793,7 +668,7 @@ Begin Window MacSpeechSynthesizerExample
       End
    End
    Begin Line Line1
-      BorderWidth     =   1
+      BorderWidth     =   1.0
       Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
@@ -802,17 +677,16 @@ Begin Window MacSpeechSynthesizerExample
       Scope           =   0
       TabIndex        =   "16"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Thickness       =   "1.0"
+      TabStop         =   "True"
       Transparent     =   False
       Visible         =   True
-      X1              =   519
-      X2              =   519
-      Y1              =   144
-      Y2              =   193
+      X1              =   519.0
+      X2              =   519.0
+      Y1              =   144.0
+      Y2              =   193.0
    End
    Begin Line Line2
-      BorderWidth     =   1
+      BorderWidth     =   1.0
       Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
@@ -821,14 +695,13 @@ Begin Window MacSpeechSynthesizerExample
       Scope           =   0
       TabIndex        =   "17"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Thickness       =   "1.0"
+      TabStop         =   "True"
       Transparent     =   False
       Visible         =   True
-      X1              =   519
-      X2              =   540
-      Y1              =   194
-      Y2              =   194
+      X1              =   519.0
+      X2              =   540.0
+      Y1              =   194.0
+      Y2              =   194.0
    End
 End
 #tag EndWindow

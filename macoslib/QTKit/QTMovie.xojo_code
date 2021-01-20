@@ -3,7 +3,7 @@ Class QTMovie
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function CurrentTime() As QTTime
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function currentTime lib QTKit.framework selector "currentTime" (obj_id as Ptr) as QTTime
 		    
 		    return currentTime(self)
@@ -13,7 +13,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub CurrentTime(assigns value as QTTime)
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime:" (obj_id as Ptr, time as QTTime)
 		    
 		    setCurrentTime(self, value)
@@ -27,7 +27,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Duration() As QTTime
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function duration lib QTKit.framework selector "duration" (obj_id as Ptr) as QTTime
 		    
 		    return duration(self)
@@ -37,7 +37,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function FrameImage() As NSImage
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function currentFrameImage lib QTKit.framework selector "currentFrameImage" (obj_id as Ptr) as Ptr
 		    
 		    return new NSImage(currentFrameImage(self), not hasOwnership)
@@ -47,7 +47,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function FrameImage(time as QTTime) As NSImage
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function frameImageAtTime lib QTKit.framework selector "frameImageAtTime:" (obj_id as Ptr, time as QTTime) as Ptr
 		    
 		    return new NSImage(frameImageAtTime(self, time), not hasOwnership)
@@ -70,7 +70,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Shared Function LoadFromPath(path as String) As QTMovie
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function initWithFile lib QTKit.Framework selector "initWithFile:error:" (obj_id as Ptr, fileName as CFStringRef, ByRef errorPtr as Ptr) as Ptr
 		    
 		    dim errorPtr as Ptr
@@ -101,7 +101,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function QTAttribute(key as String) As Ptr
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function attributeForKey lib CocoaLib selector "attributeForKey:" (obj_id as Ptr, key as CFStringRef) as Ptr
 		    
 		    return attributeForKey(self, key)
@@ -115,7 +115,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub QTAttribute(key as String, assigns value as Ptr)
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare sub setAttribute lib CocoaLib selector "setAttribute:" (obj_id as Ptr, value as Ptr, key as CFStringRef)
 		    
 		    setAttribute(self, value, key)
@@ -130,7 +130,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Rate() As Double
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Double
 		    
 		    return CType(rate(self), Double)
@@ -140,7 +140,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function SelectionDuration() As QTTime
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function selectionDuration lib QTKit.framework selector "selectionDuration" (obj_id as Ptr) as QTTime
 		    
 		    return selectionDuration(self)
@@ -150,7 +150,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function SelectionEnd() As QTTime
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function selectionEnd lib QTKit.framework selector "selectionEnd" (obj_id as Ptr) as QTTime
 		    
 		    return selectionEnd(self)
@@ -160,7 +160,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function SelectionStart() As QTTime
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function selectionStart lib QTKit.framework selector "selectionStart" (obj_id as Ptr) as QTTime
 		    
 		    return selectionStart(self)
@@ -170,7 +170,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub SetSelection(range as QTTimeRange)
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare sub setSelection lib QTKit.framework selector "setSelection:" (obj_id as Ptr, selection as QTTimeRange)
 		    
 		    setSelection(self, range)
@@ -183,7 +183,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Shared Function UTIs() As UTI()
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function movieTypesWithOptions lib QTKit.framework selector "movieTypesWithOptions:" (class_id as Ptr, types as Integer) as Ptr
 		    
 		    dim theArray as new CFArray(movieTypesWithOptions(Cocoa.NSClassFromString("QTMovie"), QTIncludeCommonTypes), not CFType.hasOwnership)
@@ -198,7 +198,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Volume() As Double
-		  #if targetCocoa
+		  #if targetMacOS and targetX86
 		    declare function volume lib QTKit.framework selector "volume" (obj_id as Ptr) as Double
 		    
 		    return CType(volume(self), Double)
@@ -229,7 +229,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetCocoa
+			  #if targetMacOS and targetX86
 			    declare function muted lib QTKit.framework selector "muted" (obj_id as Ptr) as Boolean
 			    
 			    return muted(self)
