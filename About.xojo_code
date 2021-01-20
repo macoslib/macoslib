@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		217: 2021-01-20 by VVB
+		- Added OS Version check for IsBigSur.
+		
 		216: 2021-01-20 by VVB
 		- Changed a function in NSCharacterSet.AllowedCharacters from 'Realbasic.pow' to 'pow' to support building in Xojo 2020R2 and higher.
 		
@@ -702,7 +705,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"216", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"217", Scope = Protected
 	#tag EndConstant
 
 
