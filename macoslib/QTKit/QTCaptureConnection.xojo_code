@@ -4,14 +4,14 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function isEnabled lib QTKit.framework selector "isEnabled" (obj_id as Ptr) as Boolean
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare sub setEnabled lib QTKit.framework selector "setEnabled:" (obj_id as Ptr, value as Boolean)
 			    
 			    setEnabled(self, value)
@@ -27,7 +27,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function mediaType lib QTKit.framework selector "mediaType" (obj_id as Ptr) as Ptr
 			    
 			    return RetainedStringValue(mediaType(self))

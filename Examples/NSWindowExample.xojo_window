@@ -3,7 +3,6 @@ Begin Window NSWindowExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSWindowExample
    HasBackColor    =   False
    Height          =   473
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,7 +26,6 @@ Begin Window NSWindowExample
    Visible         =   True
    Width           =   700
    Begin PagePanel ppExamples
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   450
@@ -43,27 +41,22 @@ Begin Window NSWindowExample
       PanelCount      =   3
       Panels          =   ""
       Scope           =   0
-      SelectedPanelIndex=   "2"
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
       Value           =   2
       Visible         =   True
       Width           =   500
       Begin PushButton btnSetFileByURL
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Set File By URL"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -75,7 +68,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
@@ -90,17 +82,13 @@ Begin Window NSWindowExample
          Width           =   195
       End
       Begin PushButton btnSetFileByPath
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Set File By Path"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -112,7 +100,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   1
@@ -127,15 +114,11 @@ Begin Window NSWindowExample
          Width           =   195
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   33
          HelpTag         =   ""
          Index           =   0
@@ -153,9 +136,7 @@ Begin Window NSWindowExample
          TabIndex        =   3
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "(Will put or remove the grey dot from the close button. If you've specified a file above, will also dim the icon.)"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -168,15 +149,11 @@ Begin Window NSWindowExample
          Width           =   399
       End
       Begin Label lblFilePath
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   52
          HelpTag         =   ""
          Index           =   -2147483648
@@ -194,9 +171,7 @@ Begin Window NSWindowExample
          TabIndex        =   5
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "No file specified"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -209,17 +184,13 @@ Begin Window NSWindowExample
          Width           =   261
       End
       Begin PushButton btnFullScreenToggle
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Toggle Fullscreen"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -231,7 +202,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   2
@@ -246,16 +216,12 @@ Begin Window NSWindowExample
          Width           =   195
       End
       Begin CheckBox chkBehaviorCanJoinAllSpaces
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Visible On All Spaces"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "The window appears in all spaces."
          Index           =   -2147483648
@@ -280,20 +246,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorMoveToActiveSpace
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Move to Active Space"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Making the window active does not cause a space switch; the window switches to the active space."
          Index           =   -2147483648
@@ -318,20 +279,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorManaged
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Managed"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "The window participates in Spaces and Exposé. This is the default behavior if windowLevel is equal to NSNormalWindowLevel."
          Index           =   -2147483648
@@ -356,20 +312,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorTransient
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Transient"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "The window floats in Spaces and is hidden by Exposé. This is the default behavior if windowLevel is not equal to NSNormalWindowLevel."
          Index           =   -2147483648
@@ -394,20 +345,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorStationary
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Stationary"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "The window is unaffected by Exposé; it stays visible and stationary, like the desktop window."
          Index           =   -2147483648
@@ -432,20 +378,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorParticipatesInCycle
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Participates In Cycle"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "The window participates in the window cycle for use with the Cycle Through Windows Window menu item."
          Index           =   -2147483648
@@ -470,20 +411,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorIgnoresCycle
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Ignores Cycle"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "The window is not part of the window cycle for use with the Cycle Through Windows Window menu item."
          Index           =   -2147483648
@@ -508,20 +444,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkBehaviorFullscreenAllowed
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Fullscreen Allowed"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "A window with this collection behavior has a fullscreen button in the upper right of its titlebar."
          Index           =   -2147483648
@@ -546,20 +477,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   True
          Visible         =   True
-         VisualState     =   "1"
          Width           =   190
       End
       Begin CheckBox chkMovable
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Movable"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Specifies whether the window can be dragged by clicking in its title bar or background."
          Index           =   -2147483648
@@ -584,20 +510,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   True
          Visible         =   True
-         VisualState     =   "1"
          Width           =   190
       End
       Begin CheckBox chkIsModified
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Document Edited"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -622,20 +543,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   195
       End
       Begin CheckBox chkIsFullScreen
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Is Fullscreen"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   False
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -660,20 +576,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkMovableByBackground
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Movable by Background"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Sets whether the window is movable by clicking and dragging anywhere in its background."
          Index           =   -2147483648
@@ -698,19 +609,14 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "10.0"
-         FontUnit        =   "0"
          Height          =   24
          HelpTag         =   ""
          Index           =   1
@@ -728,9 +634,7 @@ Begin Window NSWindowExample
          TabIndex        =   14
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "(Move by background doesn't seem to work in REALStudio, but does in Xojo)"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   10.0
@@ -743,15 +647,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   2
@@ -769,9 +669,7 @@ Begin Window NSWindowExample
          TabIndex        =   16
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "Behavior:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -784,15 +682,11 @@ Begin Window NSWindowExample
          Width           =   77
       End
       Begin Label lblCollectionBehavior
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -810,9 +704,7 @@ Begin Window NSWindowExample
          TabIndex        =   17
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "0"
          TextAlign       =   2
-         TextAlignment   =   "3"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -825,15 +717,11 @@ Begin Window NSWindowExample
          Width           =   101
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   3
@@ -851,9 +739,7 @@ Begin Window NSWindowExample
          TabIndex        =   18
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "BackingScaleFactor:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -866,15 +752,11 @@ Begin Window NSWindowExample
          Width           =   138
       End
       Begin Label lblBackingScaleFactor
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -892,9 +774,7 @@ Begin Window NSWindowExample
          TabIndex        =   19
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "0"
          TextAlign       =   2
-         TextAlignment   =   "3"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -907,16 +787,12 @@ Begin Window NSWindowExample
          Width           =   40
       End
       Begin CheckBox chkHasShadow
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Has Shadow"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Display/Hide the window shadow"
          Index           =   -2147483648
@@ -941,21 +817,16 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   True
          Visible         =   True
-         VisualState     =   "1"
          Width           =   190
       End
       Begin PushButton btnShowHUD
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Show HUD Window"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -967,7 +838,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   3
@@ -982,16 +852,12 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin CheckBox chkHidesOnDeactivate
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hides On Deactivate"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Specifies whether the window is removed from the screen when the application is inactive."
          Index           =   -2147483648
@@ -1016,20 +882,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkCanHide
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Can Hide"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Specifies whether the window can be hidden when its application becomes hidden (during execution of the NSApplication hide: method)."
          Index           =   -2147483648
@@ -1054,19 +915,14 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   True
          Visible         =   True
-         VisualState     =   "1"
          Width           =   190
       End
       Begin PopupMenu popResizeOptions
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1081,7 +937,6 @@ Begin Window NSWindowExample
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
-         SelectedRowIndex=   "0"
          TabIndex        =   2
          TabPanelIndex   =   3
          TabStop         =   True
@@ -1095,17 +950,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnSmoothResize
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Smooth Resize"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1117,7 +968,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   3
          TabPanelIndex   =   3
@@ -1132,17 +982,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnCenter
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Center"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1154,7 +1000,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   4
          TabPanelIndex   =   3
@@ -1169,8 +1014,6 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Slider slideAlphaValue
-         AllowAutoDeactivate=   "True"
-         AllowLiveScrolling=   "True"
          AutoDeactivate  =   True
          Enabled         =   True
          Height          =   23
@@ -1186,16 +1029,13 @@ Begin Window NSWindowExample
          LockRight       =   False
          LockTop         =   True
          Maximum         =   100
-         MaximumValue    =   "100"
          Minimum         =   0
-         MinimumValue    =   "0"
          PageStep        =   20
          Scope           =   0
          TabIndex        =   6
          TabPanelIndex   =   3
          TabStop         =   True
-         TickMarkStyle   =   "0"
-         TickStyle       =   "0"
+         TickStyle       =   0
          Top             =   198
          Transparent     =   False
          Value           =   100
@@ -1203,15 +1043,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   4
@@ -1229,9 +1065,7 @@ Begin Window NSWindowExample
          TabIndex        =   7
          TabPanelIndex   =   3
          TabStop         =   True
-         Text            =   "Alpha Value:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1244,16 +1078,12 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin CheckBox chkIgnoreMouseEvents
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Ignore Mouse Events"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Specifies whether the window is transparent to mouse clicks and other mouse events, allowing overlay windows.\r\rWARNING: Due to the nature of this property, you will not be able to unset this value once you set it to TRUE"
          Index           =   -2147483648
@@ -1278,12 +1108,9 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin Slider slideTransparency
-         AllowAutoDeactivate=   "True"
-         AllowLiveScrolling=   "True"
          AutoDeactivate  =   True
          Enabled         =   True
          Height          =   23
@@ -1299,16 +1126,13 @@ Begin Window NSWindowExample
          LockRight       =   False
          LockTop         =   True
          Maximum         =   100
-         MaximumValue    =   "100"
          Minimum         =   0
-         MinimumValue    =   "0"
          PageStep        =   20
          Scope           =   0
          TabIndex        =   9
          TabPanelIndex   =   3
          TabStop         =   True
-         TickMarkStyle   =   "0"
-         TickStyle       =   "0"
+         TickStyle       =   0
          Top             =   266
          Transparent     =   False
          Value           =   100
@@ -1316,15 +1140,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Label slideTransparancy
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1342,9 +1162,7 @@ Begin Window NSWindowExample
          TabIndex        =   10
          TabPanelIndex   =   3
          TabStop         =   True
-         Text            =   "Transparency:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1357,17 +1175,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnSplash
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Show Splash Window"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1379,7 +1193,6 @@ Begin Window NSWindowExample
          LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   11
          TabPanelIndex   =   3
@@ -1394,17 +1207,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnIsOnActiveSpace
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Is On Active Space?"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1416,7 +1225,6 @@ Begin Window NSWindowExample
          LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   5
          TabPanelIndex   =   3
@@ -1431,15 +1239,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "10.0"
-         FontUnit        =   "0"
          Height          =   36
          HelpTag         =   ""
          Index           =   5
@@ -1457,9 +1261,7 @@ Begin Window NSWindowExample
          TabIndex        =   23
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "(This window will ignore clicks, so press command-G to turn ""Ignore Mouse Events"" off.)"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   10.0
@@ -1472,15 +1274,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   7
@@ -1498,9 +1296,7 @@ Begin Window NSWindowExample
          TabIndex        =   26
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "StyleMask:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1513,15 +1309,11 @@ Begin Window NSWindowExample
          Width           =   138
       End
       Begin Label lblStyleMask
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1539,9 +1331,7 @@ Begin Window NSWindowExample
          TabIndex        =   27
          TabPanelIndex   =   2
          TabStop         =   True
-         Text            =   "0"
          TextAlign       =   2
-         TextAlignment   =   "3"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1554,17 +1344,13 @@ Begin Window NSWindowExample
          Width           =   40
       End
       Begin PushButton btnSetVisualEffect
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Light Visual Effect"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1576,7 +1362,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   15
          TabPanelIndex   =   3
@@ -1591,17 +1376,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnSetFile
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Set File"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1613,7 +1394,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   1
@@ -1628,16 +1408,12 @@ Begin Window NSWindowExample
          Width           =   195
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide close button"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   0
@@ -1662,19 +1438,14 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "10.0"
-         FontUnit        =   "0"
          Height          =   36
          HelpTag         =   ""
          Index           =   6
@@ -1692,9 +1463,7 @@ Begin Window NSWindowExample
          TabIndex        =   8
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "(OS X 10.10+ Makes the toolbar blurry transparent and moves it down to hover over the window content.)"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   10.0
@@ -1707,16 +1476,12 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin CheckBox chkFullSizeContentView
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "FullSizeContentView"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   "Makes the toolbar blurry transparent and moves it down to hover over the window content. (OS X 10.10+)"
          Index           =   -2147483648
@@ -1741,20 +1506,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin CheckBox chkTransparentToolbar
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Transparent Toolbar"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1779,21 +1539,16 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   190
       End
       Begin PushButton btnHideTitle
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Hide Title"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -1805,7 +1560,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   11
          TabPanelIndex   =   1
@@ -1820,16 +1574,12 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide minimize button"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   1
@@ -1854,20 +1604,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide zoom button"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   2
@@ -1892,20 +1637,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide fullscreen button"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   3
@@ -1930,20 +1670,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide toolbar button"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   4
@@ -1968,20 +1703,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide document icon"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   5
@@ -2006,20 +1736,15 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin CheckBox chkHideTitleButtons
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          Caption         =   "Hide document versions"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   6
@@ -2044,21 +1769,16 @@ Begin Window NSWindowExample
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
          Width           =   219
       End
       Begin PushButton btnHideTitlebar
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Hide Titlebar"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -2070,7 +1790,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   18
          TabPanelIndex   =   1
@@ -2085,17 +1804,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnSetVisualEffect1
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Dark Visual Effect"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -2107,7 +1822,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   16
          TabPanelIndex   =   3
@@ -2122,17 +1836,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnSetVisualEffect2
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Titlebar Visual Effect"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -2144,7 +1854,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   17
          TabPanelIndex   =   3
@@ -2159,17 +1868,13 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PushButton btnSetVisualEffect21
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   "0"
+         ButtonStyle     =   0
          Cancel          =   False
          Caption         =   "Appearance Based VE"
          Default         =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -2181,7 +1886,6 @@ Begin Window NSWindowExample
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
          Scope           =   0
          TabIndex        =   18
          TabPanelIndex   =   3
@@ -2196,15 +1900,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin PopupMenu popTabbingMode
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -2219,7 +1919,6 @@ Begin Window NSWindowExample
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         SelectedRowIndex=   "0"
          TabIndex        =   20
          TabPanelIndex   =   3
          TabStop         =   True
@@ -2233,15 +1932,11 @@ Begin Window NSWindowExample
          Width           =   190
       End
       Begin Label lblArray
-         AllowAutoDeactivate=   "True"
          AutoDeactivate  =   True
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   "0.0"
-         FontUnit        =   "0"
          Height          =   20
          HelpTag         =   ""
          Index           =   8
@@ -2259,9 +1954,7 @@ Begin Window NSWindowExample
          TabIndex        =   21
          TabPanelIndex   =   3
          TabStop         =   True
-         Text            =   "Tabbing Mode:"
          TextAlign       =   0
-         TextAlignment   =   "1"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -2275,13 +1968,6 @@ Begin Window NSWindowExample
       End
    End
    Begin Listbox lstExamples
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "False"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -2292,22 +1978,12 @@ Begin Window NSWindowExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   22
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "False"
-      HasHeader       =   "False"
       HasHeading      =   False
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   450
       HelpTag         =   ""
@@ -2323,7 +1999,6 @@ Begin Window NSWindowExample
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   True
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -2390,6 +2065,9 @@ End
 		  
 		  m_NSWindow.FullscreenAllowed = true // Allow fullscreen mode
 		  m_NSWindow.ContentBorderBottomThickness = 23 // Draw a border at the bottom of the window
+		  
+		  // BigSur added a subtitle property, which is added after the title on intel, or underneath the title on ARM if the toolbar is visible.
+		  m_NSWindow.Subtitle = "Subtitle"
 		  
 		  // Check whether the window is on a retina screen
 		  UpdateBackingScaleFactor

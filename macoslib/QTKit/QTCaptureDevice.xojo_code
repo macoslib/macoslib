@@ -3,7 +3,7 @@ Class QTCaptureDevice
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Sub Close()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare sub close lib QTKit.framework selector "close" (obj_id as Ptr)
 		    
 		    if self.IsOpen then
@@ -21,7 +21,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function HasMediaType(mediaType as String) As Boolean
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function hasMediaType lib QTKit.framework selector "hasMediaType:" (obj_id as Ptr, mediaType as CFStringRef) as Boolean
 		    
 		    return hasMediaType(self, mediaType)
@@ -31,7 +31,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Shared Function InputDevices() As QTCaptureDevice()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function inputDevices lib QTKit.framework selector "inputDevices" (class_id as Ptr) as Ptr
 		    
 		    dim theArray as new CFArray(inputDevices(Cocoa.NSClassFromString("QTCaptureDevice")), not CFArray.hasOwnership)
@@ -47,7 +47,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub Open()
-		  #if targetMacOS
+		  #if targetMacOS and targetX86
 		    declare function open lib QTKit.framework selector "open:" (obj_id as Ptr, ByRef errorPtr as Ptr) as Boolean
 		    
 		    dim errorPtr as Ptr
@@ -64,7 +64,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function localizedDisplayName lib QTKit.framework selector "localizedDisplayName" (obj_id as Ptr) as Ptr
 			    
 			    return RetainedStringValue(localizedDisplayName(self))
@@ -77,7 +77,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function isConnected lib QTKit.framework selector "isConnected" (obj_id as Ptr) as Boolean
 			    
 			    return isConnected(self)
@@ -90,7 +90,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function isInUseByAnotherApplication lib QTKit.framework selector "isInUseByAnotherApplication" (obj_id as Ptr) as Boolean
 			    
 			    return isInUseByAnotherApplication(self)
@@ -103,7 +103,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function isOpen lib QTKit.framework selector "isOpen" (obj_id as Ptr) as Boolean
 			    
 			    return isOpen(self)
@@ -116,7 +116,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS
+			  #if targetMacOS and targetX86
 			    declare function uniqueID lib QTKit.framework selector "uniqueID" (obj_id as Ptr) as Ptr
 			    
 			    return RetainedStringValue(uniqueID(self))

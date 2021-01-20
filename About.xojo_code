@@ -73,6 +73,10 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		218: 2021-01-20 by VVB
+		- Added support for BigSur NSWindow.Subtitle and added it to the NSWindow and NSToolbar examples.
+		- Merged swampcat's branch which prevents references to removed QTKit.framework on Apple Silicon (ARM) processors.
+		
 		217: 2021-01-20 by VVB
 		- Added OS Version check for IsBigSur.
 		
