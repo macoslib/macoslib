@@ -1,3 +1,6 @@
+This is the 64 bit version of MacOSLib.  
+The [32 bit version](https://github.com/vidalvanbergen/macoslib/tree/legacy-32bit) is still available for legacy purposes.
+
 ### About
 This is the MacOSLib project for [Xojo](http://www.xojo.com) (formerly Real Studio).
 
@@ -15,11 +18,11 @@ Now, to use that power in your own apps, you need to copy the macoslib folder in
 
 If you use the macoslib and have implemented a fix or improvement, the best way to send this change to us is by using github:
 
-After signing up with github, you create a fork of the main [macoslib repository](https://github.com/macoslib/macoslib/). Now you have your own copy of the lib on github.
+After signing up with github, you create a fork of the main [macoslib repository](https://github.com/vidalvanbergen/macoslib). Now you have your own copy of the lib on github.
 Then you download this fork of yours to your computer and add your fix to it. Then you push your changes back to github.
 Lastly, you create a new "pull request" for your change(s). This will notify the maintainers of the main macoslib and let us review your changes quickly. If all looks good, we'll merge it into the main version and we're done.
 
-Here's an example where a user not part of the "macoslib team" submitted a small fix, which got merged in almost instantly: https://github.com/macoslib/macoslib/pull/129 
+Here's an example where a user not part of the "macoslib team" submitted a small fix, which got merged in almost instantly: [https://github.com/macoslib/macoslib/pull/129](https://github.com/macoslib/macoslib/pull/129) 
 
 This is much easier for us than if you send us modified code that we then have to merge with the current version, possibly causing new bugs due to out-of-sync issues.
 

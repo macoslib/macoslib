@@ -2,4 +2,6 @@
 *.xojo_uistate
 .DS_Store
 .obsolete
+*.obsolete_*
 macoslib.debug.app
+Builds - *
