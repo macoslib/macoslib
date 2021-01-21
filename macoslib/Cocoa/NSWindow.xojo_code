@@ -4590,6 +4590,40 @@ Inherits NSResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  
+			  #if TargetCocoa
+			    if IsBigSur then
+			      declare function toolbarStyle lib CocoaLib selector "toolbarStyle" (obj_id as Ptr) as NSWindowToolbarStyle
+			      
+			      return toolbarStyle(self)
+			    else
+			      return NSWindowToolbarStyle.Automatic
+			    end if
+			  #endif
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  #if TargetCocoa
+			    if IsBigSur then
+			      declare sub setToolbarStyle lib CocoaLib selector "setToolbarStyle:" (obj_id as Ptr, toolbarStyle as NSWindowToolbarStyle)
+			      
+			      setToolbarStyle self, value
+			    end if
+			  #else
+			    #pragma unused value
+			  #endif
+			  
+			End Set
+		#tag EndSetter
+		WindowToolbarStyle As NSWindowToolbarStyle
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  //@header Indicates whether the NSWindow receives keyboard and mouse events even when some other window is being run modally.
 			  
 			  #if TargetCocoa
@@ -4713,6 +4747,14 @@ Inherits NSResponder
 		Visible
 		  Hidden
 		HiddenWhenActive
+	#tag EndEnum
+
+	#tag Enum, Name = NSWindowToolbarStyle, Flags = &h0
+		Automatic
+		  Expanded
+		  Preference
+		  Unified
+		UnifiedCompact
 	#tag EndEnum
 
 
@@ -5388,6 +5430,14 @@ Inherits NSResponder
 			InitialValue=""
 			Type="Boolean"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Subtitle"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -448,12 +448,78 @@ Begin Window NSToolbarWindow
          SelectionType   =   0
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Top             =   -85
          Transparent     =   False
          Visible         =   True
          Width           =   120
       End
+   End
+   Begin PopupMenu popToolbar
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   "Automatic\nExpanded\nPreference\nUnified\nUnifiedCompact"
+      Italic          =   False
+      Left            =   633
+      ListIndex       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   198
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   190
+   End
+   Begin Label Label2
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   633
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "ARM ToolbarStyle:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   166
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   148
    End
 End
 #tag EndWindow
@@ -770,8 +836,6 @@ End
 		Sub Open()
 		  me.SegmentStyle = SegmentedControlExtension.NSSegmentStyle.TexturedRounded
 		  
-		  dim Scale as Integer = self.ScalingFactor
-		  
 		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
 		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
 		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
@@ -787,6 +851,19 @@ End
 		  
 		  Log "Selected navigation button "+str(itemIndex)
 		  Log EndOfLine
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events popToolbar
+	#tag Event
+		Sub Change()
+		  // You will probably want to set the toolbar like this for clarity:
+		  'Self.ToolbarStyle = NSWindowToolbarStyle.Automatic
+		  
+		  // For abbreviation purposes, I'm using the shortcut which accepts integer values.
+		  Self.ToolbarStyle = NSWindowToolbarStyle(me.ListIndex)
+		  
+		  // Note that the toolbar style is currently only changeable on ARM, the intel build still shows the regular toolbar.
 		End Sub
 	#tag EndEvent
 #tag EndEvents

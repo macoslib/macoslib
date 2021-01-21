@@ -1176,6 +1176,39 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ToolbarStyle(extends w as Window) As NSWindowToolbarStyle
+		  
+		  #if TargetCocoa then
+		    if IsBigSur then
+		      declare function toolbarStyle lib CocoaLib selector "toolbarStyle" (WindowRef as WindowPtr) as NSWindowToolbarStyle
+		      
+		      return toolbarStyle(w)
+		    else
+		      return NSWindowToolbarStyle.Automatic
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ToolbarStyle(extends w as Window, assigns style as NSWindowToolbarStyle)
+		  
+		  #if TargetCocoa then
+		    if isBigSur then
+		      declare sub setToolbarStyle lib CocoaLib selector "setToolbarStyle:" (WindowRef as WindowPtr, toolbarStyle as NSWindowToolbarStyle )
+		      
+		      
+		      setToolbarStyle w, style
+		    end if
+		  #else
+		    #pragma unused TitleVisible
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Transparency(extends w as Window, assigns Value as Double)
 		  //# Gives the window a transparent background color, resulting in the window becoming see-through while anything on the window remains visible.
 		  
@@ -1313,6 +1346,14 @@ Protected Module WindowExtensions
 		HiddenWhenActive
 	#tag EndEnum
 
+	#tag Enum, Name = NSWindowToolbarStyle, Flags = &h0
+		Automatic
+		  Expanded
+		  Preference
+		  Unified
+		UnifiedCompact
+	#tag EndEnum
+
 	#tag Enum, Name = TabbingMode, Type = Integer, Flags = &h0
 		Automatic
 		  Preferred
@@ -1327,6 +1368,7 @@ Protected Module WindowExtensions
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1334,18 +1376,23 @@ Protected Module WindowExtensions
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1353,6 +1400,7 @@ Protected Module WindowExtensions
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

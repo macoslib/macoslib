@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		219: 2021-01-21 by VVB
+		- Added support for NSWindowToolbarStyle, added ToolbarStyle as a WindowExtension and added a popupmenu to the NSToolbar example to showcase the different styles.
+		
 		218: 2021-01-20 by VVB
 		- Added support for BigSur NSWindow.Subtitle and added it to the NSWindow and NSToolbar examples.
 		- Merged swampcat's branch which prevents references to removed QTKit.framework on Apple Silicon (ARM) processors.
@@ -709,7 +712,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"218", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"219", Scope = Protected
 	#tag EndConstant
 
 
