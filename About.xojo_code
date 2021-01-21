@@ -75,6 +75,9 @@ Protected Module About
 		
 		219: 2021-01-21 by VVB
 		- Added support for NSWindowToolbarStyle, added ToolbarStyle as a WindowExtension and added a popupmenu to the NSToolbar example to showcase the different styles.
+		- Added support for NSWindowTitlebarSeparatorStyle, added TitlebarSeparatorStyle as a WindowExtension and added a popupmenu to the NSToolbar example to showcase the different styles.
+		- Reorganized the NSToolbar Example.
+		- Fixed some issues with NSWindow.Subtitle, added Subtitle as a WindowExtension and added a textfield to the NSToolbar example to showcase this function.
 		
 		218: 2021-01-20 by VVB
 		- Added support for BigSur NSWindow.Subtitle and added it to the NSWindow and NSToolbar examples.

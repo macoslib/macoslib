@@ -4241,9 +4241,9 @@ Inherits NSResponder
 			  
 			  #if TargetCocoa
 			    if IsBigSur then
-			      declare function title lib CocoaLib selector "subtitle" (obj_id as Ptr) as CFStringRef
+			      declare function subtitle lib CocoaLib selector "subtitle" (obj_id as Ptr) as CFStringRef
 			      
-			      return title(self)
+			      return subtitle(self)
 			    end if
 			    
 			  #endif
@@ -4255,9 +4255,9 @@ Inherits NSResponder
 			  
 			  #if TargetCocoa
 			    if IsBigSur then
-			      declare sub setTitle lib CocoaLib selector "setSubtitle:" (obj_id as Ptr, aString as CFStringRef)
+			      declare sub setSubtitle lib CocoaLib selector "setSubtitle:" (obj_id as Ptr, aString as CFStringRef)
 			      
-			      setTitle self, value
+			      setSubtitle self, value
 			    end if
 			    
 			  #else
