@@ -448,6 +448,7 @@ Begin Window NSToolbarWindow
          SelectionType   =   0
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Top             =   -85
          Transparent     =   False
          Visible         =   True
@@ -510,7 +511,7 @@ Begin Window NSToolbarWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "ToolbarStyle:"
-      TextAlign       =   3
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -577,7 +578,7 @@ Begin Window NSToolbarWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Titlebar Separator:"
-      TextAlign       =   3
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -725,7 +726,7 @@ Begin Window NSToolbarWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Subtitle:"
-      TextAlign       =   3
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0

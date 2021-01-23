@@ -35,7 +35,7 @@ Begin Window SystemIconsExampleWindow
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   18
+      DefaultRowHeight=   24
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
@@ -45,7 +45,7 @@ Begin Window SystemIconsExampleWindow
       HeadingIndex    =   -1
       Height          =   485
       HelpTag         =   ""
-      Hierarchical    =   True
+      Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "Available Icons"
@@ -60,7 +60,6 @@ Begin Window SystemIconsExampleWindow
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
-      SelectionRequired=   "True"
       SelectionType   =   0
       ShowDropIndicator=   False
       TabIndex        =   0
@@ -91,7 +90,7 @@ Begin Window SystemIconsExampleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   463
+      Left            =   440
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -104,7 +103,7 @@ Begin Window SystemIconsExampleWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   65
+      Top             =   64
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -141,7 +140,8 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   &c000000
+      Text            =   ""
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
@@ -149,7 +149,6 @@ Begin Window SystemIconsExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      Value           =   ""
       Visible         =   True
       Width           =   61
    End
@@ -184,7 +183,8 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   &c000000
+      Text            =   ""
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
@@ -192,7 +192,6 @@ Begin Window SystemIconsExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      Value           =   ""
       Visible         =   True
       Width           =   61
    End
@@ -203,7 +202,6 @@ Begin Window SystemIconsExampleWindow
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   "True"
       Height          =   42
       HelpTag         =   ""
       Index           =   -2147483648
@@ -247,27 +245,26 @@ Begin Window SystemIconsExampleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   479
+      Left            =   466
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   &c000000
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   139
+      Top             =   114
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   30
+      Width           =   32
    End
    Begin SystemIconsToolbar SystemIconsToolbar1
       Enabled         =   True
@@ -295,7 +292,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   0
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -318,7 +314,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -341,7 +336,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -364,7 +358,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   9
       Transparent     =   False
       Visible         =   True
@@ -387,7 +380,6 @@ Begin Window SystemIconsExampleWindow
       SelectionType   =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   499
       Transparent     =   False
       Visible         =   True
@@ -416,15 +408,15 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Your age"
       TextAlign       =   0
-      TextColor       =   &c000000
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   242
       Transparent     =   False
       Underline       =   False
-      Value           =   "Your age"
       Visible         =   True
       Width           =   66
    End
@@ -459,7 +451,8 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      TextColor       =   &c000000
+      Text            =   "1206"
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
@@ -467,7 +460,6 @@ Begin Window SystemIconsExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      Value           =   "1206"
       Visible         =   True
       Width           =   61
    End
@@ -478,12 +470,11 @@ Begin Window SystemIconsExampleWindow
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   "True"
-      Height          =   16
+      Height          =   14
       HelpTag         =   "Invalid value for your age"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   444
+      Left            =   440
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -493,11 +484,11 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   242
+      Top             =   246
       Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   16
+      Width           =   14
    End
    Begin Label Label2
       AutoDeactivate  =   True
@@ -522,15 +513,15 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Colored icons (Templates only)"
       TextAlign       =   0
-      TextColor       =   &c000000
+      TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   121
       Transparent     =   False
       Underline       =   False
-      Value           =   "Colored icons (Templates only)"
       Visible         =   True
       Width           =   177
    End
@@ -562,7 +553,7 @@ Begin Window SystemIconsExampleWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   118
+      Height          =   144
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -579,15 +570,15 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "All the icons in this window can be obtained from the convenience SystemIcons module. They are all simple Pictures, e.g.\n\n    pict = SystemIcons.Network\nfor the Network icon in the toolbar.\n\n    pict = SystemIcons.Touchbar.ColorPickerFill\nfor the ColorPickerFill icon from the Touchbar."
       TextAlign       =   0
-      TextColor       =   &c000000
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   293
       Transparent     =   False
       Underline       =   False
-      Value           =   "All the icons in this window have been obtained from the convenience SystemIcons module. They are all simple Pictures, e.g.\r\rpict = SystemIcons.Network\r\rfor the Network icon in the toolbar."
       Visible         =   True
       Width           =   401
    End
@@ -597,7 +588,7 @@ Begin Window SystemIconsExampleWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   41
+      Height          =   54
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -614,15 +605,15 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Warning: you need Real Studio 2011.r4 or higher, Mac OS X 10.6 or higher for optimum results (especially transparency) and Mac OS X 10.12 or higher for the touchbar icons."
       TextAlign       =   0
-      TextColor       =   &c000000
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   12.0
       TextUnit        =   0
       Top             =   446
       Transparent     =   False
       Underline       =   False
-      Value           =   "Warning: you need Real Studio 2011.r4 or higher and Mac OS X 10.6 or higher for optimum results (especially transparency)."
       Visible         =   True
       Width           =   401
    End
@@ -649,15 +640,15 @@ Begin Window SystemIconsExampleWindow
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Example of a bad entry signalled by a red arrow:"
       TextAlign       =   0
-      TextColor       =   &c000000
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   214
       Transparent     =   False
       Underline       =   False
-      Value           =   "Example of a bad entry signalled by a red arrow:"
       Visible         =   True
       Width           =   375
    End
@@ -696,7 +687,7 @@ Begin Window SystemIconsExampleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   526
+      Left            =   466
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -709,17 +700,66 @@ Begin Window SystemIconsExampleWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   136
+      Top             =   139
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   30
+      Width           =   32
+   End
+   BeginSegmented SegmentedControl SC1
+      Enabled         =   True
+      Height          =   24
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   463
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacControlStyle =   0
+      Scope           =   0
+      Segments        =   "\n\nFalse"
+      SelectionType   =   2
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      Top             =   167
+      Transparent     =   False
+      Visible         =   True
+      Width           =   42
+   End
+   Begin Canvas CVS2
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      Height          =   128
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   546
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   64
+      Transparent     =   True
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   128
    End
 End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Constant, Name = kListboxContent, Type = String, Dynamic = False, Default = \"QuickLookTemplate:NSImageNameQuickLookTemplate:16:12\rBluetoothTemplate:NSImageNameBluetoothTemplate\rIChatTheaterTemplate:NSImageNameIChatTheaterTemplate\rSlideshowTemplate:NSImageNameSlideshowTemplate\rActionTemplate:NSImageNameActionTemplate\rSmartBadgeTemplate:NSImageNameSmartBadgeTemplate\rPathTemplate:NSImageNamePathTemplate\rInvalidDataFreestandingTemplate:NSImageNameInvalidDataFreestandingTemplate\rLockLockedTemplate:NSImageNameLockLockedTemplate\rLockUnlockedTemplate:NSImageNameLockUnlockedTemplate\rGoRightTemplate:NSImageNameGoRightTemplate\rGoLeftTemplate:NSImageNameGoLeftTemplate\rRightFacingTriangleTemplate:NSImageNameRightFacingTriangleTemplate\rLeftFacingTriangleTemplate:NSImageNameLeftFacingTriangleTemplate\rAddTemplate:NSImageNameAddTemplate\rRemoveTemplate:NSImageNameRemoveTemplate\rRevealFreestandingTemplate:NSImageNameRevealFreestandingTemplate\rFollowLinkFreestandingTemplate:NSImageNameFollowLinkFreestandingTemplate:14:14\rEnterFullScreenTemplate:NSImageNameEnterFullScreenTemplate\rExitFullScreenTemplate:NSImageNameExitFullScreenTemplate\rStopProgressTemplate:NSImageNameStopProgressTemplate\rStopProgressFreestandingTemplate:NSImageNameStopProgressFreestandingTemplate:14:14\rRefreshTemplate:NSImageNameRefreshTemplate\rRefreshFreestandingTemplate:NSImageNameRefreshFreestandingTemplate\rFolder:NSImageNameFolder\rTrashEmpty:NSImageNameTrashEmpty\rTrashFull:NSImageNameTrashFull\rHomeTemplate:NSImageNameHomeTemplate\rBookmarksTemplate:NSImageNameBookmarksTemplate:16:12\rCaution:NSImageNameCaution\rStatusAvailable:NSImageNameStatusAvailable\rStatusPartiallyAvailable:NSImageNameStatusPartiallyAvailable\rStatusUnavailable:NSImageNameStatusUnavailable\rStatusNone:NSImageNameStatusNone\rApplicationIcon:NSImageNameApplicationIcon\rMenuOnStateTemplate:NSImageNameMenuOnStateTemplate\rMenuMixedStateTemplate:NSImageNameMenuMixedStateTemplate\rUserGuest:NSImageNameUserGuest\rMobileMe:NSImageNameMobileMe\rMultipleDocuments:NSImageNameMultipleDocuments\rUser:NSImageNameUser\rUserGroup:NSImageNameUserGroup\rEveryone:NSImageNameEveryone\rBonjour:NSImageNameBonjour\rDotMac:NSImageNameDotMac\rComputer:NSImageNameComputer\rFolderBurnable:NSImageNameFolderBurnable\rFolderSmart:NSImageNameFolderSmart\rNetwork:NSImageNameNetwork\rUserAccounts:NSImageNameUserAccounts\rPreferencesGeneral:NSImageNamePreferencesGeneral\rAdvanced:NSImageNameAdvanced\rInfo:NSImageNameInfo\rFontPanel:NSImageNameFontPanel\rColorPanel:NSImageNameColorPanel\rIconViewTemplate:NSImageNameIconViewTemplate\rListViewTemplate:NSImageNameListViewTemplate\rColumnViewTemplate:NSImageNameColumnViewTemplate\rFlowViewTemplate:NSImageNameFlowViewTemplate\rShareTemplate:NSImageNameShareTemplate", Scope = Public
+	#tag Constant, Name = kListboxContent, Type = String, Dynamic = False, Default = \"QuickLookTemplate:NSImageNameQuickLookTemplate:16:12\nBluetoothTemplate:NSImageNameBluetoothTemplate\nIChatTheaterTemplate:NSImageNameIChatTheaterTemplate\nSlideshowTemplate:NSImageNameSlideshowTemplate\nActionTemplate:NSImageNameActionTemplate\nSmartBadgeTemplate:NSImageNameSmartBadgeTemplate\nPathTemplate:NSImageNamePathTemplate\nInvalidDataFreestandingTemplate:NSImageNameInvalidDataFreestandingTemplate\nLockLockedTemplate:NSImageNameLockLockedTemplate\nLockUnlockedTemplate:NSImageNameLockUnlockedTemplate\nGoBackTemplate:NSImageNameGoBackTemplate\nGoForwardTemplate:NSImageNameGoForwardTemplate\nGoRightTemplate:NSImageNameGoRightTemplate\nGoLeftTemplate:NSImageNameGoLeftTemplate\nRightFacingTriangleTemplate:NSImageNameRightFacingTriangleTemplate\nLeftFacingTriangleTemplate:NSImageNameLeftFacingTriangleTemplate\nAddTemplate:NSImageNameAddTemplate\nRemoveTemplate:NSImageNameRemoveTemplate\nRevealFreestandingTemplate:NSImageNameRevealFreestandingTemplate\nFollowLinkFreestandingTemplate:NSImageNameFollowLinkFreestandingTemplate:14:14\nEnterFullScreenTemplate:NSImageNameEnterFullScreenTemplate\nExitFullScreenTemplate:NSImageNameExitFullScreenTemplate\nStopProgressTemplate:NSImageNameStopProgressTemplate\nStopProgressFreestandingTemplate:NSImageNameStopProgressFreestandingTemplate:14:14\nRefreshTemplate:NSImageNameRefreshTemplate\nRefreshFreestandingTemplate:NSImageNameRefreshFreestandingTemplate\nFolder:NSImageNameFolder\nTrashEmpty:NSImageNameTrashEmpty\nTrashFull:NSImageNameTrashFull\nHomeTemplate:NSImageNameHomeTemplate\nBookmarksTemplate:NSImageNameBookmarksTemplate:16:12\nCaution:NSImageNameCaution\nStatusAvailable:NSImageNameStatusAvailable\nStatusPartiallyAvailable:NSImageNameStatusPartiallyAvailable\nStatusUnavailable:NSImageNameStatusUnavailable\nStatusNone:NSImageNameStatusNone\nApplicationIcon:NSImageNameApplicationIcon\nMenuOnStateTemplate:NSImageNameMenuOnStateTemplate\nMenuMixedStateTemplate:NSImageNameMenuMixedStateTemplate\nUserGuest:NSImageNameUserGuest\nMobileMe:NSImageNameMobileMe\nMultipleDocuments:NSImageNameMultipleDocuments\nUser:NSImageNameUser\nUserGroup:NSImageNameUserGroup\nEveryone:NSImageNameEveryone\nBonjour:NSImageNameBonjour\nDotMac:NSImageNameDotMac\nComputer:NSImageNameComputer\nFolderBurnable:NSImageNameFolderBurnable\nFolderSmart:NSImageNameFolderSmart\nNetwork:NSImageNameNetwork\nUserAccounts:NSImageNameUserAccounts\nPreferencesGeneral:NSImageNamePreferencesGeneral\nAdvanced:NSImageNameAdvanced\nInfo:NSImageNameInfo\nFontPanel:NSImageNameFontPanel\nColorPanel:NSImageNameColorPanel\nIconViewTemplate:NSImageNameIconViewTemplate\nListViewTemplate:NSImageNameListViewTemplate\nColumnViewTemplate:NSImageNameColumnViewTemplate\nFlowViewTemplate:NSImageNameFlowViewTemplate\nShareTemplate:NSImageNameShareTemplate\nTouchBarAddTemplate:NSImageNameTouchBarAddTemplate\nTouchBarAddDetailTemplate:NSImageNameTouchBarAddDetailTemplate\nTouchBarAlarmTemplate:NSImageNameTouchBarAlarmTemplate\nTouchBarAudioInputMuteTemplate:NSImageNameTouchBarAudioInputMuteTemplate\nTouchBarAudioInputTemplate:NSImageNameTouchBarAudioInputTemplate\nTouchBarAudioOutputMuteTemplate:NSImageNameTouchBarAudioOutputMuteTemplate\nTouchBarAudioOutputVolumeOffTemplate:NSImageNameTouchBarAudioOutputVolumeOffTemplate\nTouchBarAudioOutputVolumeLowTemplate:NSImageNameTouchBarAudioOutputVolumeLowTemplate\nTouchBarAudioOutputVolumeMediumTemplate:NSImageNameTouchBarAudioOutputVolumeMediumTemplate\nTouchBarAudioOutputVolumeHighTemplate:NSImageNameTouchBarAudioOutputVolumeHighTemplate\nTouchBarBookmarksTemplate:NSImageNameTouchBarBookmarksTemplate\nTouchBarColorPickerFill:NSImageNameTouchBarColorPickerFill\nTouchBarColorPickerFont:NSImageNameTouchBarColorPickerFont\nTouchBarColorPickerStroke:NSImageNameTouchBarColorPickerStroke\nTouchBarCommunicationAudioTemplate:NSImageNameTouchBarCommunicationAudioTemplate\nTouchBarCommunicationVideoTemplate:NSImageNameTouchBarCommunicationVideoTemplate\nTouchBarComposeTemplate:NSImageNameTouchBarComposeTemplate\nTouchBarDeleteTemplate:NSImageNameTouchBarDeleteTemplate\nTouchBarDownloadTemplate:NSImageNameTouchBarDownloadTemplate\nTouchBarEnterFullScreenTemplate:NSImageNameTouchBarEnterFullScreenTemplate\nTouchBarExitFullScreenTemplate\nTouchBarFastForwardTemplate\nTouchBarFolderCopyToTemplate\nTouchBarFolderMoveToTemplate\nTouchBarFolderTemplate\nTouchBarNewFolderTemplate\nTouchBarGetInfoTemplate\nTouchBarGoBackTemplate\nTouchBarGoDownTemplate\nTouchBarGoForwardTemplate\nTouchBarGoUpTemplate\nTouchBarHistoryTemplate\nTouchBarIconViewTemplate\nTouchBarListViewTemplate\nTouchBarMailTemplate\nTouchBarNewMessageTemplate\nTouchBarOpenInBrowserTemplate\nTouchBarPauseTemplate\nTouchBarPlayPauseTemplate\nTouchBarPlayTemplate\nTouchBarPlayheadTemplate\nTouchBarQuickLookTemplate\nTouchBarRecordStartTemplate\nTouchBarRecordStopTemplate\nTouchBarRefreshTemplate\nTouchBarRemoveTemplate\nTouchBarRewindTemplate\nTouchBarRotateLeftTemplate\nTouchBarRotateRightTemplate\nTouchBarSearchTemplate\nTouchBarShareTemplate\nTouchBarSidebarTemplate\nTouchBarSkipAhead15SecondsTemplate\nTouchBarSkipAhead30SecondsTemplate\nTouchBarSkipAheadTemplate\nTouchBarSkipBack15SecondsTemplate\nTouchBarSkipBack30SecondsTemplate\nTouchBarSkipBackTemplate\nTouchBarSkipToEndTemplate\nTouchBarSkipToStartTemplate\nTouchBarSlideshowTemplate\nTouchBarTagIconTemplate\nTouchBarTextBoldTemplate\nTouchBarTextItalicTemplate\nTouchBarTextUnderlineTemplate\nTouchBarTextStrikethroughTemplate\nTouchBarTextBoxTemplate\nTouchBarTextCenterAlignTemplate\nTouchBarTextJustifiedAlignTemplate\nTouchBarTextLeftAlignTemplate\nTouchBarTextRightAlignTemplate\nTouchBarTextListTemplate\nTouchBarUserAddTemplate\nTouchBarUserGroupTemplate\nTouchBarUserTemplate\nTouchBarVolumeDownTemplate\nTouchBarVolumeUpTemplate", Scope = Public
 	#tag EndConstant
 
 
@@ -734,17 +774,23 @@ End
 		  dim names() as string
 		  dim w, h as double
 		  
-		  lines = Split( kListboxContent, EndOfLine.Macintosh )
+		  lines = Split( kListboxContent, EndOfLine )
 		  
 		  #pragma BreakOnExceptions false
 		  
 		  for each s as string in lines
 		    names = s.Split( ":" )
+		    dim NSImageName as string = "NSImageName" + names(0)
 		    w = 0.0
 		    h = 0.0
 		    
+		    if names(0).Contains("TouchBar") and NOT IsSierra then
+		      // Touchbar icons aren't available before Mac OS 10.12 Sierra.
+		      Continue
+		    end if
+		    
 		    LB1.AddRow   names( 0 )
-		    LB1.RowTag( LB1.LastIndex ) = names( 1 )
+		    LB1.RowTag( LB1.LastIndex ) = NSImageName
 		    
 		    if names.Ubound>=2 then
 		      w = Val( names( 2 ))
@@ -755,14 +801,13 @@ End
 		    end if
 		    
 		    try
-		      pict = SystemIcons.GetPictureFromName( names( 1 ), w, h )
-		      if pict.width>16 OR pict.height>16 then
-		        pict = SystemIcons.GetPictureFromName( names( 1 ), 16.0, 16.0 )
-		      end if
-		      LB1.RowPicture( LB1.LastIndex ) = pict
-		    catch exc
+		      me.CellTag( me.LastIndex, 0 ) = SystemIcons.GetPictureFromName( NSImageName )
+		    catch exc  
 		      
-		    End try
+		    end try
+		    
+		    
+		    
 		  next
 		  
 		  #pragma BreakOnExceptions default
@@ -772,8 +817,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Change()
-		  
-		  dim pict as Picture
+		  self.Subtitle = me.Cell( me.ListIndex, 0 )
 		  
 		  if me.ListIndex=-1 then
 		    TF1.Text = ""
@@ -782,44 +826,83 @@ End
 		    return
 		    
 		  else
-		    pict = me.RowPicture( me.ListIndex )
-		    TF1.Text = Str( pict.Width )
-		    TF1.SelectAll
-		    TF2.Text = Str( pict.Height )
-		    PushButton1.Enabled = true
-		    
-		    BB1.Icon = pict
-		    BB1.Invalidate
-		    
-		    PB1.Image = Pict
-		    PB1.Image.Template = me.Cell( me.ListIndex, 0 ).Contains( "Template" )
-		    PB1.Invalidate
+		    dim pict as Picture = me.CellTag( me.ListIndex, 0 ) 'me.RowPicture( me.ListIndex )
+		    if pict <> nil then
+		      TF1.Text = Str( pict.Width )
+		      TF1.SelectAll
+		      TF2.Text = Str( pict.Height )
+		      PushButton1.Enabled = true
+		      
+		      BB1.Icon = pict
+		      BB1.Invalidate
+		      
+		      dim w, h as Integer
+		      if pict.Height > 14 then
+		        dim factor as Double = Min( 14/pict.Width, 14/pict.Height )
+		        w = pict.Width*factor
+		        h = pict.Height*factor
+		      else
+		        w = pict.Width
+		        h = pict.Height
+		      end if
+		      
+		      PB1.Image = Pict
+		      PB1.Image.Template = me.Cell( me.ListIndex, 0 ).Contains( "Template" )
+		      PB1.Image.Size = Cocoa.NSMakeSize( w, h )
+		      PB1.Invalidate
+		      
+		      SC1.ImageForSegment(0) = pict
+		      SC1.ImageForSegment(0).Template = me.Cell( me.ListIndex, 0 ).Contains( "Template" )
+		      SC1.ImageForSegment(0).Size = Cocoa.NSMakeSize( w, h )
+		      SC1.Invalidate
+		    end if
 		  end if
 		  
 		  CVS1.Invalidate
-		  
+		  CVS2.Invalidate
 		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  dim pict as Picture = me.CellTag(row,0)
+		  dim imageSize as Double = 16 'me.DefaultRowHeight-2
+		  
+		  if pict <> Nil then
+		    dim factor as Double = Min( imageSize/pict.Width, imageSize/pict.Height )
+		    factor = min( factor, 1.0 ) // Don't upscale
+		    
+		    dim newWidth as Double = pict.Width*factor
+		    dim newHeight as Double = pict.Height*factor
+		    g.DrawPicture pict, (me.DefaultRowHeight/2) - (newWidth/2), (me.DefaultRowHeight/2) - (newHeight/2), newWidth, newHeight, 0, 0, pict.Width, pict.Height
+		  else
+		    
+		  end if
+		  
+		  g.DrawString( me.Cell(row, column), 2 + (me.DefaultRowHeight-2) + 6, g.TextAscent + (me.DefaultRowHeight/2 - g.TextHeight/2) )
+		  Return True
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton1
 	#tag Event
 		Sub Action()
+		  '
+		  'dim pict as Picture
+		  'dim w, h as double
+		  'dim name as string
+		  '
+		  '
+		  'name = LB1.RowTag( LB1.ListIndex )
+		  'w = Val( TF1.Text )
+		  'h = Val( TF2.Text )
+		  '
+		  'pict = SystemIcons.GetPictureFromName( name, w, h )
+		  'LB1.RowPicture( LB1.ListIndex ) = pict
+		  '
+		  'LB1.Invalidate
 		  
-		  dim pict as Picture
-		  dim w, h as double
-		  dim name as string
-		  
-		  
-		  name = LB1.RowTag( LB1.ListIndex )
-		  w = Val( TF1.Text )
-		  h = Val( TF2.Text )
-		  
-		  pict = SystemIcons.GetPictureFromName( name, w, h )
-		  LB1.RowPicture( LB1.ListIndex ) = pict
-		  
-		  LB1.Invalidate
-		  
+		  CVS2.Invalidate
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -829,18 +912,30 @@ End
 		  if LB1.ListIndex=-1 then return
 		  
 		  dim pict1 as Picture
+		  pict1 = LB1.CellTag(LB1.ListIndex, 0)
 		  
-		  pict1 = LB1.RowPicture( LB1.ListIndex )
-		  
-		  g.DrawPicture   pict1.IconTemplateSetColor( &cFF9C30 ), 2, 0
-		  g.DrawPicture   pict1.IconTemplateSetColor( &c959595 ), 26, 0
-		  g.DrawPicture   pict1.IconTemplateSetColor( &c004080 ), 50, 0
-		  
-		  g.ForeColor = &c959595
-		  g.FillRect   0, 20, g.Width, 45
-		  g.DrawPicture   pict1.IconTemplateSetColor( &cFFFFFF ), 2, 21
-		  g.DrawPicture   pict1.IconTemplateSetColor( &cCCFF66 ), 26, 21
-		  g.DrawPicture   pict1.IconTemplateSetColor( &cFFCC66 ), 50, 21
+		  if pict1 <> Nil then
+		    
+		    dim w, h as Integer
+		    if pict1.Height > 16 then
+		      dim factor as Double = Min( 16/pict1.Width, 16/pict1.Height )
+		      w = pict1.Width*factor
+		      h = pict1.Height*factor
+		    else
+		      w = pict1.Width
+		      h = pict1.Height
+		    end if
+		    
+		    g.DrawPicture   pict1.IconTemplateSetColor( &cFF9C30 ), 2, 0, w, h, 0, 0, pict1.Width, pict1.Height
+		    g.DrawPicture   pict1.IconTemplateSetColor( &c959595 ), 26, 0, w, h, 0, 0, pict1.Width, pict1.Height
+		    g.DrawPicture   pict1.IconTemplateSetColor( &c004080 ), 50, 0, w, h, 0, 0, pict1.Width, pict1.Height
+		    
+		    g.ForeColor = &c959595
+		    g.FillRect   0, 20, g.Width, 45
+		    g.DrawPicture   pict1.IconTemplateSetColor( &cFFFFFF ), 2, 21, w, h, 0, 0, pict1.Width, pict1.Height
+		    g.DrawPicture   pict1.IconTemplateSetColor( &cCCFF66 ), 26, 21, w, h, 0, 0, pict1.Width, pict1.Height
+		    g.DrawPicture   pict1.IconTemplateSetColor( &cFFCC66 ), 50, 21, w, h, 0, 0, pict1.Width, pict1.Height
+		  end if
 		  
 		  #if RBVersion >= 2012.02
 		    #pragma unused areas
@@ -864,23 +959,38 @@ End
 #tag Events SegmentedControl1
 	#tag Event
 		Sub Open()
+		  dim iconHeight as Integer = 10
 		  
+		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate
+		  me.ImageForSegment(0).Template = True
+		  me.ImageForSegment(0).Size = Cocoa.NSMakeSize( me.ImageForSegment(0).Size.width/(me.ImageForSegment(0).Size.height/iconHeight), iconHeight )
 		  
-		  me.Items( 0 ).Icon = SystemIcons.IconViewTemplate
-		  me.Items( 1 ).Icon = SystemIcons.ListViewTemplate
-		  me.Items( 2 ).Icon = SystemIcons.ColumnViewTemplate
-		  me.Items( 3 ).Icon = SystemIcons.FlowViewTemplate
+		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate
+		  me.ImageForSegment(1).Template = True
+		  me.ImageForSegment(1).Size = Cocoa.NSMakeSize( me.ImageForSegment(1).Size.width/(me.ImageForSegment(1).Size.height/iconHeight), iconHeight )
 		  
+		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate
+		  me.ImageForSegment(2).Template = True
+		  me.ImageForSegment(2).Size = Cocoa.NSMakeSize( me.ImageForSegment(2).Size.width/(me.ImageForSegment(2).Size.height/iconHeight), iconHeight )
 		  
+		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate
+		  me.ImageForSegment(3).Template = True
+		  me.ImageForSegment(3).Size = Cocoa.NSMakeSize( me.ImageForSegment(3).Size.width/(me.ImageForSegment(3).Size.height/iconHeight), iconHeight )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events SegmentedControl2
 	#tag Event
 		Sub Open()
-		  me.Items( 0 ).Icon = SystemIcons.GoLeftTemplate
-		  me.Items( 1 ).Icon = SystemIcons.GoRightTemplate
+		  dim iconHeight as Integer = 12
 		  
+		  me.ImageForSegment(0) = SystemIcons.GoLeftTemplate
+		  me.ImageForSegment(0).Template = True
+		  me.ImageForSegment(0).Size = Cocoa.NSMakeSize( me.ImageForSegment(0).Size.width/(me.ImageForSegment(0).Size.height/iconHeight), iconHeight )
+		  
+		  me.ImageForSegment(1) = SystemIcons.GoRightTemplate
+		  me.ImageForSegment(1).Template = True
+		  me.ImageForSegment(1).Size = Cocoa.NSMakeSize( me.ImageForSegment(1).Size.width/(me.ImageForSegment(1).Size.height/iconHeight), iconHeight )
 		  
 		End Sub
 	#tag EndEvent
@@ -888,21 +998,22 @@ End
 #tag Events SegmentedControl3
 	#tag Event
 		Sub Open()
-		  me.Items( 0 ).Icon = SystemIcons.ActionTemplate
+		  dim iconHeight as Integer = 14
 		  
-		  
-		  
+		  me.ImageForSegment(0) = SystemIcons.ActionTemplate
+		  me.ImageForSegment(0).Template = True
+		  me.ImageForSegment(0).Size = Cocoa.NSMakeSize( me.ImageForSegment(0).Size.width/(me.ImageForSegment(0).Size.height/iconHeight), iconHeight )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events SegmentedControl4
 	#tag Event
 		Sub Open()
-		  me.Items( 0 ).Icon = SystemIcons.QuickLookTemplate.IconTemplateSetColor( &cA6A6A6 )
+		  dim iconHeight as Integer = 12
 		  
-		  
-		  
-		  
+		  me.ImageForSegment(0) = SystemIcons.QuickLookTemplate.IconTemplateSetColor( &cA6A6A6 )
+		  me.ImageForSegment(0).Template = True
+		  me.ImageForSegment(0).Size = Cocoa.NSMakeSize( me.ImageForSegment(0).Size.width/(me.ImageForSegment(0).Size.height/iconHeight), iconHeight )
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -922,7 +1033,7 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
 		  static pict as Picture = SystemIcons.InvalidDataFreestandingTemplate
-		  g.DrawPicture  pict, 0, 0, 16, 16, 0, 0, pict.Width, pict.Height
+		  g.DrawPicture  pict.IconTemplateSetColor(&c7F0000), 0, 0, 14, 14, 0, 0, pict.Width, pict.Height
 		  
 		  #if RBVersion >= 2012.02
 		    #pragma unused areas
@@ -935,6 +1046,31 @@ End
 	#tag Event
 		Sub Open()
 		  me.BezelStyle = NSBezelStyle.NSTexturedRoundedBezelStyle
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CVS2
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  'g.ForeColor = &c959595
+		  'g.FillRect   0, 0, g.Width, g.Height
+		  
+		  if LB1.ListIndex > -1 then
+		    dim pict1 as Picture = LB1.CellTag(LB1.ListIndex, 0)
+		    if IsDarkMode and LB1.Cell(LB1.ListIndex, 0).Contains("template") then
+		      pict1 = pict1.IconTemplateSetColor( &cFFFFFF )
+		    end if
+		    g.DrawPicture pict1, 1 + (g.Width/2) - (Val( TF1.Text )/2), 1 + (g.Height/2) - (Val( TF2.Text )/2),  Val( TF1.Text ), Val( TF2.Text ),   0, 0, pict1.Width, pict1.Height
+		  else
+		    
+		  end if
+		  
+		  g.DrawRect 0, 0, g.Width, g.Height
+		  
+		  #if RBVersion >= 2012.02
+		    #pragma unused areas
+		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

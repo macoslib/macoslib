@@ -1072,6 +1072,34 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Subtitle(Extends w as Window) As String
+		  
+		  #if TargetCocoa
+		    if IsBigSur then
+		      declare function subtitle lib CocoaLib selector "subtitle" (WindowRef as WindowPtr) as CFStringRef
+		      
+		      return subtitle(w)
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Subtitle(Extends w as Window, Assigns value as String)
+		  #if TargetCocoa then
+		    if IsBigSur then
+		      declare sub setSubtitle lib CocoaLib selector "setSubtitle:" (WindowRef as WindowPtr, aString as CFStringRef)
+		      
+		      setSubtitle w, value
+		    end if
+		  #else
+		    #Pragma Unused w
+		    #Pragma Unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub TabsForApp(optIn as Boolean)
 		  //# Disables automatic tabs for all windows, call from app's open event.
 		  
@@ -1134,6 +1162,39 @@ Protected Module WindowExtensions
 		    end if
 		  #else
 		    #pragma unused value
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TitlebarSeparatorStyle(extends w as Window) As NSWindowTitlebarSeparatorStyle
+		  
+		  #if TargetCocoa then
+		    if IsBigSur then
+		      declare function titlebarSeparatorStyle lib CocoaLib selector "titlebarSeparatorStyle" (WindowRef as WindowPtr) as NSWindowTitlebarSeparatorStyle
+		      
+		      return titlebarSeparatorStyle(w)
+		    else
+		      return NSWindowTitlebarSeparatorStyle.Automatic
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TitlebarSeparatorStyle(extends w as Window, assigns style as NSWindowTitlebarSeparatorStyle)
+		  
+		  #if TargetCocoa then
+		    if isBigSur then
+		      declare sub setTitlebarSeparatorStyle lib CocoaLib selector "setTitlebarSeparatorStyle:" (WindowRef as WindowPtr, toolbarStyle as NSWindowTitlebarSeparatorStyle )
+		      
+		      
+		      setTitlebarSeparatorStyle w, style
+		    end if
+		  #else
+		    #pragma unused TitleVisible
 		  #endif
 		  
 		End Sub
@@ -1338,6 +1399,13 @@ Protected Module WindowExtensions
 		  NSWindowDocumentIconButton
 		  NSWindowDocumentVersionsButton = 6
 		NSWindowFullScreenButton
+	#tag EndEnum
+
+	#tag Enum, Name = NSWindowTitlebarSeparatorStyle, Type = Integer, Flags = &h0
+		Automatic
+		  Line
+		  None
+		Shadow
 	#tag EndEnum
 
 	#tag Enum, Name = NSWindowTitleVisibility, Flags = &h0
