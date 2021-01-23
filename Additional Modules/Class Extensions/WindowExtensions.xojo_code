@@ -1072,6 +1072,34 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Subtitle(Extends w as Window) As String
+		  
+		  #if TargetCocoa
+		    if IsBigSur then
+		      declare function subtitle lib CocoaLib selector "subtitle" (WindowRef as WindowPtr) as CFStringRef
+		      
+		      return subtitle(w)
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Subtitle(Extends w as Window, Assigns value as String)
+		  #if TargetCocoa then
+		    if IsBigSur then
+		      declare sub setSubtitle lib CocoaLib selector "setSubtitle:" (WindowRef as WindowPtr, aString as CFStringRef)
+		      
+		      setSubtitle w, value
+		    end if
+		  #else
+		    #Pragma Unused w
+		    #Pragma Unused value
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub TabsForApp(optIn as Boolean)
 		  //# Disables automatic tabs for all windows, call from app's open event.
 		  
@@ -1140,6 +1168,39 @@ Protected Module WindowExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function TitlebarSeparatorStyle(extends w as Window) As NSWindowTitlebarSeparatorStyle
+		  
+		  #if TargetCocoa then
+		    if IsBigSur then
+		      declare function titlebarSeparatorStyle lib CocoaLib selector "titlebarSeparatorStyle" (WindowRef as WindowPtr) as NSWindowTitlebarSeparatorStyle
+		      
+		      return titlebarSeparatorStyle(w)
+		    else
+		      return NSWindowTitlebarSeparatorStyle.Automatic
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TitlebarSeparatorStyle(extends w as Window, assigns style as NSWindowTitlebarSeparatorStyle)
+		  
+		  #if TargetCocoa then
+		    if isBigSur then
+		      declare sub setTitlebarSeparatorStyle lib CocoaLib selector "setTitlebarSeparatorStyle:" (WindowRef as WindowPtr, toolbarStyle as NSWindowTitlebarSeparatorStyle )
+		      
+		      
+		      setTitlebarSeparatorStyle w, style
+		    end if
+		  #else
+		    #pragma unused TitleVisible
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function TitleVisible(extends w as Window) As Boolean
 		  
 		  #if TargetCocoa then
@@ -1167,6 +1228,39 @@ Protected Module WindowExtensions
 		      else
 		        setTitleVisibility w, NSWindowTitleVisibility.Hidden
 		      end if
+		    end if
+		  #else
+		    #pragma unused TitleVisible
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ToolbarStyle(extends w as Window) As NSWindowToolbarStyle
+		  
+		  #if TargetCocoa then
+		    if IsBigSur then
+		      declare function toolbarStyle lib CocoaLib selector "toolbarStyle" (WindowRef as WindowPtr) as NSWindowToolbarStyle
+		      
+		      return toolbarStyle(w)
+		    else
+		      return NSWindowToolbarStyle.Automatic
+		    end if
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ToolbarStyle(extends w as Window, assigns style as NSWindowToolbarStyle)
+		  
+		  #if TargetCocoa then
+		    if isBigSur then
+		      declare sub setToolbarStyle lib CocoaLib selector "setToolbarStyle:" (WindowRef as WindowPtr, toolbarStyle as NSWindowToolbarStyle )
+		      
+		      
+		      setToolbarStyle w, style
 		    end if
 		  #else
 		    #pragma unused TitleVisible
@@ -1307,10 +1401,25 @@ Protected Module WindowExtensions
 		NSWindowFullScreenButton
 	#tag EndEnum
 
+	#tag Enum, Name = NSWindowTitlebarSeparatorStyle, Type = Integer, Flags = &h0
+		Automatic
+		  Line
+		  None
+		Shadow
+	#tag EndEnum
+
 	#tag Enum, Name = NSWindowTitleVisibility, Flags = &h0
 		Visible
 		  Hidden
 		HiddenWhenActive
+	#tag EndEnum
+
+	#tag Enum, Name = NSWindowToolbarStyle, Flags = &h0
+		Automatic
+		  Expanded
+		  Preference
+		  Unified
+		UnifiedCompact
 	#tag EndEnum
 
 	#tag Enum, Name = TabbingMode, Type = Integer, Flags = &h0
@@ -1327,6 +1436,7 @@ Protected Module WindowExtensions
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1334,18 +1444,23 @@ Protected Module WindowExtensions
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1353,6 +1468,7 @@ Protected Module WindowExtensions
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

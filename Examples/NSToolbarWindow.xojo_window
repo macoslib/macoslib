@@ -37,18 +37,18 @@ Begin Window NSToolbarWindow
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   435
+      Height          =   486
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   474
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
@@ -65,14 +65,14 @@ Begin Window NSToolbarWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   70
+      Top             =   19
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   0
       UseFocusRing    =   True
       Value           =   ""
       Visible         =   True
-      Width           =   601
+      Width           =   352
    End
    Begin CheckBox CheckBox1
       AutoDeactivate  =   True
@@ -86,11 +86,11 @@ Begin Window NSToolbarWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   37
+      Left            =   180
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       State           =   0
@@ -100,14 +100,14 @@ Begin Window NSToolbarWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   20
+      Top             =   52
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   165
    End
-   Begin Label Label1
+   Begin Label lblArray
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -115,10 +115,10 @@ Begin Window NSToolbarWindow
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
-      Index           =   -2147483648
+      Index           =   5
       InitialParent   =   ""
       Italic          =   False
-      Left            =   259
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -155,11 +155,11 @@ Begin Window NSToolbarWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   633
+      Left            =   382
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   6
@@ -186,12 +186,12 @@ Begin Window NSToolbarWindow
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   419
+      Left            =   180
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   7
@@ -218,10 +218,10 @@ Begin Window NSToolbarWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   633
+      Left            =   180
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
@@ -232,7 +232,7 @@ Begin Window NSToolbarWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   102
+      Top             =   116
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -251,10 +251,10 @@ Begin Window NSToolbarWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   633
+      Left            =   180
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
@@ -265,7 +265,7 @@ Begin Window NSToolbarWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   71
+      Top             =   84
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -284,10 +284,10 @@ Begin Window NSToolbarWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   633
+      Left            =   180
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
@@ -298,7 +298,7 @@ Begin Window NSToolbarWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   134
+      Top             =   148
       Transparent     =   False
       Underline       =   False
       Value           =   True
@@ -454,6 +454,393 @@ Begin Window NSToolbarWindow
          Visible         =   True
          Width           =   120
       End
+   End
+   Begin PopupMenu popToolbar
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   "Automatic\nExpanded\nPreference\nUnified\nUnifiedCompact"
+      Italic          =   False
+      Left            =   180
+      ListIndex       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   180
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   190
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   6
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "ToolbarStyle:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   180
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   148
+   End
+   Begin PopupMenu popTitlebarSeperator
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   "Replaces 'ShowsBaselineSeparator' on OS 11+"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   "Automatic\nLine\nNone\nShadow"
+      Italic          =   False
+      Left            =   180
+      ListIndex       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   212
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   190
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   7
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Titlebar Separator:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   212
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   148
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   2
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   382
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "(ARM Only)"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "SmallSystem"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   180
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   3
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   382
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "(OS 11+)"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "SmallSystem"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   212
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin TextField TextField1
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   180
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Subtitle Example"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   244
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   190
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   8
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Subtitle:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   245
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   148
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   4
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   382
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "(OS 11+)"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "SmallSystem"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   245
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   1
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   382
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "(OS 10.10+)"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "SmallSystem"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   116
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Label lblArray
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   0
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   382
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   24
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "(OS 10.10+)"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "SmallSystem"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   84
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -623,7 +1010,7 @@ End
 		  PopupMenu1.listIndex = 0
 		  
 		  // BigSur added a subtitle property, which is added after the title on intel, or underneath the title on ARM if the toolbar is visible.
-		  me.NSWindowObject.Subtitle = "Subtitle Example"
+		  self.Subtitle = TextField1.Text
 		End Sub
 	#tag EndEvent
 
@@ -770,8 +1157,6 @@ End
 		Sub Open()
 		  me.SegmentStyle = SegmentedControlExtension.NSSegmentStyle.TexturedRounded
 		  
-		  dim Scale as Integer = self.ScalingFactor
-		  
 		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
 		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
 		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
@@ -787,6 +1172,39 @@ End
 		  
 		  Log "Selected navigation button "+str(itemIndex)
 		  Log EndOfLine
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events popToolbar
+	#tag Event
+		Sub Change()
+		  // You will probably want to set the toolbar like this for clarity:
+		  'Self.ToolbarStyle = NSWindowToolbarStyle.Automatic
+		  
+		  // For abbreviation purposes, I'm using the shortcut which accepts integer values.
+		  Self.ToolbarStyle = NSWindowToolbarStyle(me.ListIndex)
+		  
+		  // Note that the toolbar style is currently only changeable on ARM, the intel build still shows the regular toolbar.
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events popTitlebarSeperator
+	#tag Event
+		Sub Change()
+		  // You will probably want to set the toolbar like this for clarity:
+		  'Self.TitlebarSeparatorStyle = NSWindowTitlebarSeparatorStyle.Automatic
+		  
+		  // For abbreviation purposes, I'm using the shortcut which accepts integer values.
+		  Self.TitlebarSeparatorStyle = NSWindowTitlebarSeparatorStyle(me.ListIndex)
+		  
+		  // Note that the titlebar separator style is currently only changeable on ARM, the intel build still shows the regular separator.
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextField1
+	#tag Event
+		Sub TextChange()
+		  self.NSWindowObject.Subtitle = me.Text
 		End Sub
 	#tag EndEvent
 #tag EndEvents

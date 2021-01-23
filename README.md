@@ -10,7 +10,7 @@ It even has some cross-platform functionality in order to access Mac specific da
 
 ### How to use
 
-If you've downloaded the zip file, double-click the macoslib.rbvcp file to open it in the Xojo IDE. This is a project containing lots of examples, modules and macoslib itself. Run the project and play with the examples (see menu bar) to find out all the things you can do with it.
+If you've downloaded the zip file, double-click the macoslib.xojo_project file to open it in the Xojo IDE. This is a project containing lots of examples, modules and macoslib itself. Run the project and play with the examples (see menu bar) to find out all the things you can do with it.
 
 Now, to use that power in your own apps, you need to copy the macoslib folder in the Navigator (the list on the left hand side of Xojo) - don't copy it from the Finder, it won't work. Next, open your own project and paste the folder in. Now you can access MacOSLib's functionality.
 
@@ -18,7 +18,7 @@ Now, to use that power in your own apps, you need to copy the macoslib folder in
 
 If you use the macoslib and have implemented a fix or improvement, the best way to send this change to us is by using github:
 
-After signing up with github, you create a fork of the main [macoslib repository](https://github.com/vidalvanbergen/macoslib). Now you have your own copy of the lib on github.
+After signing up with github, you create a fork of the main [macoslib repository](https://github.com/macoslib/macoslib). Now you have your own copy of the lib on github.
 Then you download this fork of yours to your computer and add your fix to it. Then you push your changes back to github.
 Lastly, you create a new "pull request" for your change(s). This will notify the maintainers of the main macoslib and let us review your changes quickly. If all looks good, we'll merge it into the main version and we're done.
 
