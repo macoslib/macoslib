@@ -3,7 +3,6 @@ Begin Window MacIconWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window MacIconWindow
    HasBackColor    =   False
    Height          =   572
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,28 +28,18 @@ Begin Window MacIconWindow
    Begin TextField ExtensionField
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -62,7 +51,6 @@ Begin Window MacIconWindow
       LockRight       =   False
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   ""
       Password        =   False
       ReadOnly        =   False
@@ -73,8 +61,6 @@ Begin Window MacIconWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -83,22 +69,17 @@ Begin Window MacIconWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   85
    End
    Begin Label StaticText1
       Active          =   ""
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   21
       HelpTag         =   ""
       Index           =   -2147483648
@@ -116,9 +97,7 @@ Begin Window MacIconWindow
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Extension"
       TextAlign       =   2
-      TextAlignment   =   "3"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -133,14 +112,10 @@ Begin Window MacIconWindow
       _mWindow        =   "0"
    End
    Begin RadioButton Size16
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "16"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -167,14 +142,10 @@ Begin Window MacIconWindow
       Width           =   40
    End
    Begin RadioButton Size32
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "32"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
@@ -201,14 +172,10 @@ Begin Window MacIconWindow
       Width           =   40
    End
    Begin RadioButton Size48
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "48"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -235,14 +202,10 @@ Begin Window MacIconWindow
       Width           =   40
    End
    Begin RadioButton Size64
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "64"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -269,14 +232,10 @@ Begin Window MacIconWindow
       Width           =   46
    End
    Begin RadioButton Size128
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "128"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -303,16 +262,12 @@ Begin Window MacIconWindow
       Width           =   46
    End
    Begin CheckBox CheckOpen
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Open"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   ""
       Index           =   -2147483648
@@ -337,20 +292,15 @@ Begin Window MacIconWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   68
    End
    Begin CheckBox CheckSelected
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Selected"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -375,20 +325,15 @@ Begin Window MacIconWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   91
    End
    Begin Label StaticText2
       Active          =   ""
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -406,9 +351,7 @@ Begin Window MacIconWindow
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Creator"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -425,28 +368,18 @@ Begin Window MacIconWindow
    Begin TextField CreatorField
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -458,7 +391,6 @@ Begin Window MacIconWindow
       LockRight       =   False
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   ""
       Password        =   False
       ReadOnly        =   False
@@ -469,8 +401,6 @@ Begin Window MacIconWindow
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -479,22 +409,17 @@ Begin Window MacIconWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   58
    End
    Begin Label StaticText3
       Active          =   ""
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -512,9 +437,7 @@ Begin Window MacIconWindow
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Type"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -531,28 +454,18 @@ Begin Window MacIconWindow
    Begin TextField TypeField
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -564,7 +477,6 @@ Begin Window MacIconWindow
       LockRight       =   False
       LockTop         =   False
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   ""
       Password        =   False
       ReadOnly        =   False
@@ -575,8 +487,6 @@ Begin Window MacIconWindow
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -585,23 +495,18 @@ Begin Window MacIconWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   63
    End
    Begin PushButton LoadicnsFile
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Load .icns File"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -613,7 +518,6 @@ Begin Window MacIconWindow
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -628,17 +532,13 @@ Begin Window MacIconWindow
       Width           =   120
    End
    Begin PushButton LoadFileIconButton
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Load File Icon"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -650,7 +550,6 @@ Begin Window MacIconWindow
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
@@ -665,16 +564,12 @@ Begin Window MacIconWindow
       Width           =   120
    End
    Begin CheckBox CheckOffline
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Offline"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   ""
       Index           =   -2147483648
@@ -699,18 +594,13 @@ Begin Window MacIconWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   73
    End
    Begin RadioButton Size256
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "256"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -737,14 +627,10 @@ Begin Window MacIconWindow
       Width           =   46
    End
    Begin RadioButton Size512
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "512"
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -771,7 +657,6 @@ Begin Window MacIconWindow
       Width           =   46
    End
    Begin Separator Separator1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4

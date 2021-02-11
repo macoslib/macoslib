@@ -3,7 +3,6 @@ Begin Window DebugLogWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   3
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window DebugLogWin
    HasBackColor    =   False
    Height          =   231
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,13 +26,6 @@ Begin Window DebugLogWin
    Visible         =   True
    Width           =   376
    Begin Listbox theList
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "False"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "False"
-      AllowResizableColumns=   "True"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   False
       Bold            =   False
@@ -44,22 +36,12 @@ Begin Window DebugLogWin
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "False"
-      HasHeader       =   "False"
       HasHeading      =   False
-      HasHorizontalScrollbar=   "True"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   204
       HelpTag         =   ""
@@ -75,7 +57,6 @@ Begin Window DebugLogWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   True
       ScrollBarVertical=   True
@@ -98,17 +79,13 @@ Begin Window DebugLogWin
       _ScrollWidth    =   -1
    End
    Begin PushButton markBut
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Mark"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -120,7 +97,6 @@ Begin Window DebugLogWin
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -135,17 +111,13 @@ Begin Window DebugLogWin
       Width           =   80
    End
    Begin PushButton clearBut
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Clear"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -157,7 +129,6 @@ Begin Window DebugLogWin
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0

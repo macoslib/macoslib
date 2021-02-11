@@ -3,7 +3,6 @@ Begin Window IKScannerWND
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window IKScannerWND
    HasBackColor    =   False
    Height          =   629
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,10 +28,6 @@ Begin Window IKScannerWND
    Begin IKScannerDeviceView IKScannerDeviceView1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       displaysDownloadsDirectoryControl=   False
@@ -40,7 +35,7 @@ Begin Window IKScannerWND
       DocumentName    =   ""
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       HasDisplayModeAdvanced=   False
       HasDisplayModeSimple=   False
       Height          =   630

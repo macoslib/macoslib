@@ -3,7 +3,6 @@ Begin Window MacTCPSocketsWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window MacTCPSocketsWin
    HasBackColor    =   False
    Height          =   398
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -38,27 +37,15 @@ Begin Window MacTCPSocketsWin
    Begin TextArea TextArea1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "True"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   333
       HelpTag         =   ""
       HideSelection   =   True
@@ -74,7 +61,6 @@ Begin Window MacTCPSocketsWin
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -84,8 +70,6 @@ Begin Window MacTCPSocketsWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "This is a demonstration for the improved MacTCPSocket.\r\rIf you press Send, either a normal TCPSocket or the MacTCPSocker class will be used to request a page from google.com.\r\rOnce you see the response in this area, note the time it took, which will be shown at the bottom of the window.\r\rWith ""Use MacTCPSocket"" enabled, the response will come in much faster than without. But only when you build for Carbon - on Cocoa it's always fast, it appears.\r\r\rNote that you can accomplish the same speed increase by enabling a Timer with a very low Period. However, a Timer running constantly that way will waste a lot of precious CPU time, raising this app's CPU consumption to 50% or more, needlessly.\r\rSee the About note in the MacTCPSocket class for more information on how and why this works.\r"
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   11.0
@@ -93,24 +77,20 @@ Begin Window MacTCPSocketsWin
       Top             =   20
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "This is a demonstration for the improved MacTCPSocket.\r\rIf you press Send, either a normal TCPSocket or the MacTCPSocker class will be used to request a page from google.com.\r\rOnce you see the response in this area, note the time it took, which will be shown at the bottom of the window.\r\rWith ""Use MacTCPSocket"" enabled, the response will come in much faster than without. But only when you build for Carbon - on Cocoa it's always fast, it appears.\r\r\rNote that you can accomplish the same speed increase by enabling a Timer with a very low Period. However, a Timer running constantly that way will waste a lot of precious CPU time, raising this app's CPU consumption to 50% or more, needlessly.\r\rSee the About note in the MacTCPSocket class for more information on how and why this works.\r"
       Visible         =   True
       Width           =   647
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Send"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -122,7 +102,6 @@ Begin Window MacTCPSocketsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -138,15 +117,11 @@ Begin Window MacTCPSocketsWin
    End
    Begin Label Label1
       Active          =   ""
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -164,9 +139,7 @@ Begin Window MacTCPSocketsWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -190,16 +163,12 @@ Begin Window MacTCPSocketsWin
       TabPanelIndex   =   0
    End
    Begin CheckBox CheckBox1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use MacTCPSocket"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -224,7 +193,6 @@ Begin Window MacTCPSocketsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   146
    End
    Begin Timer Timer1
@@ -234,21 +202,16 @@ Begin Window MacTCPSocketsWin
       LockedInPosition=   False
       Mode            =   0
       Period          =   1
-      RunMode         =   "0"
       Scope           =   0
       TabPanelIndex   =   0
    End
    Begin CheckBox CheckBox2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use Timer"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -273,7 +236,6 @@ Begin Window MacTCPSocketsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   87
    End
 End
@@ -355,7 +317,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub Error()
+		Sub Error(err As RuntimeException)
 		  if me.LastErrorCode = 102 then
 		    // that's expected
 		    return

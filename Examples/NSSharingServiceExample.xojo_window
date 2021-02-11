@@ -3,7 +3,6 @@ Begin Window NSSharingServiceExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSSharingServiceExample
    HasBackColor    =   False
    Height          =   86
    ImplicitInstance=   True
-   LiveResize      =   False
+   LiveResize      =   "False"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,15 +26,11 @@ Begin Window NSSharingServiceExample
    Visible         =   True
    Width           =   393
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -53,9 +48,7 @@ Begin Window NSSharingServiceExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Image"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -68,15 +61,11 @@ Begin Window NSSharingServiceExample
       Width           =   61
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -94,9 +83,7 @@ Begin Window NSSharingServiceExample
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Text"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -109,15 +96,11 @@ Begin Window NSSharingServiceExample
       Width           =   61
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   2
@@ -135,9 +118,7 @@ Begin Window NSSharingServiceExample
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "URL"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -150,15 +131,11 @@ Begin Window NSSharingServiceExample
       Width           =   61
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   3
@@ -176,9 +153,7 @@ Begin Window NSSharingServiceExample
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "File"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -191,17 +166,13 @@ Begin Window NSSharingServiceExample
       Width           =   61
    End
    Begin PushButton btnShareText
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   ""
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -213,7 +184,6 @@ Begin Window NSSharingServiceExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -228,17 +198,13 @@ Begin Window NSSharingServiceExample
       Width           =   24
    End
    Begin PushButton btnShareURL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   ""
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -250,7 +216,6 @@ Begin Window NSSharingServiceExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -265,17 +230,13 @@ Begin Window NSSharingServiceExample
       Width           =   24
    End
    Begin PushButton btnShareFile
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   ""
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -287,7 +248,6 @@ Begin Window NSSharingServiceExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -302,15 +262,11 @@ Begin Window NSSharingServiceExample
       Width           =   24
    End
    Begin Label lblArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   4
@@ -328,9 +284,7 @@ Begin Window NSSharingServiceExample
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Array"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -343,17 +297,13 @@ Begin Window NSSharingServiceExample
       Width           =   61
    End
    Begin PushButton btnShareArray
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   ""
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -365,7 +315,6 @@ Begin Window NSSharingServiceExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -380,17 +329,13 @@ Begin Window NSSharingServiceExample
       Width           =   24
    End
    Begin PushButton btnShareImage
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   ""
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -402,7 +347,6 @@ Begin Window NSSharingServiceExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -420,19 +364,15 @@ Begin Window NSSharingServiceExample
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
       AllowsMixedState=   False
-      AllowTabs       =   "False"
       AlternateImage  =   0
       AlternateTitle  =   ""
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
       BezelStyle      =   ""
-      Bold            =   false
+      Bold            =   False
       BooleanValue    =   False
       Bordered        =   True
       ButtonType      =   ""
@@ -440,7 +380,7 @@ Begin Window NSSharingServiceExample
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   24
       HelpTag         =   ""
@@ -450,7 +390,7 @@ Begin Window NSSharingServiceExample
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       KeyEquivalentModifierMask=   ""
       Left            =   159
       LockBottom      =   False
@@ -473,7 +413,7 @@ Begin Window NSSharingServiceExample
       Top             =   188
       Transparent     =   False
       Type            =   0
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       Visible         =   True
       Width           =   80

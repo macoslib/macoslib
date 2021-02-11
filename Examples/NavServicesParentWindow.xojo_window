@@ -3,7 +3,6 @@ Begin Window NavServicesParentWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NavServicesParentWindow
    HasBackColor    =   False
    Height          =   300
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,19 +26,15 @@ Begin Window NavServicesParentWindow
    Visible         =   True
    Width           =   300
    Begin PushButton ShowButton
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   0
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Show"
       ControlOrder    =   "0"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -51,7 +46,6 @@ Begin Window NavServicesParentWindow
       LockLeft        =   False
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -66,7 +60,6 @@ Begin Window NavServicesParentWindow
       Width           =   80
    End
    Begin PopupMenu DialogTypePopup
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   False
@@ -74,9 +67,6 @@ Begin Window NavServicesParentWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -91,7 +81,6 @@ Begin Window NavServicesParentWindow
       LockRight       =   False
       LockTop         =   False
       Scope           =   2
-      SelectedRowIndex=   "0"
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -105,7 +94,6 @@ Begin Window NavServicesParentWindow
       Width           =   173
    End
    Begin Label StaticText1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   2
       Bold            =   False
@@ -113,9 +101,6 @@ Begin Window NavServicesParentWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -133,9 +118,7 @@ Begin Window NavServicesParentWindow
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Dialog Type"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -148,7 +131,6 @@ Begin Window NavServicesParentWindow
       Width           =   82
    End
    Begin CheckBox ShowAsSheetCheckBox
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   3
       Bold            =   False
@@ -157,9 +139,6 @@ Begin Window NavServicesParentWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -184,7 +163,6 @@ Begin Window NavServicesParentWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   167
    End
 End

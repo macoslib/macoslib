@@ -3,7 +3,6 @@ Begin Window UnicodeExtensionsExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window UnicodeExtensionsExample
    HasBackColor    =   False
    Height          =   571
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,27 +28,15 @@ Begin Window UnicodeExtensionsExample
    Begin TextArea TA1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   53
       HelpTag         =   ""
       HideSelection   =   True
@@ -65,7 +52,6 @@ Begin Window UnicodeExtensionsExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -75,8 +61,6 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -84,8 +68,8 @@ Begin Window UnicodeExtensionsExample
       Top             =   97
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   355
@@ -93,27 +77,15 @@ Begin Window UnicodeExtensionsExample
    Begin TextArea TA2
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   36
       HelpTag         =   ""
       HideSelection   =   True
@@ -129,7 +101,6 @@ Begin Window UnicodeExtensionsExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -139,8 +110,6 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -148,23 +117,19 @@ Begin Window UnicodeExtensionsExample
       Top             =   188
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   355
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareCaseInsensitive"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Makes the comparison case-insensitive, so A is equal to a"
       Index           =   0
@@ -189,20 +154,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   187
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareBackwards"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Starts from the end of string 1. Does not apply to Compare, only to Find."
       Index           =   1
@@ -227,20 +187,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   173
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareAnchored"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   ""
       Index           =   2
@@ -265,20 +220,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   173
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareNonliteral"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Compare Precomposed and Decomposed strings, e.g. ""è"" (precomposed form) is equivalent to ""e+combining `"" (decomposed form)."
       Index           =   3
@@ -303,20 +253,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   173
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareLocalized"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Use localization for comparison. With kCFNonLiteral, a capital A will be considered equal to the mathematical symbol 𝔸. Does not apply to Find."
       Index           =   4
@@ -341,20 +286,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   173
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareNumerically"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Numbers are interpreted as their numerical value so ""20"" will be considered greater than ""3"". This is not the case otherwise."
       Index           =   5
@@ -379,20 +319,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   173
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareDiacriticInsensitive"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Accents and other diacritics are not taken into account for comparing or searching."
       Index           =   6
@@ -417,20 +352,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   205
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareWidthInsensitive"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   ""
       Index           =   7
@@ -455,20 +385,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   187
    End
    Begin CheckBox OptionCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "kCFCompareForcedOrdering"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   "Forces comparison to return ""less than"" or ""greater than"", but not ""equal"""
       Index           =   8
@@ -493,21 +418,16 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   187
    End
    Begin PushButton CompareBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Compare"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Compare String1 to String 2"
       Index           =   -2147483648
@@ -519,7 +439,6 @@ Begin Window UnicodeExtensionsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
@@ -534,17 +453,13 @@ Begin Window UnicodeExtensionsExample
       Width           =   80
    End
    Begin PushButton FindBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Find"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Find String 2 inside String 1"
       Index           =   -2147483648
@@ -556,7 +471,6 @@ Begin Window UnicodeExtensionsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -573,27 +487,15 @@ Begin Window UnicodeExtensionsExample
    Begin TextArea TAR
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   185
       HelpTag         =   ""
       HideSelection   =   True
@@ -609,7 +511,6 @@ Begin Window UnicodeExtensionsExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -619,8 +520,6 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -628,24 +527,20 @@ Begin Window UnicodeExtensionsExample
       Top             =   319
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   403
    End
    Begin PushButton FindAllBTN
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Find All"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   "Find all occurrences of String 2 inside String 1"
       Index           =   -2147483648
@@ -657,7 +552,6 @@ Begin Window UnicodeExtensionsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
@@ -672,15 +566,11 @@ Begin Window UnicodeExtensionsExample
       Width           =   80
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -698,9 +588,7 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   21
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Results:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -713,15 +601,11 @@ Begin Window UnicodeExtensionsExample
       Width           =   100
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -739,9 +623,7 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "String 1:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -754,15 +636,11 @@ Begin Window UnicodeExtensionsExample
       Width           =   100
    End
    Begin Label Label3
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -780,9 +658,7 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   23
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "String 2:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -795,15 +671,11 @@ Begin Window UnicodeExtensionsExample
       Width           =   100
    End
    Begin Label Label4
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Height          =   56
       HelpTag         =   ""
       Index           =   -2147483648
@@ -821,9 +693,7 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   24
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "This window gives you the possibility to test the advanced options of Mac OS X for comparing and searching strings.\rWith such options, you can search from the end, sort strings with numbers being properly interpreted as numbers (like the Finder does), ignore accents and other diacritics...\rIt may also help you handling Precomposed (NFC, NFKC) and Decomposed (NFD, NFKD) Unicode strings."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0
@@ -836,13 +706,6 @@ Begin Window UnicodeExtensionsExample
       Width           =   1028
    End
    Begin Listbox Listbox1
-      AllowAutoDeactivate=   "True"
-      AllowAutoHideScrollbars=   "True"
-      AllowExpandableRows=   "False"
-      AllowFocusRing  =   "True"
-      AllowResizableColumns=   "False"
-      AllowRowDragging=   "False"
-      AllowRowReordering=   "False"
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
@@ -853,22 +716,12 @@ Begin Window UnicodeExtensionsExample
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   18
-      DropIndicatorVisible=   "False"
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       GridLinesHorizontal=   0
-      GridLinesHorizontalStyle=   "0"
       GridLinesVertical=   0
-      GridLinesVerticalStyle=   "0"
-      HasBorder       =   "True"
-      HasHeader       =   "True"
       HasHeading      =   True
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       HeadingIndex    =   -1
       Height          =   463
       HelpTag         =   ""
@@ -884,7 +737,6 @@ Begin Window UnicodeExtensionsExample
       LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
@@ -909,27 +761,15 @@ Begin Window UnicodeExtensionsExample
    Begin TextArea TAB2
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   36
       HelpTag         =   ""
       HideSelection   =   True
@@ -945,7 +785,6 @@ Begin Window UnicodeExtensionsExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -955,8 +794,6 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   26
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -964,8 +801,8 @@ Begin Window UnicodeExtensionsExample
       Top             =   188
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   355
@@ -973,27 +810,15 @@ Begin Window UnicodeExtensionsExample
    Begin TextArea TAB1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   53
       HelpTag         =   ""
       HideSelection   =   True
@@ -1009,7 +834,6 @@ Begin Window UnicodeExtensionsExample
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   0
@@ -1019,8 +843,6 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   27
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -1028,22 +850,18 @@ Begin Window UnicodeExtensionsExample
       Top             =   97
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
       Width           =   355
    End
    Begin Label Label5
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1061,9 +879,7 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   28
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Binary representations:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -1076,16 +892,12 @@ Begin Window UnicodeExtensionsExample
       Width           =   166
    End
    Begin CheckBox UnicodeNF1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Is NFC"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -1110,20 +922,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   62
    End
    Begin CheckBox UnicodeNF1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Is NFD"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -1148,20 +955,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   63
    End
    Begin CheckBox LikeFinderCB
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Use Finder settings(*)"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   17
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1186,19 +988,14 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   325
    End
    Begin Label Label6
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1216,9 +1013,7 @@ Begin Window UnicodeExtensionsExample
       TabIndex        =   34
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "(*) The definition of “Finder settings” may vary from one Apple's example code to another."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
@@ -1231,17 +1026,13 @@ Begin Window UnicodeExtensionsExample
       Width           =   745
    End
    Begin PushButton ConvertBTN1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Convert"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1253,7 +1044,6 @@ Begin Window UnicodeExtensionsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   35
       TabPanelIndex   =   0
@@ -1268,17 +1058,13 @@ Begin Window UnicodeExtensionsExample
       Width           =   140
    End
    Begin PushButton ConvertBTN2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Convert"
       Default         =   False
       Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -1290,7 +1076,6 @@ Begin Window UnicodeExtensionsExample
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   36
       TabPanelIndex   =   0
@@ -1305,16 +1090,12 @@ Begin Window UnicodeExtensionsExample
       Width           =   140
    End
    Begin CheckBox UnicodeNF2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Is NFD"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   1
@@ -1339,20 +1120,15 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   63
    End
    Begin CheckBox UnicodeNF2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Is NFC"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
-      FontName        =   "SmallSystem"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   0
@@ -1377,7 +1153,6 @@ Begin Window UnicodeExtensionsExample
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   62
    End
 End

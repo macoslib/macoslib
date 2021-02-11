@@ -3,7 +3,6 @@ Begin Window PDFBrowser
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window PDFBrowser
    HasBackColor    =   False
    Height          =   300
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -27,11 +26,9 @@ Begin Window PDFBrowser
    Visible         =   False
    Width           =   300
    Begin PopupArrow NextArrow
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Facing          =   0
-      FacingDirection =   "0"
       Height          =   10
       HelpTag         =   ""
       Index           =   -2147483648
@@ -52,11 +49,9 @@ Begin Window PDFBrowser
       Width           =   10
    End
    Begin PopupArrow PreviousArrow
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Enabled         =   True
       Facing          =   1
-      FacingDirection =   "1"
       Height          =   10
       HelpTag         =   ""
       Index           =   -2147483648
@@ -78,15 +73,11 @@ Begin Window PDFBrowser
    End
    Begin Label PageNumberText
       Active          =   ""
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "11.0"
-      FontUnit        =   "0"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -104,9 +95,7 @@ Begin Window PDFBrowser
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "000"
       TextAlign       =   1
-      TextAlignment   =   "2"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   11.0

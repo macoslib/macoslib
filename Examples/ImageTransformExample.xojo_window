@@ -3,7 +3,6 @@ Begin Window ImageTransformExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window ImageTransformExample
    HasBackColor    =   False
    Height          =   293
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -27,18 +26,14 @@ Begin Window ImageTransformExample
    Visible         =   True
    Width           =   521
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   0
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Choose"
       Default         =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -50,7 +45,6 @@ Begin Window ImageTransformExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -65,16 +59,12 @@ Begin Window ImageTransformExample
       Width           =   80
    End
    Begin Label StaticText1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       BehaviorIndex   =   1
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   64
       HelpTag         =   ""
       Index           =   -2147483648
@@ -92,9 +82,7 @@ Begin Window ImageTransformExample
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You should be able to open an image file in any reasonable format, including .icns. This window will display the original image, plus disabled and selected versions of it."
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -109,16 +97,12 @@ Begin Window ImageTransformExample
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "False"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   False
       Backdrop        =   0
       BehaviorIndex   =   2
       DoubleBuffer    =   False
       Enabled         =   False
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   203
       HelpTag         =   ""
       Index           =   -2147483648

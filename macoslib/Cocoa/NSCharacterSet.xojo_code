@@ -7,7 +7,6 @@ Inherits NSObject
 		    dim mb as MemoryBlock
 		    dim value as integer
 		    dim result as string = DefineEncoding( "", Encodings.UTF16 )
-		    dim tmp As double
 		    
 		    mb = me.BitmapRepresentation.Data
 		    
@@ -15,12 +14,7 @@ Inherits NSObject
 		      value = mb.Byte( byteNbr )
 		      
 		      for bitNbr as integer = 0 to 7
-		        #if RBVersion > 2020.01
-		          tmp = Pow( 2., bitNbr )
-		        #else
-		          tmp = RealBasic.Pow( 2., bitNbr )
-		        #endif
-		        if BitWise.BitAnd( value, tmp ) <> 0 then
+		        if  BitWise.BitAnd( value, Pow( 2., bitNbr ))<>0 then
 		          result = result + Encodings.UTF16.Chr( byteNbr * 8 + bitNbr )
 		        end if
 		      next

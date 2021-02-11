@@ -3,7 +3,6 @@ Begin Window TextAreaWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window TextAreaWindow
    HasBackColor    =   False
    Height          =   500
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -29,27 +28,15 @@ Begin Window TextAreaWindow
    Begin TextArea TextArea1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "True"
-      AllowStyledText =   "True"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
-      HasHorizontalScrollbar=   "False"
-      HasVerticalScrollbar=   "True"
       Height          =   501
       HelpTag         =   ""
       HideSelection   =   True
@@ -65,7 +52,6 @@ Begin Window TextAreaWindow
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
@@ -75,8 +61,6 @@ Begin Window TextAreaWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Text editing is performed by a text view object. Typically, a text view is an instance of NSTextView or a subclass. A text view provides the front end to the text system. It displays the text, handles the user events that edit the text, and coordinates changes to the stored text required by the editing process. NSTextView implements methods that perform editing, manage the selection, and handle formatting attributes affecting the layout and display of the text.\r\rNSTextView has a number of methods that control the editing behavior available to the user. For example, NSTextView allows you to grant or deny the user the ability to select or edit its text, using the setSelectable: and setEditable: methods. NSTextView also implements the distinction between plain and rich text defined by NSText with its setRichText: and setImportsGraphics: methods. See Text System User Interface Layer Programming Guide programming topic and the NSTextView and NSText class specifications for more information.\r\rAn editable text view can operate in either of two distinct editing modes: as a normal text editor or as a field editor. A field editor is a single text view instance shared by many text fields belonging to a window in an application. This sharing results in a performance gain. When a text field becomes the first responder, the window inserts the field editor in its place in the responder chain. A normal text editor accepts Tab and Return characters as input, whereas a field editor interprets Tab and Return as cues to end editing. The NSTextView method setFieldEditor: controls this behavior."
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -84,8 +68,8 @@ Begin Window TextAreaWindow
       Top             =   -1
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "Text editing is performed by a text view object. Typically, a text view is an instance of NSTextView or a subclass. A text view provides the front end to the text system. It displays the text, handles the user events that edit the text, and coordinates changes to the stored text required by the editing process. NSTextView implements methods that perform editing, manage the selection, and handle formatting attributes affecting the layout and display of the text.\r\rNSTextView has a number of methods that control the editing behavior available to the user. For example, NSTextView allows you to grant or deny the user the ability to select or edit its text, using the setSelectable: and setEditable: methods. NSTextView also implements the distinction between plain and rich text defined by NSText with its setRichText: and setImportsGraphics: methods. See Text System User Interface Layer Programming Guide programming topic and the NSTextView and NSText class specifications for more information.\r\rAn editable text view can operate in either of two distinct editing modes: as a normal text editor or as a field editor. A field editor is a single text view instance shared by many text fields belonging to a window in an application. This sharing results in a performance gain. When a text field becomes the first responder, the window inserts the field editor in its place in the responder chain. A normal text editor accepts Tab and Return characters as input, whereas a field editor interprets Tab and Return as cues to end editing. The NSTextView method setFieldEditor: controls this behavior."
       Visible         =   True
       Width           =   600

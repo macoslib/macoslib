@@ -3,7 +3,6 @@ Begin Window NSSliderExampleWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window NSSliderExampleWindow
    HasBackColor    =   False
    Height          =   132
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -30,23 +29,19 @@ Begin Window NSSliderExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
       AllowsTickMarkValuesOnly=   False
-      AllowTabs       =   "False"
       AltIncrementValue=   0.0
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       ControlSize     =   ""
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   25
       HelpTag         =   ""
@@ -54,7 +49,7 @@ Begin Window NSSliderExampleWindow
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   13
       LockBottom      =   False
       LockedInPosition=   False
@@ -78,7 +73,7 @@ Begin Window NSSliderExampleWindow
       Top             =   13
       Transparent     =   True
       Type            =   0
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       Value           =   0.0
       Visible         =   True
@@ -87,28 +82,18 @@ Begin Window NSSliderExampleWindow
    Begin TextField TextField1
       AcceptTabs      =   False
       Alignment       =   0
-      AllowAutoDeactivate=   "True"
-      AllowFocusRing  =   "True"
-      AllowSpellChecking=   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
-      BackgroundColor =   "&cFFFFFF00"
       Bold            =   False
       Border          =   True
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Format          =   ""
-      HasBorder       =   "True"
       Height          =   22
       HelpTag         =   ""
-      Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   159
@@ -119,15 +104,12 @@ Begin Window NSSliderExampleWindow
       LockRight       =   False
       LockTop         =   True
       Mask            =   ""
-      MaximumCharactersAllowed=   "0"
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "5"
-      TextAlignment   =   "0"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -136,21 +118,16 @@ Begin Window NSSliderExampleWindow
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
-      ValidationMask  =   ""
       Value           =   "5"
       Visible         =   True
       Width           =   80
    End
    Begin Label Label1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -168,9 +145,7 @@ Begin Window NSSliderExampleWindow
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Ticks"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -183,15 +158,11 @@ Begin Window NSSliderExampleWindow
       Width           =   100
    End
    Begin Label Label2
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -209,9 +180,7 @@ Begin Window NSSliderExampleWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Value:"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -224,15 +193,11 @@ Begin Window NSSliderExampleWindow
       Width           =   44
    End
    Begin Label ValueLBL
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -250,9 +215,7 @@ Begin Window NSSliderExampleWindow
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "-"
       TextAlign       =   0
-      TextAlignment   =   "1"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -268,23 +231,19 @@ Begin Window NSSliderExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
       AllowsTickMarkValuesOnly=   False
-      AllowTabs       =   "False"
       AltIncrementValue=   0.0
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       ControlSize     =   ""
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   32
       HelpTag         =   ""
@@ -292,7 +251,7 @@ Begin Window NSSliderExampleWindow
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   13
       LockBottom      =   False
       LockedInPosition=   False
@@ -316,7 +275,7 @@ Begin Window NSSliderExampleWindow
       Top             =   56
       Transparent     =   True
       Type            =   0
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       Value           =   0.0
       Visible         =   True
@@ -326,23 +285,19 @@ Begin Window NSSliderExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
       AllowsTickMarkValuesOnly=   False
-      AllowTabs       =   "False"
       AltIncrementValue=   0.0
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       ControlSize     =   ""
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   32
       HelpTag         =   ""
@@ -350,7 +305,7 @@ Begin Window NSSliderExampleWindow
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   69
       LockBottom      =   False
       LockedInPosition=   False
@@ -374,7 +329,7 @@ Begin Window NSSliderExampleWindow
       Top             =   56
       Transparent     =   True
       Type            =   0
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       Value           =   0.0
       Visible         =   True
@@ -384,23 +339,19 @@ Begin Window NSSliderExampleWindow
       AcceptFocus     =   False
       AcceptTabs      =   False
       Alignment       =   ""
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
       AllowsExpansionToolTips=   False
       AllowsTickMarkValuesOnly=   False
-      AllowTabs       =   "False"
       AltIncrementValue=   0.0
       AutoDeactivate  =   True
       autoresizesSubviews=   False
       Backdrop        =   0
-      Bold            =   false
+      Bold            =   False
       ControlSize     =   ""
       Description     =   ""
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       Height          =   25
       HelpTag         =   ""
@@ -408,7 +359,7 @@ Begin Window NSSliderExampleWindow
       InitialParent   =   ""
       IntegerValue    =   0
       IsFlipped       =   False
-      Italic          =   false
+      Italic          =   False
       Left            =   304
       LockBottom      =   False
       LockedInPosition=   False
@@ -432,23 +383,19 @@ Begin Window NSSliderExampleWindow
       Top             =   13
       Transparent     =   True
       Type            =   0
-      Underlined      =   false
+      Underlined      =   False
       UseFocusRing    =   False
       Value           =   0.0
       Visible         =   True
       Width           =   264
    End
    Begin CheckBox CB1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "Round value to the closest Tick"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -473,7 +420,6 @@ Begin Window NSSliderExampleWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
       Width           =   409
    End
 End

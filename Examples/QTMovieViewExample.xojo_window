@@ -3,7 +3,6 @@ Begin Window QTMovieViewExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window QTMovieViewExample
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -29,10 +28,6 @@ Begin Window QTMovieViewExample
    Begin QTKit.QTMovieView QTMovieView1
       AcceptFocus     =   False
       AcceptTabs      =   False
-      AllowAutoDeactivate=   "True"
-      AllowFocus      =   "False"
-      AllowFocusRing  =   "False"
-      AllowTabs       =   "False"
       AutoDeactivate  =   True
       Backdrop        =   0
       ControllerBarHeight=   0.0
@@ -40,7 +35,7 @@ Begin Window QTMovieViewExample
       DoubleBuffer    =   False
       Editable        =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   343
       HelpTag         =   ""
       Index           =   -2147483648
@@ -63,17 +58,13 @@ Begin Window QTMovieViewExample
       Width           =   600
    End
    Begin PushButton PushButton1
-      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Load"
       Default         =   False
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   "0.0"
-      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -85,7 +76,6 @@ Begin Window QTMovieViewExample
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0

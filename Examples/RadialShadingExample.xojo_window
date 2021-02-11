@@ -3,7 +3,6 @@ Begin Window RadialShadingExample
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   True
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window RadialShadingExample
    HasBackColor    =   False
    Height          =   300
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
