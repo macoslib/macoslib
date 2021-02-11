@@ -42,7 +42,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Add()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub add lib QTKit.framework selector "add:" (obj_id as Ptr, sender as Ptr)
 		    
 		    add(self, nil)
@@ -52,7 +52,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub AddScaled()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub addScaled lib QTKit.framework selector "addScaled:" (obj_id as Ptr, sender as Ptr)
 		    
 		    addScaled(self, nil)
@@ -62,7 +62,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Copy()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub copy lib QTKit.framework selector "copy:" (obj_id as Ptr, sender as Ptr)
 		    
 		    copy(self, nil)
@@ -72,7 +72,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Cut()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub cut lib QTKit.framework selector "cut:" (obj_id as Ptr, sender as Ptr)
 		    
 		    cut(self, nil)
@@ -82,7 +82,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Delete()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub delete lib QTKit.framework selector "delete:" (obj_id as Ptr, sender as Ptr)
 		    
 		    delete(self, nil)
@@ -119,7 +119,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoBeginning()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub gotoBeginning lib QTKit.framework selector "gotoBeginning:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoBeginning(self, nil)
@@ -129,7 +129,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoEnd()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub gotoEnd lib QTKit.framework selector "gotoEnd:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoEnd(self, nil)
@@ -139,7 +139,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoNextSelectionPoint()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub gotoNextSelectionPoint lib QTKit.framework selector "gotoNextSelectionPoint:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoNextSelectionPoint(self, nil)
@@ -149,7 +149,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoPosterFrame()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub gotoPosterFrame lib QTKit.framework selector "gotoPosterFrame:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoPosterFrame(self, nil)
@@ -159,7 +159,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub GotoPreviousSelectionPoint()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub gotoPreviousSelectionPoint lib QTKit.framework selector "gotoPreviousSelectionPoint:" (obj_id as Ptr, sender as Ptr)
 		    
 		    gotoPreviousSelectionPoint(self, nil)
@@ -227,7 +227,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Paste()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub paste lib QTKit.framework selector "paste:" (obj_id as Ptr, sender as Ptr)
 		    
 		    paste(self, nil)
@@ -237,7 +237,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Pause()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub pause lib QTKit.framework selector "pause:" (obj_id as Ptr, sender as Ptr)
 		    
 		    pause(self, nil)
@@ -247,7 +247,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Play()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub play lib QTKit.framework selector "play:" (obj_id as Ptr, sender as Ptr)
 		    
 		    play(self, nil)
@@ -257,7 +257,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Replace()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub replace lib QTKit.framework selector "replace:" (obj_id as Ptr, sender as Ptr)
 		    
 		    replace(self, nil)
@@ -267,7 +267,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub SelectAll()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub selectAll lib QTKit.framework selector "selectAll:" (obj_id as Ptr, sender as Ptr)
 		    
 		    selectAll(self, nil)
@@ -277,7 +277,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub SelectNone()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub selectNone lib QTKit.framework selector "selectNone:" (obj_id as Ptr, sender as Ptr)
 		    
 		    selectNone(self, nil)
@@ -287,7 +287,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub StepBackward()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub stepBackward lib QTKit.framework selector "stepBackward:" (obj_id as Ptr, sender as Ptr)
 		    
 		    stepBackward(self, nil)
@@ -297,7 +297,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub StepForward()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub stepForward lib QTKit.framework selector "stepForward:" (obj_id as Ptr, sender as Ptr)
 		    
 		    stepForward(self, nil)
@@ -307,7 +307,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub Trim()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub trim lib QTKit.framework selector "trim:" (obj_id as Ptr, sender as Ptr)
 		    
 		    trim(self, nil)
@@ -324,7 +324,7 @@ Inherits Canvas
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS and targetX86
+			  #If targetMacOS and targetX86
 			    declare function controllerBarHeight lib QTKit.framework selector "controllerBarHeight" (obj_id as Ptr) as Double
 			    
 			    return CType(controllerBarHeight(self), Double)

@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		220: 2021-02-11 by EP
+		- Complete changes required to prevent QTKit inclusion on ARM builds.
+		
 		219: 2021-01-23 by VVB
 		- Added support for NSWindowToolbarStyle, added ToolbarStyle as a WindowExtension and added a popupmenu to the NSToolbar example to showcase the different styles.
 		- Added support for NSWindowTitlebarSeparatorStyle, added TitlebarSeparatorStyle as a WindowExtension and added a popupmenu to the NSToolbar example to showcase the different styles.
@@ -716,7 +719,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"219", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"220", Scope = Protected
 	#tag EndConstant
 
 

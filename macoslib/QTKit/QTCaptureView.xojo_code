@@ -39,7 +39,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function AvailableVideoPreviewConnections() As QTCaptureConnection()
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare function availableVideoPreviewConnections lib CocoaLib selector "availableVideoPreviewConnections" (obj_id as Ptr) as Ptr
 		    
 		    dim theArray as new CFArray(availableVideoPreviewConnections(self), not CFType.hasOwnership)
@@ -55,7 +55,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function CaptureSession() As QTCaptureSession
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare function captureSession lib CocoaLib selector "captureSession" (obj_id as Ptr) as Ptr
 		    
 		    dim p as Ptr = captureSession(self)
@@ -70,7 +70,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub CaptureSession(assigns value as QTCaptureSession)
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare sub setCaptureSession lib QTKit.framework selector "setCaptureSession:" (obj_id as Ptr, value as Ptr)
 		    
 		    setCaptureSession(self, value)
@@ -86,7 +86,7 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Function PreviewBounds() As Cocoa.NSRect
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare function previewBounds lib CocoaLib selector "previewBounds" (obj_id as Ptr) as Cocoa.NSRect
 		    
 		    return previewBounds(self)
