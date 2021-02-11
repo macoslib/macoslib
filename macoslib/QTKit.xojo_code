@@ -2,10 +2,14 @@
 Protected Module QTKit
 	#tag Method, Flags = &h1
 		Protected Function Load() As Boolean
-		  dim b as NSBundle = NSBundle.LoadFromPath("/System/Library/Frameworks/QTKit.framework")
-		  if b <> nil then
-		    return b.Load
-		  end if
+		  #if targetMacOS and targetX86
+		    dim b as NSBundle = NSBundle.LoadFromPath("/System/Library/Frameworks/QTKit.framework")
+		    if b <> nil then
+		      return b.Load
+		    end if
+		  #else
+		    return false
+		  #endif
 		End Function
 	#tag EndMethod
 

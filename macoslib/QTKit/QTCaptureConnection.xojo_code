@@ -4,14 +4,14 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS and targetX86
+			  #If targetMacOS and targetX86
 			    declare function isEnabled lib QTKit.framework selector "isEnabled" (obj_id as Ptr) as Boolean
 			  #endif
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  #if targetMacOS and targetX86
+			  #If targetMacOS and targetX86
 			    declare sub setEnabled lib QTKit.framework selector "setEnabled:" (obj_id as Ptr, value as Boolean)
 			    
 			    setEnabled(self, value)
@@ -27,7 +27,7 @@ Inherits NSObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  #if targetMacOS and targetX86
+			  #If targetMacOS and targetX86
 			    declare function mediaType lib QTKit.framework selector "mediaType" (obj_id as Ptr) as Ptr
 			    
 			    return RetainedStringValue(mediaType(self))
@@ -41,14 +41,19 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -56,6 +61,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -63,10 +69,13 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MediaType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -74,13 +83,17 @@ Inherits NSObject
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -88,6 +101,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
