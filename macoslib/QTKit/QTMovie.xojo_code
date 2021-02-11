@@ -3,7 +3,7 @@ Class QTMovie
 Inherits NSObject
 	#tag Method, Flags = &h0
 		Function CurrentTime() As QTTime
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare function currentTime lib QTKit.framework selector "currentTime" (obj_id as Ptr) as QTTime
 		    
 		    return currentTime(self)
@@ -13,7 +13,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub CurrentTime(assigns value as QTTime)
-		  #if targetMacOS and targetX86
+		  #if targetCocoa
 		    declare sub setCurrentTime lib CocoaLib selector "setCurrentTime:" (obj_id as Ptr, time as QTTime)
 		    
 		    setCurrentTime(self, value)
@@ -27,7 +27,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Duration() As QTTime
-		  #if targetMacOS and targetX86
+		  #If targetMacOS and targetX86
 		    declare function duration lib QTKit.framework selector "duration" (obj_id as Ptr) as QTTime
 		    
 		    return duration(self)
@@ -101,7 +101,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function QTAttribute(key as String) As Ptr
-		  #if targetMacOS and targetX86
+		  #if targetCocoa
 		    declare function attributeForKey lib CocoaLib selector "attributeForKey:" (obj_id as Ptr, key as CFStringRef) as Ptr
 		    
 		    return attributeForKey(self, key)
@@ -115,7 +115,7 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Sub QTAttribute(key as String, assigns value as Ptr)
-		  #if targetMacOS and targetX86
+		  #if targetCocoa
 		    declare sub setAttribute lib CocoaLib selector "setAttribute:" (obj_id as Ptr, value as Ptr, key as CFStringRef)
 		    
 		    setAttribute(self, value, key)
@@ -247,7 +247,9 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -257,6 +259,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -264,23 +267,31 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Muted"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -288,6 +299,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
