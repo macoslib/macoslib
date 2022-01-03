@@ -73,6 +73,9 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		221: 2022-01-03 by VVB
+		- Renamed PDFDocument class in PDFKit to mlPDFDocument because the name clashed with a recently added class in Xojo 2021R3.1.
+		
 		220: 2021-02-11 by EP
 		- Complete changes required to prevent QTKit inclusion on ARM builds.
 		
@@ -719,7 +722,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"220", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"221", Scope = Protected
 	#tag EndConstant
 
 
