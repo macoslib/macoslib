@@ -263,7 +263,7 @@ Inherits Cocoa.CanvasForNSView
 			    
 			    dim p as Ptr = document( self.id )
 			    if p<>nil then
-			      return  new PDFDocument( p, false )
+			      return  new mlPDFDocument( p, false )
 			    else
 			      return  nil
 			    end if
@@ -280,7 +280,7 @@ Inherits Cocoa.CanvasForNSView
 			  #endif
 			End Set
 		#tag EndSetter
-		Document As PDFDocument
+		Document As mlPDFDocument
 	#tag EndComputedProperty
 
 

@@ -1,8 +1,8 @@
 #tag Class
-Protected Class PDFDocument
+Protected Class mlPDFDocument
 Inherits NSObject
 	#tag Method, Flags = &h0
-		Shared Function CreateFromFolderItem(f as FolderItem) As PDFDocument
+		Shared Function CreateFromFolderItem(f as FolderItem) As mlPDFDocument
 		  
 		  #if TargetMacOS
 		    return CreateFromURL( new NSURL( f ))
@@ -12,7 +12,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function CreateFromURL(url as NSURL) As PDFDocument
+		Shared Function CreateFromURL(url as NSURL) As mlPDFDocument
 		  
 		  #if TargetMacOS
 		    RequireFramework  "Quartz.framework"
@@ -21,7 +21,7 @@ Inherits NSObject
 		    
 		    dim p as Ptr = initWithURL( Allocate( Cocoa.NSClassFromString( "PDFDocument" )), url )
 		    if p<>nil then
-		      return  new PDFDocument( p, false )
+		      return  new mlPDFDocument( p, false )
 		    else
 		      return nil
 		    end if
@@ -34,7 +34,9 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -44,6 +46,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -51,18 +54,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -70,6 +78,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

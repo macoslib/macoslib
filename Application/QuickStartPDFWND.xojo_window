@@ -197,7 +197,7 @@ End
 		  self.DocumentFile = docfile
 		  self.Title = docfile.Name
 		  
-		  dim pdoc as PDFDocument = PDFDocument.CreateFromFolderItem( docfile )
+		  dim pdoc as mlPDFDocument = mlPDFDocument.CreateFromFolderItem( docfile )
 		  
 		  if pdoc=nil then
 		    DReportError   "Couldn't open PDF document", docfile
