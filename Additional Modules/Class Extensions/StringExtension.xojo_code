@@ -11,7 +11,7 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Contains(extends s as string, substring as String) As Boolean
+		Function ContainsString(extends s as string, substring as String) As Boolean
 		  //# Return true if 'substring' is contained in 's' (comparison is case-insensitive)
 		  
 		  return  ( s.Instr( substring ) > 0 )
@@ -19,7 +19,7 @@ Protected Module StringExtension
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContainsB(extends s as string, substring as String) As Boolean
+		Function ContainsStringB(extends s as string, substring as String) As Boolean
 		  //# Return true if 's' contains the 'substring'.
 		  
 		  //@ By 'contains' we mean binary containment, as with InStrB.

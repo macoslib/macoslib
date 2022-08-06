@@ -17,14 +17,14 @@ Begin Window NSToolbarWindow
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
-   MinHeight       =   64
+   MinHeight       =   345
    MinimizeButton  =   True
-   MinWidth        =   64
+   MinWidth        =   845
    Placement       =   0
    Resizeable      =   True
    Title           =   "NSToolbar Example"
    Visible         =   True
-   Width           =   846
+   Width           =   1124
    Begin TextArea TextArea1
       AcceptTabs      =   False
       Alignment       =   0
@@ -42,7 +42,7 @@ Begin Window NSToolbarWindow
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
-      Left            =   474
+      Left            =   752
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
@@ -105,7 +105,7 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   165
+      Width           =   443
    End
    Begin Label lblArray
       AutoDeactivate  =   True
@@ -155,7 +155,7 @@ Begin Window NSToolbarWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   660
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -204,7 +204,7 @@ Begin Window NSToolbarWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   196
+      Width           =   474
    End
    Begin CheckBox CheckBox2
       AutoDeactivate  =   True
@@ -237,7 +237,7 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   193
+      Width           =   471
    End
    Begin CheckBox chkFullSizeContentView
       AutoDeactivate  =   True
@@ -270,7 +270,7 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   190
+      Width           =   468
    End
    Begin CheckBox CheckBox3
       AutoDeactivate  =   True
@@ -303,7 +303,7 @@ Begin Window NSToolbarWindow
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   193
+      Width           =   471
    End
    Begin Canvas Canvas1
       AcceptFocus     =   False
@@ -448,7 +448,6 @@ Begin Window NSToolbarWindow
          SelectionType   =   0
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Top             =   -85
          Transparent     =   False
          Visible         =   True
@@ -485,7 +484,7 @@ Begin Window NSToolbarWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   190
+      Width           =   468
    End
    Begin Label lblArray
       AutoDeactivate  =   True
@@ -552,7 +551,7 @@ Begin Window NSToolbarWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   190
+      Width           =   468
    End
    Begin Label lblArray
       AutoDeactivate  =   True
@@ -600,7 +599,7 @@ Begin Window NSToolbarWindow
       Index           =   2
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   660
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -635,7 +634,7 @@ Begin Window NSToolbarWindow
       Index           =   3
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   660
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -748,7 +747,7 @@ Begin Window NSToolbarWindow
       Index           =   4
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   660
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -783,7 +782,7 @@ Begin Window NSToolbarWindow
       Index           =   1
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   660
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -818,7 +817,7 @@ Begin Window NSToolbarWindow
       Index           =   0
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   660
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -1157,10 +1156,10 @@ End
 		Sub Open()
 		  me.SegmentStyle = SegmentedControlExtension.NSSegmentStyle.TexturedRounded
 		  
-		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 10 )
-		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 10 )
-		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 10 )
-		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate( 0, 10 )
+		  me.ImageForSegment(0) = SystemIcons.IconViewTemplate( 0, 8 )
+		  me.ImageForSegment(1) = SystemIcons.ListViewTemplate( 0, 8 )
+		  me.ImageForSegment(2) = SystemIcons.ColumnViewTemplate( 0, 8 )
+		  me.ImageForSegment(3) = SystemIcons.FlowViewTemplate( 0, 8 )
 		  
 		  for i as Integer = 0 to 3
 		    me.ImageForSegment(i).Template = true

@@ -73,6 +73,12 @@ Protected Module About
 		
 		When you make changes, add new notes above existing ones, and remember to increment the Version constant.
 		
+		222: 2022-08-06 by VVB
+		- Fixed clashing method name in StringExtension 'Contains' to 'ContainsString', and 'ContainsB' to match into 'ContainsStringB'.
+		- Modified existing uses in the example projects to use 'ContainsString' to remain backwards compatible.
+		- Altered the layout of the NSToolbar example window.
+		- Set CoreFoundation.CFRange to integer for 64bit compatibility.
+		
 		221: 2022-01-03 by VVB
 		- Renamed PDFDocument class in PDFKit to mlPDFDocument because the name clashed with a recently added class in Xojo 2021R3.1.
 		
@@ -722,7 +728,7 @@ Protected Module About
 	#tag EndNote
 
 
-	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"221", Scope = Protected
+	#tag Constant, Name = Version, Type = Double, Dynamic = False, Default = \"222", Scope = Protected
 	#tag EndConstant
 
 

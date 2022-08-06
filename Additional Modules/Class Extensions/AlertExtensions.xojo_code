@@ -6,7 +6,7 @@ Protected Module AlertExtensions
 		  
 		  dim nsa as New NSAlert( Message )
 		  
-		  if Message.Contains( splitValue ) then
+		  if Message.ContainsString( splitValue ) then
 		    nsa.MessageText = Message.NthField( splitValue, 1 )
 		    nsa.InformativeText = Message.NthField( splitValue, 2 )
 		  end if

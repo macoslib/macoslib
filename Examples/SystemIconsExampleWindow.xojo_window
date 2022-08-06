@@ -784,7 +784,7 @@ End
 		    w = 0.0
 		    h = 0.0
 		    
-		    if names(0).Contains("TouchBar") and NOT IsSierra then
+		    if names(0).ContainsString("TouchBar") and NOT IsSierra then
 		      // Touchbar icons aren't available before Mac OS 10.12 Sierra.
 		      Continue
 		    end if
@@ -847,12 +847,12 @@ End
 		      end if
 		      
 		      PB1.Image = Pict
-		      PB1.Image.Template = me.Cell( me.ListIndex, 0 ).Contains( "Template" )
+		      PB1.Image.Template = me.Cell( me.ListIndex, 0 ).ContainsString( "Template" )
 		      PB1.Image.Size = Cocoa.NSMakeSize( w, h )
 		      PB1.Invalidate
 		      
 		      SC1.ImageForSegment(0) = pict
-		      SC1.ImageForSegment(0).Template = me.Cell( me.ListIndex, 0 ).Contains( "Template" )
+		      SC1.ImageForSegment(0).Template = me.Cell( me.ListIndex, 0 ).ContainsString( "Template" )
 		      SC1.ImageForSegment(0).Size = Cocoa.NSMakeSize( w, h )
 		      SC1.Invalidate
 		    end if
@@ -1057,7 +1057,7 @@ End
 		  
 		  if LB1.ListIndex > -1 then
 		    dim pict1 as Picture = LB1.CellTag(LB1.ListIndex, 0)
-		    if IsDarkMode and LB1.Cell(LB1.ListIndex, 0).Contains("template") then
+		    if IsDarkMode and LB1.Cell(LB1.ListIndex, 0).ContainsString("template") then
 		      pict1 = pict1.IconTemplateSetColor( &cFFFFFF )
 		    end if
 		    g.DrawPicture pict1, 1 + (g.Width/2) - (Val( TF1.Text )/2), 1 + (g.Height/2) - (Val( TF2.Text )/2),  Val( TF1.Text ), Val( TF2.Text ),   0, 0, pict1.Width, pict1.Height
